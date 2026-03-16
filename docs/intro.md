@@ -1,47 +1,46 @@
 ---
 sidebar_position: 1
+title: Visão Geral
 ---
 
-# Tutorial Intro
+# TCC — Visão Geral
 
-Let's discover **Docusaurus in less than 5 minutes**.
+**Aluno:** Eduardo Cruz Guedes · educg550@usp.br
+**NUSP:** 13672752
+**Curso:** Bacharelado em Ciência da Computação — 5º ano — IME-USP
 
-## Getting Started
+**Orientadores:**
+- Prof. Paulo Meirelles (paulormm@ime.usp.br) — IME-USP
+- Prof. Jorge Melegati (jorge@jmelegati.com) — INESC TEC / Universidade do Porto
 
-Get started by **creating a new site**.
+---
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+## Tema
 
-### What you'll need
+> **Avaliação de um Pipeline Multiagente Baseado em TDD com Validação Comportamental via Computer Using Agents**
 
-- [Node.js](https://nodejs.org/en/download/) version 20.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+## Pergunta de Pesquisa
 
-## Generate a new site
+> A validação comportamental via CUA detecta falhas que passam despercebidas por pipelines tradicionais baseados em TDD gerados por LLM?
 
-Generate a new Docusaurus site using the **classic template**.
+## Hipótese
 
-The classic template will automatically be added to your project after you run the command:
+Um pipeline multiagente orientado a TDD produz código com menos defeitos do que a geração direta, e o CUA como avaliador comportamental final é capaz de detectar falhas semânticas que testes unitários automatizados não capturam.
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+## Resumo
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+O TCC compara dois pipelines de geração de código com LLM:
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+| Pipeline | Descrição |
+|----------|-----------|
+| **Baseline** | LLM recebe requisito → gera código diretamente |
+| **TDD Multiagente** | Agente A gera testes → Agente B implementa até passar → CI valida |
 
-## Start your site
+Ao final, um **Computer Using Agent (CUA)** age como usuário real e avalia os requisitos originais de forma comportamental (caixa-preta), gerando uma camada de validação independente dos testes unitários.
 
-Run the development server:
+## Estrutura do Site
 
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+- [Proposta de Pesquisa](/docs/proposta) — detalhamento da proposta, pipelines e configuração experimental
+- [Metodologia](/docs/metodologia) — métricas, escopo, grupos experimentais
+- [Referências](/docs/referencias) — benchmarks, ferramentas e leituras
+- [Diário de Pesquisa](/blog) — notas e progressos ao longo do ano
