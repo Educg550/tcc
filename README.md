@@ -1,41 +1,32 @@
-# Website
+# TCC — Eduardo Cruz Guedes
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Site hub do TCC de Eduardo Cruz Guedes, NUSP 13672752, Bacharelado em Ciência da Computação (5º ano) — IME-USP.
 
-## Installation
+**Orientadores:** Prof. Paulo Meirelles (IME-USP) · Prof. Jorge Melegati (INESC TEC / Universidade do Porto)
 
-```bash
-yarn
-```
+**Tema:** Avaliação de um Pipeline Multiagente Baseado em TDD com Validação Comportamental via Computer Using Agents.
 
-## Local Development
+Site publicado em: https://educg550.github.io/tcc/
 
-```bash
-yarn start
-```
+---
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-## Build
+## Desenvolvimento local
 
 ```bash
-yarn build
+npm install
+npm start       # dev server em localhost:3000
+npm run build   # build de produção
+npm run serve   # testar build localmente
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+## Deploy
 
-## Deployment
+Deploy automático via GitHub Actions a cada push na branch `main`. O workflow (`.github/workflows/deploy.yml`) publica o conteúdo no branch `gh-pages`.
 
-Using SSH:
+GitHub Pages ativado via: **Settings → Pages → Source → branch `gh-pages`**.
 
-```bash
-USE_SSH=true yarn deploy
-```
+## Estrutura
 
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+- `docs/` — documentação principal do TCC (proposta, metodologia, referências)
+- `blog/` — diário de pesquisa
+- `raw/` — materiais brutos (ignorado pelo git)
