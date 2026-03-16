@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunktcc=globalThis.webpackChunktcc||[]).push([[416],{3340(a){a.exports=JSON.parse('{"tags":[{"label":"TCC","permalink":"/tcc/blog/tags/tcc","description":"Posts relacionados ao TCC","count":1},{"label":"Planejamento","permalink":"/tcc/blog/tags/planejamento","description":"Planejamento e organiza\xe7\xe3o do TCC","count":1}]}')}}]);
