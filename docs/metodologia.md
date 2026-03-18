@@ -19,10 +19,10 @@ Para garantir um experimento controlado e reproduzível, o escopo é limitado a:
 
 | Grupo | Pipeline | Avaliação |
 |-------|----------|-----------|
-| **Baseline** | TDD+LLM via Onion (Agente A gera testes → Agente B implementa → CI) | CI |
-| **Experimental** | Baseline + CUA como avaliador comportamental final | CI + CUA |
+| **Baseline** | LLM recebe requisito → implementa diretamente | — |
+| **Experimental** | Agente A gera testes → Agente B implementa → CI → CUA valida comportamento | CI + CUA |
 
-Ambos os grupos recebem os mesmos requisitos. O baseline é o pipeline TDD+LLM já existente (ferramenta Onion / adaptação). O experimental adiciona o CUA como avaliador final após o CI passar.
+Ambos os grupos recebem os mesmos requisitos. O baseline é a geração direta sem estrutura de testes. O experimental acrescenta geração automática de testes (TDD) e validação comportamental via CUA.
 
 ---
 
@@ -48,11 +48,11 @@ Ambos os grupos recebem os mesmos requisitos. O baseline é o pipeline TDD+LLM j
 ## Procedimento
 
 1. Definir lista de 10–20 requisitos (sistema com frontend)
-2. Executar pipeline TDD+LLM (Onion) para cada requisito
-3. Rodar CI determinístico e registrar resultados do baseline
-4. CUA recebe o requisito original e interage com o sistema gerado
+2. **Baseline:** LLM recebe cada requisito e implementa diretamente; registrar código gerado
+3. **Experimental:** Agente A gera testes → Agente B implementa → CI → registrar resultados
+4. CUA recebe o requisito original em linguagem natural e interage com o sistema gerado
 5. Registrar artefatos de falha, logs e resultados do CUA
-6. Comparar métricas CI vs CUA: o CUA detecta o que o CI não detectou?
+6. Comparar baseline vs experimental: o pipeline TDD+CUA detecta mais falhas que a geração direta?
 
 ---
 
@@ -69,7 +69,6 @@ Ambos os grupos recebem os mesmos requisitos. O baseline é o pipeline TDD+LLM j
 
 ## Questões em Aberto
 
-- [ ] Usar Onion diretamente ou adaptar com Claude Code?
-- [ ] Qual CUA usar como avaliador final? (custo vs precisão)
-- [ ] Próximo passo: fundamentação teórica ou primeiro experimento/protótipo?
+- [ ] Como definir um bom requisito de software?
+- [ ] Como avaliar de forma precisa o resultado de ambos pipelines?
 - [ ] O frontend deve ser gerado pelo próprio pipeline ou é parte fixa do escopo?

@@ -21,11 +21,11 @@ title: Visão Geral
 
 ## Pergunta de Pesquisa
 
-> A validação comportamental via CUA detecta falhas que passam despercebidas por pipelines tradicionais baseados em TDD gerados por LLM?
+> A validação comportamental via CUA detecta falhas que passam despercebidas pela geração direta de código com LLM?
 
 ## Hipótese
 
-Um pipeline multiagente orientado a TDD produz código com menos defeitos do que a geração direta, e o CUA como avaliador comportamental final é capaz de detectar falhas semânticas que testes unitários automatizados não capturam.
+Um pipeline multiagente que combina geração automática de testes (TDD) com validação comportamental via CUA detecta mais falhas do que a abordagem de geração direta — na qual o LLM recebe o requisito e implementa sem nenhuma estrutura adicional.
 
 ## Resumo
 
@@ -33,10 +33,10 @@ O TCC compara dois pipelines de geração de código com LLM:
 
 | Pipeline | Descrição |
 |----------|-----------|
-| **Baseline** | LLM recebe requisito → gera código diretamente |
-| **TDD Multiagente** | Agente A gera testes → Agente B implementa até passar → CI valida |
+| **Baseline** | LLM recebe requisito → implementa diretamente (sem TDD, sem validação extra) |
+| **Experimental** | Agente A gera testes → Agente B implementa → CI → CUA valida comportamento |
 
-Ao final, um **Computer Using Agent (CUA)** age como usuário real e avalia os requisitos originais de forma comportamental (caixa-preta), gerando uma camada de validação independente dos testes unitários.
+O **Computer Using Agent (CUA)** atua como avaliador de caixa-preta na etapa final do pipeline experimental, simulando um usuário real e verificando se o comportamento observado corresponde ao requisito original — independentemente do que os testes unitários cobrem.
 
 ## Estrutura do Site
 

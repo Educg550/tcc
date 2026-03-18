@@ -7,7 +7,7 @@ title: Referências
 
 ## Test-Oriented Programming (TOP)
 
-Paper do orientador Prof. Jorge Melegati, apresentado no ICSE 2026 (Rio de Janeiro). Fundamento teórico central do TCC.
+Paper do orientador Prof. Jorge Melegati, apresentado no ICSE 2026.
 
 > **Test-Oriented Programming: rethinking coding for the GenAI era**
 > Jorge Melegati — INESC TEC, Faculty of Engineering, University of Porto
@@ -17,16 +17,6 @@ Paper do orientador Prof. Jorge Melegati, apresentado no ICSE 2026 (Rio de Janei
 **Resumo:** Propõe TOP como novo paradigma onde desenvolvedores apenas verificam código de testes, delegando a geração de código de produção para LLMs. Prova de conceito: ferramenta **Onion**, testada com GPT-4o-mini e Gemini 2.5-Flash.
 
 - [Ferramenta Onion (GitHub)](https://github.com/TOProgramming/onion)
-- [Dados suplementares (Zenodo)](https://doi.org/10.5281/zenodo.17227298)
-
----
-
-## Pesquisa Relacionada (referenciada no paper TOP)
-
-- **Assured LLM-Based Software Engineering** — Alshahwan et al. (2024): abordagem onde respostas de LLM vêm com verificação de utilidade; TDD como estratégia de mitigação de não-determinismo
-- **LLMs for Software Engineering** — Fan et al. (2023): survey sobre uso de LLMs em engenharia de software
-- **LLM-Based Multi-Agent Systems for SE** — He, Treude & Lo (2025): revisão de literatura sobre sistemas multiagente com LLMs
-- **GenAI for Test Driven Development** — Mock, Melegati & Russo (2025): resultados preliminares de TDD com IA generativa (XP Workshops)
 
 ---
 
@@ -71,10 +61,3 @@ Paper do orientador Prof. Jorge Melegati, apresentado no ICSE 2026 (Rio de Janei
 | REAL | ~41% | Ambiente web real |
 | Online Mind2Web | ~42% | Navegação web |
 | AndroidWorld | Alto, mas controlado | Ambiente mobile |
-
-### Frameworks
-
-- **Browser Use** — 41% precisão, custo baixo
-- **Cua Agent SDK** — 79% precisão, custo altíssimo
-- **Magnitude** — 0.55% precisão, mais rápido
-- **Gemini CUA** — 56% precisão, custo médio
