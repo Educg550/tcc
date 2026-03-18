@@ -2,7 +2,7 @@
 
 Site hub do TCC de Eduardo Cruz Guedes, NUSP 13672752, Bacharelado em Ciência da Computação (5º ano) — IME-USP.
 
-**Orientadores:** Prof. Paulo Meirelles (IME-USP) · Prof. Jorge Melegati (INESC TEC / Universidade do Porto)
+**Orientadores:** Prof. Paulo Meirelles (IME-USP) · Prof. Jorge Melegati (Universidade do Porto)
 
 **Tema:** Avaliação de um Pipeline Multiagente Baseado em TDD com Validação Comportamental via Computer Using Agents.
 

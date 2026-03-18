@@ -7,11 +7,10 @@ title: Referências
 
 ## Test-Oriented Programming (TOP)
 
-Paper do orientador Prof. Jorge Melegati, apresentado no ICSE 2026.
+Paper do orientador Prof. Jorge Melegati.
 
 > **Test-Oriented Programming: rethinking coding for the GenAI era**
-> Jorge Melegati — INESC TEC, Faculty of Engineering, University of Porto
-> ICSE-Companion '26, April 12–18, 2026, Rio de Janeiro, Brazil
+> Jorge Melegati — Faculty of Engineering, University of Porto
 > DOI: [10.5281/17227298](https://doi.org/10.5281/zenodo.17227298)
 
 **Resumo:** Propõe TOP como novo paradigma onde desenvolvedores apenas verificam código de testes, delegando a geração de código de produção para LLMs. Prova de conceito: ferramenta **Onion**, testada com GPT-4o-mini e Gemini 2.5-Flash.

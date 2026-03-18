@@ -20,7 +20,7 @@ function HomepageHeader() {
         <p className={styles.meta}>
           Eduardo Cruz Guedes · NUSP 13672752 · BCC IME-USP · 5º ano
           <br />
-          Orientadores: Prof. Paulo Meirelles (IME-USP) · Prof. Jorge Melegati (INESC TEC / U. Porto)
+          Orientadores: Prof. Paulo Meirelles · Prof. Jorge Melegati
         </p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/docs/intro">

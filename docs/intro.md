@@ -11,7 +11,7 @@ title: Visão Geral
 
 **Orientadores:**
 - Prof. Paulo Meirelles (paulormm@ime.usp.br) — IME-USP
-- Prof. Jorge Melegati (jorge@jmelegati.com) — INESC TEC / Universidade do Porto
+- Prof. Jorge Melegati (jorge@jmelegati.com) — Universidade do Porto
 
 ---
 
