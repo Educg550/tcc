@@ -49,10 +49,9 @@ Ambos os grupos recebem os mesmos requisitos. O baseline é a geração direta s
 
 1. Definir lista de 10–20 requisitos (sistema com frontend)
 2. **Baseline:** LLM recebe cada requisito e implementa diretamente; registrar código gerado
-3. **Experimental:** Agente A gera testes → Agente B implementa → CI → registrar resultados
-4. CUA recebe o requisito original em linguagem natural e interage com o sistema gerado
-5. Registrar artefatos de falha, logs e resultados do CUA
-6. Comparar baseline vs experimental: o pipeline TDD+CUA detecta mais falhas que a geração direta?
+3. **Experimental:** Agente A gera testes → Agente B implementa → CI → CUA recebe o requisito original em linguagem natural e interage com o sistema gerado; registrar resultados de cada etapa
+4. Registrar artefatos de falha, logs e resultados do CUA
+5. Comparar baseline vs experimental: o pipeline TDD+CUA produz código mais correto que a geração direta?
 
 ---
 

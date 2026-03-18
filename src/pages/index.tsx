@@ -12,10 +12,10 @@ function HomepageHeader() {
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          Test-Oriented Programming + CUA
+          Avaliação de um Pipeline Multiagente Baseado em TDD com Validação Comportamental via CUAs
         </Heading>
         <p className="hero__subtitle">
-          O que a validação comportamental via CUA detecta que pipelines TDD+LLM deixam passar?
+          O pipeline de geração de código baseado em TDD produz código mais correto do que a geração direta de código a partir de requisitos?
         </p>
         <p className={styles.meta}>
           Eduardo Cruz Guedes · NUSP 13672752 · BCC IME-USP · 5º ano

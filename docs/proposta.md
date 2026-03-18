@@ -48,7 +48,7 @@ verifica se o comportamento observado corresponde ao esperado.
 
 ## Pergunta de Pesquisa
 
-> **A validação comportamental via CUA detecta falhas que passam despercebidas pela geração direta de código com LLM?**
+> **O pipeline de geração de código baseado em TDD com validação final via CUA produz código mais correto do que a geração direta de código a partir de requisitos com LLM?**
 
 ---
 
