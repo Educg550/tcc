@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunktcc=globalThis.webpackChunktcc||[]).push([[472],{5513(t){t.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"In\xedcio do TCC","permalink":"/tcc/blog/inicio","unlisted":false,"date":"2026-03-16T00:00:00.000Z"}]}')}}]);

@@ -4,10 +4,175 @@
         <title>TCC — Eduardo Cruz Guedes Blog</title>
         <link>https://educg550.github.io/tcc/blog</link>
         <description>TCC — Eduardo Cruz Guedes Blog</description>
-        <lastBuildDate>Mon, 16 Mar 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 18 Mar 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>pt-BR</language>
+        <item>
+            <title><![CDATA[Detalhamento do CUA]]></title>
+            <link>https://educg550.github.io/tcc/blog/cua</link>
+            <guid>https://educg550.github.io/tcc/blog/cua</guid>
+            <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Durante meu estágio na empresa Opus Software,]]></description>
+            <content:encoded><![CDATA[<p>Durante meu estágio na empresa <a href="https://www.opus-software.com.br/" target="_blank" rel="noopener noreferrer" class="">Opus Software</a>,
+fui encarregado de realizar um estudo detalhado sobre o funcionamento de CUAs
+e seu caso de uso no cenário crescente do uso de IA generativa.</p>
+<p>Pela definição da OpenAI, um Computer Using Agent (CUA) é um modelo que
+combina os recursos de visão de um LLM com raciocínio avançado por meio da
+aprendizagem por reforço (RL). Esses agentes são capazes de interagir com
+ambientes computacionais, como sistemas operacionais, navegadores da web
+e aplicativos, para realizar tarefas complexas que exigem múltiplas etapas.</p>
+<p>A Anthropic define como um agente autônomo que pode seguir os comandos do usuário
+para mover o cursor pela tela do computador, clicar em locais relevantes e inserir
+informações por meio de um teclado virtual, emulando a forma como as pessoas
+interagem com seus próprios computadores.</p>
+<p>Abaixo um esquema visual representando o fluxo de ações de um CUA:</p>
+<p><img decoding="async" loading="lazy" alt="Fonte: OpenAI" src="https://educg550.github.io/tcc/assets/images/cua-diagram-92f4708796723b2d3738934ade0985d8.webp" width="1920" height="1080" class="img_ev3q"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="origem">Origem<a href="https://educg550.github.io/tcc/blog/cua#origem" class="hash-link" aria-label="Link direto para Origem" title="Link direto para Origem" translate="no">​</a></h2>
+<p>O conceito de CUA surgiu meados do fim de 2024, quando a Anthropic anunciou
+o Computer Use junto de seus novos modelos Claude 3.5 Sonnet e Claude 3.5
+Haiku. A Anthropic disponibilizou uma <a href="https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool" target="_blank" rel="noopener noreferrer" class="">API</a>
+dedicada para o Computer Use como tool para seus próprios modelos.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="motivação">Motivação<a href="https://educg550.github.io/tcc/blog/cua#motiva%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para Motivação" title="Link direto para Motivação" translate="no">​</a></h2>
+<p>Eles surgiram como uma alternativa aos RPAs (Robotic Process Automations),
+que dependem de scripts rígidos e pré-definidos para automatizar tarefas.</p>
+<p>Um RPA é uma tecnologia de software para automatizar tarefas digitais de
+forma rápida e confiável, porém muito rígida. A RPA ainda é uma tecnologia central para
+viabilizar a automação empresarial, trabalhando (ou não) ao lado de ferramentas de IA,
+incluindo IA generativa.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tipos-de-rpa">Tipos de RPA<a href="https://educg550.github.io/tcc/blog/cua#tipos-de-rpa" class="hash-link" aria-label="Link direto para Tipos de RPA" title="Link direto para Tipos de RPA" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Comparativo entre RPA Assistida e Não Assistida" src="https://educg550.github.io/tcc/assets/images/rpa-attended-vs-unattended-76f42925c8c8b979fb0574bc0ac92c3b.avif" width="1000" height="600" class="img_ev3q">
+<sub>Fonte: Digital Bricks</sub></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="rpa-assistida">RPA Assistida<a href="https://educg550.github.io/tcc/blog/cua#rpa-assistida" class="hash-link" aria-label="Link direto para RPA Assistida" title="Link direto para RPA Assistida" translate="no">​</a></h4>
+<p>A <strong>RPA Assistida</strong> é utilizada para auxiliar trabalhadores humanos com
+tarefas rotineiras. Esta forma de RPA depende de gatilhos ou entradas para
+iniciar tarefas automatizadas específicas. Os bots de RPA assistida necessitam
+operar com auxílio de intervenção humana. Eles são frequentemente empregados em
+cenários de front-office, como atendimento ao cliente, suporte técnico e
+processamento de transações.</p>
+<p>Exemplos de ferramentas para <strong>RPA assistida</strong> incluem:</p>
+<ul>
+<li class=""><a href="https://make.powerautomate.com/" target="_blank" rel="noopener noreferrer" class="">Microsoft Power Automate</a></li>
+<li class=""><a href="https://www.uipath.com/pt/product/studio" target="_blank" rel="noopener noreferrer" class="">UiPath</a></li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="rpa-não-assistida">RPA Não Assistida<a href="https://educg550.github.io/tcc/blog/cua#rpa-n%C3%A3o-assistida" class="hash-link" aria-label="Link direto para RPA Não Assistida" title="Link direto para RPA Não Assistida" translate="no">​</a></h4>
+<p>A <strong>RPA não assistida</strong>, como o nome sugere, opera sem intervenção humana.
+Essas automações funcionam de forma independente com base em gatilhos,
+entradas de dados e cronogramas pré-programados. A RPA não assistida pode ser
+acionada e operar em segundo plano, sendo mais frequentemente aplicada a
+processos de back-office, como entrada de dados, processos de TI e
+integrações de aplicativos.</p>
+<p>Exemplos de ferramentas para <strong>RPA não assistida</strong> incluem:</p>
+<ul>
+<li class=""><a href="https://www.blueprism.com/" target="_blank" rel="noopener noreferrer" class="">Blue Prism</a></li>
+<li class=""><a href="https://make.powerautomate.com/" target="_blank" rel="noopener noreferrer" class="">Microsoft Power Automate</a></li>
+<li class=""><a href="https://www.uipath.com/pt/product/studio" target="_blank" rel="noopener noreferrer" class="">UiPath</a></li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="paralelo-com-cuas">Paralelo com CUAs<a href="https://educg550.github.io/tcc/blog/cua#paralelo-com-cuas" class="hash-link" aria-label="Link direto para Paralelo com CUAs" title="Link direto para Paralelo com CUAs" translate="no">​</a></h4>
+<p>Os CUAs diferem dos RPAs na forma como interagem com sistemas: enquanto RPAs
+seguem scripts pré-definidos baseados em regras rígidas, CUAs utilizam modelos de IA
+para interpretar interfaces visuais e tomar decisões dinâmicas:</p>
+<p><strong>Quando usar RPAs:</strong></p>
+<ul>
+<li class="">Processos altamente estruturados e repetitivos (ex: migração de dados entre
+sistemas, processamento de faturas padronizadas)</li>
+<li class="">Interfaces estáveis que raramente mudam</li>
+<li class="">Requisitos de auditoria rigorosos que exigem execução determinística</li>
+<li class="">Alto volume de transações idênticas</li>
+<li class="">Ambientes onde previsibilidade e velocidade são críticas</li>
+</ul>
+<p><strong>Quando usar CUAs:</strong></p>
+<ul>
+<li class="">Processos que envolvem múltiplas aplicações sem APIs integradas</li>
+<li class="">Interfaces que sofrem atualizações frequentes de layout</li>
+<li class="">Tarefas que requerem interpretação contextual e tomada de decisão</li>
+<li class="">Automações que precisam ser configuradas rapidamente sem programação extensa</li>
+<li class="">Cenários onde a interface varia entre execuções (ex: sites de terceiros,
+aplicações legacy)</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resultados-da-pesquisa">Resultados da pesquisa<a href="https://educg550.github.io/tcc/blog/cua#resultados-da-pesquisa" class="hash-link" aria-label="Link direto para Resultados da pesquisa" title="Link direto para Resultados da pesquisa" translate="no">​</a></h2>
+<p>Na pesquisa que desenvolvi dentro da empresa, cheguei a algumas conclusões importantes,
+baseadas em experiência própria de uso e em benchmarks consolidados em pesquisas públicas:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="resultados-de-cuas-em-benchmarks-dedicados">Resultados de CUAs em benchmarks dedicados<a href="https://educg550.github.io/tcc/blog/cua#resultados-de-cuas-em-benchmarks-dedicados" class="hash-link" aria-label="Link direto para Resultados de CUAs em benchmarks dedicados" title="Link direto para Resultados de CUAs em benchmarks dedicados" translate="no">​</a></h3>
+<p>Existem benchmarks dedicados para avaliar CUAs em diferentes contextos. Os principais
+avaliados na pesquisa foram:</p>
+<ul>
+<li class="">
+<p><strong><a href="https://os-world.github.io/" target="_blank" rel="noopener noreferrer" class="">OS World</a></strong> — 369 tarefas abertas em sistemas
+operacionais reais. O melhor modelo avaliado em 18/12/2025 foi o
+<code>claude-sonnet-4-5-20250929</code> com <strong>62.9%</strong> de taxa de sucesso.</p>
+</li>
+<li class="">
+<p><strong><a href="https://arxiv.org/pdf/2504.11543" target="_blank" rel="noopener noreferrer" class="">REAL</a></strong> — 112 tarefas práticas em réplicas
+determinísticas de 11 sites populares (e-commerce, viagens, etc.). Os melhores modelos
+atingem no máximo <strong>41%</strong> de taxa de sucesso, evidenciando limitações críticas na
+navegação web autônoma.</p>
+</li>
+<li class="">
+<p><strong><a href="https://hal.cs.princeton.edu/online_mind2web" target="_blank" rel="noopener noreferrer" class="">Online Mind2Web</a></strong> — versão ao
+vivo do Mind2Web, que testa agentes contra interfaces web dinâmicas em tempo real. O
+melhor resultado registrado em 09/01/2026 foi do GPT-5 Medium com <strong>42.33%</strong> de sucesso
+usando o framework SeeAct.</p>
+</li>
+<li class="">
+<p><strong><a href="https://arxiv.org/abs/2401.13919" target="_blank" rel="noopener noreferrer" class="">WebVoyager</a></strong> — navegação autônoma em 15
+categorias de sites reais. O Magnitude liderou em 09/01/2026 com <strong>93.9%</strong> de sucesso,
+seguido por frameworks como Browser Use e Convergence Proxy.</p>
+</li>
+<li class="">
+<p><strong><a href="https://google-research.github.io/android_world/" target="_blank" rel="noopener noreferrer" class="">AndroidWorld</a></strong> — 116 tarefas
+em 20 aplicativos Android reais. O AGI-0 liderou em 10/2025 com <strong>97.4%</strong> de sucesso;
+o agente M3A (linha de base original do benchmark) completou apenas <strong>30.6%</strong> das
+tarefas.</p>
+</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="limitações-de-cuas">Limitações de CUAs<a href="https://educg550.github.io/tcc/blog/cua#limita%C3%A7%C3%B5es-de-cuas" class="hash-link" aria-label="Link direto para Limitações de CUAs" title="Link direto para Limitações de CUAs" translate="no">​</a></h3>
+<p>Apesar dos avanços significativos, os CUAs ainda enfrentam várias limitações. Dentre
+as principais, podemos destacar:</p>
+<ul>
+<li class="">A interação com interfaces gráficas e a necessidade de múltiplas etapas podem
+resultar em <strong>latências significativas</strong>, mesmo em tarefas simples, como
+usar a calculadora ou abrir o navegador e pesquisar algo. Por isso é importante focar
+a intenção de uso do CUA em tarefas que não sejam críticas em termos de tempo.</li>
+<li class="">A limitada precisão da <strong>visão computacional</strong> no reconhecimento de elementos na
+tela pode variar, ocasionando no CUA entrando em loop por tentar clicar em um elemento
+na coordenada incorreta várias vezes seguidas, ou mesmo não conseguir identificar
+elementos importantes.</li>
+<li class="">Muitos modelos possuem <strong>guard rails rígidos</strong> para evitar ações indesejadas, o que
+pode levar a muitos pedidos de confirmação para ações simples, atrapalhando a
+fluidez da automação.</li>
+<li class="">A tecnologia de CUAs ainda está em <strong>estado experimental e sensível</strong>, com muitas
+ferramentas e frameworks em desenvolvimento ativo. Isso pode levar a bugs, falta de
+recursos e mudanças frequentes/falta de informação relevante nas APIs e documentação.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="arquétipos-de-falha-comuns">Arquétipos de Falha Comuns:<a href="https://educg550.github.io/tcc/blog/cua#arqu%C3%A9tipos-de-falha-comuns" class="hash-link" aria-label="Link direto para Arquétipos de Falha Comuns:" title="Link direto para Arquétipos de Falha Comuns:" translate="no">​</a></h3>
+<p>Segundo análises de implementações nos benchmarks, as falhas dos CUAs geralmente se
+enquadram em alguns arquétipos comuns:</p>
+<ol>
+<li class="">O agente faz uma <strong>suposição incorreta</strong> no início da tarefa e não a
+questiona posteriormente.</li>
+<li class="">O agente faz <strong>decisões razoáveis</strong> como se estivesse ajudando um usuário real,
+mas <strong>falha em atender requisitos estritos da tarefa</strong></li>
+<li class="">O agente responde com base em seu <strong>conhecimento de pré-treinamento</strong>, em vez de
+buscar informações no navegador.</li>
+<li class="">Falha em responder dentro de um <strong>período de tempo razoável</strong>, devido a complexidade
+e quantidade de passos necessária para cumprir uma determinada tarefa.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="conclusões">Conclusões<a href="https://educg550.github.io/tcc/blog/cua#conclus%C3%B5es" class="hash-link" aria-label="Link direto para Conclusões" title="Link direto para Conclusões" translate="no">​</a></h2>
+<p>Os CUAs representam um avanço relevante na automação de tarefas digitais complexas,
+mas a tecnologia ainda está em estado claramente experimental.
+Mesmo tarefas simples podem falhar por imprecisão na visão computacional,
+loops de ação, guard rails excessivos ou simples desvios de raciocínio.
+Os benchmarks realizados mostram que até mesmo os melhores modelos de linguagem
+raramente ultrapassam 60–70% de taxa de sucesso em ambientes controlados, e o
+desempenho cai consideravelmente em cenários do mundo real.</p>
+<p>Dessa forma, o escopo de uso de CUAs no contexto deste TCC deve ser limitado ao
+mínimo necessário: no máximo, servir como avaliador comportamental de caixa-preta
+para testes pontuais do resultado final do pipeline multiagente a ser construído,
+verificando se o software gerado se comporta corretamente do ponto de vista de um
+usuário real, sem assumir que o CUA executará essas verificações de forma confiável
+em todos os casos.</p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Início do TCC]]></title>
             <link>https://educg550.github.io/tcc/blog/inicio</link>
@@ -23,13 +188,11 @@
 </ul>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="próximos-passos">Próximos passos<a href="https://educg550.github.io/tcc/blog/inicio#pr%C3%B3ximos-passos" class="hash-link" aria-label="Link direto para Próximos passos" title="Link direto para Próximos passos" translate="no">​</a></h2>
 <ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Detalhar CUAs e seu caso de uso nesse trabalho</li>
 <li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Definir escopo exato do CRUD</li>
-<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Escolher CUA para o papel de avaliador</li>
-<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Levantar bibliografia formal</li>
 <li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Implementar protótipo do pipeline TDD multiagente</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Formular experimentos iniciais</li>
 </ul>]]></content:encoded>
-            <category>TCC</category>
-            <category>Planejamento</category>
         </item>
     </channel>
 </rss>
