@@ -28,6 +28,7 @@ Paper do orientador Prof. Jorge Melegati.
 
 - [Superpowers (obra)](https://github.com/obra/superpowers)
 - [Everything Claude Code (affaan-m)](https://github.com/affaan-m/everything-claude-code?tab=MIT-1-ov-file)
+- [Claude Octopus (nyldn)](https://github.com/nyldn/claude-octopus) — plugin de orquestração multi-LLM para Claude Code com 8 provedores (Codex, Gemini, Perplexity, Ollama etc.), 47 comandos, 50 skills e 32 personas especializadas; metodologia Double Diamond com gates de consenso (75%)
 
 ## CLAUDE.md como Backlog de Orquestrador
 
