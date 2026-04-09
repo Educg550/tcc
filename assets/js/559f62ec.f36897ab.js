@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunktcc=globalThis.webpackChunktcc||[]).push([[416],{3340(e){e.exports=JSON.parse('{"tags":[{"label":"Refer\xeancia","permalink":"/tcc/blog/tags/referencia","description":"Leituras e refer\xeancias encontradas","count":1}]}')}}]);
