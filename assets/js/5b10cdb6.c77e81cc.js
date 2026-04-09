@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunktcc=globalThis.webpackChunktcc||[]).push([[664],{4736(u){u.exports=JSON.parse('{"authors":[{"name":"Eduardo Cruz Guedes","title":"Aluno de BCC \u2014 IME-USP","url":"https://github.com/Educg550","socials":{"github":"https://github.com/Educg550"},"imageURL":"https://github.com/Educg550.png","key":"eduardo","page":null,"count":4}]}')}}]);
