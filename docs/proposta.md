@@ -11,13 +11,23 @@ title: Proposta de Pesquisa
 
 ---
 
-## Contexto
+## Introdução
 
-Modelos de linguagem de grande escala (LLMs) têm demonstrado capacidade crescente de gerar código funcional, mas a qualidade desse código em relação aos requisitos originais ainda é variável. A combinação de TDD com LLMs surge como abordagem para aumentar a confiabilidade da geração automática.
+Modelos de linguagem de grande escala (LLMs) têm demonstrado capacidade crescente de gerar código funcional, mas a qualidade desse código em relação aos requisitos originais ainda é variável. Com as chamadas alucinações, ainda é difícil confiar na geração automática de código sem uma validação, que deve ser especialmente rigorosa em cenários onde o funcionamento do software é crítico.
 
-Nesse paradigma, o desenvolvedor só verifica código de testes, não código de produção. A ferramenta **Onion** é uma prova de conceito que implementa TOP: a partir de arquivos de configuração YAML com especificações em linguagem natural, gera código Python automaticamente com base em TDD.
+A combinação de TDD com LLMs surge como abordagem para aumentar a confiabilidade da geração automática. Nesse paradigma, o desenvolvedor fica responsável por verificar especialmente a saúde de código de testes, o código de produção se torna secundário, o que garante uma abordagem mais simples e gerenciável do ponto de vista humano. A ferramenta **Onion** é uma prova de conceito que implementa TOP: a partir de arquivos de configuração YAML com especificações em linguagem natural, gera código Python automaticamente com base em TDD (Test Driven Development).
 
-Computer Using Agents (CUAs) — agentes que interagem com interfaces como um usuário humano — adicionam uma camada de validação comportamental de caixa-preta, independente dos testes gerados pelo próprio pipeline.
+Outra camada interessante de validação que será introduzida nesse trabalho é o uso de Computer Using Agents (CUAs) — agentes que interagem com interfaces como um usuário humano — que adicionam uma camada de validação comportamental de caixa-preta, independente dos testes gerados pelo próprio pipeline.
+
+---
+
+## Abstrato
+
+Modelos de linguagem de grande escala (LLMs) são cada vez mais utilizados para geração automática de código, mas produzem resultados de qualidade variável e sujeitos a alucinações — implementações que passam por testes superficiais sem satisfazer os requisitos reais. Este trabalho avalia se a adição de validação comportamental via *Computer Using Agents* (CUAs) a um pipeline multiagente baseado em TDD produz código funcionalmente mais correto do que a geração direta com LLM.
+
+O método compara dois cenários controlados: um *baseline* em que o LLM recebe o requisito em linguagem natural e gera código diretamente; e um cenário experimental em que um agente gera testes primeiro, um segundo agente implementa até os testes passarem no CI e, por fim, um CUA interage com a interface do sistema como usuário real, verificando o comportamento observado contra o requisito original.
+
+O experimento utilizará um conjunto de requisitos de aplicações de software com interface gráfica, permitindo interação natural do CUA, além de softwares sem interface gráfica direta, o que permite também uma validação determinística. A contribuição esperada é evidência empírica sobre a capacidade do CUA de detectar falhas semânticas que escapam ao TDD gerado pelo próprio pipeline, além de uma caracterização dos tipos de erro que cada abordagem captura ou deixa passar.
 
 ---
 
