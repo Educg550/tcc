@@ -2,11 +2,69 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://educg550.github.io/tcc/blog</id>
     <title>TCC — Eduardo Cruz Guedes Blog</title>
-    <updated>2026-04-09T00:00:00.000Z</updated>
+    <updated>2026-04-30T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://educg550.github.io/tcc/blog"/>
     <subtitle>TCC — Eduardo Cruz Guedes Blog</subtitle>
     <icon>https://educg550.github.io/tcc/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Pipeline TDD: primeira execução bem-sucedida via OpenRouter]]></title>
+        <id>https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao</id>
+        <link href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao"/>
+        <updated>2026-04-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[O orquestrador TDD rodou pela primeira vez com sucesso nesta manhã:]]></summary>
+        <content type="html"><![CDATA[<p>O orquestrador TDD rodou pela primeira vez com sucesso nesta manhã:
+35/35 testes gerados e passando, código implementado, tudo em 71 segundos e custou em tokens o equivalente a $0.106043.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="contexto">Contexto<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#contexto" class="hash-link" aria-label="Link direto para Contexto" title="Link direto para Contexto" translate="no">​</a></h2>
+<p>O <a class="" href="https://educg550.github.io/tcc/blog/orquestrador-hello-world">post anterior</a> descrevia o script <code>orquestrador_claude.py</code>
+e explicava que ele ainda não havia sido executado por falta de uma API key.
+A alternativa escolhida foi usar a <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer" class="">OpenRouter</a>,
+um gateway que unifica o acesso a vários provedores de LLM (Anthropic, OpenAI, Google, etc.)
+sob uma única chave de API e permite comparar modelos facilmente.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-que-mudou-no-script">O que mudou no script<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#o-que-mudou-no-script" class="hash-link" aria-label="Link direto para O que mudou no script" title="Link direto para O que mudou no script" translate="no">​</a></h2>
+<p>A principal diferença em relação ao post anterior é o modelo dos subagentes:
+para esta demo todos os agentes — orquestrador, <code>test-writer</code> e <code>coder</code> —
+foram configurados como <code>haiku</code> (Claude Haiku 4.5), o modelo mais leve da família.
+O post anterior previa Sonnet para os subagentes, mas para fins de demonstração
+do mecanismo de orquestração o Haiku é suficiente e muito mais barato.</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">agents </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token punctuation" style="color:#393A34">{</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"test-writer"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"> AgentDefinition</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> model</span><span class="token operator" style="color:#393A34">=</span><span class="token string" style="color:#e3116c">"haiku"</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token string" style="color:#e3116c">"coder"</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain">       AgentDefinition</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> model</span><span class="token operator" style="color:#393A34">=</span><span class="token string" style="color:#e3116c">"haiku"</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token punctuation" style="color:#393A34">}</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">options </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> ClaudeAgentOptions</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">.</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> model</span><span class="token operator" style="color:#393A34">=</span><span class="token string" style="color:#e3116c">"haiku"</span><span class="token punctuation" style="color:#393A34">)</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-execução">A execução<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#a-execu%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para A execução" title="Link direto para A execução" translate="no">​</a></h2>
+<p>O pipeline foi disparado em <strong>30/04/2026 às 11:01:47</strong> (horário de Brasília).
+A sequência de eventos registrada em <code>LOGS.txt</code>:</p>
+<table><thead><tr><th>Tempo</th><th>Evento</th></tr></thead><tbody><tr><td>0s</td><td>Orquestrador inicia, anuncia a Etapa 1</td></tr><tr><td>~10s</td><td>Chama subagente <code>test-writer</code> via tool <code>Agent</code></td></tr><tr><td>~26s</td><td><code>test-writer</code> faz <code>ls</code> no diretório de trabalho</td></tr><tr><td>~45s</td><td><code>test-writer</code> escreve <code>tests/test_cpf.py</code> (Write)</td></tr><tr><td>~46s</td><td>Orquestrador passa para a Etapa 2, chama <code>coder</code></td></tr><tr><td>~48s</td><td><code>coder</code> lê os testes (Read)</td></tr><tr><td>~50s</td><td><code>coder</code> faz <code>ls</code></td></tr><tr><td>~57s</td><td><code>coder</code> escreve <code>cpf.py</code> (Write)</td></tr><tr><td>~59s</td><td><code>coder</code> roda <code>python -m pytest tests/ -v</code> (Bash)</td></tr><tr><td>~62s</td><td><code>coder</code> relê <code>cpf.py</code> para confirmação</td></tr><tr><td><strong>71s</strong></td><td><strong>Pipeline concluído — status: <code>success</code></strong></td></tr></tbody></table>
+<p>O orquestrador nunca escreveu código: seu único trabalho foi despachar
+os subagentes na ordem correta usando a tool <code>Agent</code>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="artefatos-gerados">Artefatos gerados<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#artefatos-gerados" class="hash-link" aria-label="Link direto para Artefatos gerados" title="Link direto para Artefatos gerados" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="teststest_cpfpy"><code>tests/test_cpf.py</code><a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#teststest_cpfpy" class="hash-link" aria-label="Link direto para teststest_cpfpy" title="Link direto para teststest_cpfpy" translate="no">​</a></h3>
+<table><thead><tr><th>Classe</th><th>Cobertura</th></tr></thead><tbody><tr><td><code>TestCPFValidos</code></td><td>2 CPFs válidos conhecidos</td></tr><tr><td><code>TestCPFComTodosDigitosIguais</code></td><td><code>000…</code>, <code>111…</code>, <code>222…</code>, <code>999…</code></td></tr><tr><td><code>TestCPFFormatoIncorreto</code></td><td>sem pontuação, hífen errado, caracteres especiais, vazio</td></tr><tr><td><code>TestCPFNumeroDigitosIncorreto</code></td><td>dígitos a mais ou a menos</td></tr><tr><td><code>TestCPFDigitosVerificadoresIncorretos</code></td><td>1º errado, 2º errado, ambos errados</td></tr><tr><td><code>TestCPFCasosExtremos</code></td><td><code>None</code>, espaços, letras, sinal negativo, pontos extras</td></tr><tr><td><code>TestCPFCalculoDosVerificadores</code></td><td>validação passo-a-passo do módulo 11 com comentários</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cpfpy"><code>cpf.py</code><a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#cpfpy" class="hash-link" aria-label="Link direto para cpfpy" title="Link direto para cpfpy" translate="no">​</a></h3>
+<p>Implementação completa da função <code>validar_cpf(cpf: str) -&gt; bool</code> com:</p>
+<ul>
+<li class="">Validação de tipo e <code>None</code></li>
+<li class="">Verificação do formato exato <code>XXX.XXX.XXX-YY</code></li>
+<li class="">Rejeição de CPFs com todos os dígitos iguais</li>
+<li class="">Algoritmo de módulo 11 para os dois dígitos verificadores</li>
+</ul>
+<p>Todos os 35 testes passaram na primeira tentativa do <code>coder</code> — sem nenhuma iteração de correção.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="custo">Custo<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#custo" class="hash-link" aria-label="Link direto para Custo" title="Link direto para Custo" translate="no">​</a></h2>
+<p>Os dados de billing do OpenRouter ficaram registrados em <code>orquestrador_claude.csv</code>:</p>
+<table><thead><tr><th>Período (UTC)</th><th>Requests</th><th>Prompt tokens</th><th>Completion tokens</th><th>Custo (USD)</th></tr></thead><tbody><tr><td>14:01</td><td>9</td><td>121.600</td><td>3.823</td><td>$0.054411</td></tr><tr><td>14:02</td><td>3</td><td>34.479</td><td>3.353</td><td>$0.051632</td></tr><tr><td><strong>Total</strong></td><td><strong>12</strong></td><td><strong>156.079</strong></td><td><strong>7.176</strong></td><td><strong>$0.106043</strong></td></tr></tbody></table>
+<p>Os 156 mil tokens de prompt refletem principalmente o contexto acumulado das
+múltiplas chamadas encadeadas entre orquestrador e subagentes.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="próximos-passos">Próximos passos<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#pr%C3%B3ximos-passos" class="hash-link" aria-label="Link direto para Próximos passos" title="Link direto para Próximos passos" translate="no">​</a></h2>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled="" checked=""> <!-- -->Executar o pipeline pela primeira vez e documentar os resultados</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Testar com modelos diferentes nos subagentes (Sonnet, outros provedores via OpenRouter)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Aumentar a complexidade do requisito (múltiplas funções, módulo com CRUD, CLI)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Medir variabilidade: rodar N vezes o mesmo requisito e comparar testes/código gerados</li>
+</ul>]]></content>
+        <author>
+            <name>Eduardo Cruz Guedes</name>
+            <uri>https://github.com/Educg550</uri>
+        </author>
+        <category label="TCC" term="TCC"/>
+        <category label="Experimento" term="Experimento"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Hello World: orquestrador TDD com Agent SDK]]></title>
         <id>https://educg550.github.io/tcc/blog/orquestrador-hello-world</id>
