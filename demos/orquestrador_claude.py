@@ -30,7 +30,7 @@ from claude_agent_sdk import (
 )
 
 # ── Diretório de trabalho do pipeline ────────────────────────────
-WORKDIR = "demos/output/demo-cpf-1"
+WORKDIR = "demos/output/demo-cpf"
 
 # ── Requisito de entrada ─────────────────────────────────────────
 REQUISITO = """
