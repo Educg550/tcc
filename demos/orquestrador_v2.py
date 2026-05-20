@@ -99,6 +99,137 @@ arquivo JSON e CRUD completo. Requisitos:
   (deve ser criado, não falhar).
 """
 
+# ── Definições de agente ────────────────────────────────────────────────
+AGENTS = {
+    "test-writer": AgentDefinition(
+        description=(
+            "Especialista em TDD que gera acceptance tests pytest a partir "
+            "de uma descrição NL do sistema, antes de qualquer implementação."
+        ),
+        prompt="""Você é um especialista em Test-Driven Development.
+
+Dado o requisito abaixo, escreva APENAS testes pytest no arquivo
+`tests/test_acceptance.py`. **NÃO** implemente nada em `src/`. **NÃO**
+escreva `structure.yml`.
+
+## Características obrigatórias dos testes
+
+- São testes de **aceitação**, ou seja, invocam a CLI por fora: use
+  `subprocess.run([sys.executable, "-m", "task", ...], ...)` OU importe
+  `from task.main import main` e invoque simulando `sys.argv`. Escolha
+  uma abordagem e mantenha consistente.
+- Cada teste deve validar EFEITO observável: saída no stdout/stderr,
+  código de retorno, e/ou estado de `tasks.json` no cwd do teste.
+- Cubra os 6 comandos (add, list, done, edit, delete, show), prioridades
+  (low/medium/high), datas de vencimento, e edge cases:
+  - `tasks.json` inexistente (deve ser criado no primeiro uso)
+  - ID inválido (não existente)
+  - prioridade fora do enum
+  - data malformada (YYYY-MM-DD inválido)
+- Importe SOMENTE de `task` (`from task import ...` /
+  `from task.main import main`). Assuma que o pacote existirá.
+- Use `tmp_path` fixture do pytest para isolar `tasks.json` por teste.
+
+## Restrições
+
+- NÃO use libs externas. Só stdlib + pytest.
+- NÃO crie outros arquivos. Apenas `tests/test_acceptance.py`.
+""",
+        tools=["Write", "Read", "Bash"],
+        model=MODEL_DESIGN,
+    ),
+    "structure-writer": AgentDefinition(
+        description=(
+            "Gera estrutura YAML de pacotes/classes/métodos (formato Onion) "
+            "a partir de acceptance tests pytest e do requisito original."
+        ),
+        prompt="""Você é um arquiteto de software.
+
+Leia `tests/test_acceptance.py` e o requisito NL abaixo. Produza
+`structure.yml` listando pacotes, classes e métodos necessários para
+fazer esses testes passarem.
+
+## Formato esperado (estilo Onion)
+
+```yaml
+!package
+children:
+- !main_module
+  name: main
+  description: "ponto de entrada da CLI"
+- !class_module
+  name: storage
+  class_name: TaskStorage
+  description: "..."
+  methods:
+  - !method
+    name: __init__
+    description: "..."
+    parameters: [path]
+    returns: []
+  - !method
+    name: load
+    description: "..."
+    parameters: []
+    returns: ["lista de tarefas"]
+```
+
+## Regras
+
+- Convenção Python (snake_case módulos, PascalCase classes).
+- Deve haver um `!main_module` com `name: main` (ponto de entrada da CLI).
+- NÃO escreva código de produção nem testes — somente o YAML.
+- NÃO crie nada em `src/`.
+""",
+        tools=["Read", "Write"],
+        model=MODEL_DESIGN,
+    ),
+    "coder": AgentDefinition(
+        description=(
+            "Implementa código Python a partir de structure.yml + testes "
+            "pytest, executando os testes até passarem."
+        ),
+        prompt="""Você é um desenvolvedor Python.
+
+Leia `structure.yml` e `tests/test_acceptance.py`. Implemente os módulos
+em `src/task/` seguindo a estrutura.
+
+## Bootstrap do pacote para pytest
+
+Crie um `conftest.py` na raiz do workdir contendo:
+
+```python
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent / "src"))
+```
+
+Isso permite `from task import ...` sem `pip install -e .`.
+
+## Ciclo de validação
+
+Depois de implementar o código, execute:
+
+```bash
+python -m pytest tests/ -v
+```
+
+Se algum teste falhar, corrija o CÓDIGO (jamais os testes) e rode os
+testes novamente. Itere até todos passarem ou até estar inequivocamente
+travado.
+
+## Restrições
+
+- Apenas stdlib (json, argparse, datetime, pathlib, sys).
+- NÃO altere arquivos em `tests/`.
+- NÃO altere `structure.yml`.
+""",
+        tools=["Read", "Write", "Bash"],
+        model=MODEL_CODE,
+    ),
+}
+
 
 # ── Dataclasses ─────────────────────────────────────────────────────────
 @dataclass
@@ -155,7 +286,10 @@ def parse_pytest_summary(stdout: str) -> PytestFinal:
     if summary_line is None:
         last = lines[-1] if lines else ""
         return PytestFinal(
-            passed=0, failed=0, errors=0, total=0,
+            passed=0,
+            failed=0,
+            errors=0,
+            total=0,
             summary="collection error",
             collection_error=last,
         )
