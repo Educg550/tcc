@@ -389,6 +389,43 @@ async def run_stage(
     )
 
 
+# ── Loop com aprovação humana ───────────────────────────────────────────
+async def execute_with_approval(
+    stage_id: str,
+    agent_name: str,
+    configured_model: str,
+    prompt_base: str,
+    artifact_path: Path,
+) -> StageMetrics:
+    """
+    Executa uma etapa em loop até o usuário aprovar.
+
+    - Em 'n', exige feedback textual e re-roda com bloco FEEDBACK.
+    - Verifica que `artifact_path` foi escrito após cada tentativa.
+    - Apenas a tentativa aprovada é retornada como StageMetrics (item 8.4
+      do spec); retries reflete o número de tentativas rejeitadas antes.
+    """
+    feedback = None
+    retries = 0
+    while True:
+        metrics = await run_stage(
+            stage_id, agent_name, configured_model, prompt_base, feedback
+        )
+
+        if not artifact_path.exists():
+            raise RuntimeError(
+                f"Etapa {stage_id}: agente terminou mas {artifact_path} "
+                f"não foi escrito. Abortando."
+            )
+
+        feedback = aprovar_artefato(stage_id, artifact_path)
+        if feedback is None:
+            metrics.retries = retries
+            return metrics
+        retries += 1
+        print(f"  → rejeitado, retry #{retries} com feedback")
+
+
 # ── Aprovação humana ────────────────────────────────────────────────────
 def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
     """
