@@ -127,6 +127,56 @@ class PytestFinal:
     collection_error: Optional[str] = None
 
 
+# ── Parsing do resumo do pytest ─────────────────────────────────────────
+_PYTEST_FIELD_RE = re.compile(r"(\d+)\s+(passed|failed|errors?|error)")
+
+
+def parse_pytest_summary(stdout: str) -> PytestFinal:
+    """
+    Extrai contagens da última linha de resumo do pytest.
+
+    Reconhece linhas no estilo:
+        '== 27 passed in 1.2s ==='
+        '== 5 failed, 2 errors in 0.4s ==='
+        '== 1 passed, 3 failed in 0.8s ==='
+
+    Se nenhuma linha de resumo for encontrada, devolve um PytestFinal
+    com totals zerados e `collection_error` populado com a última linha
+    não-vazia do stdout, como pista do erro.
+    """
+    lines = [ln for ln in stdout.splitlines() if ln.strip()]
+    summary_line = None
+    for ln in reversed(lines):
+        if "passed" in ln or "failed" in ln or "error" in ln:
+            if "=" in ln or "in " in ln:
+                summary_line = ln
+                break
+
+    if summary_line is None:
+        last = lines[-1] if lines else ""
+        return PytestFinal(
+            passed=0, failed=0, errors=0, total=0,
+            summary="collection error",
+            collection_error=last,
+        )
+
+    counts = {"passed": 0, "failed": 0, "errors": 0}
+    for n_str, kw in _PYTEST_FIELD_RE.findall(summary_line):
+        if kw.startswith("error"):
+            counts["errors"] += int(n_str)
+        else:
+            counts[kw] = int(n_str)
+
+    total = counts["passed"] + counts["failed"] + counts["errors"]
+    return PytestFinal(
+        passed=counts["passed"],
+        failed=counts["failed"],
+        errors=counts["errors"],
+        total=total,
+        summary=f"{counts['passed']}/{total} passed",
+    )
+
+
 # ── Aprovação humana ────────────────────────────────────────────────────
 def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
     """
