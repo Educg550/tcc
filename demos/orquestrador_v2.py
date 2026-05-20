@@ -127,6 +127,46 @@ class PytestFinal:
     collection_error: Optional[str] = None
 
 
+# ── Aprovação humana ────────────────────────────────────────────────────
+def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
+    """
+    Pausa interativa entre etapas.
+
+    Imprime o conteúdo do artefato (ou um `ls -R` se for diretório),
+    pede aprovação y/n. Em caso de 'n' exige feedback textual não-vazio.
+    Retorna None se aprovado; string de feedback se rejeitado.
+    """
+    banner = "═" * 60
+    print(f"\n{banner}")
+    print(f"  Etapa: {label}")
+    print(f"  Artefato: {artifact_path}")
+    print(banner)
+
+    if artifact_path.is_dir():
+        for item in sorted(artifact_path.rglob("*")):
+            if item.is_file():
+                rel = item.relative_to(artifact_path)
+                print(f"  • {rel}")
+    elif artifact_path.is_file():
+        print(artifact_path.read_text())
+    else:
+        print("  (artefato não encontrado)")
+    print(banner)
+
+    while True:
+        resp = input(f"[{label}] aprovar? (y/n): ").strip().lower()
+        if resp == "y":
+            return None
+        if resp == "n":
+            break
+        print("  Resposta inválida. Digite 'y' ou 'n'.")
+
+    feedback = ""
+    while not feedback.strip():
+        feedback = input("Feedback: ")
+    return feedback.strip()
+
+
 # ── Stub main ───────────────────────────────────────────────────────────
 async def main() -> None:
     raise NotImplementedError("preenchido nas próximas tasks")
