@@ -311,6 +311,84 @@ def parse_pytest_summary(stdout: str) -> PytestFinal:
     )
 
 
+# ── Execução de uma etapa ───────────────────────────────────────────────
+def _fmt_elapsed(start: float) -> str:
+    return f"[{time.time() - start:7.2f}s]"
+
+
+async def run_stage(
+    stage_id: str,
+    agent_name: str,
+    configured_model: str,
+    prompt_base: str,
+    feedback: Optional[str] = None,
+) -> StageMetrics:
+    """
+    Executa UMA tentativa de uma etapa via query() do agent SDK.
+
+    Anexa o bloco FEEDBACK DA TENTATIVA ANTERIOR no prompt se feedback
+    não-None. Apenas o último feedback é usado (não acumula histórico).
+
+    Retorna um StageMetrics com retries=0; o caller (execute_with_approval)
+    atualiza `retries` ao final do loop.
+    """
+    full_prompt = prompt_base
+    if feedback is not None:
+        full_prompt += (
+            "\n\n## FEEDBACK DA TENTATIVA ANTERIOR\n"
+            f"{feedback}\n"
+        )
+
+    options = ClaudeAgentOptions(
+        cwd=str(WORKDIR),
+        allowed_tools=["Agent", "Bash", "Read", "Write"],
+        permission_mode="acceptEdits",
+        agents=AGENTS,
+        model=configured_model,
+    )
+
+    start = time.time()
+    print(f"\n──── etapa [{stage_id}] via {agent_name} ({configured_model}) ────")
+    last_result: Optional[ResultMessage] = None
+
+    async for message in query(prompt=full_prompt, options=options):
+        ts = _fmt_elapsed(start)
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if isinstance(block, TextBlock) and block.text.strip():
+                    for line in block.text.splitlines():
+                        print(f"{ts} {line}")
+                elif isinstance(block, ToolUseBlock):
+                    summary = ""
+                    if isinstance(block.input, dict):
+                        if "agent_name" in block.input:
+                            summary = f" → subagente: {block.input['agent_name']}"
+                        elif "command" in block.input:
+                            cmd = str(block.input["command"])[:80]
+                            summary = f" $ {cmd}"
+                        elif "file_path" in block.input:
+                            summary = f" 📄 {block.input['file_path']}"
+                    print(f"{ts} TOOL  {block.name}{summary}")
+        elif isinstance(message, ResultMessage):
+            last_result = message
+
+    if last_result is None:
+        raise RuntimeError(f"etapa {stage_id}: query() terminou sem ResultMessage")
+
+    return StageMetrics(
+        id=stage_id,
+        agent=agent_name,
+        configured_model=configured_model,
+        duration_s=round(last_result.duration_ms / 1000, 2),
+        duration_api_s=round(last_result.duration_api_ms / 1000, 2),
+        num_turns=last_result.num_turns,
+        retries=0,
+        cost_usd=last_result.total_cost_usd,
+        usage=last_result.usage,
+        model_usage=last_result.model_usage,
+    )
+
+
 # ── Aprovação humana ────────────────────────────────────────────────────
 def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
     """
