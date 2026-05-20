@@ -334,10 +334,7 @@ async def run_stage(
     """
     full_prompt = prompt_base
     if feedback is not None:
-        full_prompt += (
-            "\n\n## FEEDBACK DA TENTATIVA ANTERIOR\n"
-            f"{feedback}\n"
-        )
+        full_prompt += "\n\n## FEEDBACK DA TENTATIVA ANTERIOR\n" f"{feedback}\n"
 
     options = ClaudeAgentOptions(
         cwd=str(WORKDIR),
@@ -466,9 +463,138 @@ def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
     return feedback.strip()
 
 
-# ── Stub main ───────────────────────────────────────────────────────────
+# ── Prompts por etapa (instrução ao orquestrador LLM da query()) ────────
+def _prompt_stage_tests() -> str:
+    return (
+        "Use o subagente `test-writer` (via tool Agent) passando o "
+        "requisito abaixo como input. Aguarde ele terminar e não escreva "
+        "código você mesmo.\n\n"
+        "## Requisito\n\n"
+        f"{PROMPT_INICIAL}"
+    )
+
+
+def _prompt_stage_structure() -> str:
+    return (
+        "Use o subagente `structure-writer` (via tool Agent). Diga a ele "
+        "para ler `tests/test_acceptance.py` no cwd e o requisito abaixo, "
+        "e gerar `structure.yml` no formato Onion. Não escreva nada você "
+        "mesmo.\n\n"
+        "## Requisito original\n\n"
+        f"{PROMPT_INICIAL}"
+    )
+
+
+def _prompt_stage_code() -> str:
+    return (
+        "Use o subagente `coder` (via tool Agent). Diga a ele para ler "
+        "`structure.yml` e `tests/test_acceptance.py` no cwd, implementar "
+        "os módulos em `src/task/` e rodar `python -m pytest tests/ -v` "
+        "até todos passarem. Não escreva código você mesmo."
+    )
+
+
+# ── Pytest final do orquestrador ─────────────────────
+def run_final_pytest() -> PytestFinal:
+    """Roda pytest no workdir usando sys.executable. Não bloqueia em falha."""
+    proc = subprocess.run(
+        [sys.executable, "-m", "pytest", "tests/", "--tb=no", "-q"],
+        cwd=str(WORKDIR),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    output = proc.stdout + "\n" + proc.stderr
+    return parse_pytest_summary(output)
+
+
+# ── main ────────────────────────────────────────────────────────────────
 async def main() -> None:
-    raise NotImplementedError("preenchido nas próximas tasks")
+    WORKDIR.mkdir(parents=True, exist_ok=True)
+    if any(WORKDIR.iterdir()):
+        resp = (
+            input(
+                f"\nATENÇÃO: {WORKDIR} já contém arquivos; agentes podem "
+                f"ler/sobrescrever. Continuar? (y/n): "
+            )
+            .strip()
+            .lower()
+        )
+        if resp != "y":
+            print("Abortado pelo usuário.")
+            return
+
+    started_at = datetime.now().isoformat(timespec="seconds")
+    start = time.time()
+
+    print("\n" + "═" * 60)
+    print("  Pipeline orquestrado v2 — Task CLI")
+    print(f"  Iniciado em: {started_at}")
+    print(f"  Workdir    : {WORKDIR}")
+    print(f"  Modelos    : design={MODEL_DESIGN}, code={MODEL_CODE}")
+    print("═" * 60)
+
+    stages: list[StageMetrics] = []
+
+    stages.append(
+        await execute_with_approval(
+            stage_id="tests",
+            agent_name="test-writer",
+            configured_model=MODEL_DESIGN,
+            prompt_base=_prompt_stage_tests(),
+            artifact_path=ACCEPTANCE_TESTS,
+        )
+    )
+
+    stages.append(
+        await execute_with_approval(
+            stage_id="structure",
+            agent_name="structure-writer",
+            configured_model=MODEL_DESIGN,
+            prompt_base=_prompt_stage_structure(),
+            artifact_path=STRUCTURE_FILE,
+        )
+    )
+
+    stages.append(
+        await execute_with_approval(
+            stage_id="code",
+            agent_name="coder",
+            configured_model=MODEL_CODE,
+            prompt_base=_prompt_stage_code(),
+            artifact_path=SRC_MAIN,
+        )
+    )
+
+    pytest_final = run_final_pytest()
+    ended_at = datetime.now().isoformat(timespec="seconds")
+    total_duration_s = round(time.time() - start, 2)
+    total_cost_usd = sum((s.cost_usd or 0.0) for s in stages) or None
+    total_retries = sum(s.retries for s in stages)
+
+    run_log = {
+        "started_at": started_at,
+        "ended_at": ended_at,
+        "total_duration_s": total_duration_s,
+        "total_cost_usd": total_cost_usd,
+        "total_retries": total_retries,
+        "stages": [asdict(s) for s in stages],
+        "pytest_final": asdict(pytest_final),
+    }
+    RUN_LOG.write_text(json.dumps(run_log, indent=2, ensure_ascii=False))
+
+    print("\n" + "═" * 60)
+    print("  Pipeline concluído")
+    print(f"  Tempo total   : {total_duration_s}s")
+    print(
+        f"  Custo total   : ${total_cost_usd:.4f}"
+        if total_cost_usd
+        else "  Custo total   : (não reportado)"
+    )
+    print(f"  Retries total : {total_retries}")
+    print(f"  pytest final  : {pytest_final.summary}")
+    print(f"  RUN.log       : {RUN_LOG}")
+    print("═" * 60 + "\n")
 
 
 if __name__ == "__main__":
