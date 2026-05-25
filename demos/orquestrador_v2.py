@@ -49,8 +49,8 @@ SRC_MAIN = WORKDIR / "src" / "task" / "main.py"
 RUN_LOG = WORKDIR / "RUN.log"
 
 # ── Modelos por etapa ────────────────────────────────────────────────────
-MODEL_DESIGN = "sonnet"
-MODEL_CODE = "haiku"
+MODEL_DESIGN = "claude-sonnet-4-6"
+MODEL_CODE = "claude-haiku-4-5"
 
 # ── Prompt inicial (entrada do pipeline) ────────────────────────────────
 PROMPT_INICIAL = """\
