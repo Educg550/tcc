@@ -1,0 +1,109 @@
+!package
+children:
+- !main_module
+  name: main
+  description: "ponto de entrada da CLI; define e despacha os subcomandos via argparse; exporta a funcao main() chamada por python -m task"
+  methods:
+  - !method
+    name: main
+    description: "constrói o parser principal com subparsers (add, list, done, edit, delete, show), faz parse dos args e chama o handler correspondente; trata erros de validacao exibindo mensagem e saindo com codigo != 0"
+    parameters: [argv]
+    returns: []
+
+- !class_module
+  name: storage
+  class_name: TaskStorage
+  description: "responsavel por ler e gravar tasks.json no diretorio de trabalho atual; garante que o arquivo e criado automaticamente se nao existir"
+  methods:
+  - !method
+    name: __init__
+    description: "recebe o caminho do arquivo JSON (padrao: Path.cwd() / 'tasks.json') e armazena internamente"
+    parameters: [path]
+    returns: []
+  - !method
+    name: load
+    description: "le tasks.json e retorna o dict {'version': 1, 'tasks': [...]}; se o arquivo nao existir, cria-o vazio (version=1, tasks=[]) e retorna a estrutura vazia"
+    parameters: []
+    returns: ["dict com chaves version e tasks"]
+  - !method
+    name: save
+    description: "serializa o dict de dados em tasks.json com indentacao; sobrescreve o arquivo existente"
+    parameters: [data]
+    returns: []
+
+- !class_module
+  name: models
+  class_name: Task
+  description: "representa uma tarefa individual; fornece metodos de construcao e serializacao; nao depende de I/O"
+  methods:
+  - !method
+    name: __init__
+    description: "inicializa todos os campos: id (int), title (str), priority (str, default 'low'), due_date (str YYYY-MM-DD ou None), done (bool, default False), created_at (str ISO 8601)"
+    parameters: [id, title, priority, due_date, done, created_at]
+    returns: []
+  - !method
+    name: to_dict
+    description: "converte a tarefa para dict serializavel em JSON"
+    parameters: []
+    returns: ["dict"]
+  - !method
+    name: from_dict
+    description: "metodo de classe; constroi um Task a partir de um dict lido do JSON"
+    parameters: [data]
+    returns: ["Task"]
+
+- !class_module
+  name: commands
+  class_name: TaskCommands
+  description: "implementa a logica de negocio de cada subcomando (add, list, done, edit, delete, show); recebe um TaskStorage e opera sobre ele"
+  methods:
+  - !method
+    name: __init__
+    description: "recebe uma instancia de TaskStorage"
+    parameters: [storage]
+    returns: []
+  - !method
+    name: add
+    description: "cria nova tarefa com id auto-incremental, title, priority (validado contra enum low|medium|high), due_date (validado como YYYY-MM-DD ou None) e created_at (datetime.now().isoformat()); persiste e imprime o id criado; retorna codigo de erro se prioridade ou data invalida"
+    parameters: [title, priority, due_date]
+    returns: []
+  - !method
+    name: list_tasks
+    description: "lista tarefas filtradas: sem flags mostra apenas pendentes; --all inclui concluidas; --done mostra apenas concluidas; -p filtra por prioridade; imprime id, titulo, prioridade e due_date de cada tarefa"
+    parameters: [show_all, only_done, priority]
+    returns: []
+  - !method
+    name: done
+    description: "marca a tarefa com o id fornecido como done=True; persiste; retorna erro se id nao existir"
+    parameters: [task_id]
+    returns: []
+  - !method
+    name: edit
+    description: "atualiza somente os campos fornecidos (title, priority, due_date) da tarefa com o id dado; valida prioridade e formato de data antes de alterar; nao altera outros campos nem outras tarefas; retorna erro se id nao existir ou validacao falhar"
+    parameters: [task_id, title, priority, due_date]
+    returns: []
+  - !method
+    name: delete
+    description: "remove a tarefa com o id dado; se --force nao for passado, exibe prompt 'y/N' e cancela se resposta nao for 'y'; retorna erro se id nao existir"
+    parameters: [task_id, force]
+    returns: []
+  - !method
+    name: show
+    description: "exibe todos os detalhes de uma unica tarefa (id, title, priority, due_date, done, created_at); retorna erro se id nao existir"
+    parameters: [task_id]
+    returns: []
+
+- !module
+  name: validators
+  description: "funcoes puras de validacao reutilizadas por commands e main; nao dependem de I/O"
+  methods:
+  - !method
+    name: validate_priority
+    description: "verifica se o valor e um dos literais 'low', 'medium' ou 'high' (case-sensitive); levanta ValueError se invalido"
+    parameters: [value]
+    returns: ["str validado"]
+  - !method
+    name: validate_due_date
+    description: "verifica se a string esta no formato YYYY-MM-DD e representa uma data calendario valida usando datetime.strptime; levanta ValueError se malformada ou inexistente (ex.: 2025-02-30)"
+    parameters: [value]
+    returns: ["str validada"]
