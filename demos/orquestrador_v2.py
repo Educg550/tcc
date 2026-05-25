@@ -100,17 +100,35 @@ arquivo JSON e CRUD completo. Requisitos:
 """
 
 # ── Definições de agente ────────────────────────────────────────────────
-AGENTS = {
-    "test-writer": AgentDefinition(
-        description=(
-            "Especialista em TDD que gera acceptance tests pytest a partir "
-            "de uma descrição NL do sistema, antes de qualquer implementação."
-        ),
-        prompt="""Você é um especialista em Test-Driven Development.
+def _workdir_block(workdir: Path) -> str:
+    return (
+        f"## Diretório de trabalho\n"
+        f"Use SEMPRE caminhos absolutos. Todos os arquivos devem ficar "
+        f"exclusivamente dentro de `{workdir}`.\n"
+        f"NÃO crie nem escreva nada fora desse diretório."
+    )
+
+
+def make_agents(workdir: Path) -> dict:
+    tests_file  = workdir / "tests" / "test_acceptance.py"
+    struct_file = workdir / "structure.yml"
+    src_dir     = workdir / "src" / "task"
+    conftest    = workdir / "conftest.py"
+    wb          = _workdir_block(workdir)
+
+    return {
+        "test-writer": AgentDefinition(
+            description=(
+                "Especialista em TDD que gera acceptance tests pytest a partir "
+                "de uma descrição NL do sistema, antes de qualquer implementação."
+            ),
+            prompt=f"""Você é um especialista em Test-Driven Development.
 
 Dado o requisito abaixo, escreva APENAS testes pytest no arquivo
-`tests/test_acceptance.py`. **NÃO** implemente nada em `src/`. **NÃO**
+`{tests_file}`. **NÃO** implemente nada em `src/`. **NÃO**
 escreva `structure.yml`.
+
+{wb}
 
 ## Características obrigatórias dos testes
 
@@ -133,21 +151,23 @@ escreva `structure.yml`.
 ## Restrições
 
 - NÃO use libs externas. Só stdlib + pytest.
-- NÃO crie outros arquivos. Apenas `tests/test_acceptance.py`.
+- NÃO crie outros arquivos. Apenas `{tests_file}`.
 """,
-        tools=["Write", "Read", "Bash"],
-        model=MODEL_DESIGN,
-    ),
-    "structure-writer": AgentDefinition(
-        description=(
-            "Gera estrutura YAML de pacotes/classes/métodos (formato Onion) "
-            "a partir de acceptance tests pytest e do requisito original."
+            tools=["Write", "Read", "Bash"],
+            model=MODEL_DESIGN,
         ),
-        prompt="""Você é um arquiteto de software.
+        "structure-writer": AgentDefinition(
+            description=(
+                "Gera estrutura YAML de pacotes/classes/métodos (formato Onion) "
+                "a partir de acceptance tests pytest e do requisito original."
+            ),
+            prompt=f"""Você é um arquiteto de software.
 
-Leia `tests/test_acceptance.py` e o requisito NL abaixo. Produza
-`structure.yml` listando pacotes, classes e métodos necessários para
+Leia `{tests_file}` e o requisito NL abaixo. Produza
+`{struct_file}` listando pacotes, classes e métodos necessários para
 fazer esses testes passarem.
+
+{wb}
 
 ## Formato esperado (estilo Onion)
 
@@ -181,22 +201,24 @@ children:
 - NÃO escreva código de produção nem testes — somente o YAML.
 - NÃO crie nada em `src/`.
 """,
-        tools=["Read", "Write"],
-        model=MODEL_DESIGN,
-    ),
-    "coder": AgentDefinition(
-        description=(
-            "Implementa código Python a partir de structure.yml + testes "
-            "pytest, executando os testes até passarem."
+            tools=["Read", "Write"],
+            model=MODEL_DESIGN,
         ),
-        prompt="""Você é um desenvolvedor Python.
+        "coder": AgentDefinition(
+            description=(
+                "Implementa código Python a partir de structure.yml + testes "
+                "pytest, executando os testes até passarem."
+            ),
+            prompt=f"""Você é um desenvolvedor Python.
 
-Leia `structure.yml` e `tests/test_acceptance.py`. Implemente os módulos
-em `src/task/` seguindo a estrutura.
+Leia `{struct_file}` e `{tests_file}`. Implemente os módulos
+em `{src_dir}/` seguindo a estrutura.
+
+{wb}
 
 ## Bootstrap do pacote para pytest
 
-Crie um `conftest.py` na raiz do workdir contendo:
+Crie `{conftest}` contendo:
 
 ```python
 import sys
@@ -212,7 +234,7 @@ Isso permite `from task import ...` sem `pip install -e .`.
 Depois de implementar o código, execute:
 
 ```bash
-python -m pytest tests/ -v
+python -m pytest {workdir / "tests"} -v
 ```
 
 Se algum teste falhar, corrija o CÓDIGO (jamais os testes) e rode os
@@ -222,13 +244,13 @@ travado.
 ## Restrições
 
 - Apenas stdlib (json, argparse, datetime, pathlib, sys).
-- NÃO altere arquivos em `tests/`.
-- NÃO altere `structure.yml`.
+- NÃO altere arquivos em `{workdir / "tests"}`.
+- NÃO altere `{struct_file}`.
 """,
-        tools=["Read", "Write", "Bash"],
-        model=MODEL_CODE,
-    ),
-}
+            tools=["Read", "Write", "Bash"],
+            model=MODEL_CODE,
+        ),
+    }
 
 
 # ── Dataclasses ─────────────────────────────────────────────────────────
@@ -340,7 +362,7 @@ async def run_stage(
         cwd=str(WORKDIR),
         allowed_tools=["Agent", "Bash", "Read", "Write"],
         permission_mode="acceptEdits",
-        agents=AGENTS,
+        agents=make_agents(WORKDIR),
         model=configured_model,
     )
 
@@ -464,32 +486,41 @@ def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
 
 
 # ── Prompts por etapa (instrução ao orquestrador LLM da query()) ────────
-def _prompt_stage_tests() -> str:
+def _prompt_stage_tests(workdir: Path) -> str:
+    tests_file = workdir / "tests" / "test_acceptance.py"
     return (
         "Use o subagente `test-writer` (via tool Agent) passando o "
         "requisito abaixo como input. Aguarde ele terminar e não escreva "
-        "código você mesmo.\n\n"
+        f"código você mesmo. O arquivo de saída esperado é `{tests_file}` "
+        f"— instrua o subagente a usar esse caminho absoluto.\n\n"
         "## Requisito\n\n"
         f"{PROMPT_INICIAL}"
     )
 
 
-def _prompt_stage_structure() -> str:
+def _prompt_stage_structure(workdir: Path) -> str:
+    tests_file  = workdir / "tests" / "test_acceptance.py"
+    struct_file = workdir / "structure.yml"
     return (
         "Use o subagente `structure-writer` (via tool Agent). Diga a ele "
-        "para ler `tests/test_acceptance.py` no cwd e o requisito abaixo, "
-        "e gerar `structure.yml` no formato Onion. Não escreva nada você "
-        "mesmo.\n\n"
+        f"para ler `{tests_file}` e o requisito abaixo, e gerar "
+        f"`{struct_file}` no formato Onion. Use caminhos absolutos. "
+        "Não escreva nada você mesmo.\n\n"
         "## Requisito original\n\n"
         f"{PROMPT_INICIAL}"
     )
 
 
-def _prompt_stage_code() -> str:
+def _prompt_stage_code(workdir: Path) -> str:
+    struct_file = workdir / "structure.yml"
+    tests_file  = workdir / "tests" / "test_acceptance.py"
+    src_dir     = workdir / "src" / "task"
+    tests_dir   = workdir / "tests"
     return (
         "Use o subagente `coder` (via tool Agent). Diga a ele para ler "
-        "`structure.yml` e `tests/test_acceptance.py` no cwd, implementar "
-        "os módulos em `src/task/` e rodar `python -m pytest tests/ -v` "
+        f"`{struct_file}` e `{tests_file}`, implementar "
+        f"os módulos em `{src_dir}/` e rodar "
+        f"`python -m pytest {tests_dir} -v` "
         "até todos passarem. Não escreva código você mesmo."
     )
 
@@ -541,7 +572,7 @@ async def main() -> None:
             stage_id="tests",
             agent_name="test-writer",
             configured_model=MODEL_DESIGN,
-            prompt_base=_prompt_stage_tests(),
+            prompt_base=_prompt_stage_tests(WORKDIR),
             artifact_path=ACCEPTANCE_TESTS,
         )
     )
@@ -551,7 +582,7 @@ async def main() -> None:
             stage_id="structure",
             agent_name="structure-writer",
             configured_model=MODEL_DESIGN,
-            prompt_base=_prompt_stage_structure(),
+            prompt_base=_prompt_stage_structure(WORKDIR),
             artifact_path=STRUCTURE_FILE,
         )
     )
@@ -561,7 +592,7 @@ async def main() -> None:
             stage_id="code",
             agent_name="coder",
             configured_model=MODEL_CODE,
-            prompt_base=_prompt_stage_code(),
+            prompt_base=_prompt_stage_code(WORKDIR),
             artifact_path=SRC_MAIN,
         )
     )
