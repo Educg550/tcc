@@ -42,7 +42,7 @@ from claude_agent_sdk import (
 )
 
 # ── Paths absolutos ───────────────────────────────────
-WORKDIR = (SCRIPT_DIR / "output" / "task-cli-orquestrado").resolve()
+WORKDIR = (SCRIPT_DIR / "output" / "task-cli-orquestrado-v2").resolve()
 ACCEPTANCE_TESTS = WORKDIR / "tests" / "test_acceptance.py"
 STRUCTURE_FILE = WORKDIR / "structure.yml"
 SRC_MAIN = WORKDIR / "src" / "task" / "main.py"
@@ -99,6 +99,7 @@ arquivo JSON e CRUD completo. Requisitos:
   (deve ser criado, não falhar).
 """
 
+
 # ── Definições de agente ────────────────────────────────────────────────
 def _workdir_block(workdir: Path) -> str:
     return (
@@ -110,11 +111,11 @@ def _workdir_block(workdir: Path) -> str:
 
 
 def make_agents(workdir: Path) -> dict:
-    tests_file  = workdir / "tests" / "test_acceptance.py"
+    tests_file = workdir / "tests" / "test_acceptance.py"
     struct_file = workdir / "structure.yml"
-    src_dir     = workdir / "src" / "task"
-    conftest    = workdir / "conftest.py"
-    wb          = _workdir_block(workdir)
+    src_dir = workdir / "src" / "task"
+    conftest = workdir / "conftest.py"
+    wb = _workdir_block(workdir)
 
     return {
         "test-writer": AgentDefinition(
@@ -240,6 +241,19 @@ sys.path.insert(0, str(Path(__file__).parent / "src"))
 ```
 
 Isso permite `from task import ...` sem `pip install -e .`.
+
+## Wrapper de execução
+
+Crie `{workdir / "task"}` com o conteúdo abaixo e torne-o executável:
+
+```sh
+#!/bin/sh
+PYTHONPATH="$(dirname "$0")/src" exec python3 -m task "$@"
+```
+
+```bash
+chmod +x {workdir / "task"}
+```
 
 ## Ciclo de validação
 
@@ -511,7 +525,7 @@ def _prompt_stage_tests(workdir: Path) -> str:
 
 
 def _prompt_stage_structure(workdir: Path) -> str:
-    tests_file  = workdir / "tests" / "test_acceptance.py"
+    tests_file = workdir / "tests" / "test_acceptance.py"
     struct_file = workdir / "structure.yml"
     return (
         "Use o subagente `structure-writer` (via tool Agent). Diga a ele "
@@ -525,9 +539,9 @@ def _prompt_stage_structure(workdir: Path) -> str:
 
 def _prompt_stage_code(workdir: Path) -> str:
     struct_file = workdir / "structure.yml"
-    tests_file  = workdir / "tests" / "test_acceptance.py"
-    src_dir     = workdir / "src" / "task"
-    tests_dir   = workdir / "tests"
+    tests_file = workdir / "tests" / "test_acceptance.py"
+    src_dir = workdir / "src" / "task"
+    tests_dir = workdir / "tests"
     return (
         "Use o subagente `coder` (via tool Agent). Diga a ele para ler "
         f"`{struct_file}` e `{tests_file}`, implementar "
