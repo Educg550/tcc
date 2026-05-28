@@ -1,0 +1,235 @@
+!package
+children:
+-
+    !main_module
+    name: main
+    description: Ponto de entrada da CLI; exporta a funcao main() invocada via `python -m task`. Constroi o parser argparse de nivel superior, delega para os handlers de cada subcomando e trata SystemExit/erros de validacao retornando o codigo de saida adequado.
+-
+    !package
+    name: task
+    description: Pacote principal da CLI de tarefas. Contem o modelo de dominio, a camada de persistencia, os validadores de entrada e os handlers de cada subcomando.
+    children:
+    -
+        !class_module
+        name: models
+        class_name: Task
+        description: Modelo de dominio de uma tarefa. Encapsula id (int auto-incremental), title (str), priority ("low"|"medium"|"high"), due_date ("YYYY-MM-DD" ou null), done (bool) e created_at (ISO 8601).
+        methods:
+        -
+            !method
+            name: __init__
+            description: Construtor. Recebe todos os campos da tarefa.
+            parameters: [id, title, priority, due_date, done, created_at]
+        -
+            !method
+            name: to_dict
+            description: Serializa a tarefa para dicionario compativel com o JSON de persistencia.
+            parameters: []
+            returns: [dict]
+        -
+            !method
+            name: from_dict
+            description: Metodo de classe que desserializa um dicionario lido do JSON e retorna uma instancia Task.
+            parameters: [data]
+            returns: [Task]
+    -
+        !class_module
+        name: storage
+        class_name: TaskStorage
+        description: Camada de persistencia. Le e grava tasks.json no diretorio de trabalho informado. Garante criacao automatica do arquivo com estrutura {"version":1,"tasks":[]} se ausente. Nunca reutiliza IDs deletados (proximo ID = max(ids existentes) + 1).
+        methods:
+        -
+            !method
+            name: __init__
+            description: Construtor. Recebe o Path do diretorio onde tasks.json deve ser mantido.
+            parameters: [directory]
+        -
+            !method
+            name: _path
+            description: Retorna o Path completo para tasks.json dentro do diretorio configurado.
+            parameters: []
+            returns: [Path]
+        -
+            !method
+            name: _empty_store
+            description: Retorna o dicionario inicial {"version": 1, "tasks": []}.
+            parameters: []
+            returns: [dict]
+        -
+            !method
+            name: load
+            description: Le tasks.json. Se o arquivo nao existir, retorna estrutura vazia sem criar o arquivo (criacao ocorre apenas no save). Retorna dict bruto com version e tasks.
+            parameters: []
+            returns: [dict]
+        -
+            !method
+            name: save
+            description: Persiste o dict bruto (version + lista de tasks serializados) em tasks.json com encoding UTF-8. Cria o arquivo se nao existir.
+            parameters: [data]
+            returns: [None]
+        -
+            !method
+            name: all_tasks
+            description: Retorna lista de instancias Task carregadas do arquivo; lista vazia se arquivo ausente.
+            parameters: []
+            returns: [list[Task]]
+        -
+            !method
+            name: get_by_id
+            description: Retorna a Task com o id informado, ou None se nao existir.
+            parameters: [task_id]
+            returns: [Task | None]
+        -
+            !method
+            name: next_id
+            description: Calcula o proximo ID: 1 se lista vazia, ou max(ids existentes) + 1.
+            parameters: [tasks]
+            returns: [int]
+        -
+            !method
+            name: add_task
+            description: Cria e persiste nova Task com id auto-incremental e created_at em ISO 8601. Retorna a Task criada.
+            parameters: [title, priority, due_date]
+            returns: [Task]
+        -
+            !method
+            name: update_task
+            description: Atualiza apenas os campos nao-None informados na Task identificada por task_id e persiste. Retorna a Task atualizada ou None se nao encontrada.
+            parameters: [task_id, title, priority, due_date]
+            returns: [Task | None]
+        -
+            !method
+            name: mark_done
+            description: Define done=True na Task identificada por task_id e persiste. Retorna a Task ou None se nao encontrada.
+            parameters: [task_id]
+            returns: [Task | None]
+        -
+            !method
+            name: delete_task
+            description: Remove a Task com o task_id informado da lista e persiste. Retorna True se removida, False se nao encontrada.
+            parameters: [task_id]
+            returns: [bool]
+    -
+        !class_module
+        name: validators
+        class_name: Validators
+        description: Funcoes de validacao de entrada da CLI reutilizadas pelos handlers e pelo parser argparse.
+        methods:
+        -
+            !method
+            name: priority_type
+            description: Funcao type do argparse. Verifica se o valor esta em {low, medium, high}. Lanca argparse.ArgumentTypeError se invalido.
+            parameters: [value]
+            returns: [str]
+        -
+            !method
+            name: date_type
+            description: Funcao type do argparse. Verifica se a string esta no formato YYYY-MM-DD e representa uma data real. Lanca argparse.ArgumentTypeError se invalida.
+            parameters: [value]
+            returns: [str]
+    -
+        !class_module
+        name: handlers
+        class_name: Handlers
+        description: Logica de negocio de cada subcomando. Recebe TaskStorage injetado. Cada metodo retorna int com codigo de saida (0=sucesso, !=0=erro).
+        methods:
+        -
+            !method
+            name: __init__
+            description: Construtor. Recebe instancia de TaskStorage.
+            parameters: [storage]
+        -
+            !method
+            name: cmd_add
+            description: Executa `task add`. Persiste nova tarefa; retorna 0. Prioridade e data ja validadas pelo argparse via Validators.
+            parameters: [args]
+            returns: [int]
+        -
+            !method
+            name: cmd_list
+            description: Executa `task list`. Filtra por status (pendente/todas/apenas-concluidas via --all/--done) e por prioridade via -p. Imprime id, titulo e campos relevantes no stdout. Retorna 0.
+            parameters: [args]
+            returns: [int]
+        -
+            !method
+            name: cmd_done
+            description: Executa `task done <id>`. Busca tarefa; se inexistente imprime erro em stderr e retorna 1. Caso contrario marca done=True, persiste e retorna 0.
+            parameters: [args]
+            returns: [int]
+        -
+            !method
+            name: cmd_edit
+            description: Executa `task edit <id>`. Atualiza apenas campos informados. Retorna 1 com mensagem em stderr se ID inexistente ou validacao falhar; retorna 0 em sucesso.
+            parameters: [args]
+            returns: [int]
+        -
+            !method
+            name: cmd_delete
+            description: Executa `task delete <id>`. Com --force remove diretamente; sem flag le confirmacao y/N do stdin. Retorna 1 se ID inexistente; 0 em sucesso ou cancelamento pelo usuario.
+            parameters: [args]
+            returns: [int]
+        -
+            !method
+            name: cmd_show
+            description: Executa `task show <id>`. Imprime todos os campos da tarefa (id, title, priority, due_date, done, created_at) no stdout. Retorna 1 com mensagem em stderr se ID inexistente; 0 em sucesso.
+            parameters: [args]
+            returns: [int]
+    -
+        !class_module
+        name: cli
+        class_name: CLI
+        description: Monta o ArgumentParser completo com todos os subcomandos e seus argumentos (incluindo Validators como type functions). Expoe parse_and_run para ser chamado por main().
+        methods:
+        -
+            !method
+            name: __init__
+            description: Construtor. Recebe instancia de Handlers e constroi o parser com todos os subparsers.
+            parameters: [handlers]
+        -
+            !method
+            name: _build_parser
+            description: Cria o ArgumentParser principal e registra os subparsers add, list, done, edit, delete e show com seus respectivos argumentos e funcoes type.
+            parameters: []
+            returns: [argparse.ArgumentParser]
+        -
+            !method
+            name: _register_add
+            description: Registra o subparser do comando add (positional title, -p/--priority com Validators.priority_type, -d/--due com Validators.date_type).
+            parameters: [subparsers]
+            returns: [None]
+        -
+            !method
+            name: _register_list
+            description: Registra o subparser do comando list (-a/--all, --done, -p/--priority com Validators.priority_type).
+            parameters: [subparsers]
+            returns: [None]
+        -
+            !method
+            name: _register_done
+            description: Registra o subparser do comando done (positional id como int).
+            parameters: [subparsers]
+            returns: [None]
+        -
+            !method
+            name: _register_edit
+            description: Registra o subparser do comando edit (positional id como int, --title, -p/--priority, -d/--due).
+            parameters: [subparsers]
+            returns: [None]
+        -
+            !method
+            name: _register_delete
+            description: Registra o subparser do comando delete (positional id como int, --force flag booleano).
+            parameters: [subparsers]
+            returns: [None]
+        -
+            !method
+            name: _register_show
+            description: Registra o subparser do comando show (positional id como int).
+            parameters: [subparsers]
+            returns: [None]
+        -
+            !method
+            name: parse_and_run
+            description: Faz parse de argv (ou sys.argv[1:]), invoca o handler associado ao subcomando e retorna o codigo de saida inteiro.
+            parameters: [argv]
+            returns: [int]
