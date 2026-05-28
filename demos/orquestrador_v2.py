@@ -13,6 +13,11 @@ Uso (a partir de `demos/`):
 
 Ou da raiz do TCC:
     uv run --project demos demos/orquestrador_v2.py
+
+Para rodar o output gerado:
+    cd output/task-cli-orquestrado-v2
+    export PATH="$PATH:$(pwd)"
+    task add "minha tarefa"
 """
 
 import asyncio
