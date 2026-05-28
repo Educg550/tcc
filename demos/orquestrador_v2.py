@@ -422,6 +422,7 @@ async def run_stage(
         elif isinstance(message, ResultMessage):
             last_result = message
 
+    # o SDK garante exatamente um ResultMessage como última mensagem do stream
     if last_result is None:
         raise RuntimeError(f"etapa {stage_id}: query() terminou sem ResultMessage")
 
