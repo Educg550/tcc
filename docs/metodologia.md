@@ -9,7 +9,7 @@ title: Metodologia
 
 Para garantir um experimento controlado e reproduzível, o escopo é limitado a:
 
-- **10–20 requisitos fechados** de um sistema com frontend (ex: CRUD web simples — sistema de tarefas ou cadastro de usuários)
+- **10–20 requisitos fechados** de um sistema com frontend (ex: CRUD web simples - sistema de tarefas ou cadastro de usuários)
 - Cada requisito é uma funcionalidade atômica e verificável
 - Frontend é necessário para que o CUA possa interagir visualmente com o sistema
 
@@ -19,7 +19,7 @@ Para garantir um experimento controlado e reproduzível, o escopo é limitado a:
 
 | Grupo | Pipeline | Avaliação |
 |-------|----------|-----------|
-| **Baseline** | LLM recebe requisito → implementa diretamente | — |
+| **Baseline** | LLM recebe requisito → implementa diretamente | - |
 | **Experimental** | Agente A gera testes → Agente B implementa → CI → CUA valida comportamento | CI + CUA |
 
 Ambos os grupos recebem os mesmos requisitos. O baseline é a geração direta sem estrutura de testes. O experimental acrescenta geração automática de testes (TDD) e validação comportamental via CUA.

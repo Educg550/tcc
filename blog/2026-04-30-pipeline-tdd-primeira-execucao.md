@@ -21,7 +21,7 @@ sob uma única chave de API e permite comparar modelos facilmente.
 ## O que mudou no script
 
 A principal diferença em relação ao post anterior é o modelo dos subagentes:
-para esta demo todos os agentes — orquestrador, `test-writer` e `coder` —
+para esta demo todos os agentes - orquestrador, `test-writer` e `coder` -
 foram configurados como `haiku` (Claude Haiku 4.5), o modelo mais leve da família.
 O post anterior previa Sonnet para os subagentes, mas para fins de demonstração
 do mecanismo de orquestração o Haiku é suficiente e muito mais barato.
@@ -51,7 +51,7 @@ A sequência de eventos registrada em `LOGS.txt`:
 | ~57s  | `coder` escreve `cpf.py` (Write) |
 | ~59s  | `coder` roda `python -m pytest tests/ -v` (Bash) |
 | ~62s  | `coder` relê `cpf.py` para confirmação |
-| **71s** | **Pipeline concluído — status: `success`** |
+| **71s** | **Pipeline concluído - status: `success`** |
 
 O orquestrador nunca escreveu código: seu único trabalho foi despachar
 os subagentes na ordem correta usando a tool `Agent`.
@@ -78,7 +78,7 @@ Implementação completa da função `validar_cpf(cpf: str) -> bool` com:
 - Rejeição de CPFs com todos os dígitos iguais
 - Algoritmo de módulo 11 para os dois dígitos verificadores
 
-Todos os 35 testes passaram na primeira tentativa do `coder` — sem nenhuma iteração de correção.
+Todos os 35 testes passaram na primeira tentativa do `coder` - sem nenhuma iteração de correção.
 
 ## Custo
 

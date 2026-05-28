@@ -90,10 +90,10 @@ e carrega o corpo completo do `SKILL.md` das selecionadas.
 
 Existem duas abordagens de integração:
 
-- **Filesystem-based** — o agente opera em um ambiente Unix e acessa os arquivos da Skill
+- **Filesystem-based** - o agente opera em um ambiente Unix e acessa os arquivos da Skill
   via comandos de shell (`cat`, `python scripts/...`).
   É a abordagem mais completa, pois permite execução direta de scripts.
-- **Tool-based** — o agente não tem acesso direto ao sistema de arquivos
+- **Tool-based** - o agente não tem acesso direto ao sistema de arquivos
   e implementa ferramentas próprias para carregar e executar os recursos da Skill.
 
 Qualquer SDK pode adicionar suporte a Skills
@@ -103,7 +103,7 @@ seguindo o [guia de integração oficial](https://agentskills.io/integrate-skill
 
 A Anthropic disponibiliza Skills como **artefatos versionáveis e modulares**,
 com quatro pontos de acesso principais: **Claude API**, **Claude Code**, **Claude Agent SDK** e **Claude.ai / Claude Desktop**.
-Todos seguem o mesmo modelo conceitual —
+Todos seguem o mesmo modelo conceitual -
 a diferença entre as plataformas está apenas na superfície de gerenciamento e carregamento da Skill.
 
 | Aspecto | Claude API | Claude Code | Agent SDK | Claude.ai / Desktop |
@@ -120,7 +120,7 @@ Na API, Skills são **recursos do workspace**, gerenciados via CRUD
 e executados dentro de um container de `code_execution`.
 O container garante isolamento total: sem acesso à rede, ambiente reprodutível,
 com suporte a até 8 Skills por requisição.
-Cada Skill possui versões imutáveis — em produção, sempre use versões fixas.
+Cada Skill possui versões imutáveis - em produção, sempre use versões fixas.
 
 Para usar Skills via API, é necessário habilitar os betas `code-execution-*` e `skills-*`.
 O registro é feito via `client.beta.skills.create`
@@ -176,7 +176,7 @@ O escopo determina onde o agente procura por Skills:
 | Enterprise | Managed settings |
 
 A prioridade de carregamento segue a ordem: `enterprise > user > project`.
-A invocação pode ser automática — o agente detecta a Skill relevante pela descrição —
+A invocação pode ser automática - o agente detecta a Skill relevante pela descrição -
 ou manual, via comando explícito:
 
 ```bash
@@ -198,11 +198,11 @@ mas **não existe API para registrá-las**: elas devem estar presentes no filesy
 que está executando o script.
 Há três escopos disponíveis:
 
-- **Project Skills** (`.claude/skills/`) — compartilhadas via git com a equipe;
+- **Project Skills** (`.claude/skills/`) - compartilhadas via git com a equipe;
   carregadas quando `setting_sources` inclui `"project"`.
-- **User Skills** (`~/.claude/skills/`) — Skills pessoais, disponíveis em todos os projetos;
+- **User Skills** (`~/.claude/skills/`) - Skills pessoais, disponíveis em todos os projetos;
   carregadas quando `setting_sources` inclui `"user"`.
-- **Plugin Skills** — empacotadas com plugins instalados do Claude Code.
+- **Plugin Skills** - empacotadas com plugins instalados do Claude Code.
 
 Para usar Skills no SDK, é obrigatório configurar `setting_sources`
 e incluir `"Skill"` em `allowed_tools`.
@@ -231,7 +231,7 @@ asyncio.run(main())
 ### Claude.ai e Claude Desktop
 
 No Claude.ai e no Claude Desktop, Skills são **pacotes ZIP carregados via interface gráfica**,
-executados em container sandboxed — o mesmo ambiente isolado usado pela Claude API.
+executados em container sandboxed - o mesmo ambiente isolado usado pela Claude API.
 O pré-requisito é que a opção `Code execution and file creation` esteja habilitada.
 
 Há três categorias de Skills disponíveis nessa superfície:
@@ -257,14 +257,14 @@ O usuário pode forçar a ativação com uma instrução explícita:
 
 MCP Servers expõem ferramentas e recursos via protocolo,
 exigindo um servidor em execução, configuração de transporte e integração com o cliente.
-Skills são arquivos estáticos — sem servidor, sem processo, sem protocolo.
+Skills são arquivos estáticos - sem servidor, sem processo, sem protocolo.
 
 | Aspecto | Agent Skills | MCP Server |
 |---------|-------------|------------|
-| **Infraestrutura** | Nenhuma — diretório local | Servidor em execução (stdio ou HTTP) |
+| **Infraestrutura** | Nenhuma - diretório local | Servidor em execução (stdio ou HTTP) |
 | **Consumo de tokens** | Sob demanda, por nível de disclosure | Ferramentas listadas no contexto a cada sessão |
 | **Acesso ao conhecimento** | Local, offline, sem latência de rede | Requer chamada de ferramenta para cada consulta |
-| **Versionamento** | Git nativo — é só um diretório | Depende de versionamento da API ou do servidor |
+| **Versionamento** | Git nativo - é só um diretório | Depende de versionamento da API ou do servidor |
 | **Distribuição** | Copiar ou zipar o diretório | Build, publicação e hospedagem do servidor |
 
 A principal vantagem de custo é o **disclosure progressivo**:
@@ -290,6 +290,6 @@ que não escala bem quando há necessidade de compor um agente conectado a múlt
 
 ## Referências
 
-- [Curso: Agent Skills with Anthropic — DeepLearning.AI](https://www.deeplearning.ai/short-courses/agent-skills-with-anthropic/)
+- [Curso: Agent Skills with Anthropic - DeepLearning.AI](https://www.deeplearning.ai/short-courses/agent-skills-with-anthropic/)
 - [Repositório oficial do padrão Agent Skills](https://github.com/agentskills/agentskills)
 - [Site oficial do padrão Agent Skills](https://agentskills.io/)

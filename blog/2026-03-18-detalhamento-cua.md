@@ -108,25 +108,25 @@ baseadas em experiência própria de uso e em benchmarks consolidados em pesquis
 Existem benchmarks dedicados para avaliar CUAs em diferentes contextos. Os principais
 avaliados na pesquisa foram:
 
-- **[OS World](https://os-world.github.io/)** — 369 tarefas abertas em sistemas
+- **[OS World](https://os-world.github.io/)** - 369 tarefas abertas em sistemas
 operacionais reais. O melhor modelo avaliado em 18/12/2025 foi o
 `claude-sonnet-4-5-20250929` com **62.9%** de taxa de sucesso.
 
-- **[REAL](https://arxiv.org/pdf/2504.11543)** — 112 tarefas práticas em réplicas
+- **[REAL](https://arxiv.org/pdf/2504.11543)** - 112 tarefas práticas em réplicas
 determinísticas de 11 sites populares (e-commerce, viagens, etc.). Os melhores modelos
 atingem no máximo **41%** de taxa de sucesso, evidenciando limitações críticas na
 navegação web autônoma.
 
-- **[Online Mind2Web](https://hal.cs.princeton.edu/online_mind2web)** — versão ao
+- **[Online Mind2Web](https://hal.cs.princeton.edu/online_mind2web)** - versão ao
 vivo do Mind2Web, que testa agentes contra interfaces web dinâmicas em tempo real. O
 melhor resultado registrado em 09/01/2026 foi do GPT-5 Medium com **42.33%** de sucesso
 usando o framework SeeAct.
 
-- **[WebVoyager](https://arxiv.org/abs/2401.13919)** — navegação autônoma em 15
+- **[WebVoyager](https://arxiv.org/abs/2401.13919)** - navegação autônoma em 15
 categorias de sites reais. O Magnitude liderou em 09/01/2026 com **93.9%** de sucesso,
 seguido por frameworks como Browser Use e Convergence Proxy.
 
-- **[AndroidWorld](https://google-research.github.io/android_world/)** — 116 tarefas
+- **[AndroidWorld](https://google-research.github.io/android_world/)** - 116 tarefas
 em 20 aplicativos Android reais. O AGI-0 liderou em 10/2025 com **97.4%** de sucesso;
 o agente M3A (linha de base original do benchmark) completou apenas **30.6%** das
 tarefas.

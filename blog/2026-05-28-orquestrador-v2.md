@@ -23,7 +23,7 @@ O v2 separa as responsabilidades em três `query()` isolados, tornando cada etap
 | 2 | `structure-writer` | Sonnet | `structure.yml` |
 | 3 | `coder` | Haiku | `src/task/*.py` |
 
-O `structure.yml` segue o formato Onion (`!package` na raiz) — lista de pacotes, classes e métodos necessários para fazer os testes passarem, sem nenhum código de produção.
+O `structure.yml` segue o formato Onion (`!package` na raiz) - lista de pacotes, classes e métodos necessários para fazer os testes passarem, sem nenhum código de produção.
 
 ## Aprovação humana
 

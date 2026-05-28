@@ -1,6 +1,6 @@
-# TCC — Eduardo Cruz Guedes
+# TCC - Eduardo Cruz Guedes
 
-Site hub do TCC de Eduardo Cruz Guedes, NUSP 13672752, Bacharelado em Ciência da Computação (5º ano) — IME-USP.
+Site hub do TCC de Eduardo Cruz Guedes, NUSP 13672752, Bacharelado em Ciência da Computação (5º ano) - IME-USP.
 
 **Orientadores:** Prof. Paulo Meirelles (IME-USP) · Prof. Jorge Melegati (Universidade do Porto)
 
@@ -27,6 +27,6 @@ GitHub Pages ativado via: **Settings → Pages → Source → branch `gh-pages`*
 
 ## Estrutura
 
-- `docs/` — documentação principal do TCC (proposta, metodologia, referências)
-- `blog/` — diário de pesquisa
-- `raw/` — materiais brutos (ignorado pelo git)
+- `docs/` - documentação principal do TCC (proposta, metodologia, referências)
+- `blog/` - diário de pesquisa
+- `raw/` - materiais brutos (ignorado pelo git)

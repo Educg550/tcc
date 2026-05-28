@@ -19,7 +19,7 @@ O requisito de exemplo é trivial, apenas fazer uma função `validar_cpf(cpf) -
 
 ```
 ┌──────────────────┐
-│  Orquestrador    │  (Haiku — só coordena, não escreve código)
+│  Orquestrador    │  (Haiku - só coordena, não escreve código)
 │  "pipeline TDD"  │
 └────┬────────┬────┘
      │        │

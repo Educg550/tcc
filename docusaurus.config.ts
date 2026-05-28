@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'TCC — Eduardo Cruz Guedes',
+  title: 'TCC - Eduardo Cruz Guedes',
   tagline: 'Pipeline Multiagente com TDD e Validação via CUA',
   favicon: 'img/favicon.ico',
 
@@ -61,7 +61,7 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'TCC — Eduardo Cruz Guedes',
+      title: 'TCC - Eduardo Cruz Guedes',
       items: [
         {
           type: 'docSidebar',
@@ -97,7 +97,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Eduardo Cruz Guedes (educg550@usp.br) — NUSP 13672752 — BCC IME-USP · Orientadores: Prof. Paulo Meirelles & Prof. Jorge Melegati`,
+      copyright: `Eduardo Cruz Guedes (educg550@usp.br) - NUSP 13672752 - BCC IME-USP · Orientadores: Prof. Paulo Meirelles & Prof. Jorge Melegati`,
     },
     prism: {
       theme: prismThemes.github,
