@@ -19,6 +19,8 @@ para mover o cursor pela tela do computador, clicar em locais relevantes e inser
 informações por meio de um teclado virtual, emulando a forma como as pessoas 
 interagem com seus próprios computadores.
 
+<!-- truncate -->
+
 Abaixo um esquema visual representando o fluxo de ações de um CUA:
 
 ![Fonte: OpenAI](/img/cua/cua-diagram.webp)
