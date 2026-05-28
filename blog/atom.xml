@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://educg550.github.io/tcc/blog</id>
-    <title>TCC — Eduardo Cruz Guedes Blog</title>
+    <title>TCC - Eduardo Cruz Guedes Blog</title>
     <updated>2026-05-28T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://educg550.github.io/tcc/blog"/>
-    <subtitle>TCC — Eduardo Cruz Guedes Blog</subtitle>
+    <subtitle>TCC - Eduardo Cruz Guedes Blog</subtitle>
     <icon>https://educg550.github.io/tcc/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Orquestrador v2: etapas separadas e aprovação humana]]></title>
@@ -19,7 +19,7 @@
 <p>O v2 separa as responsabilidades em três <code>query()</code> isolados, tornando cada etapa inspecionável antes de avançar.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="as-três-etapas">As três etapas<a href="https://educg550.github.io/tcc/blog/orquestrador-v2#as-tr%C3%AAs-etapas" class="hash-link" aria-label="Link direto para As três etapas" title="Link direto para As três etapas" translate="no">​</a></h2>
 <table><thead><tr><th>Etapa</th><th>Subagente</th><th>Modelo</th><th>Artefato produzido</th></tr></thead><tbody><tr><td>1</td><td><code>test-writer</code></td><td>Sonnet</td><td><code>tests/test_acceptance.py</code></td></tr><tr><td>2</td><td><code>structure-writer</code></td><td>Sonnet</td><td><code>structure.yml</code></td></tr><tr><td>3</td><td><code>coder</code></td><td>Haiku</td><td><code>src/task/*.py</code></td></tr></tbody></table>
-<p>O <code>structure.yml</code> segue o formato Onion (<code>!package</code> na raiz) — lista de pacotes, classes e métodos necessários para fazer os testes passarem, sem nenhum código de produção.</p>
+<p>O <code>structure.yml</code> segue o formato Onion (<code>!package</code> na raiz) - lista de pacotes, classes e métodos necessários para fazer os testes passarem, sem nenhum código de produção.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="aprovação-humana">Aprovação humana<a href="https://educg550.github.io/tcc/blog/orquestrador-v2#aprova%C3%A7%C3%A3o-humana" class="hash-link" aria-label="Link direto para Aprovação humana" title="Link direto para Aprovação humana" translate="no">​</a></h2>
 <p>Após cada etapa o orquestrador imprime o artefato gerado e pede <code>y/n</code>. Se o usuário digitar <code>n</code>, o feedback textual é solicitado e a etapa é re-executada com o feedback alimentado.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="caso-de-uso">Caso de uso<a href="https://educg550.github.io/tcc/blog/orquestrador-v2#caso-de-uso" class="hash-link" aria-label="Link direto para Caso de uso" title="Link direto para Caso de uso" translate="no">​</a></h2>
@@ -51,7 +51,7 @@ um gateway que unifica o acesso a vários provedores de LLM (Anthropic, OpenAI, 
 sob uma única chave de API e permite comparar modelos facilmente.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-que-mudou-no-script">O que mudou no script<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#o-que-mudou-no-script" class="hash-link" aria-label="Link direto para O que mudou no script" title="Link direto para O que mudou no script" translate="no">​</a></h2>
 <p>A principal diferença em relação ao post anterior é o modelo dos subagentes:
-para esta demo todos os agentes — orquestrador, <code>test-writer</code> e <code>coder</code> —
+para esta demo todos os agentes - orquestrador, <code>test-writer</code> e <code>coder</code> -
 foram configurados como <code>haiku</code> (Claude Haiku 4.5), o modelo mais leve da família.
 O post anterior previa Sonnet para os subagentes, mas para fins de demonstração
 do mecanismo de orquestração o Haiku é suficiente e muito mais barato.</p>
@@ -59,7 +59,7 @@ do mecanismo de orquestração o Haiku é suficiente e muito mais barato.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-execução">A execução<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#a-execu%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para A execução" title="Link direto para A execução" translate="no">​</a></h2>
 <p>O pipeline foi disparado em <strong>30/04/2026 às 11:01:47</strong> (horário de Brasília).
 A sequência de eventos registrada em <code>LOGS.txt</code>:</p>
-<table><thead><tr><th>Tempo</th><th>Evento</th></tr></thead><tbody><tr><td>0s</td><td>Orquestrador inicia, anuncia a Etapa 1</td></tr><tr><td>~10s</td><td>Chama subagente <code>test-writer</code> via tool <code>Agent</code></td></tr><tr><td>~26s</td><td><code>test-writer</code> faz <code>ls</code> no diretório de trabalho</td></tr><tr><td>~45s</td><td><code>test-writer</code> escreve <code>tests/test_cpf.py</code> (Write)</td></tr><tr><td>~46s</td><td>Orquestrador passa para a Etapa 2, chama <code>coder</code></td></tr><tr><td>~48s</td><td><code>coder</code> lê os testes (Read)</td></tr><tr><td>~50s</td><td><code>coder</code> faz <code>ls</code></td></tr><tr><td>~57s</td><td><code>coder</code> escreve <code>cpf.py</code> (Write)</td></tr><tr><td>~59s</td><td><code>coder</code> roda <code>python -m pytest tests/ -v</code> (Bash)</td></tr><tr><td>~62s</td><td><code>coder</code> relê <code>cpf.py</code> para confirmação</td></tr><tr><td><strong>71s</strong></td><td><strong>Pipeline concluído — status: <code>success</code></strong></td></tr></tbody></table>
+<table><thead><tr><th>Tempo</th><th>Evento</th></tr></thead><tbody><tr><td>0s</td><td>Orquestrador inicia, anuncia a Etapa 1</td></tr><tr><td>~10s</td><td>Chama subagente <code>test-writer</code> via tool <code>Agent</code></td></tr><tr><td>~26s</td><td><code>test-writer</code> faz <code>ls</code> no diretório de trabalho</td></tr><tr><td>~45s</td><td><code>test-writer</code> escreve <code>tests/test_cpf.py</code> (Write)</td></tr><tr><td>~46s</td><td>Orquestrador passa para a Etapa 2, chama <code>coder</code></td></tr><tr><td>~48s</td><td><code>coder</code> lê os testes (Read)</td></tr><tr><td>~50s</td><td><code>coder</code> faz <code>ls</code></td></tr><tr><td>~57s</td><td><code>coder</code> escreve <code>cpf.py</code> (Write)</td></tr><tr><td>~59s</td><td><code>coder</code> roda <code>python -m pytest tests/ -v</code> (Bash)</td></tr><tr><td>~62s</td><td><code>coder</code> relê <code>cpf.py</code> para confirmação</td></tr><tr><td><strong>71s</strong></td><td><strong>Pipeline concluído - status: <code>success</code></strong></td></tr></tbody></table>
 <p>O orquestrador nunca escreveu código: seu único trabalho foi despachar
 os subagentes na ordem correta usando a tool <code>Agent</code>.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="artefatos-gerados">Artefatos gerados<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#artefatos-gerados" class="hash-link" aria-label="Link direto para Artefatos gerados" title="Link direto para Artefatos gerados" translate="no">​</a></h2>
@@ -73,7 +73,7 @@ os subagentes na ordem correta usando a tool <code>Agent</code>.</p>
 <li class="">Rejeição de CPFs com todos os dígitos iguais</li>
 <li class="">Algoritmo de módulo 11 para os dois dígitos verificadores</li>
 </ul>
-<p>Todos os 35 testes passaram na primeira tentativa do <code>coder</code> — sem nenhuma iteração de correção.</p>
+<p>Todos os 35 testes passaram na primeira tentativa do <code>coder</code> - sem nenhuma iteração de correção.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="custo">Custo<a href="https://educg550.github.io/tcc/blog/pipeline-tdd-primeira-execucao#custo" class="hash-link" aria-label="Link direto para Custo" title="Link direto para Custo" translate="no">​</a></h2>
 <p>Os dados de billing do OpenRouter ficaram registrados em <code>orquestrador_claude.csv</code>:</p>
 <table><thead><tr><th>Período (UTC)</th><th>Requests</th><th>Prompt tokens</th><th>Completion tokens</th><th>Custo (USD)</th></tr></thead><tbody><tr><td>14:01</td><td>9</td><td>121.600</td><td>3.823</td><td>$0.054411</td></tr><tr><td>14:02</td><td>3</td><td>34.479</td><td>3.353</td><td>$0.051632</td></tr><tr><td><strong>Total</strong></td><td><strong>12</strong></td><td><strong>156.079</strong></td><td><strong>7.176</strong></td><td><strong>$0.106043</strong></td></tr></tbody></table>
@@ -106,7 +106,7 @@ o conceito central do TCC: <strong>um orquestrador que coordena subagentes
 especializados no fluxo Requisito → Testes → Código</strong>.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-que-o-script-faz">O que o script faz<a href="https://educg550.github.io/tcc/blog/orquestrador-hello-world#o-que-o-script-faz" class="hash-link" aria-label="Link direto para O que o script faz" title="Link direto para O que o script faz" translate="no">​</a></h2>
 <p>O requisito de exemplo é trivial, apenas fazer uma função <code>validar_cpf(cpf) -&gt; bool</code>:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">┌──────────────────┐</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  Orquestrador    │  (Haiku — só coordena, não escreve código)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  "pipeline TDD"  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">└────┬────────┬────┘</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">     │        │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">     ▼        │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">┌──────────┐  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  Agente  │  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  test-   │  │  1. Recebe o requisito</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  writer  │  │  2. Gera testes pytest (tests/test_cpf.py)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│ (Sonnet) │  │  3. NÃO implementa nada</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">└──────────┘  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              ▼</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        ┌──────────┐</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │  Agente  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │  coder   │  1. Lê os testes gerados</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │ (Sonnet) │  2. Implementa cpf.py</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        └──────────┘  3. Roda pytest e corrige até passar</span><br></span></code></pre></div></div>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">┌──────────────────┐</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  Orquestrador    │  (Haiku - só coordena, não escreve código)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  "pipeline TDD"  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">└────┬────────┬────┘</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">     │        │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">     ▼        │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">┌──────────┐  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  Agente  │  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  test-   │  │  1. Recebe o requisito</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│  writer  │  │  2. Gera testes pytest (tests/test_cpf.py)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│ (Sonnet) │  │  3. NÃO implementa nada</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">└──────────┘  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">              ▼</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        ┌──────────┐</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │  Agente  │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │  coder   │  1. Lê os testes gerados</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        │ (Sonnet) │  2. Implementa cpf.py</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        └──────────┘  3. Roda pytest e corrige até passar</span><br></span></code></pre></div></div>
 <p>O orquestrador roda em Haiku (modelo leve e barato) porque ele só precisa
 despachar os subagentes na ordem certa.
 Os subagentes que fazem o trabalho de escrever testes e código, eles rodam com o Claude Sonnet.</p>
@@ -187,10 +187,10 @@ Durante uma tarefa, o agente decide por conta própria quais Skills são relevan
 e carrega o corpo completo do <code>SKILL.md</code> das selecionadas.</p>
 <p>Existem duas abordagens de integração:</p>
 <ul>
-<li class=""><strong>Filesystem-based</strong> — o agente opera em um ambiente Unix e acessa os arquivos da Skill
+<li class=""><strong>Filesystem-based</strong> - o agente opera em um ambiente Unix e acessa os arquivos da Skill
 via comandos de shell (<code>cat</code>, <code>python scripts/...</code>).
 É a abordagem mais completa, pois permite execução direta de scripts.</li>
-<li class=""><strong>Tool-based</strong> — o agente não tem acesso direto ao sistema de arquivos
+<li class=""><strong>Tool-based</strong> - o agente não tem acesso direto ao sistema de arquivos
 e implementa ferramentas próprias para carregar e executar os recursos da Skill.</li>
 </ul>
 <p>Qualquer SDK pode adicionar suporte a Skills
@@ -198,7 +198,7 @@ seguindo o <a href="https://agentskills.io/integrate-skills" target="_blank" rel
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-a-anthropic-usa-skills-em-cada-uma-de-suas-plataformas">Como a Anthropic usa Skills em cada uma de suas plataformas?<a href="https://educg550.github.io/tcc/blog/agent-skills#como-a-anthropic-usa-skills-em-cada-uma-de-suas-plataformas" class="hash-link" aria-label="Link direto para Como a Anthropic usa Skills em cada uma de suas plataformas?" title="Link direto para Como a Anthropic usa Skills em cada uma de suas plataformas?" translate="no">​</a></h2>
 <p>A Anthropic disponibiliza Skills como <strong>artefatos versionáveis e modulares</strong>,
 com quatro pontos de acesso principais: <strong>Claude API</strong>, <strong>Claude Code</strong>, <strong>Claude Agent SDK</strong> e <strong>Claude.ai / Claude Desktop</strong>.
-Todos seguem o mesmo modelo conceitual —
+Todos seguem o mesmo modelo conceitual -
 a diferença entre as plataformas está apenas na superfície de gerenciamento e carregamento da Skill.</p>
 <table><thead><tr><th>Aspecto</th><th>Claude API</th><th>Claude Code</th><th>Agent SDK</th><th>Claude.ai / Desktop</th></tr></thead><tbody><tr><td>Registro</td><td>Via API (workspace)</td><td>Arquivo local</td><td>Arquivo local</td><td>Upload ZIP via GUI</td></tr><tr><td>Versionamento</td><td>Explícito</td><td>Git</td><td>Git</td><td>Reupload</td></tr><tr><td>Execução</td><td>Container isolado</td><td>Runtime CLI</td><td>Runtime SDK</td><td>Container isolado</td></tr><tr><td>Controle de tools</td><td>Via request</td><td>Frontmatter</td><td><code>allowed_tools</code></td><td>Via GUI</td></tr><tr><td>Disclosure progressivo</td><td>Sim</td><td>Sim</td><td>Sim</td><td>Sim</td></tr></tbody></table>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="claude-api">Claude API<a href="https://educg550.github.io/tcc/blog/agent-skills#claude-api" class="hash-link" aria-label="Link direto para Claude API" title="Link direto para Claude API" translate="no">​</a></h3>
@@ -206,7 +206,7 @@ a diferença entre as plataformas está apenas na superfície de gerenciamento e
 e executados dentro de um container de <code>code_execution</code>.
 O container garante isolamento total: sem acesso à rede, ambiente reprodutível,
 com suporte a até 8 Skills por requisição.
-Cada Skill possui versões imutáveis — em produção, sempre use versões fixas.</p>
+Cada Skill possui versões imutáveis - em produção, sempre use versões fixas.</p>
 <p>Para usar Skills via API, é necessário habilitar os betas <code>code-execution-*</code> e <code>skills-*</code>.
 O registro é feito via <code>client.beta.skills.create</code>
 e a inclusão na requisição é feita via o parâmetro <code>container.skills</code>.</p>
@@ -216,7 +216,7 @@ e a inclusão na requisição é feita via o parâmetro <code>container.skills</
 O escopo determina onde o agente procura por Skills:</p>
 <table><thead><tr><th>Escopo</th><th>Caminho</th></tr></thead><tbody><tr><td>Usuário</td><td><code>~/.claude/skills/</code></td></tr><tr><td>Projeto</td><td><code>.claude/skills/</code></td></tr><tr><td>Enterprise</td><td>Managed settings</td></tr></tbody></table>
 <p>A prioridade de carregamento segue a ordem: <code>enterprise &gt; user &gt; project</code>.
-A invocação pode ser automática — o agente detecta a Skill relevante pela descrição —
+A invocação pode ser automática - o agente detecta a Skill relevante pela descrição -
 ou manual, via comando explícito:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/skill-name faça X, Y e Z com essa Skill</span><br></span></code></pre></div></div>
 <p>Para executar uma Skill em contexto isolado, sem acesso ao histórico principal,
@@ -228,11 +228,11 @@ mas <strong>não existe API para registrá-las</strong>: elas devem estar presen
 que está executando o script.
 Há três escopos disponíveis:</p>
 <ul>
-<li class=""><strong>Project Skills</strong> (<code>.claude/skills/</code>) — compartilhadas via git com a equipe;
+<li class=""><strong>Project Skills</strong> (<code>.claude/skills/</code>) - compartilhadas via git com a equipe;
 carregadas quando <code>setting_sources</code> inclui <code>"project"</code>.</li>
-<li class=""><strong>User Skills</strong> (<code>~/.claude/skills/</code>) — Skills pessoais, disponíveis em todos os projetos;
+<li class=""><strong>User Skills</strong> (<code>~/.claude/skills/</code>) - Skills pessoais, disponíveis em todos os projetos;
 carregadas quando <code>setting_sources</code> inclui <code>"user"</code>.</li>
-<li class=""><strong>Plugin Skills</strong> — empacotadas com plugins instalados do Claude Code.</li>
+<li class=""><strong>Plugin Skills</strong> - empacotadas com plugins instalados do Claude Code.</li>
 </ul>
 <p>Para usar Skills no SDK, é obrigatório configurar <code>setting_sources</code>
 e incluir <code>"Skill"</code> em <code>allowed_tools</code>.
@@ -240,7 +240,7 @@ O campo <code>allowed-tools</code> do frontmatter <strong>não se aplica no SDK<
 <div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> asyncio</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">from</span><span class="token plain"> claude_agent_sdk </span><span class="token keyword" style="color:#00009f">import</span><span class="token plain"> query</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> ClaudeAgentOptions</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">async</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">main</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    options </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> ClaudeAgentOptions</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        cwd</span><span class="token operator" style="color:#393A34">=</span><span class="token string" style="color:#e3116c">"/path/to/project"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        setting_sources</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">"user"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"project"</span><span class="token punctuation" style="color:#393A34">]</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain">  </span><span class="token comment" style="color:#999988;font-style:italic"># Define o escopo onde procurar por Skills</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        allowed_tools</span><span class="token operator" style="color:#393A34">=</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">"Skill"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Read"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"> </span><span class="token string" style="color:#e3116c">"Bash"</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">async</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">for</span><span class="token plain"> msg </span><span class="token keyword" style="color:#00009f">in</span><span class="token plain"> query</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        prompt</span><span class="token operator" style="color:#393A34">=</span><span class="token string" style="color:#e3116c">"What skills are available?"</span><span class="token punctuation" style="color:#393A34">,</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        options</span><span class="token operator" style="color:#393A34">=</span><span class="token plain">options</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">        </span><span class="token keyword" style="color:#00009f">print</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">msg</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">asyncio</span><span class="token punctuation" style="color:#393A34">.</span><span class="token plain">run</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">main</span><span class="token punctuation" style="color:#393A34">(</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">)</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="claudeai-e-claude-desktop">Claude.ai e Claude Desktop<a href="https://educg550.github.io/tcc/blog/agent-skills#claudeai-e-claude-desktop" class="hash-link" aria-label="Link direto para Claude.ai e Claude Desktop" title="Link direto para Claude.ai e Claude Desktop" translate="no">​</a></h3>
 <p>No Claude.ai e no Claude Desktop, Skills são <strong>pacotes ZIP carregados via interface gráfica</strong>,
-executados em container sandboxed — o mesmo ambiente isolado usado pela Claude API.
+executados em container sandboxed - o mesmo ambiente isolado usado pela Claude API.
 O pré-requisito é que a opção <code>Code execution and file creation</code> esteja habilitada.</p>
 <p>Há três categorias de Skills disponíveis nessa superfície:</p>
 <table><thead><tr><th>Categoria</th><th>Exemplos</th><th>Como ativar</th></tr></thead><tbody><tr><td><strong>Anthropic Skills</strong> (nativas)</td><td>Excel, Word, PowerPoint, PDF</td><td>Toggle em <em>Settings</em></td></tr><tr><td><strong>Custom Skills</strong></td><td>Qualquer Skill em ZIP</td><td><em>Settings &gt; Capabilities &gt; Skills &gt; Upload skill</em></td></tr><tr><td><strong>Skills Directory</strong></td><td>Notion, Figma, Atlassian</td><td>Download do ZIP + upload manual</td></tr></tbody></table>
@@ -257,8 +257,8 @@ O usuário pode forçar a ativação com uma instrução explícita:</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="por-que-usar-skills-em-vez-de-mcp-servers">Por que usar Skills em vez de MCP Servers?<a href="https://educg550.github.io/tcc/blog/agent-skills#por-que-usar-skills-em-vez-de-mcp-servers" class="hash-link" aria-label="Link direto para Por que usar Skills em vez de MCP Servers?" title="Link direto para Por que usar Skills em vez de MCP Servers?" translate="no">​</a></h2>
 <p>MCP Servers expõem ferramentas e recursos via protocolo,
 exigindo um servidor em execução, configuração de transporte e integração com o cliente.
-Skills são arquivos estáticos — sem servidor, sem processo, sem protocolo.</p>
-<table><thead><tr><th>Aspecto</th><th>Agent Skills</th><th>MCP Server</th></tr></thead><tbody><tr><td><strong>Infraestrutura</strong></td><td>Nenhuma — diretório local</td><td>Servidor em execução (stdio ou HTTP)</td></tr><tr><td><strong>Consumo de tokens</strong></td><td>Sob demanda, por nível de disclosure</td><td>Ferramentas listadas no contexto a cada sessão</td></tr><tr><td><strong>Acesso ao conhecimento</strong></td><td>Local, offline, sem latência de rede</td><td>Requer chamada de ferramenta para cada consulta</td></tr><tr><td><strong>Versionamento</strong></td><td>Git nativo — é só um diretório</td><td>Depende de versionamento da API ou do servidor</td></tr><tr><td><strong>Distribuição</strong></td><td>Copiar ou zipar o diretório</td><td>Build, publicação e hospedagem do servidor</td></tr></tbody></table>
+Skills são arquivos estáticos - sem servidor, sem processo, sem protocolo.</p>
+<table><thead><tr><th>Aspecto</th><th>Agent Skills</th><th>MCP Server</th></tr></thead><tbody><tr><td><strong>Infraestrutura</strong></td><td>Nenhuma - diretório local</td><td>Servidor em execução (stdio ou HTTP)</td></tr><tr><td><strong>Consumo de tokens</strong></td><td>Sob demanda, por nível de disclosure</td><td>Ferramentas listadas no contexto a cada sessão</td></tr><tr><td><strong>Acesso ao conhecimento</strong></td><td>Local, offline, sem latência de rede</td><td>Requer chamada de ferramenta para cada consulta</td></tr><tr><td><strong>Versionamento</strong></td><td>Git nativo - é só um diretório</td><td>Depende de versionamento da API ou do servidor</td></tr><tr><td><strong>Distribuição</strong></td><td>Copiar ou zipar o diretório</td><td>Build, publicação e hospedagem do servidor</td></tr></tbody></table>
 <p>A principal vantagem de custo é o <strong>disclosure progressivo</strong>:
 apenas <code>name</code> e <code>description</code> são carregados por padrão.
 O conteúdo completo da Skill entra em contexto somente quando o agente decide que ela é relevante,
@@ -280,7 +280,7 @@ que não escala bem quando há necessidade de compor um agente conectado a múlt
 </ul>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="referências">Referências<a href="https://educg550.github.io/tcc/blog/agent-skills#refer%C3%AAncias" class="hash-link" aria-label="Link direto para Referências" title="Link direto para Referências" translate="no">​</a></h2>
 <ul>
-<li class=""><a href="https://www.deeplearning.ai/short-courses/agent-skills-with-anthropic/" target="_blank" rel="noopener noreferrer" class="">Curso: Agent Skills with Anthropic — DeepLearning.AI</a></li>
+<li class=""><a href="https://www.deeplearning.ai/short-courses/agent-skills-with-anthropic/" target="_blank" rel="noopener noreferrer" class="">Curso: Agent Skills with Anthropic - DeepLearning.AI</a></li>
 <li class=""><a href="https://github.com/agentskills/agentskills" target="_blank" rel="noopener noreferrer" class="">Repositório oficial do padrão Agent Skills</a></li>
 <li class=""><a href="https://agentskills.io/" target="_blank" rel="noopener noreferrer" class="">Site oficial do padrão Agent Skills</a></li>
 </ul>]]></content>
@@ -380,29 +380,29 @@ baseadas em experiência própria de uso e em benchmarks consolidados em pesquis
 avaliados na pesquisa foram:</p>
 <ul>
 <li class="">
-<p><strong><a href="https://os-world.github.io/" target="_blank" rel="noopener noreferrer" class="">OS World</a></strong> — 369 tarefas abertas em sistemas
+<p><strong><a href="https://os-world.github.io/" target="_blank" rel="noopener noreferrer" class="">OS World</a></strong> - 369 tarefas abertas em sistemas
 operacionais reais. O melhor modelo avaliado em 18/12/2025 foi o
 <code>claude-sonnet-4-5-20250929</code> com <strong>62.9%</strong> de taxa de sucesso.</p>
 </li>
 <li class="">
-<p><strong><a href="https://arxiv.org/pdf/2504.11543" target="_blank" rel="noopener noreferrer" class="">REAL</a></strong> — 112 tarefas práticas em réplicas
+<p><strong><a href="https://arxiv.org/pdf/2504.11543" target="_blank" rel="noopener noreferrer" class="">REAL</a></strong> - 112 tarefas práticas em réplicas
 determinísticas de 11 sites populares (e-commerce, viagens, etc.). Os melhores modelos
 atingem no máximo <strong>41%</strong> de taxa de sucesso, evidenciando limitações críticas na
 navegação web autônoma.</p>
 </li>
 <li class="">
-<p><strong><a href="https://hal.cs.princeton.edu/online_mind2web" target="_blank" rel="noopener noreferrer" class="">Online Mind2Web</a></strong> — versão ao
+<p><strong><a href="https://hal.cs.princeton.edu/online_mind2web" target="_blank" rel="noopener noreferrer" class="">Online Mind2Web</a></strong> - versão ao
 vivo do Mind2Web, que testa agentes contra interfaces web dinâmicas em tempo real. O
 melhor resultado registrado em 09/01/2026 foi do GPT-5 Medium com <strong>42.33%</strong> de sucesso
 usando o framework SeeAct.</p>
 </li>
 <li class="">
-<p><strong><a href="https://arxiv.org/abs/2401.13919" target="_blank" rel="noopener noreferrer" class="">WebVoyager</a></strong> — navegação autônoma em 15
+<p><strong><a href="https://arxiv.org/abs/2401.13919" target="_blank" rel="noopener noreferrer" class="">WebVoyager</a></strong> - navegação autônoma em 15
 categorias de sites reais. O Magnitude liderou em 09/01/2026 com <strong>93.9%</strong> de sucesso,
 seguido por frameworks como Browser Use e Convergence Proxy.</p>
 </li>
 <li class="">
-<p><strong><a href="https://google-research.github.io/android_world/" target="_blank" rel="noopener noreferrer" class="">AndroidWorld</a></strong> — 116 tarefas
+<p><strong><a href="https://google-research.github.io/android_world/" target="_blank" rel="noopener noreferrer" class="">AndroidWorld</a></strong> - 116 tarefas
 em 20 aplicativos Android reais. O AGI-0 liderou em 10/2025 com <strong>97.4%</strong> de sucesso;
 o agente M3A (linha de base original do benchmark) completou apenas <strong>30.6%</strong> das
 tarefas.</p>
