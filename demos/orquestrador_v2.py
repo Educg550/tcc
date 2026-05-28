@@ -174,24 +174,36 @@ fazer esses testes passarem.
 ```yaml
 !package
 children:
-- !main_module
-  name: main
-  description: "ponto de entrada da CLI"
-- !class_module
-  name: storage
-  class_name: TaskStorage
-  description: "..."
-  methods:
-  - !method
-    name: __init__
-    description: "..."
-    parameters: [path]
-    returns: []
-  - !method
-    name: load
-    description: "..."
-    parameters: []
-    returns: ["lista de tarefas"]
+-
+    !main_module
+    name: [nome-do-modulo-principal]
+    description: [descrição do ponto de entrada]
+-
+    !package
+    name: [nome-do-pacote]
+    description: [descrição do pacote]
+    children:
+    -
+        !class_module
+        name: [nome-do-modulo]
+        class_name: [NomeDaClasse]
+        description: [descrição da classe]
+        methods:
+        -
+            !method
+            name: __init__
+            description: Construtor.
+            parameters:
+            - [param1]
+            - [param2]
+        -
+            !method
+            name: [nome-do-metodo]
+            description: [descrição]
+            parameters:
+            - [param1]
+            returns:
+            - [valor retornado]
 ```
 
 ## Regras
