@@ -29,10 +29,10 @@ from claude_agent_sdk import (
     query,
 )
 
-# ── Diretório de trabalho do pipeline ────────────────────────────
+#  Diretório de trabalho do pipeline
 WORKDIR = "demos/output/demo-cpf"
 
-# ── Requisito de entrada ─────────────────────────────────────────
+#  Requisito de entrada
 REQUISITO = """
 Criar uma função `validar_cpf(cpf: str) -> bool` em Python que:
 - Aceita CPF no formato "XXX.XXX.XXX-YY" (com pontuação obrigatória)
@@ -40,7 +40,7 @@ Criar uma função `validar_cpf(cpf: str) -> bool` em Python que:
 - Retorna False para CPFs inválidos, com todos os dígitos iguais, ou com formato incorreto
 """
 
-# ── Regras matemáticas de validação de CPF ──────────────────────
+#  Regras matemáticas de validação de CPF
 REGRAS_CPF = """
 ## Regras de Validação de CPF
 
@@ -79,7 +79,7 @@ O CPF é válido somente se ambos os verificadores calculados coincidirem com os
 - "000.000.000-00" → inválido (todos dígitos iguais)
 """
 
-# ── Subagentes ───────────────────────────────────────────────────
+#  Subagentes
 agents = {
     "test-writer": AgentDefinition(
         description=(
@@ -127,7 +127,7 @@ e rode os testes novamente.
     ),
 }
 
-# ── Prompt do orquestrador ───────────────────────────────────────
+#  Prompt do orquestrador
 PROMPT_ORQUESTRADOR = f"""Você é um orquestrador de pipeline TDD.
 
 Seu trabalho é coordenar dois subagentes para implementar o requisito abaixo,
@@ -157,7 +157,7 @@ async def main():
     start = time.time()
     start_dt = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-    sep = "─" * 60
+    sep = "" * 60
     print(f"\n{sep}")
     print(f"  Pipeline TDD — validar_cpf")
     print(f"  Hora de início        : {start_dt}")

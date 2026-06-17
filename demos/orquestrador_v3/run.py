@@ -2,7 +2,6 @@ import asyncio
 import functools
 import http.server
 import json
-import os
 import socketserver
 import threading
 import time
@@ -13,12 +12,13 @@ from dotenv import load_dotenv
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 load_dotenv(SCRIPT_DIR.parent / ".env")
-# A .env existente guarda a chave do OpenRouter em ANTHROPIC_AUTH_TOKEN.
-# Agno (OpenRouter) e o ChatOpenAI->OpenRouter do CUA leem OPENROUTER_API_KEY.
-if not os.environ.get("OPENROUTER_API_KEY") and os.environ.get("ANTHROPIC_AUTH_TOKEN"):
-    os.environ["OPENROUTER_API_KEY"] = os.environ["ANTHROPIC_AUTH_TOKEN"]
 
-from .agents import MODEL_CODER, MODEL_SPEC, make_coder, make_spec_writer
+from .agents import (
+    MODEL_CODER,
+    MODEL_SPEC,
+    make_coder,
+    make_spec_writer,
+)
 from .cua import run_cua
 from .models import Criterios
 from .prompts import load
@@ -29,7 +29,7 @@ CUA_DIR = OUTPUT_DIR / "_cua"
 RUN_LOG = OUTPUT_DIR / "RUN.log"
 
 
-# ── Helpers puros (testados) ────────────────────────────────────────────
+# Helpers puros
 def serve(directory: Path) -> tuple[socketserver.TCPServer, int]:
     """Sobe um http.server numa porta livre, servindo `directory`. Não bloqueia."""
     handler = functools.partial(
@@ -62,7 +62,7 @@ def _as_criterios(content) -> Criterios:
     return Criterios.model_validate(content)
 
 
-# ── Gate humano ─────────────────────────────────────────────────────────
+# Gate humano
 def aprovar(label: str, conteudo: str) -> str | None:
     """Gate humano y/n. Em 'n', exige feedback. None se aprovado, senão o feedback."""
     banner = "═" * 60
@@ -80,13 +80,17 @@ def aprovar(label: str, conteudo: str) -> str | None:
     return fb.strip()
 
 
-# ── Etapas ──────────────────────────────────────────────────────────────
+#  Etapas
 async def stage_spec() -> tuple[Criterios, dict]:
     agent = make_spec_writer()
     base = load("requisitos")
     feedback, retries = None, 0
     while True:
-        prompt = base if feedback is None else f"{base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        prompt = (
+            base
+            if feedback is None
+            else f"{base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        )
         start = time.time()
         resp = await agent.arun(prompt)
         dur = round(time.time() - start, 2)
@@ -95,8 +99,12 @@ async def stage_spec() -> tuple[Criterios, dict]:
         feedback = aprovar("spec", criterios.model_dump_json(indent=2))
         if feedback is None:
             return criterios, {
-                "id": "spec", "agent": "spec-writer", "configured_model": MODEL_SPEC,
-                "duration_s": dur, "retries": retries, "cost_usd": None,
+                "id": "spec",
+                "agent": "spec-writer",
+                "configured_model": MODEL_SPEC,
+                "duration_s": dur,
+                "retries": retries,
+                "cost_usd": None,
             }
         retries += 1
 
@@ -110,7 +118,11 @@ async def stage_code(criterios: Criterios) -> dict:
     )
     feedback, retries = None, 0
     while True:
-        prompt = prompt_base if feedback is None else f"{prompt_base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        prompt = (
+            prompt_base
+            if feedback is None
+            else f"{prompt_base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        )
         start = time.time()
         await agent.arun(prompt)
         dur = round(time.time() - start, 2)
@@ -118,19 +130,28 @@ async def stage_code(criterios: Criterios) -> dict:
         if not index.exists():
             raise RuntimeError(f"coder terminou mas {index} não existe")
         httpd, port = serve(OUTPUT_DIR)
-        print(f"  site servido em http://localhost:{port} — abra no navegador para inspecionar")
-        feedback = aprovar("code", f"Arquivos em {OUTPUT_DIR}. URL: http://localhost:{port}")
+        print(
+            f"  site servido em http://localhost:{port} — abra no navegador para inspecionar"
+        )
+        feedback = aprovar(
+            "code", f"Arquivos em {OUTPUT_DIR}. URL: http://localhost:{port}"
+        )
         if feedback is None:
             return {
-                "id": "code", "agent": "coder", "configured_model": MODEL_CODER,
-                "duration_s": dur, "retries": retries, "cost_usd": None,
-                "_httpd": httpd, "_port": port,
+                "id": "code",
+                "agent": "coder",
+                "configured_model": MODEL_CODER,
+                "duration_s": dur,
+                "retries": retries,
+                "cost_usd": None,
+                "_httpd": httpd,
+                "_port": port,
             }
         httpd.shutdown()
         retries += 1
 
 
-# ── main ────────────────────────────────────────────────────────────────
+#  main
 async def main() -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     started_at = datetime.now().isoformat(timespec="seconds")
@@ -146,15 +167,18 @@ async def main() -> None:
     port = code_metrics.pop("_port")
     base_url = f"http://localhost:{port}"
     try:
-        print(f"\n──── CUA testando {base_url} ────")
+        print(f"\n CUA testando {base_url} ")
         cua = await run_cua(base_url, criterios, CUA_DIR)
     finally:
         httpd.shutdown()
 
     ended_at = datetime.now().isoformat(timespec="seconds")
     log = build_run_log(
-        started_at, ended_at, round(time.time() - start, 2),
-        [spec_metrics, code_metrics], cua,
+        started_at,
+        ended_at,
+        round(time.time() - start, 2),
+        [spec_metrics, code_metrics],
+        cua,
     )
     RUN_LOG.write_text(json.dumps(log, indent=2, ensure_ascii=False), encoding="utf-8")
 

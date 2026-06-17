@@ -26,7 +26,7 @@ import re
 import subprocess
 import sys
 import time
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -46,18 +46,18 @@ from claude_agent_sdk import (
     query,
 )
 
-# ── Paths absolutos ───────────────────────────────────
+#  Paths absolutos
 WORKDIR = (SCRIPT_DIR / "output" / "task-cli-orquestrado-v2").resolve()
 ACCEPTANCE_TESTS = WORKDIR / "tests" / "test_acceptance.py"
 STRUCTURE_FILE = WORKDIR / "structure.yml"
 SRC_MAIN = WORKDIR / "src" / "task" / "main.py"
 RUN_LOG = WORKDIR / "RUN.log"
 
-# ── Modelos por etapa ────────────────────────────────────────────────────
+#  Modelos por etapa
 MODEL_DESIGN = "claude-sonnet-4-6"
 MODEL_CODE = "claude-haiku-4-5"
 
-# ── Prompt inicial (entrada do pipeline) ────────────────────────────────
+#  Prompt inicial (entrada do pipeline)
 PROMPT_INICIAL = """\
 Implemente uma CLI de tarefas em Python chamada `task` com persistência em
 arquivo JSON e CRUD completo. Requisitos:
@@ -105,7 +105,7 @@ arquivo JSON e CRUD completo. Requisitos:
 """
 
 
-# ── Definições de agente ────────────────────────────────────────────────
+#  Definições de agente
 def _workdir_block(workdir: Path) -> str:
     return (
         f"## Diretório de trabalho\n"
@@ -284,7 +284,7 @@ travado.
     }
 
 
-# ── Dataclasses ─────────────────────────────────────────────────────────
+#  Dataclasses
 @dataclass
 class StageMetrics:
     """Métricas de UMA tentativa aprovada de uma etapa."""
@@ -311,7 +311,7 @@ class PytestFinal:
     collection_error: Optional[str] = None
 
 
-# ── Parsing do resumo do pytest ─────────────────────────────────────────
+#  Parsing do resumo do pytest
 _PYTEST_FIELD_RE = re.compile(r"(\d+)\s+(passed|failed|errors?|error)")
 
 
@@ -364,7 +364,7 @@ def parse_pytest_summary(stdout: str) -> PytestFinal:
     )
 
 
-# ── Execução de uma etapa ───────────────────────────────────────────────
+#  Execução de uma etapa
 def _fmt_elapsed(start: float) -> str:
     return f"[{time.time() - start:7.2f}s]"
 
@@ -387,7 +387,7 @@ async def run_stage(
     """
     full_prompt = prompt_base
     if feedback is not None:
-        full_prompt += "\n\n## FEEDBACK DA TENTATIVA ANTERIOR\n" f"{feedback}\n"
+        full_prompt += f"\n\n## FEEDBACK DA TENTATIVA ANTERIOR\n{feedback}\n"
 
     options = ClaudeAgentOptions(
         cwd=str(WORKDIR),
@@ -398,7 +398,7 @@ async def run_stage(
     )
 
     start = time.time()
-    print(f"\n──── etapa [{stage_id}] via {agent_name} ({configured_model}) ────")
+    print(f"\n etapa [{stage_id}] via {agent_name} ({configured_model}) ")
     last_result: Optional[ResultMessage] = None
 
     async for message in query(prompt=full_prompt, options=options):
@@ -440,7 +440,7 @@ async def run_stage(
     )
 
 
-# ── Loop com aprovação humana ───────────────────────────────────────────
+#  Loop com aprovação humana
 async def execute_with_approval(
     stage_id: str,
     agent_name: str,
@@ -477,7 +477,7 @@ async def execute_with_approval(
         print(f"  → rejeitado, retry #{retries} com feedback")
 
 
-# ── Aprovação humana ────────────────────────────────────────────────────
+#  Aprovação humana
 def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
     """
     Pausa interativa entre etapas.
@@ -517,7 +517,7 @@ def aprovar_artefato(label: str, artifact_path: Path) -> Optional[str]:
     return feedback.strip()
 
 
-# ── Prompts por etapa (instrução ao orquestrador LLM da query()) ────────
+#  Prompts por etapa (instrução ao orquestrador LLM da query())
 def _prompt_stage_tests(workdir: Path) -> str:
     tests_file = workdir / "tests" / "test_acceptance.py"
     return (
@@ -557,7 +557,7 @@ def _prompt_stage_code(workdir: Path) -> str:
     )
 
 
-# ── Pytest final do orquestrador ─────────────────────
+#  Pytest final do orquestrador
 def run_final_pytest() -> PytestFinal:
     """Roda pytest no workdir usando sys.executable. Não bloqueia em falha."""
     proc = subprocess.run(
@@ -571,7 +571,7 @@ def run_final_pytest() -> PytestFinal:
     return parse_pytest_summary(output)
 
 
-# ── main ────────────────────────────────────────────────────────────────
+#  main
 async def main() -> None:
     WORKDIR.mkdir(parents=True, exist_ok=True)
     if any(WORKDIR.iterdir()):
