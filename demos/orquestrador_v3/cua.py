@@ -20,7 +20,12 @@ def _llm() -> ChatOpenAI:
     )
 
 
-async def run_cua(base_url: str, criterios: Criterios, artifacts_dir: Path) -> dict:
+async def run_cua(
+    base_url: str,
+    criterios: Criterios,
+    artifacts_dir: Path,
+    feedback: str | None = None,
+) -> dict:
     """Roda o CUA uma vez contra base_url. Grava artefatos e retorna o dict da
     seção `cua` do RUN.log."""
     artifacts_dir.mkdir(parents=True, exist_ok=True)
@@ -31,16 +36,20 @@ async def run_cua(base_url: str, criterios: Criterios, artifacts_dir: Path) -> d
         base_url=base_url,
         criterios=criterios.model_dump_json(indent=2),
     )
+    if feedback:
+        task += f"\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
 
     agent = Agent(
         task=task,
         llm=_llm(),
         output_model_schema=VeredictoCUA,
         browser_profile=BrowserProfile(record_video_dir=str(video_dir)),
+        calculate_cost=True,
     )
     history = await agent.run()
 
     veredicto: VeredictoCUA | None = history.structured_output
+    usage = history.usage
 
     trace = {
         "urls": history.urls(),
@@ -62,7 +71,12 @@ async def run_cua(base_url: str, criterios: Criterios, artifacts_dir: Path) -> d
         "configured_model": MODEL_CUA,
         "duration_s": round(trace["duration_s"] or 0.0, 2),
         "num_steps": trace["num_steps"],
+        "cost_usd": usage.total_cost if usage else None,
+        "input_tokens": usage.total_prompt_tokens if usage else None,
+        "output_tokens": usage.total_completion_tokens if usage else None,
+        "total_tokens": usage.total_tokens if usage else None,
         "aprovado_geral": veredicto.aprovado_geral if veredicto else False,
+        "resumo": veredicto.resumo if veredicto else "",
         "criterios": [c.model_dump() for c in veredicto.criterios] if veredicto else [],
         "artefatos": {
             "video": str(video_dir),

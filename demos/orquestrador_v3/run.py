@@ -42,12 +42,14 @@ def serve(directory: Path) -> tuple[socketserver.TCPServer, int]:
 
 
 def build_run_log(started_at, ended_at, total_duration_s, stages, cua) -> dict:
+    partes = stages + [cua]
     return {
         "started_at": started_at,
         "ended_at": ended_at,
         "total_duration_s": total_duration_s,
-        "total_cost_usd": sum((s.get("cost_usd") or 0.0) for s in stages) or None,
-        "total_retries": sum(s.get("retries", 0) for s in stages),
+        "total_cost_usd": sum((p.get("cost_usd") or 0.0) for p in partes) or None,
+        "total_tokens": sum((p.get("total_tokens") or 0) for p in partes) or None,
+        "total_retries": sum(p.get("retries", 0) for p in partes),
         "stages": stages,
         "cua": cua,
     }
@@ -60,6 +62,33 @@ def _as_criterios(content) -> Criterios:
     if isinstance(content, str):
         return Criterios.model_validate_json(content)
     return Criterios.model_validate(content)
+
+
+def _stage_metrics(resp) -> dict:
+    """Extrai tokens e custo do RunOutput da Agno (metrics pode ser None)."""
+    m = getattr(resp, "metrics", None)
+    return {
+        "input_tokens": getattr(m, "input_tokens", None),
+        "output_tokens": getattr(m, "output_tokens", None),
+        "total_tokens": getattr(m, "total_tokens", None),
+        "cost_usd": getattr(m, "cost", None),
+    }
+
+
+def _render_veredicto(criterios: Criterios, cua: dict) -> str:
+    """Veredito do CUA cruzado com os requisitos (casados por id), legível."""
+    por_id = {c.id: c for c in criterios.criterios}
+    linhas = [f"aprovado_geral: {cua['aprovado_geral']}"]
+    if cua.get("resumo"):
+        linhas.append(f"resumo: {cua['resumo']}")
+    linhas.append("")
+    for v in cua["criterios"]:
+        req = por_id.get(v["id"])
+        descricao = req.descricao if req else "(critério desconhecido)"
+        marca = "PASSOU" if v["passou"] else "FALHOU"
+        linhas.append(f"[{marca}] {v['id']} — {descricao}")
+        linhas.append(f"    evidência: {v['evidencia']}")
+    return "\n".join(linhas)
 
 
 # Gate humano
@@ -94,6 +123,7 @@ async def stage_spec() -> tuple[Criterios, dict]:
         start = time.time()
         resp = await agent.arun(prompt)
         dur = round(time.time() - start, 2)
+        metrics = _stage_metrics(resp)
         criterios = _as_criterios(resp.content)
         CRITERIOS_FILE.write_text(criterios.model_dump_json(indent=2), encoding="utf-8")
         feedback = aprovar("spec", criterios.model_dump_json(indent=2))
@@ -104,7 +134,7 @@ async def stage_spec() -> tuple[Criterios, dict]:
                 "configured_model": MODEL_SPEC,
                 "duration_s": dur,
                 "retries": retries,
-                "cost_usd": None,
+                **metrics,
             }
         retries += 1
 
@@ -124,8 +154,9 @@ async def stage_code(criterios: Criterios) -> dict:
             else f"{prompt_base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
         )
         start = time.time()
-        await agent.arun(prompt)
+        resp = await agent.arun(prompt)
         dur = round(time.time() - start, 2)
+        metrics = _stage_metrics(resp)
         index = OUTPUT_DIR / "index.html"
         if not index.exists():
             raise RuntimeError(f"coder terminou mas {index} não existe")
@@ -143,11 +174,24 @@ async def stage_code(criterios: Criterios) -> dict:
                 "configured_model": MODEL_CODER,
                 "duration_s": dur,
                 "retries": retries,
-                "cost_usd": None,
+                **metrics,
                 "_httpd": httpd,
                 "_port": port,
             }
         httpd.shutdown()
+        retries += 1
+
+
+async def stage_cua(base_url: str, criterios: Criterios) -> dict:
+    """Roda o CUA, apresenta o veredito legível e faz o gate humano. Em 'n',
+    re-executa o CUA com o feedback. Em 'y', retorna com os retries."""
+    feedback, retries = None, 0
+    while True:
+        cua = await run_cua(base_url, criterios, CUA_DIR, feedback)
+        feedback = aprovar("cua", _render_veredicto(criterios, cua))
+        if feedback is None:
+            cua["retries"] = retries
+            return cua
         retries += 1
 
 
@@ -168,7 +212,7 @@ async def main() -> None:
     base_url = f"http://localhost:{port}"
     try:
         print(f"\n CUA testando {base_url} ")
-        cua = await run_cua(base_url, criterios, CUA_DIR)
+        cua = await stage_cua(base_url, criterios)
     finally:
         httpd.shutdown()
 

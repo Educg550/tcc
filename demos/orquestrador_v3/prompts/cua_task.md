@@ -12,5 +12,5 @@ Critérios de aceitação:
 {criterios}
 
 Ao final, retorne o veredito estruturado: a lista de critérios com
-`passou`/`evidencia`/`obs`, mais `aprovado_geral` (true somente se todos
+`passou`/`evidencia`, mais `aprovado_geral` (true somente se todos
 passaram) e um `resumo` geral.

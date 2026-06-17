@@ -20,7 +20,6 @@ class VeredictoCriterio(BaseModel):
     id: str
     passou: bool
     evidencia: str
-    obs: str | None = None
 
 
 class VeredictoCUA(BaseModel):
