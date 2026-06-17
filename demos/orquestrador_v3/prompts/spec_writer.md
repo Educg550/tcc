@@ -14,3 +14,4 @@ Regras:
 - Cubra todas as 6 funcionalidades e inclua ao menos um caso de borda (por
   exemplo: editar uma tarefa e em seguida concluí-la; ou filtrar após concluir).
 - Não escreva código. Apenas os critérios estruturados.
+- Não escreva NADA além dos critérios estruturados.
