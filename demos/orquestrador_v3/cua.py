@@ -2,7 +2,7 @@ import json
 import os
 from pathlib import Path
 
-from browser_use import Agent, BrowserProfile, ChatOpenAI
+from browser_use import Agent, ChatOpenAI
 
 from .models import Criterios, VeredictoCUA
 from .prompts import load
@@ -29,8 +29,6 @@ async def run_cua(
     """Roda o CUA uma vez contra base_url. Grava artefatos e retorna o dict da
     seção `cua` do RUN.log."""
     artifacts_dir.mkdir(parents=True, exist_ok=True)
-    video_dir = artifacts_dir / "video"
-    video_dir.mkdir(exist_ok=True)
 
     task = load("cua_task").format(
         base_url=base_url,
@@ -43,7 +41,7 @@ async def run_cua(
         task=task,
         llm=_llm(),
         output_model_schema=VeredictoCUA,
-        browser_profile=BrowserProfile(record_video_dir=str(video_dir)),
+        generate_gif=False,
         calculate_cost=True,
     )
     history = await agent.run()
@@ -79,7 +77,6 @@ async def run_cua(
         "resumo": veredicto.resumo if veredicto else "",
         "criterios": [c.model_dump() for c in veredicto.criterios] if veredicto else [],
         "artefatos": {
-            "video": str(video_dir),
             "screenshots": history.screenshot_paths(),
             "trace": str(artifacts_dir / "trace.json"),
         },
