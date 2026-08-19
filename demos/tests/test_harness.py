@@ -63,3 +63,33 @@ def test_rodar_pytest_num_projeto_de_verdade(tmp_path):
     assert r.passou is False
     assert (r.passed, r.failed) == (1, 1)
     assert "test_nao" in r.saida
+
+
+import json
+import time
+
+from harness.loop import Orcamento, trace
+
+
+def test_orcamento_sem_estouro():
+    assert Orcamento().estourou(passos=1, custo=0.01, inicio=time.time()) is None
+
+
+def test_orcamento_estoura_por_passos():
+    assert Orcamento(passos=3).estourou(3, 0.0, time.time()) == "passos"
+
+
+def test_orcamento_estoura_por_custo():
+    assert Orcamento(custo_usd=1.0).estourou(0, 1.0, time.time()) == "custo"
+
+
+def test_orcamento_estoura_por_tempo():
+    assert Orcamento(tempo_s=10).estourou(0, 0.0, time.time() - 11) == "tempo"
+
+
+def test_trace_acumula_uma_linha_json_por_evento(tmp_path):
+    alvo = tmp_path / "trace.jsonl"
+    trace(alvo, {"passo": 1})
+    trace(alvo, {"passo": 2})
+    linhas = [json.loads(ln) for ln in alvo.read_text().splitlines()]
+    assert [ln["passo"] for ln in linhas] == [1, 2]

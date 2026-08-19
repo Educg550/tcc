@@ -1,6 +1,8 @@
+import json
 import re
 import subprocess
 import sys
+import time
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -73,3 +75,28 @@ def rodar_pytest(projeto: Path) -> Pytest:
     )
     saida = proc.stdout + "\n" + proc.stderr
     return Pytest(passou=proc.returncode == 0, saida=saida, **contar_pytest(saida))
+
+
+@dataclass
+class Orcamento:
+    """Limites do loop. Estourar é resultado do experimento, não erro de execução."""
+
+    passos: int = 12
+    custo_usd: float = 2.0
+    tempo_s: int = 900
+
+    def estourou(self, passos: int, custo: float, inicio: float) -> str | None:
+        if passos >= self.passos:
+            return "passos"
+        if custo >= self.custo_usd:
+            return "custo"
+        if time.time() - inicio >= self.tempo_s:
+            return "tempo"
+        return None
+
+
+def trace(caminho: Path, evento: dict) -> None:
+    """Uma linha JSON por passo, gravada na hora: o RUN.log só existe no fim."""
+    caminho.parent.mkdir(parents=True, exist_ok=True)
+    with caminho.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(evento, ensure_ascii=False) + "\n")
