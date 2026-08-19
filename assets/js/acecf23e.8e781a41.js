@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunktcc=globalThis.webpackChunktcc||[]).push([[1903],{1912(t){t.exports=JSON.parse('{"blogBasePath":"/tcc/blog","blogTitle":"Blog","authorsListPath":"/tcc/blog/authors"}')}}]);
