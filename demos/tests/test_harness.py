@@ -222,3 +222,45 @@ def test_run_log_soma_custo_e_tokens():
     assert log["total_tokens"] == 15
     assert log["total_retries"] == 1
     assert log["modo"] == "criacao"
+
+
+import urllib.request
+
+from harness.cua import app_rodando, porta_livre
+
+APP_FAKE = """
+import os
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+
+class H(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"vivo")
+
+    def log_message(self, *a):
+        pass
+
+
+HTTPServer(("", int(os.environ["PORT"])), H).serve_forever()
+"""
+
+
+def test_porta_livre_devolve_porta_usavel():
+    assert 1024 < porta_livre() < 65536
+
+
+def test_app_rodando_sobe_e_derruba(tmp_path):
+    (tmp_path / "app.py").write_text(APP_FAKE)
+    with app_rodando(tmp_path) as url:
+        assert urllib.request.urlopen(url, timeout=2).read() == b"vivo"
+    with pytest.raises(Exception):
+        urllib.request.urlopen(url, timeout=2)
+
+
+def test_app_que_nao_sobe_estoura(tmp_path):
+    (tmp_path / "app.py").write_text("raise SystemExit(1)")
+    with pytest.raises(RuntimeError):
+        with app_rodando(tmp_path):
+            pass
