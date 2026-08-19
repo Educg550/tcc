@@ -9,10 +9,10 @@ linguagem natural, em três etapas separadas com pausa humana entre cada:
     3. coder        (Haiku)  -> src/task/*.py + pytest passando
 
 Uso (a partir de `demos/`):
-    uv run orquestrador_v2.py
+    uv run preliminares/orquestrador_v2.py
 
 Ou da raiz do TCC:
-    uv run --project demos demos/orquestrador_v2.py
+    uv run --project demos demos/preliminares/orquestrador_v2.py
 
 Para rodar o output gerado:
     cd output/task-cli-orquestrado-v2
@@ -34,7 +34,8 @@ from typing import Optional
 from dotenv import load_dotenv
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-load_dotenv(SCRIPT_DIR / ".env")
+DEMOS_DIR = SCRIPT_DIR.parent
+load_dotenv(DEMOS_DIR / ".env")
 
 from claude_agent_sdk import (
     AgentDefinition,
@@ -47,7 +48,7 @@ from claude_agent_sdk import (
 )
 
 #  Paths absolutos
-WORKDIR = (SCRIPT_DIR / "output" / "task-cli-orquestrado-v2").resolve()
+WORKDIR = (DEMOS_DIR / "output" / "task-cli-orquestrado-v2").resolve()
 ACCEPTANCE_TESTS = WORKDIR / "tests" / "test_acceptance.py"
 STRUCTURE_FILE = WORKDIR / "structure.yml"
 SRC_MAIN = WORKDIR / "src" / "task" / "main.py"

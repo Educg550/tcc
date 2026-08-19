@@ -11,7 +11,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-load_dotenv(SCRIPT_DIR.parent / ".env")
+load_dotenv(SCRIPT_DIR.parent.parent / ".env")
 
 from .agents import (
     MODEL_CODER,

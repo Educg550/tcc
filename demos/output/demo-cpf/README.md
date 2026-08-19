@@ -1,6 +1,6 @@
 # demo-cpf
 
-Output do pipeline TDD gerado por `demos/orquestrador_claude.py`.
+Output do pipeline TDD gerado por `demos/preliminares/orquestrador_claude.py`.
 
 ## Como rodar os testes
 

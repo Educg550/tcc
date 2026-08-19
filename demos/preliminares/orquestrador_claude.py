@@ -6,8 +6,8 @@ subagentes especializados no fluxo Requisito → Testes → Código.
 
 Requisito de exemplo: função Python que valida CPF.
 
-Uso:
-    uv run orquestrador_claude.py
+Uso (a partir da raiz do TCC):
+    uv run --project demos demos/preliminares/orquestrador_claude.py
 """
 
 import asyncio
@@ -17,7 +17,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).parent / ".env")
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 from claude_agent_sdk import (
     AgentDefinition,
