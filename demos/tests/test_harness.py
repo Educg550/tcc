@@ -178,3 +178,47 @@ def test_load_le_prompt_do_disco():
 def test_load_prompt_inexistente_estoura():
     with pytest.raises(FileNotFoundError):
         load("nao_existe")
+
+
+from harness.run import build_run_log, contexto, modo
+
+
+def test_modo_criacao_em_diretorio_ausente(tmp_path):
+    assert modo(tmp_path / "novo") == "criacao"
+
+
+def test_modo_criacao_em_diretorio_vazio(tmp_path):
+    assert modo(tmp_path) == "criacao"
+
+
+def test_modo_manutencao_com_codigo(tmp_path):
+    (tmp_path / "app.py").write_text("x = 1")
+    assert modo(tmp_path) == "manutencao"
+
+
+def test_contexto_traz_codigo_e_ignora_git(tmp_path):
+    (tmp_path / "app.py").write_text("codigo")
+    (tmp_path / ".git").mkdir()
+    (tmp_path / ".git" / "config.py").write_text("segredo")
+    saida = contexto(tmp_path)
+    assert "app.py" in saida and "codigo" in saida
+    assert "segredo" not in saida
+
+
+def test_run_log_soma_custo_e_tokens():
+    log = build_run_log(
+        started_at="a",
+        ended_at="b",
+        total_duration_s=1.0,
+        modo="criacao",
+        requisito_id="01-x",
+        stages=[{"cost_usd": 0.1, "total_tokens": 10}],
+        loop={"cost_usd": 0.2, "total_tokens": 5, "retries": 1},
+        pytest_final={"passed": 3},
+        regressao=None,
+        cua=None,
+    )
+    assert round(log["total_cost_usd"], 2) == 0.3
+    assert log["total_tokens"] == 15
+    assert log["total_retries"] == 1
+    assert log["modo"] == "criacao"
