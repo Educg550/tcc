@@ -93,3 +93,76 @@ def test_trace_acumula_uma_linha_json_por_evento(tmp_path):
     trace(alvo, {"passo": 2})
     linhas = [json.loads(ln) for ln in alvo.read_text().splitlines()]
     assert [ln["passo"] for ln in linhas] == [1, 2]
+
+
+import asyncio
+from types import SimpleNamespace
+
+from harness.loop import loop_tdd
+
+
+class AgenteFake:
+    """Devolve respostas enroladas, uma por chamada, como a Agno devolve."""
+
+    def __init__(self, *mudancas):
+        self.mudancas = list(mudancas)
+        self.prompts = []
+
+    async def arun(self, prompt):
+        self.prompts.append(prompt)
+        return SimpleNamespace(
+            content=self.mudancas.pop(0),
+            metrics=SimpleNamespace(cost=0.01, total_tokens=100),
+        )
+
+
+TESTE = Mudanca(
+    arquivos=[
+        Arquivo(
+            caminho="tests/test_soma.py",
+            conteudo="from calc import soma\n\n\ndef test_soma():\n    assert soma(1, 2) == 3\n",
+        )
+    ]
+)
+ERRADO = Mudanca(arquivos=[Arquivo(caminho="calc.py", conteudo="def soma(a, b):\n    return 0\n")])
+CERTO = Mudanca(arquivos=[Arquivo(caminho="calc.py", conteudo="def soma(a, b):\n    return a + b\n")])
+
+
+def test_loop_para_quando_o_pytest_fica_verde(tmp_path):
+    asyncio.run(_loop_verde(tmp_path))
+
+
+async def _loop_verde(tmp_path):
+    escrever(TESTE, tmp_path)
+    agente = AgenteFake(ERRADO, CERTO)
+    r = await loop_tdd(agente, "implemente", tmp_path, Orcamento(), tmp_path / "trace.jsonl")
+    assert r["ok"] is True
+    assert r["motivo"] == "verde"
+    assert r["passos"] == 2
+    assert [h["failed"] for h in r["historico"]] == [1, 0]
+    assert r["total_tokens"] == 200
+
+
+def test_saida_do_pytest_volta_para_o_modelo(tmp_path):
+    asyncio.run(_saida_volta(tmp_path))
+
+
+async def _saida_volta(tmp_path):
+    escrever(TESTE, tmp_path)
+    agente = AgenteFake(ERRADO, CERTO)
+    await loop_tdd(agente, "implemente", tmp_path, Orcamento(), tmp_path / "trace.jsonl")
+    assert "test_soma" in agente.prompts[1]
+    assert agente.prompts[1].startswith("implemente")
+
+
+def test_loop_para_no_orcamento_de_passos(tmp_path):
+    asyncio.run(_loop_estoura(tmp_path))
+
+
+async def _loop_estoura(tmp_path):
+    escrever(TESTE, tmp_path)
+    agente = AgenteFake(ERRADO, ERRADO)
+    r = await loop_tdd(agente, "implemente", tmp_path, Orcamento(passos=2), tmp_path / "trace.jsonl")
+    assert r["ok"] is False
+    assert r["motivo"] == "passos"
+    assert len((tmp_path / "trace.jsonl").read_text().splitlines()) == 2
