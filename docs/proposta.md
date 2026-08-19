@@ -72,5 +72,5 @@ CUAs são problemáticos como parte central do pipeline porque:
 São adequados como avaliador final porque:
 - Simulam comportamento real de usuário (caixa-preta)
 - Detectam divergências semânticas que os testes unitários gerados pelo próprio pipeline podem não cobrir
-- A régua vem de fora: o CUA julga contra critérios de aceitação escritos pelo pesquisador, não contra a especificação produzida pelo próprio pipeline
+- O CUA julga contra critérios de aceitação escritos por um humano, não contra a especificação produzida pelo próprio pipeline
 - O escopo de frontend torna a interação via interface mais natural

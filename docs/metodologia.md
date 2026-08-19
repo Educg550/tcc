@@ -41,16 +41,14 @@ Por que os critérios não podem sair do próprio pipeline:
 
 ## Modos de Execução
 
-O orquestrador roda em dois modos, e a existência dos dois é decisão deliberada de design:
+O orquestrador roda em dois modos:
 
 | Modo | Comportamento | Uso |
 |------|---------------|-----|
-| **Interativo** (padrão) | gate `y/n` por etapa, com feedback textual obrigatório na rejeição | desenvolvimento e demonstração de milestones |
+| **Interativo** (padrão) | aprovação binária `y/n` por etapa, com feedback textual obrigatório na rejeição | desenvolvimento e debug/demonstração |
 | **Batch** (`--yes`) | sem stdin e sem intervenção humana; quem fecha o loop é o CI | **único modo permitido** nas execuções que produzem a comparação entre grupos |
 
-O batch é obrigatório no experimento porque o feedback humano do gate é uma ajuda que só o grupo experimental receberia — o baseline é uma chamada única. Comparar assim mediria o pesquisador, não o pipeline.
-
-O modo interativo também serve à pesquisa: cada rejeição registra o número de *retries* e o texto do feedback que a motivou, ou seja, um registro do que o pipeline erra e do que um humano precisou corrigir. Isso é matéria-prima para a caracterização dos tipos de erro de cada abordagem e para comparar o custo de uma execução assistida contra uma autônoma.
+O batch é obrigatório no experimento porque o feedback humano é uma ajuda externa que só o grupo experimental receberia.
 
 ---
 
