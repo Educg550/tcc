@@ -35,3 +35,31 @@ def test_escopo_restringe_a_um_subdiretorio(tmp_path):
     with pytest.raises(ValueError):
         escrever(_m(("app.py", "codigo de producao")), tmp_path, escopo="tests")
     assert not (tmp_path / "app.py").exists()
+
+
+from harness.loop import contar_pytest, rodar_pytest
+
+
+def test_contar_linha_verde():
+    c = contar_pytest("=========== 27 passed in 1.24s ============")
+    assert (c["passed"], c["failed"], c["errors"], c["total"]) == (27, 0, 0, 27)
+
+
+def test_contar_linha_com_falhas_e_erros():
+    c = contar_pytest("====== 5 failed, 2 errors in 0.4s =======")
+    assert (c["passed"], c["failed"], c["errors"], c["total"]) == (0, 5, 2, 7)
+
+
+def test_contar_sem_linha_de_resumo():
+    c = contar_pytest("ERRO de importacao, nada coletado")
+    assert c == {"passed": 0, "failed": 0, "errors": 0, "total": 0}
+
+
+def test_rodar_pytest_num_projeto_de_verdade(tmp_path):
+    (tmp_path / "tests").mkdir()
+    (tmp_path / "tests" / "test_ok.py").write_text("def test_ok(): assert True")
+    (tmp_path / "tests" / "test_nao.py").write_text("def test_nao(): assert False")
+    r = rodar_pytest(tmp_path)
+    assert r.passou is False
+    assert (r.passed, r.failed) == (1, 1)
+    assert "test_nao" in r.saida
