@@ -25,7 +25,7 @@ Outra camada interessante de validação que será introduzida nesse trabalho é
 
 Modelos de linguagem de grande escala (LLMs) são cada vez mais utilizados para geração automática de código, mas produzem resultados de qualidade variável e sujeitos a alucinações - implementações que passam por testes superficiais sem satisfazer os requisitos reais. Este trabalho avalia se a adição de validação comportamental via *Computer Using Agents* (CUAs) a um pipeline multiagente baseado em TDD produz código funcionalmente mais correto do que a geração direta com LLM.
 
-O método compara dois cenários controlados: um *baseline* em que o LLM recebe o requisito em linguagem natural e gera código diretamente; e um cenário experimental em que um agente gera testes primeiro, um segundo agente implementa até os testes passarem no CI e, por fim, um CUA interage com a interface do sistema como usuário real, verificando o comportamento observado contra o requisito original.
+O método compara dois cenários controlados: um *baseline* em que o LLM recebe o requisito em linguagem natural e gera código diretamente; e um cenário experimental em que um agente gera testes primeiro, um segundo agente implementa até os testes passarem no CI e, por fim, um CUA interage com a interface do sistema como usuário real, verificando o comportamento observado contra critérios de aceitação escritos fora dos dois pipelines.
 
 O experimento utilizará um conjunto de requisitos de aplicações de software com interface gráfica, permitindo interação natural do CUA, além de softwares sem interface gráfica direta, o que permite também uma validação determinística. A contribuição esperada é evidência empírica sobre a capacidade do CUA de detectar falhas semânticas que escapam ao TDD gerado pelo próprio pipeline, além de uma caracterização dos tipos de erro que cada abordagem captura ou deixa passar.
 
@@ -50,9 +50,9 @@ Requisito → Agente A (gera testes) → Agente B (implementa) → CI → CUA (v
 ```
 
 Um agente gera testes automatizados para o requisito antes da implementação. Um segundo
-agente implementa o código até os testes passarem no CI. Por fim, o CUA recebe o
-requisito original em linguagem natural, interage com o sistema como usuário real e
-verifica se o comportamento observado corresponde ao esperado.
+agente implementa o código até os testes passarem no CI. Por fim, o CUA recebe os
+critérios de aceitação escritos pelo pesquisador fora dos dois pipelines, interage com o
+sistema como usuário real e verifica se o comportamento observado corresponde a eles.
 
 ---
 
@@ -72,4 +72,5 @@ CUAs são problemáticos como parte central do pipeline porque:
 São adequados como avaliador final porque:
 - Simulam comportamento real de usuário (caixa-preta)
 - Detectam divergências semânticas que os testes unitários gerados pelo próprio pipeline podem não cobrir
+- A régua vem de fora: o CUA julga contra critérios de aceitação escritos pelo pesquisador, não contra a especificação produzida pelo próprio pipeline
 - O escopo de frontend torna a interação via interface mais natural

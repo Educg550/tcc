@@ -36,7 +36,7 @@ O TCC compara dois pipelines de geração de código com LLM:
 | **Baseline** | LLM recebe requisito → implementa diretamente (sem TDD, sem validação extra) |
 | **Experimental** | Agente A gera testes → Agente B implementa → CI → CUA valida comportamento |
 
-O **Computer Using Agent (CUA)** participa da etapa final do pipeline experimental: simula um usuário real interagindo com o sistema gerado e verifica se o comportamento observado corresponde ao requisito original - independentemente do que os testes unitários cobrem.
+O **Computer Using Agent (CUA)** é a etapa final do pipeline experimental e o instrumento de avaliação dos dois grupos: simula um usuário real interagindo com o sistema gerado e verifica se o comportamento observado corresponde aos critérios de aceitação escritos pelo pesquisador fora dos dois pipelines - independentemente do que os testes unitários cobrem.
 
 ## Estrutura do Site
 
