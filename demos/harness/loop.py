@@ -22,12 +22,7 @@ class Pytest:
 
 
 def escrever(mudanca: Mudanca, raiz: Path, escopo: str | None = None) -> list[str]:
-    """Escreve os arquivos propostos dentro de `raiz`.
-
-    Fronteira de confiança do harness: o conteúdo vem do modelo, o destino não.
-    Caminho que escape de `raiz` (ou de `raiz/escopo`, quando dado) levanta ValueError
-    antes de qualquer escrita acontecer.
-    """
+    """Escreve os arquivos propostos dentro de `raiz`."""
     raiz = Path(raiz).resolve()
     limite = (raiz / escopo).resolve() if escopo else raiz
 
@@ -65,7 +60,7 @@ def contar_pytest(saida: str) -> dict:
 
 
 def rodar_pytest(projeto: Path) -> Pytest:
-    """Roda a suíte inteira do projeto. Nunca levanta: falha é observação, não erro."""
+    """Roda a suíte inteira do projeto."""
     proc = subprocess.run(
         [sys.executable, "-m", "pytest", "-q", "--tb=short"],
         cwd=str(projeto),
@@ -79,7 +74,7 @@ def rodar_pytest(projeto: Path) -> Pytest:
 
 @dataclass
 class Orcamento:
-    """Limites do loop. Estourar é resultado do experimento, não erro de execução."""
+    """Limites do loop."""
 
     passos: int = 12
     custo_usd: float = 2.0
@@ -96,14 +91,13 @@ class Orcamento:
 
 
 def trace(caminho: Path, evento: dict) -> None:
-    """Uma linha JSON por passo, gravada na hora: o RUN.log só existe no fim."""
+    """Uma linha JSON por passo."""
     caminho.parent.mkdir(parents=True, exist_ok=True)
     with caminho.open("a", encoding="utf-8") as f:
         f.write(json.dumps(evento, ensure_ascii=False) + "\n")
 
 
 def como_mudanca(content) -> Mudanca:
-    """A Agno devolve o output_schema já como Pydantic, ou como JSON string."""
     if isinstance(content, Mudanca):
         return content
     if isinstance(content, str):
@@ -114,10 +108,9 @@ def como_mudanca(content) -> Mudanca:
 async def loop_tdd(
     agent, prompt: str, projeto: Path, orcamento: Orcamento, caminho_trace: Path
 ) -> dict:
-    """Propor -> validar -> escrever -> pytest -> observar, até verde ou estourar.
+    """Propor -> validar -> escrever -> pytest -> observar
 
-    O modelo nunca executa nada: quem roda o pytest é esta função, com comando fixo.
-    O histórico é o próprio `prompt`, que só cresce.
+    O modelo nunca executa nada, quem roda o pytest é esta função.
     """
     inicio, passos, custo, tokens, historico = time.time(), 0, 0.0, 0, []
     while True:
@@ -167,8 +160,6 @@ async def loop_tdd(
                 "historico": historico,
             }
 
-        # ponytail: manda a saída inteira truncada, sem filtrar traceback.
-        # Se o custo de tokens do loop incomodar no RUN.log, filtrar aqui.
         prompt += (
             f"\n\n## PYTEST FALHOU (passo {passos})\n"
             f"```\n{resultado.saida[-4000:]}\n```\n"

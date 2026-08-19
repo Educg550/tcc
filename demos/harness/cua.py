@@ -24,7 +24,7 @@ def porta_livre() -> int:
 
 @contextmanager
 def app_rodando(projeto: Path):
-    """Sobe `app.py` do projeto num subprocesso e devolve a URL. Sempre derruba."""
+    """Sobe `app.py` do projeto num subprocesso e devolve a URL."""
     porta = porta_livre()
     proc = subprocess.Popen(
         [sys.executable, "app.py"],
@@ -53,10 +53,7 @@ def app_rodando(projeto: Path):
 
 
 async def avaliar(projeto: Path, requisito: Path, saida: Path) -> dict:
-    """Roda o CUA contra os critérios escritos por humano.
-
-    Não sabe quem gerou o projeto: roda igual sobre a saída do harness e do baseline.
-    """
+    """Roda o CUA contra os critérios escritos por humano."""
     saida.mkdir(parents=True, exist_ok=True)
     criterios = (Path(requisito) / "criterios.md").read_text(encoding="utf-8")
 

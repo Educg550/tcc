@@ -23,11 +23,7 @@ def modo(projeto: Path) -> str:
 
 
 def contexto(projeto: Path) -> str:
-    """Código e testes atuais, para o test-writer em modo manutenção.
-
-    ponytail: despeja o projeto inteiro no prompt. Teto conhecido: quando não couber
-    na janela, virar leitura seletiva. Para o tamanho do caso do IME, cabe.
-    """
+    """Código e testes atuais, para o test-writer em modo manutenção."""
     projeto = Path(projeto)
     partes = []
     for caminho in sorted(projeto.rglob("*")):
@@ -41,8 +37,17 @@ def contexto(projeto: Path) -> str:
 
 
 def build_run_log(
-    *, started_at, ended_at, total_duration_s, modo, requisito_id, stages, loop,
-    pytest_final, regressao, cua,
+    *,
+    started_at,
+    ended_at,
+    total_duration_s,
+    modo,
+    requisito_id,
+    stages,
+    loop,
+    pytest_final,
+    regressao,
+    cua,
 ) -> dict:
     # O loop entra na soma: o custo do coder é a maior fatia da execução.
     partes = stages + [loop] + ([cua] if cua else [])
@@ -96,7 +101,9 @@ def _metricas(resposta) -> dict:
     }
 
 
-async def stage_tests(projeto: Path, requisito: str, modo_atual: str, yes: bool) -> dict:
+async def stage_tests(
+    projeto: Path, requisito: str, modo_atual: str, yes: bool
+) -> dict:
     agente = make_test_writer()
     base = requisito
     if modo_atual == "manutencao":
@@ -104,7 +111,11 @@ async def stage_tests(projeto: Path, requisito: str, modo_atual: str, yes: bool)
 
     feedback, retries = None, 0
     while True:
-        prompt = base if feedback is None else f"{base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        prompt = (
+            base
+            if feedback is None
+            else f"{base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        )
         inicio = time.time()
         resposta = await agente.arun(prompt)
         escritos = escrever(como_mudanca(resposta.content), projeto, escopo="tests")
@@ -130,7 +141,11 @@ async def stage_code(projeto: Path, requisito: str, saida: Path, yes: bool) -> d
     )
     feedback, retries = None, 0
     while True:
-        prompt = base if feedback is None else f"{base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        prompt = (
+            base
+            if feedback is None
+            else f"{base}\n\n## FEEDBACK ANTERIOR\n{feedback}\n"
+        )
         resultado = await loop_tdd(
             agente, prompt, projeto, Orcamento(), saida / "trace.jsonl"
         )
@@ -147,7 +162,9 @@ def commitar(projeto: Path, requisito_id: str) -> None:
     if not (projeto / ".git").exists():
         subprocess.run(["git", "init", "-q"], cwd=projeto, check=True)
     subprocess.run(["git", "add", "-A"], cwd=projeto, check=True)
-    subprocess.run(["git", "commit", "-q", "-m", requisito_id], cwd=projeto, check=False)
+    subprocess.run(
+        ["git", "commit", "-q", "-m", requisito_id], cwd=projeto, check=False
+    )
 
 
 async def executar(projeto: Path, requisito: Path, yes: bool) -> dict:
