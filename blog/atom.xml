@@ -2,11 +2,84 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://educg550.github.io/tcc/blog</id>
     <title>TCC - Eduardo Cruz Guedes Blog</title>
-    <updated>2026-05-28T00:00:00.000Z</updated>
+    <updated>2026-08-19T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://educg550.github.io/tcc/blog"/>
     <subtitle>TCC - Eduardo Cruz Guedes Blog</subtitle>
     <icon>https://educg550.github.io/tcc/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Harness: o nome do que estou construindo]]></title>
+        <id>https://educg550.github.io/tcc/blog/harness</id>
+        <link href="https://educg550.github.io/tcc/blog/harness"/>
+        <updated>2026-08-19T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Na última reunião do TCC ficou definido o próximo passo: uma versão final do orquestrador,]]></summary>
+        <content type="html"><![CDATA[<p>Na última reunião do TCC ficou definido o próximo passo: uma versão final do orquestrador,
+mais madura, em formato de CLI, que não sirva apenas para gerar código do zero
+mas também para dar manutenção em código que já existe.</p>
+<p>Assim que escrevi isso, percebi que estava descrevendo o funcionamento de ferramentas tipo o Codex/Claude Code/Agentes via terminal.
+Fui atrás de entender melhor e o nome disso já existe: <strong>harness</strong>.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="definição">Definição<a href="https://educg550.github.io/tcc/blog/harness#defini%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para Definição" title="Link direto para Definição" translate="no">​</a></h2>
+<p>A definição curta que passei a usar:</p>
+<blockquote>
+<p>Harness := ambiente onde a LLM <strong>sugere</strong> mudanças, não executa livremente.</p>
+</blockquote>
+<p>A <a href="https://www.langchain.com/blog/the-anatomy-of-an-agent-harness" target="_blank" rel="noopener noreferrer" class="">LangChain</a> diz a mesma
+coisa por outro ângulo, com uma equação: <code>Agente = Modelo + Harness</code>, onde o harness é
+"todo pedaço de código, configuração e lógica de execução que não é o modelo em si".
+É uma definição mais ampla que a minha. A minha é mais focada na parte que
+interessa ao TCC: quem realmente tem autoridade para aplicar a mudança.</p>
+<p>O repositório open source <a href="https://github.com/DenisSergeevitch/agents-best-practices" target="_blank" rel="noopener noreferrer" class="">agents-best-practices</a>
+resume essa parte em uma frase:</p>
+<blockquote>
+<p>"The model proposes actions; the harness validates, authorizes, executes, records, and returns observations."</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-loop">O loop<a href="https://educg550.github.io/tcc/blog/harness#o-loop" class="hash-link" aria-label="Link direto para O loop" title="Link direto para O loop" translate="no">​</a></h2>
+<p>O loop padrão descrito no <code>SKILL.md</code> do agents-best-practices:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">tarefa do usuário</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; montagem de instrução e contexto</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; chamada ao modelo</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; proposta de ação/ferramenta</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; validação de schema</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; decisão de permissão</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; execução ou pausa para aprovação</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; observação estruturada</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; atualização de contexto</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  -&gt; repete dentro do orçamento ou termina</span><br></span></code></pre></div></div>
+<p>Os meus orquestradores já implementam pedaços disso.
+O <code>y/n</code> entre etapas do v2 e do v3 é a pausa para aprovação,
+e os schemas Pydantic (<code>Criterios</code>, <code>VeredictoCUA</code>) são a validação de schema.
+O que falta é o resto: orçamento de passos e custo, permissão por ferramenta,
+trace de eventos e uma forma de operar sobre um repositório que já existe.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="onde-o-tdd-entra">Onde o TDD entra<a href="https://educg550.github.io/tcc/blog/harness#onde-o-tdd-entra" class="hash-link" aria-label="Link direto para Onde o TDD entra" title="Link direto para Onde o TDD entra" translate="no">​</a></h2>
+<p>Num harness genérico, a observação estruturada pode ser qualquer coisa:
+saída de shell, resposta de API, print de tela.
+No meu caso ela tem nome e formato desde o v1, que são os testes.
+O TDD deixa de ser só a metodologia do pipeline e passa a ser o sinal de feedback do loop.
+O CUA continua onde sempre esteve, como avaliador comportamental final.
+Isso não muda a pergunta de pesquisa, muda o vocabulário que uso para descrever o artefato.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="referência-de-implementação">Referência de implementação<a href="https://educg550.github.io/tcc/blog/harness#refer%C3%AAncia-de-implementa%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para Referência de implementação" title="Link direto para Referência de implementação" translate="no">​</a></h2>
+<p>O <a href="https://github.com/SWE-agent/mini-swe-agent" target="_blank" rel="noopener noreferrer" class="">mini-swe-agent</a>, feito pelo time de
+Princeton e Stanford por trás do SWE-bench e do SWE-agent, é o melhor argumento de que
+o harness final pode ser simples:</p>
+<table><thead><tr><th>Decisão</th><th>Consequência</th></tr></thead><tbody><tr><td>~100 linhas na classe do agente</td><td>dá para ler inteiro de forma simples</td></tr><tr><td>nenhuma ferramenta além do bash</td><td>roda com qualquer modelo, sem interface de tool calling</td></tr><tr><td>histórico linear</td><td>a trajetória é literalmente a lista de mensagens</td></tr><tr><td><code>subprocess.run</code> por ação, sem sessão de shell persistente</td><td>trocar por <code>docker exec</code> é trocar uma linha</td></tr></tbody></table>
+<p>E ainda assim marca mais de 74% no SWE-bench verified, o que é um bom argumento para
+não começar por uma arquitetura enorme que cresça de forma descontrolada.</p>
+<p>O <a href="https://github.com/HKUDS/OpenHarness" target="_blank" rel="noopener noreferrer" class="">OpenHarness</a> está no extremo oposto:
+43 ferramentas, hooks de <code>PreToolUse</code> e <code>PostToolUse</code>, modos de permissão em vários níveis
+e coordenação multiagente. Serve mais como catálogo do que como base.
+Dá para ver ali tudo que um harness pode ter, escolher o pouco que o experimento precisa
+e ignorar o resto.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="próximos-passos">Próximos passos<a href="https://educg550.github.io/tcc/blog/harness#pr%C3%B3ximos-passos" class="hash-link" aria-label="Link direto para Próximos passos" title="Link direto para Próximos passos" translate="no">​</a></h2>
+<ul class="contains-task-list containsTaskList_mC6p">
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Levantar as boas práticas aplicáveis ao meu caso (orçamento, permissões, trace)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Definir o contrato de entrada do modo manutenção (repositório existente + requisito)</li>
+<li class="task-list-item"><input type="checkbox" disabled=""> <!-- -->Só então escrever o orquestrador final em CLI, com o mini-swe-agent como base estrutural</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="referências">Referências<a href="https://educg550.github.io/tcc/blog/harness#refer%C3%AAncias" class="hash-link" aria-label="Link direto para Referências" title="Link direto para Referências" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://www.langchain.com/blog/the-anatomy-of-an-agent-harness" target="_blank" rel="noopener noreferrer" class="">The Anatomy of an Agent Harness - LangChain</a></li>
+<li class=""><a href="https://github.com/DenisSergeevitch/agents-best-practices" target="_blank" rel="noopener noreferrer" class="">agents-best-practices - DenisSergeevitch</a></li>
+<li class=""><a href="https://github.com/HKUDS/OpenHarness" target="_blank" rel="noopener noreferrer" class="">OpenHarness - HKUDS</a></li>
+<li class=""><a href="https://github.com/SWE-agent/mini-swe-agent" target="_blank" rel="noopener noreferrer" class="">mini-swe-agent - SWE-agent</a></li>
+</ul>]]></content>
+        <author>
+            <name>Eduardo Cruz Guedes</name>
+            <uri>https://github.com/Educg550</uri>
+        </author>
+        <category label="TCC" term="TCC"/>
+        <category label="Referência" term="Referência"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Orquestrador v2: etapas separadas e aprovação humana]]></title>
         <id>https://educg550.github.io/tcc/blog/orquestrador-v2</id>
