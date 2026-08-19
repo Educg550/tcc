@@ -166,3 +166,15 @@ async def _loop_estoura(tmp_path):
     assert r["ok"] is False
     assert r["motivo"] == "passos"
     assert len((tmp_path / "trace.jsonl").read_text().splitlines()) == 2
+
+
+from harness.agents import load
+
+
+def test_load_le_prompt_do_disco():
+    assert "mínimo" in load("diretiva_codigo_minimo")
+
+
+def test_load_prompt_inexistente_estoura():
+    with pytest.raises(FileNotFoundError):
+        load("nao_existe")
