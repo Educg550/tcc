@@ -13,6 +13,9 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 EXTENSOES = (".py", ".html", ".css", ".js")
 
+# Teto de propostas rejeitadas por caminho inválido, antes de desistir da etapa.
+MAX_REJEICOES = 3
+
 
 def modo(projeto: Path) -> str:
     """Não existe flag de modo: quem decide é o estado do diretório."""
@@ -109,7 +112,7 @@ async def stage_tests(
     if modo_atual == "manutencao":
         base += "\n\n## PROJETO ATUAL\n\n" + contexto(projeto)
 
-    feedback, retries = None, 0
+    feedback, retries, rejeicoes = None, 0, 0
     while True:
         prompt = (
             base
@@ -118,7 +121,16 @@ async def stage_tests(
         )
         inicio = time.time()
         resposta = await agente.arun(prompt)
-        escritos = escrever(como_mudanca(resposta.content), projeto, escopo="tests")
+        try:
+            escritos = escrever(como_mudanca(resposta.content), projeto, escopo="tests")
+        except ValueError as erro:
+            rejeicoes += 1
+            if rejeicoes > MAX_REJEICOES:
+                raise
+            feedback = f"Proposta rejeitada: {erro}\nTodo caminho começa com `tests/`."
+            retries += 1
+            continue
+        rejeicoes = 0
         metricas = _metricas(resposta)
         feedback = aprovar("tests", "\n".join(escritos), yes)
         if feedback is None:

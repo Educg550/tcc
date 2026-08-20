@@ -21,16 +21,24 @@ class Pytest:
     saida: str
 
 
-def escrever(mudanca: Mudanca, raiz: Path, escopo: str | None = None) -> list[str]:
+def escrever(
+    mudanca: Mudanca,
+    raiz: Path,
+    escopo: str | None = None,
+    proibido: str | None = None,
+) -> list[str]:
     """Escreve os arquivos propostos dentro de `raiz`."""
     raiz = Path(raiz).resolve()
     limite = (raiz / escopo).resolve() if escopo else raiz
+    veto = (raiz / proibido).resolve() if proibido else None
 
     destinos = []
     for arquivo in mudanca.arquivos:
         destino = (raiz / arquivo.caminho).resolve()
         if not destino.is_relative_to(limite):
             raise ValueError(f"caminho fora de {limite}: {arquivo.caminho}")
+        if veto and destino.is_relative_to(veto):
+            raise ValueError(f"caminho sob {proibido}/, proibido: {arquivo.caminho}")
         destinos.append((destino, arquivo.conteudo))
 
     escritos = []
@@ -130,7 +138,21 @@ async def loop_tdd(
         metricas = getattr(resposta, "metrics", None)
         custo += getattr(metricas, "cost", None) or 0.0
         tokens += getattr(metricas, "total_tokens", None) or 0
-        escritos = escrever(como_mudanca(resposta.content), projeto)
+        try:
+            escritos = escrever(
+                como_mudanca(resposta.content), projeto, proibido="tests"
+            )
+        except ValueError as erro:
+            trace(
+                caminho_trace,
+                {"passo": passos, "erro": str(erro), "cost_usd": round(custo, 6)},
+            )
+            prompt += (
+                f"\n\n## PROPOSTA REJEITADA (passo {passos})\n{erro}\n"
+                "Reenvie a Mudanca com caminhos relativos à raiz do projeto, "
+                "nenhum sob `tests/`.\n"
+            )
+            continue
         resultado = rodar_pytest(projeto)
 
         historico.append(

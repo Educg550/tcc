@@ -30,6 +30,13 @@ def test_escrever_rejeita_caminho_absoluto(tmp_path):
     assert not alvo.exists()
 
 
+def test_proibido_veta_um_subdiretorio(tmp_path):
+    with pytest.raises(ValueError):
+        escrever(_m(("tests/test_x.py", "trapaca")), tmp_path, proibido="tests")
+    assert not (tmp_path / "tests").exists()
+    assert escrever(_m(("app.py", "x = 1")), tmp_path, proibido="tests")
+
+
 def test_escopo_restringe_a_um_subdiretorio(tmp_path):
     assert escrever(_m(("tests/test_a.py", "def test_a(): pass")), tmp_path, escopo="tests")
     with pytest.raises(ValueError):
@@ -153,6 +160,28 @@ async def _saida_volta(tmp_path):
     await loop_tdd(agente, "implemente", tmp_path, Orcamento(), tmp_path / "trace.jsonl")
     assert "test_soma" in agente.prompts[1]
     assert agente.prompts[1].startswith("implemente")
+
+
+TRAPACA = Mudanca(
+    arquivos=[Arquivo(caminho="tests/test_soma.py", conteudo="def test_soma(): pass")]
+)
+
+
+def test_loop_rejeita_escrita_em_tests_e_segue(tmp_path):
+    asyncio.run(_loop_rejeita(tmp_path))
+
+
+async def _loop_rejeita(tmp_path):
+    escrever(TESTE, tmp_path)
+    agente = AgenteFake(TRAPACA, CERTO)
+    r = await loop_tdd(agente, "implemente", tmp_path, Orcamento(), tmp_path / "trace.jsonl")
+    assert r["motivo"] == "verde"
+    assert r["passos"] == 2
+    assert len(r["historico"]) == 1
+    assert "PROPOSTA REJEITADA" in agente.prompts[1]
+    assert (tmp_path / "tests" / "test_soma.py").read_text() == TESTE.arquivos[0].conteudo
+    linhas = [json.loads(ln) for ln in (tmp_path / "trace.jsonl").read_text().splitlines()]
+    assert "erro" in linhas[0] and "pytest" in linhas[1]
 
 
 def test_loop_para_no_orcamento_de_passos(tmp_path):
