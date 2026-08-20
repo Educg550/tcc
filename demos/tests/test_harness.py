@@ -62,6 +62,21 @@ def test_contar_sem_linha_de_resumo():
     assert c == {"passed": 0, "failed": 0, "errors": 0, "total": 0}
 
 
+def test_pytest_ini_isola_o_projeto_da_config_do_pai(tmp_path):
+    (tmp_path / "pyproject.toml").write_text(
+        '[tool.pytest.ini_options]\naddopts = "-k nome_que_nao_existe"\n'
+    )
+    projeto = tmp_path / "projeto"
+    (projeto / "tests").mkdir(parents=True)
+    (projeto / "app.py").write_text("valor = 42")
+    (projeto / "tests" / "test_app.py").write_text(
+        "from app import valor\n\n\ndef test_valor():\n    assert valor == 42\n"
+    )
+    assert rodar_pytest(projeto).passed == 0
+    (projeto / "pytest.ini").write_text("[pytest]\npythonpath = .\n")
+    assert rodar_pytest(projeto).passed == 1
+
+
 def test_rodar_pytest_num_projeto_de_verdade(tmp_path):
     (tmp_path / "tests").mkdir()
     (tmp_path / "tests" / "test_ok.py").write_text("def test_ok(): assert True")

@@ -185,6 +185,8 @@ async def executar(projeto: Path, requisito: Path, yes: bool) -> dict:
     projeto.mkdir(parents=True, exist_ok=True)
     saida = projeto / "_harness"
     saida.mkdir(exist_ok=True)
+    # Sem isso o pytest do projeto gerado herda o pyproject.toml de demos/ como rootdir.
+    (projeto / "pytest.ini").write_text("[pytest]\npythonpath = .\n", encoding="utf-8")
 
     texto = (requisito / "requisito.md").read_text(encoding="utf-8")
     inicio, started_at = time.time(), datetime.now().isoformat(timespec="seconds")
