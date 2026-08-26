@@ -2,7 +2,6 @@ import json
 import os
 import socket
 import subprocess
-import sys
 import time
 import urllib.request
 from contextlib import contextmanager
@@ -103,34 +102,38 @@ class Avaliador:
     @staticmethod
     @contextmanager
     def app_rodando(projeto: Projeto):
-        """Sobe `app.py` do projeto num subprocesso e devolve a URL."""
+        """Sobe o app com o comando que o caso de uso declara, numa porta livre."""
         with socket.socket() as s:
             s.bind(("", 0))
             porta = s.getsockname()[1]
-        proc = subprocess.Popen(
-            [sys.executable, "app.py"],
-            cwd=str(projeto.raiz),
-            env={**os.environ, "PORT": str(porta)},
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.PIPE,
-            text=True,
-        )
+        projeto.saida.mkdir(parents=True, exist_ok=True)
+        # Em arquivo, não em pipe: o app loga cada requisição do CUA e um pipe cheio
+        # travaria o processo no meio da avaliação.
+        log = projeto.saida / "app.log"
         url = f"http://localhost:{porta}"
-        try:
-            for _ in range(50):
-                if proc.poll() is not None:
-                    raise RuntimeError(f"app morreu ao subir: {proc.stderr.read()}")
-                try:
-                    urllib.request.urlopen(url, timeout=1)
-                    break
-                except OSError:
-                    time.sleep(0.2)
-            else:
-                raise RuntimeError(f"app não respondeu em {url}")
-            yield url
-        finally:
-            proc.kill()
-            proc.wait()
+        with log.open("w", encoding="utf-8") as stderr:
+            proc = subprocess.Popen(
+                projeto.alvo.app(porta),
+                cwd=str(projeto.raiz),
+                stdout=subprocess.DEVNULL,
+                stderr=stderr,
+            )
+            try:
+                # A primeira subida pode pagar a resolução das dependências do caso de uso.
+                for _ in range(300):
+                    if proc.poll() is not None:
+                        raise RuntimeError(f"app morreu ao subir: {log.read_text()}")
+                    try:
+                        urllib.request.urlopen(url, timeout=1)
+                        break
+                    except OSError:
+                        time.sleep(0.2)
+                else:
+                    raise RuntimeError(f"app não respondeu em {url}: {log.read_text()}")
+                yield url
+            finally:
+                proc.kill()
+                proc.wait()
 
     async def avaliar(self, projeto: Projeto, requisito: Requisito) -> dict:
         with self.app_rodando(projeto) as url:
