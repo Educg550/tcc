@@ -52,6 +52,13 @@ class Alvo:
     def app(self, porta: int) -> list[str]:
         return self.comando(self.comando_app.format(porta=porta))
 
+    @property
+    def dependencias(self) -> list[str]:
+        if not self.requirements:
+            return []
+        linhas = self.requirements.read_text(encoding="utf-8").splitlines()
+        return [ln.strip() for ln in linhas if ln.strip() and not ln.startswith("#")]
+
     def como_dict(self) -> dict:
         """O que o RUN.log grava do alvo. As dependências vão por conteúdo, não por
         caminho: o caminho não diz em que ambiente a execução rodou."""
@@ -59,9 +66,7 @@ class Alvo:
             "comando_app": self.comando_app,
             "comando_teste": self.comando_teste,
             "modelos": self.modelos,
-            "dependencias": self.requirements.read_text(encoding="utf-8").split()
-            if self.requirements
-            else [],
+            "dependencias": self.dependencias,
         }
 
 

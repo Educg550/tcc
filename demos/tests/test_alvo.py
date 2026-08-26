@@ -1,4 +1,8 @@
+from pathlib import Path
+
 from harness.models.dominio import Alvo
+
+MODELO = Path(__file__).parent.parent / "requisitos" / "00-exemplo-caso-de-uso"
 
 TOML = """
 comando_app = "uvicorn app:app --port {porta}"
@@ -40,3 +44,12 @@ def test_com_requirements_e_porta_substituida(tmp_path):
         "41537",
     ]
     assert alvo.modelos["coder"] == "provedor/modelo"
+
+
+def test_modelo_de_caso_de_uso_e_input_valido():
+    alvo = Alvo.de(MODELO)
+
+    assert alvo.teste[:3] == ["uv", "run", "--no-project"]
+    assert "{porta}" in alvo.comando_app
+    assert set(alvo.modelos) == {"test_writer", "coder", "cua"}
+    assert "#" not in " ".join(alvo.dependencias)
