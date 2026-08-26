@@ -56,14 +56,19 @@ class HarnessTDD(Harness):
     """Grupo experimental: requisito → testes → implementação sob CI."""
 
     async def etapas(self, modo: Modo, resultado: Resultado) -> None:
-        testes = self.etapa("tests", Agente.test_writer(), SO_TESTES)
+        modelos = self.projeto.alvo.modelos
+        testes = self.etapa(
+            "tests", Agente.de("test_writer", modelos["test_writer"]), SO_TESTES
+        )
         base = self.requisito.texto + modo.contexto(self.projeto)
         resultado.stages.append(await testes.executar(base, self.projeto))
         # Teste que já passa antes da implementação não é contrato, é tautologia.
         vermelho = not self.projeto.rodar_pytest().passou
         resultado.impressao = self.projeto.impressao()
 
-        codigo = self.etapa("code", Agente.coder(), CODIGO, EtapaTDD)
+        codigo = self.etapa(
+            "code", Agente.de("coder", modelos["coder"]), CODIGO, EtapaTDD
+        )
         base = (
             f"{self.requisito.texto}\n\n## TESTES A FAZER PASSAR\n\n"
             f"{self.projeto.contexto('tests')}\n"
@@ -78,7 +83,10 @@ class HarnessDireto(Harness):
 
     async def etapas(self, modo: Modo, resultado: Resultado) -> None:
         resultado.impressao = self.projeto.impressao()
-        direta = self.etapa("direto", Agente.direto(), CODIGO)
+        # Roda com o modelo do coder: modelo diferente entre os grupos confundiria
+        # modelo com pipeline.
+        modelo = self.projeto.alvo.modelos["coder"]
+        direta = self.etapa("direto", Agente.de("direto", modelo), CODIGO)
         base = self.requisito.texto + modo.contexto(self.projeto)
         parte = await direta.executar(base, self.projeto)
         resultado.loop = {**parte, "tests_vermelhos": None}

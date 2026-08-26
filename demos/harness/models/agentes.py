@@ -17,9 +17,6 @@ from pydantic import BaseModel
 
 from .dominio import Mudanca, Projeto, Requisito
 
-MODEL_TESTS = "deepseek/deepseek-v4-flash"
-MODEL_CODER = "deepseek/deepseek-v4-flash"
-MODEL_CUA = "google/gemini-2.5-flash"
 MAX_TOKENS = 100000
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
@@ -60,16 +57,9 @@ class Agente:
         )
 
     @classmethod
-    def test_writer(cls) -> "Agente":
-        return cls(MODEL_TESTS, load("test_writer"))
-
-    @classmethod
-    def coder(cls) -> "Agente":
-        return cls(MODEL_CODER, load("coder"))
-
-    @classmethod
-    def direto(cls) -> "Agente":
-        return cls(MODEL_CODER, load("direto"))
+    def de(cls, papel: str, model_id: str) -> "Agente":
+        """O papel nomeia o prompt; o modelo vem do caso de uso, não do harness."""
+        return cls(model_id, load(papel))
 
     async def propor(self, prompt: str) -> Proposta:
         resposta = await self._agno.arun(prompt)
@@ -107,7 +97,7 @@ class Avaliador:
     """O CUA: avaliador final, caixa-preta sobre o app rodando. Mede divergência
     semântica que os testes gerados pelo próprio pipeline não pegam."""
 
-    def __init__(self, model_id: str = MODEL_CUA):
+    def __init__(self, model_id: str):
         self.model_id = model_id
 
     @staticmethod

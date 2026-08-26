@@ -47,7 +47,8 @@ def main() -> None:
         )
         print(f"RUN.log: {projeto.saida / 'RUN.log'}")
     else:
-        r = asyncio.run(Avaliador().avaliar(projeto, requisito))
+        cua = Avaliador(projeto.alvo.modelos["cua"])
+        r = asyncio.run(cua.avaliar(projeto, requisito))
         print(f"\naprovado_geral: {r['aprovado_geral']}\n{r['resumo']}")
 
 
