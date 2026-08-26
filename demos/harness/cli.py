@@ -63,7 +63,7 @@ def main() -> None:
         "--tempo", type=int, default=Orcamento.tempo_s, help="segundos por etapa"
     )
 
-    ava = sub.add_parser("avaliar", help="roda o CUA contra criterios.md")
+    ava = sub.add_parser("avaliar", help="uma sessao de CUA por criterio de aceitacao")
     ava.add_argument("projeto")
     ava.add_argument("requisito")
 
