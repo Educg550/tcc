@@ -52,6 +52,18 @@ class Alvo:
     def app(self, porta: int) -> list[str]:
         return self.comando(self.comando_app.format(porta=porta))
 
+    def como_dict(self) -> dict:
+        """O que o RUN.log grava do alvo. As dependências vão por conteúdo, não por
+        caminho: o caminho não diz em que ambiente a execução rodou."""
+        return {
+            "comando_app": self.comando_app,
+            "comando_teste": self.comando_teste,
+            "modelos": self.modelos,
+            "dependencias": self.requirements.read_text(encoding="utf-8").split()
+            if self.requirements
+            else [],
+        }
+
 
 @dataclass(frozen=True)
 class Requisito:

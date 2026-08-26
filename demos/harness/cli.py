@@ -10,6 +10,7 @@ from .models import (
     HarnessDireto,
     HarnessTDD,
     Interativa,
+    Orcamento,
     Projeto,
     Requisito,
 )
@@ -28,6 +29,15 @@ def main() -> None:
     run.add_argument(
         "--direto", action="store_true", help="grupo baseline: uma etapa, sem TDD"
     )
+    run.add_argument(
+        "--passos", type=int, default=Orcamento.passos, help="propostas por etapa"
+    )
+    run.add_argument(
+        "--custo", type=float, default=Orcamento.custo_usd, help="USD por etapa"
+    )
+    run.add_argument(
+        "--tempo", type=int, default=Orcamento.tempo_s, help="segundos por etapa"
+    )
 
     ava = sub.add_parser("avaliar", help="roda o CUA contra criterios.md")
     ava.add_argument("projeto")
@@ -40,7 +50,9 @@ def main() -> None:
     if args.cmd == "run":
         classe = HarnessDireto if args.direto else HarnessTDD
         permissao = Batch() if args.yes else Interativa()
-        log = asyncio.run(classe(projeto, requisito, permissao).executar())
+        orcamento = Orcamento(args.passos, args.custo, args.tempo)
+        harness = classe(projeto, requisito, permissao, orcamento)
+        log = asyncio.run(harness.executar())
         print(
             f"\npytest final: {log['pytest_final']}  loop: {log['loop']['motivo']}"
             f"  testes intactos: {log['integridade']['intacto']}"

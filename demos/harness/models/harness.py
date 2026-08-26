@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from dataclasses import asdict
 
 from .agentes import Agente, load
 from .dominio import CODIGO, SO_TESTES, Escopo, Modo, Projeto, Requisito
@@ -56,6 +57,8 @@ class Harness(ABC):
         resultado = Resultado(
             modo=modo.nome,
             requisito_id=self.requisito.id,
+            alvo=self.projeto.alvo.como_dict(),
+            orcamento=asdict(self.orcamento),
             antes=antes.contagem if antes else None,
         )
         await self.etapas(modo, resultado)

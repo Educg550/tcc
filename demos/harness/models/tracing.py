@@ -23,6 +23,8 @@ class Resultado:
 
     modo: str
     requisito_id: str
+    alvo: dict | None = None
+    orcamento: dict | None = None
     antes: dict | None = None
     stages: list[dict] = field(default_factory=list)
     loop: dict | None = None
@@ -65,6 +67,8 @@ class Resultado:
             "total_duration_s": round((fim - self.comeco).total_seconds(), 2),
             "modo": self.modo,
             "requisito_id": self.requisito_id,
+            "alvo": self.alvo,
+            "orcamento": self.orcamento,
             "total_cost_usd": round(
                 sum(p.get("cost_usd") or 0.0 for p in self.partes), 6
             ),
