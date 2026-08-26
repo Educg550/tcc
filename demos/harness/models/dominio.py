@@ -274,7 +274,7 @@ class Manutencao(Modo):
     nome = "manutencao"
 
     def contexto(self, projeto: Projeto) -> str:
-        return "\n\n## PROJETO ATUAL\n\n" + projeto.contexto()
+        return "## PROJETO ATUAL\n\n" + projeto.contexto()
 
     def baseline(self, projeto: Projeto) -> ResultadoPytest:
         return projeto.rodar_pytest()

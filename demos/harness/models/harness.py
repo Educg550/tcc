@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from .agentes import Agente
+from .agentes import Agente, load
 from .dominio import CODIGO, SO_TESTES, Escopo, Modo, Projeto, Requisito
 from .etapas import Etapa, EtapaTDD
 from .politicas import Orcamento, Permissao
@@ -27,6 +27,19 @@ class Harness(ABC):
         self.permissao = permissao
         self.orcamento = orcamento or Orcamento()
         self.trace = Trace(projeto.saida / "trace.jsonl")
+
+    @property
+    def contrato(self) -> str:
+        """A restrição de execução vem do caso de uso e é a mesma para os dois grupos."""
+        alvo = self.projeto.alvo
+        return load("contrato_alvo").format(
+            comando_app=alvo.comando_app, comando_teste=alvo.comando_teste
+        )
+
+    def prompt(self, *partes: str) -> str:
+        return "\n\n".join(
+            p for p in (self.requisito.texto, self.contrato, *partes) if p.strip()
+        )
 
     def etapa(
         self, id: str, agente: Agente, escopo: Escopo, classe: type[Etapa] = Etapa
@@ -60,7 +73,7 @@ class HarnessTDD(Harness):
         testes = self.etapa(
             "tests", Agente.de("test_writer", modelos["test_writer"]), SO_TESTES
         )
-        base = self.requisito.texto + modo.contexto(self.projeto)
+        base = self.prompt(modo.contexto(self.projeto))
         resultado.stages.append(await testes.executar(base, self.projeto))
         # Teste que já passa antes da implementação não é contrato, é tautologia.
         vermelho = not self.projeto.rodar_pytest().passou
@@ -69,9 +82,8 @@ class HarnessTDD(Harness):
         codigo = self.etapa(
             "code", Agente.de("coder", modelos["coder"]), CODIGO, EtapaTDD
         )
-        base = (
-            f"{self.requisito.texto}\n\n## TESTES A FAZER PASSAR\n\n"
-            f"{self.projeto.contexto('tests')}\n"
+        base = self.prompt(
+            "## TESTES A FAZER PASSAR\n\n" + self.projeto.contexto("tests")
         )
         parte = await codigo.executar(base, self.projeto)
         resultado.loop = {**parte, "tests_vermelhos": vermelho}
@@ -87,6 +99,6 @@ class HarnessDireto(Harness):
         # modelo com pipeline.
         modelo = self.projeto.alvo.modelos["coder"]
         direta = self.etapa("direto", Agente.de("direto", modelo), CODIGO)
-        base = self.requisito.texto + modo.contexto(self.projeto)
+        base = self.prompt(modo.contexto(self.projeto))
         parte = await direta.executar(base, self.projeto)
         resultado.loop = {**parte, "tests_vermelhos": None}
