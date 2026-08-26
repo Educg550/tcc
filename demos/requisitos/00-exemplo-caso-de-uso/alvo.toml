@@ -1,10 +1,8 @@
-# Como o harness opera o software gerado. `{porta}` é substituída por uma porta livre na
-# hora de subir o app para o CUA avaliar.
+# Como o harness opera o software gerado. 
+# O placeholder `{porta}` é substituída por uma porta livre na hora de subir o app para o CUA avaliar.
 comando_app = "uvicorn app:app --host 127.0.0.1 --port {porta}"
 comando_teste = "pytest -q --tb=short"
 
-# Um modelo por papel. Não existe chave para o grupo baseline: ele roda com `coder`, senão
-# a comparação confundiria modelo com pipeline.
 [modelos]
 test_writer = "deepseek/deepseek-v4-flash"
 coder = "deepseek/deepseek-v4-flash"
