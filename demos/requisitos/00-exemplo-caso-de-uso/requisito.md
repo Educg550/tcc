@@ -1,7 +1,7 @@
 # Requisito NN: <uma linha do que a aplicação faz>
 
 <Um parágrafo: que aplicação é, para quem serve e o que ela substitui. Não repita aqui o
-framework nem o ponto de entrada: isso é o `alvo.toml`. Não descreva implementação —
+framework nem o ponto de entrada: isso é o `alvo.toml`. Não descreva implementação -
 rota, tabela, função, arquivo. Descreva o que o usuário vê e faz.>
 
 ## <Tela ou funcionalidade>

@@ -14,4 +14,4 @@ E verifica com:
 
 Escreva a aplicação de modo que esse comando a inicie. O ambiente tem apenas o que o caso
 de uso declara: não importe biblioteca que o requisito não peça. Você não executa nenhum
-comando — quem executa é o harness.
+comando - quem executa é o harness.

@@ -13,7 +13,7 @@ class Harness(ABC):
     valida, autoriza, executa, registra e devolve observações.
 
     As subclasses são os dois grupos do experimento. Emitem o mesmo Resultado, com o
-    mesmo orçamento e a mesma diretiva de estilo — o que varia entre elas é só a
+    mesmo orçamento e a mesma diretiva de estilo - o que varia entre elas é só a
     presença de etapas, que é a variável independente."""
 
     def __init__(

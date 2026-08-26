@@ -75,7 +75,7 @@ O batch é obrigatório no experimento porque o feedback humano é uma ajuda ext
 ## Procedimento
 
 1. Definir a lista de N requisitos (sistema com frontend)
-2. Escrever, para cada requisito, o arquivo de critérios de aceitação — fora dos dois pipelines
+2. Escrever, para cada requisito, o arquivo de critérios de aceitação - fora dos dois pipelines
 3. **Baseline:** LLM recebe cada requisito e implementa diretamente; registrar código gerado
 4. **Experimental:** Agente A gera testes → Agente B implementa → CI; registrar resultados de cada etapa
 5. **Avaliação:** o CUA interage com o sistema produzido por cada grupo e julga contra os critérios de aceitação, com o mesmo protocolo nos dois casos
