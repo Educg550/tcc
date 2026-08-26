@@ -30,7 +30,8 @@ class Alvo:
     @classmethod
     def de(cls, diretorio: Path) -> Alvo:
         dados = tomllib.loads((diretorio / "alvo.toml").read_text(encoding="utf-8"))
-        requirements = diretorio / "requirements.txt"
+        # Absoluto: o comando roda com cwd na raiz do projeto gerado, não aqui.
+        requirements = (diretorio / "requirements.txt").resolve()
         return cls(
             comando_app=dados["comando_app"],
             comando_teste=dados["comando_teste"],

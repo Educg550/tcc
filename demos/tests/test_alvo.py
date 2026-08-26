@@ -37,7 +37,7 @@ def test_com_requirements_e_porta_substituida(tmp_path):
         "run",
         "--no-project",
         "--with-requirements",
-        str(tmp_path / "requirements.txt"),
+        str((tmp_path / "requirements.txt").resolve()),
         "uvicorn",
         "app:app",
         "--port",
@@ -53,3 +53,5 @@ def test_modelo_de_caso_de_uso_e_input_valido():
     assert "{porta}" in alvo.comando_app
     assert set(alvo.modelos) == {"test_writer", "coder", "cua"}
     assert "#" not in " ".join(alvo.dependencias)
+    # Relativo aqui vira inexistente lá: o comando roda com cwd na raiz do projeto.
+    assert alvo.requirements.is_absolute()
