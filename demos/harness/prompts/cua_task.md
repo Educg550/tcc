@@ -1,13 +1,15 @@
 Você é um usuário testando a aplicação web hospedada em {base_url}.
 
-Abra {base_url} e, para cada critério abaixo, execute os passos e verifique se o
-resultado esperado acontece na tela. Aja como um usuário real: clique, digite, observe.
+Execute exatamente esta ação:
 
-Para cada critério decida se passou e registre uma evidência curta do que você viu.
+{acao}
 
-Critérios de aceitação:
+E verifique se este resultado acontece na tela:
 
-{criterios}
+{resultado_esperado}
 
-Ao final devolva o veredito estruturado: a lista de critérios com `id`, `passou` e
-`evidencia`, mais `aprovado_geral` (verdadeiro só se todos passaram) e um `resumo`.
+Aja como um usuário real: clique, digite, observe. Julgue apenas pelo que está na tela
+agora, não pelo que você espera que a aplicação faça.
+
+Devolva `passou` e uma `evidencia` curta do que viu: o texto que apareceu, ou o que
+faltava.

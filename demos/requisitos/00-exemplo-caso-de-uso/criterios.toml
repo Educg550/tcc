@@ -1,0 +1,36 @@
+# Um critério por comportamento observável. Cada um roda numa sessão limpa de CUA, com a
+# aplicação subida do zero. A ação repete todo passo de que depende, e não existe ordem
+# implícita entre critérios.
+#
+# Quem julga é um agente que só vê a tela, então não cite arquivo,
+# rota, função nem biblioteca. Use os textos exatos entre acentos graves e dados concretos
+# na ação, para que dois julgamentos do mesmo critério sejam comparáveis.
+
+[[criterios]]
+identificador = "C1"
+acao = '''
+Abrir a página inicial.
+'''
+resultado_esperado = '''
+<Os rótulos exatos que aparecem e o botão que existe.>
+'''
+
+[[criterios]]
+identificador = "C2"
+acao = '''
+Abrir a página inicial e preencher <campo> com <valor concreto> e <campo> com
+<valor concreto>. Clicar em `RÓTULO DO BOTÃO`.
+'''
+resultado_esperado = '''
+<O texto exato que a tela mostra e o dado que aparece nele.>
+'''
+
+[[criterios]]
+identificador = "C3"
+acao = '''
+Abrir a página inicial e <passos que violam uma regra, com os dados concretos>. Clicar em
+`RÓTULO DO BOTÃO`.
+'''
+resultado_esperado = '''
+A mensagem `MENSAGEM EXATA` aparece e <o que não deve acontecer>.
+'''

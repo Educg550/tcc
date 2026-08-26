@@ -1,0 +1,70 @@
+[[criterios]]
+identificador = "C1"
+acao = '''
+Abrir a página inicial.
+'''
+resultado_esperado = '''
+Os sete campos aparecem com os rótulos exatos `NOME COMPLETO - SEM ABREVIAR`, `N. USP`,
+`PROGRAMA`, `NOME DO EVENTO`, `PERÍODO DO EVENTO`, `CIDADE DO EVENTO` e
+`VALOR SOLICITADO`, cada um com um placeholder visível que explica o que preencher, e há
+um botão `Enviar solicitação`.
+'''
+
+[[criterios]]
+identificador = "C2"
+acao = '''
+Abrir a página inicial. Digitar `1500` no campo `VALOR SOLICITADO` e sair do campo, sem
+enviar o formulário.
+'''
+resultado_esperado = '''
+O campo passa a mostrar `R$ 15,00`.
+'''
+
+[[criterios]]
+identificador = "C3"
+acao = '''
+Abrir a página inicial e preencher `NOME COMPLETO - SEM ABREVIAR` com `Maria Silva`,
+`N. USP` com `1234567`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
+`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
+`Porto Alegre` e `VALOR SOLICITADO` com `150000`. Clicar em `Enviar solicitação`.
+'''
+resultado_esperado = '''
+A página mostra `Solicitação registrada` e o ofício contém `Maria Silva`, `1234567` e
+`R$ 1.500,00`, sem nenhum marcador `<<...>>` sobrando.
+'''
+
+[[criterios]]
+identificador = "C4"
+acao = '''
+Abrir a página inicial e deixar `NOME COMPLETO - SEM ABREVIAR` em branco. Preencher
+`N. USP` com `1234567`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
+`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
+`Porto Alegre` e `VALOR SOLICITADO` com `150000`. Clicar em `Enviar solicitação`.
+'''
+resultado_esperado = '''
+A mensagem `Preencha todos os campos` aparece e o ofício não é gerado.
+'''
+
+[[criterios]]
+identificador = "C5"
+acao = '''
+Abrir a página inicial e preencher `NOME COMPLETO - SEM ABREVIAR` com `Maria Silva`,
+`N. USP` com `abc123`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
+`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
+`Porto Alegre` e `VALOR SOLICITADO` com `150000`. Clicar em `Enviar solicitação`.
+'''
+resultado_esperado = '''
+A mensagem `N. USP deve conter apenas números` aparece.
+'''
+
+[[criterios]]
+identificador = "C6"
+acao = '''
+Abrir a página inicial e preencher `NOME COMPLETO - SEM ABREVIAR` com `Maria Silva`,
+`N. USP` com `1234567`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
+`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
+`Porto Alegre` e `VALOR SOLICITADO` com `0`. Clicar em `Enviar solicitação`.
+'''
+resultado_esperado = '''
+A mensagem `Valor solicitado deve ser maior que 0` aparece e o ofício não é gerado.
+'''

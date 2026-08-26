@@ -14,7 +14,7 @@ from browser_use import Agent as AgenteNavegador
 from browser_use import ChatOpenAI
 from pydantic import BaseModel
 
-from .dominio import Mudanca, Projeto, Requisito
+from .dominio import Criterio, Mudanca, Projeto, Requisito
 
 MAX_TOKENS = 100000
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
@@ -81,15 +81,20 @@ class Agente:
 
 
 class VeredictoCriterio(BaseModel):
-    id: str
+    """Uma sessão julga um critério só, então não há id: quem sabe qual é é o harness."""
+
     passou: bool
     evidencia: str
 
 
-class VeredictoCUA(BaseModel):
-    criterios: list[VeredictoCriterio]
-    aprovado_geral: bool
-    resumo: str
+def resumir(criterios: list[dict]) -> str:
+    """Derivado das partes, não pedido a um modelo: nenhuma sessão vê o conjunto."""
+    return "\n".join(
+        f"{c['identificador']} passou"
+        if c["passou"]
+        else f"{c['identificador']} FALHOU: {c['evidencia']}"
+        for c in criterios
+    )
 
 
 class Avaliador:
@@ -101,7 +106,7 @@ class Avaliador:
 
     @staticmethod
     @contextmanager
-    def app_rodando(projeto: Projeto):
+    def app_rodando(projeto: Projeto, sufixo: str = ""):
         """Sobe o app com o comando que o caso de uso declara, numa porta livre."""
         with socket.socket() as s:
             s.bind(("", 0))
@@ -109,7 +114,7 @@ class Avaliador:
         projeto.saida.mkdir(parents=True, exist_ok=True)
         # Em arquivo, não em pipe: o app loga cada requisição do CUA e um pipe cheio
         # travaria o processo no meio da avaliação.
-        log = projeto.saida / "app.log"
+        log = projeto.saida / f"app{sufixo}.log"
         url = f"http://localhost:{porta}"
         with log.open("w", encoding="utf-8") as stderr:
             proc = subprocess.Popen(
@@ -135,33 +140,53 @@ class Avaliador:
                 proc.kill()
                 proc.wait()
 
-    async def avaliar(self, projeto: Projeto, requisito: Requisito) -> dict:
-        with self.app_rodando(projeto) as url:
-            agente = AgenteNavegador(
-                task=load("cua_task").format(
-                    base_url=url, criterios=requisito.criterios
-                ),
-                llm=ChatOpenAI(
-                    model=self.model_id,
-                    base_url=OPENROUTER_BASE,
-                    api_key=os.environ["OPENROUTER_API_KEY"],
-                ),
-                output_model_schema=VeredictoCUA,
-                generate_gif=False,
-                calculate_cost=True,
-            )
-            history = await agente.run()
-
+    async def _sessao(self, url: str, criterio: Criterio) -> dict:
+        agente = AgenteNavegador(
+            task=load("cua_task").format(
+                base_url=url,
+                acao=criterio.acao,
+                resultado_esperado=criterio.resultado_esperado,
+            ),
+            llm=ChatOpenAI(
+                model=self.model_id,
+                base_url=OPENROUTER_BASE,
+                api_key=os.environ["OPENROUTER_API_KEY"],
+            ),
+            output_model_schema=VeredictoCriterio,
+            generate_gif=False,
+            calculate_cost=True,
+        )
+        history = await agente.run()
         v, usage = history.structured_output, history.usage
-        resultado = {
-            "configured_model": self.model_id,
+        return {
+            "identificador": criterio.identificador,
+            "passou": v.passou if v else False,
+            "evidencia": v.evidencia if v else "sessão terminou sem veredito",
             "duration_s": round(history.total_duration_seconds() or 0.0, 2),
             "num_steps": history.number_of_steps(),
             "cost_usd": usage.total_cost if usage else None,
             "total_tokens": usage.total_tokens if usage else None,
-            "aprovado_geral": v.aprovado_geral if v else False,
-            "resumo": v.resumo if v else "",
-            "criterios": [c.model_dump() for c in v.criterios] if v else [],
+        }
+
+    async def avaliar(self, projeto: Projeto, requisito: Requisito) -> dict:
+        """Uma sessão limpa por critério, em série e com o app subido de novo: o app
+        guarda estado em memória, e reaproveitar o processo traz o critério anterior de
+        volta para dentro do seguinte."""
+        inicio = time.time()
+        criterios = []
+        for criterio in requisito.criterios:
+            with self.app_rodando(projeto, f"-{criterio.identificador}") as url:
+                criterios.append(await self._sessao(url, criterio))
+
+        resultado = {
+            "configured_model": self.model_id,
+            "duration_s": round(time.time() - inicio, 2),
+            "num_steps": sum(c["num_steps"] or 0 for c in criterios),
+            "cost_usd": round(sum(c["cost_usd"] or 0.0 for c in criterios), 6),
+            "total_tokens": sum(c["total_tokens"] or 0 for c in criterios),
+            "aprovado_geral": all(c["passou"] for c in criterios),
+            "resumo": resumir(criterios),
+            "criterios": criterios,
         }
         projeto.saida.mkdir(parents=True, exist_ok=True)
         (projeto.saida / "veredito.json").write_text(

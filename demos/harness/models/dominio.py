@@ -84,12 +84,26 @@ class Requisito:
         return (self.diretorio / "requisito.md").read_text(encoding="utf-8")
 
     @property
-    def criterios(self) -> str:
-        return (self.diretorio / "criterios.md").read_text(encoding="utf-8")
+    def criterios(self) -> list[Criterio]:
+        texto = (self.diretorio / "criterios.toml").read_text(encoding="utf-8")
+        dados = tomllib.loads(texto)
+        return [
+            Criterio(**{k: v.strip() for k, v in c.items()})
+            for c in dados["criterios"]
+        ]
 
     @property
     def alvo(self) -> Alvo:
         return Alvo.de(self.diretorio)
+
+
+class Criterio(BaseModel):
+    """Critério de aceitação: autocontido. Se depende de um passo anterior, o passo está
+    na própria ação — não existe ordem implícita entre critérios."""
+
+    identificador: str
+    acao: str
+    resultado_esperado: str
 
 
 class Arquivo(BaseModel):
