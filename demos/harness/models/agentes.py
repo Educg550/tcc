@@ -1,3 +1,4 @@
+import base64
 import json
 import os
 import socket
@@ -16,6 +17,10 @@ from pydantic import BaseModel
 
 from .dominio import Criterio, Mudanca, Projeto, Requisito
 
+# Teto de passos por critério. O default do browser-use é 500, que numa sessão empacada
+# vira consumo sem fim; baixo demais viraria falso negativo, porque a sessão termina sem
+# veredito e o critério conta como reprovado.
+MAX_PASSOS_CUA = 40
 MAX_TOKENS = 100000
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
@@ -140,7 +145,17 @@ class Avaliador:
                 proc.kill()
                 proc.wait()
 
-    async def _sessao(self, url: str, criterio: Criterio) -> dict:
+    @staticmethod
+    def _tela(projeto: Projeto, criterio: str, history) -> str | None:
+        """A última tela que o CUA viu: a evidência de onde o veredito saiu."""
+        b64 = next((t for t in reversed(history.screenshots(n_last=3)) if t), None)
+        if not b64:
+            return None
+        destino = projeto.saida / f"{criterio}.png"
+        destino.write_bytes(base64.b64decode(b64))
+        return destino.name
+
+    async def _sessao(self, projeto: Projeto, url: str, criterio: Criterio) -> dict:
         agente = AgenteNavegador(
             task=load("cua_task").format(
                 base_url=url,
@@ -156,12 +171,13 @@ class Avaliador:
             generate_gif=False,
             calculate_cost=True,
         )
-        history = await agente.run()
+        history = await agente.run(max_steps=MAX_PASSOS_CUA)
         v, usage = history.structured_output, history.usage
         return {
             "identificador": criterio.identificador,
             "passou": v.passou if v else False,
             "evidencia": v.evidencia if v else "sessão terminou sem veredito",
+            "tela": self._tela(projeto, criterio.identificador, history),
             "duration_s": round(history.total_duration_seconds() or 0.0, 2),
             "num_steps": history.number_of_steps(),
             "cost_usd": usage.total_cost if usage else None,
@@ -176,7 +192,7 @@ class Avaliador:
         criterios = []
         for criterio in requisito.criterios:
             with self.app_rodando(projeto, f"-{criterio.identificador}") as url:
-                criterios.append(await self._sessao(url, criterio))
+                criterios.append(await self._sessao(projeto, url, criterio))
 
         resultado = {
             "configured_model": self.model_id,
