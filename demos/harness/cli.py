@@ -41,7 +41,10 @@ def main() -> None:
         classe = HarnessDireto if args.direto else HarnessTDD
         permissao = Batch() if args.yes else Interativa()
         log = asyncio.run(classe(projeto, requisito, permissao).executar())
-        print(f"\npytest final: {log['pytest_final']}  loop: {log['loop']['motivo']}")
+        print(
+            f"\npytest final: {log['pytest_final']}  loop: {log['loop']['motivo']}"
+            f"  testes intactos: {log['integridade']['intacto']}"
+        )
         print(f"RUN.log: {projeto.saida / 'RUN.log'}")
     else:
         r = asyncio.run(Avaliador().avaliar(projeto, requisito))

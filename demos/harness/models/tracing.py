@@ -27,6 +27,8 @@ class Resultado:
     stages: list[dict] = field(default_factory=list)
     loop: dict | None = None
     pytest_final: dict | None = None
+    impressao: str | None = None
+    impressao_fim: str | None = None
     cua: dict | None = None
     comeco: datetime = field(default_factory=datetime.now)
 
@@ -42,6 +44,17 @@ class Resultado:
             "antes": self.antes,
             "depois": self.pytest_final,
             "quebrou": self.antes["failed"] == 0 and self.pytest_final["failed"] > 0,
+        }
+
+    @property
+    def integridade(self) -> dict | None:
+        """Se `intacto`, os testes que o pytest_final mediu são idênticos aos que
+        a etapa de testes gerou. Sem isso o sucesso é afirmação do próprio agente."""
+        if self.impressao is None:
+            return None
+        return {
+            "medido_sha256": self.impressao,
+            "intacto": self.impressao == self.impressao_fim,
         }
 
     def como_dict(self) -> dict:
@@ -61,6 +74,7 @@ class Resultado:
             "loop": self.loop,
             "pytest_final": self.pytest_final,
             "regressao": self.regressao,
+            "integridade": self.integridade,
             "cua": self.cua,
         }
 

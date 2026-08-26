@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import os
 import re
 import subprocess
@@ -69,10 +70,10 @@ class Escopo:
         return "nenhum caminho em " + ", ".join(f"`{f}`" for f in self.fora)
 
 
+MEDIDO = ("tests", "pytest.ini", "conftest.py")
+
 SO_TESTES = Escopo(dentro="tests")
-# O coder escreve código de produção. A negação inclui a config do pytest e o próprio
-# registro da execução: sem isso ele pode desligar o teste que o mede.
-CODIGO = Escopo(fora=("tests", "_harness", ".git", "pytest.ini", "conftest.py"))
+CODIGO = Escopo(fora=MEDIDO + ("_harness", ".git"))
 
 _CAMPOS = re.compile(r"(\d+)\s+(passed|failed|errors?|error)")
 
@@ -144,6 +145,16 @@ class Projeto:
             destino.write_text(conteudo, encoding="utf-8")
             escritos.append(str(destino.relative_to(self.raiz)))
         return escritos
+
+    def impressao(self) -> str:
+        h = hashlib.sha256()
+        for alvo in MEDIDO:
+            base = self.raiz / alvo
+            for arq in sorted(base.rglob("*") if base.is_dir() else [base]):
+                if arq.is_file() and "__pycache__" not in arq.parts:
+                    h.update(str(arq.relative_to(self.raiz)).encode())
+                    h.update(arq.read_bytes())
+        return h.hexdigest()
 
     def rodar_pytest(self) -> ResultadoPytest:
         proc = subprocess.run(

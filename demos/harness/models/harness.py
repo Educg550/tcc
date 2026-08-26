@@ -46,6 +46,7 @@ class Harness(ABC):
             antes=antes.contagem if antes else None,
         )
         await self.etapas(modo, resultado)
+        resultado.impressao_fim = self.projeto.impressao()
         resultado.pytest_final = self.projeto.rodar_pytest().contagem
         self.projeto.commitar(self.requisito.id)
         return resultado.gravar(self.projeto.saida / "RUN.log")
@@ -60,6 +61,7 @@ class HarnessTDD(Harness):
         resultado.stages.append(await testes.executar(base, self.projeto))
         # Teste que já passa antes da implementação não é contrato, é tautologia.
         vermelho = not self.projeto.rodar_pytest().passou
+        resultado.impressao = self.projeto.impressao()
 
         codigo = self.etapa("code", Agente.coder(), CODIGO, EtapaTDD)
         base = (
@@ -75,6 +77,7 @@ class HarnessDireto(Harness):
     CI, sem CUA no loop. A ausência é a variável independente, não um prompt pior."""
 
     async def etapas(self, modo: Modo, resultado: Resultado) -> None:
+        resultado.impressao = self.projeto.impressao()
         direta = self.etapa("direto", Agente.direto(), CODIGO)
         base = self.requisito.texto + modo.contexto(self.projeto)
         parte = await direta.executar(base, self.projeto)
