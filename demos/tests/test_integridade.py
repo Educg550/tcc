@@ -42,6 +42,17 @@ def test_coder_nao_escreve_superficie_medida(projeto, caminho):
         escrever(projeto, caminho)
 
 
+def test_contexto_nao_devolve_a_medicao(projeto):
+    escrever(projeto, "app.py", "x = 1")
+    (projeto.saida / "RUN.log").write_text('{"total_cost_usd": 0.42}', encoding="utf-8")
+
+    contexto = projeto.contexto()
+
+    assert "app.py" in contexto
+    assert "RUN.log" not in contexto
+    assert "total_cost_usd" not in contexto
+
+
 def test_impressao_denuncia_adulteracao(projeto):
     antes = projeto.impressao()
     escrever(projeto, "app.py", "x = 1")

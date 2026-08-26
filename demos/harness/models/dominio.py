@@ -12,7 +12,9 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
-EXTENSOES = (".py", ".html", ".css", ".js")
+# Fora do contexto que o modelo recebe: `_harness/` é a medição, e RUN.log dentro do
+# prompt é vazamento da métrica para dentro do que ela mede.
+IGNORADOS = ("_harness", "__pycache__")
 
 
 @dataclass(frozen=True)
@@ -214,15 +216,21 @@ class Projeto:
         )
 
     def contexto(self, sub: str = "") -> str:
+        """Todo arquivo de texto do projeto. Que arquivo entra não é escolha de extensão:
+        é o que o modelo pode ver sem receber a própria medição de volta."""
         base = self.raiz / sub
         partes = []
         for caminho in sorted(base.rglob("*")):
-            if not caminho.is_file() or caminho.suffix not in EXTENSOES:
-                continue
             rel = caminho.relative_to(base)
-            if any(parte.startswith(".") for parte in rel.parts):
+            if not caminho.is_file() or any(
+                p.startswith(".") or p in IGNORADOS for p in rel.parts
+            ):
                 continue
-            partes.append(f"### {rel}\n```\n{caminho.read_text(encoding='utf-8')}\n```")
+            try:
+                texto = caminho.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                continue
+            partes.append(f"### {rel}\n```\n{texto}\n```")
         return "\n\n".join(partes)
 
     def commitar(self, requisito_id: str) -> None:
