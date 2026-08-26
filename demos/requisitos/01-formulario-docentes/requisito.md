@@ -1,7 +1,7 @@
 # Requisito 01: formulário de solicitação de auxílio para docentes
 
 Aplicação web em FastAPI que substitui o Google Forms de solicitação de auxílio
-financeiro para docentes do IME. A aplicação fica em `app.py` e com porta 5000 como padrão.
+financeiro para docentes do IME.
 
 ## Tela única com o formulário
 
