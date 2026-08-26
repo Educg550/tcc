@@ -3,8 +3,9 @@ from __future__ import annotations
 import hashlib
 import os
 import re
+import shlex
 import subprocess
-import sys
+import tomllib
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
@@ -12,6 +13,42 @@ from pathlib import Path
 from pydantic import BaseModel
 
 EXTENSOES = (".py", ".html", ".css", ".js")
+
+
+@dataclass(frozen=True)
+class Alvo:
+    """Como o harness opera o software gerado: o comando que sobe o app, o que roda os
+    testes e o ambiente dos dois. Tudo declarado pelo caso de uso, nada pelo harness."""
+
+    comando_app: str
+    comando_teste: str
+    modelos: dict[str, str]
+    requirements: Path | None = None
+
+    @classmethod
+    def de(cls, diretorio: Path) -> Alvo:
+        dados = tomllib.loads((diretorio / "alvo.toml").read_text(encoding="utf-8"))
+        requirements = diretorio / "requirements.txt"
+        return cls(
+            comando_app=dados["comando_app"],
+            comando_teste=dados["comando_teste"],
+            modelos=dados["modelos"],
+            requirements=requirements if requirements.exists() else None,
+        )
+
+    def comando(self, linha: str) -> list[str]:
+        """Roda no ambiente que o caso de uso declara, isolado do venv do harness."""
+        uv = ["uv", "run", "--no-project"]
+        if self.requirements:
+            uv += ["--with-requirements", str(self.requirements)]
+        return uv + shlex.split(linha)
+
+    @property
+    def teste(self) -> list[str]:
+        return self.comando(self.comando_teste)
+
+    def app(self, porta: int) -> list[str]:
+        return self.comando(self.comando_app.format(porta=porta))
 
 
 @dataclass(frozen=True)
@@ -29,6 +66,10 @@ class Requisito:
     @property
     def criterios(self) -> str:
         return (self.diretorio / "criterios.md").read_text(encoding="utf-8")
+
+    @property
+    def alvo(self) -> Alvo:
+        return Alvo.de(self.diretorio)
 
 
 class Arquivo(BaseModel):
@@ -118,6 +159,7 @@ class Projeto:
     """O mundo em que o modelo age: o único lugar que escreve em disco e roda o pytest."""
 
     raiz: Path
+    alvo: Alvo
 
     def __post_init__(self) -> None:
         self.raiz = Path(self.raiz).resolve()
@@ -158,7 +200,7 @@ class Projeto:
 
     def rodar_pytest(self) -> ResultadoPytest:
         proc = subprocess.run(
-            [sys.executable, "-m", "pytest", "-q", "--tb=short"],
+            self.alvo.teste,
             cwd=str(self.raiz),
             # Sem isto o pytest importa .pyc velho quando o modelo reescreve um arquivo
             # com o mesmo tamanho no mesmo segundo, e o harness mede falso vermelho.

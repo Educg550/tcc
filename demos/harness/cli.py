@@ -34,8 +34,8 @@ def main() -> None:
     ava.add_argument("requisito")
 
     args = ap.parse_args()
-    projeto = Projeto(Path(args.projeto))
     requisito = Requisito(Path(args.requisito))
+    projeto = Projeto(Path(args.projeto), requisito.alvo)
 
     if args.cmd == "run":
         classe = HarnessDireto if args.direto else HarnessTDD

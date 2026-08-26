@@ -1,6 +1,15 @@
 import pytest
 
-from harness.models.dominio import CODIGO, Arquivo, EscopoViolado, Mudanca, Projeto
+from harness.models.dominio import (
+    CODIGO,
+    Alvo,
+    Arquivo,
+    EscopoViolado,
+    Mudanca,
+    Projeto,
+)
+
+ALVO = Alvo(comando_app="app --port {porta}", comando_teste="pytest -q", modelos={})
 
 
 def escrever(projeto, caminho, conteudo=""):
@@ -11,7 +20,7 @@ def escrever(projeto, caminho, conteudo=""):
 
 @pytest.fixture
 def projeto(tmp_path):
-    p = Projeto(tmp_path)
+    p = Projeto(tmp_path, ALVO)
     p.preparar()
     (p.raiz / "tests").mkdir()
     (p.raiz / "tests" / "test_x.py").write_text("def test_x():\n    assert True\n")
