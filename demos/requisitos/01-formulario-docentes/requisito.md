@@ -1,7 +1,7 @@
 # Requisito 01: formulário de solicitação de auxílio financeiro da Pós-Graduação do IME-USP
 
 Aplicação web que substitui os dois Google Forms de solicitação de auxílio financeiro da
-Pós-Graduação do IME-USP: o de **docentes** e o de **alunos**. Os dois convivem na mesma
+Pós-Graduação do IME-USP: o de **alunos** e o de **docentes**. Os dois convivem na mesma
 página, em abas. O solicitante escolhe a aba, preenche seus dados, os dados do evento, o
 endereço e os dados bancários; ao enviar, recebe de volta o ofício de solicitação já
 redigido com os dados no lugar dos marcadores, pronto para encaminhar à CCP do programa.
@@ -9,10 +9,11 @@ redigido com os dados no lugar dos marcadores, pronto para encaminhar à CCP do 
 ## Tela única com duas abas
 
 Cabeçalho institucional da USP no topo (ver **Aparência**) e, abaixo dele, duas abas com
-os rótulos exatos `DOCENTES` e `ALUNOS`. A aba `DOCENTES` está ativa quando a página
-abre. Clicar numa aba mostra o formulário dela e esconde o da outra, sem recarregar a
-página e sem perder o que já foi digitado na aba que saiu de vista. A aba ativa é
-visualmente distinguível da inativa.
+os rótulos exatos `ALUNOS` e `DOCENTES`, nessa ordem. A aba `ALUNOS` está ativa quando a
+página abre. Clicar numa aba mostra o formulário dela e esconde o da outra, sem
+recarregar a página e sem perder o que já foi digitado na aba que saiu de vista: voltar
+para ela mostra os campos como estavam. A aba ativa é visualmente distinguível da
+inativa.
 
 Cada aba tem seu próprio formulário e seu próprio botão `Enviar solicitação` ao fim.
 
@@ -119,8 +120,8 @@ marcadores:
 ```
 Interessada(o): <<NOME COMPLETO - SEM ABREVIAR>> - <<N. USP>>
 E-mail: <<E-MAIL>>
-Assunto: Solicitação de Auxílio Financeiro - Verba do programa
-Programa: <<PROGRAMA>>
+Assunto: Solicitação de Auxílio Financeiro - <<TIPO DE AUXÍLIO>>
+Programa: <<PROGRAMA>> - <<NÍVEL>>
 
 A CCP-<<PROGRAMA>> aprovou na data de hoje, a solicitação de auxílio financeiro para a
 interessada(o) acima, conforme segue:
@@ -151,11 +152,12 @@ Conta: <<NÚMERO DA CONTA>>
 Encaminhe-se ao Serviço Financeiro para providências.
 ```
 
-O ofício da aba `ALUNOS` é o mesmo, com duas linhas diferentes:
+O ofício da aba `DOCENTES` é o mesmo, com duas linhas diferentes — a aba `DOCENTES` não
+tem `TIPO DE AUXÍLIO` nem `NÍVEL` para preencher:
 
 ```
-Assunto: Solicitação de Auxílio Financeiro - <<TIPO DE AUXÍLIO>>
-Programa: <<PROGRAMA>> - <<NÍVEL>>
+Assunto: Solicitação de Auxílio Financeiro - Verba do programa
+Programa: <<PROGRAMA>>
 ```
 
 `VALOR SOLICITADO (R$)` aparece no ofício já formatado, como `R$ 1.500,00`. Quando
@@ -199,7 +201,7 @@ Com eles:
 - Fundo da página num azul-acinzentado muito claro (por exemplo `#eeeef8`). Sobre ele,
   um cartão único centralizado, de largura máxima em torno de 860px, fundo branco, cantos
   arredondados e sombra suave.
-- As abas `DOCENTES` e `ALUNOS` ficam no alto do cartão, lado a lado, como abas de
+- As abas `ALUNOS` e `DOCENTES` ficam no alto do cartão, lado a lado, como abas de
   verdade: a ativa com fundo branco e uma barra na cor de destaque, a inativa apagada.
 - Cor de destaque, usada no botão, na aba ativa e no realce de foco dos campos: um
   azul-violeta (por exemplo `#5159b4`, a cor do formulário original).

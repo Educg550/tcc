@@ -1,7 +1,8 @@
-# O CUA valida o que só se vê na tela: a identidade visual, as abas, a formatação que
-# acontece enquanto se digita e o ofício gerado. A matriz campo a campo de validação de
-# formato fica para o pytest - repetir os 26 campos aqui não acrescenta evidência e gasta
-# sessão. Só os dois últimos critérios preenchem o formulário inteiro.
+# O CUA valida o que só se vê na tela: a identidade visual, as abas, o que sobrevive à
+# troca de aba, a formatação que acontece enquanto se digita e o ofício gerado. A matriz
+# campo a campo de validação de formato fica para o pytest - repetir os 26 campos aqui não
+# acrescenta evidência e gasta sessão. Só os dois últimos critérios preenchem o formulário
+# inteiro, um por aba.
 
 [[criterios]]
 identificador = "C1"
@@ -23,8 +24,8 @@ acao = '''
 Abrir a página inicial e olhar a tela inteira, rolando até o fim.
 '''
 resultado_esperado = '''
-Há duas abas com os rótulos `DOCENTES` e `ALUNOS`, e a aba `DOCENTES` está ativa. Os
-campos estão divididos em três seções, com os títulos `SOLICITANTE E EVENTO`,
+Há duas abas, `ALUNOS` e `DOCENTES` nessa ordem, e a aba `ALUNOS` está ativa. Os campos
+estão divididos em três seções, com os títulos `SOLICITANTE E EVENTO`,
 `ENDEREÇO DO SOLICITANTE` e `INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO`, e ao fim há um
 botão `Enviar solicitação`.
 '''
@@ -32,17 +33,30 @@ botão `Enviar solicitação`.
 [[criterios]]
 identificador = "C3"
 acao = '''
-Abrir a página inicial, digitar `Maria Silva` no campo `NOME COMPLETO - SEM ABREVIAR` e
-clicar na aba `ALUNOS`.
+Abrir a página inicial, conferir que os campos `NÍVEL` e `TIPO DE AUXÍLIO` estão na tela,
+e então clicar na aba `DOCENTES`.
 '''
 resultado_esperado = '''
-A aba `ALUNOS` fica ativa e o formulário mostrado passa a ter os campos `NÍVEL`, com as
-opções `Mestrado` e `Doutorado`, e `TIPO DE AUXÍLIO` — campos que a aba `DOCENTES` não
-tem.
+A aba `DOCENTES` fica ativa e o formulário mostrado não tem mais os campos `NÍVEL` nem
+`TIPO DE AUXÍLIO` — eles existem só na aba `ALUNOS`. Os outros campos continuam lá.
 '''
 
 [[criterios]]
 identificador = "C4"
+acao = '''
+Abrir a página inicial e, na aba `ALUNOS`, digitar `João Souza` no campo
+`NOME COMPLETO - SEM ABREVIAR` e `Matemática Aplicada` no campo `PROGRAMA`. Clicar na aba
+`DOCENTES`, digitar `Maria Silva` no campo `NOME COMPLETO - SEM ABREVIAR` dela, e voltar
+para a aba `ALUNOS`.
+'''
+resultado_esperado = '''
+A aba `ALUNOS` volta a ficar ativa com o que tinha sido digitado nela ainda no lugar:
+`João Souza` em `NOME COMPLETO - SEM ABREVIAR` e `Matemática Aplicada` em `PROGRAMA`. A
+troca de aba não apagou o preenchimento.
+'''
+
+[[criterios]]
+identificador = "C5"
 acao = '''
 Abrir a página inicial. Digitar `1500` no campo `VALOR SOLICITADO (R$)` e sair do campo.
 Depois apagar o conteúdo do campo, digitar `150000000` e sair do campo de novo. Não
@@ -53,7 +67,7 @@ Na primeira vez o campo passa a mostrar `R$ 15,00`; na segunda, `R$ 1.500.000,00
 '''
 
 [[criterios]]
-identificador = "C5"
+identificador = "C6"
 acao = '''
 Abrir a página inicial. Digitar `12345678901` no campo
 `CPF (SEPARADOS POR PONTOS E TRAÇO)` e sair do campo, sem enviar o formulário.
@@ -63,7 +77,7 @@ O campo passa a mostrar `123.456.789-01`.
 '''
 
 [[criterios]]
-identificador = "C6"
+identificador = "C7"
 acao = '''
 Abrir a página inicial e clicar em `Enviar solicitação` sem preencher nenhum campo.
 '''
@@ -73,7 +87,7 @@ gerado.
 '''
 
 [[criterios]]
-identificador = "C7"
+identificador = "C8"
 acao = '''
 Abrir a página inicial, preencher apenas o campo `N. USP` com `abc123` e clicar em
 `Enviar solicitação`.
@@ -83,7 +97,7 @@ A mensagem `N. USP deve conter apenas números` aparece no topo do formulário.
 '''
 
 [[criterios]]
-identificador = "C8"
+identificador = "C9"
 acao = '''
 Abrir a página inicial, preencher apenas o campo `VALOR SOLICITADO (R$)` com `0` e
 clicar em `Enviar solicitação`.
@@ -94,11 +108,36 @@ ofício não é gerado.
 '''
 
 [[criterios]]
-identificador = "C9"
+identificador = "C10"
 acao = '''
-Abrir a página inicial e preencher o formulário da aba `DOCENTES` inteiro, usando
-exatamente estes valores nos campos citados e valores plausíveis que você mesmo escolher
-em todos os outros campos obrigatórios:
+Abrir a página inicial e preencher o formulário da aba `ALUNOS`, que já está ativa,
+inteiro, usando exatamente estes valores nos campos citados e valores plausíveis que você
+mesmo escolher em todos os outros campos obrigatórios:
+
+- `NOME COMPLETO - SEM ABREVIAR`: `João Souza`
+- `N. USP`: `7654321`
+- `PROGRAMA`: `Matemática Aplicada`
+- `NÍVEL`: `Mestrado`
+- `TIPO DE AUXÍLIO`: `Participação em evento`
+- `VALOR SOLICITADO (R$)`: `150000`
+
+Preencha vários campos por vez quando possível, para não gastar passos. Depois clicar em
+`Enviar solicitação`.
+'''
+resultado_esperado = '''
+A página mostra `Solicitação registrada` e o ofício abaixo contém
+`Interessada(o): João Souza - 7654321`,
+`Assunto: Solicitação de Auxílio Financeiro - Participação em evento`,
+`Programa: Matemática Aplicada - Mestrado` e `Valor solicitado: R$ 1.500,00`, sem nenhum
+marcador `<<...>>` sobrando.
+'''
+
+[[criterios]]
+identificador = "C11"
+acao = '''
+Abrir a página inicial, clicar na aba `DOCENTES` e preencher o formulário dela inteiro,
+usando exatamente estes valores nos campos citados e valores plausíveis que você mesmo
+escolher em todos os outros campos obrigatórios:
 
 - `NOME COMPLETO - SEM ABREVIAR`: `Maria Silva`
 - `N. USP`: `1234567`
@@ -111,30 +150,8 @@ Preencha vários campos por vez quando possível, para não gastar passos. Depoi
 '''
 resultado_esperado = '''
 A página mostra `Solicitação registrada` e o ofício abaixo contém
-`Interessada(o): Maria Silva - 1234567`, `Programa: Ciência da Computação`,
-`Valor solicitado: R$ 1.500,00` e `CPF: 123.456.789-01`, sem nenhum marcador `<<...>>`
-sobrando.
-'''
-
-[[criterios]]
-identificador = "C10"
-acao = '''
-Abrir a página inicial, clicar na aba `ALUNOS` e preencher o formulário dela inteiro,
-usando exatamente estes valores nos campos citados e valores plausíveis que você mesmo
-escolher em todos os outros campos obrigatórios:
-
-- `NOME COMPLETO - SEM ABREVIAR`: `João Souza`
-- `PROGRAMA`: `Matemática Aplicada`
-- `NÍVEL`: `Mestrado`
-- `TIPO DE AUXÍLIO`: `Participação em evento`
-- `VALOR SOLICITADO (R$)`: `150000`
-
-Preencha vários campos por vez quando possível, para não gastar passos. Depois clicar em
-`Enviar solicitação`.
-'''
-resultado_esperado = '''
-A página mostra `Solicitação registrada` e o ofício abaixo contém
-`Assunto: Solicitação de Auxílio Financeiro - Participação em evento`,
-`Programa: Matemática Aplicada - Mestrado`, `João Souza` e
-`Valor solicitado: R$ 1.500,00`, sem nenhum marcador `<<...>>` sobrando.
+`Interessada(o): Maria Silva - 1234567`,
+`Assunto: Solicitação de Auxílio Financeiro - Verba do programa`,
+`Programa: Ciência da Computação`, `Valor solicitado: R$ 1.500,00` e
+`CPF: 123.456.789-01`, sem nenhum marcador `<<...>>` sobrando.
 '''
