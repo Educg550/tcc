@@ -1,26 +1,20 @@
 import pytest
 
-from harness.models.dominio import (
-    CODIGO,
-    Alvo,
-    Arquivo,
-    EscopoViolado,
-    Mudanca,
-    Projeto,
-)
+from harness.models.dominio import CODIGO, Alvo, Arquivo, Mudanca, Projeto
+from harness.models.propostas import PropostaRejeitada
 
-ALVO = Alvo(comando_app="app --port {porta}", comando_teste="pytest -q", modelos={})
+ALVO = Alvo(comando_app="app --port {porta}", comando_teste="pytest -q")
 
 
 def escrever(projeto, caminho, conteudo=""):
-    projeto.aplicar(
+    return projeto.aplicar(
         Mudanca(arquivos=[Arquivo(caminho=caminho, conteudo=conteudo)]), CODIGO
     )
 
 
 @pytest.fixture
 def projeto(tmp_path):
-    p = Projeto(tmp_path, ALVO)
+    p = Projeto(tmp_path, ALVO, "teste")
     p.preparar()
     (p.raiz / "tests").mkdir()
     (p.raiz / "tests" / "test_x.py").write_text("def test_x():\n    assert True\n")
@@ -38,8 +32,7 @@ def projeto(tmp_path):
     ],
 )
 def test_coder_nao_escreve_superficie_medida(projeto, caminho):
-    with pytest.raises(EscopoViolado):
-        escrever(projeto, caminho)
+    assert isinstance(escrever(projeto, caminho), PropostaRejeitada)
 
 
 def test_contexto_nao_devolve_a_medicao(projeto):

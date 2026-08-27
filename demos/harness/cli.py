@@ -89,7 +89,7 @@ def main() -> None:
         print(f"RUN.log: {projeto.saida / 'RUN.log'}")
     else:
         projeto = Projeto(raiz, requisito.alvo, ultima_run(raiz))
-        cua = Avaliador(projeto.alvo.modelos["cua"])
+        cua = Avaliador(requisito.modelos["cua"])
         r = asyncio.run(cua.avaliar(projeto, requisito))
         destino = projeto.saida / "RUN.log"
         log = json.loads(destino.read_text(encoding="utf-8"))

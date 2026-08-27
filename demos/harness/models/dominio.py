@@ -12,6 +12,9 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
+from .politicas import Orcamento
+from .propostas import Proposta, PropostaAceita, PropostaRejeitada
+
 # Fora do contexto que o modelo recebe: `_harness/` é a medição, e RUN.log dentro do
 # prompt é vazamento da métrica para dentro do que ela mede.
 IGNORADOS = ("_harness", "__pycache__")
@@ -24,22 +27,7 @@ class Alvo:
 
     comando_app: str
     comando_teste: str
-    modelos: dict[str, str]
-    orcamento: dict[str, float]
     requirements: Path | None = None
-
-    @classmethod
-    def de(cls, diretorio: Path) -> Alvo:
-        dados = tomllib.loads((diretorio / "alvo.toml").read_text(encoding="utf-8"))
-        # Absoluto: o comando roda com cwd na raiz do projeto gerado, não aqui.
-        requirements = (diretorio / "requirements.txt").resolve()
-        return cls(
-            comando_app=dados["comando_app"],
-            comando_teste=dados["comando_teste"],
-            modelos=dados["modelos"],
-            orcamento=dados["orcamento"],
-            requirements=requirements if requirements.exists() else None,
-        )
 
     def comando(self, linha: str) -> list[str]:
         """Roda no ambiente que o caso de uso declara, isolado do venv do harness."""
@@ -68,13 +56,15 @@ class Alvo:
         return {
             "comando_app": self.comando_app,
             "comando_teste": self.comando_teste,
-            "modelos": self.modelos,
             "dependencias": self.dependencias,
         }
 
 
 @dataclass(frozen=True)
 class Requisito:
+    """O caso de uso em disco: o texto, os critérios de aceitação, e o que o alvo.toml
+    declara — como rodar o gerado, com que modelos e sob que teto."""
+
     diretorio: Path
 
     @property
@@ -95,8 +85,28 @@ class Requisito:
         ]
 
     @property
+    def _declarado(self) -> dict:
+        return tomllib.loads(
+            (self.diretorio / "alvo.toml").read_text(encoding="utf-8")
+        )
+
+    @property
     def alvo(self) -> Alvo:
-        return Alvo.de(self.diretorio)
+        # Absoluto: o comando roda com cwd na raiz do projeto gerado, não aqui.
+        requirements = (self.diretorio / "requirements.txt").resolve()
+        return Alvo(
+            comando_app=self._declarado["comando_app"],
+            comando_teste=self._declarado["comando_teste"],
+            requirements=requirements if requirements.exists() else None,
+        )
+
+    @property
+    def modelos(self) -> dict[str, str]:
+        return self._declarado["modelos"]
+
+    @property
+    def orcamento(self) -> Orcamento:
+        return Orcamento(**self._declarado["orcamento"])
 
 
 class Criterio(BaseModel):
@@ -214,18 +224,22 @@ class Projeto:
             "[pytest]\npythonpath = .\n", encoding="utf-8"
         )
 
-    def aplicar(self, mudanca: Mudanca, escopo: Escopo) -> list[str]:
+    def aplicar(self, mudanca: Mudanca, escopo: Escopo) -> Proposta:
         """Valida todos os caminhos antes de escrever qualquer um: proposta inválida
         não deixa mudança pela metade para o pytest medir."""
-        destinos = [
-            (escopo.destino(self.raiz, a.caminho), a.conteudo) for a in mudanca.arquivos
-        ]
+        try:
+            destinos = [
+                (escopo.destino(self.raiz, a.caminho), a.conteudo)
+                for a in mudanca.arquivos
+            ]
+        except EscopoViolado as erro:
+            return PropostaRejeitada(str(erro), escopo.regra)
         escritos = []
         for destino, conteudo in destinos:
             destino.parent.mkdir(parents=True, exist_ok=True)
             destino.write_text(conteudo, encoding="utf-8")
             escritos.append(str(destino.relative_to(self.raiz)))
-        return escritos
+        return PropostaAceita(escritos)
 
     def impressao(self) -> str:
         h = hashlib.sha256()

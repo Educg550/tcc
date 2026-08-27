@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from .dominio import Escopo, ResultadoPytest
+# Sem import de domínio: `propostas` e `politicas` importam daqui, e o domínio
+# importa `propostas`. Por isso as observações guardam texto pronto, não objetos.
 
 
 class Observacao(ABC):
@@ -13,32 +14,11 @@ class Observacao(ABC):
 
 
 @dataclass(frozen=True)
-class FeedbackHumano(Observacao):
-    texto: str
-
-    def como_prompt(self) -> str:
-        return f"## FEEDBACK ANTERIOR\n{self.texto}\n"
-
-
-@dataclass(frozen=True)
-class PropostaRejeitada(Observacao):
-    erro: str
-    escopo: Escopo
-
-    def como_prompt(self) -> str:
-        return (
-            f"## PROPOSTA REJEITADA\n{self.erro}\n"
-            f"Reenvie a Mudanca com caminhos relativos à raiz do projeto: "
-            f"{self.escopo.regra}.\n"
-        )
-
-
-@dataclass(frozen=True)
 class PytestFalhou(Observacao):
-    resultado: ResultadoPytest
+    saida: str
 
     def como_prompt(self) -> str:
         return (
-            f"## PYTEST FALHOU\n```\n{self.resultado.saida[-4000:]}\n```\n"
+            f"## PYTEST FALHOU\n```\n{self.saida[-4000:]}\n```\n"
             "Corrija o código de produção. Não altere os testes.\n"
         )

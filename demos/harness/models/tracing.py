@@ -28,7 +28,6 @@ class Resultado:
     antes: dict | None = None
     stages: list[dict] = field(default_factory=list)
     pytest_final: dict | None = None
-    impressao: str | None = None
     impressao_fim: str | None = None
     cua: dict | None = None
     comeco: datetime = field(default_factory=datetime.now)
@@ -36,6 +35,12 @@ class Resultado:
     @property
     def partes(self) -> list[dict]:
         return [*self.stages, *([self.cua] if self.cua else [])]
+
+    @property
+    def impressao(self) -> str | None:
+        """A impressão dos testes quando a etapa de código começou. Quem a registra é a
+        própria etapa: só ela sabe qual é esse instante."""
+        return next((s["impressao"] for s in self.stages if "impressao" in s), None)
 
     @property
     def regressao(self) -> dict | None:

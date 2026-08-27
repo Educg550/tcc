@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from harness.models.agentes import load, resumir
-from harness.models.dominio import Alvo, Requisito
+from harness.models.dominio import Requisito
 
 REQUISITOS = Path(__file__).parent.parent / "requisitos"
 MODELO = REQUISITOS / "00-exemplo-caso-de-uso"
@@ -19,11 +19,11 @@ def caso(tmp_path, requirements: bool):
     (tmp_path / "alvo.toml").write_text(TOML, encoding="utf-8")
     if requirements:
         (tmp_path / "requirements.txt").write_text("fastapi\n", encoding="utf-8")
-    return Alvo.de(tmp_path)
+    return Requisito(tmp_path)
 
 
 def test_sem_requirements_nao_passa_a_flag(tmp_path):
-    assert caso(tmp_path, requirements=False).teste == [
+    assert caso(tmp_path, requirements=False).alvo.teste == [
         "uv",
         "run",
         "--no-project",
@@ -33,8 +33,8 @@ def test_sem_requirements_nao_passa_a_flag(tmp_path):
 
 
 def test_com_requirements_e_porta_substituida(tmp_path):
-    alvo = caso(tmp_path, requirements=True)
-    assert alvo.app(41537) == [
+    requisito = caso(tmp_path, requirements=True)
+    assert requisito.alvo.app(41537) == [
         "uv",
         "run",
         "--no-project",
@@ -45,15 +45,17 @@ def test_com_requirements_e_porta_substituida(tmp_path):
         "--port",
         "41537",
     ]
-    assert alvo.modelos["coder"] == "provedor/modelo"
+    assert requisito.modelos["coder"] == "provedor/modelo"
 
 
 def test_modelo_de_caso_de_uso_e_input_valido():
-    alvo = Alvo.de(MODELO)
+    requisito = Requisito(MODELO)
+    alvo = requisito.alvo
 
     assert alvo.teste[:3] == ["uv", "run", "--no-project"]
     assert "{porta}" in alvo.comando_app
-    assert set(alvo.modelos) == {"test_writer", "coder", "cua"}
+    assert set(requisito.modelos) == {"test_writer", "coder", "cua"}
+    assert requisito.orcamento.passos > 0
     assert "#" not in " ".join(alvo.dependencias)
     # Relativo aqui vira inexistente lá: o comando roda com cwd na raiz do projeto.
     assert alvo.requirements.is_absolute()

@@ -35,7 +35,9 @@ def load(nome: str) -> str:
 
 
 @dataclass(frozen=True)
-class Proposta:
+class Resposta:
+    """O que o provedor devolveu: a mudança proposta e o que ela custou."""
+
     mudanca: Mudanca
     custo_usd: float
     input_tokens: int
@@ -64,10 +66,10 @@ class Agente:
         """O papel nomeia o prompt; o modelo vem do caso de uso, não do harness."""
         return cls(model_id, load(papel))
 
-    async def propor(self, prompt: str) -> Proposta:
+    async def propor(self, prompt: str) -> Resposta:
         resposta = await self._agno.arun(prompt)
         m = getattr(resposta, "metrics", None)
-        return Proposta(
+        return Resposta(
             mudanca=self._mudanca(resposta.content),
             custo_usd=getattr(m, "cost", None) or 0.0,
             input_tokens=getattr(m, "input_tokens", None) or 0,

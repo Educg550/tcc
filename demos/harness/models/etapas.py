@@ -1,32 +1,43 @@
 import time
+from abc import ABC, abstractmethod
 
 from .agentes import Agente
-from .dominio import Escopo, EscopoViolado, Projeto, ResultadoPytest
-from .observacoes import Observacao, PropostaRejeitada, PytestFalhou
+from .dominio import CODIGO, SO_TESTES, Escopo, Projeto, ResultadoPytest
+from .observacoes import Observacao, PytestFalhou
 from .politicas import Orcamento, Permissao
+from .propostas import PropostaRejeitada
 from .tracing import Trace
 
 
-class Etapa:
+class Etapa(ABC):
     """Um laço: propor → validar → escrever → observar → autorizar, até o orçamento
     estourar ou nada mais haver a observar. O modelo nunca executa: quem escreve é
     o Projeto, quem decide é a Permissao."""
+
+    @property
+    @abstractmethod
+    def escopo(self) -> Escopo:
+        """Onde a etapa pode escrever. É da classe, não do chamador: etapa que escreve
+        fora do seu escopo adultera a própria medição."""
 
     def __init__(
         self,
         id: str,
         agente: Agente,
-        escopo: Escopo,
         permissao: Permissao,
         orcamento: Orcamento,
         trace: Trace,
     ):
         self.id = id
         self.agente = agente
-        self.escopo = escopo
         self.permissao = permissao
         self.orcamento = orcamento
         self.trace = trace
+
+    def inicio(self, projeto: Projeto) -> dict:
+        """Estado do projeto no instante em que a etapa começa, medido uma vez e gravado
+        junto da etapa no RUN.log."""
+        return {}
 
     def verificar(self, projeto: Projeto) -> ResultadoPytest | None:
         return None
@@ -40,6 +51,7 @@ class Etapa:
         observacoes: list[Observacao] = []
         arquivos: list[str] = []
         historico: list[dict] = []
+        inicial = self.inicio(projeto)
 
         def parte(ok: bool, motivo: str) -> dict:
             return {
@@ -58,6 +70,7 @@ class Etapa:
                 "output_tokens": tokens_out,
                 "total_tokens": tokens,
                 "cost_usd": round(custo, 6),
+                **inicial,
             }
 
         while True:
@@ -65,26 +78,26 @@ class Etapa:
             if estouro:
                 return parte(False, estouro)
 
-            proposta = await self.agente.propor(self._prompt(base, observacoes))
+            resposta = await self.agente.propor(self._prompt(base, observacoes))
             passos += 1
-            custo += proposta.custo_usd
-            tokens_in += proposta.input_tokens
-            tokens_out += proposta.output_tokens
-            tokens += proposta.total_tokens
+            custo += resposta.custo_usd
+            tokens_in += resposta.input_tokens
+            tokens_out += resposta.output_tokens
+            tokens += resposta.total_tokens
 
-            try:
-                arquivos = projeto.aplicar(proposta.mudanca, self.escopo)
-            except EscopoViolado as erro:
-                observacoes.append(PropostaRejeitada(str(erro), self.escopo))
+            proposta = projeto.aplicar(resposta.mudanca, self.escopo)
+            if isinstance(proposta, PropostaRejeitada):
+                observacoes.append(proposta)
                 self.trace.registrar(
                     {
                         "etapa": self.id,
                         "passo": passos,
-                        "erro": str(erro),
+                        "erro": proposta.erro,
                         "cost_usd": round(custo, 6),
                     }
                 )
                 continue
+            arquivos = proposta.arquivos
 
             resultado = self.verificar(projeto)
             if resultado is not None:
@@ -99,17 +112,40 @@ class Etapa:
                 }
             )
             if resultado is not None and not resultado.passou:
-                observacoes.append(PytestFalhou(resultado))
+                observacoes.append(PytestFalhou(resultado.saida))
                 continue
 
-            feedback = self.permissao.autorizar(self.id, "\n".join(arquivos))
-            if feedback is None:
+            decisao = self.permissao.autorizar(self.id, "\n".join(arquivos))
+            if decisao.aprovado:
                 return parte(True, "verde")
-            observacoes.append(feedback)
+            observacoes.append(decisao)
 
 
-class EtapaTDD(Etapa):
+class EtapaTestes(Etapa):
+    """Escreve os testes. Não roda o pytest: vermelho aqui é o esperado."""
+
+    escopo = SO_TESTES
+
+
+class EtapaCodigo(Etapa):
+    """Escreve o código de produção. Registra a impressão dos testes no instante em que
+    começa: é contra ela que a integridade da run é medida no fim."""
+
+    escopo = CODIGO
+
+    def inicio(self, projeto: Projeto) -> dict:
+        return {"impressao": projeto.impressao(), "tests_vermelhos": None}
+
+
+class EtapaTDD(EtapaCodigo):
     """A única diferença real entre etapas: a saída do pytest volta ao modelo."""
+
+    def inicio(self, projeto: Projeto) -> dict:
+        # Teste que já passa antes da implementação não é contrato, é tautologia.
+        return {
+            **super().inicio(projeto),
+            "tests_vermelhos": not projeto.rodar_pytest().passou,
+        }
 
     def verificar(self, projeto: Projeto) -> ResultadoPytest:
         return projeto.rodar_pytest()

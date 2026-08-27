@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 from dataclasses import asdict
 
 from .agentes import Agente, Avaliador, load
-from .dominio import CODIGO, SO_TESTES, Escopo, Modo, Projeto, Requisito
-from .etapas import Etapa, EtapaTDD
-from .politicas import Orcamento, Permissao
+from .dominio import Modo, Projeto, Requisito
+from .etapas import Etapa, EtapaCodigo, EtapaTDD, EtapaTestes
+from .politicas import Permissao
 from .tracing import Resultado, Trace
 
 
@@ -25,7 +25,7 @@ class Harness(ABC):
         self.projeto = projeto
         self.requisito = requisito
         self.permissao = permissao
-        self.orcamento = Orcamento(**projeto.alvo.orcamento)
+        self.orcamento = requisito.orcamento
         self.trace = Trace(projeto.saida / "trace.jsonl")
 
     @property
@@ -41,13 +41,11 @@ class Harness(ABC):
             p for p in (self.requisito.texto, self.contrato, *partes) if p.strip()
         )
 
-    def etapa(
-        self, id: str, agente: Agente, escopo: Escopo, classe: type[Etapa] = Etapa
-    ) -> Etapa:
-        return classe(id, agente, escopo, self.permissao, self.orcamento, self.trace)
+    def etapa(self, id: str, agente: Agente, classe: type[Etapa]) -> Etapa:
+        return classe(id, agente, self.permissao, self.orcamento, self.trace)
 
     @abstractmethod
-    async def etapas(self, modo: Modo, resultado: Resultado) -> None: ...
+    async def etapas(self, modo: Modo) -> list[dict]: ...
 
     async def executar(self) -> dict:
         modo = Modo.detectar(self.projeto)
@@ -56,16 +54,16 @@ class Harness(ABC):
         resultado = Resultado(
             modo=modo.nome,
             requisito_id=self.requisito.id,
-            alvo=self.projeto.alvo.como_dict(),
+            alvo={**self.projeto.alvo.como_dict(), "modelos": self.requisito.modelos},
             orcamento=asdict(self.orcamento),
             antes=antes.contagem if antes else None,
         )
-        await self.etapas(modo, resultado)
+        resultado.stages = await self.etapas(modo)
         resultado.impressao_fim = self.projeto.impressao()
         resultado.pytest_final = self.projeto.rodar_pytest().contagem
         # Instrumento de medida da variável dependente, igual nos dois grupos: roda antes
         # de gravar, senão o veredito não entra na medição da própria run.
-        avaliador = Avaliador(self.projeto.alvo.modelos["cua"])
+        avaliador = Avaliador(self.requisito.modelos["cua"])
         resultado.cua = await avaliador.avaliar(self.projeto, self.requisito)
         log = resultado.gravar(self.projeto.saida / "RUN.log")
         self.projeto.commitar(self.requisito.id)
@@ -75,37 +73,29 @@ class Harness(ABC):
 class HarnessTDD(Harness):
     """Grupo experimental: requisito → testes → implementação sob CI."""
 
-    async def etapas(self, modo: Modo, resultado: Resultado) -> None:
-        modelos = self.projeto.alvo.modelos
+    async def etapas(self, modo: Modo) -> list[dict]:
+        modelos = self.requisito.modelos
         testes = self.etapa(
-            "tests", Agente.de("test_writer", modelos["test_writer"]), SO_TESTES
+            "tests", Agente.de("test_writer", modelos["test_writer"]), EtapaTestes
         )
         base = self.prompt(modo.contexto(self.projeto))
-        resultado.stages.append(await testes.executar(base, self.projeto))
-        # Teste que já passa antes da implementação não é contrato, é tautologia.
-        vermelho = not self.projeto.rodar_pytest().passou
-        resultado.impressao = self.projeto.impressao()
+        parte_testes = await testes.executar(base, self.projeto)
 
-        codigo = self.etapa(
-            "code", Agente.de("coder", modelos["coder"]), CODIGO, EtapaTDD
-        )
+        codigo = self.etapa("code", Agente.de("coder", modelos["coder"]), EtapaTDD)
         base = self.prompt(
             "## TESTES A FAZER PASSAR\n\n" + self.projeto.contexto("tests")
         )
-        parte = await codigo.executar(base, self.projeto)
-        resultado.stages.append({**parte, "tests_vermelhos": vermelho})
+        return [parte_testes, await codigo.executar(base, self.projeto)]
 
 
 class HarnessDireto(Harness):
     """Grupo baseline: requisito → modelo → código, uma etapa. Sem testes gerados, sem
     CI, sem CUA no loop. A ausência é a variável independente, não um prompt pior."""
 
-    async def etapas(self, modo: Modo, resultado: Resultado) -> None:
-        resultado.impressao = self.projeto.impressao()
+    async def etapas(self, modo: Modo) -> list[dict]:
         # Roda com o modelo do coder: modelo diferente entre os grupos confundiria
         # modelo com pipeline.
-        modelo = self.projeto.alvo.modelos["coder"]
-        direta = self.etapa("direto", Agente.de("direto", modelo), CODIGO)
+        modelo = self.requisito.modelos["coder"]
+        direta = self.etapa("direto", Agente.de("direto", modelo), EtapaCodigo)
         base = self.prompt(modo.contexto(self.projeto))
-        parte = await direta.executar(base, self.projeto)
-        resultado.stages.append({**parte, "tests_vermelhos": None})
+        return [await direta.executar(base, self.projeto)]

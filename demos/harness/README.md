@@ -76,7 +76,6 @@ Uma pasta por execução em `<projeto>/_harness/<timestamp>-<requisito>/`:
 
 - `RUN.log` - a medida do TCC: duração, tokens, custo USD e retries por etapa, `pytest_final`, `regressao`, `integridade` dos testes e o veredito do CUA.
 - `trace.jsonl` - um evento por ação proposta pelo modelo.
-- `veredito.json` - saída estruturada do CUA.
 - `<criterio>.png` e `app-<criterio>.log` - tela final e log do app em cada sessão do CUA.
 
 O diretório `_harness/` fica fora do contexto enviado ao modelo: é a medição, e
@@ -87,10 +86,12 @@ não pode vazar para dentro do que ela mede.
 | | |
 |--|--|
 | `cli.py` | os dois comandos, `run` e `avaliar` |
-| `models/dominio.py` | tudo que o modelo vê e interage com: `Requisito`, `Alvo`, `Projeto`, `Escopo`, `Modo` |
+| `models/dominio.py` | tudo que o modelo vê e interage com: `Requisito` (o caso de uso em disco), `Alvo` (como rodar o gerado), `Projeto`, `Escopo`, `Modo` |
 | `models/harness.py` | o loop: `HarnessTDD` (experimental) e `HarnessDireto` (baseline) |
-| `models/etapas.py` | o laço de uma etapa: propor → validar → escrever → observar → autorizar |
+| `models/etapas.py` | o laço de uma etapa: propor → validar → escrever → observar → autorizar. `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
+| `models/propostas.py` | o que sobra da proposta depois de aplicada: `PropostaAceita` ou `PropostaRejeitada` |
+| `models/observacoes.py` | o que volta ao modelo entre propostas: `PytestFalhou`, e as rejeições |
 | `models/agentes.py` | os agentes Agno e o `Avaliador` (CUA via browser-use) |
-| `models/politicas.py` | `Orcamento` (passos, custo, tempo) e `Permissao` (`Batch`/`Interativa`) |
+| `models/politicas.py` | `Orcamento` (passos, custo, tempo) e `Permissao` (`Batch`/`Interativa`), que decide por `Aprovado` ou `FeedbackHumano` |
 | `models/tracing.py` | classes `Trace`, `Resultado` que viram `RUN.log` |
 | `prompts/*.md` | todos os textos de prompt |
