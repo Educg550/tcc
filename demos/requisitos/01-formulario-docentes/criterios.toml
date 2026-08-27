@@ -1,70 +1,140 @@
+# O CUA valida o que só se vê na tela: a identidade visual, as abas, a formatação que
+# acontece enquanto se digita e o ofício gerado. A matriz campo a campo de validação de
+# formato fica para o pytest - repetir os 26 campos aqui não acrescenta evidência e gasta
+# sessão. Só os dois últimos critérios preenchem o formulário inteiro.
+
 [[criterios]]
 identificador = "C1"
 acao = '''
-Abrir a página inicial.
+Abrir a página inicial e olhar o topo e o rodapé da página, rolando até o fim.
 '''
 resultado_esperado = '''
-Os sete campos aparecem com os rótulos exatos `NOME COMPLETO - SEM ABREVIAR`, `N. USP`,
-`PROGRAMA`, `NOME DO EVENTO`, `PERÍODO DO EVENTO`, `CIDADE DO EVENTO` e
-`VALOR SOLICITADO`, cada um com um placeholder visível que explica o que preencher, e há
-um botão `Enviar solicitação`.
+A página tem identidade visual da Universidade de São Paulo: uma faixa colorida no topo
+com o brasão da USP em cores, o logotipo com a sigla `USP` e os textos
+`Universidade de São Paulo` e `Instituto de Matemática e Estatística`; no rodapé, o
+endereço `Rua do Matão, 1010` e `www.ime.usp.br`. O formulário está dentro de um cartão
+centralizado sobre um fundo de cor diferente, e não é uma lista de campos sem estilo
+nenhum.
 '''
 
 [[criterios]]
 identificador = "C2"
 acao = '''
-Abrir a página inicial. Digitar `1500` no campo `VALOR SOLICITADO` e sair do campo, sem
-enviar o formulário.
+Abrir a página inicial e olhar a tela inteira, rolando até o fim.
 '''
 resultado_esperado = '''
-O campo passa a mostrar `R$ 15,00`.
+Há duas abas com os rótulos `DOCENTES` e `ALUNOS`, e a aba `DOCENTES` está ativa. Os
+campos estão divididos em três seções, com os títulos `SOLICITANTE E EVENTO`,
+`ENDEREÇO DO SOLICITANTE` e `INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO`, e ao fim há um
+botão `Enviar solicitação`.
 '''
 
 [[criterios]]
 identificador = "C3"
 acao = '''
-Abrir a página inicial e preencher `NOME COMPLETO - SEM ABREVIAR` com `Maria Silva`,
-`N. USP` com `1234567`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
-`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
-`Porto Alegre` e `VALOR SOLICITADO` com `150000`. Clicar em `Enviar solicitação`.
+Abrir a página inicial, digitar `Maria Silva` no campo `NOME COMPLETO - SEM ABREVIAR` e
+clicar na aba `ALUNOS`.
 '''
 resultado_esperado = '''
-A página mostra `Solicitação registrada` e o ofício contém `Maria Silva`, `1234567` e
-`R$ 1.500,00`, sem nenhum marcador `<<...>>` sobrando.
+A aba `ALUNOS` fica ativa e o formulário mostrado passa a ter os campos `NÍVEL`, com as
+opções `Mestrado` e `Doutorado`, e `TIPO DE AUXÍLIO` — campos que a aba `DOCENTES` não
+tem.
 '''
 
 [[criterios]]
 identificador = "C4"
 acao = '''
-Abrir a página inicial e deixar `NOME COMPLETO - SEM ABREVIAR` em branco. Preencher
-`N. USP` com `1234567`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
-`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
-`Porto Alegre` e `VALOR SOLICITADO` com `150000`. Clicar em `Enviar solicitação`.
+Abrir a página inicial. Digitar `1500` no campo `VALOR SOLICITADO (R$)` e sair do campo.
+Depois apagar o conteúdo do campo, digitar `150000000` e sair do campo de novo. Não
+enviar o formulário.
 '''
 resultado_esperado = '''
-A mensagem `Preencha todos os campos` aparece e o ofício não é gerado.
+Na primeira vez o campo passa a mostrar `R$ 15,00`; na segunda, `R$ 1.500.000,00`.
 '''
 
 [[criterios]]
 identificador = "C5"
 acao = '''
-Abrir a página inicial e preencher `NOME COMPLETO - SEM ABREVIAR` com `Maria Silva`,
-`N. USP` com `abc123`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
-`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
-`Porto Alegre` e `VALOR SOLICITADO` com `150000`. Clicar em `Enviar solicitação`.
+Abrir a página inicial. Digitar `12345678901` no campo
+`CPF (SEPARADOS POR PONTOS E TRAÇO)` e sair do campo, sem enviar o formulário.
 '''
 resultado_esperado = '''
-A mensagem `N. USP deve conter apenas números` aparece.
+O campo passa a mostrar `123.456.789-01`.
 '''
 
 [[criterios]]
 identificador = "C6"
 acao = '''
-Abrir a página inicial e preencher `NOME COMPLETO - SEM ABREVIAR` com `Maria Silva`,
-`N. USP` com `1234567`, `PROGRAMA` com `Ciência da Computação`, `NOME DO EVENTO` com
-`SBES 2026`, `PERÍODO DO EVENTO` com `10 a 14 de setembro`, `CIDADE DO EVENTO` com
-`Porto Alegre` e `VALOR SOLICITADO` com `0`. Clicar em `Enviar solicitação`.
+Abrir a página inicial e clicar em `Enviar solicitação` sem preencher nenhum campo.
 '''
 resultado_esperado = '''
-A mensagem `Valor solicitado deve ser maior que 0` aparece e o ofício não é gerado.
+A mensagem `Preencha todos os campos` aparece no topo do formulário e o ofício não é
+gerado.
+'''
+
+[[criterios]]
+identificador = "C7"
+acao = '''
+Abrir a página inicial, preencher apenas o campo `N. USP` com `abc123` e clicar em
+`Enviar solicitação`.
+'''
+resultado_esperado = '''
+A mensagem `N. USP deve conter apenas números` aparece no topo do formulário.
+'''
+
+[[criterios]]
+identificador = "C8"
+acao = '''
+Abrir a página inicial, preencher apenas o campo `VALOR SOLICITADO (R$)` com `0` e
+clicar em `Enviar solicitação`.
+'''
+resultado_esperado = '''
+A mensagem `Valor solicitado deve ser maior que 0` aparece no topo do formulário e o
+ofício não é gerado.
+'''
+
+[[criterios]]
+identificador = "C9"
+acao = '''
+Abrir a página inicial e preencher o formulário da aba `DOCENTES` inteiro, usando
+exatamente estes valores nos campos citados e valores plausíveis que você mesmo escolher
+em todos os outros campos obrigatórios:
+
+- `NOME COMPLETO - SEM ABREVIAR`: `Maria Silva`
+- `N. USP`: `1234567`
+- `PROGRAMA`: `Ciência da Computação`
+- `VALOR SOLICITADO (R$)`: `150000`
+- `CPF (SEPARADOS POR PONTOS E TRAÇO)`: `12345678901`
+
+Preencha vários campos por vez quando possível, para não gastar passos. Depois clicar em
+`Enviar solicitação`.
+'''
+resultado_esperado = '''
+A página mostra `Solicitação registrada` e o ofício abaixo contém
+`Interessada(o): Maria Silva - 1234567`, `Programa: Ciência da Computação`,
+`Valor solicitado: R$ 1.500,00` e `CPF: 123.456.789-01`, sem nenhum marcador `<<...>>`
+sobrando.
+'''
+
+[[criterios]]
+identificador = "C10"
+acao = '''
+Abrir a página inicial, clicar na aba `ALUNOS` e preencher o formulário dela inteiro,
+usando exatamente estes valores nos campos citados e valores plausíveis que você mesmo
+escolher em todos os outros campos obrigatórios:
+
+- `NOME COMPLETO - SEM ABREVIAR`: `João Souza`
+- `PROGRAMA`: `Matemática Aplicada`
+- `NÍVEL`: `Mestrado`
+- `TIPO DE AUXÍLIO`: `Participação em evento`
+- `VALOR SOLICITADO (R$)`: `150000`
+
+Preencha vários campos por vez quando possível, para não gastar passos. Depois clicar em
+`Enviar solicitação`.
+'''
+resultado_esperado = '''
+A página mostra `Solicitação registrada` e o ofício abaixo contém
+`Assunto: Solicitação de Auxílio Financeiro - Participação em evento`,
+`Programa: Matemática Aplicada - Mestrado`, `João Souza` e
+`Valor solicitado: R$ 1.500,00`, sem nenhum marcador `<<...>>` sobrando.
 '''

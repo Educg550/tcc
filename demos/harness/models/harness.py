@@ -50,6 +50,8 @@ class Harness(ABC):
     async def executar(self) -> dict:
         modo = Modo.detectar(self.projeto)
         self.projeto.preparar()
+        # Depois do detectar: pasta semeada não é projeto existente.
+        self.projeto.semear(self.requisito.anexos)
         antes = modo.baseline(self.projeto)
         resultado = Resultado(
             modo=modo.nome,

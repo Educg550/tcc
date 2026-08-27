@@ -4,6 +4,7 @@ import hashlib
 import os
 import re
 import shlex
+import shutil
 import subprocess
 import tomllib
 from abc import ABC, abstractmethod
@@ -100,6 +101,17 @@ class Requisito:
         )
 
     @property
+    def anexos(self) -> list[Path]:
+        """Pastas do caso de uso que o projeto gerado recebe como estão - imagem, fonte,
+        dado de exemplo. O prefixo `_` marca a pasta que é material de pesquisa e não
+        entra no projeto."""
+        return [
+            d
+            for d in sorted(self.diretorio.iterdir())
+            if d.is_dir() and not d.name.startswith(("_", "."))
+        ]
+
+    @property
     def modelos(self) -> dict[str, str]:
         return self._declarado["modelos"]
 
@@ -191,6 +203,12 @@ class Projeto:
         (self.raiz / "pytest.ini").write_text(
             "[pytest]\npythonpath = .\n", encoding="utf-8"
         )
+
+    def semear(self, anexos: list[Path]) -> None:
+        """Conteúdo que o modelo não escreve, só usa: o harness põe em disco antes da
+        primeira etapa."""
+        for origem in anexos:
+            shutil.copytree(origem, self.raiz / origem.name, dirs_exist_ok=True)
 
     def escrever(self, destinos: list[tuple[Path, str]]) -> list[str]:
         escritos = []

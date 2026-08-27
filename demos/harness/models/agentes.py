@@ -18,8 +18,9 @@ from .dominio import Criterio, Mudanca, Projeto, Requisito
 
 # Teto de passos por critério. O default do browser-use é 500, que numa sessão empacada
 # vira consumo sem fim; baixo demais viraria falso negativo, porque a sessão termina sem
-# veredito e o critério conta como reprovado.
-MAX_PASSOS_CUA = 40
+# veredito e o critério conta como reprovado. Formulário longo gasta um passo por campo,
+# então o teto tem que caber o preenchimento inteiro mais a verificação.
+MAX_PASSOS_CUA = 80
 MAX_TOKENS = 100000
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
