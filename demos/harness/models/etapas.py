@@ -1,12 +1,58 @@
 import time
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from pathlib import Path
 
 from .agentes import Agente
-from .dominio import CODIGO, SO_TESTES, Escopo, Projeto, ResultadoPytest
+from .dominio import MEDIDO, Mudanca, Projeto, ResultadoPytest
 from .observacoes import Observacao, PytestFalhou
 from .politicas import Orcamento, Permissao
-from .propostas import PropostaRejeitada
+from .propostas import Proposta, PropostaAceita, PropostaRejeitada
 from .tracing import Trace
+
+
+class EscopoViolado(ValueError):
+    pass
+
+
+@dataclass(frozen=True)
+class Escopo:
+    """Onde uma etapa pode escrever: um prefixo permitido e prefixos negados."""
+
+    dentro: str | None = None
+    fora: tuple[str, ...] = ()
+
+    def destino(self, raiz: Path, caminho: str) -> Path:
+        alvo = (raiz / caminho).resolve()
+        limite = (raiz / self.dentro).resolve() if self.dentro else raiz
+        if not alvo.is_relative_to(limite):
+            raise EscopoViolado(f"{caminho}: fora de {self.dentro or '.'}/")
+        for negado in self.fora:
+            if alvo.is_relative_to((raiz / negado).resolve()):
+                raise EscopoViolado(f"{caminho}: {negado} é proibido")
+        return alvo
+
+    @property
+    def regra(self) -> str:
+        if self.dentro:
+            return f"todo caminho começa com `{self.dentro}/`"
+        return "nenhum caminho em " + ", ".join(f"`{f}`" for f in self.fora)
+
+    def aplicar(self, mudanca: Mudanca, projeto: Projeto) -> Proposta:
+        """Valida todos os caminhos antes de escrever qualquer um: proposta inválida
+        não deixa mudança pela metade para o pytest medir."""
+        try:
+            destinos = [
+                (self.destino(projeto.raiz, a.caminho), a.conteudo)
+                for a in mudanca.arquivos
+            ]
+        except EscopoViolado as erro:
+            return PropostaRejeitada(str(erro), self.regra)
+        return PropostaAceita(projeto.escrever(destinos))
+
+
+SO_TESTES = Escopo(dentro="tests")
+CODIGO = Escopo(fora=MEDIDO + ("_harness", ".git"))
 
 
 class Etapa(ABC):
@@ -85,7 +131,7 @@ class Etapa(ABC):
             tokens_out += resposta.output_tokens
             tokens += resposta.total_tokens
 
-            proposta = projeto.aplicar(resposta.mudanca, self.escopo)
+            proposta = self.escopo.aplicar(resposta.mudanca, projeto)
             if isinstance(proposta, PropostaRejeitada):
                 observacoes.append(proposta)
                 self.trace.registrar(

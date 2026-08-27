@@ -86,9 +86,9 @@ não pode vazar para dentro do que ela mede.
 | | |
 |--|--|
 | `cli.py` | os dois comandos, `run` e `avaliar` |
-| `models/dominio.py` | tudo que o modelo vê e interage com: `Requisito` (o caso de uso em disco), `Alvo` (como rodar o gerado), `Projeto`, `Escopo`, `Modo` |
+| `models/dominio.py` | tudo que o modelo vê e interage com: `Requisito` (o caso de uso em disco), `Alvo` (como rodar o gerado), `Projeto`, `Modo` |
 | `models/harness.py` | o loop: `HarnessTDD` (experimental) e `HarnessDireto` (baseline) |
-| `models/etapas.py` | o laço de uma etapa: propor → validar → escrever → observar → autorizar. `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
+| `models/etapas.py` | o laço de uma etapa: propor → validar → escrever → observar → autorizar. `Escopo` (onde cada etapa pode escrever), `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
 | `models/propostas.py` | o que sobra da proposta depois de aplicada: `PropostaAceita` ou `PropostaRejeitada` |
 | `models/observacoes.py` | o que volta ao modelo entre propostas: `PytestFalhou`, e as rejeições |
 | `models/agentes.py` | os agentes Agno e o `Avaliador` (CUA via browser-use) |

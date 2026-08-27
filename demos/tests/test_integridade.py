@@ -1,14 +1,15 @@
 import pytest
 
-from harness.models.dominio import CODIGO, Alvo, Arquivo, Mudanca, Projeto
+from harness.models.dominio import Alvo, Arquivo, Mudanca, Projeto
+from harness.models.etapas import CODIGO
 from harness.models.propostas import PropostaRejeitada
 
 ALVO = Alvo(comando_app="app --port {porta}", comando_teste="pytest -q")
 
 
 def escrever(projeto, caminho, conteudo=""):
-    return projeto.aplicar(
-        Mudanca(arquivos=[Arquivo(caminho=caminho, conteudo=conteudo)]), CODIGO
+    return CODIGO.aplicar(
+        Mudanca(arquivos=[Arquivo(caminho=caminho, conteudo=conteudo)]), projeto
     )
 
 

@@ -13,7 +13,6 @@ from pathlib import Path
 from pydantic import BaseModel
 
 from .politicas import Orcamento
-from .propostas import Proposta, PropostaAceita, PropostaRejeitada
 
 # Fora do contexto que o modelo recebe: `_harness/` é a medição, e RUN.log dentro do
 # prompt é vazamento da métrica para dentro do que ela mede.
@@ -129,38 +128,7 @@ class Mudanca(BaseModel):
     arquivos: list[Arquivo]
 
 
-class EscopoViolado(ValueError):
-    pass
-
-
-@dataclass(frozen=True)
-class Escopo:
-    """Onde uma etapa pode escrever: um prefixo permitido e prefixos negados."""
-
-    dentro: str | None = None
-    fora: tuple[str, ...] = ()
-
-    def destino(self, raiz: Path, caminho: str) -> Path:
-        alvo = (raiz / caminho).resolve()
-        limite = (raiz / self.dentro).resolve() if self.dentro else raiz
-        if not alvo.is_relative_to(limite):
-            raise EscopoViolado(f"{caminho}: fora de {self.dentro or '.'}/")
-        for negado in self.fora:
-            if alvo.is_relative_to((raiz / negado).resolve()):
-                raise EscopoViolado(f"{caminho}: {negado} é proibido")
-        return alvo
-
-    @property
-    def regra(self) -> str:
-        if self.dentro:
-            return f"todo caminho começa com `{self.dentro}/`"
-        return "nenhum caminho em " + ", ".join(f"`{f}`" for f in self.fora)
-
-
 MEDIDO = ("tests", "pytest.ini", "conftest.py")
-
-SO_TESTES = Escopo(dentro="tests")
-CODIGO = Escopo(fora=MEDIDO + ("_harness", ".git"))
 
 _CAMPOS = re.compile(r"(\d+)\s+(passed|failed|errors?|error)")
 
@@ -224,22 +192,13 @@ class Projeto:
             "[pytest]\npythonpath = .\n", encoding="utf-8"
         )
 
-    def aplicar(self, mudanca: Mudanca, escopo: Escopo) -> Proposta:
-        """Valida todos os caminhos antes de escrever qualquer um: proposta inválida
-        não deixa mudança pela metade para o pytest medir."""
-        try:
-            destinos = [
-                (escopo.destino(self.raiz, a.caminho), a.conteudo)
-                for a in mudanca.arquivos
-            ]
-        except EscopoViolado as erro:
-            return PropostaRejeitada(str(erro), escopo.regra)
+    def escrever(self, destinos: list[tuple[Path, str]]) -> list[str]:
         escritos = []
         for destino, conteudo in destinos:
             destino.parent.mkdir(parents=True, exist_ok=True)
             destino.write_text(conteudo, encoding="utf-8")
             escritos.append(str(destino.relative_to(self.raiz)))
-        return PropostaAceita(escritos)
+        return escritos
 
     def impressao(self) -> str:
         h = hashlib.sha256()
