@@ -8,7 +8,7 @@ redigido com os dados no lugar dos marcadores, pronto para encaminhar à CCP do 
 
 ## Tela única com duas abas
 
-Cabeçalho institucional da USP no topo (ver **Aparência**) e, abaixo dele, duas abas com
+Cabeçalho institucional da USP no topo (ver Aparência) e, abaixo dele, duas abas com
 os rótulos exatos `ALUNOS` e `DOCENTES`, nessa ordem. A aba `ALUNOS` está ativa quando a
 página abre. Clicar numa aba mostra o formulário dela e esconde o da outra, sem
 recarregar a página e sem perder o que já foi digitado na aba que saiu de vista: voltar
