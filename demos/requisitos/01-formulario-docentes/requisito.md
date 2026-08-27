@@ -27,8 +27,8 @@ campos, com as duas exceções indicadas em `SOLICITANTE E EVENTO`.
 - `NOME COMPLETO - SEM ABREVIAR` (texto)
 - `N. USP` (só dígitos)
 - `PROGRAMA` (texto)
-- `NÍVEL` (**só na aba `ALUNOS`** — seleção entre `Mestrado` e `Doutorado`)
-- `TIPO DE AUXÍLIO` (**só na aba `ALUNOS`** — seleção entre `Participação em evento`,
+- `NÍVEL` (**só na aba `ALUNOS`** - seleção entre `Mestrado` e `Doutorado`)
+- `TIPO DE AUXÍLIO` (**só na aba `ALUNOS`** - seleção entre `Participação em evento`,
   `Banca de exame ou defesa` e `Outro`)
 - `E-MAIL` (e-mail)
 - `NOME DO EVENTO / BANCA DE EXAME OU DEFESA` (texto)
@@ -38,7 +38,7 @@ campos, com as duas exceções indicadas em `SOLICITANTE E EVENTO`.
 - `PAÍS DO EVENTO, EXAME OU DEFESA` (texto)
 - `LINK DO EVENTO, EXAME OU DEFESA` (texto, **opcional**)
 - `VALOR SOLICITADO (R$)` (número natural maior que 0, formatado como moeda brasileira
-  enquanto se digita — ver abaixo)
+  enquanto se digita - ver abaixo)
 - `DETALHAMENTO DO PEDIDO` (texto longo, várias linhas)
 - `IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?` (seleção entre `Pôster`,
   `Apresentação oral`, `Outra` e `Não irá apresentar trabalho`)
@@ -68,7 +68,7 @@ campos, com as duas exceções indicadas em `SOLICITANTE E EVENTO`.
 Quatro campos reformatam o que foi digitado no momento em que o usuário sai deles, sem
 enviar o formulário. O usuário digita apenas dígitos; a pontuação é da aplicação.
 
-`VALOR SOLICITADO (R$)` — os dígitos digitados são os centavos do valor, e o campo passa
+`VALOR SOLICITADO (R$)` - os dígitos digitados são os centavos do valor, e o campo passa
 a mostrar o valor em moeda brasileira, com ponto separando milhar e vírgula separando os
 centavos:
 
@@ -78,11 +78,11 @@ centavos:
 | `150000` | `R$ 1.500,00` |
 | `150000000` | `R$ 1.500.000,00` |
 
-`CPF (SEPARADOS POR PONTOS E TRAÇO)` — digitar `12345678901` mostra `123.456.789-01`.
+`CPF (SEPARADOS POR PONTOS E TRAÇO)` - digitar `12345678901` mostra `123.456.789-01`.
 
-`CEP` — digitar `05508090` mostra `05508-090`.
+`CEP` - digitar `05508090` mostra `05508-090`.
 
-`DATA DE NASCIMENTO` — digitar `01021980` mostra `01/02/1980`.
+`DATA DE NASCIMENTO` - digitar `01021980` mostra `01/02/1980`.
 
 ## Validação
 
@@ -149,7 +149,7 @@ Conta: <<NÚMERO DA CONTA>>
 Encaminhe-se ao Serviço Financeiro para providências.
 ```
 
-O ofício da aba `DOCENTES` é o mesmo, com duas linhas diferentes — a aba `DOCENTES` não
+O ofício da aba `DOCENTES` é o mesmo, com duas linhas diferentes - a aba `DOCENTES` não
 tem `TIPO DE AUXÍLIO` nem `NÍVEL` para preencher:
 
 ```
@@ -170,11 +170,11 @@ teste: quem abre reconhece de que instituição ela é. Com essa quantidade de c
 decide se ela é usável é o agrupamento e o espaçamento.
 
 A pasta `images/` já está na raiz do projeto. Os arquivos dela ficam disponíveis para a
-aplicação servir como estáticos, como estão — usar todos, alguns ou nenhum é decisão de
+aplicação servir como estáticos, como estão - usar todos, alguns ou nenhum é decisão de
 quem implementa.
 
 O ofício aparece na página de confirmação preservando as quebras de linha.
 
 Todo o CSS e todo o JavaScript são escritos à mão e embutidos na própria página: sem
-framework, sem CDN, sem fonte remota e sem nenhum arquivo baixado da rede — o ambiente de
+framework, sem CDN, sem fonte remota e sem nenhum arquivo baixado da rede - o ambiente de
 execução não tem acesso externo.

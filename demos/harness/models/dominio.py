@@ -63,7 +63,7 @@ class Alvo:
 @dataclass(frozen=True)
 class Requisito:
     """O caso de uso em disco: o texto, os critérios de aceitação, e o que o alvo.toml
-    declara — como rodar o gerado, com que modelos e sob que teto."""
+    declara - como rodar o gerado, com que modelos e sob que teto."""
 
     diretorio: Path
 
@@ -80,15 +80,12 @@ class Requisito:
         texto = (self.diretorio / "criterios.toml").read_text(encoding="utf-8")
         dados = tomllib.loads(texto)
         return [
-            Criterio(**{k: v.strip() for k, v in c.items()})
-            for c in dados["criterios"]
+            Criterio(**{k: v.strip() for k, v in c.items()}) for c in dados["criterios"]
         ]
 
     @property
     def _declarado(self) -> dict:
-        return tomllib.loads(
-            (self.diretorio / "alvo.toml").read_text(encoding="utf-8")
-        )
+        return tomllib.loads((self.diretorio / "alvo.toml").read_text(encoding="utf-8"))
 
     @property
     def alvo(self) -> Alvo:
@@ -122,7 +119,7 @@ class Requisito:
 
 class Criterio(BaseModel):
     """Critério de aceitação: autocontido. Se depende de um passo anterior, o passo está
-    na própria ação — não existe ordem implícita entre critérios."""
+    na própria ação - não existe ordem implícita entre critérios."""
 
     identificador: str
     acao: str
