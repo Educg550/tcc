@@ -37,12 +37,12 @@ class Interativa(Permissao):
 
 @dataclass(frozen=True)
 class Orcamento:
-    """Teto da etapa. Toda proposta custa um passo, inclusive a rejeitada: ela também
-    custou uma chamada de modelo."""
+    """Teto da etapa, declarado pelo caso de uso. Toda proposta custa um passo, inclusive
+    a rejeitada: ela também custou uma chamada de modelo."""
 
-    passos: int = 12
-    custo_usd: float = 2.0
-    tempo_s: int = 900
+    passos: int
+    custo_usd: float
+    tempo_s: int
 
     def estourou(self, passos: int, custo: float, inicio: float) -> str | None:
         if passos >= self.passos:

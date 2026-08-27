@@ -25,6 +25,7 @@ class Alvo:
     comando_app: str
     comando_teste: str
     modelos: dict[str, str]
+    orcamento: dict[str, float]
     requirements: Path | None = None
 
     @classmethod
@@ -36,6 +37,7 @@ class Alvo:
             comando_app=dados["comando_app"],
             comando_teste=dados["comando_teste"],
             modelos=dados["modelos"],
+            orcamento=dados["orcamento"],
             requirements=requirements if requirements.exists() else None,
         )
 
@@ -194,13 +196,16 @@ class Projeto:
 
     raiz: Path
     alvo: Alvo
+    run: str
 
     def __post_init__(self) -> None:
         self.raiz = Path(self.raiz).resolve()
 
     @property
     def saida(self) -> Path:
-        return self.raiz / "_harness"
+        """Uma pasta por execução: RUN.log, trace e telas de runs diferentes do mesmo
+        projeto não se sobrescrevem."""
+        return self.raiz / "_harness" / self.run
 
     def preparar(self) -> None:
         self.saida.mkdir(parents=True, exist_ok=True)

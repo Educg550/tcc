@@ -27,7 +27,6 @@ class Resultado:
     orcamento: dict | None = None
     antes: dict | None = None
     stages: list[dict] = field(default_factory=list)
-    loop: dict | None = None
     pytest_final: dict | None = None
     impressao: str | None = None
     impressao_fim: str | None = None
@@ -36,7 +35,7 @@ class Resultado:
 
     @property
     def partes(self) -> list[dict]:
-        return [*self.stages, *(p for p in (self.loop, self.cua) if p)]
+        return [*self.stages, *([self.cua] if self.cua else [])]
 
     @property
     def regressao(self) -> dict | None:
@@ -75,7 +74,6 @@ class Resultado:
             "total_tokens": sum(p.get("total_tokens") or 0 for p in self.partes),
             "total_retries": sum(p.get("retries") or 0 for p in self.partes),
             "stages": self.stages,
-            "loop": self.loop,
             "pytest_final": self.pytest_final,
             "regressao": self.regressao,
             "integridade": self.integridade,

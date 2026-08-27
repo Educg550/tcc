@@ -1,8 +1,10 @@
 import argparse
 import asyncio
+import json
 import os
 import shutil
 import subprocess
+from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -13,7 +15,6 @@ from .models import (
     HarnessDireto,
     HarnessTDD,
     Interativa,
-    Orcamento,
     Projeto,
     Requisito,
 )
@@ -38,6 +39,14 @@ def novo_caso(base: Path) -> Path:
     return destino
 
 
+def ultima_run(raiz: Path) -> str:
+    """Reavaliar não abre run nova: o veredito pertence à execução que gerou o código."""
+    runs = sorted(p.name for p in (raiz / "_harness").iterdir() if p.is_dir())
+    if not runs:
+        raise SystemExit(f"{raiz}/_harness não tem run para reavaliar")
+    return runs[-1]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(prog="harness")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -53,40 +62,43 @@ def main() -> None:
     run.add_argument(
         "--direto", action="store_true", help="grupo baseline: uma etapa, sem TDD"
     )
-    run.add_argument(
-        "--passos", type=int, default=Orcamento.passos, help="propostas por etapa"
-    )
-    run.add_argument(
-        "--custo", type=float, default=Orcamento.custo_usd, help="USD por etapa"
-    )
-    run.add_argument(
-        "--tempo", type=int, default=Orcamento.tempo_s, help="segundos por etapa"
-    )
 
-    ava = sub.add_parser("avaliar", help="uma sessao de CUA por criterio de aceitacao")
+    ava = sub.add_parser(
+        "avaliar", help="re-roda so o CUA e regrava o campo `cua` da ultima run"
+    )
     ava.add_argument("projeto")
     ava.add_argument("requisito")
 
     args = ap.parse_args()
     caminho = Path(args.requisito) if args.requisito else novo_caso(REQUISITOS)
     requisito = Requisito(caminho)
-    projeto = Projeto(Path(args.projeto), requisito.alvo)
+    raiz = Path(args.projeto)
 
     if args.cmd == "run":
+        nome = f"{datetime.now():%Y%m%d-%H%M%S}-{requisito.id}"
+        projeto = Projeto(raiz, requisito.alvo, nome)
         classe = HarnessDireto if args.direto else HarnessTDD
         permissao = Batch() if args.yes else Interativa()
-        orcamento = Orcamento(args.passos, args.custo, args.tempo)
-        harness = classe(projeto, requisito, permissao, orcamento)
-        log = asyncio.run(harness.executar())
+        log = asyncio.run(classe(projeto, requisito, permissao).executar())
         print(
-            f"\npytest final: {log['pytest_final']}  loop: {log['loop']['motivo']}"
+            f"\npytest final: {log['pytest_final']}"
+            f"  code: {log['stages'][-1]['motivo']}"
             f"  testes intactos: {log['integridade']['intacto']}"
+            f"  cua: {log['cua']['aprovado_geral']}"
         )
         print(f"RUN.log: {projeto.saida / 'RUN.log'}")
     else:
+        projeto = Projeto(raiz, requisito.alvo, ultima_run(raiz))
         cua = Avaliador(projeto.alvo.modelos["cua"])
         r = asyncio.run(cua.avaliar(projeto, requisito))
+        destino = projeto.saida / "RUN.log"
+        log = json.loads(destino.read_text(encoding="utf-8"))
+        log["cua"] = r
+        destino.write_text(
+            json.dumps(log, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
         print(f"\naprovado_geral: {r['aprovado_geral']}\n{r['resumo']}")
+        print(f"RUN.log: {destino}")
 
 
 if __name__ == "__main__":

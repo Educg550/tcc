@@ -1,5 +1,4 @@
 import base64
-import json
 import os
 import socket
 import subprocess
@@ -204,8 +203,4 @@ class Avaliador:
             "resumo": resumir(criterios),
             "criterios": criterios,
         }
-        projeto.saida.mkdir(parents=True, exist_ok=True)
-        (projeto.saida / "veredito.json").write_text(
-            json.dumps(resultado, indent=2, ensure_ascii=False), encoding="utf-8"
-        )
         return resultado

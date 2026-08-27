@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import asdict
 
-from .agentes import Agente, load
+from .agentes import Agente, Avaliador, load
 from .dominio import CODIGO, SO_TESTES, Escopo, Modo, Projeto, Requisito
 from .etapas import Etapa, EtapaTDD
 from .politicas import Orcamento, Permissao
@@ -21,12 +21,11 @@ class Harness(ABC):
         projeto: Projeto,
         requisito: Requisito,
         permissao: Permissao,
-        orcamento: Orcamento | None = None,
     ):
         self.projeto = projeto
         self.requisito = requisito
         self.permissao = permissao
-        self.orcamento = orcamento or Orcamento()
+        self.orcamento = Orcamento(**projeto.alvo.orcamento)
         self.trace = Trace(projeto.saida / "trace.jsonl")
 
     @property
@@ -64,8 +63,13 @@ class Harness(ABC):
         await self.etapas(modo, resultado)
         resultado.impressao_fim = self.projeto.impressao()
         resultado.pytest_final = self.projeto.rodar_pytest().contagem
+        # Instrumento de medida da variável dependente, igual nos dois grupos: roda antes
+        # de gravar, senão o veredito não entra na medição da própria run.
+        avaliador = Avaliador(self.projeto.alvo.modelos["cua"])
+        resultado.cua = await avaliador.avaliar(self.projeto, self.requisito)
+        log = resultado.gravar(self.projeto.saida / "RUN.log")
         self.projeto.commitar(self.requisito.id)
-        return resultado.gravar(self.projeto.saida / "RUN.log")
+        return log
 
 
 class HarnessTDD(Harness):
@@ -89,7 +93,7 @@ class HarnessTDD(Harness):
             "## TESTES A FAZER PASSAR\n\n" + self.projeto.contexto("tests")
         )
         parte = await codigo.executar(base, self.projeto)
-        resultado.loop = {**parte, "tests_vermelhos": vermelho}
+        resultado.stages.append({**parte, "tests_vermelhos": vermelho})
 
 
 class HarnessDireto(Harness):
@@ -104,4 +108,4 @@ class HarnessDireto(Harness):
         direta = self.etapa("direto", Agente.de("direto", modelo), CODIGO)
         base = self.prompt(modo.contexto(self.projeto))
         parte = await direta.executar(base, self.projeto)
-        resultado.loop = {**parte, "tests_vermelhos": None}
+        resultado.stages.append({**parte, "tests_vermelhos": None})
