@@ -11,13 +11,12 @@ redigido com os dados no lugar dos marcadores, pronto para encaminhar à CCP do 
 Cabeçalho institucional da USP no topo (ver Aparência) e, abaixo dele, duas abas com
 os rótulos exatos `ALUNOS` e `DOCENTES`, nessa ordem. A aba `ALUNOS` está ativa quando a
 página abre. Clicar numa aba mostra o formulário dela e esconde o da outra, sem
-recarregar a página e sem perder o que já foi digitado na aba que saiu de vista: voltar
-para ela mostra os campos como estavam. A aba ativa é visualmente distinguível da
-inativa.
+recarregar a página e sem perder o que já foi digitado na aba que saiu de vista. A aba
+ativa é visualmente distinguível da inativa.
 
 Cada aba tem seu próprio formulário e seu próprio botão `Enviar solicitação` ao fim.
 
-## Campos das duas abas
+## Campos
 
 Os campos vêm em três blocos, cada um com seu título visível. Rótulos exatos, na ordem
 abaixo. Todos obrigatórios, exceto os marcados como opcionais. As duas abas têm os mesmos
@@ -106,10 +105,8 @@ mensagens de erro que se aplicam, uma por linha:
 
 Enquanto houver erro, o ofício não é gerado.
 
-Todo campo tem um placeholder visível, curto e autoexplicativo, com um exemplo de
-preenchimento — nunca a repetição do rótulo. Em `DETALHAMENTO DO PEDIDO` o placeholder
-pede o valor de cada despesa separadamente, como em `Hospedagem e alimentação: R$
-500,00 / Passagem: R$ 1.500,00 / Inscrição no evento: R$ 1.000,00`.
+Todo campo tem placeholder visível com um exemplo de preenchimento, não a repetição do
+rótulo.
 
 ## Após o envio válido
 
@@ -169,65 +166,15 @@ Os rótulos e mensagens acima devem estar dispostos exatamente assim.
 ## Aparência
 
 A tela é um documento institucional da Universidade de São Paulo, não uma página de
-teste. Os campos são muitos: o que decide se a tela é usável é o agrupamento e o
-espaçamento, não enfeite.
+teste: quem abre reconhece de que instituição ela é. Com essa quantidade de campos, o que
+decide se ela é usável é o agrupamento e o espaçamento.
 
-### Identificação visual da USP
+A pasta `images/` já está na raiz do projeto. Os arquivos dela ficam disponíveis para a
+aplicação servir como estáticos, como estão — usar todos, alguns ou nenhum é decisão de
+quem implementa.
 
-A pasta `images/` já está na raiz do projeto, com três arquivos que a aplicação serve
-como estáticos e usa como estão — não os edite, não os gere, não baixe nada da rede:
-
-- `images/usp-brasao-colorido.png` — o brasão da USP em cores, na proporção retrato.
-- `images/usp-brasao.png` — o mesmo brasão em traço preto sobre fundo transparente.
-- `images/usp-logo.png` — a sigla `USP` no logotipo institucional, em traço preto sobre
-  fundo transparente, na proporção paisagem.
-
-Com eles:
-
-- Faixa no topo da página, em azul-escuro institucional (por exemplo `#12325b`), da
-  borda esquerda à direita. À esquerda dela, `images/usp-brasao-colorido.png` com cerca
-  de 56px de altura, proporção preservada; ao lado, em duas linhas de texto claro,
-  `Universidade de São Paulo` e `Instituto de Matemática e Estatística — Pós-Graduação`.
-- Ainda na faixa, encostado à direita, `images/usp-logo.png` com cerca de 32px de altura
-  — como o logotipo é traço preto, ele vai dentro de um bloco de fundo branco com um
-  pouco de folga em volta, para ter contraste sobre o azul.
-- Rodapé da página, com o texto em cinza e centralizado, em duas linhas:
-  `Rua do Matão, 1010 | Cidade Universitária | São Paulo-SP | CEP 05508-090` e
-  `cpg@ime.usp.br | www.ime.usp.br`.
-- Toda imagem tem `alt` descritivo.
-
-### Formulário
-
-- Fundo da página num azul-acinzentado muito claro (por exemplo `#eeeef8`). Sobre ele,
-  um cartão único centralizado, de largura máxima em torno de 860px, fundo branco, cantos
-  arredondados e sombra suave.
-- As abas `ALUNOS` e `DOCENTES` ficam no alto do cartão, lado a lado, como abas de
-  verdade: a ativa com fundo branco e uma barra na cor de destaque, a inativa apagada.
-- Cor de destaque, usada no botão, na aba ativa e no realce de foco dos campos: um
-  azul-violeta (por exemplo `#5159b4`, a cor do formulário original).
-- Os três blocos aparecem como seções com o título em maiúsculas, na cor de destaque,
-  separados por uma linha divisória e com respiro vertical entre eles.
-- Rótulo acima do campo, em tamanho menor e peso maior que o texto digitado. Campo
-  obrigatório marcado com `*` ao lado do rótulo.
-- Campos de texto ocupam a largura do bloco, com altura confortável ao clique, borda
-  visível e destaque de foco. Os campos curtos — `N. USP`, `VALOR SOLICITADO (R$)`,
-  `DATA DE NASCIMENTO`, `NÚMERO`, `CEP`, `ESTADO`, `CPF (SEPARADOS POR PONTOS E TRAÇO)`,
-  `RG / RNM (SEPARADOS POR PONTOS E TRAÇO)`, `NÚMERO DA AGÊNCIA` e `NÚMERO DA CONTA` —
-  ficam lado a lado, duas colunas por linha, e passam a uma coluna em tela estreita.
-- As mensagens de erro aparecem juntas num bloco de destaque vermelho no topo do
-  formulário, antes do primeiro bloco de campos.
-- O botão `Enviar solicitação` fica ao fim do formulário, na cor de destaque, ocupando a
-  largura do bloco.
-
-### Página de confirmação
-
-Mesmo fundo, mesmo cartão e mesmo rodapé. No lugar da faixa azul, o papel de ofício:
-`images/usp-brasao.png` com cerca de 72px de altura, centralizado no alto do cartão, e
-abaixo dele, também centrado, `Universidade de São Paulo` e
-`Instituto de Matemática e Estatística — Pós-Graduação`, separados do resto por uma linha
-divisória. O ofício vem num bloco de texto monoespaçado sobre fundo levemente
-acinzentado, preservando as quebras de linha.
+O ofício aparece na página de confirmação preservando as quebras de linha.
 
 Todo o CSS e todo o JavaScript são escritos à mão e embutidos na própria página: sem
-framework, sem CDN, sem fonte remota e sem nenhum arquivo baixado da rede. A tipografia é
-a pilha de fontes do sistema. As únicas imagens da aplicação são as três de `images/`.
+framework, sem CDN, sem fonte remota e sem nenhum arquivo baixado da rede — o ambiente de
+execução não tem acesso externo.
