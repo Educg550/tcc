@@ -21,10 +21,12 @@ class Harness(ABC):
         projeto: Projeto,
         requisito: Requisito,
         permissao: Permissao,
+        com_cua: bool = True,
     ):
         self.projeto = projeto
         self.requisito = requisito
         self.permissao = permissao
+        self.com_cua = com_cua
         self.orcamento = requisito.orcamento
         self.trace = Trace(projeto.saida / "trace.jsonl")
 
@@ -65,8 +67,10 @@ class Harness(ABC):
         resultado.pytest_final = self.projeto.rodar_pytest().contagem
         # Instrumento de medida da variável dependente, igual nos dois grupos. Grava o
         # próprio CUA.log: o veredito é medida do app rodando, não do pipeline que o fez.
-        avaliador = Avaliador(self.requisito.modelos["cua"])
-        await avaliador.avaliar(self.projeto, self.requisito)
+        if self.com_cua:
+            await Avaliador(self.requisito.modelos["cua"]).avaliar(
+                self.projeto, self.requisito
+            )
         log = resultado.gravar(self.projeto.saida / "RUN.log")
         self.projeto.commitar(self.requisito.id)
         return log

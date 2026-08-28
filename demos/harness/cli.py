@@ -69,6 +69,11 @@ def main() -> None:
     run.add_argument(
         "--direto", action="store_true", help="grupo baseline: uma etapa, sem TDD"
     )
+    run.add_argument(
+        "--sem-cua",
+        action="store_true",
+        help="para o pipeline no pytest; `avaliar` roda o CUA sobre a run depois",
+    )
 
     ava = sub.add_parser(
         "avaliar", help="re-roda so o CUA e regrava o CUA.log da ultima run"
@@ -86,7 +91,8 @@ def main() -> None:
         projeto = Projeto(raiz, requisito.alvo, nome)
         classe = HarnessDireto if args.direto else HarnessTDD
         permissao = Batch() if args.yes else Interativa()
-        log = asyncio.run(classe(projeto, requisito, permissao).executar())
+        harness = classe(projeto, requisito, permissao, not args.sem_cua)
+        log = asyncio.run(harness.executar())
         print(
             f"\npytest final: {log['pytest_final']}"
             f"  code: {log['stages'][-1]['motivo']}"
