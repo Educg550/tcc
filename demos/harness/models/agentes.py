@@ -23,6 +23,9 @@ from .dominio import Criterio, Mudanca, Projeto, Requisito
 # então o teto tem que caber o preenchimento inteiro mais a verificação.
 MAX_PASSOS_CUA = 80
 MAX_TOKENS = 100000
+# O default do browser-use e 4096: o CUA trunca a acao no meio do JSON, o passo vira erro
+# de validacao e o criterio e reprovado por falha do avaliador, nao do app.
+MAX_TOKENS_CUA = 16000
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
 
 # Sem este extra_body o OpenRouter não devolve custo e metrics.cost fica None.
@@ -184,6 +187,7 @@ class Avaliador:
                 model=self.model_id,
                 base_url=OPENROUTER_BASE,
                 api_key=os.environ["OPENROUTER_API_KEY"],
+                max_completion_tokens=MAX_TOKENS_CUA,
             ),
             output_model_schema=VeredictoCriterio,
             generate_gif=False,
