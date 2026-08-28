@@ -69,6 +69,45 @@ def test_escopo_violado_volta_ao_modelo_e_nao_encerra_a_etapa(tmp_path):
     assert not (tmp_path / "app.py").exists()
 
 
+class AgenteQueFalhaUmaVez:
+    """Primeiro devolve resposta que não virou Mudanca, depois um caminho válido."""
+
+    model_id = "stub/stub"
+
+    def __init__(self):
+        self.prompts: list[str] = []
+
+    async def propor(self, prompt: str) -> Resposta:
+        self.prompts.append(prompt)
+        if len(self.prompts) == 1:
+            return Resposta(
+                mudanca=None,
+                custo_usd=0.0,
+                input_tokens=0,
+                output_tokens=0,
+                total_tokens=0,
+                erro="Invalid JSON: expected value at line 1 column 1",
+            )
+        arquivo = Arquivo(caminho="tests/test_x.py", conteudo="x = 1\n")
+        return Resposta(
+            mudanca=Mudanca(arquivos=[arquivo]),
+            custo_usd=0.0,
+            input_tokens=0,
+            output_tokens=0,
+            total_tokens=0,
+        )
+
+
+def test_resposta_invalida_volta_ao_modelo_e_nao_derruba_a_etapa(tmp_path):
+    agente = AgenteQueFalhaUmaVez()
+
+    parte = rodar(tmp_path, agente, Batch())
+
+    assert parte["ok"] and parte["motivo"] == "verde"
+    assert (parte["passos"], parte["retries"]) == (2, 1)
+    assert "RESPOSTA INVÁLIDA" in agente.prompts[1]
+
+
 def test_feedback_humano_volta_ao_modelo_e_nao_encerra_a_etapa(tmp_path):
     agente = AgenteRoteirizado("tests/test_x.py", "tests/test_y.py")
 

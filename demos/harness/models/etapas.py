@@ -5,7 +5,7 @@ from pathlib import Path
 
 from .agentes import Agente
 from .dominio import MEDIDO, Mudanca, Projeto, ResultadoPytest
-from .observacoes import Observacao, PytestFalhou
+from .observacoes import Observacao, PytestFalhou, RespostaInvalida
 from .politicas import Orcamento, Permissao
 from .propostas import Proposta, PropostaAceita, PropostaRejeitada
 from .tracing import Trace
@@ -131,8 +131,12 @@ class Etapa(ABC):
             tokens_out += resposta.output_tokens
             tokens += resposta.total_tokens
 
-            proposta = self.escopo.aplicar(resposta.mudanca, projeto)
-            if isinstance(proposta, PropostaRejeitada):
+            proposta = (
+                RespostaInvalida(resposta.erro)
+                if resposta.mudanca is None
+                else self.escopo.aplicar(resposta.mudanca, projeto)
+            )
+            if isinstance(proposta, Observacao):
                 observacoes.append(proposta)
                 self.trace.registrar(
                     {

@@ -22,3 +22,19 @@ class PytestFalhou(Observacao):
             f"## PYTEST FALHOU\n```\n{self.saida[-4000:]}\n```\n"
             "Corrija o código de produção. Não altere os testes.\n"
         )
+
+
+@dataclass(frozen=True)
+class RespostaInvalida(Observacao):
+    """A resposta não virou uma Mudanca: cercada em ```, truncada ou com o conteúdo do
+    arquivo mal escapado. Sem isto uma resposta malformada derruba a run inteira em vez
+    de custar um passo e voltar ao modelo."""
+
+    erro: str
+
+    def como_prompt(self) -> str:
+        return (
+            f"## RESPOSTA INVÁLIDA\n{self.erro}\n"
+            "Responda só com o JSON da Mudanca, sem cerca ```. O conteúdo de cada "
+            "arquivo vai escapado dentro da string `conteudo`.\n"
+        )

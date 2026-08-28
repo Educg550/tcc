@@ -13,7 +13,7 @@ from agno.agent import Agent
 from agno.models.openrouter import OpenRouter
 from browser_use import Agent as AgenteNavegador
 from browser_use import ChatOpenAI
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 from .dominio import Criterio, Mudanca, Projeto, Requisito
 
@@ -36,15 +36,25 @@ def load(nome: str) -> str:
     return (PROMPTS / f"{nome}.md").read_text(encoding="utf-8")
 
 
+def _sem_cerca(texto: str) -> str:
+    """Mesmo em json_mode o modelo às vezes cerca a resposta em ```json."""
+    t = texto.strip()
+    if t.startswith("```"):
+        t = t.split("\n", 1)[-1].rsplit("```", 1)[0]
+    return t
+
+
 @dataclass(frozen=True)
 class Resposta:
-    """O que o provedor devolveu: a mudança proposta e o que ela custou."""
+    """O que o provedor devolveu: a mudança proposta e o que ela custou. Sem `mudanca`
+    quando a resposta não virou JSON válido - o passo custou mesmo assim."""
 
-    mudanca: Mudanca
+    mudanca: Mudanca | None
     custo_usd: float
     input_tokens: int
     output_tokens: int
     total_tokens: int
+    erro: str | None = None
 
 
 class Agente:
@@ -71,8 +81,13 @@ class Agente:
     async def propor(self, prompt: str) -> Resposta:
         resposta = await self._agno.arun(prompt)
         m = getattr(resposta, "metrics", None)
+        try:
+            mudanca, erro = self._mudanca(resposta.content), None
+        except (ValidationError, ValueError) as falha:
+            mudanca, erro = None, str(falha)[:2000]
         return Resposta(
-            mudanca=self._mudanca(resposta.content),
+            mudanca=mudanca,
+            erro=erro,
             custo_usd=getattr(m, "cost", None) or 0.0,
             input_tokens=getattr(m, "input_tokens", None) or 0,
             output_tokens=getattr(m, "output_tokens", None) or 0,
@@ -84,7 +99,7 @@ class Agente:
         if isinstance(content, Mudanca):
             return content
         if isinstance(content, str):
-            return Mudanca.model_validate_json(content)
+            return Mudanca.model_validate_json(_sem_cerca(content))
         return Mudanca.model_validate(content)
 
 
