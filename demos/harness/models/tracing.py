@@ -29,12 +29,7 @@ class Resultado:
     stages: list[dict] = field(default_factory=list)
     pytest_final: dict | None = None
     impressao_fim: str | None = None
-    cua: dict | None = None
     comeco: datetime = field(default_factory=datetime.now)
-
-    @property
-    def partes(self) -> list[dict]:
-        return [*self.stages, *([self.cua] if self.cua else [])]
 
     @property
     def impressao(self) -> str | None:
@@ -74,15 +69,14 @@ class Resultado:
             "alvo": self.alvo,
             "orcamento": self.orcamento,
             "total_cost_usd": round(
-                sum(p.get("cost_usd") or 0.0 for p in self.partes), 6
+                sum(s.get("cost_usd") or 0.0 for s in self.stages), 6
             ),
-            "total_tokens": sum(p.get("total_tokens") or 0 for p in self.partes),
-            "total_retries": sum(p.get("retries") or 0 for p in self.partes),
+            "total_tokens": sum(s.get("total_tokens") or 0 for s in self.stages),
+            "total_retries": sum(s.get("retries") or 0 for s in self.stages),
             "stages": self.stages,
             "pytest_final": self.pytest_final,
             "regressao": self.regressao,
             "integridade": self.integridade,
-            "cua": self.cua,
         }
 
     def gravar(self, caminho: Path) -> dict:

@@ -1,6 +1,5 @@
 import argparse
 import asyncio
-import json
 import os
 import shutil
 import subprocess
@@ -15,6 +14,7 @@ from .models import (
     HarnessDireto,
     HarnessTDD,
     Interativa,
+    Modo,
     Projeto,
     Requisito,
 )
@@ -37,6 +37,13 @@ def novo_caso(base: Path) -> Path:
     for arquivo in sorted(destino.iterdir()):
         subprocess.run([editor, str(arquivo)], check=True)
     return destino
+
+
+def nova_run(raiz: Path, requisito_id: str, direto: bool) -> str:
+    """O nome carrega quando a run rodou e o que ela é: sem isso duas execuções do mesmo
+    caso de uso se sobrescrevem e o RUN.log deixa de dizer de qual delas veio."""
+    grupo = "baseline" if direto else Modo.detectar(raiz).nome
+    return f"{datetime.now():%Y%m%d-%H%M%S}-{grupo}-{requisito_id}"
 
 
 def ultima_run(raiz: Path) -> str:
@@ -64,7 +71,7 @@ def main() -> None:
     )
 
     ava = sub.add_parser(
-        "avaliar", help="re-roda so o CUA e regrava o campo `cua` da ultima run"
+        "avaliar", help="re-roda so o CUA e regrava o CUA.log da ultima run"
     )
     ava.add_argument("projeto")
     ava.add_argument("requisito")
@@ -75,7 +82,7 @@ def main() -> None:
     raiz = Path(args.projeto)
 
     if args.cmd == "run":
-        nome = f"{datetime.now():%Y%m%d-%H%M%S}-{requisito.id}"
+        nome = nova_run(raiz, requisito.id, args.direto)
         projeto = Projeto(raiz, requisito.alvo, nome)
         classe = HarnessDireto if args.direto else HarnessTDD
         permissao = Batch() if args.yes else Interativa()
@@ -84,21 +91,14 @@ def main() -> None:
             f"\npytest final: {log['pytest_final']}"
             f"  code: {log['stages'][-1]['motivo']}"
             f"  testes intactos: {log['integridade']['intacto']}"
-            f"  cua: {log['cua']['aprovado_geral']}"
         )
-        print(f"RUN.log: {projeto.saida / 'RUN.log'}")
+        print(f"logs: {projeto.saida}")
     else:
         projeto = Projeto(raiz, requisito.alvo, ultima_run(raiz))
         cua = Avaliador(requisito.modelos["cua"])
         r = asyncio.run(cua.avaliar(projeto, requisito))
-        destino = projeto.saida / "RUN.log"
-        log = json.loads(destino.read_text(encoding="utf-8"))
-        log["cua"] = r
-        destino.write_text(
-            json.dumps(log, indent=2, ensure_ascii=False), encoding="utf-8"
-        )
         print(f"\naprovado_geral: {r['aprovado_geral']}\n{r['resumo']}")
-        print(f"RUN.log: {destino}")
+        print(f"CUA.log: {projeto.saida / 'CUA.log'}")
 
 
 if __name__ == "__main__":

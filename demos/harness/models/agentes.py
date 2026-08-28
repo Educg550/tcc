@@ -1,3 +1,4 @@
+import json
 import base64
 import os
 import socket
@@ -206,4 +207,7 @@ class Avaliador:
             "resumo": resumir(criterios),
             "criterios": criterios,
         }
+        (projeto.saida / "CUA.log").write_text(
+            json.dumps(resultado, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
         return resultado

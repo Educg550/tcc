@@ -43,7 +43,11 @@ recebe contexto de código e não há baseline de testes.
 uv run python -m harness.cli run runs/financeiro requisitos/01-formulario-docentes
 ```
 
-**Edição (`manutencao`)** - `<projeto>` já tem arquivos. O harness roda o
+Para outra execução em modo criação, aponte para um projeto que ainda não
+existe: reaproveitar o anterior cai em edição, porque o diretório não está mais
+vazio.
+
+**Edição (`edicao`)** - `<projeto>` já tem arquivos. O harness roda o
 `pytest` antes de tudo para gravar o baseline (`antes` no `RUN.log`, usado para
 detectar regressão) e injeta o código atual no prompt como `## PROJETO ATUAL`.
 É o mesmo comando, apontando para um projeto que já existe:
@@ -62,9 +66,8 @@ gerado.
 
 ## Reavaliar
 
-Re-roda só o CUA sobre a última run e regrava o campo `cua` do `RUN.log`
-existente - não abre run nova, porque o veredito pertence à execução que gerou
-o código.
+Re-roda só o CUA sobre a última run e regrava o `CUA.log` dela - não abre run
+nova, porque o veredito pertence à execução que gerou o código.
 
 ```bash
 uv run python -m harness.cli avaliar runs/financeiro requisitos/01-formulario-docentes
@@ -72,9 +75,11 @@ uv run python -m harness.cli avaliar runs/financeiro requisitos/01-formulario-do
 
 ## Saída
 
-Uma pasta por execução em `<projeto>/_harness/<timestamp>-<requisito>/`:
+Uma pasta por execução em `<projeto>/_harness/<timestamp>-<grupo>-<requisito>/`,
+onde `<grupo>` é `criacao`, `edicao` ou `baseline`:
 
-- `RUN.log` - a medida do TCC: duração, tokens, custo USD e retries por etapa, `pytest_final`, `regressao`, `integridade` dos testes e o veredito do CUA.
+- `RUN.log` - a medida do pipeline: duração, tokens, custo USD e retries por etapa, `pytest_final`, `regressao` e `integridade` dos testes.
+- `CUA.log` - a medida do comportamento: veredito por critério de aceitação, com custo e passos do CUA. Fica fora do `RUN.log` porque mede o app rodando, não o pipeline que o escreveu.
 - `trace.jsonl` - um evento por ação proposta pelo modelo.
 - `<criterio>.png` e `app-<criterio>.log` - tela final e log do app em cada sessão do CUA.
 

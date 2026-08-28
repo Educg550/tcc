@@ -48,7 +48,7 @@ class Harness(ABC):
     async def etapas(self, modo: Modo) -> list[dict]: ...
 
     async def executar(self) -> dict:
-        modo = Modo.detectar(self.projeto)
+        modo = Modo.detectar(self.projeto.raiz)
         self.projeto.preparar()
         # Depois do detectar: pasta semeada não é projeto existente.
         self.projeto.semear(self.requisito.anexos)
@@ -63,10 +63,10 @@ class Harness(ABC):
         resultado.stages = await self.etapas(modo)
         resultado.impressao_fim = self.projeto.impressao()
         resultado.pytest_final = self.projeto.rodar_pytest().contagem
-        # Instrumento de medida da variável dependente, igual nos dois grupos: roda antes
-        # de gravar, senão o veredito não entra na medição da própria run.
+        # Instrumento de medida da variável dependente, igual nos dois grupos. Grava o
+        # próprio CUA.log: o veredito é medida do app rodando, não do pipeline que o fez.
         avaliador = Avaliador(self.requisito.modelos["cua"])
-        resultado.cua = await avaliador.avaliar(self.projeto, self.requisito)
+        await avaliador.avaliar(self.projeto, self.requisito)
         log = resultado.gravar(self.projeto.saida / "RUN.log")
         self.projeto.commitar(self.requisito.id)
         return log

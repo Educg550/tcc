@@ -274,9 +274,8 @@ class Modo(ABC):
     nome: str
 
     @staticmethod
-    def detectar(projeto: Projeto) -> Modo:
-        vazio = not projeto.raiz.exists() or not any(projeto.raiz.iterdir())
-        return Criacao() if vazio else Manutencao()
+    def detectar(raiz: Path) -> Modo:
+        return Criacao() if not raiz.exists() or not any(raiz.iterdir()) else Edicao()
 
     @abstractmethod
     def contexto(self, projeto: Projeto) -> str: ...
@@ -295,8 +294,8 @@ class Criacao(Modo):
         return None
 
 
-class Manutencao(Modo):
-    nome = "manutencao"
+class Edicao(Modo):
+    nome = "edicao"
 
     def contexto(self, projeto: Projeto) -> str:
         return "## PROJETO ATUAL\n\n" + projeto.contexto()
