@@ -169,9 +169,32 @@ A tela é um documento institucional da Universidade de São Paulo, não uma pá
 teste: quem abre reconhece de que instituição ela é. Com essa quantidade de campos, o que
 decide se ela é usável é o agrupamento e o espaçamento.
 
-A pasta `images/` já está na raiz do projeto. Os arquivos dela ficam disponíveis para a
-aplicação servir como estáticos, como estão - usar todos, alguns ou nenhum é decisão de
-quem implementa.
+A pasta `assets/` já está na raiz do projeto, com as imagens que a aplicação serve como
+estáticos, como estão.
+
+### Identidade visual da Universidade
+
+O cabeçalho traz `assets/usp-logo.png` em destaque, acompanhado do nome
+`Universidade de São Paulo` por escrito, e abaixo dele o nome do programa em segundo
+plano - a referência é sempre a Universidade. Em volta do logotipo fica uma margem livre
+nos quatro lados, da altura da letra do próprio logotipo: nem texto nem borda invade essa
+área.
+
+O brasão - o escudo - é de documento impresso oficial e de cerimônia solene. Não aparece
+na página, nem sozinho nem junto do logotipo.
+
+As cores da Universidade:
+
+| uso | hexadecimal |
+|---|---|
+| azul primário | `#1094ab` |
+| azul secundário | `#64c4d2` |
+| amarelo | `#fcb421` |
+
+O azul primário é a cor do logotipo e domina a página; os outros dois são de apoio.
+
+A fonte da identidade é a Univers, comercial e indisponível, e a alternativa que a
+Universidade recomenda é a Open Sans, senão, qualquer fonte sem serifa.
 
 O ofício aparece na página de confirmação preservando as quebras de linha.
 
