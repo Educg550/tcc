@@ -19,18 +19,21 @@ IGNORADOS = ("__pycache__",)
 
 @dataclass(frozen=True)
 class Alvo:
-    """Como o harness opera o software gerado: o comando que sobe o app, o que roda os
-    testes e o ambiente dos dois. Tudo declarado pelo caso de uso, nada pelo harness."""
+    """Como o harness opera o software gerado: os comandos que sobem o app e rodam os
+    testes, e o ambiente dos dois. Tudo declarado pelo caso de uso, nada pelo harness."""
 
     comando_app: str
     comando_teste: str
-    requirements: Path | None = None
+    python: str
+    pacotes: tuple[str, ...]
 
     def comando(self, linha: str) -> list[str]:
-        """Roda no ambiente que o caso de uso declara, isolado do venv do harness."""
-        uv = ["uv", "run", "--no-project"]
-        if self.requirements:
-            uv += ["--with-requirements", str(self.requirements)]
+        """Ambiente próprio, montado do zero a cada chamada. `--isolated` é o que impede o
+        uv de usar o venv do harness como base: sem ele o alvo enxerga dependência que o
+        caso de uso não declarou, e o gerado passa a depender de quem o gerou."""
+        uv = ["uv", "run", "--isolated", "--no-project", "--python", self.python]
+        for pacote in self.pacotes:
+            uv += ["--with", pacote]
         return uv + shlex.split(linha)
 
     @property
@@ -40,20 +43,13 @@ class Alvo:
     def app(self, porta: int) -> list[str]:
         return self.comando(self.comando_app.format(porta=porta))
 
-    @property
-    def dependencias(self) -> list[str]:
-        if not self.requirements:
-            return []
-        linhas = self.requirements.read_text(encoding="utf-8").splitlines()
-        return [ln.strip() for ln in linhas if ln.strip() and not ln.startswith("#")]
-
     def como_dict(self) -> dict:
-        """O que o RUN.log grava do alvo. As dependências vão por conteúdo, não por
-        caminho: o caminho não diz em que ambiente a execução rodou."""
+        """O que o RUN.log grava do alvo: os comandos e o ambiente exato em que rodaram."""
         return {
             "comando_app": self.comando_app,
             "comando_teste": self.comando_teste,
-            "dependencias": self.dependencias,
+            "python": self.python,
+            "pacotes": list(self.pacotes),
         }
 
 
@@ -86,12 +82,12 @@ class Requisito:
 
     @property
     def alvo(self) -> Alvo:
-        # Absoluto: o comando roda com cwd na raiz do projeto gerado, não aqui.
-        requirements = (self.diretorio / "requirements.txt").resolve()
+        comandos, deps = self._declarado["comandos"], self._declarado["dependencias"]
         return Alvo(
-            comando_app=self._declarado["comando_app"],
-            comando_teste=self._declarado["comando_teste"],
-            requirements=requirements if requirements.exists() else None,
+            comando_app=comandos["app"],
+            comando_teste=comandos["teste"],
+            python=str(deps["python"]),
+            pacotes=tuple(deps["pacotes"]),
         )
 
     @property

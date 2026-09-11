@@ -9,7 +9,12 @@ from harness.models.harness import HarnessTDD
 from harness.models.politicas import Batch
 from harness.models.propostas import PropostaRejeitada
 
-ALVO = Alvo(comando_app="app --port {porta}", comando_teste="pytest -q")
+ALVO = Alvo(
+    comando_app="app --port {porta}",
+    comando_teste="pytest -q",
+    python="3.11",
+    pacotes=("pytest",),
+)
 MODELO = Path(__file__).parent.parent / "requisitos" / "00-exemplo-caso-de-uso"
 
 

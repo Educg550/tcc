@@ -1,7 +1,10 @@
-# Como o harness opera o software gerado. 
-# O placeholder `{porta}` é substituída por uma porta livre na hora de subir o app para o CUA avaliar.
-comando_app = "uvicorn app:app --host 127.0.0.1 --port {porta}"
-comando_teste = "pytest -q --tb=short"
+[comandos]
+app = "uvicorn app:app --host 127.0.0.1 --port {porta}"
+teste = "pytest -q"
+
+[dependencias]
+python = "3.11"
+pacotes = ["pytest", "fastapi[standard]"]
 
 [modelos]
 test_writer = "deepseek/deepseek-v4-flash"

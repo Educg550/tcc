@@ -15,14 +15,13 @@ Todos os comandos rodam a partir de `demos/`.
 
 ## Um caso de uso
 
-Um requisito é uma pasta em `requisitos/` com quatro arquivos:
+Um requisito é uma pasta em `requisitos/` com três arquivos:
 
 | arquivo | o que é |
 |--|--|
 | `requisito.md` | o requisito em linguagem natural, entrada dos agentes |
 | `criterios.toml` | critérios de aceitação que o CUA vai conferir na tela (um por sessão) |
-| `alvo.toml` | como rodar o alvo: `comando_app`, `comando_teste`, modelos por etapa e orçamento |
-| `requirements.txt` | dependências do projeto gerado, isoladas do venv do harness |
+| `alvo.toml` | `[comandos]` (app e teste), `[dependencias]` (versão do Python e pacotes), `[modelos]` por etapa e `[orcamento]` |
 
 `requisitos/00-exemplo-caso-de-uso/` é o modelo. Para criar um caso novo a
 partir dele, rode `run` sem o segundo argumento. O harness copia o modelo e

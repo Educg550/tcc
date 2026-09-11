@@ -7,44 +7,47 @@ REQUISITOS = Path(__file__).parent.parent / "requisitos"
 MODELO = REQUISITOS / "00-exemplo-caso-de-uso"
 
 TOML = """
-comando_app = "uvicorn app:app --port {porta}"
-comando_teste = "pytest -q"
+[comandos]
+app = "uvicorn app:app --port {porta}"
+teste = "pytest -q"
+
+[dependencias]
+python = "3.11"
+pacotes = ["pytest", "fastapi[standard]"]
 
 [modelos]
 coder = "provedor/modelo"
 """
 
 
-def caso(tmp_path, requirements: bool):
+def caso(tmp_path):
     (tmp_path / "alvo.toml").write_text(TOML, encoding="utf-8")
-    if requirements:
-        (tmp_path / "requirements.txt").write_text("fastapi\n", encoding="utf-8")
     return Requisito(tmp_path)
 
 
-def test_sem_requirements_nao_passa_a_flag(tmp_path):
-    assert caso(tmp_path, requirements=False).alvo.teste == [
+def test_alvo_roda_isolado_do_venv_do_harness(tmp_path):
+    assert caso(tmp_path).alvo.teste == [
         "uv",
         "run",
+        # Sem `--isolated` o uv usa o venv do harness como base, e o alvo enxerga
+        # dependência que o caso de uso não declarou.
+        "--isolated",
         "--no-project",
+        "--python",
+        "3.11",
+        "--with",
+        "pytest",
+        "--with",
+        "fastapi[standard]",
         "pytest",
         "-q",
     ]
 
 
-def test_com_requirements_e_porta_substituida(tmp_path):
-    requisito = caso(tmp_path, requirements=True)
-    assert requisito.alvo.app(41537) == [
-        "uv",
-        "run",
-        "--no-project",
-        "--with-requirements",
-        str((tmp_path / "requirements.txt").resolve()),
-        "uvicorn",
-        "app:app",
-        "--port",
-        "41537",
-    ]
+def test_porta_substituida_no_comando_do_app(tmp_path):
+    requisito = caso(tmp_path)
+
+    assert requisito.alvo.app(41537)[-4:] == ["uvicorn", "app:app", "--port", "41537"]
     assert requisito.modelos["coder"] == "provedor/modelo"
 
 
@@ -52,13 +55,11 @@ def test_modelo_de_caso_de_uso_e_input_valido():
     requisito = Requisito(MODELO)
     alvo = requisito.alvo
 
-    assert alvo.teste[:3] == ["uv", "run", "--no-project"]
+    assert alvo.teste[:4] == ["uv", "run", "--isolated", "--no-project"]
     assert "{porta}" in alvo.comando_app
     assert set(requisito.modelos) == {"test_writer", "coder", "cua"}
     assert requisito.orcamento.passos > 0
-    assert "#" not in " ".join(alvo.dependencias)
-    # Relativo aqui vira inexistente lá: o comando roda com cwd na raiz do projeto.
-    assert alvo.requirements.is_absolute()
+    assert alvo.python and alvo.pacotes
 
 
 def test_criterios_do_modelo_e_do_caso_01():

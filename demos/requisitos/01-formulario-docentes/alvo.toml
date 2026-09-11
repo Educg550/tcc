@@ -1,5 +1,10 @@
-comando_app = "uvicorn app:app --host 127.0.0.1 --port {porta}"
-comando_teste = "pytest -q --tb=short"
+[comandos]
+app = "uvicorn app:app --host 127.0.0.1 --port {porta}"
+teste = "pytest -q --tb=short"
+
+[dependencias]
+python = "3.11"
+pacotes = ["pytest", "fastapi[standard]"]
 
 [modelos]
 test_writer = "deepseek/deepseek-v4-flash"

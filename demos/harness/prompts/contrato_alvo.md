@@ -12,6 +12,10 @@ E verifica com:
 {comando_teste}
 ```
 
-Escreva a aplicação de modo que esse comando a inicie. O ambiente tem apenas o que o caso
-de uso declara: não importe biblioteca que o requisito não peça. Você não executa nenhum
-comando - quem executa é o harness.
+O ambiente é **Python {python}** e tem exatamente estes pacotes, mais a biblioteca padrão:
+
+{pacotes}
+
+Nada além disso está instalado. Importar qualquer outra coisa quebra na hora de rodar, e a
+sintaxe tem que ser válida na versão de Python acima. Escreva a aplicação de modo que o
+comando acima a inicie. Você não executa nenhum comando - quem executa é o harness.

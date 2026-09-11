@@ -13,7 +13,12 @@ from harness.models.politicas import (
 )
 from harness.models.tracing import Resultado, Trace
 
-ALVO = Alvo(comando_app="app --port {porta}", comando_teste="pytest -q")
+ALVO = Alvo(
+    comando_app="app --port {porta}",
+    comando_teste="pytest -q",
+    python="3.11",
+    pacotes=("pytest",),
+)
 ORCAMENTO = Orcamento(passos=5, custo_usd=1.0, tempo_s=60)
 
 

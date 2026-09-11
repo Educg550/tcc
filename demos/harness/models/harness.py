@@ -37,7 +37,10 @@ class Harness(ABC):
         """A restrição de execução vem do caso de uso e é a mesma para os dois grupos."""
         alvo = self.projeto.alvo
         return load("contrato_alvo").format(
-            comando_app=alvo.comando_app, comando_teste=alvo.comando_teste
+            comando_app=alvo.comando_app,
+            comando_teste=alvo.comando_teste,
+            python=alvo.python,
+            pacotes="\n".join(f"- `{p}`" for p in alvo.pacotes),
         )
 
     def prompt(self, *partes: str) -> str:
