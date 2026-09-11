@@ -62,11 +62,11 @@ Na primeira vez o campo passa a mostrar `R$ 15,00`; na segunda, `R$ 1.500.000,00
 [[criterios]]
 identificador = "C6"
 acao = '''
-Abrir a página inicial. Digitar `12345678901` no campo
+Abrir a página inicial. Digitar `12345678909` no campo
 `CPF (SEPARADOS POR PONTOS E TRAÇO)` e sair do campo, sem enviar o formulário.
 '''
 resultado_esperado = '''
-O campo passa a mostrar `123.456.789-01`.
+O campo passa a mostrar `123.456.789-09`.
 '''
 
 [[criterios]]
@@ -113,6 +113,8 @@ mesmo escolher em todos os outros campos obrigatórios:
 - `NÍVEL`: `Mestrado`
 - `TIPO DE AUXÍLIO`: `Participação em evento`
 - `VALOR SOLICITADO (R$)`: `150000`
+- `CPF (SEPARADOS POR PONTOS E TRAÇO)`: `52998224725`
+- `DATA DE NASCIMENTO`: `01021980`
 
 Depois clicar em `Enviar solicitação`.
 '''
@@ -135,7 +137,7 @@ escolher em todos os outros campos obrigatórios:
 - `N. USP`: `1234567`
 - `PROGRAMA`: `Ciência da Computação`
 - `VALOR SOLICITADO (R$)`: `150000`
-- `CPF (SEPARADOS POR PONTOS E TRAÇO)`: `12345678901`
+- `CPF (SEPARADOS POR PONTOS E TRAÇO)`: `12345678909`
 
 Depois clicar em `Enviar solicitação`.
 '''
@@ -144,5 +146,42 @@ A página mostra `Solicitação registrada` e o ofício abaixo contém
 `Interessada(o): Maria Silva - 1234567`,
 `Assunto: Solicitação de Auxílio Financeiro - Verba do programa`,
 `Programa: Ciência da Computação`, `Valor solicitado: R$ 1.500,00` e
-`CPF: 123.456.789-01`, sem nenhum marcador `<<...>>` sobrando.
+`CPF: 123.456.789-09`, sem nenhum marcador `<<...>>` sobrando.
+'''
+
+[[criterios]]
+identificador = "C12"
+acao = '''
+Abrir a página inicial e preencher o formulário da aba `ALUNOS`, que já está ativa,
+inteiro, com valores plausíveis que você mesmo escolher, usando `52998224725` em
+`CPF (SEPARADOS POR PONTOS E TRAÇO)` e digitando `32121990` em `DATA DE NASCIMENTO`.
+Depois clicar em `Enviar solicitação`.
+'''
+resultado_esperado = '''
+A página continua no formulário e não mostra `Solicitação registrada`. No topo do
+formulário da aba `ALUNOS` aparece a mensagem `Data de nascimento inválida`.
+'''
+
+[[criterios]]
+identificador = "C13"
+acao = '''
+Abrir a página inicial e preencher o formulário da aba `ALUNOS`, que já está ativa,
+inteiro, com valores plausíveis que você mesmo escolher, digitando `01021980` em
+`DATA DE NASCIMENTO` e `12345678900` em `CPF (SEPARADOS POR PONTOS E TRAÇO)`.
+Depois clicar em `Enviar solicitação`.
+'''
+resultado_esperado = '''
+A página continua no formulário e não mostra `Solicitação registrada`. No topo do
+formulário da aba `ALUNOS` aparece a mensagem `CPF inválido`.
+'''
+
+[[criterios]]
+identificador = "C14"
+acao = '''
+Abrir a página inicial e observar a tela sem rolar a página.
+'''
+resultado_esperado = '''
+Tudo cabe na tela de uma vez, sem rolagem vertical: o cabeçalho da USP, os três blocos de
+campos da aba `ALUNOS` e o botão `Enviar solicitação` estão visíveis ao mesmo tempo. Os
+campos estão distribuídos em mais de uma coluna, não empilhados numa coluna única.
 '''
