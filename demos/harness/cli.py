@@ -14,7 +14,6 @@ from .models import (
     HarnessDireto,
     HarnessTDD,
     Interativa,
-    Modo,
     Projeto,
     Requisito,
 )
@@ -39,27 +38,19 @@ def novo_caso(base: Path) -> Path:
     return destino
 
 
-def nova_run(raiz: Path, requisito_id: str, direto: bool) -> str:
-    """O nome carrega quando a run rodou e o que ela é: sem isso duas execuções do mesmo
-    caso de uso se sobrescrevem e o RUN.log deixa de dizer de qual delas veio."""
-    grupo = "baseline" if direto else Modo.detectar(raiz).nome
-    return f"{datetime.now():%Y%m%d-%H%M%S}-{grupo}-{requisito_id}"
-
-
-def ultima_run(raiz: Path) -> str:
-    """Reavaliar não abre run nova: o veredito pertence à execução que gerou o código."""
-    runs = sorted(p.name for p in (raiz / "_harness").iterdir() if p.is_dir())
-    if not runs:
-        raise SystemExit(f"{raiz}/_harness não tem run para reavaliar")
-    return runs[-1]
+def nome_do_projeto(requisito_id: str, grupo: str) -> str:
+    """Quem nomeia o projeto é o harness: toda run parte de um diretório novo, e o nome
+    diz de que caso de uso, de que grupo e de quando ela é. Requisito na frente para as
+    runs do mesmo caso de uso ficarem juntas; data no fim para ordenarem entre si."""
+    return f"{requisito_id}-{grupo}-{datetime.now():%Y%m%d-%H%M%S}"
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(prog="harness")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    run = sub.add_parser("run", help="gera ou mantém o projeto até o pytest passar")
-    run.add_argument("projeto")
+    run = sub.add_parser("run", help="gera um projeto novo até o pytest passar")
+    run.add_argument("destino", help="pasta-mãe; o harness cria o projeto dentro dela")
     run.add_argument(
         "requisito",
         nargs="?",
@@ -76,20 +67,19 @@ def main() -> None:
     )
 
     ava = sub.add_parser(
-        "avaliar", help="re-roda so o CUA e regrava o CUA.log da ultima run"
+        "avaliar", help="re-roda so o CUA e regrava o CUA.log de um projeto ja gerado"
     )
-    ava.add_argument("projeto")
+    ava.add_argument("projeto", help="o diretorio que o `run` criou")
     ava.add_argument("requisito")
 
     args = ap.parse_args()
     caminho = Path(args.requisito) if args.requisito else novo_caso(REQUISITOS)
     requisito = Requisito(caminho)
-    raiz = Path(args.projeto)
 
     if args.cmd == "run":
-        nome = nova_run(raiz, requisito.id, args.direto)
-        projeto = Projeto(raiz, requisito.alvo, nome)
         classe = HarnessDireto if args.direto else HarnessTDD
+        raiz = Path(args.destino) / nome_do_projeto(requisito.id, classe.grupo)
+        projeto = Projeto(raiz, requisito.alvo)
         permissao = Batch() if args.yes else Interativa()
         harness = classe(projeto, requisito, permissao, not args.sem_cua)
         log = asyncio.run(harness.executar())
@@ -100,7 +90,7 @@ def main() -> None:
         )
         print(f"logs: {projeto.saida}")
     else:
-        projeto = Projeto(raiz, requisito.alvo, ultima_run(raiz))
+        projeto = Projeto(Path(args.projeto), requisito.alvo)
         cua = Avaliador(requisito.modelos["cua"])
         r = asyncio.run(cua.avaliar(projeto, requisito))
         print(f"\naprovado_geral: {r['aprovado_geral']}\n{r['resumo']}")

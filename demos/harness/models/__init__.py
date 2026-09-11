@@ -1,5 +1,5 @@
 from .agentes import Avaliador
-from .dominio import Modo, Projeto, Requisito
+from .dominio import Projeto, Requisito
 from .harness import HarnessDireto, HarnessTDD
 from .politicas import Batch, Interativa
 
@@ -9,7 +9,6 @@ __all__ = [
     "HarnessDireto",
     "HarnessTDD",
     "Interativa",
-    "Modo",
     "Projeto",
     "Requisito",
 ]

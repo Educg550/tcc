@@ -21,11 +21,10 @@ class Resultado:
     """O RUN.log: a unidade de medida do TCC, não log de depuração. Os totais são
     derivados das partes, nunca passados a mão."""
 
-    modo: str
+    grupo: str
     requisito_id: str
     alvo: dict | None = None
     orcamento: dict | None = None
-    antes: dict | None = None
     stages: list[dict] = field(default_factory=list)
     pytest_final: dict | None = None
     impressao_fim: str | None = None
@@ -36,16 +35,6 @@ class Resultado:
         """A impressão dos testes quando a etapa de código começou. Quem a registra é a
         própria etapa: só ela sabe qual é esse instante."""
         return next((s["impressao"] for s in self.stages if "impressao" in s), None)
-
-    @property
-    def regressao(self) -> dict | None:
-        if self.antes is None or self.pytest_final is None:
-            return None
-        return {
-            "antes": self.antes,
-            "depois": self.pytest_final,
-            "quebrou": self.antes["failed"] == 0 and self.pytest_final["failed"] > 0,
-        }
 
     @property
     def integridade(self) -> dict | None:
@@ -64,7 +53,7 @@ class Resultado:
             "started_at": self.comeco.isoformat(timespec="seconds"),
             "ended_at": fim.isoformat(timespec="seconds"),
             "total_duration_s": round((fim - self.comeco).total_seconds(), 2),
-            "modo": self.modo,
+            "grupo": self.grupo,
             "requisito_id": self.requisito_id,
             "alvo": self.alvo,
             "orcamento": self.orcamento,
@@ -75,7 +64,6 @@ class Resultado:
             "total_retries": sum(s.get("retries") or 0 for s in self.stages),
             "stages": self.stages,
             "pytest_final": self.pytest_final,
-            "regressao": self.regressao,
             "integridade": self.integridade,
         }
 

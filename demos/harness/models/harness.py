@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import asdict
 
 from .agentes import Agente, Avaliador, load
-from .dominio import Modo, Projeto, Requisito
+from .dominio import Projeto, Requisito
 from .etapas import Etapa, EtapaCodigo, EtapaTDD, EtapaTestes
 from .politicas import Permissao
 from .tracing import Resultado, Trace
@@ -15,6 +15,8 @@ class Harness(ABC):
     As subclasses são os dois grupos do experimento. Emitem o mesmo Resultado, com o
     mesmo orçamento e a mesma diretiva de estilo - o que varia entre elas é só a
     presença de etapas, que é a variável independente."""
+
+    grupo: str
 
     def __init__(
         self,
@@ -47,22 +49,24 @@ class Harness(ABC):
         return classe(id, agente, self.permissao, self.orcamento, self.trace)
 
     @abstractmethod
-    async def etapas(self, modo: Modo) -> list[dict]: ...
+    async def etapas(self) -> list[dict]: ...
 
     async def executar(self) -> dict:
-        modo = Modo.detectar(self.projeto.raiz)
+        # Toda run gera do zero: projeto reaproveitado mediria manutenção de código que
+        # já existe, e não a geração que o experimento compara.
+        if self.projeto.raiz.exists() and any(self.projeto.raiz.iterdir()):
+            raise SystemExit(
+                f"{self.projeto.raiz} já tem arquivos: cada run parte de um projeto novo"
+            )
         self.projeto.preparar()
-        # Depois do detectar: pasta semeada não é projeto existente.
         self.projeto.semear(self.requisito.anexos)
-        antes = modo.baseline(self.projeto)
         resultado = Resultado(
-            modo=modo.nome,
+            grupo=self.grupo,
             requisito_id=self.requisito.id,
             alvo={**self.projeto.alvo.como_dict(), "modelos": self.requisito.modelos},
             orcamento=asdict(self.orcamento),
-            antes=antes.contagem if antes else None,
         )
-        resultado.stages = await self.etapas(modo)
+        resultado.stages = await self.etapas()
         resultado.impressao_fim = self.projeto.impressao()
         resultado.pytest_final = self.projeto.rodar_pytest().contagem
         # Instrumento de medida da variável dependente, igual nos dois grupos. Grava o
@@ -72,20 +76,20 @@ class Harness(ABC):
                 self.projeto, self.requisito
             )
         log = resultado.gravar(self.projeto.saida / "RUN.log")
-        self.projeto.commitar(self.requisito.id)
         return log
 
 
 class HarnessTDD(Harness):
     """Grupo experimental: requisito → testes → implementação sob CI."""
 
-    async def etapas(self, modo: Modo) -> list[dict]:
+    grupo = "tdd"
+
+    async def etapas(self) -> list[dict]:
         modelos = self.requisito.modelos
         testes = self.etapa(
             "tests", Agente.de("test_writer", modelos["test_writer"]), EtapaTestes
         )
-        base = self.prompt(modo.contexto(self.projeto))
-        parte_testes = await testes.executar(base, self.projeto)
+        parte_testes = await testes.executar(self.prompt(), self.projeto)
 
         codigo = self.etapa("code", Agente.de("coder", modelos["coder"]), EtapaTDD)
         base = self.prompt(
@@ -98,10 +102,11 @@ class HarnessDireto(Harness):
     """Grupo baseline: requisito → modelo → código, uma etapa. Sem testes gerados, sem
     CI, sem CUA no loop. A ausência é a variável independente, não um prompt pior."""
 
-    async def etapas(self, modo: Modo) -> list[dict]:
+    grupo = "baseline"
+
+    async def etapas(self) -> list[dict]:
         # Roda com o modelo do coder: modelo diferente entre os grupos confundiria
         # modelo com pipeline.
         modelo = self.requisito.modelos["coder"]
         direta = self.etapa("direto", Agente.de("direto", modelo), EtapaCodigo)
-        base = self.prompt(modo.contexto(self.projeto))
-        return [await direta.executar(base, self.projeto)]
+        return [await direta.executar(self.prompt(), self.projeto)]

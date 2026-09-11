@@ -67,7 +67,6 @@ O batch é obrigatório no experimento porque o feedback humano é uma ajuda ext
 
 ### Métricas Operacionais
 - **Custo por requisito:** custo em tokens/API para completar cada requisito
-- **Taxa de regressão:** novos requisitos que quebram implementações anteriores
 - **Retries e feedback (modo interativo):** número de rejeições por etapa e o texto que as motivou
 
 ---

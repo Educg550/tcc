@@ -28,36 +28,21 @@ Um requisito é uma pasta em `requisitos/` com quatro arquivos:
 partir dele, rode `run` sem o segundo argumento. O harness copia o modelo e
 abre cada arquivo no `$EDITOR`.
 
-## Os dois modos
-
-Não existe flag de modo. Quem decide é o estado do diretório do projeto:
+## Rodar
 
 ```bash
-uv run python -m harness.cli run <projeto> <requisito>
+uv run python -m harness.cli run <destino> <requisito>
 ```
 
-**Do zero (`criacao`)** - `<projeto>` não existe ou está vazio. O modelo não
-recebe contexto de código e não há baseline de testes.
+`<destino>` é só a pasta-mãe. Quem nomeia o projeto é o harness, como
+`<requisito>-<grupo>-<data>`: toda run parte de um diretório novo, porque reaproveitar o
+de uma run anterior mediria manutenção de código que já existe, e não a geração que o
+experimento compara.
 
 ```bash
-uv run python -m harness.cli run runs/financeiro requisitos/01-formulario-docentes
+uv run python -m harness.cli run runs requisitos/01-formulario-docentes
+# → runs/01-formulario-docentes-tdd-20260911-112234/
 ```
-
-Para outra execução em modo criação, aponte para um projeto que ainda não
-existe: reaproveitar o anterior cai em edição, porque o diretório não está mais
-vazio.
-
-**Edição (`edicao`)** - `<projeto>` já tem arquivos. O harness roda o
-`pytest` antes de tudo para gravar o baseline (`antes` no `RUN.log`, usado para
-detectar regressão) e injeta o código atual no prompt como `## PROJETO ATUAL`.
-É o mesmo comando, apontando para um projeto que já existe:
-
-```bash
-uv run python -m harness.cli run runs/financeiro requisitos/02-listagem
-```
-
-Em ambos os modos, cada requisito vira um commit no repositório do projeto
-gerado.
 
 ### Flags
 
@@ -66,19 +51,19 @@ gerado.
 
 ## Reavaliar
 
-Re-roda só o CUA sobre a última run e regrava o `CUA.log` dela - não abre run
-nova, porque o veredito pertence à execução que gerou o código.
+Re-roda só o CUA sobre um projeto já gerado e regrava o `CUA.log` dele - não abre projeto
+novo, porque o veredito pertence à execução que gerou o código.
 
 ```bash
-uv run python -m harness.cli avaliar runs/financeiro requisitos/01-formulario-docentes
+uv run python -m harness.cli avaliar runs/01-formulario-docentes-tdd-20260911-112234 requisitos/01-formulario-docentes
 ```
 
 ## Saída
 
-Uma pasta por execução em `<projeto>/_harness/<timestamp>-<grupo>-<requisito>/`,
-onde `<grupo>` é `criacao`, `edicao` ou `baseline`:
+Uma pasta por projeto gerado, em `<destino>/<requisito>-<grupo>-<data>/_harness/`, onde
+`<grupo>` é `tdd` ou `baseline`:
 
-- `RUN.log` - a medida do pipeline: duração, tokens, custo USD e retries por etapa, `pytest_final`, `regressao` e `integridade` dos testes.
+- `RUN.log` - a medida do pipeline: duração, tokens, custo USD e retries por etapa, `pytest_final` e `integridade` dos testes.
 - `CUA.log` - a medida do comportamento: veredito por critério de aceitação, com custo e passos do CUA. Fica fora do `RUN.log` porque mede o app rodando, não o pipeline que o escreveu.
 - `trace.jsonl` - um evento por ação proposta pelo modelo.
 - `<criterio>.png` e `app-<criterio>.log` - tela final e log do app em cada sessão do CUA.
@@ -91,7 +76,7 @@ não pode vazar para dentro do que ela mede.
 | | |
 |--|--|
 | `cli.py` | os dois comandos, `run` e `avaliar` |
-| `models/dominio.py` | tudo que o modelo vê e interage com: `Requisito` (o caso de uso em disco), `Alvo` (como rodar o gerado), `Projeto`, `Modo` |
+| `models/dominio.py` | tudo que o modelo vê e interage com: `Requisito` (o caso de uso em disco), `Alvo` (como rodar o gerado), `Projeto` |
 | `models/harness.py` | o loop: `HarnessTDD` (experimental) e `HarnessDireto` (baseline) |
 | `models/etapas.py` | o laço de uma etapa: propor → validar → escrever → observar → autorizar. `Escopo` (onde cada etapa pode escrever), `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
 | `models/propostas.py` | o que sobra da proposta depois de aplicada: `PropostaAceita` ou `PropostaRejeitada` |

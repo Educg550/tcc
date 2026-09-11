@@ -48,7 +48,7 @@ class RejeitaUmaVez(Permissao):
 
 
 def rodar(tmp_path, agente, permissao, classe: type[Etapa] = EtapaTestes) -> dict:
-    projeto = Projeto(tmp_path, ALVO, "teste")
+    projeto = Projeto(tmp_path, ALVO)
     projeto.preparar()
     etapa = classe(
         "etapa", agente, permissao, ORCAMENTO, Trace(projeto.saida / "trace.jsonl")
@@ -135,7 +135,7 @@ def test_etapa_de_codigo_registra_a_impressao_dos_testes(tmp_path):
 
 
 def test_integridade_sai_da_impressao_da_etapa_de_codigo():
-    resultado = Resultado(modo="criacao", requisito_id="01")
+    resultado = Resultado(grupo="tdd", requisito_id="01")
     resultado.stages = [{"id": "tests"}, {"id": "code", "impressao": "abc"}]
 
     resultado.impressao_fim = "abc"

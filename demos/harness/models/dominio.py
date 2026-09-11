@@ -7,7 +7,6 @@ import shlex
 import shutil
 import subprocess
 import tomllib
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -15,9 +14,7 @@ from pydantic import BaseModel
 
 from .politicas import Orcamento
 
-# Fora do contexto que o modelo recebe: `_harness/` é a medição, e RUN.log dentro do
-# prompt é vazamento da métrica para dentro do que ela mede.
-IGNORADOS = ("_harness", "__pycache__")
+IGNORADOS = ("__pycache__",)
 
 
 @dataclass(frozen=True)
@@ -183,16 +180,15 @@ class Projeto:
 
     raiz: Path
     alvo: Alvo
-    run: str
 
     def __post_init__(self) -> None:
         self.raiz = Path(self.raiz).resolve()
 
     @property
     def saida(self) -> Path:
-        """Uma pasta por execução: RUN.log, trace e telas de runs diferentes do mesmo
-        projeto não se sobrescrevem."""
-        return self.raiz / "_harness" / self.run
+        """Uma run por projeto, e a medição dela fora do código medido: `_harness/` não
+        entra no contexto que o modelo recebe."""
+        return self.raiz / "_harness"
 
     def preparar(self) -> None:
         self.saida.mkdir(parents=True, exist_ok=True)
@@ -240,9 +236,9 @@ class Projeto:
             proc.stdout + "\n" + proc.stderr, proc.returncode == 0
         )
 
-    def contexto(self, sub: str = "") -> str:
-        """Todo arquivo de texto do projeto. Que arquivo entra não é escolha de extensão:
-        é o que o modelo pode ver sem receber a própria medição de volta."""
+    def contexto(self, sub: str) -> str:
+        """Todo arquivo de texto de uma subárvore do projeto. O modelo só recebe o que
+        está dentro de `sub`: a medição em `_harness/` fica fora por construção."""
         base = self.raiz / sub
         partes = []
         for caminho in sorted(base.rglob("*")):
@@ -257,48 +253,3 @@ class Projeto:
                 continue
             partes.append(f"### {rel}\n```\n{texto}\n```")
         return "\n\n".join(partes)
-
-    def commitar(self, requisito_id: str) -> None:
-        """Um commit por requisito no projeto gerado: dá diff, tamanho e rollback."""
-        if not (self.raiz / ".git").exists():
-            subprocess.run(["git", "init", "-q"], cwd=self.raiz, check=True)
-        subprocess.run(["git", "add", "-A"], cwd=self.raiz, check=True)
-        subprocess.run(
-            ["git", "commit", "-q", "-m", requisito_id], cwd=self.raiz, check=False
-        )
-
-
-class Modo(ABC):
-    """Não existe flag de modo: quem decide é o estado do diretório."""
-
-    nome: str
-
-    @staticmethod
-    def detectar(raiz: Path) -> Modo:
-        return Criacao() if not raiz.exists() or not any(raiz.iterdir()) else Edicao()
-
-    @abstractmethod
-    def contexto(self, projeto: Projeto) -> str: ...
-
-    @abstractmethod
-    def baseline(self, projeto: Projeto) -> ResultadoPytest | None: ...
-
-
-class Criacao(Modo):
-    nome = "criacao"
-
-    def contexto(self, projeto: Projeto) -> str:
-        return ""
-
-    def baseline(self, projeto: Projeto) -> None:
-        return None
-
-
-class Edicao(Modo):
-    nome = "edicao"
-
-    def contexto(self, projeto: Projeto) -> str:
-        return "## PROJETO ATUAL\n\n" + projeto.contexto()
-
-    def baseline(self, projeto: Projeto) -> ResultadoPytest:
-        return projeto.rodar_pytest()
