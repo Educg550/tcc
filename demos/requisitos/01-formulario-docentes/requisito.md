@@ -6,6 +6,19 @@ página, em abas. O solicitante escolhe a aba, preenche seus dados, os dados do 
 endereço e os dados bancários; ao enviar, recebe de volta o ofício de solicitação já
 redigido com os dados no lugar dos marcadores, pronto para encaminhar à CCP do programa.
 
+## Frontend e backend
+
+A aplicação são duas partes separadas, no mesmo projeto:
+
+- **Frontend** - `index.html`, `style.css` e `app.js`, servidos como arquivos estáticos.
+  A tela, o estilo e o comportamento de tela vivem nesses três arquivos. Nenhum deles é
+  gerado por Python.
+- **Backend** - em FastAPI. Recebe a solicitação enviada, decide se ela é válida e
+  devolve ao frontend o que a tela precisa mostrar. Não grava nada: sem banco, sem
+  arquivo, sem persistência de espécie alguma - a solicitação se encerra na resposta.
+
+Quem decide se a solicitação é válida é o backend; o frontend mostra o que ele responder.
+
 ## Tela única com duas abas
 
 Cabeçalho institucional da USP no topo (ver Aparência) e, abaixo dele, duas abas com
@@ -78,7 +91,7 @@ centavos:
 | `150000` | `R$ 1.500,00` |
 | `150000000` | `R$ 1.500.000,00` |
 
-`CPF (SEPARADOS POR PONTOS E TRAÇO)` - digitar `12345678901` mostra `123.456.789-01`.
+`CPF (SEPARADOS POR PONTOS E TRAÇO)` - digitar `12345678909` mostra `123.456.789-09`.
 
 `CEP` - digitar `05508090` mostra `05508-090`.
 
@@ -86,8 +99,8 @@ centavos:
 
 ## Validação
 
-Vale igual nas duas abas. Ao enviar, a página volta com a mesma aba ativa, os valores já
-digitados preservados nos campos e, no topo do formulário daquela aba, **todas** as
+Vale igual nas duas abas. Ao enviar com erro, a mesma aba continua ativa, os valores já
+digitados continuam nos campos e, no topo do formulário daquela aba, aparecem **todas** as
 mensagens de erro que se aplicam, uma por linha:
 
 - Qualquer campo obrigatório vazio: `Preencha todos os campos` (uma única vez, não uma
@@ -102,6 +115,10 @@ mensagens de erro que se aplicam, uma por linha:
 - `CEP` fora de `00000-000`: `CEP deve estar no formato 00000-000`.
 - `DATA DE NASCIMENTO` fora de `dd/mm/aaaa`:
   `Data de nascimento deve estar no formato dd/mm/aaaa`.
+- `CPF (SEPARADOS POR PONTOS E TRAÇO)` no formato certo, mas cujos dois dígitos
+  verificadores não conferem com os nove primeiros: `CPF inválido`.
+- `DATA DE NASCIMENTO` no formato certo, mas que não seja uma data existente - dia que
+  não cabe no mês, mês fora de 1 a 12: `Data de nascimento inválida`.
 
 Enquanto houver erro, o ofício não é gerado.
 
@@ -110,7 +127,7 @@ rótulo.
 
 ## Após o envio válido
 
-Mostrar a página de confirmação, com o mesmo cabeçalho institucional, o título
+A tela passa a mostrar a confirmação, com o mesmo cabeçalho institucional, o título
 `Solicitação registrada` e, abaixo, o ofício com os dados preenchidos no lugar dos
 marcadores:
 
@@ -172,6 +189,15 @@ decide se ela é usável é o agrupamento e o espaçamento.
 A pasta `assets/` já está na raiz do projeto, com as imagens que a aplicação serve como
 estáticos, como estão.
 
+### Uma tela só
+
+A página do formulário cabe inteira na tela, sem rolagem vertical: quem abre vê de uma vez
+o cabeçalho, os três blocos de campos e o botão `Enviar solicitação`. Com essa quantidade
+de campos, isso exige distribuir os campos horizontalmente - várias colunas por bloco,
+campos curtos lado a lado - em vez de empilhar tudo numa coluna única. Altura é o recurso
+escasso: nenhum campo curto ocupa a largura inteira sozinho, e o espaçamento entre blocos
+serve para separar, não para esticar a página.
+
 ### Identidade visual da Universidade
 
 O cabeçalho traz `assets/usp-logo.png` em destaque, acompanhado do nome
@@ -198,6 +224,6 @@ Universidade recomenda é a Open Sans, senão, qualquer fonte sem serifa.
 
 O ofício aparece na página de confirmação preservando as quebras de linha.
 
-Todo o CSS e todo o JavaScript são escritos à mão e embutidos na própria página: sem
+Todo o CSS e todo o JavaScript são escritos à mão, em `style.css` e `app.js`: sem
 framework, sem CDN, sem fonte remota e sem nenhum arquivo baixado da rede - o ambiente de
 execução não tem acesso externo.
