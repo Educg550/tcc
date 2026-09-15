@@ -63,11 +63,11 @@ def main() -> None:
     run.add_argument(
         "--sem-cua",
         action="store_true",
-        help="para o pipeline no pytest; `avaliar` roda o CUA sobre a run depois",
+        help="para o pipeline no pytest; `avaliar` roda a avaliacao sobre a run depois",
     )
 
     ava = sub.add_parser(
-        "avaliar", help="re-roda so o CUA e regrava o CUA.log de um projeto ja gerado"
+        "avaliar", help="re-roda so a avaliacao e regrava o AVALIACAO.log de um projeto ja gerado"
     )
     ava.add_argument("projeto", help="o diretorio que o `run` criou")
     ava.add_argument("requisito")
@@ -91,10 +91,12 @@ def main() -> None:
         print(f"logs: {projeto.saida}")
     else:
         projeto = Projeto(Path(args.projeto), requisito.alvo)
-        cua = Avaliador(requisito.modelos["cua"])
-        r = asyncio.run(cua.avaliar(projeto, requisito))
-        print(f"\naprovado_geral: {r['aprovado_geral']}\n{r['resumo']}")
-        print(f"CUA.log: {projeto.saida / 'CUA.log'}")
+        modelos = requisito.modelos
+        avaliador = Avaliador(modelos["cua"], modelos["test_writer"])
+        r = asyncio.run(avaliador.avaliar(projeto, requisito))
+        print(f"\naprovado_geral: {r['aprovado_geral']}  custo: ${r['cost_usd']}")
+        print(r["resumo"])
+        print(f"AVALIACAO.log: {projeto.saida / 'AVALIACAO.log'}")
 
 
 if __name__ == "__main__":

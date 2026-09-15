@@ -1,4 +1,4 @@
-from .agentes import Avaliador
+from .avaliacao import Avaliador
 from .dominio import Projeto, Requisito
 from .harness import HarnessDireto, HarnessTDD
 from .politicas import Batch, Interativa

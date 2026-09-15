@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import asdict
 
-from .agentes import Agente, Avaliador, load
+from .agentes import Agente, load
+from .avaliacao import Avaliador
 from .dominio import Projeto, Requisito
 from .etapas import Etapa, EtapaCodigo, EtapaTDD, EtapaTestes
 from .politicas import Permissao
@@ -73,9 +74,10 @@ class Harness(ABC):
         resultado.impressao_fim = self.projeto.impressao()
         resultado.pytest_final = self.projeto.rodar_pytest().contagem
         # Instrumento de medida da variável dependente, igual nos dois grupos. Grava o
-        # próprio CUA.log: o veredito é medida do app rodando, não do pipeline que o fez.
+        # próprio AVALIACAO.log: a avaliação mede o app rodando, não o pipeline que o fez.
         if self.com_cua:
-            await Avaliador(self.requisito.modelos["cua"]).avaliar(
+            modelos = self.requisito.modelos
+            await Avaliador(modelos["cua"], modelos["test_writer"]).avaliar(
                 self.projeto, self.requisito
             )
         log = resultado.gravar(self.projeto.saida / "RUN.log")

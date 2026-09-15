@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from harness.models.agentes import load, resumir
+from harness.models.agentes import load
+from harness.models.avaliacao import resumir
 from harness.models.dominio import Requisito
 
 REQUISITOS = Path(__file__).parent.parent / "requisitos"

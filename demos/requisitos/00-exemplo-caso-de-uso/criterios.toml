@@ -1,13 +1,25 @@
-# Um critério por comportamento observável. Cada um roda numa sessão limpa de CUA, com a
-# aplicação subida do zero. A ação repete todo passo de que depende, e não existe ordem
-# implícita entre critérios.
+# Um critério por comportamento observável. A ação repete todo passo de que depende, e não
+# existe ordem implícita entre critérios: cada um começa com a aplicação subida do zero.
 #
-# Quem julga é um agente que só vê a tela, então não cite arquivo,
-# rota, função nem biblioteca. Use os textos exatos entre acentos graves e dados concretos
-# na ação, para que dois julgamentos do mesmo critério sejam comparáveis.
+# O `tipo` escolhe o instrumento, e não tem default:
+#
+#   deterministico  -> vira spec de Cypress. Qualquer coisa que se decida por texto na
+#                      tela, valor de campo, mensagem, presença ou ausência de elemento.
+#                      Veredito repetível: o mesmo app dá sempre o mesmo resultado.
+#   subjetivo       -> vai para o CUA. Só o que exige julgamento de quem olha: identidade
+#                      visual, proporção, hierarquia, "cabe na tela". Caro e com ruído,
+#                      então use só quando não der para verificar de outro jeito.
+#
+# Na dúvida, é determinístico. Todo critério que vira subjetivo sem precisar troca uma
+# medida repetível por uma tirada de dado.
+#
+# Nos dois casos quem julga só vê a tela, então não cite arquivo, rota, função nem
+# biblioteca. Use os textos exatos entre acentos graves e dados concretos na ação, para
+# que dois julgamentos do mesmo critério sejam comparáveis.
 
 [[criterios]]
 identificador = "C1"
+tipo = "deterministico"
 acao = '''
 Abrir a página inicial.
 '''
@@ -17,6 +29,7 @@ resultado_esperado = '''
 
 [[criterios]]
 identificador = "C2"
+tipo = "deterministico"
 acao = '''
 Abrir a página inicial e preencher <campo> com <valor concreto> e <campo> com
 <valor concreto>. Clicar em `RÓTULO DO BOTÃO`.
@@ -27,10 +40,22 @@ resultado_esperado = '''
 
 [[criterios]]
 identificador = "C3"
+tipo = "deterministico"
 acao = '''
 Abrir a página inicial e <passos que violam uma regra, com os dados concretos>. Clicar em
 `RÓTULO DO BOTÃO`.
 '''
 resultado_esperado = '''
 A mensagem `MENSAGEM EXATA` aparece e <o que não deve acontecer>.
+'''
+
+[[criterios]]
+identificador = "C4"
+tipo = "subjetivo"
+acao = '''
+Abrir a página inicial e olhar a tela inteira, rolando até o fim.
+'''
+resultado_esperado = '''
+<O que só se decide olhando: identidade visual, proporção, hierarquia. Se der para
+verificar por texto ou valor de campo, o critério é determinístico, não subjetivo.>
 '''
