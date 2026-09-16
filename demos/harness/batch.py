@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from .models import Batch, HarnessDireto, HarnessTDD, Projeto, Requisito
 
 DEMOS = Path(__file__).resolve().parent.parent
-PROVIDERS = ("deepseek", "glm")
+PROVIDERS = ("deepseek", "qwen")
 
 
 def rodar(classe, projeto: Projeto, requisito: Requisito) -> None:
