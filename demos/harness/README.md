@@ -58,6 +58,26 @@ uv run python -m harness.cli run runs requisitos/01-formulario-docentes
 - `--yes` - modo batch, sem gate humano. É o modo do experimento: os dois grupos recebem a mesma ajuda humana, nenhuma. Sem a flag a execução é interativa e pausa em cada etapa pedindo `y/n`, exigindo feedback textual no `n`.
 - `--direto` - grupo baseline: uma etapa só, requisito → código, sem testes gerados nem CI. A ausência das etapas é a variável independente do experimento.
 
+## Batch por provider
+
+```bash
+uv run python -m harness.batch
+```
+
+Executa 50 pares TDD/baseline para cada requisito
+`01-formulario-docentes-{deepseek,glm}`, sem gate humano e sem
+avaliação (CUA ou Cypress). São 200 execuções em 100 pastas-mãe:
+`runs/batch/<deepseek|glm>/run<1..50>/<tdd|baseline>/`, com as métricas em `_harness/RUN.log`.
+Usa os modelos e orçamentos dos respectivos `alvo.toml`.
+Roda em lotes de até 25 execuções simultâneas, cada uma em sua própria thread;
+espera o lote inteiro terminar antes de iniciar o próximo.
+
+Ao executar novamente, pula projetos com `RUN.log`, inclusive os encerrados por
+orçamento ou com testes falhando. Uma exceção encerra o batch depois das execuções
+do lote atual terminarem. Pastas incompletas são movidas para
+`<grupo>-interrompida-<sufixo>/` na mesma pasta-mãe antes de reiniciar do zero,
+preservando a tentativa anterior.
+
 ## Reavaliar
 
 Re-roda só a avaliação sobre um projeto já gerado e regrava o `AVALIACAO.log` dele - não

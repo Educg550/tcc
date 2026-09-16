@@ -53,7 +53,7 @@ class Agente:
             ),
             # A diretiva de código mínimo é constante do experimento: idêntica nos dois grupos.
             instructions=instrucoes + "\n\n" + load("estilo_codigo"),
-            output_schema=Mudanca,
+            output_schema=Mudanca.model_json_schema(),
             use_json_mode=True,
         )
 
@@ -63,7 +63,8 @@ class Agente:
         return cls(model_id, load(papel))
 
     async def propor(self, prompt: str) -> Resposta:
-        resposta = await self._agno.arun(prompt)
+        async with self._agno.model.get_async_client():
+            resposta = await self._agno.arun(prompt)
         m = getattr(resposta, "metrics", None)
         try:
             mudanca, erro = self._mudanca(resposta.content), None
@@ -80,6 +81,8 @@ class Agente:
 
     @staticmethod
     def _mudanca(content) -> Mudanca:
+        if content is None or content == "":
+            raise ValueError("O provedor devolveu uma resposta vazia, sem arquivos.")
         if isinstance(content, Mudanca):
             return content
         if isinstance(content, str):
