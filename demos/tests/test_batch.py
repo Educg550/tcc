@@ -28,7 +28,7 @@ def test_batch_200_runs_sem_avaliacao_e_retomada():
         assert harness.requisito.id == f"01-formulario-docentes-{provider}"
         modelos = {
             "deepseek": "deepseek/deepseek-v4.1-flash",
-            "qwen": "qwen/qwen3.8-flash",
+            "glm": "z-ai/glm-5.3",
         }
         assert harness.requisito.modelos["coder"] == modelos[provider]
         assert harness.requisito.modelos["test_writer"] == modelos[provider]
@@ -50,7 +50,7 @@ def test_batch_200_runs_sem_avaliacao_e_retomada():
         assert preservadas[0].read_text() == "tentativa anterior"
         esperado = {
             destino / provider / f"run{numero}" / grupo
-            for provider in ("deepseek", "qwen")
+            for provider in ("deepseek", "glm")
             for numero in range(1, 51)
             for grupo in ("tdd", "baseline")
         }

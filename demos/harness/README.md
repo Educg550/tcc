@@ -65,10 +65,10 @@ uv run python -m harness.batch
 ```
 
 Executa 50 pares TDD/baseline para cada requisito
-`01-formulario-docentes-{deepseek,qwen}`, sem gate humano e sem
+`01-formulario-docentes-{deepseek,glm}`, sem gate humano e sem
 avaliação (CUA ou Cypress). São 200 execuções em 100 pastas-mãe:
-`runs/batch/<deepseek|qwen>/run<1..50>/<tdd|baseline>/`, com as métricas em `_harness/RUN.log`.
-Usa os modelos e orçamentos dos respectivos `alvo.toml`.
+`runs/batch/<deepseek|glm>/run<1..50>/<tdd|baseline>/`, com as métricas em `_harness/RUN.log`.
+Usa DeepSeek V4.1 Flash e GLM-5.3, com os orçamentos dos respectivos `alvo.toml`.
 Roda em lotes de até 25 execuções simultâneas, cada uma em sua própria thread;
 espera o lote inteiro terminar antes de iniciar o próximo.
 
