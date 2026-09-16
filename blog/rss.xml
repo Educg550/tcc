@@ -4,10 +4,72 @@
         <title>TCC - Eduardo Cruz Guedes Blog</title>
         <link>https://educg550.github.io/tcc/blog</link>
         <description>TCC - Eduardo Cruz Guedes Blog</description>
-        <lastBuildDate>Thu, 27 Aug 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 16 Sep 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>pt-BR</language>
+        <item>
+            <title><![CDATA[Harness Baseline X TDD]]></title>
+            <link>https://educg550.github.io/tcc/blog/harness-baseline-tdd</link>
+            <guid>https://educg550.github.io/tcc/blog/harness-baseline-tdd</guid>
+            <pubDate>Wed, 16 Sep 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Hoje eu e os orientadores definimos o próximo passo: analisar as 200 runs do batch]]></description>
+            <content:encoded><![CDATA[<p>Hoje eu e os orientadores definimos o próximo passo: analisar as 200 runs do batch
+com o Radon, selecionar as top 5 e fazer a validação final com Cypress, CUA e comigo
+usando a página. Depois, escolher as top 2 para apresentar aos orientadores.</p>
+<p>Talvez seja necessário rerodar algumas execuções que ficaram com problemas. Ainda
+preciso conferir quais foram interrompidas e quais terminaram gerando uma aplicação
+ruim, preservando as tentativas anteriores.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="baseline-x-tdd">Baseline X TDD<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#baseline-x-tdd" class="hash-link" aria-label="Link direto para Baseline X TDD" title="Link direto para Baseline X TDD" translate="no">​</a></h2>
+<p>No baseline, o agente gera o código diretamente. No TDD, gera os testes primeiro e
+usa o pytest como feedback da implementação. A validação final continua fora desse
+loop. Agora, vamos aplicá-la às cinco selecionadas.</p>
+<!-- -->
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="seleção-com-análise-estática">Seleção com análise estática<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#sele%C3%A7%C3%A3o-com-an%C3%A1lise-est%C3%A1tica" class="hash-link" aria-label="Link direto para Seleção com análise estática" title="Link direto para Seleção com análise estática" translate="no">​</a></h2>
+<p>O <a href="https://pypi.org/project/radon/" target="_blank" rel="noopener noreferrer" class="">Radon</a> calcula métricas do código Python, como
+complexidade ciclomática, índice de manutenibilidade, métricas de Halstead e
+contagens de linhas. Vamos rodá-lo sobre todas as runs e definir os critérios do
+ranking a partir dessas medidas determinísticas.</p>
+<p>Serão <strong>cinco entre as 200 runs no total</strong>, sem separar a seleção por modelo ou
+grupo. Os critérios e pesos ainda precisam ser definidos. Essa análise cobre o
+Python, não a interface; uma boa posição no ranking não garante que a página funcione.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="validação-e-usabilidade">Validação e usabilidade<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#valida%C3%A7%C3%A3o-e-usabilidade" class="hash-link" aria-label="Link direto para Validação e usabilidade" title="Link direto para Validação e usabilidade" translate="no">​</a></h2>
+<p>Nas top 5, o Cypress verifica comportamentos objetivos, o CUA interage com a página
+e eu faço a avaliação humana. Junto disso, vamos usar uma escala de cinco categorias,
+no estilo Likert:</p>
+<p><strong>Péssimo · Ruim · Regular · Bom · Excelente</strong></p>
+<p>A ideia é dar notas para facilidade de uso, facilidade de entendimento, identidade
+visual da USP e outros aspectos da interface, com justificativas minhas e do CUA.</p>
+<p>Quero incluir as <a href="https://www.nngroup.com/articles/ten-usability-heuristics/" target="_blank" rel="noopener noreferrer" class="">dez heurísticas de usabilidade de Jakob Nielsen</a>
+como base dos critérios:</p>
+<ol>
+<li class="">Visibilidade do estado do sistema.</li>
+<li class="">Correspondência entre o sistema e o mundo real.</li>
+<li class="">Controle e liberdade do usuário.</li>
+<li class="">Consistência e padrões.</li>
+<li class="">Prevenção de erros.</li>
+<li class="">Reconhecimento em vez de memorização.</li>
+<li class="">Flexibilidade e eficiência de uso.</li>
+<li class="">Estética e design minimalista.</li>
+<li class="">Ajuda para reconhecer, diagnosticar e corrigir erros.</li>
+<li class="">Ajuda e documentação.</li>
+</ol>
+<p>Precisamos traduzir essas heurísticas em verificações para a página. Por exemplo:
+o Cypress verifica se aparece uma mensagem de erro; eu e o CUA avaliamos se ela
+explica o problema e ajuda a resolvê-lo.</p>
+<p>Com esses resultados, escolhemos as <strong>top 2 para apresentar aos orientadores</strong>.
+É uma seleção dos destaques do lote; a avaliação das cinco não representa, sozinha,
+o desempenho comportamental das 200 runs.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuração">Configuração<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#configura%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para Configuração" title="Link direto para Configuração" translate="no">​</a></h2>
+<p>Os prints mostram o alvo usado pelo harness e exemplos dos critérios que vamos
+ampliar para essa avaliação.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="alvo">Alvo<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#alvo" class="hash-link" aria-label="Link direto para Alvo" title="Link direto para Alvo" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Configuração do alvo: comandos, dependências, modelos e orçamento." src="https://educg550.github.io/tcc/assets/images/alvo-d959140be76d2363072a515aa77b8fb9.png" width="1986" height="1042" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="critérios">Critérios<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#crit%C3%A9rios" class="hash-link" aria-label="Link direto para Critérios" title="Link direto para Critérios" translate="no">​</a></h3>
+<p><img decoding="async" loading="lazy" alt="Exemplos de critérios determinísticos e subjetivos para a validação final." src="https://educg550.github.io/tcc/assets/images/criterios-a0a611d395c8889fd10ee9d3918265d8.png" width="1598" height="1490" class="img_ev3q"></p>]]></content:encoded>
+            <category>TCC</category>
+            <category>Experimento</category>
+        </item>
         <item>
             <title><![CDATA[Universo de modelos]]></title>
             <link>https://educg550.github.io/tcc/blog/universo-de-modelos</link>
