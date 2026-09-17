@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import contextlib
 import hashlib
 import json
 import os
 import re
 import shlex
 import shutil
+import signal
 import socket
 import subprocess
 import time
@@ -304,11 +306,15 @@ class Projeto:
         log = self.saida / f"app{sufixo}.log"
         url = f"http://localhost:{porta}"
         with log.open("w", encoding="utf-8") as stderr:
+            # Sessão própria: `uv run` é só o invólucro, quem serve é um neto. Matar o
+            # invólucro deixa o servidor vivo segurando a porta, e uma avaliação em lote
+            # acumula um órfão por run até faltar porta e memória.
             proc = subprocess.Popen(
                 self.alvo.app(porta),
                 cwd=str(self.raiz),
                 stdout=subprocess.DEVNULL,
                 stderr=stderr,
+                start_new_session=True,
             )
             try:
                 # A primeira subida pode pagar a resolução das dependências do caso de uso.
@@ -324,7 +330,11 @@ class Projeto:
                     raise RuntimeError(f"app não respondeu em {url}: {log.read_text()}")
                 yield url
             finally:
-                proc.kill()
+                # App que morreu sozinho ja levou o grupo junto: matar de novo levanta
+                # ProcessLookupError de dentro do finally e derruba quem estiver medindo
+                # em lote, no meio da medicao.
+                with contextlib.suppress(ProcessLookupError):
+                    os.killpg(proc.pid, signal.SIGKILL)
                 proc.wait()
 
     def rodar_frontend(self) -> tuple[list[dict], str]:

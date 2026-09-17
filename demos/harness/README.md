@@ -78,6 +78,33 @@ do lote atual terminarem. Pastas incompletas são movidas para
 `<grupo>-interrompida-<sufixo>/` na mesma pasta-mãe antes de reiniciar do zero,
 preservando a tentativa anterior.
 
+## Sintaxe e Radon
+
+```bash
+uv run --locked python analisar_batch.py
+```
+
+Grava `runs/batch/radon.csv` (duas linhas por run: implementação e testes) e
+`runs/batch/radon.json` (métricas por arquivo, hashes e versões de Python/Radon).
+Um caminho de batch diferente pode ser passado como argumento.
+Analisa as pastas `baseline` e `tdd` de cada `runN`, incluindo runs sem sucesso;
+tentativas arquivadas e `_harness`, dependências e pastas ocultas ficam fora.
+
+São testes os arquivos em `tests/` ou `test/`, `conftest.py`, `test_*.py` e
+`*_test.py`, inclusive no baseline. Os demais arquivos Python são implementação.
+Cada arquivo é compilado em memória antes do Radon, sem executar ou importar o
+aplicativo. Sintaxe válida não garante imports, inicialização ou comportamento corretos.
+Python ausente e erro de sintaxe ficam explícitos; nesses casos, as métricas
+agregadas da parte ficam vazias, e os detalhes dos arquivos válidos permanecem no JSON.
+
+O CSV traz SLOC/LLOC somados, quantidade de funções/métodos (incluindo funções
+internas), CC médio/máximo, percentual com CC > 10 e menor MI entre os arquivos.
+Classes não são contadas novamente na agregação de CC. O JSON inclui métricas raw,
+CC, MI e Halstead; strings multilinha não contam como comentários no MI.
+`status=ok` significa apenas sintaxe válida e análise concluída, não correção funcional.
+JavaScript, HTML e CSS não são avaliados. Com os mesmos arquivos, Python e lockfile,
+as saídas são reproduzíveis: ordem fixa, sem timestamps e sem chamadas a LLMs.
+
 ## Reavaliar
 
 Re-roda só a avaliação sobre um projeto já gerado e regrava o `AVALIACAO.log` dele - não
