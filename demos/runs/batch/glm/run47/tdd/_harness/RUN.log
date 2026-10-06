@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-16T17:08:20",
+  "ended_at": "2026-09-16T17:17:53",
+  "total_duration_s": 573.17,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.406067,
+  "total_tokens": 110431,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 29.73,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_app.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 3552,
+      "total_tokens": 7522,
+      "cost_usd": 0.021187
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 541.79,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 18,
+          "failed": 0,
+          "errors": 0,
+          "total": 18
+        }
+      ],
+      "input_tokens": 6926,
+      "output_tokens": 95983,
+      "total_tokens": 102909,
+      "cost_usd": 0.38488,
+      "impressao": "2db55b10dfa47073e2ae8060d5681228485c9468c4ff6a6a74c4c1616b028612",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 18,
+    "failed": 0,
+    "errors": 0,
+    "total": 18
+  },
+  "integridade": {
+    "medido_sha256": "2db55b10dfa47073e2ae8060d5681228485c9468c4ff6a6a74c4c1616b028612",
+    "intacto": true
+  }
+}

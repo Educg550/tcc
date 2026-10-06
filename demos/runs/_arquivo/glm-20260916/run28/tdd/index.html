@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Solicitação de Auxílio Financeiro | Pós-Graduação IME-USP</title>
+<link rel='stylesheet' href='style.css'>
+</head>
+<body>
+<header class='cabecalho'>
+<img class='logo' src='assets/usp-logo.png' alt='Logotipo da Universidade de São Paulo'>
+<div>
+<h1>Universidade de São Paulo</h1>
+<p class='subtitulo'>Programa de Pós-Graduação — Instituto de Matemática e Estatística</p>
+</div>
+</header>
+
+<nav class='abas' aria-label='Tipo de solicitante'>
+<button type='button' class='aba ativa' data-aba='ALUNOS' aria-selected='true'>ALUNOS</button>
+<button type='button' class='aba' data-aba='DOCENTES' aria-selected='false'>DOCENTES</button>
+</nav>
+
+<main class='conteudo'>
+<section id='painel-alunos'>
+<form novalidate data-aba='ALUNOS'>
+<ul class='erros' hidden></ul>
+
+<fieldset>
+<legend>SOLICITANTE E EVENTO</legend>
+<div class='grade'>
+<div class='campo c2'>
+<label for='al-nome'>NOME COMPLETO - SEM ABREVIAR</label>
+<input id='al-nome' type='text' placeholder='Ex.: Maria da Silva Souza'>
+</div>
+<div class='campo'>
+<label for='al-nusp'>N. USP</label>
+<input id='al-nusp' type='text' placeholder='Ex.: 8901234'>
+</div>
+<div class='campo'>
+<label for='al-programa'>PROGRAMA</label>
+<input id='al-programa' type='text' placeholder='Ex.: Ciência da Computação'>
+</div>
+<div class='campo'>
+<label for='al-nivel'>NÍVEL</label>
+<select id='al-nivel'>
+<option value=''>Selecione</option>
+<option>Mestrado</option>
+<option>Doutorado</option>
+</select>
+</div>
+<div class='campo'>
+<label for='al-tipo'>TIPO DE AUXÍLIO</label>
+<select id='al-tipo'>
+<option value=''>Selecione</option>
+<option>Participação em evento</option>
+<option>Banca de exame ou defesa</option>
+<option>Outro</option>
+</select>
+</div>
+<div class='campo c2'>
+<label for='al-email'>E-MAIL</label>
+<input id='al-email' type='email' placeholder='Ex.: maria@usp.br'>
+</div>
+<div class='campo c2'>
+<label for='al-evento'>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+<input id='al-evento' type='text' placeholder='Ex.: SBES 2025'>
+</div>
+<div class='campo c2'>
+<label for='al-periodo'>PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+<input id='al-periodo' type='text' placeholder='Ex.: 1 a 5 de setembro de 2025'>
+</div>
+<div class='campo'>
+<label for='al-cidade-evento'>CIDADE DO EVENTO, EXAME OU DEFESA</label>
+<input id='al-cidade-evento' type='text' placeholder='Ex.: Porto Alegre'>
+</div>
+<div class='campo'>
+<label for='al-estado-evento'>ESTADO DO EVENTO, EXAME OU DEFESA</label>
+<input id='al-estado-evento' type='text' placeholder='Ex.: RS'>
+</div>
+<div class='campo'>
+<label for='al-pais-evento'>PAÍS DO EVENTO, EXAME OU DEFESA</label>
+<input id='al-pais-evento' type='text' placeholder='Ex.: Brasil'>
+</div>
+<div class='campo'>
+<label for='al-link'>LINK DO EVENTO, EXAME OU DEFESA</label>
+<input id='al-link' type='text' placeholder='Ex.: https://evento.org.br/2025'>
+</div>
+<div class='campo'>
+<label for='al-valor'>VALOR SOLICITADO (R$)</label>
+<input id='al-valor' type='text' inputmode='numeric' data-formato='moeda' placeholder='Ex.: 150000'>
+</div>
+<div class='campo'>
+<label for='al-apresentacao'>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+<select id='al-apresentacao'>
+<option value=''>Selecione</option>
+<option>Pôster</option>
+<option>Apresentação oral</option>
+<option>Outra</option>
+<option>Não irá apresentar trabalho</option>
+</select>
+</div>
+<div class='campo c2'>
+<label for='al-detalhamento'>DETALHAMENTO DO PEDIDO</label>
+<textarea id='al-detalhamento' rows='2' placeholder='Ex.: Passagem aérea e inscrição no evento.'></textarea>
+</div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>ENDEREÇO DO SOLICITANTE</legend>
+<div class='grade'>
+<div class='campo'>
+<label for='al-nascimento'>DATA DE NASCIMENTO</label>
+<input id='al-nascimento' type='text' inputmode='numeric' data-formato='data' placeholder='Ex.: 01021980'>
+</div>
+<div class='campo c2'>
+<label for='al-logradouro'>LOGRADOURO</label>
+<input id='al-logradouro' type='text' placeholder='Ex.: Rua do Anfiteatro'>
+</div>
+<div class='campo'>
+<label for='al-numero'>NÚMERO</label>
+<input id='al-numero' type='text' placeholder='Ex.: 181'>
+</div>
+<div class='campo'>
+<label for='al-complemento'>COMPLEMENTO</label>
+<input id='al-complemento' type='text' placeholder='Ex.: Bloco C, sala 2'>
+</div>
+<div class='campo'>
+<label for='al-bairro'>BAIRRO</label>
+<input id='al-bairro' type='text' placeholder='Ex.: Butantã'>
+</div>
+<div class='campo'>
+<label for='al-cep'>CEP</label>
+<input id='al-cep' type='text' inputmode='numeric' data-formato='cep' placeholder='Ex.: 05508090'>
+</div>
+<div class='campo'>
+<label for='al-cidade'>CIDADE</label>
+<input id='al-cidade' type='text' placeholder='Ex.: São Paulo'>
+</div>
+<div class='campo'>
+<label for='al-estado'>ESTADO</label>
+<input id='al-estado' type='text' placeholder='Ex.: SP'>
+</div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+<div class='grade'>
+<div class='campo'>
+<label for='al-cpf'>CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+<input id='al-cpf' type='text' inputmode='numeric' data-formato='cpf' placeholder='Ex.: 12345678909'>
+</div>
+<div class='campo'>
+<label for='al-rg'>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+<input id='al-rg' type='text' placeholder='Ex.: 12.345.678-9'>
+</div>
+<div class='campo c2'>
+<label for='al-banco'>NOME DO BANCO</label>
+<input id='al-banco' type='text' placeholder='Ex.: Banco do Brasil'>
+</div>
+<div class='campo'>
+<label for='al-agencia'>NÚMERO DA AGÊNCIA</label>
+<input id='al-agencia' type='text' inputmode='numeric' placeholder='Ex.: 0001'>
+</div>
+<div class='campo'>
+<label for='al-conta'>NÚMERO DA CONTA</label>
+<input id='al-conta' type='text' placeholder='Ex.: 12345-6'>
+</div>
+</div>
+</fieldset>
+
+<div class='acoes'>
+<button type='submit'>Enviar solicitação</button>
+</div>
+</form>
+</section>
+
+<section id='painel-docentes' hidden>
+<form novalidate data-aba='DOCENTES'>
+<ul class='erros' hidden></ul>
+
+<fieldset>
+<legend>SOLICITANTE E EVENTO</legend>
+<div class='grade'>
+<div class='campo c2'>
+<label for='dc-nome'>NOME COMPLETO - SEM ABREVIAR</label>
+<input id='dc-nome' type='text' placeholder='Ex.: João Pereira Alves'>
+</div>
+<div class='campo'>
+<label for='dc-nusp'>N. USP</label>
+<input id='dc-nusp' type='text' placeholder='Ex.: 7654321'>
+</div>
+<div class='campo'>
+<label for='dc-programa'>PROGRAMA</label>
+<input id='dc-programa' type='text' placeholder='Ex.: Estatística'>
+</div>
+<div class='campo c2'>
+<label for='dc-email'>E-MAIL</label>
+<input id='dc-email' type='email' placeholder='Ex.: joao@ime.usp.br'>
+</div>
+<div class='campo c2'>
+<label for='dc-evento'>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+<input id='dc-evento' type='text' placeholder='Ex.: Defesa de mestrado de M. Souza'>
+</div>
+<div class='campo c2'>
+<label for='dc-periodo'>PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+<input id='dc-periodo' type='text' placeholder='Ex.: 12 de junho de 2025'>
+</div>
+<div class='campo'>
+<label for='dc-cidade-evento'>CIDADE DO EVENTO, EXAME OU DEFESA</label>
+<input id='dc-cidade-evento' type='text' placeholder='Ex.: São Paulo'>
+</div>
+<div class='campo'>
+<label for='dc-estado-evento'>ESTADO DO EVENTO, EXAME OU DEFESA</label>
+<input id='dc-estado-evento' type='text' placeholder='Ex.: SP'>
+</div>
+<div class='campo'>
+<label for='dc-pais-evento'>PAÍS DO EVENTO, EXAME OU DEFESA</label>
+<input id='dc-pais-evento' type='text' placeholder='Ex.: Brasil'>
+</div>
+<div class='campo'>
+<label for='dc-link'>LINK DO EVENTO, EXAME OU DEFESA</label>
+<input id='dc-link' type='text' placeholder='Ex.: https://evento.org.br/2025'>
+</div>
+<div class='campo'>
+<label for='dc-valor'>VALOR SOLICITADO (R$)</label>
+<input id='dc-valor' type='text' inputmode='numeric' data-formato='moeda' placeholder='Ex.: 250000'>
+</div>
+<div class='campo'>
+<label for='dc-apresentacao'>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+<select id='dc-apresentacao'>
+<option value=''>Selecione</option>
+<option>Pôster</option>
+<option>Apresentação oral</option>
+<option>Outra</option>
+<option>Não irá apresentar trabalho</option>
+</select>
+</div>
+<div class='campo c4'>
+<label for='dc-detalhamento'>DETALHAMENTO DO PEDIDO</label>
+<textarea id='dc-detalhamento' rows='2' placeholder='Ex.: Passagem rodoviária e diárias.'></textarea>
+</div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>ENDEREÇO DO SOLICITANTE</legend>
+<div class='grade'>
+<div class='campo'>
+<label for='dc-nascimento'>DATA DE NASCIMENTO</label>
+<input id='dc-nascimento' type='text' inputmode='numeric' data-formato='data' placeholder='Ex.: 23041975'>
+</div>
+<div class='campo c2'>
+<label for='dc-logradouro'>LOGRADOURO</label>
+<input id='dc-logradouro' type='text' placeholder='Ex.: Rua do Matão'>
+</div>
+<div class='campo'>
+<label for='dc-numero'>NÚMERO</label>
+<input id='dc-numero' type='text' placeholder='Ex.: 1010'>
+</div>
+<div class='campo'>
+<label for='dc-complemento'>COMPLEMENTO</label>
+<input id='dc-complemento' type='text' placeholder='Ex.: Sala 14'>
+</div>
+<div class='campo'>
+<label for='dc-bairro'>BAIRRO</label>
+<input id='dc-bairro' type='text' placeholder='Ex.: Cidade Universitária'>
+</div>
+<div class='campo'>
+<label for='dc-cep'>CEP</label>
+<input id='dc-cep' type='text' inputmode='numeric' data-formato='cep' placeholder='Ex.: 05508090'>
+</div>
+<div class='campo'>
+<label for='dc-cidade'>CIDADE</label>
+<input id='dc-cidade' type='text' placeholder='Ex.: São Paulo'>
+</div>
+<div class='campo'>
+<label for='dc-estado'>ESTADO</label>
+<input id='dc-estado' type='text' placeholder='Ex.: SP'>
+</div>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+<div class='grade'>
+<div class='campo'>
+<label for='dc-cpf'>CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+<input id='dc-cpf' type='text' inputmode='numeric' data-formato='cpf' placeholder='Ex.: 98765432100'>
+</div>
+<div class='campo'>
+<label for='dc-rg'>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+<input id='dc-rg' type='text' placeholder='Ex.: 98.765.432-1'>
+</div>
+<div class='campo c2'>
+<label for='dc-banco'>NOME DO BANCO</label>
+<input id='dc-banco' type='text' placeholder='Ex.: Nossa Caixa'>
+</div>
+<div class='campo'>
+<label for='dc-agencia'>NÚMERO DA AGÊNCIA</label>
+<input id='dc-agencia' type='text' inputmode='numeric' placeholder='Ex.: 0034'>
+</div>
+<div class='campo'>
+<label for='dc-conta'>NÚMERO DA CONTA</label>
+<input id='dc-conta' type='text' placeholder='Ex.: 65432-1'>
+</div>
+</div>
+</fieldset>
+
+<div class='acoes'>
+<button type='submit'>Enviar solicitação</button>
+</div>
+</form>
+</section>
+
+<section id='confirmacao' hidden>
+<h2>Solicitação registrada</h2>
+<pre id='oficio'></pre>
+</section>
+</main>
+
+<script src='app.js'></script>
+</body>
+</html>

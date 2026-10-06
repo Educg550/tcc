@@ -1,0 +1,229 @@
+:root {
+    --usp-primary: #1094ab;
+    --usp-secondary: #64c4d2;
+    --usp-yellow: #fcb421;
+    --text-color: #333;
+    --bg-color: #f9f9f9;
+    --white: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 20px;
+}
+
+.usp-header {
+    background-color: var(--usp-primary);
+    color: var(--white);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.logo-container {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container img {
+    height: 60px;
+    width: auto;
+    /* Margem livre em torno do logotipo: simula o padding para não invadir a área */
+    padding: 10px; 
+    background-color: white;
+    border-radius: 50%;
+}
+
+.header-text h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.header-text h2, .header-text h3 {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+header h2, header h3 {
+    display: block;
+}
+
+main {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.3s, border-color 0.3s;
+}
+
+.tab-button.active {
+    color: var(--usp-primary);
+    border-bottom-color: var(--usp-primary);
+}
+
+.tab-button:hover {
+    color: var(--usp-secondary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.form-block {
+    margin-bottom: 25px;
+}
+
+.form-block h4 {
+    color: var(--usp-primary);
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.small {
+    flex: 0 0 200px;
+    min-width: 150px;
+}
+
+.form-group label {
+    font-size: 12px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--usp-secondary);
+    box-shadow: 0 0 3px rgba(100, 196, 210, 0.5);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.submit-btn {
+    background-color: var(--usp-primary);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #0d7a8c;
+}
+
+.error-list {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: none;
+}
+
+.error-list ul {
+    list-style-type: none;
+}
+
+.error-list li {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+#confirmation-section {
+    text-align: left;
+}
+
+#confirmation-section h2 {
+    color: var(--usp-primary);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#oficio-text {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.5;
+}

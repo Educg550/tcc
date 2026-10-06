@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-15T14:00:15",
+  "ended_at": "2026-09-15T14:12:25",
+  "total_duration_s": 730.3,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-deepseek",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4.1-flash",
+      "coder": "deepseek/deepseek-v4.1-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.066506,
+  "total_tokens": 72788,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 111.5,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_requisito01.py"
+      ],
+      "historico": [],
+      "input_tokens": 4025,
+      "output_tokens": 17359,
+      "total_tokens": 21384,
+      "cost_usd": 0.011019
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 617.33,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 25,
+          "failed": 0,
+          "errors": 0,
+          "total": 25
+        }
+      ],
+      "input_tokens": 6887,
+      "output_tokens": 44517,
+      "total_tokens": 51404,
+      "cost_usd": 0.055487,
+      "impressao": "79f9647f82dfee320fb41acc306460855ec053ca5956e398d552a056678da209",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 25,
+    "failed": 0,
+    "errors": 0,
+    "total": 25
+  },
+  "integridade": {
+    "medido_sha256": "79f9647f82dfee320fb41acc306460855ec053ca5956e398d552a056678da209",
+    "intacto": true
+  }
+}

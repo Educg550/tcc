@@ -1,0 +1,148 @@
+{
+  "started_at": "2026-09-16T16:30:35",
+  "ended_at": "2026-09-16T16:51:08",
+  "total_duration_s": 1232.45,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.619934,
+  "total_tokens": 297390,
+  "total_retries": 15,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 31.93,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_formulario.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 3951,
+      "total_tokens": 7921,
+      "cost_usd": 0.018419
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 1198.89,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 16,
+      "retries": 15,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 9,
+          "failed": 15,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        },
+        {
+          "passed": 21,
+          "failed": 3,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 21,
+          "failed": 3,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 23,
+          "failed": 1,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 22,
+          "failed": 2,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 22,
+          "failed": 2,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 23,
+          "failed": 1,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 18,
+          "failed": 6,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        },
+        {
+          "passed": 24,
+          "failed": 0,
+          "errors": 0,
+          "total": 24
+        }
+      ],
+      "input_tokens": 168235,
+      "output_tokens": 121234,
+      "total_tokens": 289469,
+      "cost_usd": 0.601515,
+      "impressao": "d879e91744e8ae72824cf5a0ab625ed750eb33b79be0d8f9c698fc079ae95d83",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 24,
+    "failed": 0,
+    "errors": 0,
+    "total": 24
+  },
+  "integridade": {
+    "medido_sha256": "d879e91744e8ae72824cf5a0ab625ed750eb33b79be0d8f9c698fc079ae95d83",
+    "intacto": true
+  }
+}

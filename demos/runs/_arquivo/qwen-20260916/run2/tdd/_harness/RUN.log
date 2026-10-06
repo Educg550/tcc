@@ -1,0 +1,96 @@
+{
+  "started_at": "2026-09-16T09:50:21",
+  "ended_at": "2026-09-16T10:50:06",
+  "total_duration_s": 3585.05,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-qwen",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "qwen/qwen3.8-flash",
+      "coder": "qwen/qwen3.8-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.125345,
+  "total_tokens": 286684,
+  "total_retries": 1,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "qwen/qwen3.8-flash",
+      "duration_s": 1098.17,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/conftest.py",
+        "tests/test_api.py",
+        "tests/test_api_acentuado.py",
+        "tests/test_form_html.py",
+        "tests/test_html.py",
+        "tests/test_js_formatting.py",
+        "tests/test_static.py",
+        "tests/test_style.py",
+        "tests/test_static_format.py"
+      ],
+      "historico": [],
+      "input_tokens": 3993,
+      "output_tokens": 64170,
+      "total_tokens": 68163,
+      "cost_usd": 0.030759
+    },
+    {
+      "id": "code",
+      "configured_model": "qwen/qwen3.8-flash",
+      "duration_s": 2481.28,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 2,
+      "retries": 1,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 19,
+          "failed": 6,
+          "errors": 13,
+          "total": 38
+        }
+      ],
+      "input_tokens": 19691,
+      "output_tokens": 198830,
+      "total_tokens": 218521,
+      "cost_usd": 0.094586,
+      "impressao": "92947845d0578f56a54965b7cacca7e1a0129e612148b69017b3286eff0ed8b7",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 19,
+    "failed": 6,
+    "errors": 13,
+    "total": 38
+  },
+  "integridade": {
+    "medido_sha256": "92947845d0578f56a54965b7cacca7e1a0129e612148b69017b3286eff0ed8b7",
+    "intacto": true
+  }
+}

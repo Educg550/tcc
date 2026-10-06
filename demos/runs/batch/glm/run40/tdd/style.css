@@ -1,0 +1,250 @@
+/* Cores institucionais da Universidade de São Paulo */
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #1f3238;
+  --tinta-suave: #51707b;
+  --borda: #c6dbe2;
+  --fundo: #f2f8fa;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  color: var(--tinta);
+  background: var(--fundo);
+}
+
+.cabecalho {
+  background: #fff;
+  border-bottom: 3px solid var(--azul-primario);
+}
+
+.cabecalho-miolo {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 8px 16px;
+}
+
+/* Margem livre em volta do logotipo, nos quatro lados */
+.logo-usp {
+  padding: 14px;
+  line-height: 0;
+}
+
+.logo-usp img {
+  display: block;
+  height: 42px;
+}
+
+.cabecalho-nome {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+}
+
+.universidade {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--azul-primario);
+}
+
+.unidade {
+  font-size: 11px;
+  color: var(--tinta-suave);
+}
+
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 10px 16px 16px;
+}
+
+.abas {
+  display: flex;
+  gap: 6px;
+}
+
+.aba {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 8px 26px;
+  border: 1px solid var(--borda);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: #e2eff3;
+  color: var(--azul-primario);
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: #fff;
+}
+
+.painel {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-top: 3px solid var(--azul-primario);
+  padding: 8px 14px 12px;
+}
+
+.erros {
+  display: none;
+  margin: 0 0 8px;
+  padding: 6px 12px;
+  background: #fdf3e0;
+  border-left: 4px solid var(--amarelo);
+  border-radius: 3px;
+}
+
+.erros.visivel { display: block; }
+
+.erros p {
+  margin: 3px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a4d00;
+}
+
+.bloco { margin-top: 10px; }
+
+.bloco:first-of-type { margin-top: 0; }
+
+.bloco h3 {
+  margin: 0 0 6px;
+  padding-bottom: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--azul-primario);
+  border-bottom: 2px solid var(--azul-secundario);
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px 10px;
+}
+
+.campo {
+  display: grid;
+  gap: 2px;
+  align-content: start;
+  min-width: 0;
+}
+
+.rotulo {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--tinta-suave);
+  line-height: 1.3;
+}
+
+.opcional {
+  font-weight: 400;
+  color: #93aab2;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 12.5px;
+  width: 100%;
+  padding: 4px 7px;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--tinta);
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 40px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  border-color: var(--azul-primario);
+}
+
+.span-2 { grid-column: span 2; }
+
+.span-3 { grid-column: span 3; }
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.botao-enviar {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #fff;
+  background: var(--azul-primario);
+  border: none;
+  border-bottom: 3px solid var(--amarelo);
+  border-radius: 4px;
+  padding: 7px 28px;
+  cursor: pointer;
+}
+
+.botao-enviar:hover {
+  background: #0c7d91;
+}
+
+#confirmacao {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-top: 3px solid var(--azul-primario);
+  padding: 14px 20px 18px;
+}
+
+#confirmacao h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: var(--azul-primario);
+}
+
+#oficio {
+  margin: 0;
+  padding: 14px 18px;
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--azul-secundario);
+  font-family: inherit;
+  font-size: 12.5px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 960px) {
+  .campos { grid-template-columns: repeat(3, 1fr); }
+  .span-3 { grid-column: span 3; }
+}
+
+@media (max-width: 620px) {
+  .campos { grid-template-columns: repeat(2, 1fr); }
+  .span-2, .span-3 { grid-column: span 2; }
+  .cabecalho-miolo { flex-direction: column; align-items: flex-start; }
+}

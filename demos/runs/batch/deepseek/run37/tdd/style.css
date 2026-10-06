@@ -1,0 +1,163 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #1f2a2e;
+  --borda: #c8d6da;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 12px;
+  color: var(--texto);
+  background: #ffffff;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 28px;
+  border-bottom: 3px solid var(--azul);
+}
+
+.cabecalho .logo {
+  height: 58px;
+  width: auto;
+  padding: 8px 22px;
+  margin: 0;
+}
+
+.identidade h1 {
+  margin: 0;
+  font-size: 26px;
+  color: var(--azul);
+}
+
+.identidade p {
+  margin: 2px 0 0;
+  font-size: 14px;
+  color: var(--azul-claro);
+}
+
+.conteudo {
+  flex: 1;
+  padding: 10px 28px 16px;
+  overflow: auto;
+}
+
+.abas {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 8px 26px;
+  color: var(--azul);
+  background: #ffffff;
+  border: 2px solid var(--azul);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.formulario h2 {
+  margin: 10px 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--azul);
+  border-bottom: 2px solid var(--azul-claro);
+  padding-bottom: 2px;
+}
+
+.bloco {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px 14px;
+}
+
+.campo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.campo.dobra { grid-column: span 2; }
+
+.campo label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #37474f;
+  margin-bottom: 2px;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.campo textarea {
+  height: 42px;
+  resize: none;
+}
+
+.formulario button[type="submit"] {
+  margin-top: 10px;
+  font: inherit;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-radius: 4px;
+  padding: 9px 30px;
+  cursor: pointer;
+}
+
+.erros {
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  color: #7f1d1d;
+  background: #fdecec;
+  border-left: 4px solid #b71c1c;
+  white-space: pre-line;
+}
+
+.titulo-confirmacao {
+  margin: 10px 0;
+  font-size: 20px;
+  color: var(--azul);
+}
+
+.oficio {
+  margin: 0;
+  padding: 16px 20px;
+  font-family: inherit;
+  font-size: 13px;
+  white-space: pre-wrap;
+  background: #f5fbfc;
+  border-left: 4px solid var(--azul);
+}

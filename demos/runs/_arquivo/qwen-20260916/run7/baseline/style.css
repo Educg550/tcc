@@ -1,0 +1,145 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #26343a;
+  --linha: #cfdde2;
+  --fundo-campo: #fafcfd;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+  color: var(--texto);
+  background: #fff;
+  line-height: 1.35;
+}
+
+/* ---- Cabeçalho institucional ---- */
+.topo {
+  border-bottom: 3px solid var(--azul-primario);
+  border-top: 3px solid var(--amarelo);
+  padding: 6px 26px 4px;
+}
+.marca { display: flex; align-items: flex-start; gap: 14px; }
+.logo {
+  display: block;
+  height: 1.5em;
+  margin: 0.5em; /* margem livre ao redor, da altura da letra do logotipo */
+}
+.marca-texto { display: flex; flex-direction: column; justify-content: center; padding-top: 0.25em; }
+.universidade { font-size: 1.05em; font-weight: 700; color: var(--azul-primario); }
+.programa { font-size: 0.78em; color: #5d6d74; }
+.titulo-pagina { font-size: 0.82em; font-weight: 600; color: var(--texto); margin-top: 2px; }
+
+/* ---- Abas ---- */
+main { padding: 4px 26px 12px; }
+.abas { display: flex; border-bottom: 1px solid var(--linha); }
+.aba {
+  font-family: inherit;
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 5px 20px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: #6c7b83;
+  cursor: pointer;
+}
+.aba:hover { color: var(--azul-primario); }
+.aba.ativa { color: var(--azul-primario); border-bottom-color: var(--azul-primario); }
+.aba:focus-visible, .botao:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 1px; }
+.subtitulo-aba { font-size: 0.78em; color: #6c7b83; font-weight: 400; margin-top: 3px; }
+
+/* ---- Blocos ---- */
+.bloco { margin-top: 8px; padding-top: 4px; border-top: 1px solid #e3edf0; }
+.titulo-bloco {
+  font-size: 0.76em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--azul-primario);
+  border-left: 4px solid var(--amarelo);
+  padding-left: 8px;
+  margin-bottom: 6px;
+}
+
+/* ---- Campos ---- */
+.campo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+label { font-size: 0.7em; font-weight: 600; color: #44555c; letter-spacing: 0.015em; }
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.78em;
+  width: 100%;
+  padding: 4px 6px;
+  color: var(--texto);
+  background: var(--fundo-campo);
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+}
+textarea { resize: none; overflow: hidden; }
+input:focus, select:focus, textarea:focus {
+  border-color: var(--azul-secundario);
+  box-shadow: 0 0 0 2px rgba(100, 196, 210, 0.35);
+  background: #fff;
+  outline: none;
+}
+
+/* ---- Grades ---- */
+.grade { display: grid; gap: 4px 14px; margin-bottom: 5px; }
+.grade:last-child { margin-bottom: 0; }
+.grade.g1 { grid-template-columns: 1fr; }
+.grade.g2 { grid-template-columns: 1.3fr 1fr; }
+.grade.g3 { grid-template-columns: 1.2fr 1.5fr 1fr; }
+.grade.g4 { grid-template-columns: 1.2fr 1.5fr 0.6fr 1.3fr; }
+.grade.g5 { grid-template-columns: 1.2fr 1.2fr 1.5fr 0.8fr 0.9fr; }
+
+/* ---- Ações e erros ---- */
+.acoes { margin-top: 12px; display: flex; justify-content: flex-end; }
+.botao {
+  font-family: inherit;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: #fff;
+  background: var(--azul-primario);
+  border: none;
+  border-radius: 2px;
+  padding: 8px 28px;
+  cursor: pointer;
+}
+.botao:hover { background: #0c7f95; }
+.erros {
+  list-style: none;
+  margin-top: 8px;
+  padding: 6px 12px;
+  font-size: 0.8em;
+  color: #a01b1b;
+  background: #fceeee;
+  border-left: 4px solid #c93030;
+  border-radius: 2px;
+}
+.erros li { padding: 1px 0; }
+
+/* ---- Confirmação ---- */
+.titulo-secundario {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--azul-primario);
+  padding: 6px 0 6px 14px;
+  border-left: 5px solid var(--amarelo);
+  margin-bottom: 8px;
+}
+.oficio {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.82em;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  background: #fff;
+  border: 1px solid var(--linha);
+  border-top: 3px solid var(--azul-primario);
+  border-radius: 2px;
+  padding: 18px 22px;
+}

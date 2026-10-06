@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auxílio Financeiro - Pós-Graduação IME-USP</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="page-form">
+
+    <header class="usp-header">
+        <div class="usp-header__logo">
+            <a href="https://www.usp.br" target="_blank" rel="noopener">
+                <img src="/static/img/usp-logo.png" alt="Logotipo da Universidade de São Paulo" class="usp-header__logo-img">
+            </a>
+        </div>
+        <div class="usp-header__titles">
+            <h1 class="usp-header__institution">Universidade de São Paulo</h1>
+            <p class="usp-header__subtitle">Instituto de Matemática e Estatística</p>
+            <p class="usp-header__program">Pós-Graduação</p>
+        </div>
+    </header>
+
+    <main class="page-form__content">
+
+        <div class="tabs js-tabs" role="tablist" aria-label="Tipo de solicitante">
+            <button class="tabs__tab js-tab-button" id="tab-alunos-button" role="tab" aria-selected="true" aria-controls="tab-alunos" data-tab="alunos" type="button">ALUNOS</button>
+            <button class="tabs__tab js-tab-button" id="tab-docentes-button" role="tab" aria-selected="false" aria-controls="tab-docentes" data-tab="docentes" type="button">DOCENTES</button>
+        </div>
+
+        <section class="panel js-tab-panel" id="tab-alunos" role="tabpanel" aria-labelledby="tab-alunos-button" data-tab="alunos">
+            <h2 class="panel__title">Solicitação de Auxílio Financeiro para Alunos</h2>
+
+            <form id="form-alunos" class="form js-form" novalidate>
+                <div class="form__messages" id="form-messages-alunos" role="alert" hidden></div>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset__legend">SOLICITANTE E EVENTO</legend>
+
+                    <div class="fieldset__grid">
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-nome-completo">NOME COMPLETO - SEM ABREVIAR</label>
+                            <input class="field__input" type="text" id="alunos-nome-completo" name="nome_completo" required placeholder="Maria da Silva Souza">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="alunos-n-usp">N. USP</label>
+                            <input class="field__input" type="text" id="alunos-n-usp" name="n_usp" required placeholder="12345678">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-programa">PROGRAMA</label>
+                            <input class="field__input" type="text" id="alunos-programa" name="programa" required placeholder="Matemática">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-nivel">NÍVEL</label>
+                            <select class="field__select" id="alunos-nivel" name="nivel" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Mestrado">Mestrado</option>
+                                <option value="Doutorado">Doutorado</option>
+                            </select>
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-tipo-de-auxilio">TIPO DE AUXÍLIO</label>
+                            <select class="field__select" id="alunos-tipo-de-auxilio" name="tipo_de_auxilio" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Participação em evento">Participação em evento</option>
+                                <option value="Banca de exame ou defesa">Banca de exame ou defesa</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-email">E-MAIL</label>
+                            <input class="field__input" type="email" id="alunos-email" name="email" required placeholder="aluno@ime.usp.br">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-nome-do-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="alunos-nome-do-evento" name="nome_do_evento" required placeholder="Congresso Nacional de Matemática">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-periodo-do-evento">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="alunos-periodo-do-evento" name="periodo_do_evento" required placeholder="10 a 12 de outubro de 2025">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-cidade-do-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="alunos-cidade-do-evento" name="cidade_do_evento" required placeholder="São Paulo">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="alunos-estado-do-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="alunos-estado-do-evento" name="estado_do_evento" required placeholder="SP">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="alunos-pais-do-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="alunos-pais-do-evento" name="pais_do_evento" required placeholder="Brasil">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-link-do-evento">LINK DO EVENTO, EXAME OU DEFESA (OPCIONAL)</label>
+                            <input class="field__input" type="url" id="alunos-link-do-evento" name="link_do_evento" placeholder="https://exemplo.com.br">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-valor-solicitado">VALOR SOLICITADO (R$)</label>
+                            <input class="field__input" type="text" id="alunos-valor-solicitado" name="valor_solicitado" required placeholder="1.500,00">
+                        </div>
+
+                        <div class="field field--col-6">
+                            <label class="field__label" for="alunos-detalhamento-do-pedido">DETALHAMENTO DO PEDIDO</label>
+                            <textarea class="field__textarea" id="alunos-detalhamento-do-pedido" name="detalhamento_do_pedido" required placeholder="Inscrição e hospedagem." rows="3"></textarea>
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-apresentacao-de-trabalho">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+                            <select class="field__select" id="alunos-apresentacao-de-trabalho" name="apresentacao_de_trabalho" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Pôster">Pôster</option>
+                                <option value="Apresentação oral">Apresentação oral</option>
+                                <option value="Outra">Outra</option>
+                                <option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset__legend">ENDEREÇO DO SOLICITANTE</legend>
+
+                    <div class="fieldset__grid">
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-data-de-nascimento">DATA DE NASCIMENTO</label>
+                            <input class="field__input" type="text" id="alunos-data-de-nascimento" name="data_de_nascimento" required placeholder="01/02/1980">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-logradouro">LOGRADOURO</label>
+                            <input class="field__input" type="text" id="alunos-logradouro" name="logradouro" required placeholder="Rua do Matão">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="alunos-numero">NÚMERO</label>
+                            <input class="field__input" type="text" id="alunos-numero" name="numero" required placeholder="1010">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="alunos-complemento">COMPLEMENTO (OPCIONAL)</label>
+                            <input class="field__input" type="text" id="alunos-complemento" name="complemento" placeholder="Apto 12">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-bairro">BAIRRO</label>
+                            <input class="field__input" type="text" id="alunos-bairro" name="bairro" required placeholder="Butantã">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-cep">CEP</label>
+                            <input class="field__input" type="text" id="alunos-cep" name="cep" required placeholder="05508-090">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="alunos-cidade">CIDADE</label>
+                            <input class="field__input" type="text" id="alunos-cidade" name="cidade" required placeholder="São Paulo">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="alunos-estado">ESTADO</label>
+                            <input class="field__input" type="text" id="alunos-estado" name="estado" required placeholder="SP">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset__legend">INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+
+                    <div class="fieldset__grid">
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input class="field__input" type="text" id="alunos-cpf" name="cpf" required placeholder="123.456.789-09">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input class="field__input" type="text" id="alunos-rg" name="rg" required placeholder="12.345.678-9">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-banco">NOME DO BANCO</label>
+                            <input class="field__input" type="text" id="alunos-banco" name="banco" required placeholder="Banco do Brasil">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="alunos-agencia">NÚMERO DA AGÊNCIA</label>
+                            <input class="field__input" type="text" id="alunos-agencia" name="agencia" required placeholder="1234">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="alunos-conta">NÚMERO DA CONTA</label>
+                            <input class="field__input" type="text" id="alunos-conta" name="conta" required placeholder="56789-0">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button class="form__submit button-primary" type="submit">Enviar solicitação</button>
+            </form>
+        </section>
+
+        <section class="panel js-tab-panel" id="tab-docentes" role="tabpanel" aria-labelledby="tab-docentes-button" data-tab="docentes" hidden>
+            <h2 class="panel__title">Solicitação de Auxílio Financeiro para Docentes</h2>
+
+            <form id="form-docentes" class="form js-form" novalidate>
+                <div class="form__messages" id="form-messages-docentes" role="alert" hidden></div>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset__legend">SOLICITANTE E EVENTO</legend>
+
+                    <div class="fieldset__grid">
+                        <div class="field field--col-3">
+                            <label class="field__label" for="docentes-nome-completo">NOME COMPLETO - SEM ABREVIAR</label>
+                            <input class="field__input" type="text" id="docentes-nome-completo" name="nome_completo" required placeholder="Maria da Silva Souza">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="docentes-n-usp">N. USP</label>
+                            <input class="field__input" type="text" id="docentes-n-usp" name="n_usp" required placeholder="12345678">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="docentes-programa">PROGRAMA</label>
+                            <input class="field__input" type="text" id="docentes-programa" name="programa" required placeholder="Matemática">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="docentes-email">E-MAIL</label>
+                            <input class="field__input" type="email" id="docentes-email" name="email" required placeholder="docente@ime.usp.br">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="docentes-nome-do-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="docentes-nome-do-evento" name="nome_do_evento" required placeholder="Congresso Nacional de Matemática">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="docentes-periodo-do-evento">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="docentes-periodo-do-evento" name="periodo_do_evento" required placeholder="10 a 12 de outubro de 2025">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-cidade-do-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="docentes-cidade-do-evento" name="cidade_do_evento" required placeholder="São Paulo">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="docentes-estado-do-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="docentes-estado-do-evento" name="estado_do_evento" required placeholder="SP">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="docentes-pais-do-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+                            <input class="field__input" type="text" id="docentes-pais-do-evento" name="pais_do_evento" required placeholder="Brasil">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="docentes-link-do-evento">LINK DO EVENTO, EXAME OU DEFESA (OPCIONAL)</label>
+                            <input class="field__input" type="url" id="docentes-link-do-evento" name="link_do_evento" placeholder="https://exemplo.com.br">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-valor-solicitado">VALOR SOLICITADO (R$)</label>
+                            <input class="field__input" type="text" id="docentes-valor-solicitado" name="valor_solicitado" required placeholder="1.500,00">
+                        </div>
+
+                        <div class="field field--col-6">
+                            <label class="field__label" for="docentes-detalhamento-do-pedido">DETALHAMENTO DO PEDIDO</label>
+                            <textarea class="field__textarea" id="docentes-detalhamento-do-pedido" name="detalhamento_do_pedido" required placeholder="Inscrição e hospedagem." rows="3"></textarea>
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-apresentacao-de-trabalho">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+                            <select class="field__select" id="docentes-apresentacao-de-trabalho" name="apresentacao_de_trabalho" required>
+                                <option value="" disabled selected>Selecione</option>
+                                <option value="Pôster">Pôster</option>
+                                <option value="Apresentação oral">Apresentação oral</option>
+                                <option value="Outra">Outra</option>
+                                <option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset__legend">ENDEREÇO DO SOLICITANTE</legend>
+
+                    <div class="fieldset__grid">
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-data-de-nascimento">DATA DE NASCIMENTO</label>
+                            <input class="field__input" type="text" id="docentes-data-de-nascimento" name="data_de_nascimento" required placeholder="01/02/1980">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-logradouro">LOGRADOURO</label>
+                            <input class="field__input" type="text" id="docentes-logradouro" name="logradouro" required placeholder="Rua do Matão">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="docentes-numero">NÚMERO</label>
+                            <input class="field__input" type="text" id="docentes-numero" name="numero" required placeholder="1010">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="docentes-complemento">COMPLEMENTO (OPCIONAL)</label>
+                            <input class="field__input" type="text" id="docentes-complemento" name="complemento" placeholder="Apto 12">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-bairro">BAIRRO</label>
+                            <input class="field__input" type="text" id="docentes-bairro" name="bairro" required placeholder="Butantã">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-cep">CEP</label>
+                            <input class="field__input" type="text" id="docentes-cep" name="cep" required placeholder="05508-090">
+                        </div>
+
+                        <div class="field field--col-3">
+                            <label class="field__label" for="docentes-cidade">CIDADE</label>
+                            <input class="field__input" type="text" id="docentes-cidade" name="cidade" required placeholder="São Paulo">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="docentes-estado">ESTADO</label>
+                            <input class="field__input" type="text" id="docentes-estado" name="estado" required placeholder="SP">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset class="fieldset">
+                    <legend class="fieldset__legend">INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+
+                    <div class="fieldset__grid">
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input class="field__input" type="text" id="docentes-cpf" name="cpf" required placeholder="123.456.789-09">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input class="field__input" type="text" id="docentes-rg" name="rg" required placeholder="12.345.678-9">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-banco">NOME DO BANCO</label>
+                            <input class="field__input" type="text" id="docentes-banco" name="banco" required placeholder="Banco do Brasil">
+                        </div>
+
+                        <div class="field field--col-1">
+                            <label class="field__label" for="docentes-agencia">NÚMERO DA AGÊNCIA</label>
+                            <input class="field__input" type="text" id="docentes-agencia" name="agencia" required placeholder="1234">
+                        </div>
+
+                        <div class="field field--col-2">
+                            <label class="field__label" for="docentes-conta">NÚMERO DA CONTA</label>
+                            <input class="field__input" type="text" id="docentes-conta" name="conta" required placeholder="56789-0">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button class="form__submit button-primary" type="submit">Enviar solicitação</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

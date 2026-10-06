@@ -1,0 +1,157 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #1f2933;
+  --fundo: #eef6f8;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.usp-header {
+  background: #ffffff;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 4px solid var(--azul-primario);
+}
+
+.usp-header img {
+  height: 52px;
+  display: block;
+}
+
+.usp-titulo { display: flex; flex-direction: column; }
+
+.usp-nome {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--azul-primario);
+}
+
+.usp-programa {
+  font-size: 13px;
+  color: #4b5b63;
+}
+
+.pagina {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 18px 16px;
+}
+
+.aba-botoes { display: flex; gap: 8px; margin: 6px 0; }
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid var(--azul-secundario);
+  background: #ffffff;
+  color: #3d6a73;
+  padding: 6px 18px;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: #ffffff;
+}
+
+.painel {
+  display: grid;
+  gap: 8px;
+}
+
+fieldset {
+  border: 1px solid var(--azul-secundario);
+  border-radius: 4px;
+  padding: 6px 12px 8px;
+}
+
+legend {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--azul-primario);
+  letter-spacing: 0.5px;
+  padding: 0 6px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px 12px;
+}
+
+label {
+  font-size: 11px;
+  display: block;
+  margin-bottom: 1px;
+  color: #3d5560;
+}
+
+input, select, textarea {
+  font: inherit;
+  font-size: 12px;
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #9fc4cc;
+  border-radius: 3px;
+  background: #ffffff;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--amarelo);
+}
+
+textarea { resize: vertical; }
+
+.largo { grid-column: 1 / -1; }
+
+textarea.largo { min-height: 40px; }
+
+.enviar {
+  font: inherit;
+  font-weight: 700;
+  background: var(--azul-primario);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 20px;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7d92; }
+
+.mensagens { color: #a4161a; font-size: 12px; }
+
+.mensagens li { list-style: none; margin: 0; }
+
+#confirmacao h1 { color: var(--azul-primario); margin-bottom: 10px; }
+
+#oficio {
+  font-family: "Open Sans", Arial, sans-serif;
+  white-space: pre-wrap;
+  background: #ffffff;
+  border: 1px solid var(--azul-secundario);
+  padding: 16px;
+}
+
+#confirmacao button {
+  margin-top: 10px;
+}

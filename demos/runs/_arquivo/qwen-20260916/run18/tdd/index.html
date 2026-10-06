@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pós-Graduação do IME-USP - Auxílio Financeiro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="institucional">
+        <div class="logo-container">
+            <img src="assets/usp-logo.png" alt="Logo USP">
+        </div>
+        <div class="titulos">
+            <h1>Universidade de São Paulo</h1>
+            <h2>Pós-Graduação do IME-USP</h2>
+        </div>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tab active" role="tab" aria-controls="aba-alunos" id="tab-alunos" onclick="trocarAba('alunos')">ALUNOS</button>
+            <button class="tab" role="tab" aria-controls="aba-docentes" id="tab-docentes" onclick="trocarAba('docentes')">DOCENTES</button>
+        </div>
+
+        <div id="aba-alunos" class="tab-content active" role="tabpanel" aria-labelledby="tab-alunos">
+            <div class="erros" id="erros-alunos"></div>
+            <form id="form-alunos" class="formulario" onsubmit="enviarSolicitacao(event, 'alunos')">
+                <!-- Campos JS -->
+            </form>
+            <button class="btn-enviar" type="button" onclick="enviarSolicitacao(event, 'alunos')">Enviar solicitação</button>
+        </div>
+
+        <div id="aba-docentes" class="tab-content" role="tabpanel" aria-labelledby="tab-docentes">
+            <div class="erros" id="erros-docentes"></div>
+            <form id="form-docentes" class="formulario" onsubmit="enviarSolicitacao(event, 'docentes')">
+                <!-- Campos JS -->
+            </form>
+            <button class="btn-enviar" type="button" onclick="enviarSolicitacao(event, 'docentes')">Enviar solicitação</button>
+        </div>
+
+        <div id="confirmacao" class="confirmacao" style="display:none;">
+            <h2>Solicitação registrada</h2>
+            <pre id="texto-oficio"></pre>
+            <button class="btn-enviar" onclick="voltarFormulario()">Nova Solicitação</button>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

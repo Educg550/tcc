@@ -1,0 +1,223 @@
+/* Reset and Base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container */
+.container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #1094ab;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    /* The margin around logo needs to be equal to logo letter height.
+       We approximate this with padding on the logo itself or margin on container.
+       The requirement says: "Em volta do logotipo fica uma margem livre nos quatro lados, 
+       da altura da letra do próprio logotipo: nem texto nem borda invade essa área."
+    */
+}
+
+.logo {
+    height: 60px; /* Approximate height */
+    margin-right: 20px;
+    /* Free margin around logo - handled by layout and padding */
+}
+
+.institution-names h1 {
+    color: #1094ab;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.institution-names h2 {
+    color: #64c4d2;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #1094ab;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+}
+
+.tab-button.active {
+    color: #1094ab;
+    border-bottom-color: #1094ab;
+}
+
+.tab-button:hover {
+    color: #1094ab;
+}
+
+/* Forms */
+.form-content {
+    display: none;
+}
+
+.form-content.active {
+    display: block;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+legend {
+    font-weight: bold;
+    color: #1094ab;
+    padding: 0 10px;
+    font-size: 1.2rem;
+}
+
+/* Grid Layout to fit on one screen without vertical scroll if possible */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+input, select, textarea {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #1094ab;
+    box-shadow: 0 0 0 2px rgba(16, 148, 171, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* Submit Button */
+.submit-btn {
+    background-color: #1094ab;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #0d7a8a;
+}
+
+/* Errors */
+.errors {
+    background-color: #fcebeb;
+    border-left: 4px solid #dc3545;
+    color: #721c24;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.errors ul {
+    margin-left: 20px;
+    padding-left: 5px;
+}
+
+.errors li {
+    margin-bottom: 3px;
+}
+
+/* Confirmation */
+.confirmation-title {
+    color: #1094ab;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.oficio {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    margin-bottom: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+#back-btn {
+    width: auto;
+    display: block;
+    margin: 0 auto;
+}

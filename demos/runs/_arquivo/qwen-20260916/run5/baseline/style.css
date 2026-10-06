@@ -1,0 +1,212 @@
+:root {
+  --azul: #1094ab;
+  --azul-2: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #1f2a30;
+  --linha: #cfd8dd;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: var(--tinta);
+  background: #eef3f5;
+}
+
+main { display: flex; flex-direction: column; min-height: 100vh; }
+
+.escondido { display: none !important; }
+
+/* ===== Cabeçalho institucional ===== */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 0 34px;
+  background: #ffffff;
+  border-bottom: 4px solid var(--azul);
+}
+
+/* Margem livre em volta do logotipo, da altura da letra: 2x font-size em cada lado. */
+.cabecalho-logo {
+  padding: 26px 22px;
+  flex: 0 0 auto;
+}
+
+.cabecalho-logo img {
+  display: block;
+  height: calc(1.6em + 52px);
+  width: auto;
+}
+
+.cabecalho-texto { line-height: 1.3; }
+
+.universidade {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--azul);
+  letter-spacing: .3px;
+}
+
+.programa {
+  margin: 0;
+  font-size: .92em;
+  color: #5f6f78;
+}
+
+/* ===== Abas ===== */
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 0 34px;
+  background: var(--azul);
+}
+
+.aba {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: .6px;
+  padding: 12px 30px;
+  background: #0b7a8c;
+  color: #cfeef3;
+  border-radius: 6px 6px 0 0;
+}
+
+.aba:hover { background: #0d8497; }
+
+.aba.ativa {
+  background: var(--amarelo);
+  color: #4a3300;
+}
+
+/* ===== Formulário ===== */
+.formulario { flex: 1 1 auto; padding: 16px 34px 26px; }
+
+.bloco { background: #ffffff; border-radius: 8px; padding: 10px 14px 12px; margin-bottom: 14px; }
+
+.bloco h2 {
+  margin: 0 0 10px;
+  font-size: .95em;
+  font-weight: 700;
+  letter-spacing: .4px;
+  color: var(--azul);
+  border-bottom: 2px solid var(--amarelo);
+  padding-bottom: 6px;
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px 14px;
+}
+
+.campo { display: flex; flex-direction: column; min-width: 0; }
+
+.c1  { grid-column: span 1;  }
+.c2  { grid-column: span 2;  }
+.c3  { grid-column: span 3;  }
+.c4  { grid-column: span 4;  }
+.c6  { grid-column: span 6;  }
+.c12 { grid-column: 1 / -1;  }
+
+.campo label {
+  font-size: .85em;
+  font-weight: 600;
+  letter-spacing: .2px;
+  color: #37474f;
+  margin-bottom: 3px;
+}
+
+input, select, textarea {
+  font: inherit;
+  color: var(--tinta);
+  width: 100%;
+  padding: 7px 8px;
+  border: 1px solid var(--linha);
+  border-radius: 4px;
+  background: #fff;
+}
+
+textarea { resize: none; }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px rgba(100, 196, 210, .45);
+}
+
+input::placeholder, textarea::placeholder { color: #9fb0b8; }
+
+/* ===== Erros ===== */
+.painel-erro {
+  margin: 0 34px;
+  padding: 0;
+}
+
+.painel-erro:empty { display: none; }
+
+.painel-erro div {
+  display: block;
+  padding: 0 34px;
+}
+
+.painel-erro .erro-mensagem {
+  margin: 14px -34px 0;
+  padding: 9px 34px;
+  background: #fdecea;
+  border-left: 4px solid #c62828;
+  color: #8e2018;
+  font-weight: 600;
+}
+
+/* ===== Botões ===== */
+.botao {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: .4px;
+  color: #fff;
+  background: var(--azul);
+  padding: 11px 26px;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+
+.botao:hover { background: #0d8195; }
+
+.voltar { background: #607d8b; }
+
+/* ===== Confirmação ===== */
+.titulo-confirmacao {
+  margin: 20px 34px 10px;
+  font-size: 1.25em;
+  color: var(--azul);
+}
+
+.oficio {
+  margin: 0 34px 24px;
+  background: #ffffff;
+  border: 1px solid var(--linha);
+  border-top: 4px solid var(--amarelo);
+  border-radius: 8px;
+  padding: 26px 30px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--tinta);
+}
+
+#tela-confirmacao { align-items: stretch; }
+#tela-confirmacao .voltar { margin: 0 34px 30px; align-self: flex-start; }

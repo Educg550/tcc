@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-11T16:58:18",
+  "ended_at": "2026-09-11T17:07:18",
+  "total_duration_s": 540.32,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "anthropic/claude-sonnet-5",
+      "coder": "anthropic/claude-sonnet-5",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.684696,
+  "total_tokens": 81396,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "anthropic/claude-sonnet-5",
+      "duration_s": 231.52,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_estaticos.py",
+        "tests/test_solicitacao.py"
+      ],
+      "historico": [],
+      "input_tokens": 5720,
+      "output_tokens": 28063,
+      "total_tokens": 33783,
+      "cost_usd": 0.29207
+    },
+    {
+      "id": "code",
+      "configured_model": "anthropic/claude-sonnet-5",
+      "duration_s": 307.39,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 27,
+          "failed": 0,
+          "errors": 0,
+          "total": 27
+        }
+      ],
+      "input_tokens": 10438,
+      "output_tokens": 37175,
+      "total_tokens": 47613,
+      "cost_usd": 0.392626,
+      "impressao": "15f27f7df3311d9445edc9c8c6958e1d5bcdabc07d2cbf6b8f98fcb791f6a3d3",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 27,
+    "failed": 0,
+    "errors": 0,
+    "total": 27
+  },
+  "integridade": {
+    "medido_sha256": "15f27f7df3311d9445edc9c8c6958e1d5bcdabc07d2cbf6b8f98fcb791f6a3d3",
+    "intacto": true
+  }
+}

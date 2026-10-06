@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cabecalho">
+  <img src="assets/usp-logo.png" alt="Universidade de São Paulo" class="logo">
+  <div class="titulos">
+    <h1>Universidade de São Paulo</h1>
+    <p class="programa">Pós-Graduação - IME-USP</p>
+  </div>
+</header>
+
+<main id="formulario-view">
+  <nav class="abas">
+    <button class="aba ativa" data-aba="alunos">ALUNOS</button>
+    <button class="aba" data-aba="docentes">DOCENTES</button>
+  </nav>
+
+  <form id="form-alunos" class="form aba-conteudo ativa" data-aba="alunos">
+    <div class="erros"></div>
+    <section class="bloco">
+      <h2>SOLICITANTE E EVENTO</h2>
+      <div class="grade">
+        <label>NOME COMPLETO - SEM ABREVIAR<input name="nome_completo" placeholder="Maria da Silva"></label>
+        <label>N. USP<input name="n_usp" placeholder="12345678"></label>
+        <label>PROGRAMA<input name="programa" placeholder="Ciência da Computação"></label>
+        <label>NÍVEL<select name="nivel"><option value="Mestrado">Mestrado</option><option value="Doutorado">Doutorado</option></select></label>
+        <label>TIPO DE AUXÍLIO<select name="tipo_auxilio"><option value="Participação em evento">Participação em evento</option><option value="Banca de exame ou defesa">Banca de exame ou defesa</option><option value="Outro">Outro</option></select></label>
+        <label>E-MAIL<input name="email" placeholder="maria@ime.usp.br"></label>
+        <label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input name="nome_evento" placeholder="Congresso Brasileiro de Computação"></label>
+        <label>PERÍODO DO EVENTO, EXAME OU DEFESA<input name="periodo" placeholder="10 a 15 de janeiro de 2020"></label>
+        <label>CIDADE DO EVENTO, EXAME OU DEFESA<input name="cidade_evento" placeholder="São Paulo"></label>
+        <label>ESTADO DO EVENTO, EXAME OU DEFESA<input name="estado_evento" placeholder="SP"></label>
+        <label>PAÍS DO EVENTO, EXAME OU DEFESA<input name="pais_evento" placeholder="Brasil"></label>
+        <label>LINK DO EVENTO, EXAME OU DEFESA<input name="link_evento" placeholder="https://evento.ime.usp.br"></label>
+        <label>VALOR SOLICITADO (R$)<input name="valor_solicitado" data-mask="moeda" placeholder="R$ 1.500,00"></label>
+        <label>DETALHAMENTO DO PEDIDO<textarea name="detalhamento" placeholder="Passagens aéreas e hospedagem."></textarea></label>
+        <label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentacao_trabalho"><option value="Pôster">Pôster</option><option value="Apresentação oral">Apresentação oral</option><option value="Outra">Outra</option><option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option></select></label>
+      </div>
+    </section>
+    <section class="bloco">
+      <h2>ENDEREÇO DO SOLICITANTE</h2>
+      <div class="grade">
+        <label>DATA DE NASCIMENTO<input name="data_nascimento" data-mask="data" placeholder="01/02/1980"></label>
+        <label>LOGRADOURO<input name="logradouro" placeholder="Rua do Matão"></label>
+        <label>NÚMERO<input name="numero" placeholder="1010"></label>
+        <label>COMPLEMENTO<input name="complemento" placeholder="Bloco A"></label>
+        <label>BAIRRO<input name="bairro" placeholder="Butantã"></label>
+        <label>CEP<input name="cep" data-mask="cep" placeholder="05508-090"></label>
+        <label>CIDADE<input name="cidade" placeholder="São Paulo"></label>
+        <label>ESTADO<input name="estado" placeholder="SP"></label>
+      </div>
+    </section>
+    <section class="bloco">
+      <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+      <div class="grade">
+        <label>CPF (SEPARADOS POR PONTOS E TRAÇO)<input name="cpf" data-mask="cpf" placeholder="123.456.789-09"></label>
+        <label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)<input name="rg" placeholder="12.345.678-9"></label>
+        <label>NOME DO BANCO<input name="nome_banco" placeholder="Banco do Brasil"></label>
+        <label>NÚMERO DA AGÊNCIA<input name="agencia" placeholder="1234"></label>
+        <label>NÚMERO DA CONTA<input name="conta" placeholder="56789-0"></label>
+      </div>
+    </section>
+    <button type="submit" class="enviar">Enviar solicitação</button>
+  </form>
+
+  <form id="form-docentes" class="form aba-conteudo" data-aba="docentes">
+    <div class="erros"></div>
+    <section class="bloco">
+      <h2>SOLICITANTE E EVENTO</h2>
+      <div class="grade">
+        <label>NOME COMPLETO - SEM ABREVIAR<input name="nome_completo" placeholder="João Pereira"></label>
+        <label>N. USP<input name="n_usp" placeholder="12345678"></label>
+        <label>PROGRAMA<input name="programa" placeholder="Ciência da Computação"></label>
+        <label>E-MAIL<input name="email" placeholder="joao@ime.usp.br"></label>
+        <label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input name="nome_evento" placeholder="Congresso Brasileiro de Computação"></label>
+        <label>PERÍODO DO EVENTO, EXAME OU DEFESA<input name="periodo" placeholder="10 a 15 de janeiro de 2020"></label>
+        <label>CIDADE DO EVENTO, EXAME OU DEFESA<input name="cidade_evento" placeholder="São Paulo"></label>
+        <label>ESTADO DO EVENTO, EXAME OU DEFESA<input name="estado_evento" placeholder="SP"></label>
+        <label>PAÍS DO EVENTO, EXAME OU DEFESA<input name="pais_evento" placeholder="Brasil"></label>
+        <label>LINK DO EVENTO, EXAME OU DEFESA<input name="link_evento" placeholder="https://evento.ime.usp.br"></label>
+        <label>VALOR SOLICITADO (R$)<input name="valor_solicitado" data-mask="moeda" placeholder="R$ 1.500,00"></label>
+        <label>DETALHAMENTO DO PEDIDO<textarea name="detalhamento" placeholder="Passagens aéreas e hospedagem."></textarea></label>
+        <label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentacao_trabalho"><option value="Pôster">Pôster</option><option value="Apresentação oral">Apresentação oral</option><option value="Outra">Outra</option><option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option></select></label>
+      </div>
+    </section>
+    <section class="bloco">
+      <h2>ENDEREÇO DO SOLICITANTE</h2>
+      <div class="grade">
+        <label>DATA DE NASCIMENTO<input name="data_nascimento" data-mask="data" placeholder="01/02/1980"></label>
+        <label>LOGRADOURO<input name="logradouro" placeholder="Av. Professor Luciano Gualberto"></label>
+        <label>NÚMERO<input name="numero" placeholder="1010"></label>
+        <label>COMPLEMENTO<input name="complemento" placeholder="Bloco A"></label>
+        <label>BAIRRO<input name="bairro" placeholder="Butantã"></label>
+        <label>CEP<input name="cep" data-mask="cep" placeholder="05508-090"></label>
+        <label>CIDADE<input name="cidade" placeholder="São Paulo"></label>
+        <label>ESTADO<input name="estado" placeholder="SP"></label>
+      </div>
+    </section>
+    <section class="bloco">
+      <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+      <div class="grade">
+        <label>CPF (SEPARADOS POR PONTOS E TRAÇO)<input name="cpf" data-mask="cpf" placeholder="123.456.789-09"></label>
+        <label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)<input name="rg" placeholder="12.345.678-9"></label>
+        <label>NOME DO BANCO<input name="nome_banco" placeholder="Banco do Brasil"></label>
+        <label>NÚMERO DA AGÊNCIA<input name="agencia" placeholder="1234"></label>
+        <label>NÚMERO DA CONTA<input name="conta" placeholder="56789-0"></label>
+      </div>
+    </section>
+    <button type="submit" class="enviar">Enviar solicitação</button>
+  </form>
+</main>
+
+<main id="confirmacao-view" hidden>
+  <header class="cabecalho">
+    <img src="assets/usp-logo.png" alt="Universidade de São Paulo" class="logo">
+    <div class="titulos">
+      <h1>Universidade de São Paulo</h1>
+      <p class="programa">Pós-Graduação - IME-USP</p>
+    </div>
+  </header>
+  <h2 class="titulo-confirmacao">Solicitação registrada</h2>
+  <pre id="oficio"></pre>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+:root {
+--azul-primario: #1094ab;
+--azul-secundario: #64c4d2;
+--amarelo: #fcb421;
+}
+* { box-sizing: border-box; }
+body {
+font-family: "Open Sans", sans-serif;
+margin: 0;
+color: #333;
+background: #f7fafc;
+min-height: 100vh;
+font-size: 13px;
+}
+.cabecalho {
+background: #fff;
+border-bottom: 4px solid var(--azul-primario);
+padding: 8px 24px;
+display: flex;
+align-items: center;
+gap: 16px;
+}
+.logo { height: 56px; }
+.nome-usp { font-size: 20px; font-weight: 700; color: var(--azul-primario); }
+.nome-programa { font-size: 14px; color: #666; }
+.cabecalho > div { display: flex; flex-direction: column; }
+.erros {
+background: #fff6e5;
+color: #a33;
+padding: 8px 24px;
+border-left: 4px solid var(--amarelo);
+display: none;
+}
+.erros.visivel { display: block; }
+.erros p { margin: 2px 0; }
+.abas { display: flex; gap: 4px; padding: 8px 24px 0; }
+.aba {
+background: var(--azul-secundario);
+border: none;
+padding: 8px 32px;
+font-family: inherit;
+font-size: 13px;
+cursor: pointer;
+color: #fff;
+}
+.aba.ativa { background: var(--azul-primario); }
+.painel { display: none; padding: 8px 24px; }
+.painel.visivel { display: block; }
+fieldset {
+border: 1px solid var(--azul-secundario);
+margin: 0 0 8px;
+padding: 8px 12px;
+}
+legend { color: var(--azul-primario); font-weight: 700; padding: 0 8px; }
+.grade {
+display: grid;
+grid-template-columns: repeat(6, 1fr);
+gap: 6px 12px;
+}
+label { display: flex; flex-direction: column; font-size: 11px; color: #555; }
+input, select, textarea {
+font-family: inherit;
+font-size: 13px;
+padding: 4px 6px;
+border: 1px solid #ccc;
+margin-top: 2px;
+}
+textarea { resize: vertical; }
+.enviar {
+background: var(--azul-primario);
+color: #fff;
+border: none;
+padding: 8px 24px;
+font-family: inherit;
+font-size: 14px;
+cursor: pointer;
+}
+.enviar:hover { background: #0d7d91; }
+#confirmacao { padding: 16px 24px; }
+#confirmacao h1 { color: var(--azul-primario); }
+#oficio {
+background: #fff;
+border: 1px solid var(--azul-secundario);
+padding: 16px;
+white-space: pre-wrap;
+font-family: inherit;
+max-width: 60em;
+}
+.oculto { display: none; }

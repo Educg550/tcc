@@ -1,0 +1,226 @@
+/* Cores institucionais da Universidade de São Paulo. */
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #22333b;
+  --cinza: #56676e;
+  --borda: #b9d3da;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  color: var(--tinta);
+  background: #fff;
+}
+
+/* Cabeçalho institucional: o logotipo fica cercado de margem livre nos
+   quatro lados, da altura da letra do próprio logotipo. */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 4px solid var(--azul-primario);
+}
+
+.cabecalho img {
+  height: 3.5rem;
+}
+
+.cab-universidade {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--azul-primario);
+}
+
+.cab-programa {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  color: var(--cinza);
+}
+
+.pagina-titulo {
+  margin: 0.7rem 2rem 0.1rem;
+  font-size: 1.05rem;
+  color: var(--azul-primario);
+}
+
+/* Abas: a ativa se distingue da inativa. */
+.abas {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.5rem 2rem 0;
+}
+
+.abas button {
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 1.3rem;
+  border: 1px solid var(--azul-primario);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: #e3eef1;
+  color: #46626a;
+  cursor: pointer;
+}
+
+.abas button.ativa {
+  background: var(--azul-primario);
+  color: #fff;
+}
+
+main {
+  padding: 0.5rem 2rem 1.2rem;
+}
+
+/* Duas colunas: o bloco do evento à esquerda; endereço, pagamento e envio
+   à direita, para a página caber na tela sem rolagem vertical. */
+form {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: 0 1.2rem;
+  align-items: start;
+}
+
+.coluna-dados {
+  display: grid;
+  gap: 0.7rem;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0.4rem 0.75rem 0.55rem;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+legend {
+  padding: 0.18rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: #fff;
+  background: var(--azul-primario);
+}
+
+/* Dentro dos blocos, os campos curtos ficam lado a lado. */
+.campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 0.7rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #41545c;
+}
+
+.largo {
+  grid-column: 1 / -1;
+}
+
+label input,
+label select,
+label textarea {
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 400;
+  padding: 0.28rem 0.4rem;
+  color: var(--tinta);
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+label input:focus,
+label select:focus,
+label textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  border-color: var(--azul-primario);
+}
+
+/* Mensagens de erro que vierem do backend, uma por linha. */
+.erros {
+  margin: 0 0 0.6rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #e0a3a3;
+  border-left: 5px solid #b3402f;
+  border-radius: 6px;
+  background: #fdeeee;
+  color: #8f1d12;
+  font-size: 0.83rem;
+}
+
+.erros p {
+  margin: 0.12rem 0;
+}
+
+.enviar button {
+  width: 100%;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.55rem 1rem;
+  color: #3a2b00;
+  background: var(--amarelo);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.enviar button:hover {
+  filter: brightness(0.94);
+}
+
+/* Confirmação: o ofício preserva as quebras de linha. */
+.confirmacao {
+  padding: 1.1rem 2rem 2rem;
+}
+
+.confirmacao h1 {
+  margin: 0 0 0.8rem;
+  font-size: 1.25rem;
+  color: var(--azul-primario);
+}
+
+.oficio {
+  margin: 0;
+  max-width: 46rem;
+  padding: 0.9rem 1.3rem;
+  border: 1px solid var(--azul-secundario);
+  border-left: 6px solid var(--azul-primario);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+/* Em telas estreitas, as colunas se empilham. */
+@media (max-width: 60rem) {
+  form {
+    grid-template-columns: 1fr;
+  }
+}

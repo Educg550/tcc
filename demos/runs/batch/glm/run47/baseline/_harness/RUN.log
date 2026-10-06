@@ -1,0 +1,61 @@
+{
+  "started_at": "2026-09-16T17:08:20",
+  "ended_at": "2026-09-16T17:08:47",
+  "total_duration_s": 27.05,
+  "grupo": "baseline",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.01882,
+  "total_tokens": 6901,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "direto",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 25.84,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [],
+      "input_tokens": 3848,
+      "output_tokens": 3053,
+      "total_tokens": 6901,
+      "cost_usd": 0.01882,
+      "impressao": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+      "tests_vermelhos": null
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 0,
+    "total": 0
+  },
+  "integridade": {
+    "medido_sha256": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+    "intacto": true
+  }
+}

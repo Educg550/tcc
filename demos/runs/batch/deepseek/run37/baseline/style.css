@@ -1,0 +1,195 @@
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #21313a;
+  background: #eef6f8;
+  min-height: 100vh;
+}
+
+/* ---------- cabeçalho institucional ---------- */
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.6em 1.6em;
+  background: #ffffff;
+  border-bottom: 3px solid #1094ab;
+}
+
+.cabecalho .logo {
+  height: 3.4em;
+  /* margem livre nos quatro lados, da altura da letra do logotipo */
+  margin: 0.8em;
+  padding: 0.2em;
+}
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 1.7em;
+  font-weight: 600;
+  color: #1094ab;
+  letter-spacing: 0.01em;
+}
+
+.cabecalho p {
+  margin: 0.15em 0 0;
+  font-size: 0.95em;
+  color: #64c4d2;
+}
+
+/* ---------- estrutura ---------- */
+
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0.7em 1.6em 1.1em;
+}
+
+.abas {
+  display: flex;
+  gap: 0.3em;
+  margin-bottom: 0.6em;
+}
+
+.aba {
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.95em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  background: #64c4d2;
+  padding: 0.5em 2.2em;
+  border-radius: 5px 5px 0 0;
+}
+
+.aba.ativa {
+  background: #1094ab;
+}
+
+/* ---------- blocos de campos ---------- */
+
+.bloco {
+  background: #ffffff;
+  border: 1px solid #64c4d2;
+  border-radius: 6px;
+  padding: 0.45em 0.8em 0.65em;
+  margin-bottom: 0.55em;
+}
+
+.bloco h2 {
+  margin: 0 0 0.45em;
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  color: #1094ab;
+  border-left: 4px solid #fcb421;
+  padding-left: 0.5em;
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.4em 0.65em;
+}
+
+.col-2 { grid-column: span 2; }
+.col-3 { grid-column: span 3; }
+.col-4 { grid-column: span 4; }
+.col-6 { grid-column: span 6; }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  min-width: 0;
+}
+
+.campo > span {
+  font-size: 0.68em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #1094ab;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 0.9em;
+  color: #21313a;
+  width: 100%;
+  padding: 0.3em 0.45em;
+  border: 1px solid #a9d3da;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 2.5em;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid #64c4d2;
+  border-color: #1094ab;
+}
+
+.enviar {
+  font: inherit;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #ffffff;
+  background: #1094ab;
+  border: none;
+  border-radius: 5px;
+  padding: 0.55em 1.8em;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7a8d; }
+
+/* ---------- erros ---------- */
+
+.erros {
+  color: #a3121f;
+  background: #fdecec;
+  border: 1px solid #a3121f;
+  border-radius: 5px;
+  padding: 0.5em 0.8em;
+  margin-bottom: 0.55em;
+  white-space: pre-line;
+  font-weight: 600;
+}
+
+/* ---------- confirmação ---------- */
+
+.confirmacao h2 {
+  margin: 0.4em 0 0.6em;
+  font-size: 1.5em;
+  color: #1094ab;
+}
+
+.oficio {
+  margin: 0;
+  padding: 1em 1.2em;
+  background: #ffffff;
+  border: 1px solid #64c4d2;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95em;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}

@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-15T14:58:42",
+  "ended_at": "2026-09-15T15:02:13",
+  "total_duration_s": 210.99,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-deepseek",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4.1-flash",
+      "coder": "deepseek/deepseek-v4.1-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.052912,
+  "total_tokens": 54217,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 73.23,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_app.py"
+      ],
+      "historico": [],
+      "input_tokens": 4022,
+      "output_tokens": 2443,
+      "total_tokens": 6465,
+      "cost_usd": 0.002147
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 136.33,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 19,
+          "failed": 0,
+          "errors": 0,
+          "total": 19
+        }
+      ],
+      "input_tokens": 6051,
+      "output_tokens": 41701,
+      "total_tokens": 47752,
+      "cost_usd": 0.050765,
+      "impressao": "229e7a586ed17f0c202f946db02e73b333e22fa9ab6775edea68a7a2f93b7a68",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 19,
+    "failed": 0,
+    "errors": 0,
+    "total": 19
+  },
+  "integridade": {
+    "medido_sha256": "229e7a586ed17f0c202f946db02e73b333e22fa9ab6775edea68a7a2f93b7a68",
+    "intacto": true
+  }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solicitação registrada</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="usp">
+    <img class="logo" src="/assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo">
+    <div>
+      <h1>Universidade de São Paulo</h1>
+      <h2>Instituto de Matemática e Estatística - Pós-Graduação</h2>
+    </div>
+  </header>
+
+  <main class="confirmacao">
+    <h1>Solicitação registrada</h1>
+    {% if not ok %}
+    <ul class="erros">
+      {% for erro in erros %}
+      <li>{{ erro }}</li>
+      {% endfor %}
+    </ul>
+    <p><a href="javascript:history.back()">Voltar ao formulário</a></p>
+    {% else %}
+    <pre class="oficio">{{ oficio }}</pre>
+    {% endif %}
+  </main>
+</body>
+</html>

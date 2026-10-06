@@ -1,0 +1,91 @@
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  color: #1c2b2e;
+  background: #f4f7f8;
+}
+
+/* Cabeçalho institucional */
+.topo {
+  background: #1094ab;
+  flex: 0 0 auto;
+}
+.marca { display: flex; align-items: center; gap: 12px; padding: 8px 20px; }
+.logo { background: #fff; border-radius: 6px; line-height: 0; }
+.logo img { display: block; }
+.institucional { display: flex; flex-direction: column; gap: 2px; }
+.universidade { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: 0.01em; }
+.programa { color: #64c4d2; font-size: 13px; font-weight: 400; }
+
+/* Painel */
+.painel { flex: 1 1 auto; display: flex; flex-direction: column; padding: 12px 24px 18px; min-height: 0; }
+
+/* Abas */
+.abas { display: flex; gap: 6px; border-bottom: 2px solid #1094ab; }
+.aba {
+  font: inherit; font-size: 13px; font-weight: 700; letter-spacing: 0.04em;
+  padding: 8px 22px; margin-bottom: -2px; cursor: pointer;
+  background: #d8eef2; color: #1094ab;
+  border: 2px solid #1094ab; border-bottom: none; border-radius: 4px 4px 0 0;
+}
+.aba.ativa { background: #fff; color: #0b6b7c; border-color: #1094ab #1094ab #fff; }
+.aba:focus-visible { outline: 2px solid #fcb421; outline-offset: 2px; }
+
+/* Erros */
+.erros {
+  margin: 10px 0 0; padding: 8px 12px;
+  white-space: pre-line;
+  color: #8a1d14; background: #fdecea;
+  border-left: 4px solid #8a1d14; border-radius: 3px;
+}
+
+/* Formulário */
+.form { flex: 1 1 auto; display: flex; flex-direction: column; gap: 10px; padding-top: 12px; overflow: auto; }
+.bloco { border: 1px solid #cfe2e6; border-radius: 5px; padding: 8px 12px 10px; background: #fff; }
+.bloco h3 {
+  margin: 0 0 8px; padding-bottom: 5px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #1094ab; border-bottom: 2px solid #fcb421;
+}
+.grade { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px 12px; }
+.campo { display: flex; flex-direction: column; gap: 3px; }
+
+/* Campos largos */
+#f-valor, #f-link, #f-det { grid-column: span 2; }
+#f-valor { grid-column: 1; }
+#f-det { grid-column: 2 / 5; }
+#f-nasc { grid-column: span 1; }
+#f-banco, #f-conta { grid-column: span 2; }
+
+.campo label { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #2b5a63; }
+.campo input, .campo select, .campo textarea {
+  font: inherit; width: 100%; padding: 6px 7px;
+  border: 1px solid #b8d3d8; border-radius: 3px; background: #fff; color: #1c2b2e;
+}
+.campo textarea { resize: none; line-height: 1.35; height: 52px; }
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+  outline: none; border-color: #1094ab; box-shadow: 0 0 0 2px rgba(100, 196, 210, 0.35);
+}
+
+/* Botão */
+.enviar {
+  align-self: flex-start; font: inherit; font-size: 14px; font-weight: 700;
+  padding: 9px 26px; cursor: pointer;
+  background: #1094ab; color: #fff; border: none; border-radius: 4px;
+}
+.enviar:hover { background: #0b7d91; }
+.enviar:focus-visible { outline: 3px solid #fcb421; outline-offset: 2px; }
+
+/* Confirmação */
+.confirmacao h2 { margin: 4px 0 12px; font-size: 18px; color: #1094ab; }
+.oficio {
+  flex: 1 1 auto; margin: 0; padding: 16px 20px; overflow: auto;
+  font-family: Georgia, "Times New Roman", serif; font-size: 13px; line-height: 1.55;
+  white-space: pre-wrap;
+  background: #fff; border: 1px solid #cfe2e6; border-radius: 5px;
+}

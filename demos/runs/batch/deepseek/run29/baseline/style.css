@@ -1,0 +1,208 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  color: #1c2b2e;
+  background: #ffffff;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.oculto { display: none !important; }
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-bottom: 3px solid #1094ab;
+  background: #ffffff;
+}
+
+.marca {
+  padding: 0.6em;
+  background: #ffffff;
+}
+
+.marca img {
+  display: block;
+  height: 52px;
+  width: auto;
+}
+
+.identidade h1 {
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #1094ab;
+}
+
+.identidade .programa {
+  margin: 0.1rem 0 0;
+  font-size: 0.82rem;
+  color: #5a7d84;
+}
+
+.conteudo {
+  padding: 0 1.5rem 1rem;
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0.55rem 0 0;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 1.6rem;
+  border: 1px solid #64c4d2;
+  border-radius: 6px 6px 0 0;
+  background: #ffffff;
+  color: #1094ab;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: #1094ab;
+  border-color: #1094ab;
+  color: #ffffff;
+}
+
+/* Blocos de campos */
+.bloco {
+  border: 1px solid #64c4d2;
+  border-top: 3px solid #1094ab;
+  border-radius: 8px;
+  min-width: 0;
+  padding: 0.2rem 0.8rem 0.6rem;
+  margin: 0 0 0.5rem;
+}
+
+.bloco legend {
+  padding: 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #1094ab;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.4rem 0.7rem;
+}
+
+.c1 { grid-column: span 1; }
+.c2 { grid-column: span 2; }
+.c3 { grid-column: span 3; }
+.c4 { grid-column: span 4; }
+.c6 { grid-column: span 6; }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.campo > span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: #2c4c53;
+  margin-bottom: 0.12rem;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 0.8rem;
+  width: 100%;
+  padding: 0.22rem 0.35rem;
+  border: 1px solid #b8d5da;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1c2b2e;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 2.4rem;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid #64c4d2;
+  border-color: #1094ab;
+}
+
+/* Mensagens de erro */
+.erros:empty { display: none; }
+
+.erros {
+  border: 1px solid #fcb421;
+  border-left: 6px solid #fcb421;
+  background: #fff8e8;
+  color: #8a5a00;
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+  margin: 0.4rem 0 0.5rem;
+  font-size: 0.8rem;
+}
+
+.erros div + div { margin-top: 0.15rem; }
+
+/* Botão */
+.enviar {
+  display: block;
+  margin: 0.2rem 0 0 auto;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 1.6rem;
+  border: none;
+  border-radius: 6px;
+  background: #1094ab;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0d7a8d; }
+
+.enviar:focus { outline: 2px solid #fcb421; }
+
+/* Confirmação */
+#confirmacao {
+  padding: 0.5rem 0 1rem;
+}
+
+#confirmacao h2 {
+  margin: 0.2rem 0 0.5rem;
+  color: #1094ab;
+  font-size: 1.2rem;
+}
+
+#oficio {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  white-space: pre-wrap;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  border: 1px solid #64c4d2;
+  border-left: 6px solid #1094ab;
+  border-radius: 6px;
+  background: #fbfdfe;
+}

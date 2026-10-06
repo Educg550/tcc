@@ -1,0 +1,67 @@
+{
+  "started_at": "2026-09-16T11:06:55",
+  "ended_at": "2026-09-16T11:23:17",
+  "total_duration_s": 982.13,
+  "grupo": "baseline",
+  "requisito_id": "01-formulario-docentes-qwen",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "qwen/qwen3.8-flash",
+      "coder": "qwen/qwen3.8-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.037135,
+  "total_tokens": 82744,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "direto",
+      "configured_model": "qwen/qwen3.8-flash",
+      "duration_s": 979.0,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "cartorio.py",
+        "index.html",
+        "app.js",
+        "style.css",
+        "testes/test_oficio.py",
+        "testes/test_api.py"
+      ],
+      "historico": [],
+      "input_tokens": 3876,
+      "output_tokens": 78868,
+      "total_tokens": 82744,
+      "cost_usd": 0.037135,
+      "impressao": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+      "tests_vermelhos": null
+    }
+  ],
+  "pytest_final": {
+    "passed": 13,
+    "failed": 7,
+    "errors": 0,
+    "total": 20
+  },
+  "integridade": {
+    "medido_sha256": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+    "intacto": true
+  }
+}

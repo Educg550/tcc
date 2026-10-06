@@ -1,0 +1,45 @@
+<div class="block-title">ENDEREÇO DO SOLICITANTE</div>
+
+<label>DATA DE NASCIMENTO</label>
+<input type="hidden" name="data_nascimento" id="data_hid" value="{{ data.data_nascimento or '' }}">
+<input type="text" id="data_vis" placeholder="Ex: 01021980" onblur="formatData()">
+
+<label>LOGRADOURO</label>
+<input type="text" name="logradouro" placeholder="Ex: Rua das Flores" value="{{ data.logradouro or '' }}">
+
+<label>NÚMERO</label>
+<input type="text" name="numero" placeholder="Ex: 100" value="{{ data.numero or '' }}">
+
+<label>COMPLEMENTO (opcional)</label>
+<input type="text" name="complemento" placeholder="Ex: Apto 42" value="{{ data.complemento or '' }}">
+
+<label>BAIRRO</label>
+<input type="text" name="bairro" placeholder="Ex: Centro" value="{{ data.bairro or '' }}">
+
+<label>CEP</label>
+<input type="hidden" name="cep" id="cep_hid" value="{{ data.cep or '' }}">
+<input type="text" id="cep_vis" placeholder="Ex: 05508090" onblur="formatCEP()">
+
+<label>CIDADE</label>
+<input type="text" name="cidade_end" placeholder="Ex: São Paulo" value="{{ data.cidade_end or '' }}">
+
+<label>ESTADO</label>
+<input type="text" name="estado_end" placeholder="Ex: SP" value="{{ data.estado_end or '' }}">
+
+<div class="block-title">INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</div>
+
+<label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+<input type="hidden" name="cpf" id="cpf_hid" value="{{ data.cpf or '' }}">
+<input type="text" id="cpf_vis" placeholder="Ex: 12345678901" onblur="formatCPF()">
+
+<label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+<input type="text" name="rg" placeholder="Ex: 12.345.678-9" value="{{ data.rg or '' }}">
+
+<label>NOME DO BANCO</label>
+<input type="text" name="banco" placeholder="Ex: Banco do Brasil" value="{{ data.banco or '' }}">
+
+<label>NÚMERO DA AGÊNCIA</label>
+<input type="text" name="agencia" placeholder="Ex: 1234" value="{{ data.agencia or '' }}">
+
+<label>NÚMERO DA CONTA</label>
+<input type="text" name="conta" placeholder="Ex: 12345-6" value="{{ data.conta or '' }}">

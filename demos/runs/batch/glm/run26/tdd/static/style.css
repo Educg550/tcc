@@ -1,0 +1,137 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", Arial, sans-serif;
+  color: #333;
+  background: #fff;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 4px solid var(--azul-primario);
+}
+
+.cabecalho img {
+  height: 56px;
+  display: block;
+}
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--azul-primario);
+}
+
+.cabecalho p {
+  margin: 0;
+  color: #555;
+}
+
+.abas {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem 0;
+}
+
+.aba {
+  border: 1px solid var(--azul-secundario);
+  background: #f4fafb;
+  color: var(--azul-primario);
+  font-weight: bold;
+  padding: 0.4rem 1.2rem;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  color: #fff;
+  border-color: var(--azul-primario);
+}
+
+main { padding: 0 1rem 1rem; }
+
+.painel[hidden] { display: none; }
+
+erros,
+.erros {
+  white-space: pre-line;
+  color: #b00020;
+  background: #fdecea;
+  border-left: 4px solid #b00020;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+}
+
+fieldset {
+  border: 1px solid var(--azul-secundario);
+  border-top: 3px solid var(--azul-primario);
+  margin: 0.75rem 0;
+  padding: 0.5rem;
+}
+
+legend {
+  color: var(--azul-primario);
+  font-weight: bold;
+  padding: 0 0.4rem;
+}
+
+fieldset label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.78rem;
+  gap: 0.15rem;
+}
+
+fieldset:first-of-type {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem 0.75rem;
+}
+
+fieldset:nth-of-type(2),
+fieldset:nth-of-type(3) {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem 0.75rem;
+}
+
+.inteiro { grid-column: 1 / -1; }
+
+input, select, textarea {
+  font: inherit;
+  padding: 0.25rem;
+  border: 1px solid #bbb;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--amarelo);
+}
+
+.enviar {
+  font: inherit;
+  font-weight: bold;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+
+#confirmacao h2 { color: var(--azul-primario); }
+
+#oficio {
+  white-space: pre-wrap;
+  font-family: inherit;
+  border: 1px solid var(--azul-secundario);
+  padding: 1rem;
+}

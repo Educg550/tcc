@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-11T15:50:11",
+  "ended_at": "2026-09-11T16:02:51",
+  "total_duration_s": 760.3,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "anthropic/claude-sonnet-5",
+      "coder": "anthropic/claude-sonnet-5",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.89632,
+  "total_tokens": 104556,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "anthropic/claude-sonnet-5",
+      "duration_s": 404.72,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/__init__.py",
+        "tests/helpers.py",
+        "tests/test_page_structure.py",
+        "tests/test_validation.py",
+        "tests/test_confirmation.py"
+      ],
+      "historico": [],
+      "input_tokens": 5446,
+      "output_tokens": 44343,
+      "total_tokens": 49789,
+      "cost_usd": 0.454322
+    },
+    {
+      "id": "code",
+      "configured_model": "anthropic/claude-sonnet-5",
+      "duration_s": 354.55,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 33,
+          "failed": 0,
+          "errors": 0,
+          "total": 33
+        }
+      ],
+      "input_tokens": 13209,
+      "output_tokens": 41558,
+      "total_tokens": 54767,
+      "cost_usd": 0.441998,
+      "impressao": "436d5ac067a12adaa87e1306f759aeb5ba4715d5482d7a032aa2eccd89b156d8",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 33,
+    "failed": 0,
+    "errors": 0,
+    "total": 33
+  },
+  "integridade": {
+    "medido_sha256": "436d5ac067a12adaa87e1306f759aeb5ba4715d5482d7a032aa2eccd89b156d8",
+    "intacto": true
+  }
+}

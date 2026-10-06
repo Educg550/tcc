@@ -1,0 +1,249 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #1f3b40;
+  --borda: #bfe0e6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  color: var(--tinta);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  padding: 4px 18px;
+  background: #ffffff;
+  border-bottom: 4px solid var(--azul);
+}
+
+.cabecalho .logo {
+  height: 44px;
+  width: auto;
+  display: block;
+  margin: 12px;
+}
+
+.identidade {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.identidade .universidade {
+  color: var(--azul);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.identidade .unidade {
+  color: var(--azul-claro);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 3px;
+  padding: 8px 18px 0;
+}
+
+.tab {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 6px 26px;
+  border: 1px solid var(--borda);
+  border-bottom: none;
+  border-radius: 7px 7px 0 0;
+  background: #f2fafb;
+  color: var(--azul);
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--azul);
+  color: #ffffff;
+  border-color: var(--azul);
+}
+
+/* Conteúdo */
+main {
+  flex: 1;
+  min-height: 0;
+  padding: 4px 18px 10px;
+  overflow: hidden;
+  border-top: 3px solid var(--amarelo);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+  height: 100%;
+}
+
+.formulario {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.erros {
+  color: #a5182b;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.erros p {
+  margin: 0;
+}
+
+/* Blocos de campos */
+.bloco {
+  margin: 0;
+  padding: 4px 10px 8px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: #fbfeff;
+  min-width: 0;
+}
+
+.bloco legend {
+  color: var(--azul);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0 8px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px 10px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.campo.span2 {
+  grid-column: span 2;
+}
+
+.campo.span3 {
+  grid-column: span 3;
+}
+
+.campo.span4 {
+  grid-column: span 4;
+}
+
+.campo label {
+  font-size: 9.5px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #3f5f66;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 12px;
+  color: var(--tinta);
+  width: 100%;
+  min-width: 0;
+  padding: 3px 6px;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.campo textarea {
+  height: 40px;
+  resize: none;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  outline-offset: -1px;
+}
+
+.enviar {
+  align-self: flex-start;
+  margin-top: auto;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 28px;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0d7f92;
+}
+
+/* Confirmação */
+.confirmacao {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.confirmacao h2 {
+  margin: 0;
+  color: var(--azul);
+  font-size: 18px;
+}
+
+.oficio {
+  margin: 0;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  font-family: inherit;
+  font-size: 12.5px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  padding: 14px 18px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: #fbfeff;
+}

@@ -1,0 +1,163 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  color: #222;
+  background: #f4f6f7;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border-bottom: 4px solid var(--amarelo);
+  padding: 0 24px;
+}
+
+.cabecalho .logo {
+  height: 56px;
+  margin: 28px 16px;
+  border: 0;
+}
+
+.cabecalho h1 {
+  color: var(--azul);
+  font-size: 22px;
+  margin: 0;
+}
+
+.cabecalho p {
+  color: var(--azul-claro);
+  margin: 2px 0 0;
+  font-size: 14px;
+}
+
+main { padding: 12px 24px 24px; }
+
+.abas {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.tab {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 28px;
+  border: 1px solid var(--azul);
+  border-bottom: none;
+  background: #dbe7ea;
+  color: var(--azul);
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.painel { display: none; }
+.painel.ativo { display: block; }
+
+.erros {
+  color: #a40000;
+  background: #fdecec;
+  border-left: 4px solid #a40000;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+}
+
+.erros:empty { display: none; }
+
+.bloco {
+  background: #ffffff;
+  border: 1px solid #d6dfe2;
+  border-top: 4px solid var(--azul);
+  margin-bottom: 10px;
+  padding: 10px 14px;
+}
+
+.bloco h3 {
+  margin: 0 0 8px;
+  color: var(--azul);
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 180px;
+  min-width: 140px;
+}
+
+.campo.longo { flex-basis: 100%; }
+.campo.medio { flex-basis: 46%; }
+
+.campo label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #35545b;
+  margin-bottom: 2px;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  padding: 5px 7px;
+  border: 1px solid #a9bfc5;
+  border-radius: 3px;
+  background: #ffffff;
+  width: 100%;
+}
+
+.campo textarea { resize: vertical; min-height: 40px; }
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  border-color: var(--azul);
+}
+
+.enviar {
+  font: inherit;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-radius: 4px;
+  padding: 10px 26px;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7d91; }
+
+.titulo-confirmacao { color: var(--azul); }
+
+.oficio {
+  white-space: pre-wrap;
+  background: #ffffff;
+  border: 1px solid #d6dfe2;
+  border-left: 6px solid var(--amarelo);
+  padding: 16px 20px;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}

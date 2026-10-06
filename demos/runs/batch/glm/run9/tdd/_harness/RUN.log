@@ -1,0 +1,99 @@
+{
+  "started_at": "2026-09-16T14:58:53",
+  "ended_at": "2026-09-16T15:13:43",
+  "total_duration_s": 889.66,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.514924,
+  "total_tokens": 164241,
+  "total_retries": 3,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 496.32,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/conftest.py",
+        "tests/test_pagina.py",
+        "tests/test_solicitacao.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 91470,
+      "total_tokens": 95440,
+      "cost_usd": 0.367223
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 391.26,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 4,
+      "retries": 3,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 71,
+          "failed": 1,
+          "errors": 0,
+          "total": 72
+        },
+        {
+          "passed": 65,
+          "failed": 7,
+          "errors": 0,
+          "total": 72
+        },
+        {
+          "passed": 72,
+          "failed": 0,
+          "errors": 0,
+          "total": 72
+        }
+      ],
+      "input_tokens": 39228,
+      "output_tokens": 29573,
+      "total_tokens": 68801,
+      "cost_usd": 0.147701,
+      "impressao": "a5befce6013d8bc8143d2c7dad3379ad035df553c2c199d42db03393f008ee58",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 72,
+    "failed": 0,
+    "errors": 0,
+    "total": 72
+  },
+  "integridade": {
+    "medido_sha256": "a5befce6013d8bc8143d2c7dad3379ad035df553c2c199d42db03393f008ee58",
+    "intacto": true
+  }
+}

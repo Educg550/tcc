@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Instituto de Matemática e Estatística - Universidade de São Paulo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="header">
+<div class="row top">
+<div class="logo">
+<img src="assets/usp-logo.png" alt="Logo da USP">
+</div>
+<div class="names">
+<div class="university">UNIVERSIDADE DE SÃO PAULO</div>
+<div class="institute">Instituto de Matemática e Estatística</div>
+</div>
+</div>
+<div class="row bar"></div>
+</div>
+<div id="content">
+<div id="result" style="display:none;"></div>
+<div id="form-section">
+<div id="tabs">
+<button id="tab-aluno" class="tab active">Aluno</button>
+<button id="tab-docente" class="tab">Docente</button>
+</div>
+<div id="tab-content-aluno" class="tab-content active">
+<div id="error-aluno" class="error-msg"></div>
+<h3>IDENTIFICAÇÃO</h3>
+<div class="form-grid">
+<div><label>Nº USP</label><input type="text" id="aluno_nusp"></div>
+<div><label>Nome completo</label><input type="text" id="aluno_nome"></div>
+<div><label>Unidade/Departamento</label><input type="text" id="aluno_dpto"></div>
+<div><label>Curso</label><select id="aluno_curso"><option>Mestrado</option><option>Doutorado</option></select></div>
+<div><label>E-mail USP</label><input type="text" id="aluno_email"></div>
+<div><label>Vínculo</label><select id="aluno_vinculo"><option>Pós-Graduação</option></select></div>
+<div><label>Matrícula</label><input type="text" id="aluno_matricula"></div>
+<div><label>Ano de ingresso</label><input type="number" id="aluno_ano"></div>
+<div><label>Orientador(a)</label><input type="text" id="aluno_orientador"></div>
+<div><label>Curso (Outro)</label><input type="text" id="aluno_curso_outro" placeholder="Se não listado"></div>
+<div><label>Status</label><select id="aluno_status"><option>Ativo</option><option>Inativo</option></select></div>
+<div><label>Curso (Outro 2)</label><input type="text" id="aluno_curso_outro2"></div>
+<div><label>E-mail pessoal</label><input type="text" id="aluno_email2"></div>
+<div><label>Telefone celular</label><input type="text" id="aluno_tel"></div>
+<div><label>CEP</label><input type="text" id="aluno_cep" maxlength="9" placeholder="00000-000"></div>
+<div><label>Data de nascimento</label><input type="text" id="aluno_nasc" maxlength="10" placeholder="dd/mm/aaaa"></div>
+<div><label>Estado</label><input type="text" id="aluno_uf"></div>
+<div><label>Complemento</label><input type="text" id="aluno_complemento"></div>
+<div><label>Sexo</label><select id="aluno_sexo"><option>Masculino</option><option>Feminino</option><option>Outro</option></select></div>
+<div><label>CPF</label><input type="text" id="aluno_cpf" maxlength="14" placeholder="000.000.000-00"></div>
+</div>
+<h3>ENDEREÇO</h3>
+<div class="form-grid">
+<div><label>Logradouro</label><input type="text" id="aluno_rua"></div>
+<div><label>Número</label><input type="text" id="aluno_num"></div>
+<div><label>Bairro</label><input type="text" id="aluno_bairro"></div>
+<div><label>Cidade</label><input type="text" id="aluno_cidade"></div>
+</div>
+<h3>AUXÍLIO</h3>
+<div class="form-grid">
+<div><label>Solicitado (R$)</label><input type="text" id="aluno_valor_solicitado" placeholder="0,00"></div>
+<div><label>Aprovado (R$)</label><input type="text" id="aluno_valor_aprovado" placeholder="0,00"></div>
+<div><label>Assunto</label><select id="aluno_assunto"><option>Auxílio Financeiro para Participação em Evento</option><option>Auxílio Financeiro para Publicação</option></select></div>
+<div><label>Curso (Auxílio)</label><select id="aluno_curso_aux"><option>Noturno</option><option>Diurno</option></select></div>
+<div><label>Data do evento</label><input type="text" id="aluno_data_evento" placeholder="dd/mm/aaaa"></div>
+<div><label>Local</label><input type="text" id="aluno_local"></div>
+<div><label>Agência</label><input type="text" id="aluno_agencia"></div>
+<div><label>Conta</label><input type="text" id="aluno_conta"></div>
+<div><label>Data de envio</label><input type="text" id="aluno_data_envio" placeholder="dd/mm/aaaa"></div>
+</div>
+<button class="submit" onclick="submitForm('aluno')">Solicitar Auxílio Financeiro</button>
+</div>
+<div id="tab-content-docente" class="tab-content">
+<div id="error-docente" class="error-msg"></div>
+<h3>IDENTIFICAÇÃO</h3>
+<div class="form-grid">
+<div><label>Nº USP</label><input type="text" id="docente_nusp"></div>
+<div><label>Nome completo</label><input type="text" id="docente_nome"></div>
+<div><label>Unidade/Departamento</label><input type="text" id="docente_dpto"></div>
+<div><label>E-mail USP</label><input type="text" id="docente_email"></div>
+<div><label>Vínculo</label><select id="docente_vinculo"><option>Docente</option></select></div>
+<div><label>Matrícula</label><input type="text" id="docente_matricula"></div>
+<div><label>Ano de ingresso</label><input type="number" id="docente_ano"></div>
+<div><label>Orientador(a)</label><input type="text" id="docente_orientador"></div>
+<div><label>Curso</label><select id="docente_curso"><option>N/A</option></select></div>
+<div><label>Status</label><select id="docente_status"><option>Ativo</option><option>Inativo</option></select></div>
+<div><label>E-mail pessoal</label><input type="text" id="docente_email2"></div>
+<div><label>Telefone celular</label><input type="text" id="docente_tel"></div>
+<div><label>CEP</label><input type="text" id="docente_cep" maxlength="9" placeholder="00000-000"></div>
+<div><label>Data de nascimento</label><input type="text" id="docente_nasc" maxlength="10" placeholder="dd/mm/aaaa"></div>
+<div><label>Estado</label><input type="text" id="docente_uf"></div>
+<div><label>Complemento</label><input type="text" id="docente_complemento"></div>
+<div><label>Sexo</label><select id="docente_sexo"><option>Masculino</option><option>Feminino</option><option>Outro</option></select></div>
+<div><label>CPF</label><input type="text" id="docente_cpf" maxlength="14" placeholder="000.000.000-00"></div>
+</div>
+<h3>ENDEREÇO</h3>
+<div class="form-grid">
+<div><label>Logradouro</label><input type="text" id="docente_rua"></div>
+<div><label>Número</label><input type="text" id="docente_num"></div>
+<div><label>Bairro</label><input type="text" id="docente_bairro"></div>
+<div><label>Cidade</label><input type="text" id="docente_cidade"></div>
+</div>
+<h3>AUXÍLIO</h3>
+<div class="form-grid">
+<div><label>Solicitado (R$)</label><input type="text" id="docente_valor_solicitado" placeholder="0,00"></div>
+<div><label>Aprovado (R$)</label><input type="text" id="docente_valor_aprovado" placeholder="0,00"></div>
+<div><label>Assunto</label><select id="docente_assunto"><option>Auxílio Financeiro para Participação em Evento</option><option>Auxílio Financeiro para Publicação</option></select></div>
+<div><label>Curso (Auxílio)</label><select id="docente_curso_aux"><option>Noturno</option><option>Diurno</option></select></div>
+<div><label>Data do evento</label><input type="text" id="docente_data_evento" placeholder="dd/mm/aaaa"></div>
+<div><label>Local</label><input type="text" id="docente_local"></div>
+<div><label>Agência</label><input type="text" id="docente_agencia"></div>
+<div><label>Conta</label><input type="text" id="docente_conta"></div>
+<div><label>Data de envio</label><input type="text" id="docente_data_envio" placeholder="dd/mm/aaaa"></div>
+</div>
+<button class="submit" onclick="submitForm('docente')">Solicitar Auxílio Financeiro</button>
+</div>
+</div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

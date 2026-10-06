@@ -1,0 +1,183 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  color: #333;
+  background: #fff;
+}
+
+main {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1rem 1rem;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 4px solid var(--azul-primario);
+}
+
+.cabecalho img { height: 3rem; }
+
+.cabecalho .universidade {
+  margin: 0;
+  color: var(--azul-primario);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.cabecalho .programa {
+  margin: .1rem 0 0;
+  color: #777;
+  font-size: .85rem;
+}
+
+.abas { display: flex; gap: .3rem; padding-top: .7rem; }
+
+.aba {
+  padding: .38rem 1.5rem;
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--azul-primario);
+  background: #eaf6f9;
+  border: 1px solid var(--azul-secundario);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  color: #fff;
+  background: var(--azul-primario);
+  border-color: var(--azul-primario);
+}
+
+form {
+  padding: .55rem .8rem .8rem;
+  border: 1px solid var(--azul-secundario);
+  background: #fff;
+}
+
+.erros {
+  margin: 0 0 .5rem;
+  padding: .35rem .6rem;
+  background: #fdecea;
+  border-left: 4px solid #c62828;
+}
+
+.erros p {
+  margin: .12rem 0;
+  color: #c62828;
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.bloco { margin: 0 0 .45rem; }
+
+.bloco h2 {
+  margin: 0 0 .4rem;
+  padding-bottom: .2rem;
+  color: var(--azul-primario);
+  font-size: .74rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  border-bottom: 2px solid var(--amarelo);
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: .35rem .6rem;
+}
+
+.campos.pagamento { grid-template-columns: repeat(5, 1fr); }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: .12rem;
+}
+
+.campo label {
+  font-size: .68rem;
+  font-weight: 600;
+  color: #555;
+  line-height: 1.2;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  padding: .28rem .4rem;
+  font: inherit;
+  font-size: .8rem;
+  color: #222;
+  background: #fff;
+  border: 1px solid var(--azul-secundario);
+  border-radius: 4px;
+}
+
+.campo textarea { resize: vertical; }
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: var(--azul-primario);
+  outline: 2px solid var(--amarelo);
+  outline-offset: -1px;
+}
+
+.c-2 { grid-column: span 2; }
+.c-3 { grid-column: span 3; }
+.c-4 { grid-column: span 4; }
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: .4rem;
+}
+
+.enviar {
+  padding: .45rem 1.6rem;
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--azul-primario);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7c90; }
+
+#confirmacao h1 {
+  margin: 1rem 0 .6rem;
+  color: var(--azul-primario);
+  font-size: 1.15rem;
+}
+
+#oficio {
+  margin: 0;
+  padding: .9rem 1.1rem;
+  border: 1px solid var(--azul-secundario);
+  border-left: 4px solid var(--amarelo);
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: .84rem;
+  line-height: 1.5;
+  color: #222;
+}

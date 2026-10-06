@@ -1,0 +1,124 @@
+{
+  "started_at": "2026-09-16T16:30:35",
+  "ended_at": "2026-09-16T16:52:25",
+  "total_duration_s": 1309.33,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.495489,
+  "total_tokens": 178487,
+  "total_retries": 8,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 28.79,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_aplicacao.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 3286,
+      "total_tokens": 7256,
+      "cost_usd": 0.020016
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 1278.96,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 9,
+      "retries": 8,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        },
+        {
+          "passed": 17,
+          "failed": 7,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 22,
+          "failed": 2,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 4,
+          "failed": 20,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 21,
+          "failed": 3,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 21,
+          "failed": 3,
+          "errors": 0,
+          "total": 24
+        },
+        {
+          "passed": 24,
+          "failed": 0,
+          "errors": 0,
+          "total": 24
+        }
+      ],
+      "input_tokens": 64856,
+      "output_tokens": 106375,
+      "total_tokens": 171231,
+      "cost_usd": 0.475473,
+      "impressao": "85ea1d734d74e53d1cb3bad0862f235343225a855e25745dba294a5ac9d55aeb",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 24,
+    "failed": 0,
+    "errors": 0,
+    "total": 24
+  },
+  "integridade": {
+    "medido_sha256": "85ea1d734d74e53d1cb3bad0862f235343225a855e25745dba294a5ac9d55aeb",
+    "intacto": true
+  }
+}

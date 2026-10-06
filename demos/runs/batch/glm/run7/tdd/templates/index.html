@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="cabecalho">
+  <img src="/assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo">
+  <div>
+    <h1>Universidade de São Paulo</h1>
+    <p>Instituto de Matemática e Estatística &middot; Pós-Graduação</p>
+  </div>
+</header>
+
+<nav class="abas" role="tablist">
+  <button type="button" id="aba-alunos" class="aba ativa" role="tab" aria-selected="true" aria-controls="painel-alunos">ALUNOS</button>
+  <button type="button" id="aba-docentes" class="aba" role="tab" aria-selected="false" aria-controls="painel-docentes">DOCENTES</button>
+</nav>
+
+{% if aba == 'alunos' %}
+<section id="painel-alunos" class="painel visivel">
+{% else %}
+<section id="painel-alunos" class="painel">
+{% endif %}
+  {% if aba == 'alunos' and erros %}
+  <ul class="erros">
+    {% for erro in erros %}<li>{{ erro }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <form method="post" action="/solicitar">
+    <input type="hidden" name="aba" value="alunos">
+    <fieldset>
+      <legend>SOLICITANTE E EVENTO</legend>
+      <div class="grade">
+        <label for="al-nome">NOME COMPLETO - SEM ABREVIAR</label>
+        <input id="al-nome" name="nome" type="text" placeholder="Maria da Silva" value="{{ valores.get('nome', '') }}" required>
+        <label for="al-n-usp">N. USP</label>
+        <input id="al-n-usp" name="n_usp" type="text" placeholder="12345678" value="{{ valores.get('n_usp', '') }}" required>
+        <label for="al-programa">PROGRAMA</label>
+        <input id="al-programa" name="programa" type="text" placeholder="Matemática" value="{{ valores.get('programa', '') }}" required>
+        <label for="al-nivel">NÍVEL</label>
+        <select id="al-nivel" name="nivel" required>
+          <option value="">Selecione</option>
+          <option value="Mestrado" {% if valores.get('nivel') == 'Mestrado' %}selected{% endif %}>Mestrado</option>
+          <option value="Doutorado" {% if valores.get('nivel') == 'Doutorado' %}selected{% endif %}>Doutorado</option>
+        </select>
+        <label for="al-tipo">TIPO DE AUXÍLIO</label>
+        <select id="al-tipo" name="tipo_auxilio" required>
+          <option value="">Selecione</option>
+          {% for op in ['Participação em evento', 'Banca de exame ou defesa', 'Outro'] %}
+          <option value="{{ op }}" {% if valores.get('tipo_auxilio') == op %}selected{% endif %}>{{ op }}</option>
+          {% endfor %}
+        </select>
+        <label for="al-email">E-MAIL</label>
+        <input id="al-email" name="email" type="email" placeholder="maria@ime.usp.br" value="{{ valores.get('email', '') }}" required>
+        <label for="al-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+        <input id="al-evento" name="evento" type="text" placeholder="Congresso Nacional de Matemática" value="{{ valores.get('evento', '') }}" required>
+        <label for="al-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+        <input id="al-periodo" name="periodo" type="text" placeholder="10 a 12 de agosto de 2025" value="{{ valores.get('periodo', '') }}" required>
+        <label for="al-cidade">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+        <input id="al-cidade" name="cidade" type="text" placeholder="São Paulo" value="{{ valores.get('cidade', '') }}" required>
+        <label for="al-estado">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+        <input id="al-estado" name="estado" type="text" placeholder="SP" value="{{ valores.get('estado', '') }}" required>
+        <label for="al-pais">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+        <input id="al-pais" name="pais" type="text" placeholder="Brasil" value="{{ valores.get('pais', '') }}" required>
+        <label for="al-link">LINK DO EVENTO, EXAME OU DEFESA</label>
+        <input id="al-link" name="link" type="text" placeholder="https://exemplo.com/congresso" value="{{ valores.get('link', '') }}">
+        <label for="al-valor">VALOR SOLICITADO (R$)</label>
+        <input id="al-valor" name="valor" type="text" class="moeda" placeholder="1500 (centavos)" value="{{ valores.get('valor', '') }}" required>
+        <label for="al-detalhamento">DETALHAMENTO DO PEDIDO</label>
+        <textarea id="al-detalhamento" name="detalhamento" placeholder="Inscrição, hospedagem e transporte" required>{{ valores.get('detalhamento', '') }}</textarea>
+        <label for="al-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+        <select id="al-apresentacao" name="apresentacao" required>
+          <option value="">Selecione</option>
+          {% for op in ['Pôster', 'Apresentação oral', 'Outra', 'Não irá apresentar trabalho'] %}
+          <option value="{{ op }}" {% if valores.get('apresentacao') == op %}selected{% endif %}>{{ op }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>ENDEREÇO DO SOLICITANTE</legend>
+      <div class="grade">
+        <label for="al-nascimento">DATA DE NASCIMENTO</label>
+        <input id="al-nascimento" name="data_nascimento" type="text" class="data" placeholder="01021980" value="{{ valores.get('data_nascimento', '') }}" required>
+        <label for="al-logradouro">LOGRADOURO</label>
+        <input id="al-logradouro" name="logradouro" type="text" placeholder="Rua do Matão" value="{{ valores.get('logradouro', '') }}" required>
+        <label for="al-numero">NÚMERO</label>
+        <input id="al-numero" name="numero" type="text" placeholder="1010" value="{{ valores.get('numero', '') }}" required>
+        <label for="al-complemento">COMPLEMENTO</label>
+        <input id="al-complemento" name="complemento" type="text" placeholder="Prédio 2, sala 101" value="{{ valores.get('complemento', '') }}">
+        <label for="al-bairro">BAIRRO</label>
+        <input id="al-bairro" name="bairro" type="text" placeholder="Butantã" value="{{ valores.get('bairro', '') }}" required>
+        <label for="al-cep">CEP</label>
+        <input id="al-cep" name="cep" type="text" class="cep" placeholder="05508090" value="{{ valores.get('cep', '') }}" required>
+        <label for="al-end-cidade">CIDADE</label>
+        <input id="al-end-cidade" name="endereco_cidade" type="text" placeholder="São Paulo" value="{{ valores.get('endereco_cidade', '') }}" required>
+        <label for="al-end-estado">ESTADO</label>
+        <input id="al-end-estado" name="endereco_estado" type="text" placeholder="SP" value="{{ valores.get('endereco_estado', '') }}" required>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+      <div class="grade">
+        <label for="al-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+        <input id="al-cpf" name="cpf" type="text" class="cpf" placeholder="123.456.789-09" value="{{ valores.get('cpf', '') }}" required>
+        <label for="al-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+        <input id="al-rg" name="rg" type="text" placeholder="12.345.678-9" value="{{ valores.get('rg', '') }}" required>
+        <label for="al-banco">NOME DO BANCO</label>
+        <input id="al-banco" name="banco" type="text" placeholder="Banco do Brasil" value="{{ valores.get('banco', '') }}" required>
+        <label for="al-agencia">NÚMERO DA AGÊNCIA</label>
+        <input id="al-agencia" name="agencia" type="text" placeholder="1234" value="{{ valores.get('agencia', '') }}" required>
+        <label for="al-conta">NÚMERO DA CONTA</label>
+        <input id="al-conta" name="conta" type="text" placeholder="98765-4" value="{{ valores.get('conta', '') }}" required>
+      </div>
+    </fieldset>
+    <button type="submit" class="enviar">Enviar solicitação</button>
+  </form>
+</section>
+
+{% if aba == 'docentes' %}
+<section id="painel-docentes" class="painel visivel">
+{% else %}
+<section id="painel-docentes" class="painel">
+{% endif %}
+  {% if aba == 'docentes' and erros %}
+  <ul class="erros">
+    {% for erro in erros %}<li>{{ erro }}</li>{% endfor %}
+  </ul>
+  {% endif %}
+  <form method="post" action="/solicitar">
+    <input type="hidden" name="aba" value="docentes">
+    <fieldset>
+      <legend>SOLICITANTE E EVENTO</legend>
+      <div class="grade">
+        <label for="doc-nome">NOME COMPLETO - SEM ABREVIAR</label>
+        <input id="doc-nome" name="nome" type="text" placeholder="João de Souza" value="{{ valores.get('nome', '') }}" required>
+        <label for="doc-n-usp">N. USP</label>
+        <input id="doc-n-usp" name="n_usp" type="text" placeholder="87654321" value="{{ valores.get('n_usp', '') }}" required>
+        <label for="doc-programa">PROGRAMA</label>
+        <input id="doc-programa" name="programa" type="text" placeholder="Matemática" value="{{ valores.get('programa', '') }}" required>
+        <label for="doc-email">E-MAIL</label>
+        <input id="doc-email" name="email" type="email" placeholder="joao@ime.usp.br" value="{{ valores.get('email', '') }}" required>
+        <label for="doc-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+        <input id="doc-evento" name="evento" type="text" placeholder="Escola de Verão" value="{{ valores.get('evento', '') }}" required>
+        <label for="doc-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+        <input id="doc-periodo" name="periodo" type="text" placeholder="10 a 12 de agosto de 2025" value="{{ valores.get('periodo', '') }}" required>
+        <label for="doc-cidade">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+        <input id="doc-cidade" name="cidade" type="text" placeholder="São Paulo" value="{{ valores.get('cidade', '') }}" required>
+        <label for="doc-estado">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+        <input id="doc-estado" name="estado" type="text" placeholder="SP" value="{{ valores.get('estado', '') }}" required>
+        <label for="doc-pais">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+        <input id="doc-pais" name="pais" type="text" placeholder="Brasil" value="{{ valores.get('pais', '') }}" required>
+        <label for="doc-link">LINK DO EVENTO, EXAME OU DEFESA</label>
+        <input id="doc-link" name="link" type="text" placeholder="https://exemplo.com/congresso" value="{{ valores.get('link', '') }}">
+        <label for="doc-valor">VALOR SOLICITADO (R$)</label>
+        <input id="doc-valor" name="valor" type="text" class="moeda" placeholder="1500 (centavos)" value="{{ valores.get('valor', '') }}" required>
+        <label for="doc-detalhamento">DETALHAMENTO DO PEDIDO</label>
+        <textarea id="doc-detalhamento" name="detalhamento" placeholder="Inscrição e hospedagem" required>{{ valores.get('detalhamento', '') }}</textarea>
+        <label for="doc-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+        <select id="doc-apresentacao" name="apresentacao" required>
+          <option value="">Selecione</option>
+          {% for op in ['Pôster', 'Apresentação oral', 'Outra', 'Não irá apresentar trabalho'] %}
+          <option value="{{ op }}" {% if valores.get('apresentacao') == op %}selected{% endif %}>{{ op }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>ENDEREÇO DO SOLICITANTE</legend>
+      <div class="grade">
+        <label for="doc-nascimento">DATA DE NASCIMENTO</label>
+        <input id="doc-nascimento" name="data_nascimento" type="text" class="data" placeholder="01021980" value="{{ valores.get('data_nascimento', '') }}" required>
+        <label for="doc-logradouro">LOGRADOURO</label>
+        <input id="doc-logradouro" name="logradouro" type="text" placeholder="Rua do Matão" value="{{ valores.get('logradouro', '') }}" required>
+        <label for="doc-numero">NÚMERO</label>
+        <input id="doc-numero" name="numero" type="text" placeholder="1010" value="{{ valores.get('numero', '') }}" required>
+        <label for="doc-complemento">COMPLEMENTO</label>
+        <input id="doc-complemento" name="complemento" type="text" placeholder="Prédio 2, sala 101" value="{{ valores.get('complemento', '') }}">
+        <label for="doc-bairro">BAIRRO</label>
+        <input id="doc-bairro" name="bairro" type="text" placeholder="Butantã" value="{{ valores.get('bairro', '') }}" required>
+        <label for="doc-cep">CEP</label>
+        <input id="doc-cep" name="cep" type="text" class="cep" placeholder="05508090" value="{{ valores.get('cep', '') }}" required>
+        <label for="doc-end-cidade">CIDADE</label>
+        <input id="doc-end-cidade" name="endereco_cidade" type="text" placeholder="São Paulo" value="{{ valores.get('endereco_cidade', '') }}" required>
+        <label for="doc-end-estado">ESTADO</label>
+        <input id="doc-end-estado" name="endereco_estado" type="text" placeholder="SP" value="{{ valores.get('endereco_estado', '') }}" required>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+      <div class="grade">
+        <label for="doc-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+        <input id="doc-cpf" name="cpf" type="text" class="cpf" placeholder="123.456.789-09" value="{{ valores.get('cpf', '') }}" required>
+        <label for="doc-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+        <input id="doc-rg" name="rg" type="text" placeholder="12.345.678-9" value="{{ valores.get('rg', '') }}" required>
+        <label for="doc-banco">NOME DO BANCO</label>
+        <input id="doc-banco" name="banco" type="text" placeholder="Banco do Brasil" value="{{ valores.get('banco', '') }}" required>
+        <label for="doc-agencia">NÚMERO DA AGÊNCIA</label>
+        <input id="doc-agencia" name="agencia" type="text" placeholder="1234" value="{{ valores.get('agencia', '') }}" required>
+        <label for="doc-conta">NÚMERO DA CONTA</label>
+        <input id="doc-conta" name="conta" type="text" placeholder="98765-4" value="{{ valores.get('conta', '') }}" required>
+      </div>
+    </fieldset>
+    <button type="submit" class="enviar">Enviar solicitação</button>
+  </form>
+</section>
+
+<script src="/app.js"></script>
+</body>
+</html>

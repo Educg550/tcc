@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-16T09:50:21",
+  "ended_at": "2026-09-16T10:52:38",
+  "total_duration_s": 3737.41,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-qwen",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "qwen/qwen3.8-flash",
+      "coder": "qwen/qwen3.8-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.124509,
+  "total_tokens": 283719,
+  "total_retries": 1,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "qwen/qwen3.8-flash",
+      "duration_s": 1364.44,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_formulario.py"
+      ],
+      "historico": [],
+      "input_tokens": 3993,
+      "output_tokens": 81535,
+      "total_tokens": 85528,
+      "cost_usd": 0.038406
+    },
+    {
+      "id": "code",
+      "configured_model": "qwen/qwen3.8-flash",
+      "duration_s": 2371.95,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 2,
+      "retries": 1,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        }
+      ],
+      "input_tokens": 16983,
+      "output_tokens": 181208,
+      "total_tokens": 198191,
+      "cost_usd": 0.086103,
+      "impressao": "99c9de3db8f31d5491968e964ce86c0cdb5d612db4e6bbc96ad643f0fe938327",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 1,
+    "total": 1
+  },
+  "integridade": {
+    "medido_sha256": "99c9de3db8f31d5491968e964ce86c0cdb5d612db4e6bbc96ad643f0fe938327",
+    "intacto": true
+  }
+}

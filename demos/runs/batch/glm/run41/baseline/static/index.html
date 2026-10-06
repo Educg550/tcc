@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auxílio Financeiro - Pós-Graduação IME-USP</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="cabecalho">
+    <div class="cabecalho-logo">
+      <img src="/assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo">
+      <div class="cabecalho-nome">
+        <span class="cabecalho-universidade">Universidade de São Paulo</span>
+        <span class="cabecalho-programa">Instituto de Matemática e Estatística — Pós-Graduação</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="abas" role="tablist">
+    <button class="aba ativa" id="aba-alunos" role="tab" aria-selected="true">ALUNOS</button>
+    <button class="aba" id="aba-docentes" role="tab" aria-selected="false">DOCENTES</button>
+  </nav>
+
+  <main class="conteudo">
+    <section class="painel" id="painel-alunos">
+      <div class="erros" id="erros-alunos" hidden></div>
+      <form id="form-alunos">
+        <fieldset class="bloco">
+          <legend>SOLICITANTE E EVENTO</legend>
+          <div class="linha">
+            <div class="campo largo"><label for="alunos-nome">NOME COMPLETO - SEM ABREVIAR</label><input type="text" id="alunos-nome" name="nome" placeholder="Ex.: Maria da Silva Santos" required></div>
+            <div class="campo"><label for="alunos-nusp">N. USP</label><input type="text" id="alunos-nusp" name="nusp" placeholder="Ex.: 12345678" inputmode="numeric" required></div>
+            <div class="campo"><label for="alunos-programa">PROGRAMA</label><input type="text" id="alunos-programa" name="programa" placeholder="Ex.: Matemática" required></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="alunos-nivel">NÍVEL</label><select id="alunos-nivel" name="nivel" required><option value="">Selecione</option><option>Mestrado</option><option>Doutorado</option></select></div>
+            <div class="campo"><label for="alunos-tipo-auxilio">TIPO DE AUXÍLIO</label><select id="alunos-tipo-auxilio" name="tipo_auxilio" required><option value="">Selecione</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></div>
+            <div class="campo"><label for="alunos-email">E-MAIL</label><input type="text" id="alunos-email" name="email" placeholder="Ex.: nome@usp.br" required></div>
+          </div>
+          <div class="linha">
+            <div class="campo largo"><label for="alunos-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input type="text" id="alunos-evento" name="evento" placeholder="Ex.: XXXV Congresso da Sociedade Brasileira de Matemática" required></div>
+            <div class="campo"><label for="alunos-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="alunos-periodo" name="periodo" placeholder="Ex.: 15/03/2025 a 20/03/2025" required></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="alunos-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label><input type="text" id="alunos-cidade-evento" name="cidade_evento" placeholder="Ex.: São Paulo" required></div>
+            <div class="campo"><label for="alunos-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="alunos-estado-evento" name="estado_evento" placeholder="Ex.: SP" required></div>
+            <div class="campo"><label for="alunos-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label><input type="text" id="alunos-pais-evento" name="pais_evento" placeholder="Ex.: Brasil" required></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="alunos-link-evento">LINK DO EVENTO, EXAME OU DEFESA</label><input type="text" id="alunos-link-evento" name="link_evento" placeholder="Ex.: https://www.evento.com.br"></div>
+            <div class="campo"><label for="alunos-valor">VALOR SOLICITADO (R$)</label><input type="text" id="alunos-valor" name="valor" placeholder="Ex.: R$ 1.500,00" inputmode="numeric" required></div>
+            <div class="campo"><label for="alunos-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="alunos-apresentacao" name="apresentacao" required><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+          </div>
+          <div class="linha">
+            <div class="campo inteiro"><label for="alunos-detalhamento">DETALHAMENTO DO PEDIDO</label><textarea id="alunos-detalhamento" name="detalhamento" placeholder="Ex.: Solicito auxílio para inscrição e hospedagem durante o evento." required></textarea></div>
+          </div>
+        </fieldset>
+        <fieldset class="bloco">
+          <legend>ENDEREÇO DO SOLICITANTE</legend>
+          <div class="linha">
+            <div class="campo"><label for="alunos-nascimento">DATA DE NASCIMENTO</label><input type="text" id="alunos-nascimento" name="nascimento" placeholder="Ex.: 01/02/1980" inputmode="numeric" required></div>
+            <div class="campo largo"><label for="alunos-logradouro">LOGRADOURO</label><input type="text" id="alunos-logradouro" name="logradouro" placeholder="Ex.: Rua do Matão" required></div>
+            <div class="campo"><label for="alunos-numero">NÚMERO</label><input type="text" id="alunos-numero" name="numero" placeholder="Ex.: 1010" required></div>
+            <div class="campo"><label for="alunos-complemento">COMPLEMENTO</label><input type="text" id="alunos-complemento" name="complemento" placeholder="Ex.: Bloco A, sala 12"></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="alunos-bairro">BAIRRO</label><input type="text" id="alunos-bairro" name="bairro" placeholder="Ex.: Butantã" required></div>
+            <div class="campo"><label for="alunos-cep">CEP</label><input type="text" id="alunos-cep" name="cep" placeholder="Ex.: 05508-090" inputmode="numeric" required></div>
+            <div class="campo"><label for="alunos-cidade">CIDADE</label><input type="text" id="alunos-cidade" name="cidade" placeholder="Ex.: São Paulo" required></div>
+            <div class="campo"><label for="alunos-estado">ESTADO</label><input type="text" id="alunos-estado" name="estado" placeholder="Ex.: SP" required></div>
+          </div>
+        </fieldset>
+        <fieldset class="bloco">
+          <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+          <div class="linha">
+            <div class="campo"><label for="alunos-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="alunos-cpf" name="cpf" placeholder="Ex.: 123.456.789-09" inputmode="numeric" required></div>
+            <div class="campo"><label for="alunos-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="alunos-rg" name="rg" placeholder="Ex.: 12.345.678-9" required></div>
+            <div class="campo"><label for="alunos-banco">NOME DO BANCO</label><input type="text" id="alunos-banco" name="banco" placeholder="Ex.: Banco do Brasil" required></div>
+            <div class="campo"><label for="alunos-agencia">NÚMERO DA AGÊNCIA</label><input type="text" id="alunos-agencia" name="agencia" placeholder="Ex.: 1234" inputmode="numeric" required></div>
+            <div class="campo"><label for="alunos-conta">NÚMERO DA CONTA</label><input type="text" id="alunos-conta" name="conta" placeholder="Ex.: 12345-6" required></div>
+          </div>
+        </fieldset>
+        <div class="acoes"><button type="submit" class="enviar">Enviar solicitação</button></div>
+      </form>
+    </section>
+
+    <section class="painel" id="painel-docentes" hidden>
+      <div class="erros" id="erros-docentes" hidden></div>
+      <form id="form-docentes">
+        <fieldset class="bloco">
+          <legend>SOLICITANTE E EVENTO</legend>
+          <div class="linha">
+            <div class="campo largo"><label for="docentes-nome">NOME COMPLETO - SEM ABREVIAR</label><input type="text" id="docentes-nome" name="nome" placeholder="Ex.: João da Silva Santos" required></div>
+            <div class="campo"><label for="docentes-nusp">N. USP</label><input type="text" id="docentes-nusp" name="nusp" placeholder="Ex.: 87654321" inputmode="numeric" required></div>
+            <div class="campo"><label for="docentes-programa">PROGRAMA</label><input type="text" id="docentes-programa" name="programa" placeholder="Ex.: Ciência da Computação" required></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="docentes-email">E-MAIL</label><input type="text" id="docentes-email" name="email" placeholder="Ex.: nome@ime.usp.br" required></div>
+            <div class="campo largo"><label for="docentes-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input type="text" id="docentes-evento" name="evento" placeholder="Ex.: II Encontro de Probabilidade" required></div>
+            <div class="campo"><label for="docentes-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="docentes-periodo" name="periodo" placeholder="Ex.: 05/08/2025 a 09/08/2025" required></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="docentes-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label><input type="text" id="docentes-cidade-evento" name="cidade_evento" placeholder="Ex.: Porto Alegre" required></div>
+            <div class="campo"><label for="docentes-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="docentes-estado-evento" name="estado_evento" placeholder="Ex.: RS" required></div>
+            <div class="campo"><label for="docentes-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label><input type="text" id="docentes-pais-evento" name="pais_evento" placeholder="Ex.: Brasil" required></div>
+            <div class="campo"><label for="docentes-link-evento">LINK DO EVENTO, EXAME OU DEFESA</label><input type="text" id="docentes-link-evento" name="link_evento" placeholder="Ex.: https://www.encontro.com.br"></div>
+            <div class="campo"><label for="docentes-valor">VALOR SOLICITADO (R$)</label><input type="text" id="docentes-valor" name="valor" placeholder="Ex.: R$ 2.000,00" inputmode="numeric" required></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="docentes-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="docentes-apresentacao" name="apresentacao" required><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+            <div class="campo inteiro"><label for="docentes-detalhamento">DETALHAMENTO DO PEDIDO</label><textarea id="docentes-detalhamento" name="detalhamento" placeholder="Ex.: Solicito auxílio para passagens aéreas." required></textarea></div>
+          </div>
+        </fieldset>
+        <fieldset class="bloco">
+          <legend>ENDEREÇO DO SOLICITANTE</legend>
+          <div class="linha">
+            <div class="campo"><label for="docentes-nascimento">DATA DE NASCIMENTO</label><input type="text" id="docentes-nascimento" name="nascimento" placeholder="Ex.: 15/07/1975" inputmode="numeric" required></div>
+            <div class="campo largo"><label for="docentes-logradouro">LOGRADOURO</label><input type="text" id="docentes-logradouro" name="logradouro" placeholder="Ex.: Avenida Professor Luciano Gualberto" required></div>
+            <div class="campo"><label for="docentes-numero">NÚMERO</label><input type="text" id="docentes-numero" name="numero" placeholder="Ex.: 455" required></div>
+            <div class="campo"><label for="docentes-complemento">COMPLEMENTO</label><input type="text" id="docentes-complemento" name="complemento" placeholder="Ex.: Prédio 2"></div>
+          </div>
+          <div class="linha">
+            <div class="campo"><label for="docentes-bairro">BAIRRO</label><input type="text" id="docentes-bairro" name="bairro" placeholder="Ex.: Butantã" required></div>
+            <div class="campo"><label for="docentes-cep">CEP</label><input type="text" id="docentes-cep" name="cep" placeholder="Ex.: 05508-090" inputmode="numeric" required></div>
+            <div class="campo"><label for="docentes-cidade">CIDADE</label><input type="text" id="docentes-cidade" name="cidade" placeholder="Ex.: São Paulo" required></div>
+            <div class="campo"><label for="docentes-estado">ESTADO</label><input type="text" id="docentes-estado" name="estado" placeholder="Ex.: SP" required></div>
+          </div>
+        </fieldset>
+        <fieldset class="bloco">
+          <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+          <div class="linha">
+            <div class="campo"><label for="docentes-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="docentes-cpf" name="cpf" placeholder="Ex.: 234.567.890-10" inputmode="numeric" required></div>
+            <div class="campo"><label for="docentes-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="docentes-rg" name="rg" placeholder="Ex.: 34.567.890-1" required></div>
+            <div class="campo"><label for="docentes-banco">NOME DO BANCO</label><input type="text" id="docentes-banco" name="banco" placeholder="Ex.: Itaú" required></div>
+            <div class="campo"><label for="docentes-agencia">NÚMERO DA AGÊNCIA</label><input type="text" id="docentes-agencia" name="agencia" placeholder="Ex.: 5678" inputmode="numeric" required></div>
+            <div class="campo"><label for="docentes-conta">NÚMERO DA CONTA</label><input type="text" id="docentes-conta" name="conta" placeholder="Ex.: 98765-4" required></div>
+          </div>
+        </fieldset>
+        <div class="acoes"><button type="submit" class="enviar">Enviar solicitação</button></div>
+      </form>
+    </section>
+  </main>
+
+  <div class="confirmacao" id="confirmacao" hidden>
+    <h1>Solicitação registrada</h1>
+    <pre id="oficio"></pre>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

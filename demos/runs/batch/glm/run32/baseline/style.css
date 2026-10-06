@@ -1,0 +1,169 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  background: #fff;
+  color: #333;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 0 24px 16px;
+}
+
+/* ===== Cabeçalho ===== */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 3px solid var(--azul-secundario);
+}
+
+.logo {
+  height: 52px;
+  display: block;
+}
+
+.logo {
+  padding: 8px;
+}
+
+.cabecalho-texto .universidade {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--azul-primario);
+  letter-spacing: 0.5px;
+}
+
+.cabecalho-texto .programa {
+  font-size: 0.85rem;
+  color: #777;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Erros ===== */
+.aba-erro {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-left: 5px solid var(--amarelo);
+  background: #fdf3dd;
+  color: #7a4a00;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* ===== Abas ===== */
+.abas {
+  display: flex;
+  gap: 6px;
+  margin: 14px 0 10px;
+}
+
+.aba {
+  padding: 8px 32px;
+  border: 1px solid var(--azul-primario);
+  background: #fff;
+  color: var(--azul-primario);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  color: #fff;
+}
+
+/* ===== Blocos e grid ===== */
+.bloco h2 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  background: var(--azul-primario);
+  padding: 5px 10px;
+  margin-bottom: 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px 10px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #555;
+}
+
+.span2 { grid-column: span 2; }
+
+.campo input,
+.campo select,
+.campo textarea {
+  margin-top: 2px;
+  padding: 4px 6px;
+  border: 1px solid var(--azul-secundario);
+  font-family: inherit;
+  font-size: 0.8rem;
+  border-radius: 3px;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 34px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--amarelo);
+  outline-offset: -1px;
+}
+
+.bloco { margin-bottom: 10px; }
+
+/* ===== Botão ===== */
+.enviar {
+  display: block;
+  margin: 4px auto 0;
+  padding: 7px 28px;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.enviar:hover { background: #0d7c90; }
+
+/* ===== Confirmação ===== */
+.confirmacao { padding: 16px 0; }
+
+.confirmacao h1 {
+  font-size: 1.2rem;
+  color: var(--azul-primario);
+  margin-bottom: 12px;
+}
+
+.oficio {
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  line-height: 1.45;
+  border: 1px solid var(--azul-secundario);
+  padding: 16px;
+  max-width: 800px;
+}

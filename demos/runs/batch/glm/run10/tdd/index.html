@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cabecalho">
+  <img src="assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo">
+  <div>
+    <h1>Universidade de São Paulo</h1>
+    <p>Instituto de Matemática e Estatística - Pós-Graduação</p>
+  </div>
+</header>
+
+<nav class="abas">
+  <button type="button" class="aba ativa" data-aba="alunos">ALUNOS</button>
+  <button type="button" class="aba" data-aba="docentes">DOCENTES</button>
+</nav>
+
+<main id="pagina">
+<section id="formulario">
+
+<form id="form-alunos" class="painel" data-aba="alunos">
+  <div class="erros" id="erros-alunos"></div>
+  <fieldset>
+    <legend>SOLICITANTE E EVENTO</legend>
+    <div class="grade">
+      <label class="amplo">NOME COMPLETO - SEM ABREVIAR<input name="nome_completo" placeholder="Maria da Silva" required></label>
+      <label>N. USP<input name="n_usp" inputmode="numeric" placeholder="12345678" required></label>
+      <label class="amplo">PROGRAMA<input name="programa" placeholder="Matemática Aplicada" required></label>
+      <label>NÍVEL<select name="nivel" required>
+        <option value="" selected disabled>Selecione</option>
+        <option>Mestrado</option>
+        <option>Doutorado</option>
+      </select></label>
+      <label>TIPO DE AUXÍLIO<select name="tipo_auxilio" required>
+        <option value="" selected disabled>Selecione</option>
+        <option>Participação em evento</option>
+        <option>Banca de exame ou defesa</option>
+        <option>Outro</option>
+      </select></label>
+      <label>E-MAIL<input type="email" name="email" placeholder="aluno@usp.br" required></label>
+      <label class="amplo">NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input name="nome_evento" placeholder="Congresso Nacional de Matemática" required></label>
+      <label class="amplo">PERÍODO DO EVENTO, EXAME OU DEFESA<input name="periodo" placeholder="10 a 12 de julho de 2025" required></label>
+      <label>CIDADE DO EVENTO, EXAME OU DEFESA<input name="cidade_evento" placeholder="São Paulo" required></label>
+      <label>ESTADO DO EVENTO, EXAME OU DEFESA<input name="estado_evento" placeholder="SP" required></label>
+      <label>PAÍS DO EVENTO, EXAME OU DEFESA<input name="pais_evento" placeholder="Brasil" required></label>
+      <label class="amplo">LINK DO EVENTO, EXAME OU DEFESA<input name="link_evento" placeholder="site-do-evento.com.br"></label>
+      <label>VALOR SOLICITADO (R$)<input name="valor_solicitado" class="campo-moeda" inputmode="numeric" placeholder="1500" required></label>
+      <label class="amplo">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentacao" required>
+        <option value="" selected disabled>Selecione</option>
+        <option>Pôster</option>
+        <option>Apresentação oral</option>
+        <option>Outra</option>
+        <option>Não irá apresentar trabalho</option>
+      </select></label>
+      <label class="total">DETALHAMENTO DO PEDIDO<textarea name="detalhamento" placeholder="Inscrição, passagem e diárias" required></textarea></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>ENDEREÇO DO SOLICITANTE</legend>
+    <div class="grade">
+      <label>DATA DE NASCIMENTO<input name="data_nascimento" class="campo-data" inputmode="numeric" placeholder="01/02/1980" required></label>
+      <label class="amplo">LOGRADOURO<input name="logradouro" placeholder="Rua Alice" required></label>
+      <label>NÚMERO<input name="numero" placeholder="100" required></label>
+      <label>COMPLEMENTO<input name="complemento" placeholder="Apto 2"></label>
+      <label>BAIRRO<input name="bairro" placeholder="Butantã" required></label>
+      <label>CEP<input name="cep" class="campo-cep" inputmode="numeric" placeholder="05508-090" required></label>
+      <label class="amplo">CIDADE<input name="cidade" placeholder="São Paulo" required></label>
+      <label>ESTADO<input name="estado" placeholder="SP" required></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+    <div class="grade">
+      <label>CPF (SEPARADOS POR PONTOS E TRAÇO)<input name="cpf" class="campo-cpf" inputmode="numeric" placeholder="123.456.789-09" required></label>
+      <label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)<input name="rg" placeholder="12.345.678-9" required></label>
+      <label class="amplo">NOME DO BANCO<input name="banco" placeholder="Banco do Brasil" required></label>
+      <label>NÚMERO DA AGÊNCIA<input name="agencia" inputmode="numeric" placeholder="1234" required></label>
+      <label>NÚMERO DA CONTA<input name="conta" placeholder="12345-6" required></label>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="enviar">Enviar solicitação</button>
+</form>
+
+<form id="form-docentes" class="painel oculto" data-aba="docentes">
+  <div class="erros" id="erros-docentes"></div>
+  <fieldset>
+    <legend>SOLICITANTE E EVENTO</legend>
+    <div class="grade">
+      <label class="amplo">NOME COMPLETO - SEM ABREVIAR<input name="nome_completo" placeholder="João de Souza" required></label>
+      <label>N. USP<input name="n_usp" inputmode="numeric" placeholder="87654321" required></label>
+      <label class="amplo">PROGRAMA<input name="programa" placeholder="Matemática Aplicada" required></label>
+      <label>E-MAIL<input type="email" name="email" placeholder="docente@usp.br" required></label>
+      <label class="amplo">NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input name="nome_evento" placeholder="Congresso Nacional de Matemática" required></label>
+      <label class="amplo">PERÍODO DO EVENTO, EXAME OU DEFESA<input name="periodo" placeholder="10 a 12 de julho de 2025" required></label>
+      <label>CIDADE DO EVENTO, EXAME OU DEFESA<input name="cidade_evento" placeholder="São Paulo" required></label>
+      <label>ESTADO DO EVENTO, EXAME OU DEFESA<input name="estado_evento" placeholder="SP" required></label>
+      <label>PAÍS DO EVENTO, EXAME OU DEFESA<input name="pais_evento" placeholder="Brasil" required></label>
+      <label class="amplo">LINK DO EVENTO, EXAME OU DEFESA<input name="link_evento" placeholder="site-do-evento.com.br"></label>
+      <label>VALOR SOLICITADO (R$)<input name="valor_solicitado" class="campo-moeda" inputmode="numeric" placeholder="1500" required></label>
+      <label class="amplo">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentacao" required>
+        <option value="" selected disabled>Selecione</option>
+        <option>Pôster</option>
+        <option>Apresentação oral</option>
+        <option>Outra</option>
+        <option>Não irá apresentar trabalho</option>
+      </select></label>
+      <label class="total">DETALHAMENTO DO PEDIDO<textarea name="detalhamento" placeholder="Inscrição, passagem e diárias" required></textarea></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>ENDEREÇO DO SOLICITANTE</legend>
+    <div class="grade">
+      <label>DATA DE NASCIMENTO<input name="data_nascimento" class="campo-data" inputmode="numeric" placeholder="01/02/1980" required></label>
+      <label class="amplo">LOGRADOURO<input name="logradouro" placeholder="Rua Alice" required></label>
+      <label>NÚMERO<input name="numero" placeholder="100" required></label>
+      <label>COMPLEMENTO<input name="complemento" placeholder="Apto 2"></label>
+      <label>BAIRRO<input name="bairro" placeholder="Butantã" required></label>
+      <label>CEP<input name="cep" class="campo-cep" inputmode="numeric" placeholder="05508-090" required></label>
+      <label class="amplo">CIDADE<input name="cidade" placeholder="São Paulo" required></label>
+      <label>ESTADO<input name="estado" placeholder="SP" required></label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+    <div class="grade">
+      <label>CPF (SEPARADOS POR PONTOS E TRAÇO)<input name="cpf" class="campo-cpf" inputmode="numeric" placeholder="123.456.789-09" required></label>
+      <label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)<input name="rg" placeholder="12.345.678-9" required></label>
+      <label class="amplo">NOME DO BANCO<input name="banco" placeholder="Banco do Brasil" required></label>
+      <label>NÚMERO DA AGÊNCIA<input name="agencia" inputmode="numeric" placeholder="1234" required></label>
+      <label>NÚMERO DA CONTA<input name="conta" placeholder="12345-6" required></label>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="enviar">Enviar solicitação</button>
+</form>
+
+</section>
+
+<section id="confirmacao" class="oculto">
+  <h2>Solicitação registrada</h2>
+  <pre id="oficio"></pre>
+</section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel='stylesheet' href='/style.css'>
+</head>
+<body>
+<header class='cabecalho'>
+  <div class='marca'>
+    <img src='/assets/usp-logo.png' alt='Logotipo da Universidade de São Paulo'>
+  </div>
+  <div class='nomes'>
+    <p class='nome-universidade'>Universidade de São Paulo</p>
+    <p class='nome-programa'>Programa de Pós-Graduação do IME-USP</p>
+  </div>
+</header>
+
+<main>
+  <div id='area-solicitacao'>
+    <nav class='abas' aria-label='Tipo de solicitante'>
+      <button type='button' class='aba ativa' data-alvo='form-alunos'>ALUNOS</button>
+      <button type='button' class='aba' data-alvo='form-docentes'>DOCENTES</button>
+    </nav>
+
+    <form id='form-alunos' class='formulario ativa' data-perfil='alunos' novalidate>
+      <div class='erros' role='alert' hidden></div>
+
+      <section class='bloco'>
+        <h2>SOLICITANTE E EVENTO</h2>
+        <div class='grade grade-6'>
+          <label class='campo c2'><span class='rotulo'>NOME COMPLETO - SEM ABREVIAR</span><input type='text' name='nome' placeholder='Ex.: Maria de Lourdes Almeida Silva'></label>
+          <label class='campo'><span class='rotulo'>N. USP</span><input type='text' name='n_usp' inputmode='numeric' placeholder='Ex.: 1234567'></label>
+          <label class='campo c2'><span class='rotulo'>PROGRAMA</span><input type='text' name='programa' placeholder='Ex.: Ciência da Computação'></label>
+          <label class='campo'><span class='rotulo'>NÍVEL</span>
+            <select name='nivel'>
+              <option value=''>Selecione…</option>
+              <option>Mestrado</option>
+              <option>Doutorado</option>
+            </select>
+          </label>
+          <label class='campo c2'><span class='rotulo'>TIPO DE AUXÍLIO</span>
+            <select name='tipo_auxilio'>
+              <option value=''>Selecione…</option>
+              <option>Participação em evento</option>
+              <option>Banca de exame ou defesa</option>
+              <option>Outro</option>
+            </select>
+          </label>
+          <label class='campo c2'><span class='rotulo'>E-MAIL</span><input type='text' name='email' placeholder='Ex.: maria.silva@usp.br'></label>
+          <label class='campo c2'><span class='rotulo'>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</span><input type='text' name='evento' placeholder='Ex.: Congresso Brasileiro de Informática'></label>
+          <label class='campo c2'><span class='rotulo'>PERÍODO DO EVENTO, EXAME OU DEFESA</span><input type='text' name='periodo' placeholder='Ex.: 10/08/2025 a 15/08/2025'></label>
+          <label class='campo'><span class='rotulo'>CIDADE DO EVENTO, EXAME OU DEFESA</span><input type='text' name='cidade_evento' placeholder='Ex.: Belo Horizonte'></label>
+          <label class='campo'><span class='rotulo'>ESTADO DO EVENTO, EXAME OU DEFESA</span><input type='text' name='estado_evento' placeholder='Ex.: Minas Gerais'></label>
+          <label class='campo'><span class='rotulo'>PAÍS DO EVENTO, EXAME OU DEFESA</span><input type='text' name='pais_evento' placeholder='Ex.: Brasil'></label>
+          <label class='campo'><span class='rotulo'>LINK DO EVENTO, EXAME OU DEFESA</span><input type='text' name='link' placeholder='Ex.: https://evento.org.br'></label>
+          <label class='campo'><span class='rotulo'>VALOR SOLICITADO (R$)</span><input type='text' name='valor' data-formato='valor' inputmode='numeric' placeholder='Ex.: 150000'></label>
+          <label class='campo c3'><span class='rotulo'>DETALHAMENTO DO PEDIDO</span><textarea name='detalhamento' rows='2' placeholder='Ex.: Inscrição no evento e passagem aérea'></textarea></label>
+          <label class='campo c2'><span class='rotulo'>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</span>
+            <select name='apresentacao'>
+              <option value=''>Selecione…</option>
+              <option>Pôster</option>
+              <option>Apresentação oral</option>
+              <option>Outra</option>
+              <option>Não irá apresentar trabalho</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <div class='faixa'>
+        <section class='bloco'>
+          <h2>ENDEREÇO DO SOLICITANTE</h2>
+          <div class='grade grade-3'>
+            <label class='campo'><span class='rotulo'>DATA DE NASCIMENTO</span><input type='text' name='data_nascimento' data-formato='data' inputmode='numeric' placeholder='Ex.: 01021980'></label>
+            <label class='campo c2'><span class='rotulo'>LOGRADOURO</span><input type='text' name='logradouro' placeholder='Ex.: Rua do Matão'></label>
+            <label class='campo'><span class='rotulo'>NÚMERO</span><input type='text' name='numero' placeholder='Ex.: 1010'></label>
+            <label class='campo'><span class='rotulo'>COMPLEMENTO</span><input type='text' name='complemento' placeholder='Ex.: Apto 52, Bloco B'></label>
+            <label class='campo'><span class='rotulo'>BAIRRO</span><input type='text' name='bairro' placeholder='Ex.: Cidade Universitária'></label>
+            <label class='campo'><span class='rotulo'>CEP</span><input type='text' name='cep' data-formato='cep' inputmode='numeric' placeholder='Ex.: 05508090'></label>
+            <label class='campo'><span class='rotulo'>CIDADE</span><input type='text' name='cidade' placeholder='Ex.: São Paulo'></label>
+            <label class='campo'><span class='rotulo'>ESTADO</span><input type='text' name='estado' placeholder='Ex.: São Paulo'></label>
+          </div>
+        </section>
+
+        <section class='bloco'>
+          <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+          <div class='grade grade-3'>
+            <label class='campo'><span class='rotulo'>CPF (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' name='cpf' data-formato='cpf' inputmode='numeric' placeholder='Ex.: 12345678909'></label>
+            <label class='campo'><span class='rotulo'>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' name='rg' placeholder='Ex.: 12.345.678-9'></label>
+            <label class='campo'><span class='rotulo'>NOME DO BANCO</span><input type='text' name='banco' placeholder='Ex.: Banco do Brasil'></label>
+            <label class='campo'><span class='rotulo'>NÚMERO DA AGÊNCIA</span><input type='text' name='agencia' inputmode='numeric' placeholder='Ex.: 1234'></label>
+            <label class='campo'><span class='rotulo'>NÚMERO DA CONTA</span><input type='text' name='conta' placeholder='Ex.: 12345-6'></label>
+          </div>
+        </section>
+      </div>
+
+      <button type='submit' class='enviar'>Enviar solicitação</button>
+    </form>
+
+    <form id='form-docentes' class='formulario' data-perfil='docentes' novalidate>
+      <div class='erros' role='alert' hidden></div>
+
+      <section class='bloco'>
+        <h2>SOLICITANTE E EVENTO</h2>
+        <div class='grade grade-6'>
+          <label class='campo c2'><span class='rotulo'>NOME COMPLETO - SEM ABREVIAR</span><input type='text' name='nome' placeholder='Ex.: Carlos Eduardo Martins Nunes'></label>
+          <label class='campo'><span class='rotulo'>N. USP</span><input type='text' name='n_usp' inputmode='numeric' placeholder='Ex.: 1234567'></label>
+          <label class='campo c3'><span class='rotulo'>PROGRAMA</span><input type='text' name='programa' placeholder='Ex.: Estatística'></label>
+          <label class='campo c2'><span class='rotulo'>E-MAIL</span><input type='text' name='email' placeholder='Ex.: carlos.nunes@usp.br'></label>
+          <label class='campo c2'><span class='rotulo'>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</span><input type='text' name='evento' placeholder='Ex.: Banca de defesa de mestrado'></label>
+          <label class='campo c2'><span class='rotulo'>PERÍODO DO EVENTO, EXAME OU DEFESA</span><input type='text' name='periodo' placeholder='Ex.: 12/09/2025 a 14/09/2025'></label>
+          <label class='campo'><span class='rotulo'>CIDADE DO EVENTO, EXAME OU DEFESA</span><input type='text' name='cidade_evento' placeholder='Ex.: São Paulo'></label>
+          <label class='campo'><span class='rotulo'>ESTADO DO EVENTO, EXAME OU DEFESA</span><input type='text' name='estado_evento' placeholder='Ex.: São Paulo'></label>
+          <label class='campo'><span class='rotulo'>PAÍS DO EVENTO, EXAME OU DEFESA</span><input type='text' name='pais_evento' placeholder='Ex.: Brasil'></label>
+          <label class='campo'><span class='rotulo'>LINK DO EVENTO, EXAME OU DEFESA</span><input type='text' name='link' placeholder='Ex.: https://evento.org.br'></label>
+          <label class='campo c2'><span class='rotulo'>VALOR SOLICITADO (R$)</span><input type='text' name='valor' data-formato='valor' inputmode='numeric' placeholder='Ex.: 150000'></label>
+          <label class='campo c4'><span class='rotulo'>DETALHAMENTO DO PEDIDO</span><textarea name='detalhamento' rows='2' placeholder='Ex.: Passagem rodoviária para participação em banca'></textarea></label>
+          <label class='campo c2'><span class='rotulo'>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</span>
+            <select name='apresentacao'>
+              <option value=''>Selecione…</option>
+              <option>Pôster</option>
+              <option>Apresentação oral</option>
+              <option>Outra</option>
+              <option>Não irá apresentar trabalho</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <div class='faixa'>
+        <section class='bloco'>
+          <h2>ENDEREÇO DO SOLICITANTE</h2>
+          <div class='grade grade-3'>
+            <label class='campo'><span class='rotulo'>DATA DE NASCIMENTO</span><input type='text' name='data_nascimento' data-formato='data' inputmode='numeric' placeholder='Ex.: 01021980'></label>
+            <label class='campo c2'><span class='rotulo'>LOGRADOURO</span><input type='text' name='logradouro' placeholder='Ex.: Rua do Matão'></label>
+            <label class='campo'><span class='rotulo'>NÚMERO</span><input type='text' name='numero' placeholder='Ex.: 1010'></label>
+            <label class='campo'><span class='rotulo'>COMPLEMENTO</span><input type='text' name='complemento' placeholder='Ex.: Apto 52, Bloco B'></label>
+            <label class='campo'><span class='rotulo'>BAIRRO</span><input type='text' name='bairro' placeholder='Ex.: Cidade Universitária'></label>
+            <label class='campo'><span class='rotulo'>CEP</span><input type='text' name='cep' data-formato='cep' inputmode='numeric' placeholder='Ex.: 05508090'></label>
+            <label class='campo'><span class='rotulo'>CIDADE</span><input type='text' name='cidade' placeholder='Ex.: São Paulo'></label>
+            <label class='campo'><span class='rotulo'>ESTADO</span><input type='text' name='estado' placeholder='Ex.: São Paulo'></label>
+          </div>
+        </section>
+
+        <section class='bloco'>
+          <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+          <div class='grade grade-3'>
+            <label class='campo'><span class='rotulo'>CPF (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' name='cpf' data-formato='cpf' inputmode='numeric' placeholder='Ex.: 12345678909'></label>
+            <label class='campo'><span class='rotulo'>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' name='rg' placeholder='Ex.: 12.345.678-9'></label>
+            <label class='campo'><span class='rotulo'>NOME DO BANCO</span><input type='text' name='banco' placeholder='Ex.: Banco do Brasil'></label>
+            <label class='campo'><span class='rotulo'>NÚMERO DA AGÊNCIA</span><input type='text' name='agencia' inputmode='numeric' placeholder='Ex.: 1234'></label>
+            <label class='campo'><span class='rotulo'>NÚMERO DA CONTA</span><input type='text' name='conta' placeholder='Ex.: 12345-6'></label>
+          </div>
+        </section>
+      </div>
+
+      <button type='submit' class='enviar'>Enviar solicitação</button>
+    </form>
+  </div>
+
+  <section id='confirmacao' hidden>
+    <h1 class='titulo-confirmacao'>Solicitação registrada</h1>
+    <pre id='oficio' class='oficio'></pre>
+  </section>
+</main>
+
+<script src='/app.js'></script>
+</body>
+</html>

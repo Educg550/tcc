@@ -1,0 +1,60 @@
+{
+  "started_at": "2026-08-28T11:32:31",
+  "ended_at": "2026-08-28T11:38:32",
+  "total_duration_s": 361.49,
+  "modo": "criacao",
+  "requisito_id": "01-formulario-docentes",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "dependencias": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4-flash",
+      "coder": "deepseek/deepseek-v4-pro",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.074782,
+  "total_tokens": 33650,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "direto",
+      "configured_model": "deepseek/deepseek-v4-pro",
+      "duration_s": 360.06,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [],
+      "input_tokens": 3264,
+      "output_tokens": 30386,
+      "total_tokens": 33650,
+      "cost_usd": 0.074782,
+      "impressao": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+      "tests_vermelhos": null
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 0,
+    "total": 0
+  },
+  "regressao": null,
+  "integridade": {
+    "medido_sha256": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+    "intacto": true
+  }
+}

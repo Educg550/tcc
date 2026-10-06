@@ -1,0 +1,64 @@
+{
+  "started_at": "2026-09-15T14:24:08",
+  "ended_at": "2026-09-15T14:27:00",
+  "total_duration_s": 172.27,
+  "grupo": "baseline",
+  "requisito_id": "01-formulario-docentes-deepseek",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4.1-flash",
+      "coder": "deepseek/deepseek-v4.1-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.018752,
+  "total_tokens": 32258,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "direto",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 171.4,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [],
+      "input_tokens": 3929,
+      "output_tokens": 28329,
+      "total_tokens": 32258,
+      "cost_usd": 0.018752,
+      "impressao": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+      "tests_vermelhos": null
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 0,
+    "total": 0
+  },
+  "integridade": {
+    "medido_sha256": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+    "intacto": true
+  }
+}

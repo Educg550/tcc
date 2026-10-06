@@ -1,0 +1,163 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  color: #1f2937;
+  background: #f3f6f8;
+  min-height: 100vh;
+}
+
+.cabecalho {
+  background: #fff;
+  border-bottom: 4px solid var(--azul-primario);
+}
+
+.cabecalho-interno {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.logo-margem {
+  padding: 0.5rem; /* margem livre em volta do logotipo */
+  display: inline-flex;
+  background: #fff;
+}
+
+.logo-margem img { display: block; height: 56px; }
+
+.instituicao { line-height: 1.25; }
+
+.instituicao .universidade {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--azul-primario);
+  letter-spacing: 0.02em;
+}
+
+.instituicao .unidade {
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8rem 1rem;
+}
+
+.abas { display: flex; gap: 0.25rem; margin-bottom: 0.75rem; }
+
+.aba {
+  padding: 0.4rem 1.4rem;
+  background: #e2e8ea;
+  color: #3c4852;
+  border: 1px solid #c7d2d6;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.aba.ativa { background: #fff; color: var(--azul-primario); border-color: var(--azul-secundario); }
+
+.painel { display: none; background: #fff; border: 1px solid #c7d2d6; border-radius: 0 6px 6px 6px; padding: 0.9rem; }
+.painel.ativo { display: block; }
+
+.painel[hidden] { display: none; }
+
+.erros {
+  display: none;
+  margin-bottom: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  background: #fdf3e2;
+  border-left: 4px solid var(--amarelo);
+  border-radius: 4px;
+  color: #7a4b00;
+  font-size: 0.8rem;
+}
+
+.erros li { list-style: none; line-height: 1.5; }
+
+.bloco { margin-bottom: 0.7rem; }
+
+.bloco h2 {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--azul-primario);
+  border-bottom: 2px solid var(--azul-secundario);
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.6rem 0.75rem;
+}
+
+.campo { display: flex; flex-direction: column; gap: 0.2rem; }
+.campo.col-2 { grid-column: span 2; }
+.campo.col-3 { grid-column: span 3; }
+.campo.col-6 { grid-column: span 6; }
+
+.campo label { font-size: 0.68rem; font-weight: 600; color: #3c4852; }
+
+.campo input, .campo select, .campo textarea {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid #b6c4ca;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 0.8rem;
+  background: #fff;
+  width: 100%;
+}
+
+.campo textarea { resize: vertical; min-height: 3.2em; }
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  border-color: var(--azul-primario);
+}
+
+.enviar {
+  margin-top: 0.9rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7f93; }
+
+#confirmacao[hidden] { display: none; }
+
+#confirmacao h1 {
+  color: var(--azul-primario);
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+
+.oficio {
+  background: #fff;
+  border: 1px solid #c7d2d6;
+  border-radius: 6px;
+  padding: 1rem;
+  white-space: pre-wrap;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}

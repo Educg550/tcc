@@ -1,0 +1,84 @@
+{
+  "started_at": "2026-08-28T10:58:35",
+  "ended_at": "2026-08-28T11:24:01",
+  "total_duration_s": 1526.23,
+  "modo": "criacao",
+  "requisito_id": "01-formulario-docentes",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "dependencias": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4-flash",
+      "coder": "deepseek/deepseek-v4-pro",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.044035,
+  "total_tokens": 35872,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4-flash",
+      "duration_s": 140.12,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_app.py"
+      ],
+      "historico": [],
+      "input_tokens": 3221,
+      "output_tokens": 12531,
+      "total_tokens": 15752,
+      "cost_usd": 0.00396
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4-pro",
+      "duration_s": 207.49,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 14,
+          "failed": 0,
+          "errors": 0,
+          "total": 14
+        }
+      ],
+      "input_tokens": 4880,
+      "output_tokens": 15240,
+      "total_tokens": 20120,
+      "cost_usd": 0.040075,
+      "impressao": "b66f1cae30718b1414df56f50cd2a7e22fdbfaa1f9c72fd49d979300fdd509e8",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 14,
+    "failed": 0,
+    "errors": 0,
+    "total": 14
+  },
+  "regressao": null,
+  "integridade": {
+    "medido_sha256": "b66f1cae30718b1414df56f50cd2a7e22fdbfaa1f9c72fd49d979300fdd509e8",
+    "intacto": true
+  }
+}

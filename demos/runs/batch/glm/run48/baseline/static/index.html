@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auxílio Financeiro - Pós-Graduação IME-USP</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div id="erro-container"></div>
+    <header>
+        <img src="/static/usp-logo.png" alt="Logo USP">
+        <h1>Universidade de São Paulo</h1>
+        <h2>Pós-Graduação IME-USP</h2>
+    </header>
+    <div class="tabs">
+        <button class="tab active" data-tipo="aluno">ALUNOS</button>
+        <button class="tab" data-tipo="docente">DOCENTES</button>
+    </div>
+    <form id="form-aluno" class="form-secao active">
+        <input type="hidden" name="tipo" value="aluno">
+        <div id="erros-aluno" class="erros"></div>
+        <fieldset>
+            <legend>SOLICITANTE E EVENTO</legend>
+            <input type="text" name="nome" placeholder="Maria da Silva Santos" required>
+            <input type="text" name="nusp" placeholder="12345678" required>
+            <input type="text" name="programa" placeholder="Matemática" required>
+            <select name="nivel" required><option value="">Nível</option><option>Mestrado</option><option>Doutorado</option></select>
+            <select name="tipo_auxilio" required><option value="">Tipo</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select>
+            <input type="email" name="email" placeholder="exemplo@usp.br" required>
+            <input type="text" name="nome_evento" placeholder="Congresso Nacional" required>
+            <input type="text" name="periodo" placeholder="10-14/03/2025" required>
+            <input type="text" name="cidade_evento" placeholder="São Paulo" required>
+            <input type="text" name="estado_evento" placeholder="SP" required>
+            <input type="text" name="pais_evento" placeholder="Brasil" required>
+            <input type="text" name="link_evento" placeholder="https://...">
+            <input type="text" name="valor_solicitado" placeholder="1500" required>
+            <textarea name="detalhamento" required></textarea>
+            <select name="apresentacao" required><option value="">Tipo</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select>
+        </fieldset>
+        <fieldset>
+            <legend>ENDEREÇO DO SOLICITANTE</legend>
+            <input type="text" name="data_nascimento" placeholder="01/02/1980" required>
+            <input type="text" name="logradouro" placeholder="Rua Machado de Assis" required>
+            <input type="text" name="numero" placeholder="123" required>
+            <input type="text" name="complemento" placeholder="Apto 4">
+            <input type="text" name="bairro" placeholder="Butantã" required>
+            <input type="text" name="cep" placeholder="05508-090" required>
+            <input type="text" name="cidade" placeholder="São Paulo" required>
+            <input type="text" name="estado" placeholder="SP" required>
+        </fieldset>
+        <fieldset>
+            <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+            <input type="text" name="cpf" placeholder="123.456.789-09" required>
+            <input type="text" name="rg" placeholder="12.345.678-9" required>
+            <input type="text" name="banco" placeholder="Banco do Brasil" required>
+            <input type="text" name="agencia" placeholder="1234" required>
+            <input type="text" name="conta" placeholder="56789-0" required>
+        </fieldset>
+        <button type="submit">Enviar solicitação</button>
+    </form>
+    <form id="form-docente" class="form-secao">
+        <input type="hidden" name="tipo" value="docente">
+        <div id="erros-docente" class="erros"></div>
+        <fieldset>
+            <legend>SOLICITANTE E EVENTO</legend>
+            <input type="text" name="nome" placeholder="João da Silva" required>
+            <input type="text" name="nusp" placeholder="87654321" required>
+            <input type="text" name="programa" placeholder="Computação" required>
+            <input type="email" name="email" placeholder="joao@ime.usp.br" required>
+            <input type="text" name="nome_evento" placeholder="Simpósio" required>
+            <input type="text" name="periodo" placeholder="05-07/04/2025" required>
+            <input type="text" name="cidade_evento" placeholder="Rio de Janeiro" required>
+            <input type="text" name="estado_evento" placeholder="RJ" required>
+            <input type="text" name="pais_evento" placeholder="Brasil" required>
+            <input type="text" name="link_evento" placeholder="https://...">
+            <input type="text" name="valor_solicitado" placeholder="2000" required>
+            <textarea name="detalhamento" required></textarea>
+            <select name="apresentacao" required><option value="">Tipo</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select>
+        </fieldset>
+        <fieldset>
+            <legend>ENDEREÇO DO SOLICITANTE</legend>
+            <input type="text" name="data_nascimento" placeholder="15/06/1975" required>
+            <input type="text" name="logradouro" placeholder="Av. Prof. Lineu Prestes" required>
+            <input type="text" name="numero" placeholder="456" required>
+            <input type="text" name="complemento" placeholder="Bloco A">
+            <input type="text" name="bairro" placeholder="Cidade Universitária" required>
+            <input type="text" name="cep" placeholder="05508-000" required>
+            <input type="text" name="cidade" placeholder="São Paulo" required>
+            <input type="text" name="estado" placeholder="SP" required>
+        </fieldset>
+        <fieldset>
+            <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+            <input type="text" name="cpf" placeholder="987.654.321-00" required>
+            <input type="text" name="rg" placeholder="34.567.890-1" required>
+            <input type="text" name="banco" placeholder="Itaú" required>
+            <input type="text" name="agencia" placeholder="4321" required>
+            <input type="text" name="conta" placeholder="12345-6" required>
+        </fieldset>
+        <button type="submit">Enviar solicitação</button>
+    </form>
+    <div id="resultado" style="display:none"></div>
+    <script src="/static/app.js"></script>
+</body>
+</html>

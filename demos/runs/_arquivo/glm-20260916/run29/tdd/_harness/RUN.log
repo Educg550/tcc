@@ -1,0 +1,94 @@
+{
+  "started_at": "2026-09-15T17:04:16",
+  "ended_at": "2026-09-15T17:51:56",
+  "total_duration_s": 2860.07,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3-flash",
+      "coder": "z-ai/glm-5.3-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.177413,
+  "total_tokens": 393708,
+  "total_retries": 2,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3-flash",
+      "duration_s": 887.31,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_auxilio_financeiro.py"
+      ],
+      "historico": [],
+      "input_tokens": 4031,
+      "output_tokens": 93775,
+      "total_tokens": 97806,
+      "cost_usd": 0.047016
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3-flash",
+      "duration_s": 1971.95,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 3,
+      "retries": 2,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        }
+      ],
+      "input_tokens": 39994,
+      "output_tokens": 255908,
+      "total_tokens": 295902,
+      "cost_usd": 0.130397,
+      "impressao": "dbd4af1aaa3c68ad2437046860b4e0a323248f14d78e5a309a132e9a7d0f9978",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 1,
+    "total": 1
+  },
+  "integridade": {
+    "medido_sha256": "dbd4af1aaa3c68ad2437046860b4e0a323248f14d78e5a309a132e9a7d0f9978",
+    "intacto": true
+  }
+}

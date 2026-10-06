@@ -1,0 +1,160 @@
+:root {
+  --azul: #1094ab;
+  --azul2: #64c4d2;
+  --amarelo: #fcb421;
+  --fonte: "Open Sans", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: #155e6b;
+  font-family: var(--fonte);
+  background: #f2f9fb;
+}
+
+.oculto { display: none; }
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 3.2em;
+  background: white;
+  border-left: 1em solid var(--azul2);
+  padding: 0.9em 1.4em;
+}
+
+header img {
+  height: 5.2em;
+}
+
+header h1 {
+  margin: 0;
+  color: var(--azul);
+  font-size: 1.7em;
+}
+
+header p {
+  margin: 0.1em 0 0;
+  color: #888;
+  font-size: 0.95em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+main {
+  margin: 1.1em 1.4em 2.4em;
+}
+
+.abas {
+  display: flex;
+  border-bottom: 3px solid var(--amarelo);
+}
+
+.abas button {
+  font: inherit;
+  letter-spacing: 0.14em;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  background: #d8eef2;
+  color: #57787e;
+  padding: 0.55em 2.2em;
+  cursor: pointer;
+}
+
+.abas button.ativa {
+  background: var(--azul);
+  color: white;
+  border-bottom-color: var(--amarelo);
+}
+
+form { margin: 0; }
+
+form[hidden] { display: none; }
+
+fieldset {
+  margin: 1.1em 0 0;
+  border: 1px solid #a9d4db;
+  border-radius: 4px;
+  padding: 0.45em 0.9em 0.7em;
+  background: white;
+}
+
+legend {
+  color: var(--azul);
+  font-weight: bold;
+  letter-spacing: 0.09em;
+  padding: 0 0.45em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 2fr;
+  gap: 0.55em 0.9em;
+}
+
+.grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.l2 { grid-column: span 2; }
+
+label {
+  font-size: 0.76em;
+  letter-spacing: 0.04em;
+  color: #41626a;
+  margin: 0 0 0.15em;
+}
+
+input, select, textarea {
+  font: inherit;
+  border: 1px solid #bcd8de;
+  border-radius: 3px;
+  padding: 0.34em 0.5em;
+  color: #33565c;
+  background: white;
+  width: 100%;
+}
+
+textarea { resize: vertical; }
+
+button.enviar {
+  margin-top: 1.2em;
+  font: inherit;
+  font-weight: bold;
+  border: none;
+  border-radius: 3px;
+  padding: 0.5em 1.6em;
+  background: var(--amarelo);
+  color: #5d4a1e;
+  cursor: pointer;
+}
+
+.erros {
+  margin: 1.1em 0 0;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  background: #fdecec;
+  color: #a12622;
+}
+
+.erros p { margin: 0.2em 0; }
+
+[hidden] { display: none; }
+
+#confirmacao {
+  max-width: 60em;
+  margin: 0 auto 2.4em;
+}
+
+#confirmacao header { margin-bottom: 1.4em; }
+
+#confirmacao h2 { color: var(--azul); margin: 1.1em 0 0.7em; }
+
+pre {
+  font-family: inherit;
+  white-space: pre-wrap;
+}

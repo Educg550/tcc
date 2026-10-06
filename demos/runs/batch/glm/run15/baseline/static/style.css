@@ -1,0 +1,204 @@
+/* Auxílio Financeiro - Pós-Graduação IME-USP */
+
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  color: #212121;
+  background: #f4f8fa;
+}
+
+/* Cabeçalho institucional: logotipo com área de respiro */
+.cabecalho {
+  background: #fff;
+  border-bottom: 4px solid var(--azul-secundario);
+  padding: 0.9em;
+}
+
+.instituicao {
+  display: flex;
+  align-items: center;
+  gap: 1.2em;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.instituicao img {
+  height: 3.5em;
+  display: block;
+}
+
+.instituicao p {
+  margin: 0;
+}
+
+.universidade {
+  color: var(--azul-primario);
+  font-weight: 700;
+  font-size: 1.15em;
+}
+
+.programa {
+  color: var(--azul-primario);
+  opacity: 0.65;
+  font-size: 0.85em;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6em 0.9em;
+  overflow: auto;
+}
+
+.titulo {
+  color: var(--azul-primario);
+  font-size: 1.1em;
+  margin: 0 0 0.4em;
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 0.25em;
+  margin: 0 0 0.6em;
+  border-bottom: 2px solid var(--azul-secundario);
+}
+
+.aba-navegacao {
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--azul-primario);
+  background: #fff;
+  border: 2px solid var(--azul-secundario);
+  border-bottom: none;
+  padding: 0.35em 1.4em;
+  cursor: pointer;
+}
+
+.aba-navegacao.ativa {
+  background: var(--azul-primario);
+  color: #fff;
+}
+
+/* Formulário */
+.corpo {
+  flex: 1;
+}
+
+form {
+  background: #fff;
+  border-radius: 4px;
+  padding: 0.5em 0.8em 0.7em;
+}
+
+fieldset {
+  border: 1px solid #d5e3ea;
+  margin: 0 0 0.45em;
+  padding: 0.35em 0.7em 0.45em;
+}
+
+legend {
+  color: var(--azul-primario);
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0 0.4em;
+}
+
+.duas-colunas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35em 0.8em;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.68em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #37474f;
+}
+
+.coluna-inteira {
+  grid-column: 1 / -1;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 400;
+  padding: 0.3em 0.45em;
+  border: 1px solid #b0bec5;
+  border-radius: 3px;
+  background: #fff;
+  color: #212121;
+}
+
+textarea {
+  min-height: 2.8em;
+  resize: vertical;
+}
+
+button[type="submit"] {
+  font: inherit;
+  font-weight: 600;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 0.45em 1.5em;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: #0d7d91;
+}
+
+.erro {
+  color: #b00020;
+  font-size: 0.85em;
+  margin: 0 0 0.5em;
+  white-space: pre-line;
+  display: none;
+}
+
+.erro.visivel {
+  display: block;
+}
+
+/* Confirmação */
+#oficio {
+  background: #fff;
+  border: 1px solid var(--azul-secundario);
+  border-left: 4px solid var(--amarelo);
+  padding: 1em 1.2em;
+  font-family: "Courier New", monospace;
+  font-size: 0.85em;
+  white-space: pre-wrap;
+  margin: 0;
+}

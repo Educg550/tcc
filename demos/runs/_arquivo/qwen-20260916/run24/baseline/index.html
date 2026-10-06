@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitação de Auxílio Financeiro — Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header id="topo">
+  <img src="assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo">
+  <div class="topo-txt">
+    <strong>Universidade de São Paulo</strong>
+    <span>Pós-Graduação — Instituto de Matemática e Estatística</span>
+    <span class="topo-titulo">Solicitação de Auxílio Financeiro</span>
+  </div>
+</header>
+
+<div id="app">
+  <nav class="tabs" role="tablist">
+    <button class="tab active" role="tab" data-tab="alunos" aria-selected="true">ALUNOS</button>
+    <button class="tab" role="tab" data-tab="docentes" aria-selected="false">DOCENTES</button>
+  </nav>
+
+  <div id="painel-alunos" class="panel active" role="tabpanel">
+    <div class="erros" hidden></div>
+    <form data-tab="alunos" novalidate>
+      <fieldset>
+        <legend>SOLICITANTE E EVENTO</legend>
+        <div class="grid">
+          <div class="col"><label>NOME COMPLETO - SEM ABREVIAR</label><input name="nome" placeholder="Maria Aparecida da Silva"></div>
+          <div class="c2"><label>N. USP</label><input name="nusp" placeholder="1234567"></div>
+          <div class="c1"><label>E-MAIL</label><input name="email" placeholder="maria.silva@usp.br"></div>
+        </div>
+        <div class="grid">
+          <div class="col"><label>PROGRAMA</label><input name="programa" placeholder="Matemática"></div>
+          <div class="c1"><label>NÍVEL</label><select name="nivel"><option value=""></option><option>Mestrado</option><option>Doutorado</option></select></div>
+          <div class="c2"><label>TIPO DE AUXÍLIO</label><select name="tipo"><option value=""></option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></div>
+        </div>
+        <div class="grid">
+          <div class="col"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input name="evento" placeholder="XXXVI Colóquio Brasileiro de Matemática"></div>
+          <div class="c1"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input name="periodo" placeholder="01 a 05 de julho de 2024"></div>
+        </div>
+        <div class="grid">
+          <div class="c1"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input name="cidade_evento" placeholder="Rio de Janeiro"></div>
+          <div class="c1"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input name="estado_evento" placeholder="RJ"></div>
+          <div class="c1"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input name="pais_evento" placeholder="Brasil"></div>
+          <div class="c2"><label>LINK DO EVENTO, EXAME OU DEFESA</label><input name="link" placeholder="https://www.evento.com.br"></div>
+        </div>
+        <div class="grid">
+          <div class="c1"><label>VALOR SOLICITADO (R$)</label><input name="valor" class="fmt-valor" placeholder="R$ 1.500,00"></div>
+          <div class="col"><label>DETALHAMENTO DO PEDIDO</label><textarea name="detalhamento" rows="2" placeholder="Descreva o pedido, custos estimados e relevância para o programa"></textarea></div>
+        </div>
+        <div class="grid">
+          <div class="col"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select name="apresentacao"><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>ENDEREÇO DO SOLICITANTE</legend>
+        <div class="grid">
+          <div class="c1"><label>DATA DE NASCIMENTO</label><input name="nascimento" class="fmt-data" placeholder="01/02/1980"></div>
+          <div class="col"><label>LOGRADOURO</label><input name="logradouro" placeholder="Rua do Matão"></div>
+          <div class="c1"><label>NÚMERO</label><input name="numero" placeholder="1010"></div>
+          <div class="c2"><label>COMPLEMENTO</label><input name="complemento" placeholder="Apartamento 12 - Bloco A"></div>
+        </div>
+        <div class="grid">
+          <div class="c1"><label>BAIRRO</label><input name="bairro" placeholder="Butantã"></div>
+          <div class="c1"><label>CEP</label><input name="cep" class="fmt-cep" placeholder="05508-090"></div>
+          <div class="c1"><label>CIDADE</label><input name="cidade" placeholder="São Paulo"></div>
+          <div class="c1"><label>ESTADO</label><input name="estado" placeholder="SP"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+        <div class="grid">
+          <div class="c1"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input name="cpf" class="fmt-cpf" placeholder="123.456.789-09"></div>
+          <div class="c1"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input name="rg" placeholder="12.345.678-9"></div>
+          <div class="col"><label>NOME DO BANCO</label><input name="banco" placeholder="Banco do Brasil"></div>
+          <div class="c1"><label>NÚMERO DA AGÊNCIA</label><input name="agencia" placeholder="1234-5"></div>
+          <div class="c1"><label>NÚMERO DA CONTA</label><input name="conta" placeholder="123456-7"></div>
+        </div>
+      </fieldset>
+
+      <div class="acoes"><button type="submit">Enviar solicitação</button></div>
+    </form>
+  </div>
+
+  <div id="painel-docentes" class="panel" role="tabpanel">
+    <div class="erros" hidden></div>
+    <form data-tab="docentes" novalidate>
+      <fieldset>
+        <legend>SOLICITANTE E EVENTO</legend>
+        <div class="grid">
+          <div class="col"><label>NOME COMPLETO - SEM ABREVIAR</label><input name="nome" placeholder="Carlos Eduardo Mendes"></div>
+          <div class="c2"><label>N. USP</label><input name="nusp" placeholder="1234567"></div>
+          <div class="c1"><label>E-MAIL</label><input name="email" placeholder="carlos.mendes@ime.usp.br"></div>
+        </div>
+        <div class="grid">
+          <div class="col"><label>PROGRAMA</label><input name="programa" placeholder="Estatística"></div>
+        </div>
+        <div class="grid">
+          <div class="col"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input name="evento" placeholder="Bancas de Qualificação"></div>
+          <div class="c1"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input name="periodo" placeholder="10 a 12 de agosto de 2024"></div>
+        </div>
+        <div class="grid">
+          <div class="c1"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input name="cidade_evento" placeholder="São Paulo"></div>
+          <div class="c1"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input name="estado_evento" placeholder="SP"></div>
+          <div class="c1"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input name="pais_evento" placeholder="Brasil"></div>
+          <div class="c2"><label>LINK DO EVENTO, EXAME OU DEFESA</label><input name="link" placeholder="https://www.evento.com.br"></div>
+        </div>
+        <div class="grid">
+          <div class="c1"><label>VALOR SOLICITADO (R$)</label><input name="valor" class="fmt-valor" placeholder="R$ 1.500,00"></div>
+          <div class="col"><label>DETALHAMENTO DO PEDIDO</label><textarea name="detalhamento" rows="2" placeholder="Descreva o pedido, custos estimados e relevância para o programa"></textarea></div>
+        </div>
+        <div class="grid">
+          <div class="col"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select name="apresentacao"><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>ENDEREÇO DO SOLICITANTE</legend>
+        <div class="grid">
+          <div class="c1"><label>DATA DE NASCIMENTO</label><input name="nascimento" class="fmt-data" placeholder="01/02/1980"></div>
+          <div class="col"><label>LOGRADOURO</label><input name="logradouro" placeholder="Rua do Matão"></div>
+          <div class="c1"><label>NÚMERO</label><input name="numero" placeholder="1010"></div>
+          <div class="c2"><label>COMPLEMENTO</label><input name="complemento" placeholder="Sala 123"></div>
+        </div>
+        <div class="grid">
+          <div class="c1"><label>BAIRRO</label><input name="bairro" placeholder="Butantã"></div>
+          <div class="c1"><label>CEP</label><input name="cep" class="fmt-cep" placeholder="05508-090"></div>
+          <div class="c1"><label>CIDADE</label><input name="cidade" placeholder="São Paulo"></div>
+          <div class="c1"><label>ESTADO</label><input name="estado" placeholder="SP"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+        <div class="grid">
+          <div class="c1"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input name="cpf" class="fmt-cpf" placeholder="123.456.789-09"></div>
+          <div class="c1"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input name="rg" placeholder="12.345.678-9"></div>
+          <div class="col"><label>NOME DO BANCO</label><input name="banco" placeholder="Banco do Brasil"></div>
+          <div class="c1"><label>NÚMERO DA AGÊNCIA</label><input name="agencia" placeholder="1234-5"></div>
+          <div class="c1"><label>NÚMERO DA CONTA</label><input name="conta" placeholder="123456-7"></div>
+        </div>
+      </fieldset>
+
+      <div class="acoes"><button type="submit">Enviar solicitação</button></div>
+    </form>
+  </div>
+
+  <section id="confirmacao" hidden>
+    <h2>Solicitação registrada</h2>
+    <pre id="oficio"></pre>
+    <div class="acoes"><button type="button" id="voltar">Voltar ao formulário</button></div>
+  </section>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

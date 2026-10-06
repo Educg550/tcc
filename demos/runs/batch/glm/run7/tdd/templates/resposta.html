@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitação de Auxílio Financeiro — Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="cabecalho">
+  <a class="logo" href="/">
+    <img src="/assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo">
+    <span class="logo-texto">
+      <strong>Universidade de São Paulo</strong><br>
+      <small>Instituto de Matemática e Estatística — Pós-Graduação</small>
+    </span>
+  </a>
+</header>
+{% if oficio is defined %}
+<main class="confirmacao">
+  <h1>Solicitação registrada</h1>
+  <pre class="oficio">{{ oficio }}</pre>
+</main>
+{% else %}
+<nav class="abas">
+{% if aba == "alunos" %}
+  <span class="aba ativa">ALUNOS</span><a class="aba" href="/">DOCENTES</a>
+{% else %}
+  <a class="aba" href="/">ALUNOS</a><span class="aba ativa">DOCENTES</span>
+{% endif %}
+</nav>
+<main>
+<form class="formulario" method="post" action="/solicitar">
+  <input type="hidden" name="aba" value="{{ aba }}">
+{% if erros is defined %}
+  <ul class="erros">
+  {% for e in erros %}<li>{{ e }}</li>{% endfor %}
+  </ul>
+{% endif %}
+{% for titulo, campos in blocos %}
+  <fieldset>
+    <legend>{{ titulo }}</legend>
+    <div class="grade">
+    {% for c in campos %}
+      <div class="campo{% if c.w %} {{ c.w }}{% endif %}">
+        <label for="{{ c.n }}">{{ c.l }}</label>
+      {% if c.t == "select" %}
+        <select id="{{ c.n }}" name="{{ c.n }}" required>
+          <option value="" disabled hidden></option>
+        {% for o in c.opts %}
+          <option value="{{ o }}"{% if valores.get(c.n) == o %} selected{% endif %}>{{ o }}</option>
+        {% endfor %}
+        </select>
+      {% elif c.t == "textarea" %}
+        <textarea id="{{ c.n }}" name="{{ c.n }}" rows="2" placeholder="{{ c.p }}" required>{{ valores.get(c.n, "") }}</textarea>
+      {% else %}
+        <input id="{{ c.n }}" name="{{ c.n }}" type="{{ c.t }}" placeholder="{{ c.p }}" value="{{ valores.get(c.n, "") }}" required>
+      {% endif %}
+      </div>
+    {% endfor %}
+    </div>
+  </fieldset>
+{% endfor %}
+  <button type="submit" class="enviar">Enviar solicitação</button>
+</form>
+</main>
+{% endif %}
+</body>
+</html>

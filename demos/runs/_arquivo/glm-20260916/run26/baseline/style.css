@@ -1,0 +1,231 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --fundo: #edf5f7;
+  --borda: #b7d8e0;
+  --tinta: #23343b;
+  --tinta-suave: #52707a;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-size: 13px;
+}
+
+.faixa-institucional { height: 6px; background: var(--amarelo); }
+
+.cabecalho {
+  background: #ffffff;
+  border-bottom: 2px solid var(--azul);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 22px;
+}
+
+.logotipo { padding: 12px 0; }
+
+.logotipo img { display: block; height: 44px; }
+
+.marca { display: flex; flex-direction: column; }
+
+.nome-universidade {
+  color: var(--azul);
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.15;
+}
+
+.nome-programa {
+  color: var(--tinta-suave);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.titulo-documento {
+  margin-left: auto;
+  color: var(--tinta-suave);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: right;
+}
+
+main { max-width: 1180px; margin: 0 auto; padding: 0 20px 16px; }
+
+.abas { display: flex; gap: 6px; padding: 10px 0 8px; }
+
+.aba {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--azul);
+  background: #d3ebf1;
+  border: 1px solid var(--borda);
+  border-radius: 6px 6px 0 0;
+  padding: 8px 26px 7px;
+  cursor: pointer;
+}
+
+.aba:hover { background: #c2e4ec; }
+
+.aba.ativa { background: var(--azul); border-color: var(--azul); color: #ffffff; }
+
+.aba:focus-visible,
+.enviar:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 1px; }
+
+.folha {
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 0 6px 6px 6px;
+  padding: 12px 14px 10px;
+}
+
+.erros {
+  border: 1px solid #c25450;
+  background: #fbeeed;
+  color: #8c2f28;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin: 0 0 10px;
+}
+
+.erros p { margin: 2px 0; }
+
+.bloco {
+  border: 1px solid var(--borda);
+  border-radius: 5px;
+  padding: 7px 10px 9px;
+  margin: 0 0 9px;
+  min-width: 0;
+}
+
+.bloco > h2 {
+  margin: 0 0 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: var(--azul);
+  border-left: 3px solid var(--amarelo);
+  border-bottom: 1px solid var(--borda);
+  padding: 1px 0 5px 8px;
+}
+
+.duas-colunas {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 9px;
+}
+
+.duas-colunas .bloco { margin: 0; }
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 5px 10px;
+}
+
+.c1 { grid-column: span 1; }
+.c2 { grid-column: span 2; }
+.c3 { grid-column: span 3; }
+
+.campo { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+.rotulo {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--tinta-suave);
+  line-height: 1.35;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--tinta);
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  width: 100%;
+  height: 25px;
+  padding: 2px 7px;
+}
+
+.campo textarea {
+  height: auto;
+  min-height: 42px;
+  padding: 4px 7px;
+  resize: vertical;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px var(--azul-claro);
+}
+
+.campo ::placeholder { color: #93aeb7; opacity: 1; }
+
+.enviar {
+  display: block;
+  margin: 2px 0 0 auto;
+  background: var(--azul);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 28px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7e93; }
+
+.titulo-confirmacao { color: var(--azul); font-size: 20px; margin: 16px 0 10px; }
+
+.oficio {
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--azul);
+  border-radius: 4px;
+  margin: 0;
+  padding: 16px 20px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+@media (max-height: 800px) {
+  .logotipo { padding: 9px 0; }
+  .logotipo img { height: 38px; }
+  .nome-universidade { font-size: 18px; }
+  .abas { padding: 6px 0 6px; }
+  .aba { padding: 6px 22px 5px; }
+  .folha { padding: 9px 12px 8px; }
+  .grade { gap: 3px 8px; }
+  .campo input, .campo select { height: 23px; }
+  .campo textarea { min-height: 34px; }
+  .bloco { padding: 5px 8px 7px; margin-bottom: 7px; }
+  .bloco > h2 { margin-bottom: 5px; padding-bottom: 4px; }
+  .erros { margin-bottom: 7px; padding: 4px 10px; }
+  .enviar { padding: 6px 24px; }
+}

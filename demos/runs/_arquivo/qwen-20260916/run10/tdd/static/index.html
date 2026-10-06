@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Auxílio Financeiro</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="/assets/usp-logo.png" alt="Logo USP" class="logo">
+            <div class="titles">
+                <h1>Universidade de São Paulo</h1>
+                <h2>Instituto de Matemática e Estatística - Pós-Graduação</h2>
+            </div>
+        </header>
+
+        <div id="form-container">
+            <div class="tabs">
+                <button class="tab-btn aba ativa" data-tab="ALUNOS">ALUNOS</button>
+                <button class="tab-btn" data-tab="DOCENTES">DOCENTES</button>
+            </div>
+
+            <!-- Form Alunos -->
+            <div id="ALUNOS" class="tab-content">
+                <div class="erros"></div>
+                <div class="form-header">Solicitação de Auxílio Financeiro</div>
+                <div class="blocos">
+                    <div class="bloco">
+                        <div class="bloco-titulo">SOLICITANTE E EVENTO</div>
+                        <div class="grid">
+                            <div class="campo col-12"><label>NOME COMPLETO - SEM ABREVIAR</label><input type="text" id="al_nome" placeholder="Ex: Maria da Silva"></div>
+                            <div class="campo col-3"><label>N. USP</label><input type="text" id="al_nuspp" placeholder="1234567"></div>
+                            <div class="campo col-3"><label>PROGRAMA</label><input type="text" id="al_programa" placeholder="Matemática"></div>
+                            <div class="campo col-3"><label>NÍVEL</label>
+                                <select id="al_nivel">
+                                    <option value="">Selecione</option>
+                                    <option value="Mestrado">Mestrado</option>
+                                    <option value="Doutorado">Doutorado</option>
+                                </select>
+                            </div>
+                            <div class="campo col-3"><label>TIPO DE AUXÍLIO</label>
+                                <select id="al_tipo_auxilio">
+                                    <option value="">Selecione</option>
+                                    <option value="Participação em evento">Participação em evento</option>
+                                    <option value="Banca de exame ou defesa">Banca de exame ou defesa</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
+                            <div class="campo col-6"><label>E-MAIL</label><input type="email" id="al_email" placeholder="email@ime.usp.br"></div>
+                            <div class="campo col-6"><label>LINK DO EVENTO, EXAME OU DEFESA (Opcional)</label><input type="text" id="al_link_evento" placeholder="https://..."></div>
+                            <div class="campo col-12"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input type="text" id="al_evento" placeholder="Ex: CBM 2024"></div>
+                            <div class="campo col-12"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="al_periodo" placeholder="Ex: 01/07/2024 a 05/07/2024"></div>
+                            <div class="campo col-4"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input type="text" id="al_cidade_evento" placeholder="São Paulo"></div>
+                            <div class="campo col-4"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="al_estado_evento" placeholder="SP"></div>
+                            <div class="campo col-4"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input type="text" id="al_pais_evento" placeholder="Brasil"></div>
+                            <div class="campo col-3"><label>VALOR SOLICITADO (R$)</label><input type="text" id="al_valor" placeholder="R$ 0,00"></div>
+                            <div class="campo col-3"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+                                <select id="al_apresentacao">
+                                    <option value="">Selecione</option>
+                                    <option value="Pôster">Pôster</option>
+                                    <option value="Apresentação oral">Apresentação oral</option>
+                                    <option value="Outra">Outra</option>
+                                    <option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option>
+                                </select>
+                            </div>
+                            <div class="campo col-12"><label>DETALHAMENTO DO PEDIDO</label><textarea id="al_detalhamento" rows="3" placeholder="Descreva a finalidade do auxílio..."></textarea></div>
+                        </div>
+                    </div>
+
+                    <div class="bloco">
+                        <div class="bloco-titulo">ENDEREÇO DO SOLICITANTE</div>
+                        <div class="grid">
+                            <div class="campo col-3"><label>DATA DE NASCIMENTO</label><input type="text" id="al_data_nascimento" placeholder="dd/mm/aaaa"></div>
+                            <div class="campo col-3"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="al_cpf" placeholder="000.000.000-00"></div>
+                            <div class="campo col-3"><label>CEP</label><input type="text" id="al_cep" placeholder="00000-000"></div>
+                            <div class="campo col-3"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="al_rg" placeholder="00.000.000-0"></div>
+                            <div class="campo col-8"><label>LOGRADOURO</label><input type="text" id="al_logradouro" placeholder="Rua, Avenida..."></div>
+                            <div class="campo col-2"><label>NÚMERO</label><input type="text" id="al_numero" placeholder="1000"></div>
+                            <div class="campo col-2"><label>COMPLEMENTO</label><input type="text" id="al_complemento" placeholder="Apto, Casa..."></div>
+                            <div class="campo col-4"><label>BAIRRO</label><input type="text" id="al_bairro" placeholder="Butantã"></div>
+                            <div class="campo col-4"><label>CIDADE</label><input type="text" id="al_cidade" placeholder="São Paulo"></div>
+                            <div class="campo col-4"><label>ESTADO</label><input type="text" id="al_estado" placeholder="SP"></div>
+                        </div>
+                    </div>
+
+                    <div class="bloco">
+                        <div class="bloco-titulo">INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</div>
+                        <div class="grid">
+                            <div class="campo col-6"><label>NOME DO BANCO</label><input type="text" id="al_banco" placeholder="Banco do Brasil"></div>
+                            <div class="campo col-3"><label>NÚMERO DA AGÊNCIA</label><input type="text" id="al_agencia" placeholder="0000"></div>
+                            <div class="campo col-3"><label>NÚMERO DA CONTA</label><input type="text" id="al_conta" placeholder="00000-0"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-enviar">Enviar solicitação</button>
+            </div>
+
+            <!-- Form Docentes -->
+            <div id="DOCENTES" class="tab-content oculto">
+                <div class="erros"></div>
+                <div class="form-header">Solicitação de Auxílio Financeiro</div>
+                <div class="blocos">
+                    <div class="bloco">
+                        <div class="bloco-titulo">SOLICITANTE E EVENTO</div>
+                        <div class="grid">
+                            <div class="campo col-12"><label>NOME COMPLETO - SEM ABREVIAR</label><input type="text" id="do_nome" placeholder="Ex: Maria da Silva"></div>
+                            <div class="campo col-4"><label>N. USP</label><input type="text" id="do_nuspp" placeholder="1234567"></div>
+                            <div class="campo col-4"><label>PROGRAMA</label><input type="text" id="do_programa" placeholder="Matemática"></div>
+                            <div class="campo col-4"><label>E-MAIL</label><input type="email" id="do_email" placeholder="email@ime.usp.br"></div>
+                            <div class="campo col-12"><label>LINK DO EVENTO, EXAME OU DEFESA (Opcional)</label><input type="text" id="do_link_evento" placeholder="https://..."></div>
+                            <div class="campo col-12"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input type="text" id="do_evento" placeholder="Ex: CBM 2024"></div>
+                            <div class="campo col-12"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="do_periodo" placeholder="Ex: 01/07/2024 a 05/07/2024"></div>
+                            <div class="campo col-4"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input type="text" id="do_cidade_evento" placeholder="São Paulo"></div>
+                            <div class="campo col-4"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="do_estado_evento" placeholder="SP"></div>
+                            <div class="campo col-4"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input type="text" id="do_pais_evento" placeholder="Brasil"></div>
+                            <div class="campo col-3"><label>VALOR SOLICITADO (R$)</label><input type="text" id="do_valor" placeholder="R$ 0,00"></div>
+                            <div class="campo col-3"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+                                <select id="do_apresentacao">
+                                    <option value="">Selecione</option>
+                                    <option value="Pôster">Pôster</option>
+                                    <option value="Apresentação oral">Apresentação oral</option>
+                                    <option value="Outra">Outra</option>
+                                    <option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option>
+                                </select>
+                            </div>
+                            <div class="campo col-6"><label>DETALHAMENTO DO PEDIDO</label><textarea id="do_detalhamento" rows="2" placeholder="Descreva a finalidade..."></textarea></div>
+                        </div>
+                    </div>
+
+                    <div class="bloco">
+                        <div class="bloco-titulo">ENDEREÇO DO SOLICITANTE</div>
+                        <div class="grid">
+                            <div class="campo col-3"><label>DATA DE NASCIMENTO</label><input type="text" id="do_data_nascimento" placeholder="dd/mm/aaaa"></div>
+                            <div class="campo col-3"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="do_cpf" placeholder="000.000.000-00"></div>
+                            <div class="campo col-3"><label>CEP</label><input type="text" id="do_cep" placeholder="00000-000"></div>
+                            <div class="campo col-3"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="do_rg" placeholder="00.000.000-0"></div>
+                            <div class="campo col-8"><label>LOGRADOURO</label><input type="text" id="do_logradouro" placeholder="Rua, Avenida..."></div>
+                            <div class="campo col-2"><label>NÚMERO</label><input type="text" id="do_numero" placeholder="1000"></div>
+                            <div class="campo col-2"><label>COMPLEMENTO</label><input type="text" id="do_complemento" placeholder="Apto, Casa..."></div>
+                            <div class="campo col-4"><label>BAIRRO</label><input type="text" id="do_bairro" placeholder="Butantã"></div>
+                            <div class="campo col-4"><label>CIDADE</label><input type="text" id="do_cidade" placeholder="São Paulo"></div>
+                            <div class="campo col-4"><label>ESTADO</label><input type="text" id="do_estado" placeholder="SP"></div>
+                        </div>
+                    </div>
+
+                    <div class="bloco">
+                        <div class="bloco-titulo">INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</div>
+                        <div class="grid">
+                            <div class="campo col-6"><label>NOME DO BANCO</label><input type="text" id="do_banco" placeholder="Banco do Brasil"></div>
+                            <div class="campo col-3"><label>NÚMERO DA AGÊNCIA</label><input type="text" id="do_agencia" placeholder="0000"></div>
+                            <div class="campo col-3"><label>NÚMERO DA CONTA</label><input type="text" id="do_conta" placeholder="00000-0"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-enviar">Enviar solicitação</button>
+            </div>
+        </div>
+
+        <div id="confirmation" class="oculto">
+            <div class="header">
+                <img src="/assets/usp-logo.png" alt="Logo USP" class="logo">
+                <div class="titles">
+                    <h1>Universidade de São Paulo</h1>
+                    <h2>Instituto de Matemática e Estatística - Pós-Graduação</h2>
+                </div>
+            </div>
+            <div class="confirmation-content">
+                <h2>Solicitação registrada</h2>
+                <pre id="oficio"></pre>
+            </div>
+        </div>
+    </div>
+    <script src="/app.js"></script>
+</body>
+</html>

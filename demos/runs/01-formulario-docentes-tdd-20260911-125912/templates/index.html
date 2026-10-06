@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitação de Auxílio Financeiro – IME-USP</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; color: #333; background: #f9f9f9; }
+    header {
+      background: #1094ab;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: white;
+    }
+    header img {
+      height: 60px;
+      margin: 0 1rem 0 0;
+    }
+    .header-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-text .universidade {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .header-text .programa {
+      font-size: 1.1rem;
+      color: #64c4d2;
+    }
+    .tabs {
+      display: flex;
+      background: #e0e0e0;
+      border-bottom: 3px solid #1094ab;
+    }
+    .tab {
+      padding: 0.8rem 2rem;
+      cursor: pointer;
+      font-weight: bold;
+      background: none;
+      border: none;
+      color: #555;
+      transition: 0.2s;
+    }
+    .tab.active {
+      background: white;
+      color: #1094ab;
+      border-bottom: 3px solid #1094ab;
+      margin-bottom: -3px;
+    }
+    .form-container {
+      display: none;
+      background: white;
+      padding: 2rem;
+      max-width: 960px;
+      margin: 2rem auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .form-container.active {
+      display: block;
+    }
+    .errors {
+      color: #d32f2f;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+    .bloco {
+      margin-top: 2rem;
+    }
+    .bloco h3 {
+      color: #1094ab;
+      border-bottom: 2px solid #fcb421;
+      padding-bottom: 0.3rem;
+      margin-bottom: 1rem;
+    }
+    .campo {
+      margin-bottom: 1.2rem;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button[type="submit"] {
+      background: #1094ab;
+      color: white;
+      border: none;
+      padding: 0.8rem 2.5rem;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 2rem;
+    }
+    button[type="submit"]:hover {
+      background: #0d7a8c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/assets/usp-logo.png" alt="USP Logo">
+    <div class="header-text">
+      <span class="universidade">Universidade de São Paulo</span>
+      <span class="programa">Programa de Pós-Graduação do IME</span>
+    </div>
+  </header>
+  <div class="tabs">
+    <button id="tab-alunos" class="tab {% if active_tab == 'alunos' %}active{% endif %}" onclick="switchTab('alunos')">ALUNOS</button>
+    <button id="tab-docentes" class="tab {% if active_tab == 'docentes' %}active{% endif %}" onclick="switchTab('docentes')">DOCENTES</button>
+  </div>
+
+  <!-- Formulário Alunos -->
+  <div id="form-alunos" class="form-container {% if active_tab == 'alunos' %}active{% endif %}">
+    {% if active_tab == 'alunos' and errors %}
+    <div class="errors">
+      {% for err in errors %}
+      <p>{{ err }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <form action="/enviar/alunos" method="post">
+      <div class="bloco">
+        <h3>SOLICITANTE E EVENTO</h3>
+        <div class="campo"><label>NOME COMPLETO - SEM ABREVIAR</label><input name="NOME COMPLETO - SEM ABREVIAR" value="{{ form_data.get('NOME COMPLETO - SEM ABREVIAR', '') }}" placeholder="Ex.: João Silva"></div>
+        <div class="campo"><label>N. USP</label><input name="N. USP" value="{{ form_data.get('N. USP', '') }}" placeholder="12345678"></div>
+        <div class="campo"><label>PROGRAMA</label><input name="PROGRAMA" value="{{ form_data.get('PROGRAMA', '') }}" placeholder="Ex.: CCP"></div>
+        <div class="campo"><label>NÍVEL</label>
+          <select name="NÍVEL">
+            <option value="" disabled {% if not form_data.get('NÍVEL') %}selected{% endif %}>Selecione</option>
+            <option value="Mestrado" {% if form_data.get('NÍVEL') == 'Mestrado' %}selected{% endif %}>Mestrado</option>
+            <option value="Doutorado" {% if form_data.get('NÍVEL') == 'Doutorado' %}selected{% endif %}>Doutorado</option>
+          </select>
+        </div>
+        <div class="campo"><label>TIPO DE AUXÍLIO</label>
+          <select name="TIPO DE AUXÍLIO">
+            <option value="" disabled {% if not form_data.get('TIPO DE AUXÍLIO') %}selected{% endif %}>Selecione</option>
+            <option value="Participação em evento" {% if form_data.get('TIPO DE AUXÍLIO') == 'Participação em evento' %}selected{% endif %}>Participação em evento</option>
+            <option value="Banca de exame ou defesa" {% if form_data.get('TIPO DE AUXÍLIO') == 'Banca de exame ou defesa' %}selected{% endif %}>Banca de exame ou defesa</option>
+            <option value="Outro" {% if form_data.get('TIPO DE AUXÍLIO') == 'Outro' %}selected{% endif %}>Outro</option>
+          </select>
+        </div>
+        <div class="campo"><label>E-MAIL</label><input type="email" name="E-MAIL" value="{{ form_data.get('E-MAIL', '') }}" placeholder="exemplo@usp.br"></div>
+        <div class="campo"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input name="NOME DO EVENTO / BANCA DE EXAME OU DEFESA" value="{{ form_data.get('NOME DO EVENTO / BANCA DE EXAME OU DEFESA', '') }}" placeholder="Simpósio Nacional"></div>
+        <div class="campo"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input name="PERÍODO DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('PERÍODO DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="01/06/2025"></div>
+        <div class="campo"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input name="CIDADE DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('CIDADE DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="São Paulo"></div>
+        <div class="campo"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input name="ESTADO DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('ESTADO DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="SP"></div>
+        <div class="campo"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input name="PAÍS DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('PAÍS DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="Brasil"></div>
+        <div class="campo"><label>LINK DO EVENTO, EXAME OU DEFESA</label><input name="LINK DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('LINK DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="http://evento.br"></div>
+        <div class="campo"><label>VALOR SOLICITADO (R$)</label><input name="VALOR SOLICITADO (R$)" value="{{ form_data.get('VALOR SOLICITADO (R$)', '') }}" placeholder="Ex.: 1500"></div>
+        <div class="campo"><label>DETALHAMENTO DO PEDIDO</label><textarea name="DETALHAMENTO DO PEDIDO" placeholder="Descreva o pedido">{{ form_data.get('DETALHAMENTO DO PEDIDO', '') }}</textarea></div>
+        <div class="campo"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+          <select name="IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?">
+            <option value="" disabled {% if not form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') %}selected{% endif %}>Selecione</option>
+            <option value="Pôster" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Pôster' %}selected{% endif %}>Pôster</option>
+            <option value="Apresentação oral" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Apresentação oral' %}selected{% endif %}>Apresentação oral</option>
+            <option value="Outra" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Outra' %}selected{% endif %}>Outra</option>
+            <option value="Não irá apresentar trabalho" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Não irá apresentar trabalho' %}selected{% endif %}>Não irá apresentar trabalho</option>
+          </select>
+        </div>
+      </div>
+      <div class="bloco">
+        <h3>ENDEREÇO DO SOLICITANTE</h3>
+        <div class="campo"><label>DATA DE NASCIMENTO</label><input name="DATA DE NASCIMENTO" value="{{ form_data.get('DATA DE NASCIMENTO', '') }}" placeholder="01021980"></div>
+        <div class="campo"><label>LOGRADOURO</label><input name="LOGRADOURO" value="{{ form_data.get('LOGRADOURO', '') }}" placeholder="Rua das Flores"></div>
+        <div class="campo"><label>NÚMERO</label><input name="NÚMERO" value="{{ form_data.get('NÚMERO', '') }}" placeholder="100"></div>
+        <div class="campo"><label>COMPLEMENTO</label><input name="COMPLEMENTO" value="{{ form_data.get('COMPLEMENTO', '') }}" placeholder="Apto 42"></div>
+        <div class="campo"><label>BAIRRO</label><input name="BAIRRO" value="{{ form_data.get('BAIRRO', '') }}" placeholder="Centro"></div>
+        <div class="campo"><label>CEP</label><input name="CEP" value="{{ form_data.get('CEP', '') }}" placeholder="05508090"></div>
+        <div class="campo"><label>CIDADE</label><input name="CIDADE" value="{{ form_data.get('CIDADE', '') }}" placeholder="São Paulo"></div>
+        <div class="campo"><label>ESTADO</label><input name="ESTADO" value="{{ form_data.get('ESTADO', '') }}" placeholder="SP"></div>
+      </div>
+      <div class="bloco">
+        <h3>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+        <div class="campo"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input name="CPF (SEPARADOS POR PONTOS E TRAÇO)" value="{{ form_data.get('CPF (SEPARADOS POR PONTOS E TRAÇO)', '') }}" placeholder="12345678901"></div>
+        <div class="campo"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input name="RG / RNM (SEPARADOS POR PONTOS E TRAÇO)" value="{{ form_data.get('RG / RNM (SEPARADOS POR PONTOS E TRAÇO)', '') }}" placeholder="12.345.678-9"></div>
+        <div class="campo"><label>NOME DO BANCO</label><input name="NOME DO BANCO" value="{{ form_data.get('NOME DO BANCO', '') }}" placeholder="Banco do Brasil"></div>
+        <div class="campo"><label>NÚMERO DA AGÊNCIA</label><input name="NÚMERO DA AGÊNCIA" value="{{ form_data.get('NÚMERO DA AGÊNCIA', '') }}" placeholder="1234"></div>
+        <div class="campo"><label>NÚMERO DA CONTA</label><input name="NÚMERO DA CONTA" value="{{ form_data.get('NÚMERO DA CONTA', '') }}" placeholder="12345-6"></div>
+      </div>
+      <button type="submit">Enviar solicitação</button>
+    </form>
+  </div>
+
+  <!-- Formulário Docentes -->
+  <div id="form-docentes" class="form-container {% if active_tab == 'docentes' %}active{% endif %}">
+    {% if active_tab == 'docentes' and errors %}
+    <div class="errors">
+      {% for err in errors %}
+      <p>{{ err }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+    <form action="/enviar/docentes" method="post">
+      <div class="bloco">
+        <h3>SOLICITANTE E EVENTO</h3>
+        <div class="campo"><label>NOME COMPLETO - SEM ABREVIAR</label><input name="NOME COMPLETO - SEM ABREVIAR" value="{{ form_data.get('NOME COMPLETO - SEM ABREVIAR', '') }}" placeholder="Ex.: João Silva"></div>
+        <div class="campo"><label>N. USP</label><input name="N. USP" value="{{ form_data.get('N. USP', '') }}" placeholder="12345678"></div>
+        <div class="campo"><label>PROGRAMA</label><input name="PROGRAMA" value="{{ form_data.get('PROGRAMA', '') }}" placeholder="Ex.: CCP"></div>
+        <div class="campo"><label>E-MAIL</label><input type="email" name="E-MAIL" value="{{ form_data.get('E-MAIL', '') }}" placeholder="exemplo@usp.br"></div>
+        <div class="campo"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input name="NOME DO EVENTO / BANCA DE EXAME OU DEFESA" value="{{ form_data.get('NOME DO EVENTO / BANCA DE EXAME OU DEFESA', '') }}" placeholder="Simpósio Nacional"></div>
+        <div class="campo"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input name="PERÍODO DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('PERÍODO DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="01/06/2025"></div>
+        <div class="campo"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input name="CIDADE DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('CIDADE DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="São Paulo"></div>
+        <div class="campo"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input name="ESTADO DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('ESTADO DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="SP"></div>
+        <div class="campo"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input name="PAÍS DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('PAÍS DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="Brasil"></div>
+        <div class="campo"><label>LINK DO EVENTO, EXAME OU DEFESA</label><input name="LINK DO EVENTO, EXAME OU DEFESA" value="{{ form_data.get('LINK DO EVENTO, EXAME OU DEFESA', '') }}" placeholder="http://evento.br"></div>
+        <div class="campo"><label>VALOR SOLICITADO (R$)</label><input name="VALOR SOLICITADO (R$)" value="{{ form_data.get('VALOR SOLICITADO (R$)', '') }}" placeholder="Ex.: 1500"></div>
+        <div class="campo"><label>DETALHAMENTO DO PEDIDO</label><textarea name="DETALHAMENTO DO PEDIDO" placeholder="Descreva o pedido">{{ form_data.get('DETALHAMENTO DO PEDIDO', '') }}</textarea></div>
+        <div class="campo"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+          <select name="IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?">
+            <option value="" disabled {% if not form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') %}selected{% endif %}>Selecione</option>
+            <option value="Pôster" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Pôster' %}selected{% endif %}>Pôster</option>
+            <option value="Apresentação oral" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Apresentação oral' %}selected{% endif %}>Apresentação oral</option>
+            <option value="Outra" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Outra' %}selected{% endif %}>Outra</option>
+            <option value="Não irá apresentar trabalho" {% if form_data.get('IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?') == 'Não irá apresentar trabalho' %}selected{% endif %}>Não irá apresentar trabalho</option>
+          </select>
+        </div>
+      </div>
+      <div class="bloco">
+        <h3>ENDEREÇO DO SOLICITANTE</h3>
+        <div class="campo"><label>DATA DE NASCIMENTO</label><input name="DATA DE NASCIMENTO" value="{{ form_data.get('DATA DE NASCIMENTO', '') }}" placeholder="01021980"></div>
+        <div class="campo"><label>LOGRADOURO</label><input name="LOGRADOURO" value="{{ form_data.get('LOGRADOURO', '') }}" placeholder="Rua das Flores"></div>
+        <div class="campo"><label>NÚMERO</label><input name="NÚMERO" value="{{ form_data.get('NÚMERO', '') }}" placeholder="100"></div>
+        <div class="campo"><label>COMPLEMENTO</label><input name="COMPLEMENTO" value="{{ form_data.get('COMPLEMENTO', '') }}" placeholder="Apto 42"></div>
+        <div class="campo"><label>BAIRRO</label><input name="BAIRRO" value="{{ form_data.get('BAIRRO', '') }}" placeholder="Centro"></div>
+        <div class="campo"><label>CEP</label><input name="CEP" value="{{ form_data.get('CEP', '') }}" placeholder="05508090"></div>
+        <div class="campo"><label>CIDADE</label><input name="CIDADE" value="{{ form_data.get('CIDADE', '') }}" placeholder="São Paulo"></div>
+        <div class="campo"><label>ESTADO</label><input name="ESTADO" value="{{ form_data.get('ESTADO', '') }}" placeholder="SP"></div>
+      </div>
+      <div class="bloco">
+        <h3>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+        <div class="campo"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input name="CPF (SEPARADOS POR PONTOS E TRAÇO)" value="{{ form_data.get('CPF (SEPARADOS POR PONTOS E TRAÇO)', '') }}" placeholder="12345678901"></div>
+        <div class="campo"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input name="RG / RNM (SEPARADOS POR PONTOS E TRAÇO)" value="{{ form_data.get('RG / RNM (SEPARADOS POR PONTOS E TRAÇO)', '') }}" placeholder="12.345.678-9"></div>
+        <div class="campo"><label>NOME DO BANCO</label><input name="NOME DO BANCO" value="{{ form_data.get('NOME DO BANCO', '') }}" placeholder="Banco do Brasil"></div>
+        <div class="campo"><label>NÚMERO DA AGÊNCIA</label><input name="NÚMERO DA AGÊNCIA" value="{{ form_data.get('NÚMERO DA AGÊNCIA', '') }}" placeholder="1234"></div>
+        <div class="campo"><label>NÚMERO DA CONTA</label><input name="NÚMERO DA CONTA" value="{{ form_data.get('NÚMERO DA CONTA', '') }}" placeholder="12345-6"></div>
+      </div>
+      <button type="submit">Enviar solicitação</button>
+    </form>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      document.getElementById('form-alunos').classList.remove('active');
+      document.getElementById('form-docentes').classList.remove('active');
+      document.getElementById('tab-alunos').classList.remove('active');
+      document.getElementById('tab-docentes').classList.remove('active');
+      document.getElementById('form-' + tab).classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    }
+
+    function formatCurrency(input) {
+      let digits = input.value.replace(/\D/g, '');
+      if (digits === '') return;
+      let cents = parseInt(digits, 10);
+      let reais = Math.floor(cents / 100);
+      let centavos = cents % 100;
+      let reaisStr = reais.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      input.value = 'R$ ' + reaisStr + ',' + String(centavos).padStart(2, '0');
+    }
+
+    function formatCPF(input) {
+      let digits = input.value.replace(/\D/g, '');
+      if (digits.length !== 11) return;
+      input.value = digits.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
+
+    function formatCEP(input) {
+      let digits = input.value.replace(/\D/g, '');
+      if (digits.length !== 8) return;
+      input.value = digits.replace(/(\d{5})(\d{3})/, '$1-$2');
+    }
+
+    function formatDate(input) {
+      let digits = input.value.replace(/\D/g, '');
+      if (digits.length !== 8) return;
+      input.value = digits.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+    }
+
+    window.addEventListener('load', function() {
+      let currencyField = document.querySelector('input[name="VALOR SOLICITADO (R$)"]');
+      if (currencyField) currencyField.addEventListener('blur', function() { formatCurrency(this); });
+      let cpfField = document.querySelector('input[name="CPF (SEPARADOS POR PONTOS E TRAÇO)"]');
+      if (cpfField) cpfField.addEventListener('blur', function() { formatCPF(this); });
+      let cepField = document.querySelector('input[name="CEP"]');
+      if (cepField) cepField.addEventListener('blur', function() { formatCEP(this); });
+      let dataField = document.querySelector('input[name="DATA DE NASCIMENTO"]');
+      if (dataField) dataField.addEventListener('blur', function() { formatDate(this); });
+    });
+  </script>
+</body>
+</html>

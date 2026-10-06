@@ -1,0 +1,233 @@
+/* Estilos do formulário de solicitação de auxílio financeiro - Pós-Graduação IME-USP */
+
+/* Variáveis de cor da USP */
+:root {
+    --azul-primario: #1094ab;
+    --azul-secundario: #64c4d2;
+    --amarelo: #fcb421;
+    --texto: #333;
+    --fundo: #f5f5f5;
+    --branco: #ffffff;
+}
+
+/* Reset e configurações gerais */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Fonte Open Sans com fallback para sans-serif */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto);
+    line-height: 1.4;
+}
+
+/* Container principal */
+#container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    min-height: 100vh;
+    background: var(--branco);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: auto;
+}
+
+/* Cabeçalho */
+header {
+    background-color: var(--branco);
+    padding: 5px 15px;
+    border-bottom: 2px solid var(--azul-primario);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#header-logo img {
+    height: 50px;
+    width: auto;
+}
+
+#header-logo h1 {
+    font-size: 1.2rem;
+    color: var(--azul-primario);
+    font-weight: bold;
+}
+
+header h2 {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* Mensagem de erro */
+.error-message {
+    color: #d32f2f;
+    background-color: #ffebee;
+    border: 1px solid #d32f2f;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    display: none;
+}
+
+.error-message p {
+    margin: 2px 0;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* Abas */
+#tabs {
+    display: flex;
+    gap: 5px;
+    margin: 10px 0;
+    border-bottom: 2px solid var(--azul-primario);
+}
+
+.tab {
+    padding: 8px 20px;
+    background-color: var(--azul-secundario);
+    border: 1px solid var(--azul-primario);
+    border-bottom: none;
+    color: var(--branco);
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    border-radius: 5px 5px 0 0;
+}
+
+.tab.active {
+    background-color: var(--azul-primario);
+    color: var(--branco);
+    border-bottom: 2px solid var(--azul-primario);
+}
+
+/* Conteúdo das abas */
+.tab-content {
+    padding: 5px;
+    background: var(--branco);
+}
+
+.tab-content.hidden {
+    display: none;
+}
+
+/* Formulários */
+fieldset {
+    border: 1px solid var(--azul-secundario);
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+}
+
+legend {
+    padding: 0 8px;
+    font-weight: bold;
+    color: var(--azul-primario);
+    font-size: 0.95rem;
+}
+
+/* Layout dos campos - grid para múltiplas colunas */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+fieldset {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 5px 10px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--texto);
+    margin-bottom: 2px;
+}
+
+input, select, textarea {
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    background: var(--branco);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--azul-primario);
+    box-shadow: 0 0 3px var(--azul-secundario);
+}
+
+/* Botão de envio */
+button[type="submit"] {
+    background-color: var(--azul-primario);
+    color: var(--branco);
+    padding: 10px 25px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 8px;
+    align-self: flex-start;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0d7a8e;
+}
+
+/* Confirmação */
+#confirmation {
+    padding: 20px;
+}
+
+#confirmation.hidden {
+    display: none;
+}
+
+#confirmation h2 {
+    color: var(--azul-primario);
+    margin-bottom: 15px;
+}
+
+#oficio {
+    font-family: monospace, monospace;
+    white-space: pre-wrap;
+    background: var(--branco);
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-width: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    fieldset {
+        grid-template-columns: 1fr;
+    }
+}

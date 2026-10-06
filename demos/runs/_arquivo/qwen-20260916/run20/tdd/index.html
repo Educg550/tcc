@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Auxílio Financeiro - IME-USP</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="usp-header">
+        <div class="logo-container">
+            <img src="/assets/usp-logo.png" alt="Universidade de São Paulo">
+        </div>
+        <div class="header-text">
+            <h1>Universidade de São Paulo</h1>
+            <h2>Instituto de Matemática e Estatística</h2>
+            <h3>Pós-Graduação</h3>
+        </div>
+    </header>
+
+    <main id="content">
+        <section id="form-section">
+            <div class="tabs">
+                <button class="tab-button active" data-target="tab-alunos">ALUNOS</button>
+                <button class="tab-button" data-target="tab-docentes">DOCENTES</button>
+            </div>
+
+            <div id="error-messages" class="error-list"></div>
+
+            <form id="alunos-form" class="tab-content active" data-tipo="alunos">
+                <div class="form-block">
+                    <h4>SOLICITANTE E EVENTO</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="al-nome">NOME COMPLETO - SEM ABREVIAR</label>
+                            <input type="text" id="al-nome" name="nome" placeholder="Ex: Maria da Silva Santos">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-numusp">N. USP</label>
+                            <input type="text" id="al-numusp" name="numusp" placeholder="Ex: 12345678">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-programa">PROGRAMA</label>
+                            <input type="text" id="al-programa" name="programa" placeholder="Ex: Matemática">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-nivel">NÍVEL</label>
+                            <select id="al-nivel" name="nivel">
+                                <option value="Mestrado">Mestrado</option>
+                                <option value="Doutorado">Doutorado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="al-tipo_auxilio">TIPO DE AUXÍLIO</label>
+                            <select id="al-tipo_auxilio" name="tipo_auxilio">
+                                <option value="Participação em evento">Participação em evento</option>
+                                <option value="Banca de exame ou defesa">Banca de exame ou defesa</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="al-email">E-MAIL</label>
+                            <input type="email" id="al-email" name="email" placeholder="Ex: maria@ime.usp.br">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+                            <input type="text" id="al-evento" name="evento" placeholder="Ex: Congresso de Matemática Aplicada">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-periodo">PERÍODO DO EVENTO</label>
+                            <input type="text" id="al-periodo" name="periodo" placeholder="Ex: 12/05 a 15/05/2024">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="al-cidade_evento">CIDADE DO EVENTO</label>
+                            <input type="text" id="al-cidade_evento" name="cidade_evento" placeholder="Ex: São Paulo">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-estado_evento">ESTADO DO EVENTO</label>
+                            <input type="text" id="al-estado_evento" name="estado_evento" placeholder="Ex: SP">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-pais_evento">PAÍS DO EVENTO</label>
+                            <input type="text" id="al-pais_evento" name="pais_evento" placeholder="Ex: Brasil">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-link_evento">LINK DO EVENTO</label>
+                            <input type="text" id="al-link_evento" name="link_evento" placeholder="Ex: https://evento.com (Opcional)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group small">
+                            <label for="al-valor">VALOR SOLICITADO (R$)</label>
+                            <input type="text" id="al-valor" name="valor" placeholder="Ex: 1500">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-detalhamento">DETALHAMENTO DO PEDIDO</label>
+                            <textarea id="al-detalhamento" name="detalhamento" placeholder="Descreva os gastos estimados e a justificativa."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="al-apresentacao">IRÁ APRESENTAR TRABALHO?</label>
+                            <select id="al-apresentacao" name="apresentacao">
+                                <option value="Pôster">Pôster</option>
+                                <option value="Apresentação oral">Apresentação oral</option>
+                                <option value="Outra">Outra</option>
+                                <option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-block">
+                    <h4>ENDERECO DO SOLICITANTE</h4>
+                    <div class="form-row">
+                        <div class="form-group small">
+                            <label for="al-data_nascimento">DATA DE NASCIMENTO</label>
+                            <input type="text" id="al-data_nascimento" name="data_nascimento" placeholder="dd/mm/aaaa">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-logradouro">LOGRADOURO</label>
+                            <input type="text" id="al-logradouro" name="logradouro" placeholder="Rua, Avenida, etc.">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-numero">NÚMERO</label>
+                            <input type="text" id="al-numero" name="numero" placeholder="Ex: 123">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-complemento">COMPLEMENTO</label>
+                            <input type="text" id="al-complemento" name="complemento" placeholder="Apto, Casa, etc. (Opcional)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="al-bairro">BAIRRO</label>
+                            <input type="text" id="al-bairro" name="bairro" placeholder="Ex: Butantã">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-cep">CEP</label>
+                            <input type="text" id="al-cep" name="cep" placeholder="00000-000">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-cidade">CIDADE</label>
+                            <input type="text" id="al-cidade" name="cidade" placeholder="Ex: São Paulo">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-estado">ESTADO</label>
+                            <input type="text" id="al-estado" name="estado" placeholder="Ex: SP">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-block">
+                    <h4>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="al-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input type="text" id="al-cpf" name="cpf" placeholder="000.000.000-00">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input type="text" id="al-rg" name="rg" placeholder="00.000.000-0">
+                        </div>
+                        <div class="form-group">
+                            <label for="al-banco">NOME DO BANCO</label>
+                            <input type="text" id="al-banco" name="banco" placeholder="Ex: Banco do Brasil">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-agencia">NÚMERO DA AGÊNCIA</label>
+                            <input type="text" id="al-agencia" name="agencia" placeholder="Ex: 1234">
+                        </div>
+                        <div class="form-group small">
+                            <label for="al-conta">NÚMERO DA CONTA</label>
+                            <input type="text" id="al-conta" name="conta" placeholder="Ex: 12345-6">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Enviar solicitação</button>
+            </form>
+
+            <form id="docentes-form" class="tab-content" data-tipo="docentes">
+                <div class="form-block">
+                    <h4>SOLICITANTE E EVENTO</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="do-nome">NOME COMPLETO - SEM ABREVIAR</label>
+                            <input type="text" id="do-nome" name="nome" placeholder="Ex: João da Silva Santos">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-numusp">N. USP</label>
+                            <input type="text" id="do-numusp" name="numusp" placeholder="Ex: 87654321">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-programa">PROGRAMA</label>
+                            <input type="text" id="do-programa" name="programa" placeholder="Ex: Estatística">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="do-email">E-MAIL</label>
+                            <input type="email" id="do-email" name="email" placeholder="Ex: joao@ime.usp.br">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+                            <input type="text" id="do-evento" name="evento" placeholder="Ex: Seminário de Ensino">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-periodo">PERÍODO DO EVENTO</label>
+                            <input type="text" id="do-periodo" name="periodo" placeholder="Ex: 12/05/2024">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="do-cidade_evento">CIDADE DO EVENTO</label>
+                            <input type="text" id="do-cidade_evento" name="cidade_evento" placeholder="Ex: Campinas">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-estado_evento">ESTADO DO EVENTO</label>
+                            <input type="text" id="do-estado_evento" name="estado_evento" placeholder="Ex: SP">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-pais_evento">PAÍS DO EVENTO</label>
+                            <input type="text" id="do-pais_evento" name="pais_evento" placeholder="Ex: Brasil">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-link_evento">LINK DO EVENTO</label>
+                            <input type="text" id="do-link_evento" name="link_evento" placeholder="Ex: https://evento.com (Opcional)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group small">
+                            <label for="do-valor">VALOR SOLICITADO (R$)</label>
+                            <input type="text" id="do-valor" name="valor" placeholder="Ex: 2500">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-detalhamento">DETALHAMENTO DO PEDIDO</label>
+                            <textarea id="do-detalhamento" name="detalhamento" placeholder="Descreva os gastos estimados e a justificativa."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="do-apresentacao">IRÁ APRESENTAR TRABALHO?</label>
+                            <select id="do-apresentacao" name="apresentacao">
+                                <option value="Pôster">Pôster</option>
+                                <option value="Apresentação oral">Apresentação oral</option>
+                                <option value="Outra">Outra</option>
+                                <option value="Não irá apresentar trabalho">Não irá apresentar trabalho</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-block">
+                    <h4>ENDERECO DO SOLICITANTE</h4>
+                    <div class="form-row">
+                        <div class="form-group small">
+                            <label for="do-data_nascimento">DATA DE NASCIMENTO</label>
+                            <input type="text" id="do-data_nascimento" name="data_nascimento" placeholder="dd/mm/aaaa">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-logradouro">LOGRADOURO</label>
+                            <input type="text" id="do-logradouro" name="logradouro" placeholder="Rua, Avenida, etc.">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-numero">NÚMERO</label>
+                            <input type="text" id="do-numero" name="numero" placeholder="Ex: 456">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-complemento">COMPLEMENTO</label>
+                            <input type="text" id="do-complemento" name="complemento" placeholder="Apto, Casa, etc. (Opcional)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="do-bairro">BAIRRO</label>
+                            <input type="text" id="do-bairro" name="bairro" placeholder="Ex: Centro">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-cep">CEP</label>
+                            <input type="text" id="do-cep" name="cep" placeholder="00000-000">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-cidade">CIDADE</label>
+                            <input type="text" id="do-cidade" name="cidade" placeholder="Ex: São Paulo">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-estado">ESTADO</label>
+                            <input type="text" id="do-estado" name="estado" placeholder="Ex: SP">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-block">
+                    <h4>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="do-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input type="text" id="do-cpf" name="cpf" placeholder="000.000.000-00">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+                            <input type="text" id="do-rg" name="rg" placeholder="00.000.000-0">
+                        </div>
+                        <div class="form-group">
+                            <label for="do-banco">NOME DO BANCO</label>
+                            <input type="text" id="do-banco" name="banco" placeholder="Ex: Caixa">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-agencia">NÚMERO DA AGÊNCIA</label>
+                            <input type="text" id="do-agencia" name="agencia" placeholder="Ex: 0001">
+                        </div>
+                        <div class="form-group small">
+                            <label for="do-conta">NÚMERO DA CONTA</label>
+                            <input type="text" id="do-conta" name="conta" placeholder="Ex: 98765-1">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Enviar solicitação</button>
+            </form>
+        </section>
+
+        <section id="confirmation-section" class="hidden">
+            <h2>Solicitação registrada</h2>
+            <pre id="oficio-text"></pre>
+        </section>
+    </main>
+
+    <script src="/app.js"></script>
+</body>
+</html>

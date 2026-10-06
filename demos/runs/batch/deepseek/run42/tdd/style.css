@@ -1,0 +1,218 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #1c2b30;
+  background: #eef3f5;
+}
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1.2rem;
+  background: var(--azul);
+  border-bottom: 4px solid var(--amarelo);
+}
+
+.cabecalho .logo {
+  height: 3rem;
+  width: auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 4px;
+}
+
+.cabecalho .titulos h1 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.cabecalho .titulos p {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  color: var(--azul-claro);
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.5rem 1.2rem 0;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.45rem 1.6rem;
+  border: 1px solid var(--azul-claro);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: #dcecef;
+  color: var(--azul);
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #ffffff;
+}
+
+/* Painéis */
+.painel-form {
+  display: none;
+  padding: 0 1.2rem 0.8rem;
+}
+
+.painel-form.ativo {
+  display: block;
+}
+
+.form-solicitacao fieldset {
+  border: 1px solid #c9dde1;
+  border-radius: 6px;
+  margin: 0 0 0.5rem;
+  padding: 0.4rem 0.6rem 0.6rem;
+  background: #ffffff;
+}
+
+.form-solicitacao legend {
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  background: var(--azul);
+  padding: 0.15rem 0.6rem;
+  border-radius: 4px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.35rem 0.6rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
+  min-width: 0;
+}
+
+.campo.largo {
+  grid-column: span 3;
+}
+
+.campo label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--azul);
+  margin-bottom: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.35rem;
+  border: 1px solid #b7ccd1;
+  border-radius: 4px;
+  background: #fbfdfe;
+  color: #1c2b30;
+  width: 100%;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  outline-offset: 0;
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+/* Ações */
+.acoes {
+  text-align: right;
+}
+
+.enviar {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--amarelo);
+  color: #1c2b30;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.6rem;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  filter: brightness(0.95);
+}
+
+/* Mensagens de erro */
+.mensagens-erro {
+  border: 1px solid #d9534f;
+  background: #fdeceb;
+  color: #a02b28;
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.mensagens-erro p {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Confirmação */
+#pagina-confirmacao {
+  padding: 1rem 1.2rem 2rem;
+}
+
+.titulo-confirmacao {
+  color: var(--azul);
+  font-size: 1.4rem;
+  margin: 0.5rem 0 0.8rem;
+}
+
+#oficio {
+  background: #ffffff;
+  border: 1px solid #c9dde1;
+  border-left: 6px solid var(--azul);
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  white-space: pre-wrap;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #1c2b30;
+  max-width: 60rem;
+}

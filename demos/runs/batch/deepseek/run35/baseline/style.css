@@ -1,0 +1,175 @@
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  color: #1a1a1a;
+  background: #eef6f8;
+}
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 22px;
+  background: #ffffff;
+  border-bottom: 3px solid #1094ab;
+}
+
+.logo {
+  height: 44px;
+  width: auto;
+  margin: 10px;
+}
+
+.identidade { display: flex; flex-direction: column; }
+
+.universidade {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: #1094ab;
+  letter-spacing: 0.3px;
+}
+
+.programa {
+  margin: 0;
+  font-size: 11px;
+  color: #64c4d2;
+  letter-spacing: 0.4px;
+}
+
+/* Abas */
+.abas { display: flex; padding: 6px 12px 0; }
+
+.aba {
+  border: none;
+  cursor: pointer;
+  padding: 7px 30px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: #64c4d2;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-right: 3px;
+}
+
+.aba.ativo { background: #1094ab; }
+
+.painel { display: none; }
+.painel.ativo { display: block; }
+
+/* Blocos */
+.bloco {
+  margin: 8px 12px;
+  padding: 4px 10px 9px;
+  border: 1px solid #bfe3e9;
+  border-radius: 5px;
+  background: #ffffff;
+}
+
+.bloco legend {
+  padding: 0 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #1094ab;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 5px 10px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #2c5d67;
+}
+
+.campo.largo { grid-column: 1 / -1; }
+
+.campo input,
+.campo select,
+.campo textarea {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 400;
+  color: #1a1a1a;
+  padding: 3px 6px;
+  border: 1px solid #b9d7dd;
+  border-radius: 3px;
+  background: #fbfefe;
+  width: 100%;
+}
+
+.campo textarea { resize: vertical; }
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid #64c4d2;
+  border-color: #1094ab;
+}
+
+/* Botão */
+.enviar {
+  display: block;
+  margin: 10px auto 16px;
+  padding: 8px 36px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #1a1a1a;
+  background: #fcb421;
+}
+
+.enviar:hover { background: #ffc94d; }
+
+/* Erros */
+.erros {
+  margin: 8px 12px 0;
+  padding: 6px 12px;
+  border-left: 4px solid #b00020;
+  background: #fdecef;
+  color: #b00020;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.oculto { display: none; }
+
+/* Confirmação */
+#confirmacao { padding: 10px 12px 20px; }
+
+#confirmacao h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #1094ab;
+}
+
+#oficio {
+  padding: 14px 18px;
+  border: 1px solid #bfe3e9;
+  border-top: 4px solid #1094ab;
+  border-radius: 4px;
+  background: #ffffff;
+  white-space: pre-wrap;
+  font-size: 12px;
+  line-height: 1.55;
+}

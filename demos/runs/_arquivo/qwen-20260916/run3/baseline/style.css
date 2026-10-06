@@ -1,0 +1,238 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+:root {
+  font-size: clamp(9px, 1.05vh, 13px);
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  background: #eef3f5;
+  color: #2b2b2b;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ===== Cabeçalho institucional ===== */
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  background: #1094ab;
+  color: #fff;
+  padding: 0.6rem 1.4rem;
+}
+
+.cabecalho .logo-usp {
+  height: 2.6rem;
+  background: #fff;
+  border-radius: 0.4rem;
+  padding: 0.5rem; /* margem livre: 1em = altura da letra do próprio logotipo */
+}
+
+.cabecalho .linhas-titulo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.nome-universidade {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.nome-programa {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: #d6eff3;
+}
+
+/* ===== Abas ===== */
+
+.abas {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.6rem 1.4rem 0;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.45rem 1.8rem;
+  border: 1px solid #1094ab;
+  border-bottom: none;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background: #64c4d2;
+  color: #fff;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: #fff;
+  color: #1094ab;
+  padding-bottom: 0.6rem;
+}
+
+/* ===== Formulários ===== */
+
+#conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0 1.4rem 0.6rem;
+}
+
+.formulario {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+fieldset {
+  border: 1px solid #c3dfe5;
+  border-top: 0.35rem solid #1094ab;
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 0.45rem 0.9rem 0.65rem;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+legend {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #1094ab;
+  padding: 0 0.5rem;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 0.3rem 0.7rem;
+  flex: 1;
+}
+
+.campo {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.campo.grande {
+  grid-column: span 6;
+}
+
+.campo > span, /* (rótulo via texto do label) */
+campo-label {} /* noop */
+
+label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #33555c;
+}\n
+input, select, textarea {
+  font: inherit;
+  color: inherit;
+  border: 1px solid #a9cdd4;
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.45rem;
+  background: #fff;
+  width: 100%;
+  min-width: 0;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #fcb421;
+  outline-offset: 1px;
+}
+
+textarea {
+  resize: none;
+}
+
+select {
+  cursor: pointer;
+}
+
+.enviar {
+  align-self: center;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: #1094ab;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.5rem 3rem;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0c7c8f;
+}
+
+.enviar:focus-visible {
+  outline: 2px solid #fcb421;
+  outline-offset: 2px;
+}
+
+/* ===== Erros ===== */
+
+.erros {
+  background: #fdecea;
+  border: 1px solid #d9534f;
+  border-left: 0.35rem solid #d9534f;
+  border-radius: 0.4rem;
+  color: #a33327;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+/* ===== Confirmação ===== */
+
+#confirmacao {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 1.4rem 1.4rem;
+  min-height: 0;
+}
+
+.caixa-oficio {
+  background: #fff;
+  border-radius: 0.5rem;
+  border-top: 0.45rem solid #1094ab;
+  box-shadow: 0 2px 12px rgba(16, 148, 171, 0.18);
+  padding: 1rem 2.2rem 1.4rem;
+  width: min(46rem, 100%);
+  overflow-y: auto;
+}
+
+.titulo-confirmacao {
+  color: #1094ab;
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.oficio {
+  font-family: inherit;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  color: #2b2b2b;
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<img src="assets/usp-logo.png" alt="Universidade de São Paulo">
+<span class="nome">Universidade de São Paulo</span>
+<span class="programa">Instituto de Matemática e Estatística - Pós-Graduação</span>
+</header>
+<nav>
+<button class="aba ativa" data-aba="alunos">ALUNOS</button>
+<button class="aba" data-aba="docentes">DOCENTES</button>
+</nav>
+<section id="alunos" class="visivel">
+<form data-perfil="alunos">
+<div class="erros" hidden></div>
+<fieldset>
+<legend>SOLICITANTE E EVENTO</legend>
+<label>NOME COMPLETO - SEM ABREVIAR
+<input name="nome" placeholder="Maria da Silva Santos" required>
+</label>
+<label>N. USP
+<input name="nusp" placeholder="12345678" required>
+</label>
+<label>PROGRAMA
+<input name="programa" placeholder="Matemática" required>
+</label>
+<label>NÍVEL
+<select name="nivel" required>
+<option value="">Selecione</option>
+<option>Mestrado</option>
+<option>Doutorado</option>
+</select>
+</label>
+<label>TIPO DE AUXÍLIO
+<select name="tipo" required>
+<option value="">Selecione</option>
+<option>Participação em evento</option>
+<option>Banca de exame ou defesa</option>
+<option>Outro</option>
+</select>
+</label>
+<label>E-MAIL
+<input name="email" placeholder="aluno@usp.br" required>
+</label>
+<label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA
+<input name="evento" placeholder="Congresso Brasileiro de Matemática" required>
+</label>
+<label>PERÍODO DO EVENTO, EXAME OU DEFESA
+<input name="periodo" placeholder="10 a 15 de agosto de 2025" required>
+</label>
+<label>CIDADE DO EVENTO, EXAME OU DEFESA
+<input name="cidade" placeholder="Porto Alegre" required>
+</label>
+<label>ESTADO DO EVENTO, EXAME OU DEFESA
+<input name="estado" placeholder="Rio Grande do Sul" required>
+</label>
+<label>PAÍS DO EVENTO, EXAME OU DEFESA
+<input name="pais" placeholder="Brasil" required>
+</label>
+<label>LINK DO EVENTO, EXAME OU DEFESA
+<input name="link" placeholder="https://evento.com.br">
+</label>
+<label>VALOR SOLICITADO (R$)
+<input name="valor" class="moeda" placeholder="150000" required>
+</label>
+<label>DETALHAMENTO DO PEDIDO
+<textarea name="detalhamento" rows="3" placeholder="Inscrição, passagem aérea e diárias de hotel" required></textarea>
+</label>
+<label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?
+<select name="apresentacao" required>
+<option value="">Selecione</option>
+<option>Pôster</option>
+<option>Apresentação oral</option>
+<option>Outra</option>
+<option>Não irá apresentar trabalho</option>
+</select>
+</label>
+</fieldset>
+<fieldset>
+<legend>ENDEREÇO DO SOLICITANTE</legend>
+<label>DATA DE NASCIMENTO
+<input name="datanasc" class="data" placeholder="01011990" required>
+</label>
+<label>LOGRADOURO
+<input name="logradouro" placeholder="Rua do Matão" required>
+</label>
+<label>NÚMERO
+<input name="numero" placeholder="1010" required>
+</label>
+<label>COMPLEMENTO
+<input name="complemento" placeholder="Bloco A, sala 12">
+</label>
+<label>BAIRRO
+<input name="bairro" placeholder="Butantã" required>
+</label>
+<label>CEP
+<input name="cep" class="cep" placeholder="05508090" required>
+</label>
+<label>CIDADE
+<input name="cidade_end" placeholder="São Paulo" required>
+</label>
+<label>ESTADO
+<input name="estado_end" placeholder="SP" required>
+</label>
+</fieldset>
+<fieldset>
+<legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+<label>CPF (SEPARADOS POR PONTOS E TRAÇO)
+<input name="cpf" class="cpf" placeholder="123.456.789-09" required>
+</label>
+<label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)
+<input name="rg" placeholder="34.567.890-1" required>
+</label>
+<label>NOME DO BANCO
+<input name="banco" placeholder="Banco do Brasil" required>
+</label>
+<label>NÚMERO DA AGÊNCIA
+<input name="agencia" placeholder="1234" required>
+</label>
+<label>NÚMERO DA CONTA
+<input name="conta" placeholder="12345-6" required>
+</label>
+</fieldset>
+<button type="submit">Enviar solicitação</button>
+</form>
+</section>
+<section id="docentes">
+<form data-perfil="docentes">
+<div class="erros" hidden></div>
+<fieldset>
+<legend>SOLICITANTE E EVENTO</legend>
+<label>NOME COMPLETO - SEM ABREVIAR
+<input name="nome" placeholder="João Nascimento" required>
+</label>
+<label>N. USP
+<input name="nusp" placeholder="87654321" required>
+</label>
+<label>PROGRAMA
+<input name="programa" placeholder="Estatística" required>
+</label>
+<label>E-MAIL
+<input name="email" placeholder="docente@ime.usp.br" required>
+</label>
+<label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA
+<input name="evento" placeholder="Simpósio Brasileiro de Estatística" required>
+</label>
+<label>PERÍODO DO EVENTO, EXAME OU DEFESA
+<input name="periodo" placeholder="5 a 7 de setembro de 2025" required>
+</label>
+<label>CIDADE DO EVENTO, EXAME OU DEFESA
+<input name="cidade" placeholder="Campinas" required>
+</label>
+<label>ESTADO DO EVENTO, EXAME OU DEFESA
+<input name="estado" placeholder="São Paulo" required>
+</label>
+<label>PAÍS DO EVENTO, EXAME OU DEFESA
+<input name="pais" placeholder="Brasil" required>
+</label>
+<label>LINK DO EVENTO, EXAME OU DEFESA
+<input name="link" placeholder="https://simposio.com.br">
+</label>
+<label>VALOR SOLICITADO (R$)
+<input name="valor" class="moeda" placeholder="200000" required>
+</label>
+<label>DETALHAMENTO DO PEDIDO
+<textarea name="detalhamento" rows="3" placeholder="Diárias para participação em congresso" required></textarea>
+</label>
+<label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?
+<select name="apresentacao" required>
+<option value="">Selecione</option>
+<option>Pôster</option>
+<option>Apresentação oral</option>
+<option>Outra</option>
+<option>Não irá apresentar trabalho</option>
+</select>
+</label>
+</fieldset>
+<fieldset>
+<legend>ENDEREÇO DO SOLICITANTE</legend>
+<label>DATA DE NASCIMENTO
+<input name="datanasc" class="data" placeholder="03031975" required>
+</label>
+<label>LOGRADOURO
+<input name="logradouro" placeholder="Avenida Professor Luciano Gualberto" required>
+</label>
+<label>NÚMERO
+<input name="numero" placeholder="117" required>
+</label>
+<label>COMPLEMENTO
+<input name="complemento" placeholder="Sala 204">
+</label>
+<label>BAIRRO
+<input name="bairro" placeholder="Butantã" required>
+</label>
+<label>CEP
+<input name="cep" class="cep" placeholder="05508010" required>
+</label>
+<label>CIDADE
+<input name="cidade_end" placeholder="São Paulo" required>
+</label>
+<label>ESTADO
+<input name="estado_end" placeholder="SP" required>
+</label>
+</fieldset>
+<fieldset>
+<legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+<label>CPF (SEPARADOS POR PONTOS E TRAÇO)
+<input name="cpf" class="cpf" placeholder="987.654.321-00" required>
+</label>
+<label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)
+<input name="rg" placeholder="12.345.678-9" required>
+</label>
+<label>NOME DO BANCO
+<input name="banco" placeholder="Itaú" required>
+</label>
+<label>NÚMERO DA AGÊNCIA
+<input name="agencia" placeholder="5678" required>
+</label>
+<label>NÚMERO DA CONTA
+<input name="conta" placeholder="87654-3" required>
+</label>
+</fieldset>
+<button type="submit">Enviar solicitação</button>
+</form>
+</section>
+<section id="confirmacao" hidden>
+<h1>Solicitação registrada</h1>
+<pre id="oficio"></pre>
+</section>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<label>NÍVEL</label>
+<select name="nivel">
+    <option value="">Selecione</option>
+    <option value="Mestrado" {% if data.nivel == 'Mestrado' %}selected{% endif %}>Mestrado</option>
+    <option value="Doutorado" {% if data.nivel == 'Doutorado' %}selected{% endif %}>Doutorado</option>
+</select>
+
+<label>TIPO DE AUXÍLIO</label>
+<select name="tipo_auxilio">
+    <option value="">Selecione</option>
+    <option value="Participação em evento" {% if data.tipo_auxilio == 'Participação em evento' %}selected{% endif %}>Participação em evento</option>
+    <option value="Banca de exame ou defesa" {% if data.tipo_auxilio == 'Banca de exame ou defesa' %}selected{% endif %}>Banca de exame ou defesa</option>
+    <option value="Outro" {% if data.tipo_auxilio == 'Outro' %}selected{% endif %}>Outro</option>
+</select>
+
+<label>NOME COMPLETO - SEM ABREVIAR</label>
+<input type="text" name="nome" placeholder="Ex: João da Silva" value="{{ data.nome or '' }}">
+
+<label>N. USP</label>
+<input type="text" name="n_usp" placeholder="12345678" value="{{ data.n_usp or '' }}">
+
+<label>PROGRAMA</label>
+<input type="text" name="programa" placeholder="Ex: Ciência da Computação" value="{{ data.programa or '' }}">
+
+<label>E-MAIL</label>
+<input type="email" name="email" placeholder="exemplo@usp.br" value="{{ data.email or '' }}">
+
+<label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+<input type="text" name="nome_evento" placeholder="Ex: Simpósio Nacional" value="{{ data.nome_evento or '' }}">
+
+<label>PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+<input type="text" name="periodo" placeholder="Ex: 01/06/2025" value="{{ data.periodo or '' }}">
+
+<label>CIDADE DO EVENTO, EXAME OU DEFESA</label>
+<input type="text" name="cidade" placeholder="Ex: São Paulo" value="{{ data.cidade or '' }}">
+
+<label>ESTADO DO EVENTO, EXAME OU DEFESA</label>
+<input type="text" name="estado" placeholder="Ex: SP" value="{{ data.estado or '' }}">
+
+<label>PAÍS DO EVENTO, EXAME OU DEFESA</label>
+<input type="text" name="pais" placeholder="Ex: Brasil" value="{{ data.pais or '' }}">
+
+<label>LINK DO EVENTO, EXAME OU DEFESA (opcional)</label>
+<input type="text" name="link_evento" placeholder="Ex: http://evento.br" value="{{ data.link_evento or '' }}">
+
+<label>VALOR SOLICITADO (R$)</label>
+<input type="hidden" name="valor_solicitado" id="valor_hid" value="{{ data.valor_solicitado or '' }}">
+<input type="text" id="valor_vis" placeholder="Ex: 1500" onblur="formatValor()">
+
+<label>DETALHAMENTO DO PEDIDO</label>
+<textarea name="detalhamento" placeholder="Detalhe os gastos">{{ data.detalhamento or '' }}</textarea>
+
+<label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+<select name="apresentacao">
+    <option value="">Selecione</option>
+    <option value="Pôster" {% if data.apresentacao == 'Pôster' %}selected{% endif %}>Pôster</option>
+    <option value="Apresentação oral" {% if data.apresentacao == 'Apresentação oral' %}selected{% endif %}>Apresentação oral</option>
+    <option value="Outra" {% if data.apresentacao == 'Outra' %}selected{% endif %}>Outra</option>
+    <option value="Não irá apresentar trabalho" {% if data.apresentacao == 'Não irá apresentar trabalho' %}selected{% endif %}>Não irá apresentar trabalho</option>
+</select>

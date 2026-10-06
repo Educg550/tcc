@@ -1,0 +1,162 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  color: #1b2a33;
+  background: #f3f8fa;
+}
+
+.cabecalho {
+  background: #fff;
+  border-bottom: 4px solid var(--azul-primario);
+}
+
+.cabecalho-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem;
+}
+
+.logo {
+  height: 56px;
+  display: block;
+}
+
+.cabecalho-texto h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--azul-primario);
+}
+
+.cabecalho-texto p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #5a6a72;
+}
+
+.conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.6rem 1rem 1rem;
+}
+
+.abas {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.aba {
+  border: 1px solid var(--azul-primario);
+  background: #fff;
+  color: var(--azul-primario);
+  padding: 0.4rem 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  color: #fff;
+}
+
+.painel.oculto { display: none; }
+
+form {
+  background: #fff;
+  border: 1px solid #dbe8ec;
+  padding: 0.8rem 1rem 1rem;
+}
+
+.erros {
+  color: #a3232f;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.erros:not(:empty) {
+  border-left: 4px solid var(--amarelo);
+  padding: 0.3rem 0.6rem;
+  background: #fdf6e8;
+}
+
+fieldset {
+  border: none;
+  margin: 0 0 0.5rem;
+  padding: 0;
+}
+
+legend {
+  font-weight: 700;
+  color: var(--azul-primario);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding: 0;
+  margin-bottom: 0.3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem 0.7rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.72rem;
+  color: #42525b;
+}
+
+label span {
+  margin-bottom: 2px;
+  line-height: 1.1;
+}
+
+label.largo { grid-column: span 5; }
+
+input, select, textarea {
+  font: inherit;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid #b9cdd4;
+  background: #fff;
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+}
+
+.enviar {
+  margin-top: 0.2rem;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  padding: 0.5rem 1.6rem;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7a8e; }
+
+#confirmacao { background: #fff; border: 1px solid #dbe8ec; padding: 1rem; }
+
+#oficio {
+  white-space: pre-wrap;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.oculto { display: none; }

@@ -1,0 +1,103 @@
+{
+  "started_at": "2026-09-11T12:59:12",
+  "ended_at": "2026-09-11T13:32:24",
+  "total_duration_s": 1992.69,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4-flash",
+      "coder": "deepseek/deepseek-v4-pro",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.168281,
+  "total_tokens": 137623,
+  "total_retries": 3,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4-flash",
+      "duration_s": 16.57,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_app.py"
+      ],
+      "historico": [],
+      "input_tokens": 3530,
+      "output_tokens": 4903,
+      "total_tokens": 8433,
+      "cost_usd": 0.001579
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4-pro",
+      "duration_s": 1969.52,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 4,
+      "retries": 3,
+      "arquivos": [
+        "pyproject.toml",
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 21,
+          "errors": 0,
+          "total": 21
+        },
+        {
+          "passed": 0,
+          "failed": 21,
+          "errors": 0,
+          "total": 21
+        },
+        {
+          "passed": 0,
+          "failed": 21,
+          "errors": 0,
+          "total": 21
+        },
+        {
+          "passed": 0,
+          "failed": 21,
+          "errors": 0,
+          "total": 21
+        }
+      ],
+      "input_tokens": 38176,
+      "output_tokens": 91014,
+      "total_tokens": 129190,
+      "cost_usd": 0.166702,
+      "impressao": "6388eb9ca6db777c8bebe0704a4e4ede103143801c458aa52b995adae5b12c18",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 21,
+    "errors": 0,
+    "total": 21
+  },
+  "integridade": {
+    "medido_sha256": "6388eb9ca6db777c8bebe0704a4e4ede103143801c458aa52b995adae5b12c18",
+    "intacto": true
+  }
+}

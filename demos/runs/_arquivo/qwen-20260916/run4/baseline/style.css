@@ -1,0 +1,266 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --azul-escuro: #0a6b7a;
+  --tinta: #1c2b2d;
+  --tinta-suave: #5b6b6d;
+  --linha: #d5e0e2;
+  --fundo: #edf3f4;
+  --branco: #ffffff;
+  --erro: #b3261e;
+  --erro-fundo: #fdecdb;
+  --fonte: "Open Sans", "Segoe UI", Roboto, Verdana, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { height: 100%; }
+
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: var(--fonte);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Cabeçalho institucional */
+.header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--azul);
+  color: var(--branco);
+  padding: 14px 26px;
+  border-bottom: 5px solid var(--amarelo);
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  background: var(--branco);
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.inst { display: flex; flex-direction: column; }
+
+.inst-nome {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.inst-sub {
+  font-size: 0.85rem;
+  color: var(--azul-claro);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Área central */
+main {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.painel {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  padding: 14px 18px;
+  width: 100%;
+  max-width: 1180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 1px 3px rgba(16, 148, 171, 0.08);
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 4px;
+  border-bottom: 2px solid var(--azul);
+}
+
+.aba {
+  appearance: none;
+  border: none;
+  background: var(--fundo);
+  color: var(--tinta-suave);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 9px 26px;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  color: var(--branco);
+  border-bottom-color: var(--amarelo);
+}
+
+.aba:focus-visible {
+  outline: 2px solid var(--amarelo);
+  outline-offset: 1px;
+}
+
+/* Erros */
+.erros {
+  display: none;
+  color: var(--erro);
+  font-weight: 700;
+  background: var(--erro-fundo);
+  border-left: 4px solid var(--erro);
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  white-space: pre-line;
+}
+
+.erros.mostra { display: block; }
+
+/* Blocos de campos */
+.bloco {
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #fafcfc;
+}
+
+.bloco-titulo {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  font-weight: 700;
+  color: var(--azul-escuro);
+  border-bottom: 2px solid var(--azul-claro);
+  padding-bottom: 4px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px 14px;
+}
+
+.campo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+
+.campo-largo { grid-column: span 2; }
+.campo-2 { grid-column: span 2; }
+.campo-tipo-textarea { grid-column: 1 / -1; }
+.campo-tipo-select { grid-column: span 2; }
+
+.rotulo {
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--tinta);
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-radius: 4px;
+  padding: 7px 9px;
+  width: 100%;
+  min-width: 0;
+}
+
+textarea { resize: none; }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px rgba(16, 148, 171, 0.18);
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9fb2b5;
+  font-weight: 400;
+  opacity: 1;
+}
+
+.campo-alunos { display: none; }
+
+.painel.aba-alunos .campo-alunos { display: flex; }
+
+/* Ações */
+.acoes {
+  padding: 4px 0 2px;
+  border-top: 1px solid var(--linha);
+}
+
+.botao-enviar {
+  appearance: none;
+  border: none;
+  background: var(--azul);
+  color: var(--branco);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 11px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.botao-enviar:hover { background: var(--azul-escuro); }
+
+.botao-enviar:focus-visible {
+  outline: 3px solid var(--amarelo);
+  outline-offset: 2px;
+}
+
+/* Confirmação */
+.confirmacao {
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.confirmacao h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--azul-escuro);
+}
+
+.oficio {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-left: 5px solid var(--amarelo);
+  border-radius: 6px;
+  padding: 18px 22px;
+  white-space: pre-wrap;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--tinta);
+}

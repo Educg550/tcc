@@ -1,0 +1,219 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #1f2a2e;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  color: var(--tinta);
+  background: #eef2f4;
+  height: 100vh;
+  padding: 0 18px 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.oculto { display: none !important; }
+
+#pagina-form {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--azul-primario);
+  color: #fff;
+  padding: 10px 22px;
+  margin-bottom: 12px;
+  flex: 0 0 auto;
+}
+
+.marca {
+  height: 38px;
+  background: #fff;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  margin: 19px;
+}
+
+.marca img { height: 19px; width: auto; display: block; }
+
+.titulos { line-height: 1.25; }
+
+.titulos h1 { font-size: 1.15rem; margin: 0; letter-spacing: .5px; }
+.titulos p { font-size: .8rem; margin: 0; color: var(--azul-secundario); }
+.titulos h2 { font-size: .85rem; font-weight: 600; margin: 4px 0 0; border-left: 4px solid var(--amarelo); padding-left: 8px; }
+
+.abas { display: flex; gap: 6px; flex: 0 0 auto; }
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: 1px solid var(--azul-primario);
+  border-bottom: none;
+  background: #cfe3e8;
+  color: var(--azul-primario);
+  padding: 8px 38px;
+  border-radius: 8px 8px 0 0;
+}
+
+.aba.ativa { background: #fff; color: var(--azul-primario); border-top: 4px solid var(--amarelo); }
+
+.painel {
+  background: #fff;
+  border: 1px solid var(--azul-primario);
+  border-radius: 0 10px 10px 10px;
+  padding: 10px 14px 0;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.painel > form { min-width: 1060px; }
+
+fieldset {
+  border: none;
+  border-bottom: 1px solid var(--azul-secundario);
+  margin: 0;
+  padding: 0 0 8px;
+  min-width: 1060px;
+}
+
+fieldset:last-of-type { border-bottom: none; }
+
+legend {
+  font-weight: 700;
+  font-size: .8rem;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--azul-primario);
+  padding: 0 0 6px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px 14px;
+  align-items: end;
+}
+
+.col-1 { grid-column: span 1; }
+.col-2 { grid-column: span 2; }
+.col-3 { grid-column: span 3; }
+.col-4 { grid-column: span 4; }
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #35565e;
+}
+
+input, select, textarea {
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 400;
+  color: var(--tinta);
+  background: #fbfdfe;
+  border: 1px solid #9fbfc6;
+  border-radius: 4px;
+  padding: 4px 6px;
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  outline-offset: 1px;
+  border-color: var(--azul-primario);
+}
+
+textarea { resize: none; min-height: 34px; }
+
+.acao { padding: 8px 0 10px; }
+
+.acao button {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: .5px;
+  cursor: pointer;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 28px;
+  box-shadow: 0 1px 0 #0b6c7d;
+}
+
+.acao button:hover { background: #0d8295; }
+
+.erros {
+  background: #fdf1e3;
+  border-left: 5px solid var(--amarelo);
+  color: #7a4a00;
+  font-size: .85rem;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  white-space: pre-line;
+}
+
+.erros:empty { display: none; }
+
+#pagina-confirmacao {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.oficio-area { flex: 1 1 auto; overflow: auto; }
+
+#pagina-confirmacao h2 {
+  color: var(--azul-primario);
+  font-size: 1.15rem;
+  margin: 4px 2px 12px;
+}
+
+.oficio {
+  font-family: inherit;
+  background: #fff;
+  border: 1px solid var(--azul-secundario);
+  border-top: 5px solid var(--azul-primario);
+  border-radius: 6px;
+  white-space: pre-wrap;
+  margin: 0 0 12px;
+  padding: 28px 34px;
+  font-size: .9rem;
+  line-height: 1.55;
+}
+
+.voltar { margin: 10px 0 0; flex: 0 0 auto; }
+
+.voltar button {
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff;
+  color: var(--azul-primario);
+  border: 1px solid var(--azul-primario);
+  border-radius: 4px;
+  padding: 7px 18px;
+}

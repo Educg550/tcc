@@ -1,0 +1,158 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", Arial, sans-serif;
+  color: #222;
+  background: #f4f9fa;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--azul-primario);
+  color: #fff;
+}
+
+.cabecalho-logos {
+  padding: 1rem;
+}
+
+.usp-logo {
+  height: 48px;
+  display: block;
+}
+
+.cabecalho-texto h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.cabecalho-texto p {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  color: #e6f6f8;
+}
+
+.abas {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0 1.5rem;
+  background: #e1f2f5;
+}
+
+.aba {
+  border: none;
+  background: transparent;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0b6b7c;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+
+.aba.ativa {
+  color: var(--azul-primario);
+  border-bottom-color: var(--amarelo);
+  background: #fff;
+}
+
+.form-aba { display: none; }
+.form-aba.ativa { display: block; }
+
+form {
+  padding: 0.5rem 1.5rem 1rem;
+}
+
+.bloco {
+  border: 1px solid var(--azul-secundario);
+  border-radius: 6px;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem 0.75rem;
+  background: #fff;
+}
+
+.bloco legend {
+  color: var(--azul-primario);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0 0.4rem;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem 0.75rem;
+}
+
+.grade label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #0b6b7c;
+  gap: 0.15rem;
+}
+
+.grade label.largo {
+  grid-column: 1 / -1;
+}
+
+.grade input,
+.grade select,
+.grade textarea {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid #a9d6de;
+  border-radius: 4px;
+}
+
+.erros {
+  color: #b00020;
+  font-size: 0.85rem;
+  margin: 0.4rem 0;
+}
+
+.erros:empty { display: none; }
+
+.enviar {
+  display: block;
+  margin: 0.5rem auto 0;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0b7c8f; }
+
+.oculto { display: none; }
+
+.confirmacao {
+  padding: 1.5rem;
+}
+
+.confirmacao h2 { color: var(--azul-primario); }
+
+#oficio {
+  white-space: pre-wrap;
+  font-family: "Open Sans", Arial, sans-serif;
+  background: #fff;
+  padding: 1.5rem;
+  border: 1px solid var(--azul-secundario);
+  border-radius: 6px;
+}

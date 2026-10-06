@@ -1,0 +1,204 @@
+/* Identidade visual da Universidade de São Paulo. */
+:root {
+  --azul-primario: #1094ab;
+  --azul-apoio: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #123a44;
+  --cinza: #55707a;
+  --borda: #c9e3ea;
+  --papel: #ffffff;
+  --fundo: #edf6f9;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--tinta);
+  background: var(--fundo);
+}
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 26px;
+  background: var(--papel);
+  border-bottom: 6px solid var(--azul-primario);
+}
+
+/* Margem livre em volta do logotipo, nos quatro lados */
+.cabecalho-logo {
+  display: block;
+  height: 56px;
+  padding: 8px;
+  background: var(--papel);
+}
+
+.cabecalho-texto h1 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--azul-primario);
+}
+
+.cabecalho-texto p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cinza);
+}
+
+/* Conteúdo */
+.conteudo {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 12px 20px 20px;
+}
+
+/* Abas */
+.abas { display: flex; gap: 6px; }
+
+.tab-button {
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 10px 30px;
+  border: 1px solid var(--borda);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: #f6fbfd;
+  color: var(--cinza);
+  cursor: pointer;
+}
+
+.tab-button:hover { border-color: var(--azul-apoio); }
+
+.tab-button.active {
+  background: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: var(--papel);
+}
+
+.painel { display: none; padding-top: 12px; }
+
+.painel.ativo { display: block; }
+
+/* Blocos de campos */
+fieldset {
+  margin: 0 0 10px;
+  padding: 8px 14px 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--papel);
+}
+
+legend {
+  padding: 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--azul-primario);
+}
+
+.grid { display: grid; gap: 8px 10px; }
+
+.g5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.g6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+.span-4 { grid-column: span 4; }
+.span-6 { grid-column: 1 / -1; }
+
+label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #3c5964;
+}
+
+input, select, textarea {
+  font: inherit;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid var(--borda);
+  border-radius: 5px;
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--azul-apoio);
+  border-color: var(--azul-primario);
+}
+
+textarea { resize: vertical; }
+
+/* Botão de envio */
+.botao-enviar {
+  display: block;
+  margin: 6px auto 0;
+  padding: 10px 36px;
+  font: inherit;
+  font-weight: 700;
+  color: var(--papel);
+  background: var(--azul-primario);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--amarelo);
+}
+
+.botao-enviar:hover { background: #0c8095; }
+
+/* Mensagens de erro, uma por linha */
+.erros {
+  display: none;
+  margin: 0 0 10px;
+  padding: 8px 14px;
+  background: #fdeeee;
+  border: 1px solid #eec3c3;
+  border-left: 4px solid #b3271d;
+  border-radius: 6px;
+  color: #7c1c10;
+}
+
+.erros p { margin: 2px 0; }
+
+/* Confirmação com o ofício */
+.oculto { display: none; }
+
+.titulo-confirmacao {
+  margin: 4px 0 10px;
+  font-size: 18px;
+  color: var(--azul-primario);
+}
+
+.oficio {
+  margin: 0;
+  padding: 20px 26px;
+  background: var(--papel);
+  border: 1px solid var(--borda);
+  border-left: 5px solid var(--azul-primario);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  max-width: 900px;
+}

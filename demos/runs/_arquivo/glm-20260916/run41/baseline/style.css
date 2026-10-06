@@ -1,0 +1,254 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #17323a;
+  --tinta-fraca: #56707a;
+  --borda: #b6d5dc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--tinta);
+  background: #eef5f7;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 4px 28px 6px;
+  background: #ffffff;
+  border-bottom: 4px solid var(--azul);
+}
+
+.logo {
+  display: block;
+  height: 44px;
+  width: auto;
+  margin: 12px;
+}
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--azul);
+  letter-spacing: 0.5px;
+}
+
+.programa {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+
+.abas {
+  display: flex;
+  gap: 6px;
+  max-width: 1280px;
+  margin: 8px auto 0;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 6px 26px;
+  color: var(--tinta-fraca);
+  background: #dcecef;
+  border: 1px solid var(--azul-claro);
+  border-bottom: none;
+  border-radius: 7px 7px 0 0;
+  cursor: pointer;
+}
+
+.aba:hover {
+  background: #cde7eb;
+}
+
+.aba.ativa {
+  color: #ffffff;
+  background: var(--azul);
+  border-color: var(--azul);
+  box-shadow: inset 0 3px 0 var(--amarelo);
+}
+
+.painel {
+  display: none;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 8px 12px 10px;
+  background: #ffffff;
+  border: 1px solid var(--azul-claro);
+  border-radius: 0 0 8px 8px;
+}
+
+.painel.ativa {
+  display: block;
+}
+
+.erros {
+  margin: 0 0 8px;
+  padding: 6px 12px;
+  background: #fdeeee;
+  border: 1px solid #eab8b8;
+  border-left: 4px solid #b3261e;
+  border-radius: 4px;
+  color: #8c1d18;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0 0 6px;
+  padding: 0;
+  border: none;
+}
+
+legend {
+  padding: 0 0 2px;
+  margin-bottom: 6px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color: var(--azul);
+  border-bottom: 2px solid var(--amarelo);
+}
+
+.grade {
+  display: grid;
+  gap: 5px 8px;
+}
+
+.grade-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grade-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.c2 {
+  grid-column: span 2;
+}
+
+.c3 {
+  grid-column: span 3;
+}
+
+.c4 {
+  grid-column: span 4;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.campo label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--tinta-fraca);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  width: 100%;
+  min-width: 0;
+  padding: 3px 7px;
+  color: var(--tinta);
+  background: #fbfdfe;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+}
+
+.campo textarea {
+  resize: none;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  border-color: var(--azul);
+}
+
+.campo ::placeholder {
+  color: #9db6bd;
+  opacity: 1;
+}
+
+.acoes {
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.enviar {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 7px 36px;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-bottom: 3px solid var(--amarelo);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0d7f94;
+}
+
+.aba:focus-visible,
+.enviar:focus-visible {
+  outline: 2px solid var(--amarelo);
+  outline-offset: 2px;
+}
+
+#confirmacao {
+  max-width: 900px;
+  margin: 14px auto 24px;
+  padding: 0 14px;
+}
+
+#confirmacao h2 {
+  margin: 0 0 10px;
+  font-size: 21px;
+  color: var(--azul);
+}
+
+#oficio {
+  margin: 0;
+  padding: 20px 26px;
+  background: #ffffff;
+  border: 1px solid var(--azul-claro);
+  border-left: 6px solid var(--amarelo);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.oculto {
+  display: none !important;
+}

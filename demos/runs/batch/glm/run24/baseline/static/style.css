@@ -1,0 +1,181 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #1d2b2e;
+  --fundo: #f4fafb;
+  --borda: #b7d8de;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* ---------- Cabeçalho institucional ---------- */
+
+.usp-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 20px;
+  border-bottom: 3px solid var(--azul-primario);
+  background: #fff;
+}
+
+.usp-header img {
+  height: 52px;
+  margin: 12px; /* margem livre em volta do logotipo */
+  display: block;
+}
+
+.usp-id { display: flex; flex-direction: column; gap: 2px; }
+
+.usp-nome {
+  color: var(--azul-primario);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+.usp-sub {
+  color: #456b73;
+  font-size: 12px;
+}
+
+/* ---------- Abas ---------- */
+
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 10px 20px 0;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 26px;
+  border: 1px solid var(--borda);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: #e7f3f5;
+  color: #335962;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: #fff;
+}
+
+/* ---------- Painel e erros ---------- */
+
+.conteudo { padding: 0 20px 20px; }
+
+.painel {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-top: 3px solid var(--azul-primario);
+  padding: 12px 18px 18px;
+}
+
+.painel[hidden] { display: none; }
+
+.erros {
+  background: #fdeceb;
+  border: 1px solid #e2a2a0;
+  color: #8a1f18;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+}
+
+.erros[hidden] { display: none; }
+
+.erros p { margin: 4px 0; }
+
+/* ---------- Grade de campos ---------- */
+
+.bloco-titulo {
+  grid-column: 1 / -1;
+  margin: 8px 0 4px;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  color: var(--azul-primario);
+  border-bottom: 2px solid var(--azul-secundario);
+  padding-bottom: 3px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px 12px;
+  align-items: end;
+}
+
+.grade label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #335962;
+}
+
+.grade label.largo,
+.grade textarea,
+.grade button { grid-column: span 3; }
+
+.grade input,
+.grade select,
+.grade textarea {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--texto);
+}
+
+.grade textarea { resize: vertical; min-height: 3.2em; }
+
+.enviar {
+  grid-column: span 3;
+  justify-self: center;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  border-bottom: 3px solid var(--amarelo);
+  padding: 9px 34px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ---------- Confirmação ---------- */
+
+.conf-titulo {
+  color: var(--azul-primario);
+  font-size: 22px;
+  margin: 18px 0 10px;
+}
+
+pre#oficio {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--amarelo);
+  padding: 14px 18px;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+}

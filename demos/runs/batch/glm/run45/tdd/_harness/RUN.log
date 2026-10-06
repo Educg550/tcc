@@ -1,0 +1,100 @@
+{
+  "started_at": "2026-09-16T17:08:20",
+  "ended_at": "2026-09-16T17:45:44",
+  "total_duration_s": 2244.08,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 1.532512,
+  "total_tokens": 408171,
+  "total_retries": 4,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 5.9,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 2,
+      "retries": 1,
+      "arquivos": [
+        "tests/test_formulario.py"
+      ],
+      "historico": [],
+      "input_tokens": 8043,
+      "output_tokens": 68,
+      "total_tokens": 8111,
+      "cost_usd": 0.007036
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 2237.49,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 4,
+      "retries": 3,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 0,
+          "total": 0
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 0,
+          "total": 0
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 0,
+          "total": 0
+        }
+      ],
+      "input_tokens": 15878,
+      "output_tokens": 384182,
+      "total_tokens": 400060,
+      "cost_usd": 1.525476,
+      "impressao": "bf87c4dc4d9d776a0f9412ef7af70d433390fdeb18d4caac4daa69247c8af5f4",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 0,
+    "total": 0
+  },
+  "integridade": {
+    "medido_sha256": "bf87c4dc4d9d776a0f9412ef7af70d433390fdeb18d4caac4daa69247c8af5f4",
+    "intacto": true
+  }
+}

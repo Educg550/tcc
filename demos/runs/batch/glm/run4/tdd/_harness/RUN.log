@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-16T14:58:53",
+  "ended_at": "2026-09-16T15:14:44",
+  "total_duration_s": 951.18,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.424375,
+  "total_tokens": 116949,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 558.14,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_auxilio_financeiro.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 84774,
+      "total_tokens": 88744,
+      "cost_usd": 0.340707
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 391.43,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 25,
+          "failed": 0,
+          "errors": 0,
+          "total": 25
+        }
+      ],
+      "input_tokens": 8920,
+      "output_tokens": 19285,
+      "total_tokens": 28205,
+      "cost_usd": 0.083668,
+      "impressao": "24f1f25b9c8f3f3749f9cb9323aeab51604665a03dc6a6ef2b2fbc9d63575a90",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 25,
+    "failed": 0,
+    "errors": 0,
+    "total": 25
+  },
+  "integridade": {
+    "medido_sha256": "24f1f25b9c8f3f3749f9cb9323aeab51604665a03dc6a6ef2b2fbc9d63575a90",
+    "intacto": true
+  }
+}

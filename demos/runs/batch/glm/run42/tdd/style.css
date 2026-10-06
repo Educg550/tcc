@@ -1,0 +1,224 @@
+/* Estilo institucional da USP para o formulário de auxílio financeiro. */
+
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #12333d;
+  --tinta-suave: #4c6a75;
+  --borda: #bfd8e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--tinta);
+  background: #eef5f8;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 20px;
+  background: #fff;
+  border-bottom: 3px solid var(--azul-primario);
+}
+
+.cabecalho-logo {
+  height: 44px;
+  padding: 14px;
+}
+
+.cabecalho-identificacao {
+  display: flex;
+  flex-direction: column;
+}
+
+.cabecalho-nome {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--azul-primario);
+}
+
+.cabecalho-unidade {
+  margin: 0;
+  font-size: 12px;
+  color: var(--tinta-suave);
+}
+
+.conteudo {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 20px 16px;
+}
+
+.secao.oculto {
+  display: none;
+}
+
+.titulo {
+  margin: 4px 0 8px;
+  font-size: 17px;
+  color: var(--tinta);
+}
+
+.abas {
+  display: flex;
+  gap: 6px;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 7px 24px;
+  border: 1px solid var(--azul-primario);
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background: var(--azul-secundario);
+  color: #0b4a58;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  color: #fff;
+}
+
+.aba:focus-visible {
+  outline: 3px solid var(--amarelo);
+  outline-offset: 2px;
+}
+
+.formulario {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-top: 3px solid var(--azul-primario);
+  border-radius: 0 0 5px 5px;
+  padding: 6px 14px 14px;
+}
+
+.formulario.oculto {
+  display: none;
+}
+
+.mensagens:empty {
+  display: none;
+}
+
+.lista-erros {
+  margin: 6px 0 2px;
+  padding: 6px 10px 6px 26px;
+  border-left: 4px solid var(--amarelo);
+  background: #fdf4e3;
+  color: #6b4700;
+}
+
+.lista-erros li {
+  margin: 1px 0;
+}
+
+.bloco {
+  margin: 8px 0 0;
+  padding: 2px 10px 8px;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+}
+
+.bloco legend {
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--azul-primario);
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px 10px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo-2 {
+  grid-column: span 2;
+}
+
+.campo-3 {
+  grid-column: span 3;
+}
+
+.campo label {
+  margin-bottom: 1px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--tinta-suave);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  padding: 4px 6px;
+  color: var(--tinta);
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 3px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: var(--azul-primario);
+  outline: 2px solid var(--azul-secundario);
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.enviar {
+  margin-top: 10px;
+  padding: 8px 20px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--azul-primario);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0d8095;
+}
+
+.oficio {
+  margin: 0;
+  padding: 14px 18px;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--azul-primario);
+}

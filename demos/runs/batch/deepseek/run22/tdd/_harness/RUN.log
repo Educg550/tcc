@@ -1,0 +1,90 @@
+{
+  "started_at": "2026-09-15T14:00:15",
+  "ended_at": "2026-09-15T14:18:13",
+  "total_duration_s": 1078.55,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-deepseek",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4.1-flash",
+      "coder": "deepseek/deepseek-v4.1-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.036769,
+  "total_tokens": 70116,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 157.82,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/conftest.py",
+        "tests/test_pagina.py",
+        "tests/test_solicitacao.py"
+      ],
+      "historico": [],
+      "input_tokens": 4025,
+      "output_tokens": 24718,
+      "total_tokens": 28743,
+      "cost_usd": 0.014899
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 919.22,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 23,
+          "failed": 0,
+          "errors": 0,
+          "total": 23
+        }
+      ],
+      "input_tokens": 7384,
+      "output_tokens": 33989,
+      "total_tokens": 41373,
+      "cost_usd": 0.02187,
+      "impressao": "ea4856afe85d2611c86189bd52158a1f89f0dd7996ed5f8fed43678ac1afd163",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 23,
+    "failed": 0,
+    "errors": 0,
+    "total": 23
+  },
+  "integridade": {
+    "medido_sha256": "ea4856afe85d2611c86189bd52158a1f89f0dd7996ed5f8fed43678ac1afd163",
+    "intacto": true
+  }
+}

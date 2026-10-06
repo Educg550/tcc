@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel='stylesheet' href='/style.css'>
+</head>
+<body>
+<div id='pagina-formulario'>
+  <header class='cabecalho'>
+    <img src='/assets/usp-logo.png' alt='Logotipo da Universidade de São Paulo'>
+    <div>
+      <h1>Universidade de São Paulo</h1>
+      <p>Pós-Graduação do Instituto de Matemática e Estatística</p>
+    </div>
+  </header>
+  <nav class='abas' aria-label='Tipo de solicitante'>
+    <button type='button' class='aba ativa' data-aba='alunos'>ALUNOS</button>
+    <button type='button' class='aba' data-aba='docentes'>DOCENTES</button>
+  </nav>
+  <main>
+    <form id='form-alunos' novalidate>
+      <div id='erros-alunos' class='erros' role='alert' hidden></div>
+      <fieldset>
+        <legend>SOLICITANTE E EVENTO</legend>
+        <div class='grade'>
+          <label class='c2'><span>NOME COMPLETO - SEM ABREVIAR</span><input type='text' data-campo='nome_completo' placeholder='Maria da Silva Souza'></label>
+          <label><span>N. USP</span><input type='text' data-campo='n_usp' inputmode='numeric' placeholder='1234567'></label>
+          <label><span>PROGRAMA</span><input type='text' data-campo='programa' placeholder='Ciência da Computação'></label>
+          <label><span>NÍVEL</span><select data-campo='nivel'><option value=''>Selecione...</option><option>Mestrado</option><option>Doutorado</option></select></label>
+          <label class='c2'><span>TIPO DE AUXÍLIO</span><select data-campo='tipo_auxilio'><option value=''>Selecione...</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></label>
+          <label><span>E-MAIL</span><input type='text' data-campo='email' placeholder='maria.souza@usp.br'></label>
+          <label class='c2'><span>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</span><input type='text' data-campo='nome_evento' placeholder='Congresso Brasileiro de Computação'></label>
+          <label class='c2'><span>PERÍODO DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='periodo_evento' placeholder='10/03/2025 a 14/03/2025'></label>
+          <label><span>CIDADE DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='cidade_evento' placeholder='Rio de Janeiro'></label>
+          <label><span>ESTADO DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='estado_evento' placeholder='RJ'></label>
+          <label><span>PAÍS DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='pais_evento' placeholder='Brasil'></label>
+          <label><span>LINK DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='link_evento' placeholder='https://evento.example.br'></label>
+          <label><span>VALOR SOLICITADO (R$)</span><input type='text' data-campo='valor_solicitado' data-formato='moeda' placeholder='150000'></label>
+          <label class='c2'><span>DETALHAMENTO DO PEDIDO</span><textarea data-campo='detalhamento' rows='2' placeholder='Passagem aérea e inscrição no evento'></textarea></label>
+          <label><span>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</span><select data-campo='apresentacao'><option value=''>Selecione...</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>ENDEREÇO DO SOLICITANTE</legend>
+        <div class='grade'>
+          <label><span>DATA DE NASCIMENTO</span><input type='text' data-campo='data_nascimento' data-formato='data' placeholder='01011990'></label>
+          <label class='c2'><span>LOGRADOURO</span><input type='text' data-campo='logradouro' placeholder='Rua do Anfiteatro'></label>
+          <label><span>NÚMERO</span><input type='text' data-campo='numero' placeholder='123'></label>
+          <label><span>COMPLEMENTO</span><input type='text' data-campo='complemento' placeholder='Apto 42'></label>
+          <label class='c2'><span>BAIRRO</span><input type='text' data-campo='bairro' placeholder='Butantã'></label>
+          <label><span>CEP</span><input type='text' data-campo='cep' data-formato='cep' placeholder='05508090'></label>
+          <label class='c2'><span>CIDADE</span><input type='text' data-campo='cidade' placeholder='São Paulo'></label>
+          <label class='c2'><span>ESTADO</span><input type='text' data-campo='estado' placeholder='SP'></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+        <div class='grade'>
+          <label><span>CPF (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' data-campo='cpf' data-formato='cpf' placeholder='12345678909'></label>
+          <label><span>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' data-campo='rg_rnm' placeholder='12.345.678-9'></label>
+          <label class='c2'><span>NOME DO BANCO</span><input type='text' data-campo='nome_banco' placeholder='Banco do Brasil'></label>
+          <label><span>NÚMERO DA AGÊNCIA</span><input type='text' data-campo='agencia' inputmode='numeric' placeholder='1234'></label>
+          <label><span>NÚMERO DA CONTA</span><input type='text' data-campo='conta' placeholder='12345-6'></label>
+        </div>
+      </fieldset>
+      <button type='submit' class='enviar'>Enviar solicitação</button>
+    </form>
+    <form id='form-docentes' hidden novalidate>
+      <div id='erros-docentes' class='erros' role='alert' hidden></div>
+      <fieldset>
+        <legend>SOLICITANTE E EVENTO</legend>
+        <div class='grade'>
+          <label class='c2'><span>NOME COMPLETO - SEM ABREVIAR</span><input type='text' data-campo='nome_completo' placeholder='João Cardoso Pereira'></label>
+          <label><span>N. USP</span><input type='text' data-campo='n_usp' inputmode='numeric' placeholder='1234567'></label>
+          <label><span>PROGRAMA</span><input type='text' data-campo='programa' placeholder='Estatística'></label>
+          <label><span>E-MAIL</span><input type='text' data-campo='email' placeholder='joao.pereira@usp.br'></label>
+          <label class='c2'><span>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</span><input type='text' data-campo='nome_evento' placeholder='Defesa de mestrado de Maria Souza'></label>
+          <label><span>PERÍODO DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='periodo_evento' placeholder='10/03/2025 a 14/03/2025'></label>
+          <label><span>CIDADE DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='cidade_evento' placeholder='São Paulo'></label>
+          <label><span>ESTADO DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='estado_evento' placeholder='SP'></label>
+          <label><span>PAÍS DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='pais_evento' placeholder='Brasil'></label>
+          <label><span>LINK DO EVENTO, EXAME OU DEFESA</span><input type='text' data-campo='link_evento' placeholder='https://evento.example.br'></label>
+          <label><span>VALOR SOLICITADO (R$)</span><input type='text' data-campo='valor_solicitado' data-formato='moeda' placeholder='150000'></label>
+          <label class='c2'><span>DETALHAMENTO DO PEDIDO</span><textarea data-campo='detalhamento' rows='2' placeholder='Passagem aérea e diária em hotel'></textarea></label>
+          <label><span>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</span><select data-campo='apresentacao'><option value=''>Selecione...</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>ENDEREÇO DO SOLICITANTE</legend>
+        <div class='grade'>
+          <label><span>DATA DE NASCIMENTO</span><input type='text' data-campo='data_nascimento' data-formato='data' placeholder='01011990'></label>
+          <label class='c2'><span>LOGRADOURO</span><input type='text' data-campo='logradouro' placeholder='Rua do Anfiteatro'></label>
+          <label><span>NÚMERO</span><input type='text' data-campo='numero' placeholder='123'></label>
+          <label><span>COMPLEMENTO</span><input type='text' data-campo='complemento' placeholder='Apto 42'></label>
+          <label class='c2'><span>BAIRRO</span><input type='text' data-campo='bairro' placeholder='Butantã'></label>
+          <label><span>CEP</span><input type='text' data-campo='cep' data-formato='cep' placeholder='05508090'></label>
+          <label class='c2'><span>CIDADE</span><input type='text' data-campo='cidade' placeholder='São Paulo'></label>
+          <label class='c2'><span>ESTADO</span><input type='text' data-campo='estado' placeholder='SP'></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+        <div class='grade'>
+          <label><span>CPF (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' data-campo='cpf' data-formato='cpf' placeholder='12345678909'></label>
+          <label><span>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</span><input type='text' data-campo='rg_rnm' placeholder='12.345.678-9'></label>
+          <label class='c2'><span>NOME DO BANCO</span><input type='text' data-campo='nome_banco' placeholder='Banco do Brasil'></label>
+          <label><span>NÚMERO DA AGÊNCIA</span><input type='text' data-campo='agencia' inputmode='numeric' placeholder='1234'></label>
+          <label><span>NÚMERO DA CONTA</span><input type='text' data-campo='conta' placeholder='12345-6'></label>
+        </div>
+      </fieldset>
+      <button type='submit' class='enviar'>Enviar solicitação</button>
+    </form>
+  </main>
+</div>
+<section id='confirmacao' hidden>
+  <header class='cabecalho'>
+    <img src='/assets/usp-logo.png' alt='Logotipo da Universidade de São Paulo'>
+    <div>
+      <h1>Universidade de São Paulo</h1>
+      <p>Pós-Graduação do Instituto de Matemática e Estatística</p>
+    </div>
+  </header>
+  <h2>Solicitação registrada</h2>
+  <pre id='oficio'></pre>
+</section>
+<script src='/app.js'></script>
+</body>
+</html>

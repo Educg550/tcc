@@ -1,0 +1,90 @@
+{
+  "started_at": "2026-09-16T09:50:21",
+  "ended_at": "2026-09-16T11:02:36",
+  "total_duration_s": 4335.27,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-qwen",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "qwen/qwen3.8-flash",
+      "coder": "qwen/qwen3.8-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.127453,
+  "total_tokens": 287828,
+  "total_retries": 1,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "qwen/qwen3.8-flash",
+      "duration_s": 1083.99,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/__init__.py",
+        "tests/conftest.py",
+        "tests/test_formulario.py"
+      ],
+      "historico": [],
+      "input_tokens": 3993,
+      "output_tokens": 78821,
+      "total_tokens": 82814,
+      "cost_usd": 0.03713
+    },
+    {
+      "id": "code",
+      "configured_model": "qwen/qwen3.8-flash",
+      "duration_s": 3249.6,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 2,
+      "retries": 1,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 35,
+          "total": 35
+        }
+      ],
+      "input_tokens": 14352,
+      "output_tokens": 190662,
+      "total_tokens": 205014,
+      "cost_usd": 0.090323,
+      "impressao": "91bceebe3022e529fefcf45b0273564f4f5224d8646c8110905298930f9c9117",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 35,
+    "total": 35
+  },
+  "integridade": {
+    "medido_sha256": "91bceebe3022e529fefcf45b0273564f4f5224d8646c8110905298930f9c9117",
+    "intacto": true
+  }
+}

@@ -1,0 +1,325 @@
+:root {
+    --usp-blue: #1094ab;
+    --usp-blue-light: #64c4d2;
+    --usp-yellow: #fcb421;
+    --text-dark: #1a1a1a;
+    --bg-page: #f0f2f5;
+    --bg-card: #ffffff;
+    --border-color: #dde1e6;
+    --error-color: #c0392b;
+    --success-color: #27ae60;
+    --error-bg: #fdedec;
+    --font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font-family);
+    background-color: var(--bg-page);
+    color: var(--text-dark);
+    font-size: 13px;
+    overflow: hidden;
+}
+
+/* Header */
+.header-usp {
+    background-color: var(--bg-card);
+    border-bottom: 3px solid var(--usp-blue);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 6px 12px;
+    height: 50px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.header-left {
+    flex-shrink: 0;
+}
+
+.logo-usp {
+    height: 32px;
+    width: auto;
+    padding: 5px;
+    background: #fff;
+}
+
+.header-right h1 {
+    font-size: 17px;
+    color: var(--usp-blue);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.header-right h2 {
+    font-size: 12px;
+    color: #666;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+/* Main container */
+.app-container {
+    height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Tabs */
+.tabs {
+    background: var(--usp-blue);
+    display: flex;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    padding: 7px 36px;
+    background: transparent;
+    border: none;
+    color: var(--usp-blue-light);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 3px solid transparent;
+    transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+.tab-btn.active {
+    color: var(--usp-yellow);
+    border-bottom-color: var(--usp-yellow);
+    background: rgba(255,255,255,0.12);
+}
+
+/* Form */
+.tab-content {
+    display: none;
+    padding: 8px 12px 4px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.tab-content::-webkit-scrollbar-track {
+    background: var(--bg-page);
+}
+
+.tab-content::-webkit-scrollbar-thumb {
+    background: var(--usp-blue-light);
+    border-radius: 4px;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--usp-blue);
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--usp-blue-light);
+    padding-bottom: 2px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px 10px;
+    margin-bottom: 6px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.field-group.span-2 {
+    grid-column: span 2;
+}
+
+.field-group.span-3 {
+    grid-column: span 3;
+}
+
+.field-group.span-4 {
+    grid-column: span 4;
+}
+
+label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+input, select, textarea {
+    font-family: var(--font-family);
+    font-size: 13px;
+    padding: 4px 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--text-dark);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--usp-blue);
+    box-shadow: 0 0 0 2px rgba(16,148,171,0.18);
+}
+
+input::placeholder, textarea::placeholder {
+    color: #aab;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 28px;
+    height: 28px;
+}
+
+input:disabled, select:disabled {
+    background: var(--bg-page);
+}
+
+/* Error box */
+.error-box {
+    background-color: var(--error-bg);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+    border-radius: 3px;
+    margin: 8px 12px 0 12px;
+    padding: 5px 10px;
+    flex-shrink: 0;
+    font-size: 13px;
+}
+
+.error-box .error-list {
+    list-style: none;
+}
+
+.error-box .error-list li {
+    padding: 0;
+    font-weight: 500;
+}
+
+.error-box .error-list li::before {
+    content: "\2716\00a0\00a0";
+    color: var(--error-color);
+    font-size: 12px;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--usp-blue);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0d7a8f;
+}
+
+.btn-primary:active {
+    transform: scale(0.97);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0 4px;
+    margin-top: 4px;
+}
+
+/* Confirmation */
+.confirmation {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--bg-card);
+    padding: 14px 16px;
+}
+
+.confirm-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--usp-blue);
+}
+
+.confirm-header .logo-usp {
+    height: 28px;
+    width: auto;
+}
+
+.confirm-title {
+    font-size: 17px;
+    color: var(--usp-blue);
+    font-weight: 700;
+}
+
+.confirm-content {
+    font-size: 13px;
+}
+
+.confirm-content .oficio {
+    font-family: var(--font-family);
+    white-space: pre-wrap;
+    line-height: 1.5;
+    color: var(--text-dark);
+    background: #fcfcfc;
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 4px;
+}
+
+/* Responsive fallback for narrow screens */
+@media (max-width: 900px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .field-group.span-2,
+    .field-group.span-3 {
+        grid-column: span 1;
+    }
+}

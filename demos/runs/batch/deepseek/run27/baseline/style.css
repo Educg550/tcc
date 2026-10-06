@@ -1,0 +1,182 @@
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 12px;
+  color: #1c2b2f;
+  background: #eef6f7;
+  display: flex;
+  flex-direction: column;
+}
+
+.cabecalho {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  border-bottom: 3px solid #fcb421;
+  box-shadow: 0 1px 4px rgba(16, 148, 171, 0.25);
+  padding: 0 0.6rem;
+}
+
+.logo-area { padding: 0.55rem 0.8rem; }
+.logo-area img { display: block; height: 52px; width: auto; }
+
+.identidade .universidade {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1094ab;
+  line-height: 1.1;
+}
+
+.identidade .programa {
+  font-size: 0.75rem;
+  color: #6b8b90;
+}
+
+#app {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.35rem 0.8rem 0.5rem;
+  overflow: hidden;
+}
+
+.abas { flex: 0 0 auto; display: flex; gap: 0.25rem; }
+
+.aba {
+  border: none;
+  cursor: pointer;
+  padding: 0.35rem 2rem;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #0e7f92;
+  background: #cfeaef;
+  border-radius: 5px 5px 0 0;
+}
+
+.aba.ativo { background: #1094ab; color: #ffffff; }
+
+.form { display: none; }
+.form.ativo {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.erros {
+  display: none;
+  flex: 0 0 auto;
+  margin: 0.3rem 0 0;
+  padding: 0.25rem 0.5rem;
+  background: #fdecec;
+  border: 1px solid #e0a0a0;
+  border-radius: 4px;
+  color: #a02020;
+  font-size: 0.72rem;
+}
+
+.erros p { margin: 0; }
+
+.bloco {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.35rem;
+}
+
+.bloco h3 {
+  margin: 0 0 0.18rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: #1094ab;
+  border-bottom: 1px solid #b8dfe5;
+  padding-bottom: 0.1rem;
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.3rem 0.45rem;
+}
+
+.campo { display: flex; flex-direction: column; min-width: 0; }
+
+.campo label {
+  font-size: 0.56rem;
+  font-weight: 600;
+  color: #4a6b70;
+  margin-bottom: 0.08rem;
+  line-height: 1.05;
+}
+
+input, select, textarea {
+  font: inherit;
+  font-size: 0.72rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0.18rem 0.3rem;
+  border: 1px solid #c2d8dc;
+  border-radius: 3px;
+  background: #ffffff;
+  color: #1c2b2f;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #64c4d2;
+  border-color: #1094ab;
+}
+
+textarea { resize: vertical; }
+
+.f-1 { grid-column: span 1; }
+.f-2 { grid-column: span 2; }
+.f-3 { grid-column: span 3; }
+.f-4 { grid-column: span 4; }
+.f-5 { grid-column: span 5; }
+.f-6 { grid-column: span 6; }
+
+.enviar {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  margin-top: 0.45rem;
+  background: #1094ab;
+  color: #ffffff;
+  border: none;
+  padding: 0.45rem 1.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.enviar:hover { background: #0c7d91; }
+
+#confirmacao {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 1rem 2rem 2rem;
+  background: #ffffff;
+}
+
+#confirmacao h2 { color: #1094ab; margin-top: 0; }
+
+#oficio {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  background: #f7fbfc;
+  border: 1px solid #cfe3e7;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 0;
+}

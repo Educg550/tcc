@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="cabecalho">
+  <img class="logo" src="/assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo">
+  <div class="identidade">
+    <h1>Universidade de São Paulo</h1>
+    <p>Programa de Pós-Graduação do Instituto de Matemática e Estatística</p>
+  </div>
+</header>
+
+<main>
+  <div id="vis-formulario">
+    <nav class="abas" aria-label="Perfil do solicitante">
+      <button type="button" class="aba ativa" id="aba-alunos" data-painel="painel-alunos" aria-selected="true">ALUNOS</button>
+      <button type="button" class="aba" id="aba-docentes" data-painel="painel-docentes" aria-selected="false">DOCENTES</button>
+    </nav>
+
+    <form class="painel" id="painel-alunos" data-perfil="alunos">
+      <div class="erros" hidden></div>
+
+      <section class="bloco">
+        <h2>SOLICITANTE E EVENTO</h2>
+        <div class="campos">
+          <div class="campo c2">
+            <label for="al-nome">NOME COMPLETO - SEM ABREVIAR</label>
+            <input id="al-nome" name="nome_completo" type="text" placeholder="Maria Augusta da Silva">
+          </div>
+          <div class="campo">
+            <label for="al-n-usp">N. USP</label>
+            <input id="al-n-usp" name="n_usp" type="text" inputmode="numeric" placeholder="1234567">
+          </div>
+          <div class="campo">
+            <label for="al-programa">PROGRAMA</label>
+            <input id="al-programa" name="programa" type="text" placeholder="Ciência da Computação">
+          </div>
+          <div class="campo">
+            <label for="al-nivel">NÍVEL</label>
+            <select id="al-nivel" name="nivel">
+              <option value="">Selecione...</option>
+              <option>Mestrado</option>
+              <option>Doutorado</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="al-tipo-auxilio">TIPO DE AUXÍLIO</label>
+            <select id="al-tipo-auxilio" name="tipo_auxilio">
+              <option value="">Selecione...</option>
+              <option>Participação em evento</option>
+              <option>Banca de exame ou defesa</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="campo c2">
+            <label for="al-email">E-MAIL</label>
+            <input id="al-email" name="email" type="text" placeholder="maria.silva@usp.br">
+          </div>
+          <div class="campo c2">
+            <label for="al-nome-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+            <input id="al-nome-evento" name="nome_evento" type="text" placeholder="Simpósio Brasileiro de Computação">
+          </div>
+          <div class="campo c2">
+            <label for="al-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+            <input id="al-periodo" name="periodo_evento" type="text" placeholder="10/06/2025 a 14/06/2025">
+          </div>
+          <div class="campo">
+            <label for="al-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+            <input id="al-cidade-evento" name="cidade_evento" type="text" placeholder="Rio de Janeiro">
+          </div>
+          <div class="campo">
+            <label for="al-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+            <input id="al-estado-evento" name="estado_evento" type="text" placeholder="RJ">
+          </div>
+          <div class="campo">
+            <label for="al-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+            <input id="al-pais-evento" name="pais_evento" type="text" placeholder="Brasil">
+          </div>
+          <div class="campo">
+            <label for="al-link-evento">LINK DO EVENTO, EXAME OU DEFESA</label>
+            <input id="al-link-evento" name="link_evento" type="text" placeholder="https://evento.example.com">
+          </div>
+          <div class="campo">
+            <label for="al-valor">VALOR SOLICITADO (R$)</label>
+            <input id="al-valor" name="valor_solicitado" type="text" inputmode="numeric" data-mascara="moeda" placeholder="150000">
+          </div>
+          <div class="campo c2">
+            <label for="al-detalhamento">DETALHAMENTO DO PEDIDO</label>
+            <textarea id="al-detalhamento" name="detalhamento" rows="2" placeholder="Passagem aérea e inscrição no evento"></textarea>
+          </div>
+          <div class="campo">
+            <label for="al-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+            <select id="al-apresentacao" name="apresentacao_trabalho">
+              <option value="">Selecione...</option>
+              <option>Pôster</option>
+              <option>Apresentação oral</option>
+              <option>Outra</option>
+              <option>Não irá apresentar trabalho</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>ENDEREÇO DO SOLICITANTE</h2>
+        <div class="campos">
+          <div class="campo">
+            <label for="al-nascimento">DATA DE NASCIMENTO</label>
+            <input id="al-nascimento" name="data_nascimento" type="text" inputmode="numeric" data-mascara="data" placeholder="01021980">
+          </div>
+          <div class="campo c2">
+            <label for="al-logradouro">LOGRADOURO</label>
+            <input id="al-logradouro" name="logradouro" type="text" placeholder="Rua do Anfiteatro">
+          </div>
+          <div class="campo">
+            <label for="al-numero">NÚMERO</label>
+            <input id="al-numero" name="numero" type="text" placeholder="181">
+          </div>
+          <div class="campo">
+            <label for="al-complemento">COMPLEMENTO</label>
+            <input id="al-complemento" name="complemento" type="text" placeholder="Sala 225">
+          </div>
+          <div class="campo c2">
+            <label for="al-bairro">BAIRRO</label>
+            <input id="al-bairro" name="bairro" type="text" placeholder="Butantã">
+          </div>
+          <div class="campo">
+            <label for="al-cep">CEP</label>
+            <input id="al-cep" name="cep" type="text" inputmode="numeric" data-mascara="cep" placeholder="05508090">
+          </div>
+          <div class="campo c2">
+            <label for="al-cidade">CIDADE</label>
+            <input id="al-cidade" name="cidade" type="text" placeholder="São Paulo">
+          </div>
+          <div class="campo c2">
+            <label for="al-estado">ESTADO</label>
+            <input id="al-estado" name="estado" type="text" placeholder="SP">
+          </div>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+        <div class="campos">
+          <div class="campo">
+            <label for="al-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+            <input id="al-cpf" name="cpf" type="text" inputmode="numeric" data-mascara="cpf" placeholder="12345678909">
+          </div>
+          <div class="campo">
+            <label for="al-rg-rnm">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+            <input id="al-rg-rnm" name="rg_rnm" type="text" placeholder="12.345.678-9">
+          </div>
+          <div class="campo c2">
+            <label for="al-banco">NOME DO BANCO</label>
+            <input id="al-banco" name="nome_banco" type="text" placeholder="Banco do Brasil">
+          </div>
+          <div class="campo">
+            <label for="al-agencia">NÚMERO DA AGÊNCIA</label>
+            <input id="al-agencia" name="agencia" type="text" inputmode="numeric" placeholder="1234">
+          </div>
+          <div class="campo c3">
+            <label for="al-conta">NÚMERO DA CONTA</label>
+            <input id="al-conta" name="conta" type="text" placeholder="12345-6">
+          </div>
+        </div>
+      </section>
+
+      <div class="acoes">
+        <button type="submit" class="enviar">Enviar solicitação</button>
+      </div>
+    </form>
+
+    <form class="painel" id="painel-docentes" data-perfil="docentes" hidden>
+      <div class="erros" hidden></div>
+
+      <section class="bloco">
+        <h2>SOLICITANTE E EVENTO</h2>
+        <div class="campos">
+          <div class="campo c2">
+            <label for="do-nome">NOME COMPLETO - SEM ABREVIAR</label>
+            <input id="do-nome" name="nome_completo" type="text" placeholder="João Pedro dos Santos">
+          </div>
+          <div class="campo">
+            <label for="do-n-usp">N. USP</label>
+            <input id="do-n-usp" name="n_usp" type="text" inputmode="numeric" placeholder="1234567">
+          </div>
+          <div class="campo">
+            <label for="do-programa">PROGRAMA</label>
+            <input id="do-programa" name="programa" type="text" placeholder="Estatística">
+          </div>
+          <div class="campo c4">
+            <label for="do-email">E-MAIL</label>
+            <input id="do-email" name="email" type="text" placeholder="joao.santos@usp.br">
+          </div>
+          <div class="campo c2">
+            <label for="do-nome-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+            <input id="do-nome-evento" name="nome_evento" type="text" placeholder="Banca de defesa de mestrado">
+          </div>
+          <div class="campo c2">
+            <label for="do-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+            <input id="do-periodo" name="periodo_evento" type="text" placeholder="20/08/2025 a 22/08/2025">
+          </div>
+          <div class="campo">
+            <label for="do-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+            <input id="do-cidade-evento" name="cidade_evento" type="text" placeholder="Campinas">
+          </div>
+          <div class="campo">
+            <label for="do-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+            <input id="do-estado-evento" name="estado_evento" type="text" placeholder="SP">
+          </div>
+          <div class="campo">
+            <label for="do-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+            <input id="do-pais-evento" name="pais_evento" type="text" placeholder="Brasil">
+          </div>
+          <div class="campo">
+            <label for="do-link-evento">LINK DO EVENTO, EXAME OU DEFESA</label>
+            <input id="do-link-evento" name="link_evento" type="text" placeholder="https://evento.example.com">
+          </div>
+          <div class="campo">
+            <label for="do-valor">VALOR SOLICITADO (R$)</label>
+            <input id="do-valor" name="valor_solicitado" type="text" inputmode="numeric" data-mascara="moeda" placeholder="150000">
+          </div>
+          <div class="campo c2">
+            <label for="do-detalhamento">DETALHAMENTO DO PEDIDO</label>
+            <textarea id="do-detalhamento" name="detalhamento" rows="2" placeholder="Passagem rodoviária e hospedagem"></textarea>
+          </div>
+          <div class="campo">
+            <label for="do-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+            <select id="do-apresentacao" name="apresentacao_trabalho">
+              <option value="">Selecione...</option>
+              <option>Pôster</option>
+              <option>Apresentação oral</option>
+              <option>Outra</option>
+              <option>Não irá apresentar trabalho</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>ENDEREÇO DO SOLICITANTE</h2>
+        <div class="campos">
+          <div class="campo">
+            <label for="do-nascimento">DATA DE NASCIMENTO</label>
+            <input id="do-nascimento" name="data_nascimento" type="text" inputmode="numeric" data-mascara="data" placeholder="01021980">
+          </div>
+          <div class="campo c2">
+            <label for="do-logradouro">LOGRADOURO</label>
+            <input id="do-logradouro" name="logradouro" type="text" placeholder="Avenida Professor Lineu Prestes">
+          </div>
+          <div class="campo">
+            <label for="do-numero">NÚMERO</label>
+            <input id="do-numero" name="numero" type="text" placeholder="654">
+          </div>
+          <div class="campo">
+            <label for="do-complemento">COMPLEMENTO</label>
+            <input id="do-complemento" name="complemento" type="text" placeholder="Bloco B">
+          </div>
+          <div class="campo c2">
+            <label for="do-bairro">BAIRRO</label>
+            <input id="do-bairro" name="bairro" type="text" placeholder="Cidade Universitária">
+          </div>
+          <div class="campo">
+            <label for="do-cep">CEP</label>
+            <input id="do-cep" name="cep" type="text" inputmode="numeric" data-mascara="cep" placeholder="05508090">
+          </div>
+          <div class="campo c2">
+            <label for="do-cidade">CIDADE</label>
+            <input id="do-cidade" name="cidade" type="text" placeholder="São Paulo">
+          </div>
+          <div class="campo c2">
+            <label for="do-estado">ESTADO</label>
+            <input id="do-estado" name="estado" type="text" placeholder="SP">
+          </div>
+        </div>
+      </section>
+
+      <section class="bloco">
+        <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+        <div class="campos">
+          <div class="campo">
+            <label for="do-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+            <input id="do-cpf" name="cpf" type="text" inputmode="numeric" data-mascara="cpf" placeholder="12345678909">
+          </div>
+          <div class="campo">
+            <label for="do-rg-rnm">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+            <input id="do-rg-rnm" name="rg_rnm" type="text" placeholder="12.345.678-9">
+          </div>
+          <div class="campo c2">
+            <label for="do-banco">NOME DO BANCO</label>
+            <input id="do-banco" name="nome_banco" type="text" placeholder="Banco do Brasil">
+          </div>
+          <div class="campo">
+            <label for="do-agencia">NÚMERO DA AGÊNCIA</label>
+            <input id="do-agencia" name="agencia" type="text" inputmode="numeric" placeholder="1234">
+          </div>
+          <div class="campo c3">
+            <label for="do-conta">NÚMERO DA CONTA</label>
+            <input id="do-conta" name="conta" type="text" placeholder="12345-6">
+          </div>
+        </div>
+      </section>
+
+      <div class="acoes">
+        <button type="submit" class="enviar">Enviar solicitação</button>
+      </div>
+    </form>
+  </div>
+
+  <section id="vis-confirmacao" hidden>
+    <h2>Solicitação registrada</h2>
+    <pre class="oficio" id="texto-oficio"></pre>
+  </section>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

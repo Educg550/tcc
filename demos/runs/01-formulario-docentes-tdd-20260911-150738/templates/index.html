@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitação de Auxílio Financeiro - IME-USP</title>
+    <style>
+        body { font-family: 'Open Sans', sans-serif; margin: 0; padding: 0; }
+        .header { background-color: #1094ab; color: white; padding: 20px; display: flex; align-items: center; }
+        .header img { height: 60px; margin-right: 20px; }
+        .header h1 { margin: 0; font-size: 1.8em; }
+        .subheader { background-color: #64c4d2; color: white; padding: 10px 20px; font-size: 1.2em; }
+        .tabs { margin: 20px; }
+        .tab-buttons { display: flex; }
+        .tab-button { padding: 10px 20px; border: none; background: #ccc; cursor: pointer; font-weight: bold; margin-right: 5px; font-size: 1em; }
+        .tab-button.active { background: #1094ab; color: white; }
+        .tab-content { border: 1px solid #ccc; padding: 20px; }
+        .bloco { margin-bottom: 30px; }
+        .bloco h3 { border-bottom: 2px solid #1094ab; padding-bottom: 5px; color: #1094ab; }
+        label { display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        .error-list { background: #fcb421; padding: 10px; margin-bottom: 20px; color: #333; }
+        .error-list ul { margin: 0; padding-left: 20px; }
+        button[type="submit"] { background: #1094ab; color: white; padding: 10px 20px; border: none; cursor: pointer; font-size: 1em; margin-top: 20px; }
+        pre { white-space: pre-wrap; font-family: sans-serif; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/assets/usp-logo.png" alt="USP">
+        <h1>Universidade de São Paulo</h1>
+    </div>
+    <div class="subheader">Pós-Graduação do IME-USP</div>
+
+    <div class="tabs">
+        <div class="tab-buttons">
+            <button class="tab-button active" id="tab-btn-alunos" onclick="switchTab('alunos')">ALUNOS</button>
+            <button class="tab-button" id="tab-btn-docentes" onclick="switchTab('docentes')">DOCENTES</button>
+        </div>
+
+        {% if result %}
+        <h2>Solicitação registrada</h2>
+        <pre>{{ result }}</pre>
+        {% else %}
+            {% if errors %}
+            <div class="error-list">
+                <ul>
+                    {% for error in errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div id="form-alunos" class="tab-content" {% if tab != 'alunos' %}style="display:none;"{% endif %}>
+                <form method="POST">
+                    <div class="bloco">
+                        <h3>SOLICITANTE E EVENTO</h3>
+                        <label>NOME COMPLETO - SEM ABREVIAR</label>
+                        <input type="text" name="nome" value="{{ data.get('nome', '') }}" placeholder="Ex: João da Silva">
+                        
+                        <label>N. USP</label>
+                        <input type="text" name="n_usp" value="{{ data.get('n_usp', '') }}" placeholder="Somente números">
+                        
+                        <label>PROGRAMA</label>
+                        <input type="text" name="programa" value="{{ data.get('programa', '') }}" placeholder="Ex: Ciência da Computação">
+                        
+                        <label>NÍVEL</label>
+                        <select name="nivel">
+                            <option value="Mestrado" {% if data.get('nivel') == 'Mestrado' %}selected{% endif %}>Mestrado</option>
+                            <option value="Doutorado" {% if data.get('nivel') == 'Doutorado' %}selected{% endif %}>Doutorado</option>
+                        </select>
+                        
+                        <label>TIPO DE AUXÍLIO</label>
+                        <select name="tipo_auxilio">
+                            <option value="Participação em evento" {% if data.get('tipo_auxilio') == 'Participação em evento' %}selected{% endif %}>Participação em evento</option>
+                            <option value="Banca de exame ou defesa" {% if data.get('tipo_auxilio') == 'Banca de exame ou defesa' %}selected{% endif %}>Banca de exame ou defesa</option>
+                            <option value="Outro" {% if data.get('tipo_auxilio') == 'Outro' %}selected{% endif %}>Outro</option>
+                        </select>
+                        
+                        <label>E-MAIL</label>
+                        <input type="email" name="email" value="{{ data.get('email', '') }}" placeholder="Ex: exemplo@usp.br">
+                        
+                        <label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+                        <input type="text" name="nome_evento" value="{{ data.get('nome_evento', '') }}" placeholder="Ex: Congresso da SBMAC">
+                        
+                        <label>PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="periodo" value="{{ data.get('periodo', '') }}" placeholder="Ex: 01/01/2024 a 05/01/2024">
+                        
+                        <label>CIDADE DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="cidade" value="{{ data.get('cidade', '') }}" placeholder="Ex: São Paulo">
+                        
+                        <label>ESTADO DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="estado_evento" value="{{ data.get('estado_evento', '') }}" placeholder="Ex: SP">
+                        
+                        <label>PAÍS DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="pais" value="{{ data.get('pais', '') }}" placeholder="Ex: Brasil">
+                        
+                        <label>LINK DO EVENTO, EXAME OU DEFESA (opcional)</label>
+                        <input type="text" name="link_evento" value="{{ data.get('link_evento', '') }}" placeholder="Ex: http://...">
+                        
+                        <label>VALOR SOLICITADO (R$)</label>
+                        <input type="text" name="valor" id="valor" value="{{ data.get('valor', '') }}" placeholder="Ex: 150000">
+                        
+                        <label>DETALHAMENTO DO PEDIDO</label>
+                        <textarea name="detalhamento" placeholder="Descreva os custos">{{ data.get('detalhamento', '') }}</textarea>
+                        
+                        <label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+                        <select name="apresentacao">
+                            <option value="Pôster" {% if data.get('apresentacao') == 'Pôster' %}selected{% endif %}>Pôster</option>
+                            <option value="Apresentação oral" {% if data.get('apresentacao') == 'Apresentação oral' %}selected{% endif %}>Apresentação oral</option>
+                            <option value="Outra" {% if data.get('apresentacao') == 'Outra' %}selected{% endif %}>Outra</option>
+                            <option value="Não irá apresentar trabalho" {% if data.get('apresentacao') == 'Não irá apresentar trabalho' %}selected{% endif %}>Não irá apresentar trabalho</option>
+                        </select>
+                    </div>
+                    
+                    <div class="bloco">
+                        <h3>ENDEREÇO DO SOLICITANTE</h3>
+                        <label>DATA DE NASCIMENTO</label>
+                        <input type="text" name="data_nascimento" id="data_nascimento" value="{{ data.get('data_nascimento', '') }}" placeholder="Ex: 01011990">
+                        
+                        <label>LOGRADOURO</label>
+                        <input type="text" name="logradouro" value="{{ data.get('logradouro', '') }}" placeholder="Ex: Rua da Consolação">
+                        
+                        <label>NÚMERO</label>
+                        <input type="text" name="numero" value="{{ data.get('numero', '') }}" placeholder="Ex: 100">
+                        
+                        <label>COMPLEMENTO (opcional)</label>
+                        <input type="text" name="complemento" value="{{ data.get('complemento', '') }}" placeholder="Ex: Apto 10">
+                        
+                        <label>BAIRRO</label>
+                        <input type="text" name="bairro" value="{{ data.get('bairro', '') }}" placeholder="Ex: Consolação">
+                        
+                        <label>CEP</label>
+                        <input type="text" name="cep" id="cep" value="{{ data.get('cep', '') }}" placeholder="Ex: 05508090">
+                        
+                        <label>CIDADE</label>
+                        <input type="text" name="cidade_endereco" value="{{ data.get('cidade_endereco', '') }}" placeholder="Ex: São Paulo">
+                        
+                        <label>ESTADO</label>
+                        <input type="text" name="estado_endereco" value="{{ data.get('estado_endereco', '') }}" placeholder="Ex: SP">
+                    </div>
+                    
+                    <div class="bloco">
+                        <h3>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+                        <label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+                        <input type="text" name="cpf" id="cpf" value="{{ data.get('cpf', '') }}" placeholder="Ex: 12345678901">
+                        
+                        <label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+                        <input type="text" name="rg" value="{{ data.get('rg', '') }}" placeholder="Ex: 12.345.678-9">
+                        
+                        <label>NOME DO BANCO</label>
+                        <input type="text" name="banco" value="{{ data.get('banco', '') }}" placeholder="Ex: Banco do Brasil">
+                        
+                        <label>NÚMERO DA AGÊNCIA</label>
+                        <input type="text" name="agencia" value="{{ data.get('agencia', '') }}" placeholder="Ex: 1234">
+                        
+                        <label>NÚMERO DA CONTA</label>
+                        <input type="text" name="conta" value="{{ data.get('conta', '') }}" placeholder="Ex: 12345-6">
+                    </div>
+                    
+                    <button type="submit">Enviar solicitação</button>
+                </form>
+            </div>
+            
+            <div id="form-docentes" class="tab-content" {% if tab != 'docentes' %}style="display:none;"{% endif %}>
+                <form method="POST">
+                    <div class="bloco">
+                        <h3>SOLICITANTE E EVENTO</h3>
+                        <label>NOME COMPLETO - SEM ABREVIAR</label>
+                        <input type="text" name="nome" value="{{ data.get('nome', '') }}" placeholder="Ex: Maria Oliveira">
+                        
+                        <label>N. USP</label>
+                        <input type="text" name="n_usp" value="{{ data.get('n_usp', '') }}" placeholder="Somente números">
+                        
+                        <label>PROGRAMA</label>
+                        <input type="text" name="programa" value="{{ data.get('programa', '') }}" placeholder="Ex: Matemática">
+                        
+                        <label>E-MAIL</label>
+                        <input type="email" name="email" value="{{ data.get('email', '') }}" placeholder="Ex: docente@usp.br">
+                        
+                        <label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+                        <input type="text" name="nome_evento" value="{{ data.get('nome_evento', '') }}" placeholder="Ex: Congresso da SBMAC">
+                        
+                        <label>PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="periodo" value="{{ data.get('periodo', '') }}" placeholder="Ex: 01/01/2024 a 05/01/2024">
+                        
+                        <label>CIDADE DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="cidade" value="{{ data.get('cidade', '') }}" placeholder="Ex: São Paulo">
+                        
+                        <label>ESTADO DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="estado_evento" value="{{ data.get('estado_evento', '') }}" placeholder="Ex: SP">
+                        
+                        <label>PAÍS DO EVENTO, EXAME OU DEFESA</label>
+                        <input type="text" name="pais" value="{{ data.get('pais', '') }}" placeholder="Ex: Brasil">
+                        
+                        <label>LINK DO EVENTO, EXAME OU DEFESA (opcional)</label>
+                        <input type="text" name="link_evento" value="{{ data.get('link_evento', '') }}" placeholder="Ex: http://...">
+                        
+                        <label>VALOR SOLICITADO (R$)</label>
+                        <input type="text" name="valor" id="valor-d" value="{{ data.get('valor', '') }}" placeholder="Ex: 150000">
+                        
+                        <label>DETALHAMENTO DO PEDIDO</label>
+                        <textarea name="detalhamento" placeholder="Descreva os custos">{{ data.get('detalhamento', '') }}</textarea>
+                        
+                        <label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+                        <select name="apresentacao">
+                            <option value="Pôster" {% if data.get('apresentacao') == 'Pôster' %}selected{% endif %}>Pôster</option>
+                            <option value="Apresentação oral" {% if data.get('apresentacao') == 'Apresentação oral' %}selected{% endif %}>Apresentação oral</option>
+                            <option value="Outra" {% if data.get('apresentacao') == 'Outra' %}selected{% endif %}>Outra</option>
+                            <option value="Não irá apresentar trabalho" {% if data.get('apresentacao') == 'Não irá apresentar trabalho' %}selected{% endif %}>Não irá apresentar trabalho</option>
+                        </select>
+                    </div>
+                    
+                    <div class="bloco">
+                        <h3>ENDEREÇO DO SOLICITANTE</h3>
+                        <label>DATA DE NASCIMENTO</label>
+                        <input type="text" name="data_nascimento" id="data_nascimento-d" value="{{ data.get('data_nascimento', '') }}" placeholder="Ex: 01011990">
+                        
+                        <label>LOGRADOURO</label>
+                        <input type="text" name="logradouro" value="{{ data.get('logradouro', '') }}" placeholder="Ex: Rua da Consolação">
+                        
+                        <label>NÚMERO</label>
+                        <input type="text" name="numero" value="{{ data.get('numero', '') }}" placeholder="Ex: 100">
+                        
+                        <label>COMPLEMENTO (opcional)</label>
+                        <input type="text" name="complemento" value="{{ data.get('complemento', '') }}" placeholder="Ex: Apto 10">
+                        
+                        <label>BAIRRO</label>
+                        <input type="text" name="bairro" value="{{ data.get('bairro', '') }}" placeholder="Ex: Consolação">
+                        
+                        <label>CEP</label>
+                        <input type="text" name="cep" id="cep-d" value="{{ data.get('cep', '') }}" placeholder="Ex: 05508090">
+                        
+                        <label>CIDADE</label>
+                        <input type="text" name="cidade_endereco" value="{{ data.get('cidade_endereco', '') }}" placeholder="Ex: São Paulo">
+                        
+                        <label>ESTADO</label>
+                        <input type="text" name="estado_endereco" value="{{ data.get('estado_endereco', '') }}" placeholder="Ex: SP">
+                    </div>
+                    
+                    <div class="bloco">
+                        <h3>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+                        <label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+                        <input type="text" name="cpf" id="cpf-d" value="{{ data.get('cpf', '') }}" placeholder="Ex: 12345678901">
+                        
+                        <label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+                        <input type="text" name="rg" value="{{ data.get('rg', '') }}" placeholder="Ex: 12.345.678-9">
+                        
+                        <label>NOME DO BANCO</label>
+                        <input type="text" name="banco" value="{{ data.get('banco', '') }}" placeholder="Ex: Banco do Brasil">
+                        
+                        <label>NÚMERO DA AGÊNCIA</label>
+                        <input type="text" name="agencia" value="{{ data.get('agencia', '') }}" placeholder="Ex: 1234">
+                        
+                        <label>NÚMERO DA CONTA</label>
+                        <input type="text" name="conta" value="{{ data.get('conta', '') }}" placeholder="Ex: 12345-6">
+                    </div>
+                    
+                    <button type="submit">Enviar solicitação</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.getElementById('form-alunos').style.display = (tab === 'alunos') ? 'block' : 'none';
+            document.getElementById('form-docentes').style.display = (tab === 'docentes') ? 'block' : 'none';
+            document.getElementById('tab-btn-alunos').classList.toggle('active', tab === 'alunos');
+            document.getElementById('tab-btn-docentes').classList.toggle('active', tab === 'docentes');
+        }
+        
+        function formatValor(input) {
+            let val = input.value.replace(/\D/g, '');
+            if (val === '') return;
+            let cents = parseInt(val, 10);
+            if (isNaN(cents)) return;
+            let reais = Math.floor(cents / 100);
+            let centavos = cents % 100;
+            let reaisStr = reais.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            input.value = `R$ ${reaisStr},${centavos.toString().padStart(2, '0')}`;
+        }
+        function formatCPF(input) {
+            let val = input.value.replace(/\D/g, '');
+            if (val.length !== 11) return;
+            input.value = `${val.substring(0,3)}.${val.substring(3,6)}.${val.substring(6,9)}-${val.substring(9,11)}`;
+        }
+        function formatCEP(input) {
+            let val = input.value.replace(/\D/g, '');
+            if (val.length !== 8) return;
+            input.value = `${val.substring(0,5)}-${val.substring(5,8)}`;
+        }
+        function formatData(input) {
+            let val = input.value.replace(/\D/g, '');
+            if (val.length !== 8) return;
+            input.value = `${val.substring(0,2)}/${val.substring(2,4)}/${val.substring(4,8)}`;
+        }
+        
+        document.querySelectorAll('input[name="valor"]').forEach(el => el.addEventListener('blur', function(){ formatValor(this); }));
+        document.querySelectorAll('input[name="cpf"]').forEach(el => el.addEventListener('blur', function(){ formatCPF(this); }));
+        document.querySelectorAll('input[name="cep"]').forEach(el => el.addEventListener('blur', function(){ formatCEP(this); }));
+        document.querySelectorAll('input[name="data_nascimento"]').forEach(el => el.addEventListener('blur', function(){ formatData(this); }));
+    </script>
+</body>
+</html>

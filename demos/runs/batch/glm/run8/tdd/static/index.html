@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cabecalho">
+<img src="usp-logo.png" alt="Logo USP">
+<h1>Universidade de São Paulo</h1>
+<h2>Pós-Graduação - Auxílio Financeiro</h2>
+</header>
+<div class="abas">
+<button type="button" class="aba ativa" data-aba="alunos">ALUNOS</button>
+<button type="button" class="aba" data-aba="docentes">DOCENTES</button>
+</div>
+<section id="form-alunos" class="painel">
+<h3>SOLICITANTE E EVENTO</h3>
+<label>Nome<input name="nome" placeholder="Maria da Silva"></label>
+<label>Nº USP<input name="n_usp" placeholder="12345678"></label>
+<label>Programa<input name="programa" placeholder="Matemática"></label>
+<label>Nível<select name="nivel"><option value="">Selecione</option><option>Mestrado</option><option>Doutorado</option></select></label>
+<label>Tipo de auxílio<select name="tipo_auxilio"><option value="">Selecione</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></label>
+<label>E-mail<input name="email" placeholder="maria@ime.usp.br"></label>
+<label>Nome do evento<input name="evento" placeholder="Congresso Nacional de Matemática"></label>
+<label>Período<input name="periodo" placeholder="10 a 12 de julho de 2025"></label>
+<label>Cidade<input name="cidade" placeholder="São Paulo"></label>
+<label>Estado<input name="estado" placeholder="SP"></label>
+<label>País<input name="pais" placeholder="Brasil"></label>
+<label>Link<input name="link" placeholder="exemplo.com"></label>
+<label>Valor solicitado (R$)<input name="valor" placeholder="1500,00"></label>
+<label>Detalhamento<textarea name="detalhamento" placeholder="Inscrição e hospedagem"></textarea></label>
+<label>Apresentação<select name="apresentacao"><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+<button type="submit">Enviar solicitação</button>
+</section>
+<section id="form-docentes" class="painel" hidden>
+<h3>SOLICITANTE E EVENTO</h3>
+<label>Nome<input name="nome" placeholder="Maria da Silva"></label>
+<label>Nº USP<input name="n_usp" placeholder="12345678"></label>
+<label>Programa<input name="programa" placeholder="Matemática"></label>
+<label>E-mail<input name="email" placeholder="maria@ime.usp.br"></label>
+<label>Nome do evento<input name="evento" placeholder="Congresso Nacional de Matemática"></label>
+<label>Período<input name="periodo" placeholder="10 a 12 de julho de 2025"></label>
+<label>Cidade<input name="cidade" placeholder="São Paulo"></label>
+<label>Estado<input name="estado" placeholder="SP"></label>
+<label>País<input name="pais" placeholder="Brasil"></label>
+<label>Link<input name="link" placeholder="exemplo.com"></label>
+<label>Valor solicitado (R$)<input name="valor" placeholder="1500,00"></label>
+<label>Detalhamento<textarea name="detalhamento" placeholder="Inscrição e hospedagem"></textarea></label>
+<label>Apresentação<select name="apresentacao"><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+<button type="submit">Enviar solicitação</button>
+</section>
+<section id="form-endereco" class="painel">
+<h3>ENDEREÇO DO SOLICITANTE</h3>
+<label>Data de nascimento<input name="nascimento" placeholder="01/02/1980"></label>
+<label>Logradouro<input name="logradouro" placeholder="Rua do Teste"></label>
+<label>Número<input name="numero" placeholder="100"></label>
+<label>Complemento<input name="complemento" placeholder="Apto 12"></label>
+<label>Bairro<input name="bairro" placeholder="Centro"></label>
+<label>CEP<input name="cep" placeholder="05508-090"></label>
+<label>Cidade<input name="cidade_endereco" placeholder="São Paulo"></label>
+<label>Estado<input name="estado_endereco" placeholder="SP"></label>
+</section>
+<section id="form-pagamento" class="painel">
+<h3>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+<label>CPF<input name="cpf" placeholder="123.456.789-09"></label>
+<label>RG / RNM<input name="rg" placeholder="12.345.678-9"></label>
+<label>Banco<input name="banco" placeholder="Banco do Brasil"></label>
+<label>Agência<input name="agencia" placeholder="1234"></label>
+<label>Conta<input name="conta" placeholder="12345-6"></label>
+</section>
+<section id="confirmacao" hidden>
+<h2>Solicitação registrada</h2>
+<pre id="oficio"></pre>
+<button type="button" id="nova">Nova solicitação</button>
+</section>
+<script src="app.js"></script>
+</body>
+</html>

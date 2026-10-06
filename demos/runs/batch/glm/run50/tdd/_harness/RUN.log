@@ -1,0 +1,90 @@
+{
+  "started_at": "2026-09-16T17:08:20",
+  "ended_at": "2026-09-16T17:45:27",
+  "total_duration_s": 2226.62,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 1.601896,
+  "total_tokens": 433449,
+  "total_retries": 3,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 29.86,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_pagina.py",
+        "tests/test_validacao.py",
+        "tests/test_frontend.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 3541,
+      "total_tokens": 7511,
+      "cost_usd": 0.016615
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 2195.15,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 4,
+      "retries": 3,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 18,
+          "failed": 1,
+          "errors": 0,
+          "total": 19
+        }
+      ],
+      "input_tokens": 28156,
+      "output_tokens": 397782,
+      "total_tokens": 425938,
+      "cost_usd": 1.585281,
+      "impressao": "bb0e5c59490494fb7142604e3bb13ece0893a2cfb7356762995b6ad8978c2911",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 18,
+    "failed": 1,
+    "errors": 0,
+    "total": 19
+  },
+  "integridade": {
+    "medido_sha256": "bb0e5c59490494fb7142604e3bb13ece0893a2cfb7356762995b6ad8978c2911",
+    "intacto": true
+  }
+}

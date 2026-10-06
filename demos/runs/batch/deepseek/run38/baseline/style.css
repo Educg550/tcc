@@ -1,0 +1,201 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #17323a;
+  background: #f2fafb;
+}
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 4px 26px;
+  background: #fff;
+  border-bottom: 3px solid var(--azul);
+}
+
+.logo {
+  height: 40px;
+  width: auto;
+  padding: 14px;
+  display: block;
+}
+
+.universidade {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--azul);
+}
+
+.programa {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7b80;
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 6px 26px 0;
+  background: #fff;
+}
+
+.aba {
+  padding: 7px 34px;
+  border: none;
+  border-radius: 6px 6px 0 0;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: var(--azul-claro);
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  box-shadow: inset 0 -3px 0 var(--amarelo);
+}
+
+.aba:focus-visible {
+  outline: 2px solid var(--amarelo);
+  outline-offset: 2px;
+}
+
+/* Formulários */
+main { padding: 8px 26px 14px; }
+
+.bloco {
+  margin: 0 0 7px;
+  padding: 5px 10px 9px;
+  border: 1px solid var(--azul-claro);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.bloco legend {
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--azul);
+}
+
+.grade {
+  display: grid;
+  gap: 5px 10px;
+}
+
+.grade-evento { grid-template-columns: repeat(6, 1fr); }
+.grade-endereco { grid-template-columns: repeat(5, 1fr); }
+.grade-pagamento { grid-template-columns: repeat(6, 1fr); }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rotulo {
+  font-size: 9.5px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #0d7285;
+}
+
+.span-1 { grid-column: span 1; }
+.span-2 { grid-column: span 2; }
+.span-3 { grid-column: span 3; }
+.span-6 { grid-column: span 6; }
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 4px 6px;
+  border: 1px solid #a9dbe3;
+  border-radius: 4px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+}
+
+textarea { resize: vertical; }
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  border-color: var(--azul);
+}
+
+/* Mensagens de erro */
+.erros {
+  margin-bottom: 7px;
+  padding: 6px 10px;
+  border: 1px solid #d9534f;
+  border-radius: 4px;
+  background: #fdeaea;
+  color: #a02521;
+  font-size: 12px;
+}
+
+.erros p { margin: 0; }
+
+/* Botão */
+.botao-enviar {
+  display: block;
+  margin: 8px auto 0;
+  padding: 8px 46px;
+  border: none;
+  border-radius: 999px;
+  background: var(--amarelo);
+  color: #20343a;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.botao-enviar:hover { background: #e9a413; }
+
+/* Confirmação */
+#confirmacao { padding: 14px 26px 32px; }
+
+#confirmacao h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: var(--azul);
+}
+
+#oficio {
+  margin: 0;
+  padding: 18px 20px;
+  border: 1px solid var(--azul-claro);
+  border-left: 5px solid var(--azul);
+  border-radius: 6px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}

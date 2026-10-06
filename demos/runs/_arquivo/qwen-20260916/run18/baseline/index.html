@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IME-USP - Solicitação de Auxílio Financeiro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="principal">
+    <header class="cabecalho">
+      <div class="logo"><img src="assets/usp-logo.png" alt="Universidade de São Paulo"></div>
+      <div class="titulos">
+        <h1>Universidade de São Paulo</h1>
+        <p>Instituto de Matemática e Estatística</p>
+      </div>
+    </header>
+
+    <section id="form-area">
+      <div class="abas">
+        <button class="aba ativa" data-tab="alunos">ALUNOS</button>
+        <button class="aba" data-tab="docentes">DOCENTES</button>
+      </div>
+
+      <div id="mensagens-erro" class="mensagens-erro"></div>
+
+      <form id="form-alunos" class="formulario ativa" novalidate>
+        <fieldset>
+          <legend>SOLICITANTE E EVENTO</legend>
+          <div class="grade">
+            <div class="grupo"><label for="al-nome">NOME COMPLETO - SEM ABREVIAR</label><input id="al-nome" name="nome" type="text" placeholder="Fulano de Tal" required></div>
+            <div class="grupo"><label for="al-usp">N. USP</label><input id="al-usp" name="nusp" type="text" placeholder="12345678" required></div>
+            <div class="grupo"><label for="al-programa">PROGRAMA</label><input id="al-programa" name="programa" type="text" placeholder="Matemática Aplicada" required></div>
+            <div class="grupo"><label for="al-nivel">NÍVEL</label><select id="al-nivel" name="nivel" required><option value="">Selecione</option><option>Mestrado</option><option>Doutorado</option></select></div>
+            <div class="grupo"><label for="al-tipo">TIPO DE AUXÍLIO</label><select id="al-tipo" name="tipo" required><option value="">Selecione</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></div>
+            <div class="grupo"><label for="al-email">E-MAIL</label><input id="al-email" name="email" type="email" placeholder="nome@ime.usp.br" required></div>
+            <div class="grupo"><label for="al-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input id="al-evento" name="evento" type="text" placeholder="Congresso de ..." required></div>
+            <div class="grupo"><label for="al-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input id="al-periodo" name="periodo" type="text" placeholder="01/01 a 02/01/2024" required></div>
+            <div class="grupo"><label for="al-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label><input id="al-cidade-evento" name="cidade_evento" type="text" placeholder="São Paulo" required></div>
+            <div class="grupo"><label for="al-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label><input id="al-estado-evento" name="estado_evento" type="text" placeholder="SP" required></div>
+            <div class="grupo"><label for="al-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label><input id="al-pais-evento" name="pais_evento" type="text" placeholder="Brasil" required></div>
+            <div class="grupo"><label for="al-link">LINK DO EVENTO, EXAME OU DEFESA</label><input id="al-link" name="link" type="text" placeholder="https://... (opcional)"></div>
+            <div class="grupo"><label for="al-valor">VALOR SOLICITADO (R$)</label><input id="al-valor" name="valor" type="text" class="fmt-valor" placeholder="R$ 0,00" required></div>
+            <div class="grupo"><label for="al-detalhe">DETALHAMENTO DO PEDIDO</label><textarea id="al-detalhe" name="detalhamento" placeholder="Detalhe o pedido..." required></textarea></div>
+            <div class="grupo"><label for="al-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="al-apresentacao" name="apresentacao" required><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>ENDEREÇO DO SOLICITANTE</legend>
+          <div class="grade">
+            <div class="grupo"><label for="al-nasc">DATA DE NASCIMENTO</label><input id="al-nasc" name="nascimento" type="text" class="fmt-data" placeholder="dd/mm/aaaa" required></div>
+            <div class="grupo"><label for="al-log">LOGRADOURO</label><input id="al-log" name="logradouro" type="text" placeholder="Rua Exemplo" required></div>
+            <div class="grupo"><label for="al-num">NÚMERO</label><input id="al-num" name="numero" type="text" placeholder="123" required></div>
+            <div class="grupo"><label for="al-comp">COMPLEMENTO</label><input id="al-comp" name="complemento" type="text" placeholder="Apto 12 (opcional)"></div>
+            <div class="grupo"><label for="al-bairro">BAIRRO</label><input id="al-bairro" name="bairro" type="text" placeholder="Bairro Exemplo" required></div>
+            <div class="grupo"><label for="al-cep">CEP</label><input id="al-cep" name="cep" type="text" class="fmt-cep" placeholder="00000-000" required></div>
+            <div class="grupo"><label for="al-cidade">CIDADE</label><input id="al-cidade" name="cidade" type="text" placeholder="São Paulo" required></div>
+            <div class="grupo"><label for="al-estado">ESTADO</label><input id="al-estado" name="estado" type="text" placeholder="SP" required></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+          <div class="grade">
+            <div class="grupo"><label for="al-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input id="al-cpf" name="cpf" type="text" class="fmt-cpf" placeholder="000.000.000-00" required></div>
+            <div class="grupo"><label for="al-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input id="al-rg" name="rg" type="text" placeholder="12.345.678-9" required></div>
+            <div class="grupo"><label for="al-banco">NOME DO BANCO</label><input id="al-banco" name="banco" type="text" placeholder="Banco do Brasil" required></div>
+            <div class="grupo"><label for="al-agencia">NÚMERO DA AGÊNCIA</label><input id="al-agencia" name="agencia" type="text" placeholder="1234" required></div>
+            <div class="grupo"><label for="al-conta">NÚMERO DA CONTA</label><input id="al-conta" name="conta" type="text" placeholder="123456-7" required></div>
+          </div>
+        </fieldset>
+        <button type="submit" class="botao-enviar">Enviar solicitação</button>
+      </form>
+
+      <form id="form-docentes" class="formulario" novalidate>
+        <fieldset>
+          <legend>SOLICITANTE E EVENTO</legend>
+          <div class="grade">
+            <div class="grupo"><label for="do-nome">NOME COMPLETO - SEM ABREVIAR</label><input id="do-nome" name="nome" type="text" placeholder="Fulano de Tal" required></div>
+            <div class="grupo"><label for="do-usp">N. USP</label><input id="do-usp" name="nusp" type="text" placeholder="12345678" required></div>
+            <div class="grupo"><label for="do-programa">PROGRAMA</label><input id="do-programa" name="programa" type="text" placeholder="Matemática Aplicada" required></div>
+            <div class="grupo"><label for="do-email">E-MAIL</label><input id="do-email" name="email" type="email" placeholder="nome@ime.usp.br" required></div>
+            <div class="grupo"><label for="do-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input id="do-evento" name="evento" type="text" placeholder="Congresso de ..." required></div>
+            <div class="grupo"><label for="do-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input id="do-periodo" name="periodo" type="text" placeholder="01/01 a 02/01/2024" required></div>
+            <div class="grupo"><label for="do-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label><input id="do-cidade-evento" name="cidade_evento" type="text" placeholder="São Paulo" required></div>
+            <div class="grupo"><label for="do-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label><input id="do-estado-evento" name="estado_evento" type="text" placeholder="SP" required></div>
+            <div class="grupo"><label for="do-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label><input id="do-pais-evento" name="pais_evento" type="text" placeholder="Brasil" required></div>
+            <div class="grupo"><label for="do-link">LINK DO EVENTO, EXAME OU DEFESA</label><input id="do-link" name="link" type="text" placeholder="https://... (opcional)"></div>
+            <div class="grupo"><label for="do-valor">VALOR SOLICITADO (R$)</label><input id="do-valor" name="valor" type="text" class="fmt-valor" placeholder="R$ 0,00" required></div>
+            <div class="grupo"><label for="do-detalhe">DETALHAMENTO DO PEDIDO</label><textarea id="do-detalhe" name="detalhamento" placeholder="Detalhe o pedido..." required></textarea></div>
+            <div class="grupo"><label for="do-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="do-apresentacao" name="apresentacao" required><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>ENDEREÇO DO SOLICITANTE</legend>
+          <div class="grade">
+            <div class="grupo"><label for="do-nasc">DATA DE NASCIMENTO</label><input id="do-nasc" name="nascimento" type="text" class="fmt-data" placeholder="dd/mm/aaaa" required></div>
+            <div class="grupo"><label for="do-log">LOGRADOURO</label><input id="do-log" name="logradouro" type="text" placeholder="Rua Exemplo" required></div>
+            <div class="grupo"><label for="do-num">NÚMERO</label><input id="do-num" name="numero" type="text" placeholder="123" required></div>
+            <div class="grupo"><label for="do-comp">COMPLEMENTO</label><input id="do-comp" name="complemento" type="text" placeholder="Apto 12 (opcional)"></div>
+            <div class="grupo"><label for="do-bairro">BAIRRO</label><input id="do-bairro" name="bairro" type="text" placeholder="Bairro Exemplo" required></div>
+            <div class="grupo"><label for="do-cep">CEP</label><input id="do-cep" name="cep" type="text" class="fmt-cep" placeholder="00000-000" required></div>
+            <div class="grupo"><label for="do-cidade">CIDADE</label><input id="do-cidade" name="cidade" type="text" placeholder="São Paulo" required></div>
+            <div class="grupo"><label for="do-estado">ESTADO</label><input id="do-estado" name="estado" type="text" placeholder="SP" required></div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+          <div class="grade">
+            <div class="grupo"><label for="do-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input id="do-cpf" name="cpf" type="text" class="fmt-cpf" placeholder="000.000.000-00" required></div>
+            <div class="grupo"><label for="do-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input id="do-rg" name="rg" type="text" placeholder="12.345.678-9" required></div>
+            <div class="grupo"><label for="do-banco">NOME DO BANCO</label><input id="do-banco" name="banco" type="text" placeholder="Banco do Brasil" required></div>
+            <div class="grupo"><label for="do-agencia">NÚMERO DA AGÊNCIA</label><input id="do-agencia" name="agencia" type="text" placeholder="1234" required></div>
+            <div class="grupo"><label for="do-conta">NÚMERO DA CONTA</label><input id="do-conta" name="conta" type="text" placeholder="123456-7" required></div>
+          </div>
+        </fieldset>
+        <button type="submit" class="botao-enviar">Enviar solicitação</button>
+      </form>
+    </section>
+
+    <section id="confirm-area" class="confirm-area">
+      <h2>Solicitação registrada</h2>
+      <div class="oficio-container">
+        <div class="cabecalho-oficio">
+          <div class="logo-oficio"><img src="assets/usp-logo.png" alt="Universidade de São Paulo"></div>
+          <div class="titulos-oficio">
+            <p><strong>Universidade de São Paulo</strong></p>
+            <p>Instituto de Matemática e Estatística</p>
+          </div>
+        </div>
+        <pre id="texto-oficio"></pre>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

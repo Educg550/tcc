@@ -1,0 +1,244 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #23313a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.25;
+  color: var(--texto);
+  background: #ffffff;
+}
+
+/* Cabeçalho institucional */
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 28px;
+  border-bottom: 4px solid var(--azul);
+}
+
+.logo {
+  height: 46px;
+  width: auto;
+  padding: 10px;
+  margin-right: 6px;
+}
+
+.identidade {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.universidade {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--azul);
+}
+
+.unidade {
+  margin: 0;
+  font-size: 12px;
+  color: var(--azul-claro);
+}
+
+/* Abas */
+
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 0 24px;
+  border-bottom: 2px solid var(--azul-claro);
+}
+
+.abas[hidden] {
+  display: none;
+}
+
+.aba {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--azul);
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  padding: 10px 30px;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  color: #ffffff;
+  background: var(--azul);
+  border-bottom-color: var(--amarelo);
+}
+
+/* Formulários */
+
+.formulario {
+  display: none;
+  padding: 10px 24px 14px;
+}
+
+.formulario.ativo {
+  display: block;
+}
+
+.erros {
+  color: #b3261e;
+  font-weight: 600;
+  font-size: 12px;
+  padding-bottom: 2px;
+}
+
+.erros:empty {
+  display: none;
+}
+
+.erros p {
+  margin: 2px 0;
+}
+
+.bloco {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px 12px;
+  margin-bottom: 10px;
+}
+
+.bloco-titulo {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding-bottom: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: var(--azul);
+  border-bottom: 1px solid var(--azul-claro);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.campo > span {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #55666d;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 6px;
+  color: var(--texto);
+  background: #ffffff;
+  border: 1px solid #b8ccd0;
+  border-radius: 3px;
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  border-color: var(--azul);
+}
+
+.largura-2 {
+  grid-column: span 2;
+}
+
+.largura-4 {
+  grid-column: 1 / -1;
+}
+
+/* Ações */
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2px;
+}
+
+.enviar {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--azul);
+  border: 0;
+  border-radius: 4px;
+  padding: 9px 28px;
+  cursor: pointer;
+}
+
+.enviar:hover,
+.enviar:focus {
+  background: #0d7f92;
+}
+
+/* Confirmação */
+
+.confirmacao {
+  display: none;
+  padding: 14px 24px 20px;
+}
+
+.confirmacao.ativo {
+  display: block;
+}
+
+.confirmacao h2 {
+  margin: 4px 0 10px;
+  font-size: 18px;
+  color: var(--azul);
+}
+
+#oficio {
+  margin: 0;
+  padding: 14px 18px;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--texto);
+  background: #f6fbfc;
+  border-left: 4px solid var(--amarelo);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+@media (max-width: 900px) {
+  .bloco {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .largura-4 {
+    grid-column: 1 / -1;
+  }
+}

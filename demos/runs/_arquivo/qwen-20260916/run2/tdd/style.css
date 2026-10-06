@@ -1,0 +1,182 @@
+:root {
+  --primary: #1094ab;
+  --secondary: #64c4d2;
+  --accent: #fcb421;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', -apple-system, sans-serif;
+  background: #f5f7fa;
+  color: #222;
+  font-size: 13px;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 20px;
+  gap: 15px;
+}
+
+.header h1 {
+  font-size: 18px;
+}
+
+.header p {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  background: #fff;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+  background: #fff;
+  border-bottom: 2px solid var(--primary);
+}
+
+.tab {
+  padding: 10px 30px;
+  border: none;
+  background: #eef;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--primary);
+  border-radius: 6px 6px 0 0;
+  margin-top: 6px;
+}
+
+.tab.active {
+  background: var(--primary);
+  color: #fff;
+  border-bottom: 2px solid var(--accent);
+  margin-top: 0;
+  padding-bottom: 12px;
+}
+
+.tab:not(.active) {
+  opacity: 0.6;
+}
+
+.errors {
+  color: #c0392b;
+  padding: 8px 20px;
+  display: none;
+}
+
+.errors.show {
+  display: block;
+}
+
+.errors div {
+  margin-bottom: 4px;
+}
+
+.forms {
+  flex: 1;
+  overflow: auto;
+  padding: 10px 20px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.fieldset {
+  background: #fff;
+  border: 1px solid var(--secondary);
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.title {
+  font-size: 12px;
+  color: var(--primary);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-size: 10px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 2px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 28px;
+}
+
+.btn {
+  margin-top: 10px;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.confirmation {
+  flex: 1;
+  padding: 20px;
+}
+
+.confirmation h2 {
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.confirmation pre {
+  background: #fff;
+  padding: 15px;
+  border: 1px solid var(--secondary);
+  border-radius: 6px;
+  font-family: 'Open Sans', sans-serif;
+  white-space: pre-wrap;
+}

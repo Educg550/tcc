@@ -1,0 +1,241 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #17313a;
+  --linha: #cfe0e5;
+}
+
+html {
+  font-size: clamp(9px, 1.55vh, 15px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #edf4f6;
+  color: var(--tinta);
+  font-family: 'Open Sans', 'Segoe UI', Arial, Helvetica, sans-serif;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.3rem 1.6rem;
+  background: #ffffff;
+  border-bottom: 0.35rem solid var(--azul);
+  box-shadow: 0 0.3rem 0 var(--amarelo);
+}
+
+.logo {
+  display: block;
+  height: 3.4rem;
+  padding: 0.85rem;
+}
+
+.titulos h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  color: var(--azul);
+}
+
+.titulos .programa {
+  margin: 0.1rem 0 0;
+  font-size: 0.95rem;
+  color: #567b88;
+}
+
+main {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.6rem 0.9rem;
+}
+
+.abas {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.aba {
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #335661;
+  background: #dcecef;
+  border: 1px solid var(--linha);
+  border-bottom: none;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0.4rem 2.4rem;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #ffffff;
+}
+
+.form {
+  background: #ffffff;
+  border: 1px solid var(--linha);
+  border-top: 0.25rem solid var(--azul-claro);
+  border-radius: 0 0.5rem 0.5rem;
+  padding: 0.7rem 1rem 0.9rem;
+}
+
+.erros {
+  border: 1px solid #e0a1a1;
+  border-left: 0.4rem solid #c62828;
+  background: #fdefee;
+  color: #8e1f1b;
+  border-radius: 0.35rem;
+  padding: 0.4rem 0.8rem;
+  margin: 0 0 0.7rem;
+  font-size: 0.95rem;
+}
+
+.erros p {
+  margin: 0.12rem 0;
+}
+
+.erros:empty {
+  display: none;
+}
+
+.bloco {
+  border: 1px solid var(--linha);
+  border-radius: 0.4rem;
+  padding: 0.5rem 0.8rem 0.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.bloco h3 {
+  margin: 0 0 0.45rem;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  color: var(--azul);
+  border-left: 0.3rem solid var(--amarelo);
+  padding-left: 0.5rem;
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.5rem 0.8rem;
+}
+
+.f {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.f > span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #335661;
+}
+
+.f input,
+.f select,
+.f textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--tinta);
+  background: #f8fcfd;
+  border: 1px solid #b7d0d7;
+  border-radius: 0.3rem;
+  padding: 0.3rem 0.5rem;
+  min-width: 0;
+}
+
+.f input:focus,
+.f select:focus,
+.f textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 2px var(--azul-claro);
+}
+
+.f textarea {
+  resize: none;
+}
+
+.c1 { grid-column: span 1; }
+.c2 { grid-column: span 2; }
+.c3 { grid-column: span 3; }
+.c4 { grid-column: span 4; }
+.c6 { grid-column: span 6; }
+.c12 { grid-column: span 12; }
+
+.enviar {
+  display: block;
+  margin: 0.1rem 0 0 auto;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-radius: 0.35rem;
+  padding: 0.5rem 2.6rem;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0c7a90;
+}
+
+.enviar:focus-visible {
+  outline: 0.2rem solid var(--amarelo);
+}
+
+#confirmacao {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1rem 1.6rem 2rem;
+}
+
+#confirmacao h2 {
+  margin: 0.4rem 0 0.8rem;
+  font-size: 1.5rem;
+  color: var(--azul);
+}
+
+#oficio {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--tinta);
+  background: #ffffff;
+  border: 1px solid var(--linha);
+  border-top: 0.35rem solid var(--azul);
+  border-radius: 0.4rem;
+  padding: 1.1rem 1.3rem;
+}
+
+@media (max-width: 760px) {
+  .campos {
+    grid-template-columns: 1fr;
+  }
+  .f {
+    grid-column: 1 / -1;
+  }
+}

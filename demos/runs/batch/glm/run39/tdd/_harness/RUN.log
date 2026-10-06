@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-16T17:08:20",
+  "ended_at": "2026-09-16T17:45:42",
+  "total_duration_s": 2242.51,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 1.48332,
+  "total_tokens": 428057,
+  "total_retries": 4,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 38.28,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_aplicacao.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 5144,
+      "total_tokens": 9114,
+      "cost_usd": 0.028192
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 2202.74,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 5,
+      "retries": 4,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 39,
+          "total": 39
+        }
+      ],
+      "input_tokens": 43602,
+      "output_tokens": 375341,
+      "total_tokens": 418943,
+      "cost_usd": 1.455128,
+      "impressao": "5d94cf1c26d13a09e106cc3cac1bc13bb2d3f1c3e8a01f8f834650d14a8a688d",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 39,
+    "total": 39
+  },
+  "integridade": {
+    "medido_sha256": "5d94cf1c26d13a09e106cc3cac1bc13bb2d3f1c3e8a01f8f834650d14a8a688d",
+    "intacto": true
+  }
+}

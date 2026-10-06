@@ -1,0 +1,218 @@
+:root {
+  --azul: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0.5rem 1rem 0.6rem;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #12262b;
+  background: #fff;
+}
+
+/* ---------- cabeçalho institucional ---------- */
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid var(--azul);
+  padding-bottom: 0.4rem;
+}
+
+.cabecalho .logo {
+  height: 50px;
+  margin: 0.55rem;
+  display: block;
+}
+
+.identidade h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--azul);
+}
+
+.identidade p {
+  margin: 0.15rem 0 0;
+  font-size: 0.78rem;
+  color: var(--azul-secundario);
+}
+
+/* ---------- abas ---------- */
+
+.abas {
+  display: flex;
+  gap: 0.3rem;
+  margin: 0.45rem 0 0;
+}
+
+.aba {
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 1.8rem;
+  border: 1px solid var(--azul);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: #eaf6f8;
+  color: var(--azul);
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  color: #fff;
+  box-shadow: inset 0 -3px 0 var(--amarelo);
+}
+
+/* ---------- painéis ---------- */
+
+.painel {
+  display: none;
+  border: 1px solid var(--azul);
+  border-radius: 0 6px 6px 6px;
+  padding: 0.45rem 0.6rem 0.55rem;
+}
+
+.painel.ativo {
+  display: block;
+}
+
+.erros {
+  border-left: 4px solid var(--amarelo);
+  background: #fff8e6;
+  color: #8a4b00;
+  font-size: 0.78rem;
+  padding: 0.3rem 0.6rem;
+  margin-bottom: 0.4rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.erros p {
+  margin: 0.1rem 0;
+}
+
+/* ---------- blocos e grade de campos ---------- */
+
+.bloco {
+  margin: 0 0 0.45rem;
+}
+
+.bloco h2 {
+  margin: 0 0 0.3rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--azul);
+  border-bottom: 2px solid var(--azul-secundario);
+  padding-bottom: 0.12rem;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.3rem 0.5rem;
+}
+
+.c2 { grid-column: span 2; }
+.c3 { grid-column: span 3; }
+.c4 { grid-column: span 4; }
+.c6 { grid-column: span 6; }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.campo > span {
+  font-size: 0.62rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #33484d;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  width: 100%;
+  min-width: 0;
+  padding: 0.22rem 0.35rem;
+  color: #12262b;
+  background: #fff;
+  border: 1px solid #b9cfd4;
+  border-radius: 3px;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 2.3rem;
+  font-family: inherit;
+}
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+  color: #9db3b8;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  outline-offset: -1px;
+  border-color: var(--azul);
+}
+
+/* ---------- botão ---------- */
+
+.enviar {
+  display: block;
+  margin: 0.35rem 0 0 auto;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: var(--azul);
+  border: none;
+  border-bottom: 3px solid var(--amarelo);
+  border-radius: 4px 4px 3px 3px;
+  padding: 0.4rem 1.8rem;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0d7d90;
+}
+
+/* ---------- confirmação ---------- */
+
+#confirmacao h2 {
+  margin: 0.6rem 0 0.35rem;
+  font-size: 1.1rem;
+  color: var(--azul);
+}
+
+#oficio {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  font-family: inherit;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  background: #f7fcfd;
+  border: 1px solid var(--azul-secundario);
+  border-radius: 6px;
+}

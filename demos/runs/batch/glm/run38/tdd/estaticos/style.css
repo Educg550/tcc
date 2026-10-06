@@ -1,0 +1,228 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #1a2b33;
+  --fundo: #f2f7f9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+}
+
+.cabecalho {
+  background: #fff;
+  border-bottom: 4px solid var(--azul-primario);
+}
+
+.cabecalho-marca {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.cabecalho-marca img {
+  height: 3.5rem;
+  padding: 0.3rem;
+  display: block;
+}
+
+.cabecalho-texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.cabecalho-texto strong {
+  color: var(--azul-primario);
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.cabecalho-texto span {
+  color: #5a6b73;
+  font-size: 0.85rem;
+}
+
+.abas {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0 1.25rem;
+}
+
+.aba {
+  border: 1px solid var(--azul-secundario);
+  border-bottom: none;
+  background: #fff;
+  color: var(--azul-primario);
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 1.4rem;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: #fff;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.painel[hidden] {
+  display: none;
+}
+
+.bloco {
+  border: 1px solid var(--azul-secundario);
+  border-top: 3px solid var(--azul-primario);
+  background: #fff;
+  border-radius: 6px;
+  margin: 0 0 0.6rem;
+  padding: 0.5rem 0.9rem 0.6rem;
+}
+
+.bloco legend {
+  color: var(--azul-primario);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0 0.4rem;
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+
+.linha > p {
+  margin: 0;
+  flex: 1 1 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.linha > p:first-child {
+  flex-basis: 220px;
+}
+
+label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #35505b;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.45rem;
+  border: 1px solid #b7c9d1;
+  border-radius: 4px;
+  background: #fff;
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--amarelo);
+  border-color: var(--azul-primario);
+}
+
+.inteiro {
+  margin: 0.4rem 0 0;
+}
+
+textarea {
+  min-height: 2.6rem;
+  resize: vertical;
+}
+
+.enviar {
+  display: block;
+  margin: 0.4rem auto 0;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0d7f93;
+}
+
+.erros {
+  margin: 0 0 0.5rem;
+  padding: 0.5rem 0.9rem;
+  list-style: none;
+  background: #fdecec;
+  border-left: 4px solid #c0392b;
+  border-radius: 4px;
+}
+
+.erros li {
+  color: #c0392b;
+  font-size: 0.85rem;
+}
+
+#confirmacao {
+  background: #fff;
+  border: 1px solid var(--azul-secundario);
+  border-top: 3px solid var(--azul-primario);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+}
+
+#confirmacao[hidden] {
+  display: none;
+}
+
+#confirmacao h1 {
+  color: var(--azul-primario);
+  margin: 0 0 0.75rem;
+  font-size: 1.3rem;
+}
+
+#oficio {
+  font-family: "Courier New", monospace;
+  white-space: pre-wrap;
+  background: var(--fundo);
+  border: 1px solid #d3e2e8;
+  border-radius: 4px;
+  padding: 0.9rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+#nova-solicitacao {
+  margin-top: 0.75rem;
+  background: var(--amarelo);
+  color: #33290c;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.45rem 1.2rem;
+  cursor: pointer;
+}

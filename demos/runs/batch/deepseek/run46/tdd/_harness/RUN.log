@@ -1,0 +1,100 @@
+{
+  "started_at": "2026-09-15T14:58:42",
+  "ended_at": "2026-09-15T15:05:34",
+  "total_duration_s": 411.77,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-deepseek",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4.1-flash",
+      "coder": "deepseek/deepseek-v4.1-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.089298,
+  "total_tokens": 97048,
+  "total_retries": 2,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 128.48,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_requisito_01.py"
+      ],
+      "historico": [],
+      "input_tokens": 4022,
+      "output_tokens": 3302,
+      "total_tokens": 7324,
+      "cost_usd": 0.003618
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 281.95,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 3,
+      "retries": 2,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 19,
+          "failed": 1,
+          "errors": 0,
+          "total": 20
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        },
+        {
+          "passed": 20,
+          "failed": 0,
+          "errors": 0,
+          "total": 20
+        }
+      ],
+      "input_tokens": 22174,
+      "output_tokens": 67550,
+      "total_tokens": 89724,
+      "cost_usd": 0.08568,
+      "impressao": "21826bdca148e47767841bb71e59d20557125149442bfe1ce4a4fd245a4fceb0",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 20,
+    "failed": 0,
+    "errors": 0,
+    "total": 20
+  },
+  "integridade": {
+    "medido_sha256": "21826bdca148e47767841bb71e59d20557125149442bfe1ce4a4fd245a4fceb0",
+    "intacto": true
+  }
+}

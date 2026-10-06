@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação do IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="cabecalho">
+  <img class="marca" src="assets/usp-logo.png" alt="Universidade de São Paulo">
+  <div class="nomes">
+    <p class="universidade">Universidade de São Paulo</p>
+    <p class="programa">Pós-Graduação do IME-USP</p>
+  </div>
+</header>
+<nav class="abas">
+  <button type="button" class="aba ativa" data-aba="alunos">ALUNOS</button>
+  <button type="button" class="aba" data-aba="docentes">DOCENTES</button>
+</nav>
+<main>
+<form id="form-alunos" novalidate>
+  <div class="erros" role="alert" hidden></div>
+  <section class="bloco">
+    <h2>SOLICITANTE E EVENTO</h2>
+    <div class="grade">
+      <p class="campo c2"><label for="a-nome">NOME COMPLETO - SEM ABREVIAR</label><input id="a-nome" type="text" placeholder="Maria da Silva Santos" required></p>
+      <p class="campo"><label for="a-nusp">N. USP</label><input id="a-nusp" type="text" placeholder="12345678" required></p>
+      <p class="campo c2"><label for="a-programa">PROGRAMA</label><input id="a-programa" type="text" placeholder="Matemática Aplicada" required></p>
+      <p class="campo"><label for="a-nivel">NÍVEL</label><select id="a-nivel" required><option value="">Selecione o nível</option><option>Mestrado</option><option>Doutorado</option></select></p>
+      <p class="campo c2"><label for="a-tipo">TIPO DE AUXÍLIO</label><select id="a-tipo" required><option value="">Selecione o tipo de auxílio</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></p>
+      <p class="campo c2"><label for="a-email">E-MAIL</label><input id="a-email" type="email" placeholder="nome@usp.br" required></p>
+      <p class="campo c2"><label for="a-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input id="a-evento" type="text" placeholder="Congresso Latino-Americano de Matemática" required></p>
+      <p class="campo"><label for="a-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input id="a-periodo" type="text" placeholder="10 a 14 de julho de 2025" required></p>
+      <p class="campo"><label for="a-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label><input id="a-cidade-evento" type="text" placeholder="São Paulo" required></p>
+      <p class="campo"><label for="a-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label><input id="a-estado-evento" type="text" placeholder="SP" required></p>
+      <p class="campo"><label for="a-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label><input id="a-pais-evento" type="text" placeholder="Brasil" required></p>
+      <p class="campo c2"><label for="a-link">LINK DO EVENTO, EXAME OU DEFESA</label><input id="a-link" type="text" placeholder="https://www.ime.usp.br/evento"></p>
+      <p class="campo"><label for="a-valor">VALOR SOLICITADO (R$)</label><input id="a-valor" type="text" class="mascara-valor" placeholder="R$ 1.500,00" required></p>
+      <p class="campo c2"><label for="a-detalhamento">DETALHAMENTO DO PEDIDO</label><textarea id="a-detalhamento" rows="2" placeholder="Passagem aérea, inscrição e diárias de hotel" required></textarea></p>
+      <p class="campo c3"><label for="a-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="a-apresentacao" required><option value="">Selecione o tipo de apresentação</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></p>
+    </div>
+  </section>
+  <section class="bloco">
+    <h2>ENDEREÇO DO SOLICITANTE</h2>
+    <div class="grade">
+      <p class="campo c2"><label for="a-nascimento">DATA DE NASCIMENTO</label><input id="a-nascimento" type="text" class="mascara-data" placeholder="01/02/1980" required></p>
+      <p class="campo c2"><label for="a-logradouro">LOGRADOURO</label><input id="a-logradouro" type="text" placeholder="Rua do Matão" required></p>
+      <p class="campo"><label for="a-numero">NÚMERO</label><input id="a-numero" type="text" placeholder="1010" required></p>
+      <p class="campo"><label for="a-complemento">COMPLEMENTO</label><input id="a-complemento" type="text" placeholder="Apto 42"></p>
+      <p class="campo c2"><label for="a-bairro">BAIRRO</label><input id="a-bairro" type="text" placeholder="Butantã" required></p>
+      <p class="campo c2"><label for="a-cep">CEP</label><input id="a-cep" type="text" class="mascara-cep" placeholder="05508-090" required></p>
+      <p class="campo"><label for="a-cidade">CIDADE</label><input id="a-cidade" type="text" placeholder="São Paulo" required></p>
+      <p class="campo"><label for="a-estado">ESTADO</label><input id="a-estado" type="text" placeholder="SP" required></p>
+    </div>
+  </section>
+  <section class="bloco">
+    <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+    <div class="grade pagto">
+      <p class="campo"><label for="a-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input id="a-cpf" type="text" class="mascara-cpf" placeholder="123.456.789-09" required></p>
+      <p class="campo"><label for="a-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input id="a-rg" type="text" placeholder="12.345.678-9" required></p>
+      <p class="campo"><label for="a-banco">NOME DO BANCO</label><input id="a-banco" type="text" placeholder="Banco do Brasil" required></p>
+      <p class="campo"><label for="a-agencia">NÚMERO DA AGÊNCIA</label><input id="a-agencia" type="text" placeholder="1234" required></p>
+      <p class="campo"><label for="a-conta">NÚMERO DA CONTA</label><input id="a-conta" type="text" placeholder="12345-6" required></p>
+    </div>
+  </section>
+  <button type="submit" class="enviar">Enviar solicitação</button>
+</form>
+<form id="form-docentes" hidden novalidate>
+  <div class="erros" role="alert" hidden></div>
+  <section class="bloco">
+    <h2>SOLICITANTE E EVENTO</h2>
+    <div class="grade">
+      <p class="campo c2"><label for="d-nome">NOME COMPLETO - SEM ABREVIAR</label><input id="d-nome" type="text" placeholder="Maria da Silva Santos" required></p>
+      <p class="campo"><label for="d-nusp">N. USP</label><input id="d-nusp" type="text" placeholder="12345678" required></p>
+      <p class="campo c3"><label for="d-programa">PROGRAMA</label><input id="d-programa" type="text" placeholder="Matemática Aplicada" required></p>
+      <p class="campo c2"><label for="d-email">E-MAIL</label><input id="d-email" type="email" placeholder="nome@usp.br" required></p>
+      <p class="campo c2"><label for="d-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input id="d-evento" type="text" placeholder="Congresso Latino-Americano de Matemática" required></p>
+      <p class="campo"><label for="d-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input id="d-periodo" type="text" placeholder="10 a 14 de julho de 2025" required></p>
+      <p class="campo"><label for="d-cidade-evento">CIDADE DO EVENTO, EXAME OU DEFESA</label><input id="d-cidade-evento" type="text" placeholder="São Paulo" required></p>
+      <p class="campo"><label for="d-estado-evento">ESTADO DO EVENTO, EXAME OU DEFESA</label><input id="d-estado-evento" type="text" placeholder="SP" required></p>
+      <p class="campo"><label for="d-pais-evento">PAÍS DO EVENTO, EXAME OU DEFESA</label><input id="d-pais-evento" type="text" placeholder="Brasil" required></p>
+      <p class="campo c2"><label for="d-link">LINK DO EVENTO, EXAME OU DEFESA</label><input id="d-link" type="text" placeholder="https://www.ime.usp.br/evento"></p>
+      <p class="campo c2"><label for="d-valor">VALOR SOLICITADO (R$)</label><input id="d-valor" type="text" class="mascara-valor" placeholder="R$ 1.500,00" required></p>
+      <p class="campo c3"><label for="d-detalhamento">DETALHAMENTO DO PEDIDO</label><textarea id="d-detalhamento" rows="2" placeholder="Passagem aérea, inscrição e diárias de hotel" required></textarea></p>
+      <p class="campo c3"><label for="d-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="d-apresentacao" required><option value="">Selecione o tipo de apresentação</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></p>
+    </div>
+  </section>
+  <section class="bloco">
+    <h2>ENDEREÇO DO SOLICITANTE</h2>
+    <div class="grade">
+      <p class="campo c2"><label for="d-nascimento">DATA DE NASCIMENTO</label><input id="d-nascimento" type="text" class="mascara-data" placeholder="01/02/1980" required></p>
+      <p class="campo c2"><label for="d-logradouro">LOGRADOURO</label><input id="d-logradouro" type="text" placeholder="Rua do Matão" required></p>
+      <p class="campo"><label for="d-numero">NÚMERO</label><input id="d-numero" type="text" placeholder="1010" required></p>
+      <p class="campo"><label for="d-complemento">COMPLEMENTO</label><input id="d-complemento" type="text" placeholder="Apto 42"></p>
+      <p class="campo c2"><label for="d-bairro">BAIRRO</label><input id="d-bairro" type="text" placeholder="Butantã" required></p>
+      <p class="campo c2"><label for="d-cep">CEP</label><input id="d-cep" type="text" class="mascara-cep" placeholder="05508-090" required></p>
+      <p class="campo"><label for="d-cidade">CIDADE</label><input id="d-cidade" type="text" placeholder="São Paulo" required></p>
+      <p class="campo"><label for="d-estado">ESTADO</label><input id="d-estado" type="text" placeholder="SP" required></p>
+    </div>
+  </section>
+  <section class="bloco">
+    <h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+    <div class="grade pagto">
+      <p class="campo"><label for="d-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input id="d-cpf" type="text" class="mascara-cpf" placeholder="123.456.789-09" required></p>
+      <p class="campo"><label for="d-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input id="d-rg" type="text" placeholder="12.345.678-9" required></p>
+      <p class="campo"><label for="d-banco">NOME DO BANCO</label><input id="d-banco" type="text" placeholder="Banco do Brasil" required></p>
+      <p class="campo"><label for="d-agencia">NÚMERO DA AGÊNCIA</label><input id="d-agencia" type="text" placeholder="1234" required></p>
+      <p class="campo"><label for="d-conta">NÚMERO DA CONTA</label><input id="d-conta" type="text" placeholder="12345-6" required></p>
+    </div>
+  </section>
+  <button type="submit" class="enviar">Enviar solicitação</button>
+</form>
+<section id="confirmacao" hidden>
+  <h1>Solicitação registrada</h1>
+  <pre id="oficio"></pre>
+</section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

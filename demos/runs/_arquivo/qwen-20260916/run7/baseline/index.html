@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitação de Auxílio Financeiro — Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topo">
+  <div class="marca">
+    <img src="assets/usp-logo.png" alt="Logotipo da Universidade de São Paulo" class="logo">
+    <div class="marca-texto">
+      <span class="universidade">Universidade de São Paulo</span>
+      <span class="programa">Pós-Graduação do Instituto de Matemática e Estatística</span>
+    </div>
+  </div>
+  <h1 class="titulo-pagina">Solicitação de Auxílio Financeiro</h1>
+</header>
+
+<main>
+
+<section id="aba-alunos" class="aba-conteudo">
+  <div class="abas">
+    <button type="button" class="aba ativa" data-aba="alunos">ALUNOS</button>
+    <button type="button" class="aba" data-aba="docentes">DOCENTES</button>
+  </div>
+  <h2 class="subtitulo-aba">Formulário de solicitação para alunos</h2>
+  <ul class="erros" id="erros-alunos" hidden></ul>
+  <form id="form-alunos" novalidate>
+    <div class="bloco">
+      <h3 class="titulo-bloco">SOLICITANTE E EVENTO</h3>
+      <div class="grade g1">
+        <div class="campo"><label for="a-nome">NOME COMPLETO - SEM ABREVIAR</label>
+          <input type="text" id="a-nome" name="nome" placeholder="Maria Aparecida da Silva" autocomplete="off"></div>
+      </div>
+      <div class="grade g4">
+        <div class="campo"><label for="a-nusp">N. USP</label><input type="text" id="a-nusp" name="nusp" placeholder="12345678" autocomplete="off"></div>
+        <div class="campo"><label for="a-programa">PROGRAMA</label><input type="text" id="a-programa" name="programa" placeholder="Estatística" autocomplete="off"></div>
+        <div class="campo"><label for="a-nivel">NÍVEL</label><select id="a-nivel" name="nivel"><option value="">Selecione</option><option>Mestrado</option><option>Doutorado</option></select></div>
+        <div class="campo"><label for="a-tipo">TIPO DE AUXÍLIO</label><select id="a-tipo" name="tipo_auxilio"><option value="">Selecione</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></div>
+      </div>
+      <div class="grade g3">
+        <div class="campo"><label for="a-email">E-MAIL</label><input type="email" id="a-email" name="email" placeholder="maria.silva@ime.usp.br" autocomplete="off"></div>
+        <div class="campo"><label for="a-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input type="text" id="a-evento" name="evento" placeholder="XVIII SINAPE" autocomplete="off"></div>
+        <div class="campo"><label for="a-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="a-periodo" name="periodo" placeholder="12 a 15 de julho de 2025" autocomplete="off"></div>
+      </div>
+      <div class="grade g3">
+        <div class="campo"><label for="a-cidade-ev">CIDADE DO EVENTO, EXAME OU DEFESA</label><input type="text" id="a-cidade-ev" name="cidade_evento" placeholder="Belo Horizonte" autocomplete="off"></div>
+        <div class="campo"><label for="a-estado-ev">ESTADO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="a-estado-ev" name="estado_evento" placeholder="MG" autocomplete="off"></div>
+        <div class="campo"><label for="a-pais-ev">PAÍS DO EVENTO, EXAME OU DEFESA</label><input type="text" id="a-pais-ev" name="pais_evento" placeholder="Brasil" autocomplete="off"></div>
+      </div>
+      <div class="grade g4">
+        <div class="campo"><label for="a-link">LINK DO EVENTO, EXAME OU DEFESA</label><input type="text" id="a-link" name="link" placeholder="https://www.sinape.org.br" autocomplete="off"></div>
+        <div class="campo"><label for="a-valor">VALOR SOLICITADO (R$)</label><input type="text" id="a-valor" name="valor" placeholder="1500" class="moeda"></div>
+        <div class="campo"><label for="a-det">DETALHAMENTO DO PEDIDO</label><textarea id="a-det" name="detalhamento" rows="1" placeholder="Justificativa da participação e vínculo com a pesquisa"></textarea></div>
+      </div>
+      <div class="grade g1">
+        <div class="campo"><label for="a-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="a-apresentacao" name="apresentacao"><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <h3 class="titulo-bloco">ENDEREÇO DO SOLICITANTE</h3>
+      <div class="grade g4">
+        <div class="campo"><label for="a-nasc">DATA DE NASCIMENTO</label><input type="text" id="a-nasc" name="nascimento" placeholder="01/02/1980" class="nasc"></div>
+        <div class="campo"><label for="a-log">LOGRADOURO</label><input type="text" id="a-log" name="logradouro" placeholder="Rua do Matão" autocomplete="off"></div>
+        <div class="campo"><label for="a-num">NÚMERO</label><input type="text" id="a-num" name="numero" placeholder="1010" autocomplete="off"></div>
+        <div class="campo"><label for="a-comp">COMPLEMENTO</label><input type="text" id="a-comp" name="complemento" placeholder="Apto 42 - Bloco B" autocomplete="off"></div>
+      </div>
+      <div class="grade g4">
+        <div class="campo"><label for="a-bairro">BAIRRO</label><input type="text" id="a-bairro" name="bairro" placeholder="Butantã" autocomplete="off"></div>
+        <div class="campo"><label for="a-cep">CEP</label><input type="text" id="a-cep" name="cep" placeholder="05508-090" class="cep"></div>
+        <div class="campo"><label for="a-cidade">CIDADE</label><input type="text" id="a-cidade" name="cidade" placeholder="São Paulo" autocomplete="off"></div>
+        <div class="campo"><label for="a-estado">ESTADO</label><input type="text" id="a-estado" name="estado" placeholder="SP" autocomplete="off"></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <h3 class="titulo-bloco">INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+      <div class="grade g5">
+        <div class="campo"><label for="a-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="a-cpf" name="cpf" placeholder="123.456.789-09" class="cpf"></div>
+        <div class="campo"><label for="a-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="a-rg" name="rg" placeholder="12.345.678-9" autocomplete="off"></div>
+        <div class="campo"><label for="a-banco">NOME DO BANCO</label><input type="text" id="a-banco" name="banco" placeholder="Banco do Brasil" autocomplete="off"></div>
+        <div class="campo"><label for="a-ag">NÚMERO DA AGÊNCIA</label><input type="text" id="a-ag" name="agencia" placeholder="1234" autocomplete="off"></div>
+        <div class="campo"><label for="a-conta">NÚMERO DA CONTA</label><input type="text" id="a-conta" name="conta" placeholder="12345-6" autocomplete="off"></div>
+      </div>
+    </div>
+
+    <div class="acoes"><button type="submit" class="botao">Enviar solicitação</button></div>
+  </form>
+</section>
+
+<section id="aba-docentes" class="aba-conteudo" hidden>
+  <div class="abas">
+    <button type="button" class="aba" data-aba="alunos">ALUNOS</button>
+    <button type="button" class="aba ativa" data-aba="docentes">DOCENTES</button>
+  </div>
+  <h2 class="subtitulo-aba">Formulário de solicitação para docentes</h2>
+  <ul class="erros" id="erros-docentes" hidden></ul>
+  <form id="form-docentes" novalidate>
+    <div class="bloco">
+      <h3 class="titulo-bloco">SOLICITANTE E EVENTO</h3>
+      <div class="grade g1">
+        <div class="campo"><label for="d-nome">NOME COMPLETO - SEM ABREVIAR</label>
+          <input type="text" id="d-nome" name="nome" placeholder="João Pedro Marques" autocomplete="off"></div>
+      </div>
+      <div class="grade g3">
+        <div class="campo"><label for="d-nusp">N. USP</label><input type="text" id="d-nusp" name="nusp" placeholder="12345678" autocomplete="off"></div>
+        <div class="campo"><label for="d-programa">PROGRAMA</label><input type="text" id="d-programa" name="programa" placeholder="Matemática" autocomplete="off"></div>
+        <div class="campo"><label for="d-email">E-MAIL</label><input type="email" id="d-email" name="email" placeholder="joao.marques@ime.usp.br" autocomplete="off"></div>
+      </div>
+      <div class="grade g3">
+        <div class="campo"><label for="d-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input type="text" id="d-evento" name="evento" placeholder="Colóquio Brasileiro de Matemática" autocomplete="off"></div>
+        <div class="campo"><label for="d-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="d-periodo" name="periodo" placeholder="27 a 31 de julho de 2025" autocomplete="off"></div>
+        <div class="campo"><label for="d-cidade-ev">CIDADE DO EVENTO, EXAME OU DEFESA</label><input type="text" id="d-cidade-ev" name="cidade_evento" placeholder="Rio de Janeiro" autocomplete="off"></div>
+      </div>
+      <div class="grade g4">
+        <div class="campo"><label for="d-estado-ev">ESTADO DO EVENTO, EXAME OU DEFESA</label><input type="text" id="d-estado-ev" name="estado_evento" placeholder="RJ" autocomplete="off"></div>
+        <div class="campo"><label for="d-pais-ev">PAÍS DO EVENTO, EXAME OU DEFESA</label><input type="text" id="d-pais-ev" name="pais_evento" placeholder="Brasil" autocomplete="off"></div>
+        <div class="campo"><label for="d-link">LINK DO EVENTO, EXAME OU DEFESA</label><input type="text" id="d-link" name="link" placeholder="https://cbm2025.sbm.org.br" autocomplete="off"></div>
+        <div class="campo"><label for="d-valor">VALOR SOLICITADO (R$)</label><input type="text" id="d-valor" name="valor" placeholder="1500" class="moeda"></div>
+      </div>
+      <div class="grade g2">
+        <div class="campo"><label for="d-det">DETALHAMENTO DO PEDIDO</label><textarea id="d-det" name="detalhamento" rows="1" placeholder="Atividade prevista e importância para o programa"></textarea></div>
+        <div class="campo"><label for="d-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select id="d-apresentacao" name="apresentacao"><option value="">Selecione</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <h3 class="titulo-bloco">ENDEREÇO DO SOLICITANTE</h3>
+      <div class="grade g4">
+        <div class="campo"><label for="d-nasc">DATA DE NASCIMENTO</label><input type="text" id="d-nasc" name="nascimento" placeholder="01/02/1960" class="nasc"></div>
+        <div class="campo"><label for="d-log">LOGRADOURO</label><input type="text" id="d-log" name="logradouro" placeholder="Rua do Matão" autocomplete="off"></div>
+        <div class="campo"><label for="d-num">NÚMERO</label><input type="text" id="d-num" name="numero" placeholder="1010" autocomplete="off"></div>
+        <div class="campo"><label for="d-comp">COMPLEMENTO</label><input type="text" id="d-comp" name="complemento" placeholder="Casa 2" autocomplete="off"></div>
+      </div>
+      <div class="grade g4">
+        <div class="campo"><label for="d-bairro">BAIRRO</label><input type="text" id="d-bairro" name="bairro" placeholder="Butantã" autocomplete="off"></div>
+        <div class="campo"><label for="d-cep">CEP</label><input type="text" id="d-cep" name="cep" placeholder="05508-090" class="cep"></div>
+        <div class="campo"><label for="d-cidade">CIDADE</label><input type="text" id="d-cidade" name="cidade" placeholder="São Paulo" autocomplete="off"></div>
+        <div class="campo"><label for="d-estado">ESTADO</label><input type="text" id="d-estado" name="estado" placeholder="SP" autocomplete="off"></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <h3 class="titulo-bloco">INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+      <div class="grade g5">
+        <div class="campo"><label for="d-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="d-cpf" name="cpf" placeholder="123.456.789-09" class="cpf"></div>
+        <div class="campo"><label for="d-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input type="text" id="d-rg" name="rg" placeholder="12.345.678-9" autocomplete="off"></div>
+        <div class="campo"><label for="d-banco">NOME DO BANCO</label><input type="text" id="d-banco" name="banco" placeholder="Caixa Econômica Federal" autocomplete="off"></div>
+        <div class="campo"><label for="d-ag">NÚMERO DA AGÊNCIA</label><input type="text" id="d-ag" name="agencia" placeholder="1234" autocomplete="off"></div>
+        <div class="campo"><label for="d-conta">NÚMERO DA CONTA</label><input type="text" id="d-conta" name="conta" placeholder="12345-6" autocomplete="off"></div>
+      </div>
+    </div>
+
+    <div class="acoes"><button type="submit" class="botao">Enviar solicitação</button></div>
+  </form>
+</section>
+
+<section id="confirmacao" hidden>
+  <div class="titulo-secundario">Solicitação registrada</div>
+  <pre id="oficio" class="oficio"></pre>
+</section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

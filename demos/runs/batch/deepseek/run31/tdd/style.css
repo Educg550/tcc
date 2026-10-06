@@ -1,0 +1,237 @@
+:root {
+  --azul: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #22303a;
+  --borda: #cfe4e8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 12px;
+  color: var(--texto);
+  background: #f7fbfc;
+}
+
+body.pagina-formulario {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 22px;
+  background: #ffffff;
+  border-bottom: 4px solid var(--azul);
+}
+
+.logo-caixa {
+  display: inline-flex;
+  padding: 12px 18px;
+  background: #ffffff;
+}
+
+.logo {
+  display: block;
+  height: 40px;
+}
+
+.titulos {
+  display: flex;
+  flex-direction: column;
+}
+
+.universidade {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--azul);
+}
+
+.programa {
+  font-size: 12px;
+  color: var(--azul-secundario);
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 8px 22px 0;
+  background: #ffffff;
+}
+
+.aba {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 8px 26px;
+  border: 1px solid var(--borda);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: #eef7f9;
+  color: var(--azul);
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #ffffff;
+}
+
+/* Formulário */
+main {
+  flex: 1;
+  min-height: 0;
+  padding: 10px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formulario.ativa {
+  display: flex;
+}
+
+.blocos {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr;
+  gap: 10px;
+}
+
+.bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+}
+
+.bloco h2 {
+  margin: 0;
+  padding-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--azul);
+  border-bottom: 2px solid var(--amarelo);
+}
+
+.campos {
+  display: grid;
+  gap: 6px 8px;
+  align-content: start;
+}
+
+.bloco-evento .campos { grid-template-columns: repeat(3, 1fr); }
+.bloco-endereco .campos,
+.bloco-pagamento .campos { grid-template-columns: repeat(2, 1fr); }
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: #4a6472;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 4px 6px;
+  color: var(--texto);
+  background: #fbfdfe;
+  border: 1px solid var(--borda);
+  border-radius: 5px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 34px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  border-color: var(--azul);
+}
+
+button[type="submit"] {
+  align-self: flex-end;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 24px;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background: #0d7f93;
+}
+
+/* Erros */
+.erros {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: #b00020;
+}
+
+.erros:empty { display: none; }
+
+/* Página de confirmação */
+.pagina-confirmacao {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.pagina-confirmacao h1 {
+  margin: 18px 0 10px;
+  font-size: 22px;
+  color: var(--azul);
+}
+
+.oficio {
+  margin: 0;
+  padding: 18px 22px;
+  font-family: "Open Sans", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  background: #ffffff;
+  border: 1px solid var(--borda);
+  border-left: 6px solid var(--azul);
+  border-radius: 8px;
+}

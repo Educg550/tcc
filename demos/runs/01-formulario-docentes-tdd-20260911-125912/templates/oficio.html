@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitação registrada – IME-USP</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: sans-serif; color: #333; background: #f9f9f9; }
+    header {
+      background: #1094ab;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      color: white;
+    }
+    header img {
+      height: 60px;
+      margin: 0 1rem 0 0;
+    }
+    .header-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-text .universidade {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+    .header-text .programa {
+      font-size: 1.1rem;
+      color: #64c4d2;
+    }
+    h1 {
+      color: #1094ab;
+      margin: 2rem 0 1rem;
+      text-align: center;
+    }
+    .oficio {
+      background: white;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      line-height: 1.6;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/assets/usp-logo.png" alt="USP Logo">
+    <div class="header-text">
+      <span class="universidade">Universidade de São Paulo</span>
+      <span class="programa">Programa de Pós-Graduação do IME</span>
+    </div>
+  </header>
+  <h1>Solicitação registrada</h1>
+  <div class="oficio">
+Interessada(o): {{ data["NOME COMPLETO - SEM ABREVIAR"] }} - {{ data["N. USP"] }}
+E-mail: {{ data["E-MAIL"] }}
+Assunto: Solicitação de Auxílio Financeiro - {{ tipo_auxilio }}
+Programa: {{ programa }}{% if nivel %} - {{ nivel }}{% endif %}
+
+A CCP-{{ programa }} aprovou na data de hoje, a solicitação de auxílio financeiro para a interessada(o) acima, conforme segue:
+
+Dados do evento
+Evento: {{ data["NOME DO EVENTO / BANCA DE EXAME OU DEFESA"] }}
+Período: {{ data["PERÍODO DO EVENTO, EXAME OU DEFESA"] }}
+Local: {{ data["CIDADE DO EVENTO, EXAME OU DEFESA"] }} - {{ data["ESTADO DO EVENTO, EXAME OU DEFESA"] }} - {{ data["PAÍS DO EVENTO, EXAME OU DEFESA"] }}
+{% if data.get("LINK DO EVENTO, EXAME OU DEFESA") %}
+Link do evento: {{ data["LINK DO EVENTO, EXAME OU DEFESA"] }}
+{% endif %}
+Apresentação de trabalho: {{ data["IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?"] }}
+Valor solicitado: {{ data["VALOR SOLICITADO (R$)"] }}
+Detalhamento: {{ data["DETALHAMENTO DO PEDIDO"] }}
+
+Endereço da(o) interessada(o)
+{{ data["LOGRADOURO"] }}, {{ data["NÚMERO"] }}
+{% if data.get("COMPLEMENTO") %}
+Complemento: {{ data["COMPLEMENTO"] }}
+{% endif %}
+CEP: {{ data["CEP"] }}
+{{ data["BAIRRO"] }}, {{ data["CIDADE"] }} - {{ data["ESTADO"] }}
+
+Dados para pagamento
+Data de nascimento: {{ data["DATA DE NASCIMENTO"] }}
+CPF: {{ data["CPF (SEPARADOS POR PONTOS E TRAÇO)"] }}
+RG / RNM: {{ data["RG / RNM (SEPARADOS POR PONTOS E TRAÇO)"] }}
+Banco: {{ data["NOME DO BANCO"] }}
+Agência: {{ data["NÚMERO DA AGÊNCIA"] }}
+Conta: {{ data["NÚMERO DA CONTA"] }}
+
+Encaminhe-se ao Serviço Financeiro para providências.
+  </div>
+</body>
+</html>

@@ -1,0 +1,308 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #1c2830;
+  --fundo: #eef2f3;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Verdana, Arial, Helvetica, sans-serif;
+  background: var(--fundo);
+  color: var(--tinta);
+  height: 100%;
+}
+
+body, form, .painel, .bloco {
+  display: flex;
+  flex-direction: column;
+}
+
+body, form, .painel, .bloco {
+  flex: 1;
+  min-height: 0;
+}
+
+header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--azul);
+  color: #fff;
+  padding: 14px 24px;
+}
+
+header img {
+  display: block;
+  height: 2.15em;
+  width: auto;
+}
+
+.marca {
+  text-align: left;
+}
+
+.marca-nome {
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: .01em;
+}
+
+.marca-subs {
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.2;
+  opacity: .92;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 18px 18px;
+}
+
+.abas {
+  display: flex;
+  gap: 6px;
+  flex: 0 0 auto;
+  border-bottom: 3px solid var(--azul);
+  margin-bottom: 12px;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: .05em;
+  cursor: pointer;
+  padding: 8px 28px;
+  border: 1px solid var(--azul);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: #fff;
+  color: var(--azul);
+}
+
+.aba.ativa {
+  background: var(--azul);
+  color: #fff;
+}
+
+.aba:focus-visible {
+  outline: 3px solid var(--amarelo);
+  outline-offset: 2px;
+}
+
+.painel {
+  display: none;
+}
+
+.painel.ativa {
+  display: flex;
+}
+
+form {
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.bloco {
+  gap: 8px;
+  border: 1px solid #d4dadd;
+  border-left: 4px solid var(--azul);
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 14px;
+  flex: 1;
+  min-height: 0;
+}
+
+.bloco h2 {
+  flex: 0 0 auto;
+  font-size: .78em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--azul);
+}
+
+.grade {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: column;
+  gap: 6px 12px;
+  align-items: center;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.campo.grande {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.campo label {
+  font-size: .68em;
+  font-weight: 600;
+  color: #3c4d59;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: .85em;
+  width: 100%;
+  padding: 3px 7px;
+  border: 1px solid #b9c4ca;
+  border-radius: 5px;
+  background: #fff;
+  color: var(--tinta);
+  min-width: 0;
+}
+
+.campo textarea {
+  resize: none;
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--amarelo);
+  outline-offset: 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9fb0b9;
+}
+
+.rodape {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.enviar {
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+  background: var(--amarelo);
+  color: #40340a;
+  padding: 9px 20px;
+  align-self: center;
+  min-width: 280px;
+  letter-spacing: .02em;
+}
+
+.enviar:hover {
+  background: #efc055;
+}
+
+.rodape button:focus-visible {
+  outline: 3px solid var(--azul);
+  outline-offset: 2px;
+}
+
+.erros {
+  list-style: none;
+  color: #9d2222;
+  background: #fdecde;
+  border-left: 4px solid #9d2222;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: .85em;
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.erros:empty {
+  display: none;
+}
+
+.confirmacao {
+  flex: 1;
+  min-height: 0;
+  display: none;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #d4dadd;
+  border-radius: 8px;
+  padding: 16px 22px;
+  gap: 12px;
+}
+
+.confirmacao.ativa {
+  display: flex;
+}
+
+.confirmacao h1 {
+  flex: 0 0 auto;
+  color: var(--azul);
+  font-size: 1.5em;
+}
+
+.oficio {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  font-family: "Courier New", Courier, monospace;
+  font-size: .85em;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border: 1px dashed #b9c4ca;
+  border-radius: 6px;
+  padding: 12px 16px;
+  background: #fafcfd;
+}
+
+.voltar {
+  flex: 0 0 auto;
+  font: inherit;
+  cursor: pointer;
+  align-self: flex-start;
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 8px 20px;
+  font-weight: 600;
+}
+
+.voltar:hover {
+  background: #0d7f94;
+}

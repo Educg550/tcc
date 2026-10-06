@@ -1,0 +1,253 @@
+/* Identidade visual da Universidade de São Paulo */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  background: #eaf4f6;
+  color: #17313a;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 24px;
+  background: #ffffff;
+  border-bottom: 4px solid var(--azul);
+}
+
+.logo {
+  display: block;
+  height: 48px;
+  width: auto;
+  margin: 9px;
+}
+
+.cabecalho-nome {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.universidade {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--azul);
+}
+
+.programa {
+  font-size: 12px;
+  color: #476b76;
+}
+
+.abas {
+  display: flex;
+  gap: 6px;
+  padding: 10px 24px 0;
+}
+
+.aba {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 7px 30px;
+  border: 1px solid var(--azul);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: #d8eef2;
+  color: #0c5d6d;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.aba:not(.ativa):hover {
+  background: var(--azul-claro);
+  color: #083f4a;
+}
+
+main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px 10px;
+}
+
+#formulario,
+.form-aba {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+fieldset {
+  border: 1px solid var(--azul-claro);
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 4px 10px 8px;
+  min-width: 0;
+}
+
+legend {
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--azul);
+}
+
+.campos {
+  display: grid;
+  gap: 5px 10px;
+}
+
+.campos.quatro {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.campos.dois {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.col2 {
+  grid-column: span 2;
+}
+
+.linha-blocos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-items: start;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+label {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #3a5a64;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  font-size: 12px;
+  width: 100%;
+  padding: 4px 7px;
+  border: 1px solid #a8cfd8;
+  border-radius: 4px;
+  background: #fbfeff;
+  color: inherit;
+}
+
+textarea {
+  resize: none;
+  height: 48px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--amarelo);
+  border-color: var(--azul);
+}
+
+.erros {
+  border: 1px solid #d64545;
+  background: #fdecec;
+  color: #8f1d1d;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.erros div {
+  margin: 1px 0;
+}
+
+.acoes {
+  display: flex;
+  justify-content: center;
+}
+
+.botao-enviar {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-bottom: 3px solid var(--amarelo);
+  border-radius: 6px;
+  padding: 9px 46px;
+  cursor: pointer;
+}
+
+.botao-enviar:hover {
+  background: #0c7a8d;
+}
+
+#confirmacao {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+}
+
+#confirmacao h1 {
+  font-size: 22px;
+  color: var(--azul);
+}
+
+.oficio {
+  background: #ffffff;
+  border: 1px solid var(--azul-claro);
+  border-left: 5px solid var(--azul);
+  border-radius: 6px;
+  padding: 16px 20px;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow: auto;
+}

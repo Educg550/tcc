@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="cabecalho">
+  <div class="logo-area">
+    <img src="assets/usp-logo.png" alt="Universidade de São Paulo">
+  </div>
+  <div class="identidade">
+    <div class="universidade">Universidade de São Paulo</div>
+    <div class="programa">Pós-Graduação - Instituto de Matemática e Estatística</div>
+  </div>
+</header>
+
+<main id="app">
+  <nav class="abas">
+    <button type="button" class="aba ativo" data-tab="alunos">ALUNOS</button>
+    <button type="button" class="aba" data-tab="docentes">DOCENTES</button>
+  </nav>
+
+  <form class="form ativo" data-tab="alunos" novalidate>
+    <div class="erros"></div>
+
+    <section class="bloco">
+      <h3>SOLICITANTE E EVENTO</h3>
+      <div class="campos">
+        <div class="campo f-3"><label>NOME COMPLETO - SEM ABREVIAR</label><input name="nome" placeholder="Ex.: Maria da Silva Santos"></div>
+        <div class="campo f-1"><label>N. USP</label><input name="n_usp" placeholder="Ex.: 12345678"></div>
+        <div class="campo f-2"><label>PROGRAMA</label><input name="programa" placeholder="Ex.: Ciência da Computação"></div>
+
+        <div class="campo f-1"><label>NÍVEL</label><select name="nivel"><option value=""></option><option>Mestrado</option><option>Doutorado</option></select></div>
+        <div class="campo f-2"><label>TIPO DE AUXÍLIO</label><select name="tipo_auxilio"><option value=""></option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></div>
+        <div class="campo f-3"><label>E-MAIL</label><input name="email" placeholder="Ex.: maria@ime.usp.br"></div>
+
+        <div class="campo f-3"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input name="nome_evento" placeholder="Ex.: Congresso Brasileiro de Computação"></div>
+        <div class="campo f-3"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input name="periodo" placeholder="Ex.: 10 a 15 de julho de 2025"></div>
+
+        <div class="campo f-2"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input name="cidade_evento" placeholder="Ex.: São Paulo"></div>
+        <div class="campo f-1"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input name="estado_evento" placeholder="Ex.: SP"></div>
+        <div class="campo f-1"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input name="pais_evento" placeholder="Ex.: Brasil"></div>
+        <div class="campo f-2"><label>LINK DO EVENTO, EXAME OU DEFESA</label><input name="link" placeholder="Ex.: https://evento.exemplo.com"></div>
+
+        <div class="campo f-2"><label>VALOR SOLICITADO (R$)</label><input name="valor" data-mask="valor" inputmode="numeric" placeholder="Ex.: 150000"></div>
+        <div class="campo f-4"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select name="apresentacao"><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+
+        <div class="campo f-6"><label>DETALHAMENTO DO PEDIDO</label><textarea name="detalhamento" rows="2" placeholder="Ex.: Passagem aérea, hospedagem e inscrição no evento"></textarea></div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <h3>ENDEREÇO DO SOLICITANTE</h3>
+      <div class="campos">
+        <div class="campo f-1"><label>DATA DE NASCIMENTO</label><input name="data_nascimento" data-mask="data" inputmode="numeric" placeholder="Ex.: 01/02/1980"></div>
+        <div class="campo f-3"><label>LOGRADOURO</label><input name="logradouro" placeholder="Ex.: Rua do Matão"></div>
+        <div class="campo f-2"><label>NÚMERO</label><input name="numero" placeholder="Ex.: 1010"></div>
+
+        <div class="campo f-2"><label>COMPLEMENTO</label><input name="complemento" placeholder="Ex.: Bloco B, ap. 42"></div>
+        <div class="campo f-2"><label>BAIRRO</label><input name="bairro" placeholder="Ex.: Cidade Universitária"></div>
+        <div class="campo f-2"><label>CEP</label><input name="cep" data-mask="cep" inputmode="numeric" placeholder="Ex.: 05508-090"></div>
+
+        <div class="campo f-3"><label>CIDADE</label><input name="cidade" placeholder="Ex.: São Paulo"></div>
+        <div class="campo f-3"><label>ESTADO</label><input name="estado" placeholder="Ex.: SP"></div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <h3>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+      <div class="campos">
+        <div class="campo f-2"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input name="cpf" data-mask="cpf" inputmode="numeric" placeholder="Ex.: 123.456.789-09"></div>
+        <div class="campo f-2"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input name="rg" placeholder="Ex.: 12.345.678-9"></div>
+        <div class="campo f-2"><label>NOME DO BANCO</label><input name="banco" placeholder="Ex.: Banco do Brasil"></div>
+
+        <div class="campo f-3"><label>NÚMERO DA AGÊNCIA</label><input name="agencia" inputmode="numeric" placeholder="Ex.: 1234"></div>
+        <div class="campo f-3"><label>NÚMERO DA CONTA</label><input name="conta" placeholder="Ex.: 12345-6"></div>
+      </div>
+    </section>
+
+    <button type="submit" class="enviar">Enviar solicitação</button>
+  </form>
+
+  <form class="form" data-tab="docentes" novalidate>
+    <div class="erros"></div>
+
+    <section class="bloco">
+      <h3>SOLICITANTE E EVENTO</h3>
+      <div class="campos">
+        <div class="campo f-3"><label>NOME COMPLETO - SEM ABREVIAR</label><input name="nome" placeholder="Ex.: João Pereira Lima"></div>
+        <div class="campo f-1"><label>N. USP</label><input name="n_usp" placeholder="Ex.: 12345678"></div>
+        <div class="campo f-2"><label>PROGRAMA</label><input name="programa" placeholder="Ex.: Ciência da Computação"></div>
+
+        <div class="campo f-2"><label>E-MAIL</label><input name="email" placeholder="Ex.: joao@ime.usp.br"></div>
+        <div class="campo f-4"><label>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label><input name="nome_evento" placeholder="Ex.: Congresso Brasileiro de Computação"></div>
+
+        <div class="campo f-6"><label>PERÍODO DO EVENTO, EXAME OU DEFESA</label><input name="periodo" placeholder="Ex.: 10 a 15 de julho de 2025"></div>
+
+        <div class="campo f-2"><label>CIDADE DO EVENTO, EXAME OU DEFESA</label><input name="cidade_evento" placeholder="Ex.: São Paulo"></div>
+        <div class="campo f-1"><label>ESTADO DO EVENTO, EXAME OU DEFESA</label><input name="estado_evento" placeholder="Ex.: SP"></div>
+        <div class="campo f-1"><label>PAÍS DO EVENTO, EXAME OU DEFESA</label><input name="pais_evento" placeholder="Ex.: Brasil"></div>
+        <div class="campo f-2"><label>LINK DO EVENTO, EXAME OU DEFESA</label><input name="link" placeholder="Ex.: https://evento.exemplo.com"></div>
+
+        <div class="campo f-2"><label>VALOR SOLICITADO (R$)</label><input name="valor" data-mask="valor" inputmode="numeric" placeholder="Ex.: 150000"></div>
+        <div class="campo f-4"><label>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label><select name="apresentacao"><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></div>
+
+        <div class="campo f-6"><label>DETALHAMENTO DO PEDIDO</label><textarea name="detalhamento" rows="2" placeholder="Ex.: Passagem aérea, hospedagem e inscrição no evento"></textarea></div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <h3>ENDEREÇO DO SOLICITANTE</h3>
+      <div class="campos">
+        <div class="campo f-1"><label>DATA DE NASCIMENTO</label><input name="data_nascimento" data-mask="data" inputmode="numeric" placeholder="Ex.: 01/02/1980"></div>
+        <div class="campo f-3"><label>LOGRADOURO</label><input name="logradouro" placeholder="Ex.: Rua do Matão"></div>
+        <div class="campo f-2"><label>NÚMERO</label><input name="numero" placeholder="Ex.: 1010"></div>
+
+        <div class="campo f-2"><label>COMPLEMENTO</label><input name="complemento" placeholder="Ex.: Bloco B, ap. 42"></div>
+        <div class="campo f-2"><label>BAIRRO</label><input name="bairro" placeholder="Ex.: Cidade Universitária"></div>
+        <div class="campo f-2"><label>CEP</label><input name="cep" data-mask="cep" inputmode="numeric" placeholder="Ex.: 05508-090"></div>
+
+        <div class="campo f-3"><label>CIDADE</label><input name="cidade" placeholder="Ex.: São Paulo"></div>
+        <div class="campo f-3"><label>ESTADO</label><input name="estado" placeholder="Ex.: SP"></div>
+      </div>
+    </section>
+
+    <section class="bloco">
+      <h3>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h3>
+      <div class="campos">
+        <div class="campo f-2"><label>CPF (SEPARADOS POR PONTOS E TRAÇO)</label><input name="cpf" data-mask="cpf" inputmode="numeric" placeholder="Ex.: 123.456.789-09"></div>
+        <div class="campo f-2"><label>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label><input name="rg" placeholder="Ex.: 12.345.678-9"></div>
+        <div class="campo f-2"><label>NOME DO BANCO</label><input name="banco" placeholder="Ex.: Banco do Brasil"></div>
+
+        <div class="campo f-3"><label>NÚMERO DA AGÊNCIA</label><input name="agencia" inputmode="numeric" placeholder="Ex.: 1234"></div>
+        <div class="campo f-3"><label>NÚMERO DA CONTA</label><input name="conta" placeholder="Ex.: 12345-6"></div>
+      </div>
+    </section>
+
+    <button type="submit" class="enviar">Enviar solicitação</button>
+  </form>
+</main>
+
+<section id="confirmacao">
+  <h2>Solicitação registrada</h2>
+  <pre id="oficio"></pre>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

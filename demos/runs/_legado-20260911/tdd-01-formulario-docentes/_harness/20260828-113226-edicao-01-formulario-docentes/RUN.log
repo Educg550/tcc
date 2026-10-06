@@ -1,0 +1,128 @@
+{
+  "started_at": "2026-08-28T11:32:28",
+  "ended_at": "2026-08-28T12:05:31",
+  "total_duration_s": 1982.95,
+  "modo": "edicao",
+  "requisito_id": "01-formulario-docentes",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "dependencias": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4-flash",
+      "coder": "deepseek/deepseek-v4-pro",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.372043,
+  "total_tokens": 224591,
+  "total_retries": 7,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4-flash",
+      "duration_s": 114.02,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 2,
+      "retries": 1,
+      "arquivos": [
+        "tests/test_app.py"
+      ],
+      "historico": [],
+      "input_tokens": 19830,
+      "output_tokens": 13278,
+      "total_tokens": 33108,
+      "cost_usd": 0.006494
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4-pro",
+      "duration_s": 1865.1,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 7,
+      "retries": 6,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        },
+        {
+          "passed": 28,
+          "failed": 3,
+          "errors": 0,
+          "total": 31
+        },
+        {
+          "passed": 19,
+          "failed": 12,
+          "errors": 0,
+          "total": 31
+        },
+        {
+          "passed": 28,
+          "failed": 3,
+          "errors": 0,
+          "total": 31
+        },
+        {
+          "passed": 0,
+          "failed": 31,
+          "errors": 0,
+          "total": 31
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 1,
+          "total": 1
+        }
+      ],
+      "input_tokens": 78081,
+      "output_tokens": 113402,
+      "total_tokens": 191483,
+      "cost_usd": 0.365549,
+      "impressao": "b1b315a76c5986f26df89eb3600c1863b5ef13253a5c3c24f2268a2ed249e87d",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 1,
+    "total": 1
+  },
+  "regressao": {
+    "antes": {
+      "passed": 14,
+      "failed": 0,
+      "errors": 0,
+      "total": 14
+    },
+    "depois": {
+      "passed": 0,
+      "failed": 0,
+      "errors": 1,
+      "total": 1
+    },
+    "quebrou": false
+  },
+  "integridade": {
+    "medido_sha256": "b1b315a76c5986f26df89eb3600c1863b5ef13253a5c3c24f2268a2ed249e87d",
+    "intacto": true
+  }
+}

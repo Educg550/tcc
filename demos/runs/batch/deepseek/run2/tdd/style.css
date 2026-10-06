@@ -1,0 +1,190 @@
+
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #12333a;
+  background: #ffffff;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 1.5rem;
+  border-bottom: 4px solid var(--amarelo);
+}
+
+.cabecalho .logo {
+  height: 46px;
+  width: auto;
+  margin: 0.35rem 1rem;
+}
+
+.cabecalho-titulos h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--azul);
+}
+
+.cabecalho-titulos p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #4a6b71;
+}
+
+.abas {
+  display: flex;
+  gap: 0.3rem;
+  padding: 0 1.5rem;
+  background: var(--azul-claro);
+}
+
+.aba {
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 1.6rem;
+  border-radius: 6px 6px 0 0;
+}
+
+.aba.ativa {
+  background: var(--azul);
+}
+
+main {
+  padding: 0.6rem 1.5rem;
+}
+
+.painel {
+  display: none;
+}
+
+.painel.ativo {
+  display: block;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bloco {
+  border: 1px solid #cfe6ea;
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem 0.6rem;
+  background: #fbfeff;
+}
+
+.bloco legend {
+  color: var(--azul);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  padding: 0 0.3rem;
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.35rem 0.6rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.campo.largo {
+  grid-column: 1 / -1;
+}
+
+.campo label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #2b4a50;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.35rem;
+  border: 1px solid #b9d6db;
+  border-radius: 4px;
+  background: #ffffff;
+  color: inherit;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 2.6rem;
+}
+
+.enviar {
+  align-self: flex-end;
+  border: none;
+  cursor: pointer;
+  background: var(--azul);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.45rem 1.6rem;
+  border-radius: 6px;
+}
+
+.enviar:hover {
+  background: #0d7d90;
+}
+
+.erros {
+  color: #b00020;
+  background: #fdecef;
+  border: 1px solid #f3b6c1;
+  border-radius: 6px;
+  padding: 0.3rem 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.erros:empty {
+  display: none;
+}
+
+.erros p {
+  margin: 0.1rem 0;
+}
+
+.confirmacao h2 {
+  color: var(--azul);
+}
+
+.oficio {
+  font-family: "Open Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+  white-space: pre-wrap;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  border: 1px solid #cfe6ea;
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  background: #fbfeff;
+  margin: 0;
+}

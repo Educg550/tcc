@@ -1,0 +1,88 @@
+{
+  "started_at": "2026-09-15T14:24:07",
+  "ended_at": "2026-09-15T14:34:12",
+  "total_duration_s": 604.77,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-deepseek",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "deepseek/deepseek-v4.1-flash",
+      "coder": "deepseek/deepseek-v4.1-flash",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.066292,
+  "total_tokens": 120945,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 213.14,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_auxilio_financeiro.py"
+      ],
+      "historico": [],
+      "input_tokens": 4025,
+      "output_tokens": 37146,
+      "total_tokens": 41171,
+      "cost_usd": 0.022356
+    },
+    {
+      "id": "code",
+      "configured_model": "deepseek/deepseek-v4.1-flash",
+      "duration_s": 390.1,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 27,
+          "failed": 0,
+          "errors": 0,
+          "total": 27
+        }
+      ],
+      "input_tokens": 7578,
+      "output_tokens": 72196,
+      "total_tokens": 79774,
+      "cost_usd": 0.043936,
+      "impressao": "9fb1f27831b3207db08982c116afe7c780a6324aeef0877c472d474ab0d729da",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 27,
+    "failed": 0,
+    "errors": 0,
+    "total": 27
+  },
+  "integridade": {
+    "medido_sha256": "9fb1f27831b3207db08982c116afe7c780a6324aeef0877c472d474ab0d729da",
+    "intacto": true
+  }
+}

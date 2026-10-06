@@ -1,0 +1,241 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+  --texto: #1c2b2e;
+  --borda: #c6d9dc;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: var(--texto);
+  background: #f2f8f9;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Cabeçalho institucional ---------- */
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ffffff;
+  border-bottom: 4px solid var(--azul);
+  padding: 8px 18px;
+}
+
+.cabecalho .logo {
+  height: 38px;
+  margin: 10px;
+  display: block;
+}
+
+.identidade h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  color: var(--azul);
+}
+
+.identidade .programa {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #5a7176;
+}
+
+/* ---------- Abas ---------- */
+
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 6px 18px 0;
+  background: #e3f2f4;
+}
+
+.aba {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  font-size: 12px;
+  padding: 7px 26px;
+  border: 1px solid var(--borda);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: #cfe7ea;
+  color: #40666d;
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+}
+
+.aba:hover { background: var(--azul-claro); color: #ffffff; }
+
+.aba.ativa {
+  background: #ffffff;
+  color: var(--azul);
+  border-top: 3px solid var(--amarelo);
+}
+
+/* ---------- Área de conteúdo ---------- */
+
+#tela-formulario {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.conteudo {
+  flex: 1;
+  padding: 8px 18px 12px;
+  min-height: 0;
+}
+
+.painel[hidden] { display: none; }
+
+/* ---------- Blocos ---------- */
+
+.bloco {
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  background: #ffffff;
+  margin: 0 0 8px;
+  padding: 6px 10px 8px;
+}
+
+.bloco legend {
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--azul);
+}
+
+/* ---------- Grade de campos ---------- */
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px 10px;
+}
+
+.c2 { grid-column: span 2; }
+.c3 { grid-column: span 3; }
+.c4 { grid-column: span 4; }
+.c6 { grid-column: span 6; }
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.campo label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #3d5b61;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  font-size: 12px;
+  color: var(--texto);
+  padding: 4px 6px;
+  border: 1px solid var(--borda);
+  border-radius: 4px;
+  background: #fbfdfd;
+  width: 100%;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 34px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--azul-claro);
+  border-color: var(--azul);
+}
+
+/* ---------- Erros ---------- */
+
+.erros {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border: 1px solid #eab6b6;
+  border-radius: 4px;
+  background: #fdeeee;
+  color: #8e1d1d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.erros:empty { display: none; }
+.erros p { margin: 2px 0; }
+
+/* ---------- Ações ---------- */
+
+.acoes {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.botao {
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background: var(--azul);
+  border: none;
+  border-radius: 6px;
+  padding: 9px 26px;
+  cursor: pointer;
+}
+
+.botao:hover { background: #0c7f93; }
+.botao:focus { outline: 3px solid var(--amarelo); }
+
+/* ---------- Confirmação ---------- */
+
+#tela-confirmacao {
+  flex: 1;
+  padding: 18px;
+}
+
+.titulo-confirmacao {
+  margin: 0 0 12px;
+  font-size: 20px;
+  color: var(--azul);
+  border-bottom: 2px solid var(--amarelo);
+  padding-bottom: 6px;
+}
+
+.oficio {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background: #ffffff;
+  color: var(--texto);
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--azul);
+  border-radius: 4px;
+  padding: 16px 18px;
+  margin: 0;
+}

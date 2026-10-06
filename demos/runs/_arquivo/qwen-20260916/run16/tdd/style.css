@@ -1,0 +1,199 @@
+/* Cores USP */
+:root {
+  --cor-primaria: #1094ab;
+  --cor-secundaria: #64c4d2;
+  --cor-acento: #fcb421;
+  --fonte-padrao: 'Open Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--fonte-padrao);
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#app {
+  background: #fff;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--cor-primaria);
+}
+
+.logo-container {
+  display: inline-block;
+  margin: 20px; /* Margem livre da altura do texto */
+}
+
+.logo-container img {
+  height: 60px;
+  display: block;
+}
+
+header h1 {
+  color: var(--cor-primaria);
+  font-size: 1.5rem;
+}
+
+header h2 {
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-top: 5px;
+}
+
+/* Abas */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tabs input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background: #e0e0e0;
+  color: #555;
+}
+
+#tab-alunos:checked + .tab,
+#tab-docentes:checked + .tab {
+  background: #fff;
+  font-weight: bold;
+  color: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+/* Formulário */
+.form-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+}
+
+legend {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--cor-primaria);
+  padding: 0 5px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.col-2 {
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.75rem;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.btn-enviar {
+  background: var(--cor-primaria);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+  transition: background 0.2s;
+}
+
+.btn-enviar:hover {
+  background: var(--cor-secundaria);
+}
+
+.erros {
+  color: red;
+  font-weight: bold;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
+.erros span {
+  display: block;
+}
+
+/* Confirmação */
+#confirmacao {
+  text-align: center;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#confirmacao h2 {
+  color: var(--cor-primaria);
+  margin-bottom: 15px;
+}
+
+#oficio {
+  text-align: left;
+  background: #fafafa;
+  padding: 15px;
+  border: 1px solid #ddd;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 0.85rem;
+  max-width: 800px;
+  margin: 0 auto;
+}

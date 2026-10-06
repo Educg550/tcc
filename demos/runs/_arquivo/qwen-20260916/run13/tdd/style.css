@@ -1,0 +1,203 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+  --tinta: #16323a;
+  --fundo: #f2f7f9;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: "Open Sans", "Segoe UI", Verdana, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: var(--azul-primario);
+  color: #fff;
+  padding: 10px 24px;
+  border-bottom: 4px solid var(--amarelo);
+}
+
+.logo {
+  /* margem livre nos quatro lados ~ altura da letra do próprio logotipo */
+  height: 52px;
+  padding: 13px;
+  margin: -13px;
+  background: #fff;
+  border-radius: 50%;
+}
+
+.titulos h1 {
+  margin: 0;
+  font-size: 21px;
+  letter-spacing: .3px;
+}
+
+.titulos p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--azul-secundario);
+}
+
+main { max-width: 1240px; margin: 0 auto; padding: 12px 20px 20px; }
+
+.abas {
+  display: flex;
+  gap: 4px;
+  border-bottom: 3px solid var(--azul-primario);
+}
+
+.aba {
+  appearance: none;
+  border: 1px solid var(--azul-secundario);
+  border-bottom: none;
+  background: #dcecf1;
+  color: var(--azul-primario);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: .5px;
+  padding: 8px 34px;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  border-color: var(--azul-primario);
+  color: #fff;
+}
+
+.formulario { margin-top: 12px; }
+
+.erros {
+  background: #fdecec;
+  border-left: 4px solid #b3261e;
+  color: #8c1d18;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  white-space: pre-line;
+}
+
+.bloco {
+  background: #fff;
+  border: 1px solid #d7e4e8;
+  border-top: 4px solid var(--azul-primario);
+  border-radius: 8px;
+  padding: 10px 14px 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 2px rgba(16, 148, 171, .08);
+}
+
+.titulo-bloco {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: .8px;
+  color: var(--azul-primario);
+  border-bottom: 1px solid #e6f0f2;
+  padding-bottom: 4px;
+}
+
+.bloco-largo .grade { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bloco-largo .campo-longo { grid-column: span 2; }
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px 12px;
+  align-items: end;
+}
+
+.campo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.campo-longo { grid-column: span 2; }
+
+.campo span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #4d6b72;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  font: inherit;
+  color: var(--tinta);
+  padding: 6px 8px;
+  border: 1px solid var(--azul-secundario);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.campo textarea { resize: none; }
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: 2px solid var(--amarelo);
+  outline-offset: -1px;
+  border-color: var(--azul-primario);
+}
+
+.enviar {
+  appearance: none;
+  border: none;
+  background: var(--azul-primario);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: .5px;
+  padding: 10px 26px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--amarelo);
+}
+
+.enviar:hover { background: #0d7d91; }
+
+.oculta { display: none !important; }
+
+.confirmacao { background: #fff; border: 1px solid #d7e4e8; border-radius: 8px; padding: 14px 18px; }
+
+.titulo-confirmacao {
+  margin: 0 0 10px;
+  color: var(--azul-primario);
+  font-size: 18px;
+  border-bottom: 3px solid var(--amarelo);
+  padding-bottom: 6px;
+}
+
+.oficio {
+  font-family: inherit;
+  white-space: pre-wrap;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.voltar {
+  margin-top: 12px;
+  appearance: none;
+  border: 1px solid var(--azul-primario);
+  background: #fff;
+  color: var(--azul-primario);
+  font: inherit;
+  font-weight: 700;
+  padding: 7px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .grade, .bloco-largo .grade { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

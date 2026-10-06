@@ -1,0 +1,162 @@
+* { box-sizing: border-box; }
+
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+body {
+  margin: 0;
+  background: #f4fafb;
+  color: #333;
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+}
+
+.usp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-bottom: 4px solid var(--amarelo);
+  padding: 14px 18px;
+}
+
+.usp-header .usp-logo {
+  height: 52px;
+  display: block;
+}
+
+.usp-header .header-right { text-align: right; }
+.usp-header .usp-name {
+  margin: 0 0 2px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--azul-primario);
+  letter-spacing: 0.5px;
+}
+.usp-header .header-sub {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 20px 20px;
+}
+
+.tabs { display: flex; gap: 8px; margin: 10px 0; }
+
+.tab {
+  border: 1px solid var(--azul-primario);
+  background: #ffffff;
+  color: var(--azul-primario);
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 14px;
+  padding: 10px 26px;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: var(--azul-primario);
+  color: #ffffff;
+}
+
+.panel { background: #ffffff; padding: 14px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+.errors {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  background: #fdf1e3;
+  border-left: 4px solid var(--amarelo);
+  color: #a33;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.errors div { padding: 1px 0; }
+
+fieldset.block {
+  border: none;
+  border-left: 4px solid var(--azul-secundario);
+  margin: 0 0 12px;
+  padding: 4px 12px;
+}
+
+fieldset.block legend {
+  font-weight: 700;
+  color: var(--azul-primario);
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  padding: 0 4px;
+}
+
+.grid { display: grid; gap: 10px; }
+.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid + .grid, .grid + .field, .field + .grid, legend + .grid { margin-top: 10px; }
+
+.field { display: block; }
+
+.field span {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 3px;
+  letter-spacing: 0.3px;
+}
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 14px;
+  font-family: inherit;
+  border: 1px solid #c8d8dd;
+  background: #fbfdfd;
+  color: #222;
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  background: #ffffff;
+}
+
+.span2 { grid-column: span 2; }
+
+.field textarea { height: 56px; resize: vertical; }
+
+.submit {
+  display: block;
+  margin: 4px auto 0;
+  padding: 10px 34px;
+  background: var(--azul-primario);
+  color: #ffffff;
+  border: none;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.submit:hover { background: #0d7d91; }
+
+.confirm h1 {
+  color: var(--azul-primario);
+  margin: 10px 0;
+  text-align: center;
+}
+
+.confirm pre {
+  background: #ffffff;
+  padding: 20px 26px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  font-family: "Open Sans", "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  color: #222;
+}

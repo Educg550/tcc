@@ -1,0 +1,149 @@
+:root {
+  --azul: #1094ab;
+  --azul2: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  color: #222;
+  background: #fff;
+  font-size: 12px;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 24px;
+  border-bottom: 3px solid var(--azul);
+}
+
+.cabecalho img { height: 48px; display: block; }
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 19px;
+  color: var(--azul);
+}
+
+.cabecalho p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: var(--azul2);
+}
+
+.abas {
+  display: flex;
+  gap: 4px;
+  padding: 8px 24px 0;
+}
+
+.aba {
+  border: none;
+  background: var(--azul2);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 26px;
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+  font-size: 12px;
+}
+
+.aba.ativa { background: var(--azul); }
+
+.formulario { display: none; padding: 8px 24px; }
+.formulario.ativo { display: block; }
+
+fieldset {
+  border: none;
+  border-top: 2px solid var(--azul2);
+  margin: 0 0 6px;
+  padding: 6px 0 0;
+}
+
+legend {
+  font-weight: 700;
+  color: var(--azul);
+  font-size: 11px;
+  letter-spacing: .5px;
+  padding: 0 6px 0 0;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px 10px;
+}
+
+.campo { display: flex; flex-direction: column; min-width: 0; }
+
+.campo label {
+  font-size: 9px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 1px;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  font-family: inherit;
+  font-size: 11px;
+  padding: 3px 4px;
+  border: 1px solid #bfc9cc;
+  border-radius: 3px;
+  width: 100%;
+}
+
+.campo textarea { resize: vertical; min-height: 30px; }
+
+.media { grid-column: span 2; }
+.larga { grid-column: 1 / -1; }
+
+.erros {
+  color: #b00020;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0 0 4px;
+}
+
+.erros div { line-height: 1.3; }
+
+.enviar {
+  background: var(--amarelo);
+  color: #111;
+  border: none;
+  font-weight: 700;
+  padding: 9px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 2px 0 6px;
+}
+
+.confirmacao { padding: 12px 24px; }
+
+.confirmacao h2 {
+  color: var(--azul);
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.confirmacao pre {
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+  background: #f6fbfc;
+  border: 1px solid var(--azul2);
+  border-radius: 6px;
+  padding: 14px;
+}
+
+.escondido { display: none !important; }

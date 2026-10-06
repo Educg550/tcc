@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solicitação de Auxílio Financeiro — Pós-Graduação IME-USP</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="cabecalho">
+    <img class="cabecalho-logo" src="assets/usp-logo.png" alt="Universidade de São Paulo">
+    <div class="cabecalho-identificacao">
+      <p class="cabecalho-nome">Universidade de São Paulo</p>
+      <p class="cabecalho-unidade">Programa de Pós-Graduação do Instituto de Matemática e Estatística</p>
+    </div>
+  </header>
+
+  <main class="conteudo">
+    <section id="secao-formulario" class="secao {{classe_secao_formulario}}">
+      <h1 class="titulo">Solicitação de Auxílio Financeiro</h1>
+
+      <nav class="abas" role="tablist" aria-label="Tipo de solicitante">
+        <button type="button" id="tab-alunos" role="tab" aria-controls="form-alunos" aria-selected="{{aria_tab_alunos}}" class="aba {{classe_tab_alunos}}">ALUNOS</button>
+        <button type="button" id="tab-docentes" role="tab" aria-controls="form-docentes" aria-selected="{{aria_tab_docentes}}" class="aba {{classe_tab_docentes}}">DOCENTES</button>
+      </nav>
+
+      <form id="form-docentes" class="formulario {{classe_form_docentes}}" method="post" action="/solicitacao" role="tabpanel" aria-labelledby="tab-docentes">
+        <div class="mensagens" role="alert">{{erros_docentes}}</div>
+        <input type="hidden" name="tipo" value="DOCENTES">
+
+        <fieldset class="bloco">
+          <legend>SOLICITANTE E EVENTO</legend>
+          <div class="grade">
+            <div class="campo campo-2">
+              <label for="docentes-nome">NOME COMPLETO - SEM ABREVIAR</label>
+              <input type="text" id="docentes-nome" name="nome" value="{{nome}}" placeholder="ex.: Maria da Silva Santos">
+            </div>
+            <div class="campo">
+              <label for="docentes-n-usp">N. USP</label>
+              <input type="text" id="docentes-n-usp" name="n_usp" inputmode="numeric" value="{{n_usp}}" placeholder="ex.: 12345678">
+            </div>
+            <div class="campo">
+              <label for="docentes-programa">PROGRAMA</label>
+              <input type="text" id="docentes-programa" name="programa" value="{{programa}}" placeholder="ex.: Matemática Aplicada">
+            </div>
+            <div class="campo campo-2">
+              <label for="docentes-email">E-MAIL</label>
+              <input type="text" id="docentes-email" name="email" value="{{email}}" placeholder="ex.: maria@usp.br">
+            </div>
+            <div class="campo campo-2">
+              <label for="docentes-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+              <input type="text" id="docentes-evento" name="evento" value="{{evento}}" placeholder="ex.: XII Congresso Brasileiro de Matemática">
+            </div>
+            <div class="campo campo-2">
+              <label for="docentes-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="docentes-periodo" name="periodo" value="{{periodo}}" placeholder="ex.: 10 a 12 de março de 2026">
+            </div>
+            <div class="campo">
+              <label for="docentes-cidade">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="docentes-cidade" name="cidade" value="{{cidade}}" placeholder="ex.: São Paulo">
+            </div>
+            <div class="campo">
+              <label for="docentes-estado">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="docentes-estado" name="estado" value="{{estado}}" placeholder="ex.: SP">
+            </div>
+            <div class="campo">
+              <label for="docentes-pais">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="docentes-pais" name="pais" value="{{pais}}" placeholder="ex.: Brasil">
+            </div>
+            <div class="campo">
+              <label for="docentes-link">LINK DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="docentes-link" name="link" value="{{link}}" placeholder="ex.: https://exemplo.com.br/congresso">
+            </div>
+            <div class="campo campo-2">
+              <label for="docentes-valor">VALOR SOLICITADO (R$)</label>
+              <input type="text" id="docentes-valor" name="valor" inputmode="numeric" value="{{valor}}" placeholder="ex.: digite 150000 para R$ 1.500,00">
+            </div>
+            <div class="campo campo-3">
+              <label for="docentes-detalhamento">DETALHAMENTO DO PEDIDO</label>
+              <textarea id="docentes-detalhamento" name="detalhamento" rows="2" placeholder="ex.: passagem aérea R$ 800,00 e hospedagem R$ 700,00">{{detalhamento}}</textarea>
+            </div>
+            <div class="campo">
+              <label for="docentes-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+              <select id="docentes-apresentacao" name="apresentacao">
+                <option value="Pôster"{{sel_apresentacao_poster}}>Pôster</option>
+                <option value="Apresentação oral"{{sel_apresentacao_oral}}>Apresentação oral</option>
+                <option value="Outra"{{sel_apresentacao_outra}}>Outra</option>
+                <option value="Não irá apresentar trabalho"{{sel_apresentacao_nao}}>Não irá apresentar trabalho</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="bloco">
+          <legend>ENDEREÇO DO SOLICITANTE</legend>
+          <div class="grade">
+            <div class="campo">
+              <label for="docentes-data-nascimento">DATA DE NASCIMENTO</label>
+              <input type="text" id="docentes-data-nascimento" name="data_nascimento" inputmode="numeric" value="{{data_nascimento}}" placeholder="ex.: 01/02/1980">
+            </div>
+            <div class="campo">
+              <label for="docentes-logradouro">LOGRADOURO</label>
+              <input type="text" id="docentes-logradouro" name="logradouro" value="{{logradouro}}" placeholder="ex.: Rua do Matão">
+            </div>
+            <div class="campo">
+              <label for="docentes-numero">NÚMERO</label>
+              <input type="text" id="docentes-numero" name="numero" value="{{numero}}" placeholder="ex.: 1010">
+            </div>
+            <div class="campo">
+              <label for="docentes-complemento">COMPLEMENTO</label>
+              <input type="text" id="docentes-complemento" name="complemento" value="{{complemento}}" placeholder="ex.: Sala 12">
+            </div>
+            <div class="campo">
+              <label for="docentes-bairro">BAIRRO</label>
+              <input type="text" id="docentes-bairro" name="bairro" value="{{bairro}}" placeholder="ex.: Butantã">
+            </div>
+            <div class="campo">
+              <label for="docentes-cep">CEP</label>
+              <input type="text" id="docentes-cep" name="cep" inputmode="numeric" value="{{cep}}" placeholder="ex.: 05508-090">
+            </div>
+            <div class="campo">
+              <label for="docentes-cidade-endereco">CIDADE</label>
+              <input type="text" id="docentes-cidade-endereco" name="cidade_endereco" value="{{cidade_endereco}}" placeholder="ex.: São Paulo">
+            </div>
+            <div class="campo">
+              <label for="docentes-estado-endereco">ESTADO</label>
+              <input type="text" id="docentes-estado-endereco" name="estado_endereco" value="{{estado_endereco}}" placeholder="ex.: SP">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="bloco">
+          <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+          <div class="grade">
+            <div class="campo campo-2">
+              <label for="docentes-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+              <input type="text" id="docentes-cpf" name="cpf" inputmode="numeric" value="{{cpf}}" placeholder="ex.: 123.456.789-09">
+            </div>
+            <div class="campo campo-2">
+              <label for="docentes-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+              <input type="text" id="docentes-rg" name="rg" value="{{rg}}" placeholder="ex.: 12.345.678-9">
+            </div>
+            <div class="campo campo-2">
+              <label for="docentes-banco">NOME DO BANCO</label>
+              <input type="text" id="docentes-banco" name="banco" value="{{banco}}" placeholder="ex.: Banco do Brasil">
+            </div>
+            <div class="campo">
+              <label for="docentes-agencia">NÚMERO DA AGÊNCIA</label>
+              <input type="text" id="docentes-agencia" name="agencia" inputmode="numeric" value="{{agencia}}" placeholder="ex.: 1234">
+            </div>
+            <div class="campo">
+              <label for="docentes-conta">NÚMERO DA CONTA</label>
+              <input type="text" id="docentes-conta" name="conta" value="{{conta}}" placeholder="ex.: 12345-6">
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="enviar">Enviar solicitação</button>
+      </form>
+
+      <form id="form-alunos" class="formulario {{classe_form_alunos}}" method="post" action="/solicitacao" role="tabpanel" aria-labelledby="tab-alunos">
+        <div class="mensagens" role="alert">{{erros_alunos}}</div>
+        <input type="hidden" name="tipo" value="ALUNOS">
+
+        <fieldset class="bloco">
+          <legend>SOLICITANTE E EVENTO</legend>
+          <div class="grade">
+            <div class="campo campo-2">
+              <label for="alunos-nome">NOME COMPLETO - SEM ABREVIAR</label>
+              <input type="text" id="alunos-nome" name="nome" value="{{nome}}" placeholder="ex.: Maria da Silva Santos">
+            </div>
+            <div class="campo">
+              <label for="alunos-n-usp">N. USP</label>
+              <input type="text" id="alunos-n-usp" name="n_usp" inputmode="numeric" value="{{n_usp}}" placeholder="ex.: 12345678">
+            </div>
+            <div class="campo">
+              <label for="alunos-programa">PROGRAMA</label>
+              <input type="text" id="alunos-programa" name="programa" value="{{programa}}" placeholder="ex.: Matemática Aplicada">
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-nivel">NÍVEL</label>
+              <select id="alunos-nivel" name="nivel">
+                <option value="Mestrado"{{sel_nivel_mestrado}}>Mestrado</option>
+                <option value="Doutorado"{{sel_nivel_doutorado}}>Doutorado</option>
+              </select>
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-tipo-auxilio">TIPO DE AUXÍLIO</label>
+              <select id="alunos-tipo-auxilio" name="tipo_auxilio">
+                <option value="Participação em evento"{{sel_auxilio_participacao}}>Participação em evento</option>
+                <option value="Banca de exame ou defesa"{{sel_auxilio_banca}}>Banca de exame ou defesa</option>
+                <option value="Outro"{{sel_auxilio_outro}}>Outro</option>
+              </select>
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-email">E-MAIL</label>
+              <input type="text" id="alunos-email" name="email" value="{{email}}" placeholder="ex.: maria@usp.br">
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-evento">NOME DO EVENTO / BANCA DE EXAME OU DEFESA</label>
+              <input type="text" id="alunos-evento" name="evento" value="{{evento}}" placeholder="ex.: XII Congresso Brasileiro de Matemática">
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-periodo">PERÍODO DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="alunos-periodo" name="periodo" value="{{periodo}}" placeholder="ex.: 10 a 12 de março de 2026">
+            </div>
+            <div class="campo">
+              <label for="alunos-cidade">CIDADE DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="alunos-cidade" name="cidade" value="{{cidade}}" placeholder="ex.: São Paulo">
+            </div>
+            <div class="campo">
+              <label for="alunos-estado">ESTADO DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="alunos-estado" name="estado" value="{{estado}}" placeholder="ex.: SP">
+            </div>
+            <div class="campo">
+              <label for="alunos-pais">PAÍS DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="alunos-pais" name="pais" value="{{pais}}" placeholder="ex.: Brasil">
+            </div>
+            <div class="campo">
+              <label for="alunos-link">LINK DO EVENTO, EXAME OU DEFESA</label>
+              <input type="text" id="alunos-link" name="link" value="{{link}}" placeholder="ex.: https://exemplo.com.br/congresso">
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-valor">VALOR SOLICITADO (R$)</label>
+              <input type="text" id="alunos-valor" name="valor" inputmode="numeric" value="{{valor}}" placeholder="ex.: digite 150000 para R$ 1.500,00">
+            </div>
+            <div class="campo campo-3">
+              <label for="alunos-detalhamento">DETALHAMENTO DO PEDIDO</label>
+              <textarea id="alunos-detalhamento" name="detalhamento" rows="2" placeholder="ex.: passagem aérea R$ 800,00 e hospedagem R$ 700,00">{{detalhamento}}</textarea>
+            </div>
+            <div class="campo">
+              <label for="alunos-apresentacao">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</label>
+              <select id="alunos-apresentacao" name="apresentacao">
+                <option value="Pôster"{{sel_apresentacao_poster}}>Pôster</option>
+                <option value="Apresentação oral"{{sel_apresentacao_oral}}>Apresentação oral</option>
+                <option value="Outra"{{sel_apresentacao_outra}}>Outra</option>
+                <option value="Não irá apresentar trabalho"{{sel_apresentacao_nao}}>Não irá apresentar trabalho</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="bloco">
+          <legend>ENDEREÇO DO SOLICITANTE</legend>
+          <div class="grade">
+            <div class="campo">
+              <label for="alunos-data-nascimento">DATA DE NASCIMENTO</label>
+              <input type="text" id="alunos-data-nascimento" name="data_nascimento" inputmode="numeric" value="{{data_nascimento}}" placeholder="ex.: 01/02/1980">
+            </div>
+            <div class="campo">
+              <label for="alunos-logradouro">LOGRADOURO</label>
+              <input type="text" id="alunos-logradouro" name="logradouro" value="{{logradouro}}" placeholder="ex.: Rua do Matão">
+            </div>
+            <div class="campo">
+              <label for="alunos-numero">NÚMERO</label>
+              <input type="text" id="alunos-numero" name="numero" value="{{numero}}" placeholder="ex.: 1010">
+            </div>
+            <div class="campo">
+              <label for="alunos-complemento">COMPLEMENTO</label>
+              <input type="text" id="alunos-complemento" name="complemento" value="{{complemento}}" placeholder="ex.: Sala 12">
+            </div>
+            <div class="campo">
+              <label for="alunos-bairro">BAIRRO</label>
+              <input type="text" id="alunos-bairro" name="bairro" value="{{bairro}}" placeholder="ex.: Butantã">
+            </div>
+            <div class="campo">
+              <label for="alunos-cep">CEP</label>
+              <input type="text" id="alunos-cep" name="cep" inputmode="numeric" value="{{cep}}" placeholder="ex.: 05508-090">
+            </div>
+            <div class="campo">
+              <label for="alunos-cidade-endereco">CIDADE</label>
+              <input type="text" id="alunos-cidade-endereco" name="cidade_endereco" value="{{cidade_endereco}}" placeholder="ex.: São Paulo">
+            </div>
+            <div class="campo">
+              <label for="alunos-estado-endereco">ESTADO</label>
+              <input type="text" id="alunos-estado-endereco" name="estado_endereco" value="{{estado_endereco}}" placeholder="ex.: SP">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="bloco">
+          <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+          <div class="grade">
+            <div class="campo campo-2">
+              <label for="alunos-cpf">CPF (SEPARADOS POR PONTOS E TRAÇO)</label>
+              <input type="text" id="alunos-cpf" name="cpf" inputmode="numeric" value="{{cpf}}" placeholder="ex.: 123.456.789-09">
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-rg">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</label>
+              <input type="text" id="alunos-rg" name="rg" value="{{rg}}" placeholder="ex.: 12.345.678-9">
+            </div>
+            <div class="campo campo-2">
+              <label for="alunos-banco">NOME DO BANCO</label>
+              <input type="text" id="alunos-banco" name="banco" value="{{banco}}" placeholder="ex.: Banco do Brasil">
+            </div>
+            <div class="campo">
+              <label for="alunos-agencia">NÚMERO DA AGÊNCIA</label>
+              <input type="text" id="alunos-agencia" name="agencia" inputmode="numeric" value="{{agencia}}" placeholder="ex.: 1234">
+            </div>
+            <div class="campo">
+              <label for="alunos-conta">NÚMERO DA CONTA</label>
+              <input type="text" id="alunos-conta" name="conta" value="{{conta}}" placeholder="ex.: 12345-6">
+            </div>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="enviar">Enviar solicitação</button>
+      </form>
+    </section>
+
+    <section id="secao-confirmacao" class="secao {{classe_secao_confirmacao}}">
+      <h1 class="titulo">{{titulo_confirmacao}}</h1>
+      <pre class="oficio">{{oficio}}</pre>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

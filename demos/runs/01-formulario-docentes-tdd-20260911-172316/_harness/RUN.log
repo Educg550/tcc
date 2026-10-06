@@ -1,0 +1,94 @@
+{
+  "started_at": "2026-09-11T17:23:16",
+  "ended_at": "2026-09-11T17:35:36",
+  "total_duration_s": 739.92,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "anthropic/claude-sonnet-5",
+      "coder": "anthropic/claude-sonnet-5",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 2.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.988854,
+  "total_tokens": 123663,
+  "total_retries": 1,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "anthropic/claude-sonnet-5",
+      "duration_s": 227.2,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_static.py",
+        "tests/test_solicitacao.py"
+      ],
+      "historico": [],
+      "input_tokens": 6080,
+      "output_tokens": 26992,
+      "total_tokens": 33072,
+      "cost_usd": 0.28208
+    },
+    {
+      "id": "code",
+      "configured_model": "anthropic/claude-sonnet-5",
+      "duration_s": 511.57,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 2,
+      "retries": 1,
+      "arquivos": [
+        "app.py",
+        "index.html",
+        "style.css",
+        "app.js"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 2,
+          "total": 2
+        },
+        {
+          "passed": 28,
+          "failed": 0,
+          "errors": 0,
+          "total": 28
+        }
+      ],
+      "input_tokens": 24892,
+      "output_tokens": 65699,
+      "total_tokens": 90591,
+      "cost_usd": 0.706774,
+      "impressao": "6504e911c5a2461dd61e9f7c3652d30db44a34923fd7ab5fbb02f127a48c35c6",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 28,
+    "failed": 0,
+    "errors": 0,
+    "total": 28
+  },
+  "integridade": {
+    "medido_sha256": "6504e911c5a2461dd61e9f7c3652d30db44a34923fd7ab5fbb02f127a48c35c6",
+    "intacto": true
+  }
+}

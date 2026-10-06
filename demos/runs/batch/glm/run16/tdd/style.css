@@ -1,0 +1,136 @@
+:root {
+  --azul-primario: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", Arial, sans-serif;
+  color: #333;
+  background: #f7fafc;
+}
+
+#cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem;
+  border-bottom: 4px solid var(--azul-primario);
+  background: #fff;
+}
+
+#cabecalho img {
+  height: 56px;
+  display: block;
+}
+
+#cabecalho .universidade {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--azul-primario);
+}
+
+#cabecalho .programa {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+main { padding: 0.5rem 1rem; }
+
+#abas { display: flex; gap: 0.4rem; margin-bottom: 0.5rem; }
+
+.aba {
+  border: 1px solid var(--azul-primario);
+  background: #fff;
+  color: var(--azul-primario);
+  font-weight: 700;
+  padding: 0.35rem 1.2rem;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul-primario);
+  color: #fff;
+}
+
+form { margin: 0; }
+
+fieldset {
+  border: 1px solid var(--azul-secundario);
+  margin-bottom: 0.4rem;
+  padding: 0.3rem 0.5rem 0.4rem;
+}
+
+legend {
+  color: var(--azul-primario);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0 0.3rem;
+}
+
+.colunas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.3rem 0.6rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #444;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.3rem;
+  border: 1px solid #bbb;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+}
+
+textarea { resize: vertical; min-height: 1.8rem; }
+
+.erros {
+  list-style: none;
+  background: var(--amarelo);
+  padding: 0.3rem 0.6rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.enviar {
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  font-weight: 700;
+  padding: 0.4rem 1.5rem;
+  cursor: pointer;
+}
+
+.enviar:hover { background: var(--azul-secundario); }
+
+.oculto { display: none; }
+
+#confirmacao { background: #fff; padding: 1rem; }
+
+#confirmacao h1 {
+  color: var(--azul-primario);
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+#oficio {
+  font-family: inherit;
+  white-space: pre-wrap;
+  background: #fff;
+  border: 1px solid var(--azul-secundario);
+  padding: 0.8rem;
+  font-size: 0.8rem;
+}

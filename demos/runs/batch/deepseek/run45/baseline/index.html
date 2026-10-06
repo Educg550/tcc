@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitação de Auxílio Financeiro - Pós-Graduação IME-USP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="cabecalho">
+  <div class="logo-area">
+    <img src="assets/usp-logo.png" alt="Universidade de São Paulo" class="logo">
+  </div>
+  <div class="inst">
+    <div class="universidade">Universidade de São Paulo</div>
+    <div class="programa-nome">Pós-Graduação - IME-USP</div>
+  </div>
+</header>
+
+<main id="tela-formulario">
+  <div class="abas" role="tablist">
+    <button class="aba ativa" data-aba="alunos" role="tab">ALUNOS</button>
+    <button class="aba" data-aba="docentes" role="tab">DOCENTES</button>
+  </div>
+
+  <form id="form-alunos" class="formulario ativo" data-form="alunos" novalidate>
+    <div class="erros" hidden></div>
+    <div class="blocos">
+      <fieldset class="bloco">
+        <legend>SOLICITANTE E EVENTO</legend>
+        <div class="grade">
+          <label class="campo g4">NOME COMPLETO - SEM ABREVIAR<input name="nome_completo" type="text" placeholder="Maria Aparecida Silva"></label>
+          <label class="campo g2">N. USP<input name="n_usp" type="text" inputmode="numeric" placeholder="12345678"></label>
+          <label class="campo g3">PROGRAMA<input name="programa" type="text" placeholder="Ciência da Computação"></label>
+          <label class="campo g3">NÍVEL<select name="nivel"><option value=""></option><option>Mestrado</option><option>Doutorado</option></select></label>
+          <label class="campo g3">TIPO DE AUXÍLIO<select name="tipo_auxilio"><option value=""></option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></label>
+          <label class="campo g3">E-MAIL<input name="email" type="email" placeholder="maria@usp.br"></label>
+          <label class="campo g6">NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input name="nome_evento" type="text" placeholder="Congresso Brasileiro de Computação"></label>
+          <label class="campo g3">PERÍODO DO EVENTO, EXAME OU DEFESA<input name="periodo_evento" type="text" placeholder="10 a 15 de julho de 2024"></label>
+          <label class="campo g3">CIDADE DO EVENTO, EXAME OU DEFESA<input name="cidade_evento" type="text" placeholder="São Paulo"></label>
+          <label class="campo g2">ESTADO DO EVENTO, EXAME OU DEFESA<input name="estado_evento" type="text" placeholder="SP"></label>
+          <label class="campo g2">PAÍS DO EVENTO, EXAME OU DEFESA<input name="pais_evento" type="text" placeholder="Brasil"></label>
+          <label class="campo g2">LINK DO EVENTO, EXAME OU DEFESA<input name="link_evento" type="text" placeholder="https://evento.usp.br"></label>
+          <label class="campo g2">VALOR SOLICITADO (R$)<input name="valor_solicitado" type="text" inputmode="numeric" data-mask="valor" placeholder="R$ 1.500,00"></label>
+          <label class="campo g4">DETALHAMENTO DO PEDIDO<textarea name="detalhamento" rows="2" placeholder="Descreva a finalidade do auxílio"></textarea></label>
+          <label class="campo g4">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentar_trabalho"><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="bloco">
+        <legend>ENDEREÇO DO SOLICITANTE</legend>
+        <div class="grade">
+          <label class="campo g2">DATA DE NASCIMENTO<input name="data_nascimento" type="text" inputmode="numeric" data-mask="data" placeholder="01/02/1980"></label>
+          <label class="campo g3">LOGRADOURO<input name="logradouro" type="text" placeholder="Av. Prof. Luciano Gualberto"></label>
+          <label class="campo g1">NÚMERO<input name="numero" type="text" placeholder="158"></label>
+          <label class="campo g2">COMPLEMENTO<input name="complemento" type="text" placeholder="Sala 100"></label>
+          <label class="campo g2">BAIRRO<input name="bairro" type="text" placeholder="Butantã"></label>
+          <label class="campo g2">CEP<input name="cep" type="text" inputmode="numeric" data-mask="cep" placeholder="05508-090"></label>
+          <label class="campo g3">CIDADE<input name="cidade" type="text" placeholder="São Paulo"></label>
+          <label class="campo g1">ESTADO<input name="estado" type="text" placeholder="SP"></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="bloco">
+        <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+        <div class="grade">
+          <label class="campo g2">CPF (SEPARADOS POR PONTOS E TRAÇO)<input name="cpf" type="text" inputmode="numeric" data-mask="cpf" placeholder="123.456.789-09"></label>
+          <label class="campo g2">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)<input name="rg" type="text" placeholder="12.345.678-9"></label>
+          <label class="campo g2">NOME DO BANCO<input name="banco" type="text" placeholder="Banco do Brasil"></label>
+          <label class="campo g2">NÚMERO DA AGÊNCIA<input name="agencia" type="text" inputmode="numeric" placeholder="1234"></label>
+          <label class="campo g2">NÚMERO DA CONTA<input name="conta" type="text" placeholder="12345-6"></label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="rodape-form">
+      <button type="submit" class="enviar">Enviar solicitação</button>
+    </div>
+  </form>
+
+  <form id="form-docentes" class="formulario" data-form="docentes" novalidate>
+    <div class="erros" hidden></div>
+    <div class="blocos">
+      <fieldset class="bloco">
+        <legend>SOLICITANTE E EVENTO</legend>
+        <div class="grade">
+          <label class="campo g4">NOME COMPLETO - SEM ABREVIAR<input name="nome_completo" type="text" placeholder="João Carlos Souza"></label>
+          <label class="campo g2">N. USP<input name="n_usp" type="text" inputmode="numeric" placeholder="87654321"></label>
+          <label class="campo g3">PROGRAMA<input name="programa" type="text" placeholder="Ciência da Computação"></label>
+          <label class="campo g3">E-MAIL<input name="email" type="email" placeholder="joao@usp.br"></label>
+          <label class="campo g6">NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input name="nome_evento" type="text" placeholder="Congresso Brasileiro de Computação"></label>
+          <label class="campo g3">PERÍODO DO EVENTO, EXAME OU DEFESA<input name="periodo_evento" type="text" placeholder="10 a 15 de julho de 2024"></label>
+          <label class="campo g3">CIDADE DO EVENTO, EXAME OU DEFESA<input name="cidade_evento" type="text" placeholder="São Paulo"></label>
+          <label class="campo g2">ESTADO DO EVENTO, EXAME OU DEFESA<input name="estado_evento" type="text" placeholder="SP"></label>
+          <label class="campo g2">PAÍS DO EVENTO, EXAME OU DEFESA<input name="pais_evento" type="text" placeholder="Brasil"></label>
+          <label class="campo g2">LINK DO EVENTO, EXAME OU DEFESA<input name="link_evento" type="text" placeholder="https://evento.usp.br"></label>
+          <label class="campo g2">VALOR SOLICITADO (R$)<input name="valor_solicitado" type="text" inputmode="numeric" data-mask="valor" placeholder="R$ 1.500,00"></label>
+          <label class="campo g4">DETALHAMENTO DO PEDIDO<textarea name="detalhamento" rows="2" placeholder="Descreva a finalidade do auxílio"></textarea></label>
+          <label class="campo g4">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentar_trabalho"><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="bloco">
+        <legend>ENDEREÇO DO SOLICITANTE</legend>
+        <div class="grade">
+          <label class="campo g2">DATA DE NASCIMENTO<input name="data_nascimento" type="text" inputmode="numeric" data-mask="data" placeholder="01/02/1980"></label>
+          <label class="campo g3">LOGRADOURO<input name="logradouro" type="text" placeholder="Av. Prof. Luciano Gualberto"></label>
+          <label class="campo g1">NÚMERO<input name="numero" type="text" placeholder="158"></label>
+          <label class="campo g2">COMPLEMENTO<input name="complemento" type="text" placeholder="Sala 100"></label>
+          <label class="campo g2">BAIRRO<input name="bairro" type="text" placeholder="Butantã"></label>
+          <label class="campo g2">CEP<input name="cep" type="text" inputmode="numeric" data-mask="cep" placeholder="05508-090"></label>
+          <label class="campo g3">CIDADE<input name="cidade" type="text" placeholder="São Paulo"></label>
+          <label class="campo g1">ESTADO<input name="estado" type="text" placeholder="SP"></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="bloco">
+        <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+        <div class="grade">
+          <label class="campo g2">CPF (SEPARADOS POR PONTOS E TRAÇO)<input name="cpf" type="text" inputmode="numeric" data-mask="cpf" placeholder="123.456.789-09"></label>
+          <label class="campo g2">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)<input name="rg" type="text" placeholder="12.345.678-9"></label>
+          <label class="campo g2">NOME DO BANCO<input name="banco" type="text" placeholder="Banco do Brasil"></label>
+          <label class="campo g2">NÚMERO DA AGÊNCIA<input name="agencia" type="text" inputmode="numeric" placeholder="1234"></label>
+          <label class="campo g2">NÚMERO DA CONTA<input name="conta" type="text" placeholder="12345-6"></label>
+        </div>
+      </fieldset>
+    </div>
+    <div class="rodape-form">
+      <button type="submit" class="enviar">Enviar solicitação</button>
+    </div>
+  </form>
+</main>
+
+<main id="tela-confirmacao" hidden>
+  <header class="cabecalho">
+    <div class="logo-area">
+      <img src="assets/usp-logo.png" alt="Universidade de São Paulo" class="logo">
+    </div>
+    <div class="inst">
+      <div class="universidade">Universidade de São Paulo</div>
+      <div class="programa-nome">Pós-Graduação - IME-USP</div>
+    </div>
+  </header>
+  <h1 class="titulo-confirmacao">Solicitação registrada</h1>
+  <pre id="oficio"></pre>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

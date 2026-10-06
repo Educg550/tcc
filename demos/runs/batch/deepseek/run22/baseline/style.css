@@ -1,0 +1,215 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --azul: #1094ab;
+  --azul-secundario: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  color: #222;
+  background: #fff;
+}
+
+.escondido {
+  display: none !important;
+}
+
+/* Cabeçalho institucional */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--azul);
+  color: #fff;
+  padding: 0.25rem 1.25rem;
+}
+
+.marca {
+  /* margem livre nos quatro lados do logotipo */
+  padding: 0.9rem;
+  background: #fff;
+  border-radius: 3px;
+  line-height: 0;
+}
+
+.marca img {
+  display: block;
+  height: 34px;
+}
+
+.identidade h1 {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.identidade p {
+  margin: 0.1rem 0 0;
+  font-size: 0.75rem;
+  color: var(--azul-secundario);
+}
+
+/* Conteúdo */
+.conteudo {
+  padding: 0.5rem 1.25rem 0.75rem;
+}
+
+/* Abas */
+.abas {
+  display: flex;
+  gap: 0.4rem;
+  border-bottom: 2px solid var(--azul);
+  margin-bottom: 0.5rem;
+}
+
+.aba {
+  border: 1px solid var(--azul-secundario);
+  border-bottom: none;
+  background: #eaf6f8;
+  color: var(--azul);
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 1.4rem;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #fff;
+  box-shadow: inset 0 -3px 0 var(--amarelo);
+}
+
+/* Blocos de campos */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+fieldset {
+  border: 1px solid var(--azul-secundario);
+  border-radius: 4px;
+  padding: 0.35rem 0.6rem 0.5rem;
+  margin: 0;
+}
+
+legend {
+  color: var(--azul);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0 0.35rem;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.3rem 0.6rem;
+}
+
+.grade label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #3a3a3a;
+  letter-spacing: 0.01em;
+}
+
+.grade label.largo {
+  grid-column: span 2;
+}
+
+.grade input,
+.grade select,
+.grade textarea {
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.35rem;
+  border: 1px solid #b9c9cc;
+  border-radius: 3px;
+  background: #fff;
+  color: #222;
+}
+
+.grade input:focus,
+.grade select:focus,
+.grade textarea:focus {
+  outline: 2px solid var(--azul-secundario);
+  outline-offset: -1px;
+  border-color: var(--azul);
+}
+
+.grade textarea {
+  resize: none;
+  height: 2.6rem;
+}
+
+/* Erros */
+.erros {
+  border: 1px solid #d33;
+  background: #fdecec;
+  color: #b60000;
+  border-radius: 3px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.72rem;
+}
+
+.erros p {
+  margin: 0;
+}
+
+/* Ações */
+.acoes {
+  text-align: right;
+}
+
+.enviar {
+  font: inherit;
+  font-weight: 700;
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.45rem 1.6rem;
+  cursor: pointer;
+}
+
+.enviar:hover {
+  background: #0d7f92;
+}
+
+/* Confirmação */
+#confirmacao h2 {
+  color: var(--azul);
+  margin: 0.6rem 0 0.4rem;
+}
+
+#oficio {
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.8rem;
+  border: 1px solid var(--azul-secundario);
+  border-left: 5px solid var(--amarelo);
+  border-radius: 4px;
+  background: #f7fcfd;
+}

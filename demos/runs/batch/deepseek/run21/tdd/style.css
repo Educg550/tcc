@@ -1,0 +1,121 @@
+:root {
+  --azul: #1094ab;
+  --azul-claro: #64c4d2;
+  --amarelo: #fcb421;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: #223;
+  background: #eef7f9;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--azul);
+  color: #fff;
+  padding: 0.35rem 1rem;
+}
+
+.logo {
+  height: 52px;
+  padding: 0.45rem;
+  margin: 0.3rem;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.cabecalho h1 { font-size: 1.25rem; margin: 0; font-weight: 600; }
+.cabecalho .programa { margin: 0; font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); }
+
+.abas { display: flex; gap: 0.25rem; padding: 0.4rem 1rem 0; }
+
+.aba {
+  border: none;
+  background: var(--azul-claro);
+  color: #fff;
+  padding: 0.4rem 1.6rem;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+}
+
+.aba.ativa {
+  background: var(--azul);
+  box-shadow: inset 0 -3px 0 var(--amarelo);
+}
+
+.formulario { padding: 0.4rem 1rem 0.8rem; }
+
+.erros { color: #b00020; font-weight: 600; }
+.erros p { margin: 0 0 0.15rem; }
+
+h2 {
+  font-size: 0.78rem;
+  color: var(--azul);
+  border-bottom: 2px solid var(--amarelo);
+  margin: 0.5rem 0 0.35rem;
+  padding-bottom: 0.1rem;
+  letter-spacing: 0.04em;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem 0.8rem;
+}
+
+.campo { display: flex; flex-direction: column; min-width: 0; }
+.campo label { font-size: 0.66rem; font-weight: 700; color: #335; margin-bottom: 0.1rem; }
+
+.campo input,
+.campo select,
+.campo textarea {
+  font: inherit;
+  padding: 0.22rem 0.35rem;
+  border: 1px solid #b7d3d8;
+  border-radius: 4px;
+  background: #fff;
+  width: 100%;
+}
+
+.campo textarea { resize: vertical; min-height: 2.1rem; }
+
+.span2 { grid-column: span 2; }
+.span4 { grid-column: 1 / -1; }
+
+button[type="submit"] {
+  margin-top: 0.7rem;
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.6rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover { background: var(--azul-claro); }
+
+.titulo { color: var(--azul); margin: 0.6rem 1rem 0; font-size: 1.1rem; }
+
+#oficio {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  white-space: pre-wrap;
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #cfe3e7;
+  border-radius: 6px;
+  margin: 0.5rem 1rem 1rem;
+}

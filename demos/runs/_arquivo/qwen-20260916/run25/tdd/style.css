@@ -1,0 +1,215 @@
+:root {
+    --azul-primario: #1094ab;
+    --azul-secundario: #64c4d2;
+    --amarelo: #fcb421;
+    --cinza-claro: #f0f0f0;
+    --texto: #333;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--cinza-claro);
+    color: var(--texto);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 95vw;
+    max-width: 1400px;
+    box-sizing: border-box;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--cinza-claro);
+}
+
+.usp-logo {
+    height: 48px;
+    margin-right: 16px;
+    padding: 12px;
+}
+
+.header-text h1 {
+    margin: 0;
+    color: var(--azul-primario);
+    font-size: 1.25rem;
+}
+
+.header-text h2 {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.tab {
+    background-color: var(--cinza-claro);
+    color: var(--texto);
+    border: none;
+    padding: 10px 20px;
+    margin-right: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+}
+
+.tab.active {
+    background-color: var(--azul-primario);
+    color: white;
+}
+
+.bloco {
+    background-color: white;
+    border: 1px solid var(--cinza-claro);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.bloco h3 {
+    margin-top: 0;
+    color: var(--azul-primario);
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--cinza-claro);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.grupo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.grupo label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: var(--texto);
+}
+
+.grupo input, .grupo select, .grupo textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.grupo input:focus, .grupo select:focus, .grupo textarea:focus {
+    outline: none;
+    border-color: var(--azul-secundario);
+}
+
+.grupo textarea {
+    grid-column: span 4;
+    min-height: 80px;
+}
+
+.btn {
+    background-color: var(--amarelo);
+    color: #333;
+    border: none;
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: #eab120;
+}
+
+.botoes-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.erros {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 1rem;
+    display: none;
+    font-size: 0.9rem;
+}
+
+.erros div {
+    padding: 2px 0;
+}
+
+.confirm-area {
+    text-align: center;
+}
+
+.confirm-area h2 {
+    color: var(--azul-primario);
+}
+
+#oficio-text {
+    background-color: white;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: left;
+    white-space: pre-wrap;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+}
+
+.wide {
+    grid-column: span 4;
+}
+
+.wide2 {
+    grid-column: span 2;
+}
+
+.wide3 {
+    grid-column: span 3;
+}
+
+.wide5 {
+    grid-column: span 5;
+}
+
+.wide6 {
+    grid-column: span 6;
+}
+
+@media (min-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}

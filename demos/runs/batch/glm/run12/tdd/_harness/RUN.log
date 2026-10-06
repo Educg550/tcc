@@ -1,0 +1,105 @@
+{
+  "started_at": "2026-09-16T14:58:53",
+  "ended_at": "2026-09-16T15:10:26",
+  "total_duration_s": 692.98,
+  "grupo": "tdd",
+  "requisito_id": "01-formulario-docentes-glm",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 127.0.0.1 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "cypress run --project . --config-file _harness/cypress.config.js --browser chrome",
+    "python": "3.11",
+    "pacotes": [
+      "pytest",
+      "fastapi[standard]"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3",
+      "cua": "anthropic/claude-opus-5"
+    }
+  },
+  "orcamento": {
+    "passos": 50,
+    "custo_usd": 3.0,
+    "tempo_s": 1800
+  },
+  "total_cost_usd": 0.473858,
+  "total_tokens": 154564,
+  "total_retries": 3,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 579.71,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/conftest.py",
+        "tests/test_frontend.py",
+        "tests/test_backend.py"
+      ],
+      "historico": [],
+      "input_tokens": 3970,
+      "output_tokens": 91185,
+      "total_tokens": 95155,
+      "cost_usd": 0.366095
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 111.68,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 4,
+      "retries": 3,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 7,
+          "failed": 30,
+          "errors": 0,
+          "total": 37
+        },
+        {
+          "passed": 36,
+          "failed": 1,
+          "errors": 0,
+          "total": 37
+        },
+        {
+          "passed": 31,
+          "failed": 6,
+          "errors": 0,
+          "total": 37
+        },
+        {
+          "passed": 37,
+          "failed": 0,
+          "errors": 0,
+          "total": 37
+        }
+      ],
+      "input_tokens": 39198,
+      "output_tokens": 20211,
+      "total_tokens": 59409,
+      "cost_usd": 0.107763,
+      "impressao": "92a35efc30e51fc0deaf9bd8eecc376cbe11cd1166cee0094323de92137ba292",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 37,
+    "failed": 0,
+    "errors": 0,
+    "total": 37
+  },
+  "integridade": {
+    "medido_sha256": "92a35efc30e51fc0deaf9bd8eecc376cbe11cd1166cee0094323de92137ba292",
+    "intacto": true
+  }
+}

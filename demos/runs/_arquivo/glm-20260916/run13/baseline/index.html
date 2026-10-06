@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Solicitação de Auxílio Financeiro — Pós-Graduação IME-USP</title>
+<link rel='stylesheet' href='style.css'>
+</head>
+<body>
+<header class='cabecalho'>
+<img class='logo' src='assets/usp-logo.png' alt='Logotipo da Universidade de São Paulo'>
+<div class='titulos'>
+<p class='universidade'>Universidade de São Paulo</p>
+<p class='programa'>Programa de Pós-Graduação do Instituto de Matemática e Estatística</p>
+</div>
+</header>
+
+<main id='conteudo'>
+<div class='abas' role='tablist' aria-label='Tipo de solicitante'>
+<button type='button' class='aba ativa' id='aba-alunos' role='tab' aria-selected='true'>ALUNOS</button>
+<button type='button' class='aba' id='aba-docentes' role='tab' aria-selected='false'>DOCENTES</button>
+</div>
+
+<form id='form-alunos' class='formulario' data-tipo='alunos' role='tabpanel' aria-labelledby='aba-alunos' autocomplete='off' novalidate>
+<div class='erros oculto' role='alert'></div>
+
+<section class='bloco'>
+<h2>SOLICITANTE E EVENTO</h2>
+<div class='grade'>
+<label class='campo s2'><span class='rotulo'>NOME COMPLETO - SEM ABREVIAR</span><input name='nome' placeholder='Maria Aparecida de Souza Oliveira'></label>
+<label class='campo'><span class='rotulo'>N. USP</span><input name='nusp' placeholder='1234567' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>PROGRAMA</span><input name='programa' placeholder='Ciência da Computação'></label>
+<label class='campo'><span class='rotulo'>NÍVEL</span><select name='nivel'><option value=''>Selecione…</option><option>Mestrado</option><option>Doutorado</option></select></label>
+<label class='campo'><span class='rotulo'>TIPO DE AUXÍLIO</span><select name='tipo_auxilio'><option value=''>Selecione…</option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></label>
+<label class='campo s2'><span class='rotulo'>E-MAIL</span><input name='email' placeholder='maria.oliveira@usp.br'></label>
+<label class='campo s2'><span class='rotulo'>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</span><input name='evento' placeholder='Congresso Brasileiro de Matemática'></label>
+<label class='campo s2'><span class='rotulo'>PERÍODO DO EVENTO, EXAME OU DEFESA</span><input name='periodo' placeholder='10/09/2025 a 14/09/2025'></label>
+<label class='campo'><span class='rotulo'>CIDADE DO EVENTO, EXAME OU DEFESA</span><input name='cidade_evento' placeholder='Rio de Janeiro'></label>
+<label class='campo'><span class='rotulo'>ESTADO DO EVENTO, EXAME OU DEFESA</span><input name='estado_evento' placeholder='RJ'></label>
+<label class='campo'><span class='rotulo'>PAÍS DO EVENTO, EXAME OU DEFESA</span><input name='pais_evento' placeholder='Brasil'></label>
+<label class='campo'><span class='rotulo'>LINK DO EVENTO, EXAME OU DEFESA</span><input name='link' placeholder='https://evento.org.br/2025'></label>
+<label class='campo'><span class='rotulo'>VALOR SOLICITADO (R$)</span><input name='valor' placeholder='1500' inputmode='numeric'></label>
+<label class='campo s2'><span class='rotulo'>DETALHAMENTO DO PEDIDO</span><textarea name='detalhamento' rows='2' placeholder='Passagem aérea e inscrição no evento'></textarea></label>
+<label class='campo'><span class='rotulo'>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</span><select name='apresentacao'><option value=''>Selecione…</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+</div>
+</section>
+
+<section class='bloco'>
+<h2>ENDEREÇO DO SOLICITANTE</h2>
+<div class='grade'>
+<label class='campo'><span class='rotulo'>DATA DE NASCIMENTO</span><input name='data_nascimento' placeholder='01021980' inputmode='numeric'></label>
+<label class='campo s2'><span class='rotulo'>LOGRADOURO</span><input name='logradouro' placeholder='Rua do Anfiteatro'></label>
+<label class='campo'><span class='rotulo'>NÚMERO</span><input name='numero' placeholder='123'></label>
+<label class='campo'><span class='rotulo'>COMPLEMENTO</span><input name='complemento' placeholder='Sala 214'></label>
+<label class='campo'><span class='rotulo'>BAIRRO</span><input name='bairro' placeholder='Butantã'></label>
+<label class='campo'><span class='rotulo'>CEP</span><input name='cep' placeholder='05508090' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>CIDADE</span><input name='cidade' placeholder='São Paulo'></label>
+<label class='campo'><span class='rotulo'>ESTADO</span><input name='estado' placeholder='SP'></label>
+</div>
+</section>
+
+<section class='bloco'>
+<h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+<div class='grade cinco'>
+<label class='campo'><span class='rotulo'>CPF (SEPARADOS POR PONTOS E TRAÇO)</span><input name='cpf' placeholder='12345678909' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</span><input name='rg' placeholder='12.345.678-9'></label>
+<label class='campo'><span class='rotulo'>NOME DO BANCO</span><input name='banco' placeholder='Banco do Brasil'></label>
+<label class='campo'><span class='rotulo'>NÚMERO DA AGÊNCIA</span><input name='agencia' placeholder='0123' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>NÚMERO DA CONTA</span><input name='conta' placeholder='12345-6'></label>
+</div>
+</section>
+
+<button type='submit' class='enviar'>Enviar solicitação</button>
+</form>
+
+<form id='form-docentes' class='formulario oculto' data-tipo='docentes' role='tabpanel' aria-labelledby='aba-docentes' autocomplete='off' novalidate>
+<div class='erros oculto' role='alert'></div>
+
+<section class='bloco'>
+<h2>SOLICITANTE E EVENTO</h2>
+<div class='grade'>
+<label class='campo s2'><span class='rotulo'>NOME COMPLETO - SEM ABREVIAR</span><input name='nome' placeholder='Maria Aparecida de Souza Oliveira'></label>
+<label class='campo'><span class='rotulo'>N. USP</span><input name='nusp' placeholder='1234567' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>PROGRAMA</span><input name='programa' placeholder='Ciência da Computação'></label>
+<label class='campo s2'><span class='rotulo'>E-MAIL</span><input name='email' placeholder='maria.oliveira@usp.br'></label>
+<label class='campo s2'><span class='rotulo'>NOME DO EVENTO / BANCA DE EXAME OU DEFESA</span><input name='evento' placeholder='Banca de defesa de doutorado'></label>
+<label class='campo'><span class='rotulo'>PERÍODO DO EVENTO, EXAME OU DEFESA</span><input name='periodo' placeholder='10/09/2025 a 14/09/2025'></label>
+<label class='campo'><span class='rotulo'>CIDADE DO EVENTO, EXAME OU DEFESA</span><input name='cidade_evento' placeholder='Rio de Janeiro'></label>
+<label class='campo'><span class='rotulo'>ESTADO DO EVENTO, EXAME OU DEFESA</span><input name='estado_evento' placeholder='RJ'></label>
+<label class='campo'><span class='rotulo'>PAÍS DO EVENTO, EXAME OU DEFESA</span><input name='pais_evento' placeholder='Brasil'></label>
+<label class='campo'><span class='rotulo'>LINK DO EVENTO, EXAME OU DEFESA</span><input name='link' placeholder='https://evento.org.br/2025'></label>
+<label class='campo'><span class='rotulo'>VALOR SOLICITADO (R$)</span><input name='valor' placeholder='1500' inputmode='numeric'></label>
+<label class='campo s2'><span class='rotulo'>IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?</span><select name='apresentacao'><option value=''>Selecione…</option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+<label class='campo s4'><span class='rotulo'>DETALHAMENTO DO PEDIDO</span><textarea name='detalhamento' rows='2' placeholder='Diárias e transporte para a banca'></textarea></label>
+</div>
+</section>
+
+<section class='bloco'>
+<h2>ENDEREÇO DO SOLICITANTE</h2>
+<div class='grade'>
+<label class='campo'><span class='rotulo'>DATA DE NASCIMENTO</span><input name='data_nascimento' placeholder='01021980' inputmode='numeric'></label>
+<label class='campo s2'><span class='rotulo'>LOGRADOURO</span><input name='logradouro' placeholder='Rua do Anfiteatro'></label>
+<label class='campo'><span class='rotulo'>NÚMERO</span><input name='numero' placeholder='123'></label>
+<label class='campo'><span class='rotulo'>COMPLEMENTO</span><input name='complemento' placeholder='Sala 214'></label>
+<label class='campo'><span class='rotulo'>BAIRRO</span><input name='bairro' placeholder='Butantã'></label>
+<label class='campo'><span class='rotulo'>CEP</span><input name='cep' placeholder='05508090' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>CIDADE</span><input name='cidade' placeholder='São Paulo'></label>
+<label class='campo'><span class='rotulo'>ESTADO</span><input name='estado' placeholder='SP'></label>
+</div>
+</section>
+
+<section class='bloco'>
+<h2>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</h2>
+<div class='grade cinco'>
+<label class='campo'><span class='rotulo'>CPF (SEPARADOS POR PONTOS E TRAÇO)</span><input name='cpf' placeholder='12345678909' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>RG / RNM (SEPARADOS POR PONTOS E TRAÇO)</span><input name='rg' placeholder='12.345.678-9'></label>
+<label class='campo'><span class='rotulo'>NOME DO BANCO</span><input name='banco' placeholder='Banco do Brasil'></label>
+<label class='campo'><span class='rotulo'>NÚMERO DA AGÊNCIA</span><input name='agencia' placeholder='0123' inputmode='numeric'></label>
+<label class='campo'><span class='rotulo'>NÚMERO DA CONTA</span><input name='conta' placeholder='12345-6'></label>
+</div>
+</section>
+
+<button type='submit' class='enviar'>Enviar solicitação</button>
+</form>
+</main>
+
+<section id='confirmacao' class='oculto'>
+<h1>Solicitação registrada</h1>
+<pre id='oficio'></pre>
+</section>
+
+<script src='app.js'></script>
+</body>
+</html>

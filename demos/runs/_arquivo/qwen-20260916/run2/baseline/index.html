@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solicitação de Auxílio Financeiro - IME-USP</title>
+  <link rel="stylesheet" href="/assets/usp-logo.png" as="image" type="image/png" crossorigin="use-credentials" referrerpolicy="no-referrer-when-downgrade" fetchpriority="high"/>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <header class="header">
+      <div class="logo-box">
+        <img src="/assets/usp-logo.png" alt="USP">
+      </div>
+      <div class="title-box">
+        <h1>Universidade de São Paulo</h1>
+        <h2>Pós-Graduação do IME-USP</h2>
+      </div>
+    </header>
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab-btn active" data-tab="alunos" role="tab" aria-selected="true">ALUNOS</button>
+      <button type="button" class="tab-btn" data-tab="docentes" role="tab" aria-selected="false">DOCENTES</button>
+    </nav>
+    <main>
+      <form id="form-alunos" class="form-container active" novalidate data-aba="alunos">
+        <div class="errors-container" id="errors-alunos"></div>
+        <div class="form-body">
+          <fieldset class="field-block">
+            <legend>SOLICITANTE E EVENTO</legend>
+            <div class="grid grid-2">
+              <label class="field field-wide">NOME COMPLETO - SEM ABREVIAR<input type="text" name="nome_completo" placeholder="Ex: José da Silva" required></label>
+              <label class="field">N. USP<input type="text" name="nusp" placeholder="Ex: 1234567" required></label>
+              <label class="field">PROGRAMA<input type="text" name="programa" placeholder="Ex: Ciência da Computação" required></label>
+              <label class="field">NÍVEL<select name="nivel" required><option value=""></option><option>Mestrado</option><option>Doutorado</option></select></label>
+              <label class="field">TIPO DE AUXÍLIO<select name="tipo_auxilio" required><option value=""></option><option>Participação em evento</option><option>Banca de exame ou defesa</option><option>Outro</option></select></label>
+              <label class="field">E-MAIL<input type="email" name="email" placeholder="Ex: jose@ime.usp.br" required></label>
+              <label class="field">NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input type="text" name="nome_evento" placeholder="Ex: SBIADE 2024" required></label>
+              <label class="field">PERÍODO DO EVENTO, EXAME OU DEFESA<input type="text" name="periodo_evento" placeholder="Ex: 10 a 15 de agosto" required></label>
+              <label class="field">CIDADE DO EVENTO, EXAME OU DEFESA<input type="text" name="cidade_evento" placeholder="Ex: São Paulo" required></label>
+              <label class="field">ESTADO DO EVENTO, EXAME OU DEFESA<input type="text" name="estado_evento" placeholder="Ex: SP" required></label>
+              <label class="field">PAÍS DO EVENTO, EXAME OU DEFESA<input type="text" name="pais_evento" placeholder="Ex: Brasil" required></label>
+              <label class="field">LINK DO EVENTO, EXAME OU DEFESA<input type="text" name="link_evento" placeholder="Ex: sbiade.org.br (opcional)"></label>
+              <label class="field">VALOR SOLICITADO (R$)<input type="text" name="valor_solicitado" data-format="moeda" placeholder="Ex: 150000 -> R$ 1.500,00" required></label>
+              <label class="field">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentar_trabalho" required><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+              <label class="field field-wide">DETALHAMENTO DO PEDIDO<textarea name="detalhamento" placeholder="Descreva o pedido" required></textarea></label>
+            </div>
+          </fieldset>
+          <fieldset class="field-block">
+            <legend>ENDEREÇO DO SOLICITANTE</legend>
+            <div class="grid grid-2">
+              <label class="field">DATA DE NASCIMENTO<input type="text" name="data_nascimento" data-format="data" placeholder="Ex: 01021980 -> 01/02/1980" required></label>
+              <label class="field">LOGRADOURO<input type="text" name="logradouro" placeholder="Ex: Av. Prof. Mello Moraes" required></label>
+              <label class="field">NÚMERO<input type="text" name="numero" placeholder="Ex: 1010" required></label>
+              <label class="field">COMPLEMENTO<input type="text" name="complemento" placeholder="Ex: Apto 10 (opcional)"></label>
+              <label class="field">BAIRRO<input type="text" name="bairro" placeholder="Ex: Butantã" required></label>
+              <label class="field">CEP<input type="text" name="cep" data-format="cep" placeholder="Ex: 05508090 -> 05508-090" required></label>
+              <label class="field">CIDADE<input type="text" name="cidade" placeholder="Ex: São Paulo" required></label>
+              <label class="field">ESTADO<input type="text" name="estado" placeholder="Ex: SP" required></label>
+            </div>
+          </fieldset>
+          <fieldset class="field-block">
+            <legend>INFORMAÇÕES PARA PAGAMENTO / REEMBOLSO</legend>
+            <div class="grid grid-2">
+              <label class="field">CPF (SEPARADOS POR PONTOS E TRAÇO)<input type="text" name="cpf" data-format="cpf" placeholder="Ex: 12345678909 -> 123.456.789-09" required></label>
+              <label class="field">RG / RNM (SEPARADOS POR PONTOS E TRAÇO)<input type="text" name="rg" placeholder="Ex: 12.345.678-9" required></label>
+              <label class="field">NOME DO BANCO<input type="text" name="nome_banco" placeholder="Ex: Banco do Brasil" required></label>
+              <label class="field">NÚMERO DA AGÊNCIA<input type="text" name="numero_agencia" placeholder="Ex: 1234" required></label>
+              <label class="field">NÚMERO DA CONTA<input type="text" name="numero_conta" placeholder="Ex: 12345-6" required></label>
+            </div>
+          </fieldset>
+          <div class="actions"><button type="submit" class="btn">Enviar solicitação</button></div>
+        </div>
+      </form>
+      <form id="form-docentes" class="form-container" novalidate data-aba="docentes">
+        <div class="errors-container" id="errors-docentes"></div>
+        <div class="form-body">
+          <fieldset class="field-block">
+            <legend>SOLICITANTE E EVENTO</legend>
+            <div class="grid grid-2">
+              <label class="field field-wide">NOME COMPLETO - SEM ABREVIAR<input type="text" name="nome_completo" placeholder="Ex: José da Silva" required></label>
+              <label class="field">N. USP<input type="text" name="nusp" placeholder="Ex: 1234567" required></label>
+              <label class="field">PROGRAMA<input type="text" name="programa" placeholder="Ex: Matemática" required></label>
+              <label class="field">E-MAIL<input type="email" name="email" placeholder="Ex: jose@ime.usp.br" required></label>
+              <label class="field">NOME DO EVENTO / BANCA DE EXAME OU DEFESA<input type="text" name="nome_evento" placeholder="Ex: SBIADE 2024" required></label>
+              <label class="field">PERÍODO DO EVENTO, EXAME OU DEFESA<input type="text" name="periodo_evento" placeholder="Ex: 10 a 15 de agosto" required></label>
+              <label class="field">CIDADE DO EVENTO, EXAME OU DEFESA<input type="text" name="cidade_evento" placeholder="Ex: São Paulo" required></label>
+              <label class="field">ESTADO DO EVENTO, EXAME OU DEFESA<input type="text" name="estado_evento" placeholder="Ex: SP" required></label>
+              <label class="field">PAÍS DO EVENTO, EXAME OU DEFESA<input type="text" name="pais_evento" placeholder="Ex: Brasil" required></label>
+              <label class="field">LINK DO EVENTO, EXAME OU DEFESA<input type="text" name="link_evento" placeholder="Ex: sbiade.org.br (opcional)"></label>
+              <label class="field">VALOR SOLICITADO (R$)<input type="text" name="valor_solicitado" data-format="moeda" placeholder="Ex: 150000 -> R$ 1.500,00" required></label>
+              <label class="field">IRÁ APRESENTAR TRABALHO NO EVENTO? QUE TIPO?<select name="apresentar_trabalho" required><option value=""></option><option>Pôster</option><option>Apresentação oral</option><option>Outra</option><option>Não irá apresentar trabalho</option></select></label>
+              <label class="field field-wide">DETALHAMENTO DO PEDIDO<textarea name="detalhamento" placeholder="Descreva o pedido" required></textarea></label>
+            </div>
+          </fieldset>
+          <fieldset class="field-block">
+            <legend>ENDEREÇO DO SOLICITANTE</legend>
+            <div class="grid grid-2">
+              <label class="field">DATA DE NASCIMENTO<input type="text" name="data_nascimento" data-format="data" placeholder="Ex: 01021980 -> 01/02/1980" required></label>
+              <label class="field">LOGRADOURO<input type="text" name="logradouro" placeholder="Ex: Av. Prof. Mello Moraes" required></label>
+              <label class="field">NÚMERO<input type="text" name="numero" placeholder="Ex: 1010" required></label>
+              <label class="field">COMPLEMENTO<input type="text" name="complemento" placeholder="Ex: Apto 10 (opcional)"></label>
+              <label class=
