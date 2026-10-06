@@ -4,10 +4,87 @@
         <title>TCC - Eduardo Cruz Guedes Blog</title>
         <link>https://educg550.github.io/tcc/blog</link>
         <description>TCC - Eduardo Cruz Guedes Blog</description>
-        <lastBuildDate>Wed, 16 Sep 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 06 Oct 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>pt-BR</language>
+        <item>
+            <title><![CDATA[Seis finalistas e as heurísticas de Nielsen]]></title>
+            <link>https://educg550.github.io/tcc/blog/finalistas-nielsen</link>
+            <guid>https://educg550.github.io/tcc/blog/finalistas-nielsen</guid>
+            <pubDate>Tue, 06 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[As finalistas do batch serão três do baseline e três do TDD. A próxima etapa]]></description>
+            <content:encoded><![CDATA[<p>As finalistas do batch serão três do baseline e três do TDD. A próxima etapa
+é avaliá-las com o CUA e comigo usando a página. Este post registra como elas foram
+escolhidas e os critérios da avaliação, que são as dez heurísticas de usabilidade de
+Jakob Nielsen.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="selecionando-as-runs-elegíveis">Selecionando as runs elegíveis<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#selecionando-as-runs-eleg%C3%ADveis" class="hash-link" aria-label="Link direto para Selecionando as runs elegíveis" title="Link direto para Selecionando as runs elegíveis" translate="no">​</a></h2>
+<p>Antes de qualquer avaliação, uma run precisa ter uma aplicação para avaliar. A triagem
+olha a estrutura do código e o <code>RUN.log</code> e exclui 47 das 200 runs, registrando o motivo
+de cada uma:</p>
+<table><thead><tr><th>Motivo</th><th>O que significa</th><th style="text-align:right">Runs</th></tr></thead><tbody><tr><td><code>etapas_sem_sucesso</code></td><td>o <code>RUN.log</code> registra etapa que estourou o orçamento sem terminar</td><td style="text-align:right">22</td></tr><tr><td><code>ausente</code></td><td>nenhum arquivo Python de implementação</td><td style="text-align:right">9</td></tr><tr><td><code>sem_funcao</code></td><td>o Python não define nenhuma função ou método</td><td style="text-align:right">7</td></tr><tr><td><code>sem_pagina</code></td><td>nenhum <code>index.html</code> servido</td><td style="text-align:right">5</td></tr><tr><td><code>erro_sintaxe</code></td><td>o Python não compila</td><td style="text-align:right">3</td></tr><tr><td><code>sem_decisao</code></td><td>nenhuma função tem sequer um ponto de decisão</td><td style="text-align:right">1</td></tr><tr><td><strong>Total</strong></td><td></td><td style="text-align:right"><strong>47</strong></td></tr></tbody></table>
+<p><code>sem_funcao</code> e <code>sem_decisao</code> pegam esqueletos, como um <code>app.py</code> que contém só <code>...</code>. Um
+backend que valida CPF, datas e campos obrigatórios sem nenhum desvio condicional não
+implementou o requisito. Sem página também não há o que avaliar, porque o requisito é um
+formulário web. Os motivos vêm da estrutura, sem limiar de linhas ou de métrica ajustado
+para dar o resultado esperado (detalhes no <a class="" href="https://educg550.github.io/tcc/blog/harness-baseline-tdd">post anterior</a>).</p>
+<p>Das 47, 46 são do GLM-5.3:</p>
+<table><thead><tr><th></th><th style="text-align:right">Baseline</th><th style="text-align:right">TDD</th><th style="text-align:right">Total</th></tr></thead><tbody><tr><td>DeepSeek V4.1 Flash</td><td style="text-align:right">50 / 50</td><td style="text-align:right">49 / 50</td><td style="text-align:right">99</td></tr><tr><td>GLM-5.3</td><td style="text-align:right">31 / 50</td><td style="text-align:right">23 / 50</td><td style="text-align:right">54</td></tr><tr><td><strong>Elegíveis</strong></td><td style="text-align:right"><strong>81</strong></td><td style="text-align:right"><strong>72</strong></td><td style="text-align:right"><strong>153</strong></td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-estamos-decidindo-os-finalistas">Como estamos decidindo os finalistas<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#como-estamos-decidindo-os-finalistas" class="hash-link" aria-label="Link direto para Como estamos decidindo os finalistas" title="Link direto para Como estamos decidindo os finalistas" translate="no">​</a></h2>
+<p>A avaliação determinística empatou. Das 153 runs elegíveis, 94 passam nos doze critérios
+da suíte Cypress canônica, e 81 dessas também passam nos dez critérios extras que escrevi
+para desempatar (detalhes no <a class="" href="https://educg550.github.io/tcc/blog/harness-baseline-tdd">post anterior</a>). Não sobra
+critério determinístico que separe as 81, porque todas fazem o que o requisito pede.</p>
+<p>Com tudo empatado, decidi desempatar por meio do <strong>custo de gerar</strong>, em dólares, que o <code>RUN.log</code> de
+cada run registra. Ele dá ordem total, com 81 valores distintos, e é uma das grandezas que
+o TCC compara entre os grupos. Não é nota de qualidade: entre duas aplicações que passam
+nos mesmos 22 critérios, fica a que custou menos para gerar.</p>
+<p>Esse desempate favorece o baseline, que só gera o código, enquanto o TDD também gera os
+testes e itera até o pytest passar. Por isso o corte é por grupo, com as três mais baratas de cada um:</p>
+<table><thead><tr><th>Grupo</th><th>Run</th><th style="text-align:right">Custo de gerar (US$)</th></tr></thead><tbody><tr><td>Baseline</td><td><code>deepseek/run9/baseline</code></td><td style="text-align:right">0,0079</td></tr><tr><td>Baseline</td><td><code>deepseek/run45/baseline</code></td><td style="text-align:right">0,0080</td></tr><tr><td>Baseline</td><td><code>deepseek/run32/baseline</code></td><td style="text-align:right">0,0142</td></tr><tr><td>TDD</td><td><code>deepseek/run10/tdd</code></td><td style="text-align:right">0,0227</td></tr><tr><td>TDD</td><td><code>deepseek/run34/tdd</code></td><td style="text-align:right">0,0286</td></tr><tr><td>TDD</td><td><code>deepseek/run5/tdd</code></td><td style="text-align:right">0,0296</td></tr></tbody></table>
+<p>As seis são do DeepSeek V4.1 Flash. O GLM-5.3 custa mais por run e perde todos os
+desempates.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="critérios-de-avaliação">Critérios de avaliação<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#crit%C3%A9rios-de-avalia%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para Critérios de avaliação" title="Link direto para Critérios de avaliação" translate="no">​</a></h2>
+<p>O Cypress já verificou o que dava para verificar sem julgamento: o texto exato de cada
+mensagem, as máscaras, as abas e o ofício. Os critérios desta etapa são as dez
+heurísticas de usabilidade de Nielsen. A primeira lista, de nove, é de Molich e Nielsen
+(1990), e o método de avaliação heurística foi descrito no mesmo ano por Nielsen e Molich
+(1990). O conjunto atual, de dez, saiu de uma análise fatorial de 249 problemas de
+usabilidade reais (Nielsen, 1994a; 1994b). Os nomes seguem a versão atual da Nielsen Norman Group
+(Nielsen, 2024), traduzidos por mim, e a coluna da direita aplica cada heurística ao
+formulário de auxílio financeiro:</p>
+<table><thead><tr><th style="text-align:right">#</th><th>Heurística</th><th>O que observar no formulário</th></tr></thead><tbody><tr><td style="text-align:right">1</td><td>Visibilidade do estado do sistema</td><td>Dá para saber em que aba se está, se o envio deu certo e o que cada campo formatado mostra ao sair dele.</td></tr><tr><td style="text-align:right">2</td><td>Correspondência entre o sistema e o mundo real</td><td>Formatos e termos de quem pede auxílio: <code>R$ 1.500,00</code>, <code>dd/mm/aaaa</code>, CPF pontuado. O ofício se lê como o documento que vai para a CCP.</td></tr><tr><td style="text-align:right">3</td><td>Controle e liberdade do usuário</td><td>Trocar de aba sem perder o que foi digitado, corrigir um erro sem redigitar o resto, voltar da confirmação se algo saiu errado.</td></tr><tr><td style="text-align:right">4</td><td>Consistência e padrões</td><td>As duas abas com o mesmo arranjo e o mesmo comportamento; campos, botões e mensagens com a mesma aparência na página toda.</td></tr><tr><td style="text-align:right">5</td><td>Prevenção de erros</td><td>Máscaras, placeholders com exemplo e seleções nas opções fechadas evitam o erro antes do envio.</td></tr><tr><td style="text-align:right">6</td><td>Reconhecimento em vez de memorização</td><td>O rótulo continua visível depois de digitar, e o formato esperado aparece no próprio campo.</td></tr><tr><td style="text-align:right">7</td><td>Flexibilidade e eficiência de uso</td><td>Dá para preencher tudo pelo teclado: a ordem do Tab segue a leitura e o usuário digita só os dígitos.</td></tr><tr><td style="text-align:right">8</td><td>Estética e design minimalista</td><td>A página cabe em uma tela, os três blocos se distinguem pelo agrupamento e pelo espaçamento, e nada ali deixa de servir ao preenchimento.</td></tr><tr><td style="text-align:right">9</td><td>Ajuda para reconhecer, diagnosticar e corrigir erros</td><td>A mensagem diz o que está errado e permite achar o campo, e aparecem todas as que se aplicam.</td></tr><tr><td style="text-align:right">10</td><td>Ajuda e documentação</td><td>O requisito não pede ajuda; conta o que a página oferece além dos placeholders.</td></tr></tbody></table>
+<p>A identidade visual da USP fica como critério à parte, porque Nielsen não trata de marca:
+logotipo com margem livre, nenhum brasão, azul <code>#1094ab</code> dominante e Open Sans ou outra
+fonte sem serifa.</p>
+<p>Cada finalista recebe, em cada critério, uma nota na escala
+<strong>Péssimo / Ruim / Regular / Bom / Excelente</strong>, com justificativa. As minhas notas e as
+do CUA ficam separadas, para que as divergências entre as duas avaliações apareçam.</p>
+<p>Ainda falta fixar as âncoras de cada nota em cada heurística e decidir o que fazer com
+item que não se aplica. Depois disso, eu e o CUA avaliamos as seis, e as duas melhores vão
+para os orientadores.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="referências">Referências<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#refer%C3%AAncias" class="hash-link" aria-label="Link direto para Referências" title="Link direto para Referências" translate="no">​</a></h2>
+<ul>
+<li class="">MOLICH, R.; NIELSEN, J. Improving a human-computer dialogue. <em>Communications of the
+ACM</em>, v. 33, n. 3, p. 338–348, mar. 1990. DOI:
+<a href="https://doi.org/10.1145/77481.77486" target="_blank" rel="noopener noreferrer" class="">10.1145/77481.77486</a>.</li>
+<li class="">NIELSEN, J.; MOLICH, R. Heuristic evaluation of user interfaces. In: <em>Proceedings of
+the SIGCHI Conference on Human Factors in Computing Systems (CHI '90)</em>. Seattle: ACM,
+1990. p. 249–256. DOI: <a href="https://doi.org/10.1145/97243.97281" target="_blank" rel="noopener noreferrer" class="">10.1145/97243.97281</a>.</li>
+<li class="">NIELSEN, J. Enhancing the explanatory power of usability heuristics. In: <em>Proceedings
+of the SIGCHI Conference on Human Factors in Computing Systems (CHI '94)</em>. Boston: ACM,
+1994a. p. 152–158. DOI: <a href="https://doi.org/10.1145/191666.191729" target="_blank" rel="noopener noreferrer" class="">10.1145/191666.191729</a>.</li>
+<li class="">NIELSEN, J. Heuristic evaluation. In: NIELSEN, J.; MACK, R. L. (ed.). <em>Usability
+Inspection Methods</em>. Nova York: John Wiley &amp; Sons, 1994b.</li>
+<li class="">NIELSEN, J. 10 usability heuristics for user interface design. <em>Nielsen Norman Group</em>,
+30 jan. 2024. Publicado originalmente em 1994. Disponível em:
+<a href="https://www.nngroup.com/articles/ten-usability-heuristics/" target="_blank" rel="noopener noreferrer" class="">https://www.nngroup.com/articles/ten-usability-heuristics/</a>.
+Acesso em: 6 out. 2026.</li>
+</ul>]]></content:encoded>
+            <category>TCC</category>
+            <category>Experimento</category>
+            <category>Planejamento</category>
+        </item>
         <item>
             <title><![CDATA[Custos e uso de tokens nas 200 runs do batch]]></title>
             <link>https://educg550.github.io/tcc/blog/custos-tokens-batch</link>
@@ -30,13 +107,14 @@ usando a página. Depois, escolher as top 2 para apresentar aos orientadores.</p
 <p>O plano não sobreviveu ao contato com os dados, e é disso que este post trata: o Radon
 não serve para escolher as cinco melhores, e descobrir isso saiu mais barato do que
 parecia — a régua que o desmente é a mesma que a validação final já usaria.</p>
-<p>Talvez seja necessário rerodar algumas execuções que ficaram com problemas. Ainda
-preciso conferir quais foram interrompidas e quais terminaram gerando uma aplicação
-ruim, preservando as tentativas anteriores.</p>
+<p>Conferi as execuções que ficaram com problemas: nenhuma foi interrompida. As 22 com
+etapa sem sucesso estouraram o orçamento e fecharam normalmente. Só quatro runs GLM TDD
+precisam ser reexecutadas, porque o teto de tempo foi consumido por latência da API e não
+por iteração; a tentativa original fica preservada.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="baseline-x-tdd">Baseline X TDD<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#baseline-x-tdd" class="hash-link" aria-label="Link direto para Baseline X TDD" title="Link direto para Baseline X TDD" translate="no">​</a></h2>
 <p>No baseline, o agente gera o código diretamente. No TDD, gera os testes primeiro e
 usa o pytest como feedback da implementação. A validação final continua fora desse
-loop. Agora, vamos aplicá-la às cinco selecionadas.</p>
+loop. Agora, vamos aplicá-la às seis finalistas, três de cada grupo.</p>
 <!-- -->
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="seleção-com-análise-estática">Seleção com análise estática<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#sele%C3%A7%C3%A3o-com-an%C3%A1lise-est%C3%A1tica" class="hash-link" aria-label="Link direto para Seleção com análise estática" title="Link direto para Seleção com análise estática" translate="no">​</a></h2>
 <p>O <a href="https://pypi.org/project/radon/" target="_blank" rel="noopener noreferrer" class="">Radon</a> calcula métricas do código Python, como
@@ -158,15 +236,31 @@ máscaras de CEP e de data, mensagem de agência não numérica, mensagem de e-m
 a regra de mostrar todas as mensagens aplicáveis e não só a primeira, erro preservando a
 aba e o preenchimento, placeholder em todo campo diferente do rótulo, os 26 rótulos
 comuns nas duas abas, o ofício completo com as dezessete linhas do modelo, e a regra de
-que link e complemento vazios somem do ofício. Rodei em cinco runs que já passavam nos
-doze: <strong>todas deram 10 de 10</strong>.</p>
-<p>Isso não é limitação do instrumento, é resultado. Quem implementa o requisito implementa
-ele inteiro, e critério novo derivado do mesmo requisito não separa runs que já o
-satisfazem. O que resta para distinguir aplicações equivalentes é justamente o que o
+que link e complemento vazios somem do ofício. Em 05/10 rodei os dez nas 94 empatadas:
+<strong>81 continuam em 10 de 10</strong>.</p>
+<table><thead><tr><th></th><th style="text-align:right">empatadas em 12/12</th><th style="text-align:right">10/10 nos extras</th></tr></thead><tbody><tr><td>DeepSeek baseline</td><td style="text-align:right">41</td><td style="text-align:right">39</td></tr><tr><td>DeepSeek TDD</td><td style="text-align:right">38</td><td style="text-align:right">30</td></tr><tr><td>GLM baseline</td><td style="text-align:right">3</td><td style="text-align:right">3</td></tr><tr><td>GLM TDD</td><td style="text-align:right">12</td><td style="text-align:right">9</td></tr></tbody></table>
+<p>Das 13 que caem, 11 são TDD. Oito delas falham E4 e E5 juntos, e é um defeito só: usam
+<code>type="email"</code> sem <code>novalidate</code>, então o navegador barra o envio de <code>joao@</code> antes do código
+da aplicação. O usuário vê o aviso do navegador em vez de "E-mail inválido", e as outras
+mensagens também não aparecem. Nenhuma das 86 que passam tem esse padrão. Desta vez a
+validação nativa é da aplicação, não erro do avaliador: o valor inválido é proposital. As
+outras cinco perdem um ponto no ofício — campo vazio saindo em branco (E10) ou seção
+faltando (E9).</p>
+<p>Mesmo assim, os critérios extras separam pouco. Quem implementa o requisito tende a
+implementar ele inteiro, e critério novo derivado do mesmo requisito não distingue runs que
+já o satisfazem. O que resta para distinguir aplicações equivalentes é justamente o que o
 requisito deixa a julgamento — identidade visual e caber em uma tela —, e isso não é
-determinístico. O desempate entre elas passou a ser o <strong>custo de gerar</strong>, que o <code>RUN.log</code>
-mede e que dá ordem total: 28 valores distintos em 28 runs, amplitude de 8,9 vezes. Não é
-nota de qualidade, e enviesa para o baseline, que gera menos.</p>
+determinístico. O desempate entre as 81 passou a ser o <strong>custo de gerar</strong>, que o <code>RUN.log</code>
+mede e que dá ordem total: 81 valores distintos em 81 runs, de US$ 0,0079 a US$ 1,60. Não
+é nota de qualidade, e enviesa para o baseline, que gera menos.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="as-seis-finalistas">As seis finalistas<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#as-seis-finalistas" class="hash-link" aria-label="Link direto para As seis finalistas" title="Link direto para As seis finalistas" translate="no">​</a></h3>
+<p>Por causa desse viés, as finalistas saem <strong>três por grupo</strong>, e não de um ranking único: um
+top 5 global ficaria com cinco baseline e tiraria o TDD justamente da avaliação que compara
+os dois. A ordem dentro de cada grupo é a suíte canônica, depois os dez extras, depois o
+custo:</p>
+<table><thead><tr><th>Grupo</th><th>Run</th><th style="text-align:right">Custo de gerar (US$)</th></tr></thead><tbody><tr><td>Baseline</td><td><code>deepseek/run9/baseline</code></td><td style="text-align:right">0,0079</td></tr><tr><td>Baseline</td><td><code>deepseek/run45/baseline</code></td><td style="text-align:right">0,0080</td></tr><tr><td>Baseline</td><td><code>deepseek/run32/baseline</code></td><td style="text-align:right">0,0142</td></tr><tr><td>TDD</td><td><code>deepseek/run10/tdd</code></td><td style="text-align:right">0,0227</td></tr><tr><td>TDD</td><td><code>deepseek/run34/tdd</code></td><td style="text-align:right">0,0286</td></tr><tr><td>TDD</td><td><code>deepseek/run5/tdd</code></td><td style="text-align:right">0,0296</td></tr></tbody></table>
+<p>As seis passam nos 12 critérios e nos 10 extras. São todas DeepSeek porque o GLM custa mais
+por run e perde todo desempate por custo.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-resultado-das-200-runs">O resultado das 200 runs<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#o-resultado-das-200-runs" class="hash-link" aria-label="Link direto para O resultado das 200 runs" title="Link direto para O resultado das 200 runs" translate="no">​</a></h2>
 <p>Rodar a régua nas 153 elegíveis custou zero e cerca de 68 segundos por run. Só que
 comparar elegíveis é comparar errado, porque <strong>os dois grupos falham de formas
@@ -217,9 +311,9 @@ como base dos critérios:</p>
 clara depois desta rodada: o Cypress verifica se a mensagem de erro aparece com o texto
 exato; eu e o CUA avaliamos se ela explica o problema e ajuda a resolvê-lo.</p>
 <p>Com esses resultados, escolhemos as <strong>top 2 para apresentar aos orientadores</strong>. A
-diferença em relação ao plano da manhã é de onde saem as cinco finalistas: não de um
-ranking do Radon, que erraria quatro em cinco, mas das 94 runs que passam nos doze
-critérios, desempatadas pelo custo de gerar.</p>
+diferença em relação ao plano da manhã é de onde saem as finalistas: não de um ranking do
+Radon, que erraria quatro em cinco, mas das 94 runs que passam nos doze critérios,
+desempatadas pelos dez extras e pelo custo de gerar, três por grupo.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configuração">Configuração<a href="https://educg550.github.io/tcc/blog/harness-baseline-tdd#configura%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para Configuração" title="Link direto para Configuração" translate="no">​</a></h2>
 <p>Os prints mostram o alvo usado pelo harness e exemplos dos critérios que vamos
 ampliar para essa avaliação.</p>
