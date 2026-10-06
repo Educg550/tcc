@@ -317,8 +317,8 @@ determinístico. Para essa parte, uma escala de cinco categorias, no estilo Like
 
 **Péssimo · Ruim · Regular · Bom · Excelente**
 
-A ideia é dar notas para facilidade de uso, facilidade de entendimento, identidade
-visual da USP e outros aspectos da interface, com justificativas minhas e do CUA.
+A ideia é dar notas para facilidade de uso e de entendimento da interface, com
+justificativas minhas e do CUA.
 
 Quero incluir as [dez heurísticas de usabilidade de Jakob Nielsen](https://www.nngroup.com/articles/ten-usability-heuristics/)
 como base dos critérios:

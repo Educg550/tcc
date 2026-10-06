@@ -93,17 +93,47 @@ formulário de auxílio financeiro:
 | 9 | Ajuda para reconhecer, diagnosticar e corrigir erros | A mensagem diz o que está errado e permite achar o campo, e aparecem todas as que se aplicam. |
 | 10 | Ajuda e documentação | O requisito não pede ajuda; conta o que a página oferece além dos placeholders. |
 
-A identidade visual da USP fica como critério à parte, porque Nielsen não trata de marca:
-logotipo com margem livre, nenhum brasão, azul `#1094ab` dominante e Open Sans ou outra
-fonte sem serifa.
-
-Cada finalista recebe, em cada critério, uma nota na escala
+Cada finalista recebe, em cada uma das dez heurísticas, uma nota na escala
 **Péssimo / Ruim / Regular / Bom / Excelente**, com justificativa. As minhas notas e as
 do CUA ficam separadas, para que as divergências entre as duas avaliações apareçam.
 
-Ainda falta fixar as âncoras de cada nota em cada heurística e decidir o que fazer com
-item que não se aplica. Depois disso, eu e o CUA avaliamos as seis, e as duas melhores vão
-para os orientadores.
+## Roteiro comum — Eduardo e CUA
+
+Aplicar às seis finalistas, em sessões novas, com a área da página em **1366 × 768** e
+zoom de **100%**. Usar os dados fictícios de `PADRAO` em `demos/avaliacao/campos.js` nas
+duas abas. Interagir pela interface e registrar as notas sem consultar as do outro avaliador.
+
+1. **Reconhecer a tela.** Identificar a aba ativa, os três blocos e o botão de envio.
+   Observar legibilidade, agrupamento, rótulos, exemplos e orientações disponíveis.
+2. **Preencher ALUNOS.** Usar Tab e Shift+Tab para navegar e o teclado para preencher.
+   Digitar só os dígitos em valor, CPF, CEP e data; observar a formatação ao sair dos
+   campos. Trocar para DOCENTES e voltar: conferir se os dados foram preservados.
+3. **Provocar erros.** Apagar o nome, trocar o e-mail por `joao` e o valor por `0`.
+   Enviar. Observar se fica claro o que aconteceu, onde estão os erros e como corrigi-los;
+   procurar ajuda na própria página se houver dúvida.
+4. **Corrigir e enviar.** Restaurar os três valores e enviar novamente. Conferir a
+   preservação dos demais dados, a clareza da confirmação e a leitura do ofício.
+   Tentar voltar ao formulário para corrigir o pedido; registrar o caminho e eventuais perdas.
+5. **Repetir em DOCENTES.** Abrir uma sessão nova e repetir o preenchimento, a troca de
+   abas, os erros, a correção e o envio. Comparar a organização e o comportamento das abas.
+6. **Registrar as dez notas.** Para cada heurística da tabela acima, anotar
+   **nota + justificativa curta + evidência** (ação e resultado observado; captura quando útil).
+
+A escala abaixo é a régua comum deste estudo, aplicada ao aspecto observado em cada
+heurística; não é uma escala publicada por Nielsen.
+
+| Nota | Evidência observável |
+|---|---|
+| Péssimo | O problema impede concluir a tarefa, sem caminho claro para continuar. |
+| Ruim | Só é possível avançar com muita tentativa, confusão ou retrabalho. |
+| Regular | É possível concluir, mas é preciso procurar, interpretar ou repetir ações desnecessárias. |
+| Bom | O uso é claro e previsível, com pequenas dificuldades que pouco atrapalham. |
+| Excelente | O uso é claro e fluido, sem dificuldade observada naquele aspecto durante o percurso. |
+
+Usar **N/A**, com justificativa, somente quando a heurística não se aplicar ao percurso.
+Ajuda ausente não implica N/A: observar se faltou orientação para realizar a tarefa.
+Se uma falha impedir observar algum aspecto, registrar **não observado**, sem inventar nota.
+As notas tratam da experiência de uso; os resultados objetivos do Cypress ficam separados.
 
 ## Referências
 
