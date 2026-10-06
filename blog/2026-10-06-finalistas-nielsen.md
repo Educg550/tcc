@@ -99,8 +99,7 @@ do CUA ficam separadas, para que as divergências entre as duas avaliações apa
 
 ## Roteiro comum — Eduardo e CUA
 
-Aplicar às seis finalistas, em sessões novas, com a área da página em **1366 × 768** e
-zoom de **100%**. Usar os dados fictícios de `PADRAO` em `demos/avaliacao/campos.js` nas
+Aplicar às seis finalistas, em sessões novas. Usar os dados fictícios de `PADRAO` em `demos/avaliacao/campos.js` nas
 duas abas. Interagir pela interface e registrar as notas sem consultar as do outro avaliador.
 
 1. **Reconhecer a tela.** Identificar a aba ativa, os três blocos e o botão de envio.
