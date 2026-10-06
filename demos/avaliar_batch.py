@@ -69,14 +69,17 @@ def custo(batch: Path, run: str) -> float:
 
 
 def ranquear(batch: Path, grupo: str | None = None) -> list[dict]:
-    """Comportamento decide. Entre runs que passam nos mesmos criterios o instrumento
-    deterministico nao tem mais o que dizer sobre a aplicacao, entao desempata pelo custo
+    """Comportamento decide: primeiro a suite canonica, depois os criterios extras, que so
+    rodam nas empatadas no teto. Esgotado o instrumento deterministico, desempata pelo custo
     de gerar - medido, de ordem total, e o que o TCC pergunta. Nao e nota de qualidade, e
-    enviesa para o baseline, que gera menos: por isso o recorte por grupo importa."""
+    enviesa para o baseline, que gera menos: por isso as finalistas saem por grupo."""
     avaliacoes = json.loads((batch / "cypress.json").read_text())
+    arquivo = batch / "cypress-extra.json"
+    extra = {a["run"]: a["passou"] for a in json.loads(arquivo.read_text())} if arquivo.is_file() else {}
     if grupo:
         avaliacoes = [a for a in avaliacoes if a["grupo"] == grupo]
-    return sorted(avaliacoes, key=lambda a: (-a["passou"], custo(batch, a["run"]), a["run"]))
+    return sorted(avaliacoes, key=lambda a: (-a["passou"], -extra.get(a["run"], 0),
+                                             custo(batch, a["run"]), a["run"]))
 
 
 def motivo_zero(avaliacao: dict) -> str:
@@ -100,12 +103,12 @@ def confronto_radon(batch: Path) -> list[tuple[str, int]]:
 
 
 def relatar(batch: Path) -> None:
-    for titulo, grupo in (("global", None), ("baseline", "baseline"), ("tdd", "tdd")):
+    for grupo in ("baseline", "tdd"):
         ranking = ranquear(batch, grupo)
         teto = ranking[0]["passou"] if ranking else 0
         empate = sum(a["passou"] == teto for a in ranking)
-        print(f"\n── top 5 {titulo} ({len(ranking)} runs, {empate} empatadas em {teto}/12) ──")
-        for posicao, a in enumerate(ranking[:5], 1):
+        print(f"\n── finalistas {grupo} ({len(ranking)} runs, {empate} empatadas em {teto}/12) ──")
+        for posicao, a in enumerate(ranking[:3], 1):
             print(f'{posicao}  {a["run"]:<26} {a["modelo"].split("/")[1]:<20} '
                   f'{a["passou"]:>2}/12  US$ {custo(batch, a["run"]):.4f}')
     print("\n── top 5 do Radon (MI minimo desc) contra o Cypress ──")
