@@ -93,7 +93,7 @@ export function enviar() {
 // nem outro, e aí um default heurístico preenche CEP e data com lixo e o submit nativo
 // barra o envio - o critério reprovaria por falha do avaliador.
 const PADRAO = {
-  "NOME COMPLETO - SEM ABREVIAR": "João Souza",
+  "NOME COMPLETO - SEM ABREVIAR": "João da Silva",
   "N. USP": "7654321",
   PROGRAMA: "Matemática Aplicada",
   NÍVEL: "Mestrado",

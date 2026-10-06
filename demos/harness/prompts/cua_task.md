@@ -8,8 +8,8 @@ E verifique se este resultado acontece na tela:
 
 {resultado_esperado}
 
-Aja como um usuário real: clique, digite, observe. Julgue apenas pelo que está na tela
-agora, não pelo que você espera que a aplicação faça.
+Aja como um usuário real: clique, digite, observe. Julgue apenas pelo que observou na
+interface durante esta sessão, não pelo que você espera que a aplicação faça.
 
-Devolva `passou` e uma `evidencia` curta do que viu: o texto que apareceu, ou o que
-faltava.
+Devolva `passou` e `evidencia`, seguindo o formato pedido no resultado esperado.
+Se não houver formato específico, use uma evidência curta do que viu.

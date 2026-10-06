@@ -114,8 +114,9 @@ duas abas. Interagir pela interface e registrar as notas sem consultar as do out
 4. **Corrigir e enviar.** Restaurar os três valores e enviar novamente. Conferir a
    preservação dos demais dados, a clareza da confirmação e a leitura do ofício.
    Tentar voltar ao formulário para corrigir o pedido; registrar o caminho e eventuais perdas.
-5. **Repetir em DOCENTES.** Abrir uma sessão nova e repetir o preenchimento, a troca de
-   abas, os erros, a correção e o envio. Comparar a organização e o comportamento das abas.
+5. **Repetir em DOCENTES.** Na mesma sessão, reabrir a URL inicial para começar um
+   preenchimento vazio nessa aba. Repetir o preenchimento, a troca de abas, os erros,
+   a correção e o envio. Comparar a organização e o comportamento das abas.
 6. **Registrar as dez notas.** Para cada heurística da tabela acima, anotar
    **nota + justificativa curta + evidência** (ação e resultado observado; captura quando útil).
 
