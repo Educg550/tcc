@@ -33,6 +33,141 @@
 
 \chapter{Harness}
 \label{cap:harness}
+% Vamos primeiro entender como funciona um harness. Um harness é, segundo o https://github.com/HKUDS/OpenHarness,
+% a infraestrutura completa que envolve uma LLM para permitir que ela haja sobre um ambiente.
+% Nesse TCC (em algum lugar dos diarios acho eu defini isso bonitinho, acho que no blog/2026-08-19-harness.md), definimos o ambiente principal como um diretório num sistema de arquivos, operado via shell (linha de comando).
+% (baixar e descrever e botar essa imagem aqui, guardar num diretorio padronizado do TCC, seila onde: https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/69cba9b378fbdcbc9db3067e_image.png)
+% 
+% O Harness é responsável por manter um loop agêntico. Tal qual um chat bot convencional, o harness recebe uma entrada do usuário (prompt), envia para a LLM, recebe a resposta da LLM e envia de volta para o usuário. 
+% A diferença é que, no caso do harness, as respostas da LLM podem vir em formato de ferramentas (tool calls), que são comandos que o harness pode executar no ambiente.
+% 
+% No nosso caso, o harness recebe uma entrada num formato específico (alvo.toml e criterios.toml + pasta com arquivos arbitrários)
+% essa entrada é o que padronizamos para ambos pipelines (Baseline e TDD).
+% (Mostrar um exemplo mínimo dos arquivos .toml)
+% 
+% a CLI do harness opera com os seguintes argumentos:
+% (listar argumentos e explicar cada um deles em uma frase simples)
+
+Um harness é a infraestrutura que envolve um modelo de linguagem para permitir
+que ele atue como agente em um ambiente \citep{openharness}. O harness recebe a
+entrada do usuário, monta o contexto enviado ao modelo e processa sua resposta.
+Essa resposta pode conter chamadas de ferramentas (\emph{tool calls}), que
+solicitam ações como ler um arquivo ou executar um comando. O harness executa as
+ações e devolve os resultados ao modelo, que pode usá-los para decidir o próximo
+passo. Esse ciclo constitui o laço agêntico.
+
+A Figura~\ref{fig:harness-generico} apresenta componentes de um harness genérico.
+Além da execução de ações, o diagrama inclui o fornecimento de contexto, o
+controle do fluxo, a persistência de informações e a observação dos resultados.
+As próximas subseções detalham a arquitetura do harness desenvolvido neste TCC,
+a partir de sua entrada e de sua interface de linha de comando.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{figuras/harness-generico.png}
+  \caption{Componentes de um harness genérico: contexto, controle, ações,
+    persistência e verificação. Fonte: \citet{trivedy2026harness}.}
+  \label{fig:harness-generico}
+\end{figure}
+
+\section{Arquitetura do harness}
+\label{sec:arquitetura-harness}
+
+O ambiente principal do harness deste TCC é um diretório no sistema de arquivos,
+onde ficam os arquivos do projeto gerado. O harness grava esses arquivos e
+executa os comandos definidos para iniciar a aplicação e realizar os testes.
+Os grupos baseline e TDD usam o mesmo formato de entrada.
+
+\subsection{Entrada}
+\label{subsec:entrada-harness}
+
+Cada caso de uso ocupa um diretório com três arquivos: \texttt{requisito.md},
+que descreve, em linguagem natural, o software a gerar; \texttt{alvo.toml}, que define sua configuração
+de execução; e \texttt{criterios.toml}, que reúne os critérios de aceitação para
+a avaliação final. O diretório também pode conter pastas com imagens, fontes ou
+outros arquivos de apoio. Essas pastas são copiadas para o projeto antes da
+geração, exceto aquelas cujo nome começa com ponto ou sublinhado.
+
+O arquivo \texttt{alvo.toml} declara os comandos da aplicação e dos testes,
+a versão do Python, os pacotes disponíveis, os modelos usados em cada papel e
+os limites de passos, custo e tempo por etapa de geração. No comando da
+aplicação, \texttt{\{porta\}} é substituído por uma porta livre. O
+Programa~\ref{lst:alvo} apresenta a configuração do caso de uso do formulário
+de auxílio financeiro.
+
+\begin{lstlisting}[language={},caption={Exemplo de \texttt{alvo.toml}.},label={lst:alvo}]
+[comandos]
+app = "uvicorn app:app --host 127.0.0.1 --port {porta}"
+teste = "pytest -q --tb=short"
+teste_frontend = "cypress run --project . --config-file _harness/cypress.config.js --browser chrome"
+
+[dependencias]
+python = "3.11"
+pacotes = ["pytest", "fastapi[standard]"]
+
+[modelos]
+test_writer = "deepseek/deepseek-v4.1-flash"
+coder = "deepseek/deepseek-v4.1-flash"
+cua = "anthropic/claude-opus-5"
+
+[orcamento]
+passos = 50
+custo_usd = 2.0
+tempo_s = 1800
+\end{lstlisting}
+
+Em \texttt{criterios.toml}, cada bloco \texttt{[[criterios]]} contém um
+identificador, o tipo do critério, a ação a realizar e o resultado esperado.
+O tipo \texttt{deterministico} encaminha o critério para testes de interface com
+Cypress; o tipo \texttt{subjetivo} o encaminha para avaliação pelo CUA.
+O Programa~\ref{lst:criterios} mostra um critério do mesmo caso de uso.
+
+\begin{lstlisting}[language={},float=htp,breakatwhitespace=true,caption={Exemplo de critério em \texttt{criterios.toml}.},label={lst:criterios}]
+[[criterios]]
+identificador = "C3"
+tipo = "deterministico"
+acao = '''
+Abrir a página inicial, conferir que os campos `NÍVEL` e `TIPO DE AUXÍLIO` estão na tela,
+e então clicar na aba `DOCENTES`.
+'''
+resultado_esperado = '''
+A aba `DOCENTES` fica ativa e o formulário mostrado não tem mais os campos `NÍVEL` nem
+`TIPO DE AUXÍLIO` - eles existem só na aba `ALUNOS`. Os outros campos continuam lá.
+'''
+\end{lstlisting}
+
+\subsection{Interface de linha de comando}
+\label{subsec:cli-harness}
+
+A CLI oferece os subcomandos \texttt{run}, para gerar um projeto, e
+\texttt{avaliar}, para executar a avaliação final de um projeto já gerado.
+A partir do diretório \texttt{demos/}, as chamadas têm a seguinte forma,
+com argumentos opcionais entre colchetes:
+
+\begin{lstlisting}[language={},numbers=none]
+uv run python -m harness.cli run destino [requisito] \
+    [--yes] [--direto] [--sem-cua]
+uv run python -m harness.cli avaliar projeto requisito
+\end{lstlisting}
+
+\begin{itemize}
+  \item \texttt{destino}: pasta na qual \texttt{run} cria um novo diretório para
+    o projeto, com nome composto pelo caso de uso, grupo e data e hora da execução.
+  \item \texttt{requisito}: caminho do diretório do caso de uso; se omitido em
+    \texttt{run}, a CLI solicita um nome, copia o caso de uso de exemplo e abre
+    seus arquivos no editor.
+  \item \verb|--yes|: dispensa a aprovação humana ao final de cada etapa de
+    geração.
+  \item \verb|--direto|: seleciona o grupo baseline; sem essa opção, a geração
+    segue o pipeline TDD.
+  \item \verb|--sem-cua|: adia toda a avaliação final, incluindo Cypress e CUA,
+    que pode ser executada depois com \texttt{avaliar}.
+  \item \texttt{projeto}: diretório já gerado sobre o qual \texttt{avaliar}
+    executa a avaliação e regrava \texttt{AVALIACAO.log} em
+    \texttt{\_harness/}.
+  \item \verb|-h| ou \verb|--help|: exibe a ajuda da CLI ou do subcomando escolhido.
+\end{itemize}
+
 
 \backmatter
 \pagestyle{backmatter}
