@@ -5,7 +5,7 @@ import shutil
 import time
 
 from browser_use import Agent as AgenteNavegador
-from browser_use import ChatOpenAI
+from browser_use import ChatOpenRouter, Tools
 from pydantic import BaseModel
 
 from .agentes import Agente, load
@@ -16,10 +16,12 @@ from .etapas import Escopo
 # vira consumo sem fim; baixo demais viraria falso negativo, porque a sessão termina sem
 # veredito e o critério conta como reprovado.
 MAX_PASSOS_CUA = 80
-# O default do browser-use e 4096: o CUA trunca a acao no meio do JSON, o passo vira erro
-# de validacao e o criterio e reprovado por falha do avaliador, nao do app.
+# Limite de saída por chamada, preservado ao trocar o adaptador do provedor.
 MAX_TOKENS_CUA = 16000
 OPENROUTER_BASE = "https://openrouter.ai/api/v1"
+SEM_ACOES_CUA = ["search", "upload_file", "switch", "close", "extract", "search_page",
+                 "find_elements", "save_as_pdf", "write_file", "replace_file", "read_file",
+                 "evaluate"]
 
 # A suíte vive dentro da medição: fora do contexto que o modelo recebe, e já proibida ao
 # coder pelo escopo que ele tem.
@@ -149,12 +151,19 @@ class Avaliador:
                 acao=criterio.acao,
                 resultado_esperado=criterio.resultado_esperado,
             ),
-            llm=ChatOpenAI(
+            llm=ChatOpenRouter(
                 model=self.model_id,
                 base_url=OPENROUTER_BASE,
                 api_key=os.environ["OPENROUTER_API_KEY"],
-                max_completion_tokens=MAX_TOKENS_CUA,
+                extra_body={"max_tokens": MAX_TOKENS_CUA},
+                max_retries=0,
             ),
+            tools=Tools(exclude_actions=SEM_ACOES_CUA),
+            # O campo `thinking` no JSON de saída aciona o filtro anti-destilação da
+            # Anthropic, e a primeira chamada volta como recusa.
+            use_thinking=False,
+            max_failures=1,
+            final_response_after_failure=False,
             output_model_schema=VeredictoCriterio,
             generate_gif=False,
             calculate_cost=True,
