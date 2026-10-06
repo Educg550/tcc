@@ -91,7 +91,7 @@ formulário de auxílio financeiro:
 | 7 | Flexibilidade e eficiência de uso | Dá para preencher tudo pelo teclado: a ordem do Tab segue a leitura e o usuário digita só os dígitos. |
 | 8 | Estética e design minimalista | A página cabe em uma tela, os três blocos se distinguem pelo agrupamento e pelo espaçamento, e nada ali deixa de servir ao preenchimento. |
 | 9 | Ajuda para reconhecer, diagnosticar e corrigir erros | A mensagem diz o que está errado e permite achar o campo, e aparecem todas as que se aplicam. |
-| 10 | Ajuda e documentação | O requisito não pede ajuda; conta o que a página oferece além dos placeholders. |
+| 10 | Ajuda e documentação | As orientações disponíveis são fáceis de encontrar e suficientes para esclarecer dúvidas sobre o preenchimento e o que fazer após o envio. |
 
 Cada finalista recebe, em cada uma das dez heurísticas, uma nota na escala
 **Péssimo / Ruim / Regular / Bom / Excelente**, com justificativa. As minhas notas e as
@@ -109,7 +109,7 @@ duas abas. Interagir pela interface e registrar as notas sem consultar as do out
    Digitar só os dígitos em valor, CPF, CEP e data; observar a formatação ao sair dos
    campos. Trocar para DOCENTES e voltar: conferir se os dados foram preservados.
 3. **Provocar erros.** Apagar o nome, trocar o e-mail por `joao` e o valor por `0`.
-   Enviar. Observar se fica claro o que aconteceu, onde estão os erros e como corrigi-los;
+   Enviar. Observar se fica visualmente claro o que aconteceu, onde estão os erros e como corrigi-los;
    procurar ajuda na própria página se houver dúvida.
 4. **Corrigir e enviar.** Restaurar os três valores e enviar novamente. Conferir a
    preservação dos demais dados, a clareza da confirmação e a leitura do ofício.
@@ -130,9 +130,10 @@ heurística; não é uma escala publicada por Nielsen.
 | Bom | O uso é claro e previsível, com pequenas dificuldades que pouco atrapalham. |
 | Excelente | O uso é claro e fluido, sem dificuldade observada naquele aspecto durante o percurso. |
 
-Usar **N/A**, com justificativa, somente quando a heurística não se aplicar ao percurso.
-Ajuda ausente não implica N/A: observar se faltou orientação para realizar a tarefa.
-Se uma falha impedir observar algum aspecto, registrar **não observado**, sem inventar nota.
+As dez heurísticas se aplicam às seis finalistas: cada avaliação completa terá dez notas.
+Em ajuda e documentação, julgar se as orientações são suficientes para realizar a tarefa;
+não é necessário haver um manual separado. Se a sessão for interrompida antes de reunir
+as evidências, retomar a avaliação para completar as notas.
 As notas tratam da experiência de uso; os resultados objetivos do Cypress ficam separados.
 
 ## Referências
