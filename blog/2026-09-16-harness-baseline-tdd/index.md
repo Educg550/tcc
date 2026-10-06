@@ -13,9 +13,10 @@ O plano não sobreviveu ao contato com os dados, e é disso que este post trata:
 não serve para escolher as cinco melhores, e descobrir isso saiu mais barato do que
 parecia — a régua que o desmente é a mesma que a validação final já usaria.
 
-Talvez seja necessário rerodar algumas execuções que ficaram com problemas. Ainda
-preciso conferir quais foram interrompidas e quais terminaram gerando uma aplicação
-ruim, preservando as tentativas anteriores.
+Conferi as execuções que ficaram com problemas: nenhuma foi interrompida. As 22 com
+etapa sem sucesso estouraram o orçamento e fecharam normalmente. Só quatro runs GLM TDD
+precisam ser reexecutadas, porque o teto de tempo foi consumido por latência da API e não
+por iteração; a tentativa original fica preservada.
 
 <!-- truncate -->
 
@@ -23,7 +24,7 @@ ruim, preservando as tentativas anteriores.
 
 No baseline, o agente gera o código diretamente. No TDD, gera os testes primeiro e
 usa o pytest como feedback da implementação. A validação final continua fora desse
-loop. Agora, vamos aplicá-la às cinco selecionadas.
+loop. Agora, vamos aplicá-la às seis finalistas, três de cada grupo.
 
 ```mermaid
 flowchart TB
@@ -220,16 +221,50 @@ máscaras de CEP e de data, mensagem de agência não numérica, mensagem de e-m
 a regra de mostrar todas as mensagens aplicáveis e não só a primeira, erro preservando a
 aba e o preenchimento, placeholder em todo campo diferente do rótulo, os 26 rótulos
 comuns nas duas abas, o ofício completo com as dezessete linhas do modelo, e a regra de
-que link e complemento vazios somem do ofício. Rodei em cinco runs que já passavam nos
-doze: **todas deram 10 de 10**.
+que link e complemento vazios somem do ofício. Em 05/10 rodei os dez nas 94 empatadas:
+**81 continuam em 10 de 10**.
 
-Isso não é limitação do instrumento, é resultado. Quem implementa o requisito implementa
-ele inteiro, e critério novo derivado do mesmo requisito não separa runs que já o
-satisfazem. O que resta para distinguir aplicações equivalentes é justamente o que o
+| | empatadas em 12/12 | 10/10 nos extras |
+|---|---:|---:|
+| DeepSeek baseline | 41 | 39 |
+| DeepSeek TDD | 38 | 30 |
+| GLM baseline | 3 | 3 |
+| GLM TDD | 12 | 9 |
+
+Das 13 que caem, 11 são TDD. Oito delas falham E4 e E5 juntos, e é um defeito só: usam
+`type="email"` sem `novalidate`, então o navegador barra o envio de `joao@` antes do código
+da aplicação. O usuário vê o aviso do navegador em vez de "E-mail inválido", e as outras
+mensagens também não aparecem. Nenhuma das 86 que passam tem esse padrão. Desta vez a
+validação nativa é da aplicação, não erro do avaliador: o valor inválido é proposital. As
+outras cinco perdem um ponto no ofício — campo vazio saindo em branco (E10) ou seção
+faltando (E9).
+
+Mesmo assim, os critérios extras separam pouco. Quem implementa o requisito tende a
+implementar ele inteiro, e critério novo derivado do mesmo requisito não distingue runs que
+já o satisfazem. O que resta para distinguir aplicações equivalentes é justamente o que o
 requisito deixa a julgamento — identidade visual e caber em uma tela —, e isso não é
-determinístico. O desempate entre elas passou a ser o **custo de gerar**, que o `RUN.log`
-mede e que dá ordem total: 28 valores distintos em 28 runs, amplitude de 8,9 vezes. Não é
-nota de qualidade, e enviesa para o baseline, que gera menos.
+determinístico. O desempate entre as 81 passou a ser o **custo de gerar**, que o `RUN.log`
+mede e que dá ordem total: 81 valores distintos em 81 runs, de US$ 0,0079 a US$ 1,60. Não
+é nota de qualidade, e enviesa para o baseline, que gera menos.
+
+### As seis finalistas
+
+Por causa desse viés, as finalistas saem **três por grupo**, e não de um ranking único: um
+top 5 global ficaria com cinco baseline e tiraria o TDD justamente da avaliação que compara
+os dois. A ordem dentro de cada grupo é a suíte canônica, depois os dez extras, depois o
+custo:
+
+| Grupo | Run | Custo de gerar (US$) |
+|---|---|---:|
+| Baseline | `deepseek/run9/baseline` | 0,0079 |
+| Baseline | `deepseek/run45/baseline` | 0,0080 |
+| Baseline | `deepseek/run32/baseline` | 0,0142 |
+| TDD | `deepseek/run10/tdd` | 0,0227 |
+| TDD | `deepseek/run34/tdd` | 0,0286 |
+| TDD | `deepseek/run5/tdd` | 0,0296 |
+
+As seis passam nos 12 critérios e nos 10 extras. São todas DeepSeek porque o GLM custa mais
+por run e perde todo desempate por custo.
 
 ## O resultado das 200 runs
 
@@ -304,9 +339,9 @@ clara depois desta rodada: o Cypress verifica se a mensagem de erro aparece com 
 exato; eu e o CUA avaliamos se ela explica o problema e ajuda a resolvê-lo.
 
 Com esses resultados, escolhemos as **top 2 para apresentar aos orientadores**. A
-diferença em relação ao plano da manhã é de onde saem as cinco finalistas: não de um
-ranking do Radon, que erraria quatro em cinco, mas das 94 runs que passam nos doze
-critérios, desempatadas pelo custo de gerar.
+diferença em relação ao plano da manhã é de onde saem as finalistas: não de um ranking do
+Radon, que erraria quatro em cinco, mas das 94 runs que passam nos doze critérios,
+desempatadas pelos dez extras e pelo custo de gerar, três por grupo.
 
 ## Configuração
 
