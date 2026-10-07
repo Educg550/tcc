@@ -1,12 +1,12 @@
 ---
 slug: finalistas-nielsen
-title: "Seis finalistas e as heurísticas de Nielsen"
+title: "Duas finalistas e as heurísticas de Nielsen"
 authors: [eduardo]
 tags: [tcc, experimento, planejamento]
 ---
 
-As finalistas do batch serão três do baseline e três do TDD. A próxima etapa
-é avaliá-las com o CUA e comigo usando a página. Este post registra como elas foram
+As finalistas do batch são as duas runs que escolhi num torneio entre as 81 empatadas. A
+próxima etapa é avaliá-las com o CUA e comigo usando a página. Este post registra como elas foram
 escolhidas e os critérios da avaliação, que são as dez heurísticas de usabilidade de
 Jakob Nielsen.
 
@@ -42,20 +42,19 @@ Das 47, 46 são do GLM-5.3:
 | GLM-5.3 | 31 / 50 | 23 / 50 | 54 |
 | **Elegíveis** | **81** | **72** | **153** |
 
-## Como estamos decidindo os finalistas
+## Como decidi as finalistas
 
 A avaliação determinística empatou. Das 153 runs elegíveis, 94 passam nos doze critérios
 da suíte Cypress canônica, e 81 dessas também passam nos dez critérios extras que escrevi
 para desempatar (detalhes no [post anterior](/blog/harness-baseline-tdd)). Não sobra
 critério determinístico que separe as 81, porque todas fazem o que o requisito pede.
 
-Com tudo empatado, decidi desempatar por meio do **custo de gerar**, em dólares, que o `RUN.log` de
-cada run registra. Ele dá ordem total, com 81 valores distintos, e é uma das grandezas que
-o TCC compara entre os grupos. Não é nota de qualidade: entre duas aplicações que passam
-nos mesmos 22 critérios, fica a que custou menos para gerar.
+### Como quase foi: custo de gerar
 
-Esse desempate favorece o baseline, que só gera o código, enquanto o TDD também gera os
-testes e itera até o pytest passar. Por isso o corte é por grupo, com as três mais baratas de cada um:
+Com tudo empatado, quase desempatei pelo **custo de gerar**, em dólares, que o `RUN.log` de
+cada run registra. Ele dá ordem total, com 81 valores distintos, e é uma das grandezas que
+o TCC compara entre os grupos. Como o custo favorece o baseline, que só gera o código, o
+corte seria por grupo, com as três mais baratas de cada um:
 
 | Grupo | Run | Custo de gerar (US$) |
 |---|---|---:|
@@ -66,8 +65,26 @@ testes e itera até o pytest passar. Por isso o corte é por grupo, com as três
 | TDD | `deepseek/run34/tdd` | 0,0286 |
 | TDD | `deepseek/run5/tdd` | 0,0296 |
 
-As seis são do DeepSeek V4.1 Flash. O GLM-5.3 custa mais por run e perde todos os
-desempates.
+As seis seriam do DeepSeek V4.1 Flash, porque o GLM-5.3 custa mais por run. Desisti
+desse desempate porque o custo de gerar não diz nada sobre qual formulário é melhor.
+
+### Como foi: torneio
+
+No lugar do custo, montei um torneio cego entre as 81 (detalhes no
+[post do desempatador](/blog/desempatador)): duas runs por vez, anônimas, e a que eu
+prefiro segue na chave. As finalistas são as duas primeiras:
+
+| Lugar | Run | Custo de gerar (US$) | Posição por custo no baseline |
+|---|---|---:|---:|
+| 1º | `deepseek/run44/baseline` | 0,0535 | 38º de 42 |
+| 2º | `deepseek/run35/baseline` | 0,0168 | 11º de 42 |
+
+Nenhuma das duas estaria entre as seis mais baratas, e a campeã é uma das mais caras do
+baseline.
+
+**As duas finalistas são baseline, nenhuma TDD.** A TDD mais bem colocada no torneio foi a
+`glm/run31/tdd`, que perdeu a final. Com isso, a avaliação Nielsen deixa de comparar os
+grupos e passa a avaliar só as duas runs que vão para o Paulo.
 
 ## Critérios de avaliação
 
@@ -99,7 +116,7 @@ do CUA ficam separadas, para que as divergências entre as duas avaliações apa
 
 ## Roteiro comum — Eduardo e CUA
 
-Aplicar às seis finalistas, em sessões novas. Usar os dados fictícios de `PADRAO` em `demos/avaliacao/campos.js` nas
+Aplicar às duas finalistas, em sessões novas. Usar os dados fictícios de `PADRAO` em `demos/avaliacao/campos.js` nas
 duas abas. Interagir pela interface e registrar as notas sem consultar as do outro avaliador.
 
 1. **Reconhecer a tela.** Identificar a aba ativa, os três blocos e o botão de envio.
@@ -130,7 +147,7 @@ heurística; não é uma escala publicada por Nielsen.
 | Bom | O uso é claro e previsível, com pequenas dificuldades que pouco atrapalham. |
 | Excelente | O uso é claro e fluido, sem dificuldade observada naquele aspecto durante o percurso. |
 
-As dez heurísticas se aplicam às seis finalistas: cada avaliação completa terá dez notas.
+As dez heurísticas se aplicam às duas finalistas: cada avaliação completa terá dez notas.
 Em ajuda e documentação, julgar se as orientações são suficientes para realizar a tarefa;
 não é necessário haver um manual separado. Se a sessão for interrompida antes de reunir
 as evidências, retomar a avaliação para completar as notas.
