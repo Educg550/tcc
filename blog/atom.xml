@@ -8,13 +8,71 @@
     <subtitle>TCC - Eduardo Cruz Guedes Blog</subtitle>
     <icon>https://educg550.github.io/tcc/img/favicon.ico</icon>
     <entry>
-        <title type="html"><![CDATA[Seis finalistas e as heurísticas de Nielsen]]></title>
+        <title type="html"><![CDATA[Desempatador: um mata-mata entre as finalistas]]></title>
+        <id>https://educg550.github.io/tcc/blog/desempatador</id>
+        <link href="https://educg550.github.io/tcc/blog/desempatador"/>
+        <updated>2026-10-06T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[O Paulo pediu as duas melhores runs do formulário como proposta para substituir o]]></summary>
+        <content type="html"><![CDATA[<p>O Paulo pediu as duas melhores runs do formulário como proposta para substituir o
+formulário que o programa usa hoje. As 81 runs que passam em todos os critérios do Cypress
+continuam empatadas, e o custo de gerar, que usei como desempate no
+<a class="" href="https://educg550.github.io/tcc/blog/finalistas-nielsen">post das finalistas</a>, não diz nada sobre qual formulário é
+melhor. A escolha fica comigo, olhando as telas, e o desempatador organiza essa escolha.
+No fim, nenhuma das duas escolhidas é TDD.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-galeria">A galeria<a href="https://educg550.github.io/tcc/blog/desempatador#a-galeria" class="hash-link" aria-label="Link direto para A galeria" title="Link direto para A galeria" translate="no">​</a></h2>
+<p>Cada uma das 81 runs virou três capturas, feitas pelo Cypress a 1280 px de largura: a aba
+<code>ALUNOS</code> preenchida, a aba <code>DOCENTES</code> e o ofício depois do envio. Elas ficam em
+<code>demos/runs/galeria/</code>, uma pasta por run.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-torneio">O torneio<a href="https://educg550.github.io/tcc/blog/desempatador#o-torneio" class="hash-link" aria-label="Link direto para O torneio" title="Link direto para O torneio" translate="no">​</a></h2>
+<p>O desempatador (<code>demos/desempatador/</code>) é um mata-mata. Cada partida mostra duas runs lado a
+lado, com as três telas alinhadas, e a que eu preferir segue na chave. As runs aparecem só
+como A e B, com o lado sorteado a cada partida, para eu não saber se estou olhando um
+baseline ou um TDD. A ordem da chave também é sorteada, e a semente fica registrada no
+<code>torneio.json</code> junto com cada escolha.</p>
+<p>Num mata-mata simples, a segunda melhor pode cair na metade da chave da campeã e sair
+antes da final. Por isso, depois da final, as runs que perderam direto para a campeã
+disputam uma repescagem, e a vencedora fica com o segundo lugar. São 85 ou 86 partidas no
+total.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="critérios">Critérios<a href="https://educg550.github.io/tcc/blog/desempatador#crit%C3%A9rios" class="hash-link" aria-label="Link direto para Critérios" title="Link direto para Critérios" translate="no">​</a></h2>
+<p>Em cada partida, escolho a run que:</p>
+<ul>
+<li class="">deixa mais fácil saber em qual aba estou, <code>ALUNOS</code> ou <code>DOCENTES</code>;</li>
+<li class="">não tem bugs visuais na interface;</li>
+<li class="">tem o formulário legível;</li>
+<li class="">separa o formulário em seções;</li>
+<li class="">é agradável visualmente.</li>
+</ul>
+<p>São critérios meus, e eu sou enviesado. O anonimato esconde se a run é baseline ou TDD,
+mas o julgamento continua sendo o meu gosto. Mesmo assim, o torneio foi a melhor forma de
+desempatar que encontrei, muito melhor do que desempatar pelo custo de gerar.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resultado">Resultado<a href="https://educg550.github.io/tcc/blog/desempatador#resultado" class="hash-link" aria-label="Link direto para Resultado" title="Link direto para Resultado" translate="no">​</a></h2>
+<p>Joguei as 85 partidas, com a semente <code>1573452010</code>:</p>
+<table><thead><tr><th>Lugar</th><th>Run</th><th>Grupo</th><th>Modelo</th></tr></thead><tbody><tr><td>1º</td><td><code>deepseek/run44/baseline</code></td><td>Baseline</td><td>DeepSeek V4.1 Flash</td></tr><tr><td>2º</td><td><code>deepseek/run35/baseline</code></td><td>Baseline</td><td>DeepSeek V4.1 Flash</td></tr><tr><td>3º</td><td><code>deepseek/run12/baseline</code></td><td>Baseline</td><td>DeepSeek V4.1 Flash</td></tr><tr><td>4º</td><td><code>glm/run31/tdd</code></td><td>TDD</td><td>GLM-5.3</td></tr><tr><td>5º</td><td><code>deepseek/run28/baseline</code></td><td>Baseline</td><td>DeepSeek V4.1 Flash</td></tr><tr><td>6º–9º</td><td><code>deepseek/run4/baseline</code></td><td>Baseline</td><td>DeepSeek V4.1 Flash</td></tr><tr><td>6º–9º</td><td><code>deepseek/run10/baseline</code></td><td>Baseline</td><td>DeepSeek V4.1 Flash</td></tr><tr><td>6º–9º</td><td><code>deepseek/run18/baseline</code></td><td>Baseline</td><td>DeepSeek V4.1 Flash</td></tr><tr><td>6º–9º</td><td><code>deepseek/run14/tdd</code></td><td>TDD</td><td>DeepSeek V4.1 Flash</td></tr></tbody></table>
+<p><strong>Nenhuma das duas finalistas é TDD.</strong> A TDD mais bem colocada foi a <code>glm/run31/tdd</code>, que
+perdeu a final. Com 42 baseline entre as 81, a chance de as duas primeiras serem baseline
+por acaso é de cerca de 27%, e o julgamento é de uma pessoa só. Isso não mostra que o
+baseline gera formulários melhores, só decide quais duas runs vão para o Paulo.</p>
+<p>Do 3º em diante, a ordem segue a fase em que cada run caiu e os jogos da repescagem. As
+quatro que caíram nas quartas empatam.</p>
+<p>A <code>run35</code> perdeu para a campeã na rodada de 32 e voltou pela repescagem. Sem ela, a vice
+seria a <code>glm/run31/tdd</code>, que perdeu a final e depois perdeu para a <code>run12</code> na repescagem.</p>
+<p>Quantas runs de cada grupo sobraram em cada fase da chave:</p>
+<table><thead><tr><th>Fase</th><th style="text-align:right">Baseline</th><th style="text-align:right">TDD</th></tr></thead><tbody><tr><td>Início</td><td style="text-align:right">42</td><td style="text-align:right">39</td></tr><tr><td>64</td><td style="text-align:right">36</td><td style="text-align:right">28</td></tr><tr><td>32</td><td style="text-align:right">18</td><td style="text-align:right">14</td></tr><tr><td>16</td><td style="text-align:right">9</td><td style="text-align:right">7</td></tr><tr><td>8</td><td style="text-align:right">6</td><td style="text-align:right">2</td></tr><tr><td>4</td><td style="text-align:right">3</td><td style="text-align:right">1</td></tr><tr><td>Final</td><td style="text-align:right">1</td><td style="text-align:right">1</td></tr></tbody></table>]]></content>
+        <author>
+            <name>Eduardo Cruz Guedes</name>
+            <uri>https://github.com/Educg550</uri>
+        </author>
+        <category label="TCC" term="TCC"/>
+        <category label="Experimento" term="Experimento"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Duas finalistas e as heurísticas de Nielsen]]></title>
         <id>https://educg550.github.io/tcc/blog/finalistas-nielsen</id>
         <link href="https://educg550.github.io/tcc/blog/finalistas-nielsen"/>
         <updated>2026-10-06T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[As finalistas do batch serão três do baseline e três do TDD. A próxima etapa]]></summary>
-        <content type="html"><![CDATA[<p>As finalistas do batch serão três do baseline e três do TDD. A próxima etapa
-é avaliá-las com o CUA e comigo usando a página. Este post registra como elas foram
+        <summary type="html"><![CDATA[As finalistas do batch são as duas runs que escolhi num torneio entre as 81 empatadas. A]]></summary>
+        <content type="html"><![CDATA[<p>As finalistas do batch são as duas runs que escolhi num torneio entre as 81 empatadas. A
+próxima etapa é avaliá-las com o CUA e comigo usando a página. Este post registra como elas foram
 escolhidas e os critérios da avaliação, que são as dez heurísticas de usabilidade de
 Jakob Nielsen.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="selecionando-as-runs-elegíveis">Selecionando as runs elegíveis<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#selecionando-as-runs-eleg%C3%ADveis" class="hash-link" aria-label="Link direto para Selecionando as runs elegíveis" title="Link direto para Selecionando as runs elegíveis" translate="no">​</a></h2>
@@ -29,20 +87,29 @@ formulário web. Os motivos vêm da estrutura, sem limiar de linhas ou de métri
 para dar o resultado esperado (detalhes no <a class="" href="https://educg550.github.io/tcc/blog/harness-baseline-tdd">post anterior</a>).</p>
 <p>Das 47, 46 são do GLM-5.3:</p>
 <table><thead><tr><th></th><th style="text-align:right">Baseline</th><th style="text-align:right">TDD</th><th style="text-align:right">Total</th></tr></thead><tbody><tr><td>DeepSeek V4.1 Flash</td><td style="text-align:right">50 / 50</td><td style="text-align:right">49 / 50</td><td style="text-align:right">99</td></tr><tr><td>GLM-5.3</td><td style="text-align:right">31 / 50</td><td style="text-align:right">23 / 50</td><td style="text-align:right">54</td></tr><tr><td><strong>Elegíveis</strong></td><td style="text-align:right"><strong>81</strong></td><td style="text-align:right"><strong>72</strong></td><td style="text-align:right"><strong>153</strong></td></tr></tbody></table>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-estamos-decidindo-os-finalistas">Como estamos decidindo os finalistas<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#como-estamos-decidindo-os-finalistas" class="hash-link" aria-label="Link direto para Como estamos decidindo os finalistas" title="Link direto para Como estamos decidindo os finalistas" translate="no">​</a></h2>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-decidi-as-finalistas">Como decidi as finalistas<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#como-decidi-as-finalistas" class="hash-link" aria-label="Link direto para Como decidi as finalistas" title="Link direto para Como decidi as finalistas" translate="no">​</a></h2>
 <p>A avaliação determinística empatou. Das 153 runs elegíveis, 94 passam nos doze critérios
 da suíte Cypress canônica, e 81 dessas também passam nos dez critérios extras que escrevi
 para desempatar (detalhes no <a class="" href="https://educg550.github.io/tcc/blog/harness-baseline-tdd">post anterior</a>). Não sobra
 critério determinístico que separe as 81, porque todas fazem o que o requisito pede.</p>
-<p>Com tudo empatado, decidi desempatar por meio do <strong>custo de gerar</strong>, em dólares, que o <code>RUN.log</code> de
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-quase-foi-custo-de-gerar">Como quase foi: custo de gerar<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#como-quase-foi-custo-de-gerar" class="hash-link" aria-label="Link direto para Como quase foi: custo de gerar" title="Link direto para Como quase foi: custo de gerar" translate="no">​</a></h3>
+<p>Com tudo empatado, quase desempatei pelo <strong>custo de gerar</strong>, em dólares, que o <code>RUN.log</code> de
 cada run registra. Ele dá ordem total, com 81 valores distintos, e é uma das grandezas que
-o TCC compara entre os grupos. Não é nota de qualidade: entre duas aplicações que passam
-nos mesmos 22 critérios, fica a que custou menos para gerar.</p>
-<p>Esse desempate favorece o baseline, que só gera o código, enquanto o TDD também gera os
-testes e itera até o pytest passar. Por isso o corte é por grupo, com as três mais baratas de cada um:</p>
+o TCC compara entre os grupos. Como o custo favorece o baseline, que só gera o código, o
+corte seria por grupo, com as três mais baratas de cada um:</p>
 <table><thead><tr><th>Grupo</th><th>Run</th><th style="text-align:right">Custo de gerar (US$)</th></tr></thead><tbody><tr><td>Baseline</td><td><code>deepseek/run9/baseline</code></td><td style="text-align:right">0,0079</td></tr><tr><td>Baseline</td><td><code>deepseek/run45/baseline</code></td><td style="text-align:right">0,0080</td></tr><tr><td>Baseline</td><td><code>deepseek/run32/baseline</code></td><td style="text-align:right">0,0142</td></tr><tr><td>TDD</td><td><code>deepseek/run10/tdd</code></td><td style="text-align:right">0,0227</td></tr><tr><td>TDD</td><td><code>deepseek/run34/tdd</code></td><td style="text-align:right">0,0286</td></tr><tr><td>TDD</td><td><code>deepseek/run5/tdd</code></td><td style="text-align:right">0,0296</td></tr></tbody></table>
-<p>As seis são do DeepSeek V4.1 Flash. O GLM-5.3 custa mais por run e perde todos os
-desempates.</p>
+<p>As seis seriam do DeepSeek V4.1 Flash, porque o GLM-5.3 custa mais por run. Desisti
+desse desempate porque o custo de gerar não diz nada sobre qual formulário é melhor.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-foi-torneio">Como foi: torneio<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#como-foi-torneio" class="hash-link" aria-label="Link direto para Como foi: torneio" title="Link direto para Como foi: torneio" translate="no">​</a></h3>
+<p>No lugar do custo, montei um torneio cego entre as 81 (detalhes no
+<a class="" href="https://educg550.github.io/tcc/blog/desempatador">post do desempatador</a>): duas runs por vez, anônimas, e a que eu
+prefiro segue na chave. As finalistas são as duas primeiras:</p>
+<table><thead><tr><th>Lugar</th><th>Run</th><th style="text-align:right">Custo de gerar (US$)</th><th style="text-align:right">Posição por custo no baseline</th></tr></thead><tbody><tr><td>1º</td><td><code>deepseek/run44/baseline</code></td><td style="text-align:right">0,0535</td><td style="text-align:right">38º de 42</td></tr><tr><td>2º</td><td><code>deepseek/run35/baseline</code></td><td style="text-align:right">0,0168</td><td style="text-align:right">11º de 42</td></tr></tbody></table>
+<p>Nenhuma das duas estaria entre as seis mais baratas, e a campeã é uma das mais caras do
+baseline.</p>
+<p><strong>As duas finalistas são baseline, nenhuma TDD.</strong> A TDD mais bem colocada no torneio foi a
+<code>glm/run31/tdd</code>, que perdeu a final. Com isso, a avaliação Nielsen deixa de comparar os
+grupos e passa a avaliar só as duas runs que vão para o Paulo.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="critérios-de-avaliação">Critérios de avaliação<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#crit%C3%A9rios-de-avalia%C3%A7%C3%A3o" class="hash-link" aria-label="Link direto para Critérios de avaliação" title="Link direto para Critérios de avaliação" translate="no">​</a></h2>
 <p>O Cypress já verificou o que dava para verificar sem julgamento: o texto exato de cada
 mensagem, as máscaras, as abas e o ofício. Os critérios desta etapa são as dez
@@ -57,7 +124,7 @@ formulário de auxílio financeiro:</p>
 <strong>Péssimo / Ruim / Regular / Bom / Excelente</strong>, com justificativa. As minhas notas e as
 do CUA ficam separadas, para que as divergências entre as duas avaliações apareçam.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="roteiro-comum--eduardo-e-cua">Roteiro comum — Eduardo e CUA<a href="https://educg550.github.io/tcc/blog/finalistas-nielsen#roteiro-comum--eduardo-e-cua" class="hash-link" aria-label="Link direto para Roteiro comum — Eduardo e CUA" title="Link direto para Roteiro comum — Eduardo e CUA" translate="no">​</a></h2>
-<p>Aplicar às seis finalistas, em sessões novas. Usar os dados fictícios de <code>PADRAO</code> em <code>demos/avaliacao/campos.js</code> nas
+<p>Aplicar às duas finalistas, em sessões novas. Usar os dados fictícios de <code>PADRAO</code> em <code>demos/avaliacao/campos.js</code> nas
 duas abas. Interagir pela interface e registrar as notas sem consultar as do outro avaliador.</p>
 <ol>
 <li class=""><strong>Reconhecer a tela.</strong> Identificar a aba ativa, os três blocos e o botão de envio.
@@ -80,7 +147,7 @@ a correção e o envio. Comparar a organização e o comportamento das abas.</li
 <p>A escala abaixo é a régua comum deste estudo, aplicada ao aspecto observado em cada
 heurística; não é uma escala publicada por Nielsen.</p>
 <table><thead><tr><th>Nota</th><th>Evidência observável</th></tr></thead><tbody><tr><td>Péssimo</td><td>O problema impede concluir a tarefa, sem caminho claro para continuar.</td></tr><tr><td>Ruim</td><td>Só é possível avançar com muita tentativa, confusão ou retrabalho.</td></tr><tr><td>Regular</td><td>É possível concluir, mas é preciso procurar, interpretar ou repetir ações desnecessárias.</td></tr><tr><td>Bom</td><td>O uso é claro e previsível, com pequenas dificuldades que pouco atrapalham.</td></tr><tr><td>Excelente</td><td>O uso é claro e fluido, sem dificuldade observada naquele aspecto durante o percurso.</td></tr></tbody></table>
-<p>As dez heurísticas se aplicam às seis finalistas: cada avaliação completa terá dez notas.
+<p>As dez heurísticas se aplicam às duas finalistas: cada avaliação completa terá dez notas.
 Em ajuda e documentação, julgar se as orientações são suficientes para realizar a tarefa;
 não é necessário haver um manual separado. Se a sessão for interrompida antes de reunir
 as evidências, retomar a avaliação para completar as notas.

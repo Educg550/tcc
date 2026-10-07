@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunktcc=globalThis.webpackChunktcc||[]).push([[772],{6366(t){t.exports=JSON.parse('{"metadata":{"permalink":"/tcc/blog","page":1,"postsPerPage":10,"totalPages":2,"totalCount":12,"nextPage":"/tcc/blog/page/2","blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
