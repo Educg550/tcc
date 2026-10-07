@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<title>Desempatador</title>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; background: #e4e6ea; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 12px 64px; }
+  h1, h2 { margin: 0; text-align: center; }
+  img { width: 100%; display: block; background: #fff; cursor: pointer; outline: 3px solid transparent; }
+  img:hover { outline-color: #1a8a9a; }
+  footer { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px; background: #222; color: #fff; text-align: center; }
+</style>
+<main></main>
+<footer></footer>
+<script>
+let par = [];
+
+async function chamar(url, corpo) {
+  const r = await fetch(url, corpo && {
+    method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo),
+  });
+  if (!r.ok) return chamar("/estado");
+  mostrar(await r.json());
+}
+
+function mostrar(e) {
+  const main = document.querySelector("main"), rodape = document.querySelector("footer");
+  if (e.resultado) {
+    main.innerHTML = `<h1>Campeã: ${e.resultado.campea}</h1><h1>Vice: ${e.resultado.vice}</h1>`;
+    rodape.textContent = `${e.partida - 1} partidas   [⌫] desfazer`;
+    return;
+  }
+  par = e.par;
+  main.innerHTML = "<h2>A</h2><h2>B</h2>" + [1, 2, 3]
+    .map((n) => par.map((t) => `<img src="/img/${t}/${n}" data-token="${t}">`).join(""))
+    .join("");
+  rodape.textContent = `partida ${e.partida} · ${e.fase}   [←] A   [→] B   [⌫] desfazer`;
+  scrollTo(0, 0);
+}
+
+document.addEventListener("click", (ev) => {
+  if (ev.target.dataset.token) chamar("/escolha", { vencedor: ev.target.dataset.token });
+});
+document.addEventListener("keydown", (ev) => {
+  if (ev.key === "ArrowLeft") chamar("/escolha", { vencedor: par[0] });
+  if (ev.key === "ArrowRight") chamar("/escolha", { vencedor: par[1] });
+  if (ev.key === "Backspace") chamar("/desfazer", {});
+});
+chamar("/estado");
+</script>
