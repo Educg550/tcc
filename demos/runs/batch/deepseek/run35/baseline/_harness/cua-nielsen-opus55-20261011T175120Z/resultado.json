@@ -1,0 +1,54 @@
+{
+  "configured_model": "anthropic/claude-opus-5.5",
+  "project": "/home/opuscg550/code/personal/tcc/demos/runs/batch/deepseek/run35/baseline",
+  "criterion": "C1",
+  "browser_use_version": "0.13.10",
+  "viewport": {
+    "width": 1366,
+    "height": 768
+  },
+  "device_scale_factor": 1,
+  "started_at": "2026-10-11T17:51:20.778324+00:00",
+  "ended_at": "2026-10-11T17:58:19.554515+00:00",
+  "duration_s": 418.77,
+  "cua_duration_s": 416.08,
+  "num_steps": 38,
+  "api_calls": 39,
+  "input_tokens": 850632,
+  "output_tokens": 19308,
+  "total_tokens": 869940,
+  "cost_usd": 3.788688,
+  "confirmed_cost_usd": 3.788688,
+  "cost_complete": true,
+  "cost_source": "OpenRouter response usage.cost, including judge",
+  "errors": [],
+  "completed": true,
+  "veredicto": {
+    "passou": true,
+    "evidencia": "Heurística | Nota | Justificativa | Evidência (ação e resultado observado)\n1. Visibilidade do estado do sistema | Bom | O estado é visível, com pequenas falhas. | A aba ativa aparece em tom mais escuro, mas o contraste é sutil. Ao sair dos campos a formatação aparece: data 01021980→01/02/1980, CEP→05508-090, CPF→529.982.247-25, valor→R$ 1.500,00. O envio com erros mostra uma caixa vermelha no topo, que continua visível depois da correção até o novo envio. O envio correto mostra a página 'Solicitação registrada'. Comportamento igual nas duas abas.\n2. Correspondência com o mundo real | Regular | Termos e formatos brasileiros são adequados, mas o valor e o ofício geram dúvida. | Os rótulos usam termos da USP (N. USP, Programa, banca de exame ou defesa). CPF, CEP, data e R$ seguem o padrão brasileiro. O valor trata os dígitos como centavos: 150000 virou R$ 1.500,00, enquanto o placeholder '1500' sugere reais. O ofício é legível e traz os dados corretos, mas afirma que a 'CCP aprovou na data de hoje', o que soa estranho para uma solicitação recém-enviada. Igual em ALUNOS e DOCENTES.\n3. Controle e liberdade do usuário | Ruim | Não há como voltar da confirmação para corrigir o pedido sem refazer tudo. | Trocar de aba preserva os dados. Em ALUNOS→DOCENTES→ALUNOS e DOCENTES→ALUNOS→DOCENTES tudo permaneceu. Os dados também permanecem após o erro de validação. A confirmação não tem botão de voltar ou editar e a URL continua '/'. O Voltar do navegador levou a about:blank, saindo do app, nas duas abas. Ao reabrir a URL, ALUNOS e DOCENTES aparecem vazios, com perda total do pedido.\n4. Consistência e padrões | Excelente | As duas abas têm organização, aparência e comportamento idênticos. | As duas têm os mesmos três blocos, máscaras, mensagens de erro e ofício. A única diferença é que DOCENTES não tem Nível nem Tipo de auxílio. Por isso o layout reflui e o E-mail sobe para a 1ª linha, sem prejuízo.\n5. Prevenção de erros | Regular | Máscaras, placeholders e selects ajudam, mas o campo de valor induz ao erro e a validação só ocorre no envio. | Há placeholders de exemplo em todos os campos e selects para Nível, Tipo e Apresentação. Máscaras formatam CPF, CEP e data. A máscara de valor em centavos, combinada com o placeholder '1500', faz quem digita 1500 obter R$ 15,00. Não houve validação durante o preenchimento: nome vazio, e-mail 'joao' e valor 0 só foram apontados ao enviar.\n6. Reconhecimento em vez de memorização | Bom | Os rótulos ficam sempre visíveis, mas o exemplo de formato some ao digitar. | Os rótulos em caixa alta ficam acima de cada campo e continuam visíveis após o preenchimento. O formato esperado existe apenas no placeholder, que desaparece ao digitar. Exceção: CPF e RG trazem o formato no próprio rótulo ('separados por pontos e traço'). Igual nas duas abas.\n7. Flexibilidade e eficiência de uso | Excelente | Preencher tudo pelo teclado foi fluido. | Os 28 campos de ALUNOS e todos os de DOCENTES foram preenchidos só com Tab e digitação. A ordem do Tab segue a ordem visual por linha, e Shift+Tab funcionou. Os selects aceitaram as setas. O foco ficou visível. CPF, CEP, data e valor foram digitados sem pontuação e formatados automaticamente.\n8. Estética e design minimalista | Bom | O formulário é limpo e agrupado, mas denso. | Todo o formulário cabe na tela sem rolagem, em três fieldsets nomeados e sem distrações. Os rótulos são pequenos, em caixa alta e alguns quebram em duas linhas. O placeholder do nome do evento aparece truncado. O espaçamento é apertado.\n9. Ajuda para reconhecer, diagnosticar e corrigir erros | Regular | Fica claro que houve erro, mas não onde nem como corrigir. | O envio com erros mostrou uma caixa vermelha com três mensagens: 'Preencha todos os campos', 'Valor solicitado deve ser maior que 0' e 'E-mail inválido'. A mensagem não cita o campo Nome. Os campos com erro não recebem destaque, como borda ou mensagem junto ao campo. Foi preciso procurar o campo vazio. As mensagens não somem ao corrigir. Igual em ALUNOS e DOCENTES.\n10. Ajuda e documentação | Regular | As orientações se limitam a placeholders e não há informação sobre o que fazer após enviar. | Procurei ajuda na página após o erro e não havia texto de instrução, link de ajuda ou dica. A confirmação não explica os próximos passos e não oferece imprimir nem baixar o ofício. Os placeholders bastaram para preencher, exceto a ambiguidade do valor. Igual nas duas abas.\n\nDificuldades na execução: nenhuma bloqueante. O Voltar do navegador saiu da aplicação (about:blank) e foi preciso reabrir a URL, o que apagou os dados das duas abas. O campo de valor reformatou a entrada 150000 para R$ 1.500,00. Ambas as abas foram percorridas por completo na mesma sessão."
+  },
+  "browser_use_usage": {
+    "total_prompt_tokens": 850632,
+    "total_prompt_cost": 3.4025279999999993,
+    "total_prompt_cached_tokens": 0,
+    "total_prompt_cached_cost": 0.0,
+    "total_prompt_cache_creation_tokens": 0,
+    "total_prompt_cache_creation_cost": 0.0,
+    "total_completion_tokens": 19308,
+    "total_completion_cost": 0.38616000000000006,
+    "total_tokens": 869940,
+    "total_cost": 3.7886879999999996,
+    "entry_count": 39,
+    "by_model": {
+      "anthropic/claude-opus-5.5": {
+        "model": "anthropic/claude-opus-5.5",
+        "prompt_tokens": 850632,
+        "completion_tokens": 19308,
+        "total_tokens": 869940,
+        "cost": 3.788688000000001,
+        "invocations": 39,
+        "average_tokens_per_invocation": 22306.153846153848
+      }
+    }
+  }
+}
