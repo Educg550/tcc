@@ -5,8 +5,8 @@ authors: [eduardo]
 tags: [tcc, experimento]
 ---
 
-Em 11/10, rodei o CUA nas duas finalistas do torneio cego, run44 e run35, para avaliar
-as dez heurísticas de Nielsen. Ainda não dei minhas notas.
+Rodei o CUA nas duas finalistas do torneio cego, run44 e run35, para avaliar
+as dez heurísticas de Nielsen. Também dei as minhas notas às duas.
 O roteiro, a escala e as heurísticas estão no [post das finalistas](/blog/finalistas-nielsen).
 
 <!-- truncate -->
@@ -21,8 +21,10 @@ em vez de memorização, 7 flexibilidade e eficiência, 8 estética e design min
 | Run | Avaliador | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | `deepseek/run44/baseline` | CUA Opus 5.5 | Bom | Regular | Ruim | Bom | Regular | Bom | Excelente | Bom | Regular | Regular |
+| `deepseek/run44/baseline` | Eduardo | Regular | Excelente | Excelente | Excelente | Excelente | Excelente | Excelente | Regular | Ruim | Excelente |
 | `deepseek/run35/baseline` | CUA Opus 5.5 (contestado pelo judge) | Bom | Regular | Ruim | Excelente | Regular | Bom | Excelente | Bom | Regular | Regular |
 | `deepseek/run35/baseline` | CUA Opus 5.5 (reexecução, contestada pelo judge) | Bom | Bom | Ruim | Bom | Bom | Bom | Excelente | Bom | Regular | Regular |
+| `deepseek/run35/baseline` | Eduardo | Regular | Excelente | Regular | Bom | Excelente | Excelente | Excelente | Regular | Ruim | Excelente |
 
 As notas da run35 são as que o agente devolveu. O judge do browser-use contestou a
 execução do fluxo ALUNOS, mas conferi as capturas anteriores e elas contradizem essa
@@ -31,7 +33,7 @@ percurso. Guardei o parecer negativo junto às evidências que conferi.
 Depois reexecutei a run35 passando todas as capturas ao judge. Ele contestou o teste
 de teclado e a descrição dos ofícios; conferi esses pontos no histórico e nas imagens.
 
-## Finalistas do torneio — Opus 5.5, 11/10/2026
+## Finalistas do torneio — Opus 5.5
 
 Rodei uma sessão por run, com `anthropic/claude-opus-5.5` via OpenRouter e browser-use
 0.13.10, a 1366 × 768 e com escala do dispositivo de 1. Usei o roteiro C1, que reúne
@@ -121,7 +123,7 @@ Essas imagens contradizem a acusação central do judge. O histórico registra a
 passagem para DOCENTES só no passo 20, depois do envio de ALUNOS e da reabertura da URL.
 
 Conferi a alegação sobre a primeira aba. Ainda não revisei todas as dez notas nem
-confirmei a busca por ajuda. Minha avaliação completa continua pendente.
+confirmei a busca por ajuda. Minhas notas estão em [Minha avaliação](#minha-avaliacao).
 
 Notas, justificativas e evidências transcritas da saída do CUA:
 
@@ -146,7 +148,7 @@ Copiei as capturas para `screenshots/`; `capturas.json` liga cada passo
 ao arquivo preservado, sem alterar o histórico original.
 
 
-## Reexecução da run35 — 11/10/2026
+## Reexecução da run35
 
 Reexecutei só `deepseek/run35/baseline`, com o mesmo Opus 5.5, roteiro C1 e viewport.
 Desta vez, ajustei o script para passar todas as capturas da sessão ao judge, em vez
@@ -208,3 +210,67 @@ Artefatos em `demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus
 Somando as três sessões que produziram notas (run44 e duas tentativas na run35):
 **US$ 10,260612, 1.172,65 s (19min33s) e 2.354.237 tokens**. O erro inicial de
 configuração na run44 continua registrado separadamente, sem cobrança de inferência.
+
+## Minha avaliação {#minha-avaliacao}
+
+Avaliei as duas finalistas pela interface, seguindo o roteiro do
+[post das finalistas](/blog/finalistas-nielsen). Preenchi com valores digitados na hora,
+e não com os dados de `PADRAO`. Nas duas runs, o envio gerou o ofício completo, com
+valor, CEP, CPF e data de nascimento formatados.
+
+### `deepseek/run44/baseline`
+
+| Heurística | Nota | Justificativa |
+|---|---|---|
+| 1. Visibilidade do estado do sistema | Regular | O formulário separa bem as seções e mostra o erro "Preencha todos os campos" de forma visível, mas não indica qual campo está vazio. A validação de e-mail, CPF, CEP e valor funciona. |
+| 2. Correspondência entre o sistema e o mundo real | Excelente | Os valores digitados ganham o formato esperado, conforme o requisito. |
+| 3. Controle e liberdade do usuário | Excelente | O progresso se mantém ao trocar de aba e também ao recarregar a página. |
+| 4. Consistência e padrões | Excelente | As duas abas têm a mesma aparência, com campos consistentes e separados em seções. |
+| 5. Prevenção de erros | Excelente | Há placeholders e seleções sempre que possível. |
+| 6. Reconhecimento em vez de memorização | Excelente | — |
+| 7. Flexibilidade e eficiência de uso | Excelente | — |
+| 8. Estética e design minimalista | Regular | É preciso rolar a tela para ver o botão "Enviar solicitação". |
+| 9. Ajuda para reconhecer, diagnosticar e corrigir erros | Ruim | A mensagem não indica o campo que causa o erro. |
+| 10. Ajuda e documentação | Excelente | As instruções aparecem corretamente no ofício após o envio. |
+
+### `deepseek/run35/baseline`
+
+| Heurística | Nota | Justificativa |
+|---|---|---|
+| 1. Visibilidade do estado do sistema | Regular | O formulário separa bem as seções e mostra o erro "Preencha todos os campos" de forma visível, mas não indica qual campo está vazio. A validação de e-mail, CPF, CEP e valor funciona. |
+| 2. Correspondência entre o sistema e o mundo real | Excelente | Todos os campos com formatação automática funcionam. |
+| 3. Controle e liberdade do usuário | Regular | Os dados persistem ao trocar de aba no meio do preenchimento, mas recarregar a página apaga o progresso (requisito não funcional). |
+| 4. Consistência e padrões | Bom | O alinhamento dos campos não é consistente. |
+| 5. Prevenção de erros | Excelente | Há placeholders e seleções sempre que possível. |
+| 6. Reconhecimento em vez de memorização | Excelente | — |
+| 7. Flexibilidade e eficiência de uso | Excelente | — |
+| 8. Estética e design minimalista | Regular | Algumas caixas de texto ficam desalinhadas sem motivo, mas os campos aparecem em seções separadas nas duas abas. |
+| 9. Ajuda para reconhecer, diagnosticar e corrigir erros | Ruim | A mensagem não indica o campo que causa o erro. |
+| 10. Ajuda e documentação | Excelente | As instruções aparecem corretamente no ofício após o envio. |
+
+### Comparação com o CUA
+
+Minhas notas coincidem com as do CUA em 1 das 10 heurísticas na run44. Na run35, coincidem
+em 1 com a primeira sessão e em 2 com a reexecução. A 7 (Excelente) é a única em que
+todos concordam. Fui mais severo nas heurísticas 1, 8 e 9 e mais generoso nas 2, 3, 5,
+6 e 10, nas duas runs.
+
+- **9.** Vimos a mesma falha: a mensagem genérica que não aponta o campo. Dei Ruim, e o
+  CUA deu Regular nas três sessões. Também usei essa falha para baixar a heurística 1.
+- **8.** Na run44, nós dois registramos a rolagem até o botão de envio. Dei Regular, e o
+  CUA deu Bom. Na run35, as caixas desalinhadas que me levaram a Regular não aparecem
+  nas justificativas do CUA.
+- **10.** Tomei as instruções do ofício como a orientação depois do envio. O CUA procurou
+  ajuda na página, não encontrou e achou vago o "Encaminhe-se ao Serviço Financeiro".
+- **3.** Testei a troca de abas e o recarregamento. O CUA testou voltar da confirmação
+  para corrigir o pedido e não achou caminho, o que lhe rendeu Ruim nas três sessões.
+  Minhas justificativas não tratam desse caminho.
+- **2 e 5.** O CUA apontou problemas de texto que minhas justificativas não citam: o
+  ofício diz que a CCP "aprovou" um pedido recém-enviado (nas duas runs), o exemplo de
+  CPF não tem a pontuação que o rótulo pede (run44) e o placeholder `1500` fica num
+  campo que trata os dígitos como centavos (run35).
+
+Entre as finalistas, minhas notas põem a run44 acima da run35 nas heurísticas 3 e 4 e
+as empatam nas demais, o que acompanha o resultado do torneio. As do CUA vão no
+sentido oposto: a run35 fica acima na heurística 4 na primeira sessão e nas 2 e 5 na
+reexecução, com empate nas demais.
