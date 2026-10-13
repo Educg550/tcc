@@ -22,16 +22,12 @@ em vez de memorização, 7 flexibilidade e eficiência, 8 estética e design min
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | `deepseek/run44/baseline` | CUA Opus 5.5 | Bom | Regular | Ruim | Bom | Regular | Bom | Excelente | Bom | Regular | Regular |
 | `deepseek/run44/baseline` | Eduardo | Regular | Excelente | Excelente | Excelente | Excelente | Excelente | Excelente | Regular | Ruim | Excelente |
-| `deepseek/run35/baseline` | CUA Opus 5.5 (contestado pelo judge) | Bom | Regular | Ruim | Excelente | Regular | Bom | Excelente | Bom | Regular | Regular |
-| `deepseek/run35/baseline` | CUA Opus 5.5 (reexecução, contestada pelo judge) | Bom | Bom | Ruim | Bom | Bom | Bom | Excelente | Bom | Regular | Regular |
+| `deepseek/run35/baseline` | CUA Opus 5.5 (contestado pelo judge) | Bom | Bom | Ruim | Bom | Bom | Bom | Excelente | Bom | Regular | Regular |
 | `deepseek/run35/baseline` | Eduardo | Regular | Excelente | Regular | Bom | Excelente | Excelente | Excelente | Regular | Ruim | Excelente |
 
-As notas da run35 são as que o agente devolveu. O judge do browser-use contestou a
-execução do fluxo ALUNOS, mas conferi as capturas anteriores e elas contradizem essa
-acusação: o judge recebeu só as dez últimas imagens e as tratou como o início do
-percurso. Guardei o parecer negativo junto às evidências que conferi.
-Depois reexecutei a run35 passando todas as capturas ao judge. Ele contestou o teste
-de teclado e a descrição dos ofícios; conferi esses pontos no histórico e nas imagens.
+As notas da run35 são as que o agente devolveu. O judge do browser-use contestou o
+teste de teclado e a descrição dos ofícios; conferi esses pontos no histórico e nas
+imagens.
 
 ## Finalistas do torneio — Opus 5.5
 
@@ -41,18 +37,19 @@ as dez heurísticas e as duas abas. Não rodei o Cypress de novo.
 
 | Medida | `deepseek/run44/baseline` (campeã) | `deepseek/run35/baseline` (vice) |
 |---|---:|---:|
-| Duração total da sessão | 433,45 s (7min13s) | 418,77 s (6min59s) |
-| Duração do CUA, incluindo judge | 431,66 s | 416,08 s |
-| Passos do agente | 37 de 80 | 38 de 80 |
-| Chamadas à API, incluindo judge | 38 | 39 |
-| Tokens de entrada | 840.420 | 850.632 |
-| Tokens de saída | 18.557 | 19.308 |
-| Tokens totais | 858.977 | 869.940 |
-| Custo confirmado | US$ 3,732820 | US$ 3,788688 |
+| Duração total da sessão | 433,45 s (7min13s) | 320,43 s (5min20s) |
+| Duração do CUA, incluindo judge | 431,66 s | 318,24 s |
+| Passos do agente | 37 de 80 | 27 de 80 |
+| Chamadas à API, incluindo judge | 38 | 28 |
+| Tokens de entrada | 840.420 | 610.456 |
+| Tokens de saída | 18.557 | 14.864 |
+| Tokens totais | 858.977 | 625.320 |
+| Custo confirmado | US$ 3,732820 | US$ 2,739104 |
+| Capturas recebidas pelo judge | 10 (as últimas) | 24 (todas) |
 | Conclusão declarada pelo CUA (`passou`) | `true` | `true` |
 | Veredito do judge | `true` | `false` |
 
-**Total: US$ 7,521508, 852,22 s (14min12s) e 1.728.917 tokens.** O custo é a soma de
+**Total: US$ 6,471924, 753,88 s (12min34s) e 1.484.297 tokens.** O custo é a soma de
 `usage.cost` das respostas do OpenRouter, incluindo a chamada de judge de cada sessão.
 A duração total inclui a consulta ao catálogo e a subida da aplicação; a duração do
 CUA mede a chamada `Agent.run`, incluindo o judge e o encerramento do navegador.
@@ -101,73 +98,8 @@ ao arquivo preservado, sem alterar o histórico original.
 
 ### `deepseek/run35/baseline`
 
-**Avaliação contestada pelo judge.** Segundo seu parecer, as capturas da primeira
-passagem mostram DOCENTES, embora o agente diga ter preenchido ALUNOS. O judge não
-identificou evidência suficiente de preenchimento de NÍVEL e TIPO DE AUXÍLIO nem da
-execução do fluxo ALUNOS. Também contestou a busca por ajuda e a alegação de preservação
-de dados entre as abas. Guardei as notas e o parecer das duas chamadas e fui conferir
-essa divergência.
-
-**Conferência das evidências.** Na versão 0.13.10, `_judge_trace` chama
-`construct_judge_messages` com `max_images=10`; essa função seleciona as dez últimas
-capturas. Nesta run, foram as dos passos 28, 29, 30, 31, 32, 33, 34, 35, 37 e 38,
-durante e depois do percurso DOCENTES. O judge chamou essas imagens de primeira
-passagem e concluiu que ALUNOS não havia sido preenchido.
-
-As capturas preservadas dos passos 4 e 13 mostram a aba ALUNOS ativa, com NÍVEL =
-Mestrado e TIPO DE AUXÍLIO = Participação em evento. A do passo 13 também mostra os
-dados preenchidos. A do passo 18 mostra o ofício com
-`Programa: Matemática Aplicada - Mestrado` e
-`Assunto: Solicitação de Auxílio Financeiro - Participação em evento`.
-Essas imagens contradizem a acusação central do judge. O histórico registra a
-passagem para DOCENTES só no passo 20, depois do envio de ALUNOS e da reabertura da URL.
-
-Conferi a alegação sobre a primeira aba. Ainda não revisei todas as dez notas nem
-confirmei a busca por ajuda. Minhas notas estão em [Minha avaliação](#minha-avaliacao).
-
-Notas, justificativas e evidências transcritas da saída do CUA:
-
-| Heurística | Nota | Justificativa | Evidência (ação e resultado observado) |
-|---|---|---|---|
-| 1. Visibilidade do estado do sistema | Bom | O estado é visível, com pequenas falhas. | A aba ativa aparece em tom mais escuro, mas o contraste é sutil. Ao sair dos campos a formatação aparece: data 01021980→01/02/1980, CEP→05508-090, CPF→529.982.247-25, valor→R$ 1.500,00. O envio com erros mostra uma caixa vermelha no topo, que continua visível depois da correção até o novo envio. O envio correto mostra a página 'Solicitação registrada'. Comportamento igual nas duas abas. |
-| 2. Correspondência com o mundo real | Regular | Termos e formatos brasileiros são adequados, mas o valor e o ofício geram dúvida. | Os rótulos usam termos da USP (N. USP, Programa, banca de exame ou defesa). CPF, CEP, data e R$ seguem o padrão brasileiro. O valor trata os dígitos como centavos: 150000 virou R$ 1.500,00, enquanto o placeholder '1500' sugere reais. O ofício é legível e traz os dados corretos, mas afirma que a 'CCP aprovou na data de hoje', o que soa estranho para uma solicitação recém-enviada. Igual em ALUNOS e DOCENTES. |
-| 3. Controle e liberdade do usuário | Ruim | Não há como voltar da confirmação para corrigir o pedido sem refazer tudo. | Trocar de aba preserva os dados. Em ALUNOS→DOCENTES→ALUNOS e DOCENTES→ALUNOS→DOCENTES tudo permaneceu. Os dados também permanecem após o erro de validação. A confirmação não tem botão de voltar ou editar e a URL continua '/'. O Voltar do navegador levou a about:blank, saindo do app, nas duas abas. Ao reabrir a URL, ALUNOS e DOCENTES aparecem vazios, com perda total do pedido. |
-| 4. Consistência e padrões | Excelente | As duas abas têm organização, aparência e comportamento idênticos. | As duas têm os mesmos três blocos, máscaras, mensagens de erro e ofício. A única diferença é que DOCENTES não tem Nível nem Tipo de auxílio. Por isso o layout reflui e o E-mail sobe para a 1ª linha, sem prejuízo. |
-| 5. Prevenção de erros | Regular | Máscaras, placeholders e selects ajudam, mas o campo de valor induz ao erro e a validação só ocorre no envio. | Há placeholders de exemplo em todos os campos e selects para Nível, Tipo e Apresentação. Máscaras formatam CPF, CEP e data. A máscara de valor em centavos, combinada com o placeholder '1500', faz quem digita 1500 obter R$ 15,00. Não houve validação durante o preenchimento: nome vazio, e-mail 'joao' e valor 0 só foram apontados ao enviar. |
-| 6. Reconhecimento em vez de memorização | Bom | Os rótulos ficam sempre visíveis, mas o exemplo de formato some ao digitar. | Os rótulos em caixa alta ficam acima de cada campo e continuam visíveis após o preenchimento. O formato esperado existe apenas no placeholder, que desaparece ao digitar. Exceção: CPF e RG trazem o formato no próprio rótulo ('separados por pontos e traço'). Igual nas duas abas. |
-| 7. Flexibilidade e eficiência de uso | Excelente | Preencher tudo pelo teclado foi fluido. | Os 28 campos de ALUNOS e todos os de DOCENTES foram preenchidos só com Tab e digitação. A ordem do Tab segue a ordem visual por linha, e Shift+Tab funcionou. Os selects aceitaram as setas. O foco ficou visível. CPF, CEP, data e valor foram digitados sem pontuação e formatados automaticamente. |
-| 8. Estética e design minimalista | Bom | O formulário é limpo e agrupado, mas denso. | Todo o formulário cabe na tela sem rolagem, em três fieldsets nomeados e sem distrações. Os rótulos são pequenos, em caixa alta e alguns quebram em duas linhas. O placeholder do nome do evento aparece truncado. O espaçamento é apertado. |
-| 9. Ajuda para reconhecer, diagnosticar e corrigir erros | Regular | Fica claro que houve erro, mas não onde nem como corrigir. | O envio com erros mostrou uma caixa vermelha com três mensagens: 'Preencha todos os campos', 'Valor solicitado deve ser maior que 0' e 'E-mail inválido'. A mensagem não cita o campo Nome. Os campos com erro não recebem destaque, como borda ou mensagem junto ao campo. Foi preciso procurar o campo vazio. As mensagens não somem ao corrigir. Igual em ALUNOS e DOCENTES. |
-| 10. Ajuda e documentação | Regular | As orientações se limitam a placeholders e não há informação sobre o que fazer após enviar. | Procurei ajuda na página após o erro e não havia texto de instrução, link de ajuda ou dica. A confirmação não explica os próximos passos e não oferece imprimir nem baixar o ofício. Os placeholders bastaram para preencher, exceto a ambiguidade do valor. Igual nas duas abas. |
-
-Dificuldades na execução: nenhuma bloqueante. O Voltar do navegador saiu da aplicação (about:blank) e foi preciso reabrir a URL, o que apagou os dados das duas abas. O campo de valor reformatou a entrada 150000 para R$ 1.500,00. Ambas as abas foram percorridas por completo na mesma sessão.
-
-Artefatos em `demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261011T175120Z/`: `resultado.json`, `relatorio.md`, `api-usage.jsonl`,
-`history.json`, `judge.json`, `prompt.md`, `model.json` e `executar.py`.
-Copiei as capturas para `screenshots/`; `capturas.json` liga cada passo
-ao arquivo preservado, sem alterar o histórico original.
-
-
-## Reexecução da run35
-
-Reexecutei só `deepseek/run35/baseline`, com o mesmo Opus 5.5, roteiro C1 e viewport.
-Desta vez, ajustei o script para passar todas as capturas da sessão ao judge, em vez
-de só as dez últimas. Usei um perfil novo do navegador, com navegação restrita à
-aplicação local, e mantive a tentativa anterior.
-
-| Medida | Reexecução de `deepseek/run35/baseline` |
-|---|---:|
-| Duração total da sessão | 320,43 s (5min20s) |
-| Duração do CUA, incluindo judge | 318,24 s |
-| Passos do agente | 27 de 80 |
-| Chamadas à API, incluindo judge | 28 |
-| Tokens de entrada | 610.456 |
-| Tokens de saída | 14.864 |
-| Tokens totais | 625.320 |
-| Custo confirmado (`usage.cost`) | US$ 2,739104 |
-| Capturas recebidas pelo judge | 24 (todas) |
-| Conclusão declarada pelo CUA (`passou`) | `true` |
-| Veredito do judge | `false` |
+Nesta sessão, o script passou ao judge todas as capturas, e o navegador usou um perfil
+novo, com navegação restrita à aplicação local.
 
 O judge reconheceu a execução de ALUNOS e DOCENTES. Contestou a fundamentação da
 avaliação por outros motivos: o agente preencheu os campos diretamente, sem testar
@@ -184,7 +116,7 @@ DOCENTES traz `Verba do programa` e `Matemática Aplicada`. Portanto, a afirmaç
 do CUA de que os ofícios eram idênticos contradiz as capturas.
 
 Guardei as notas que o agente devolveu, mas não considero a avaliação integralmente
-validada. Parei nessa tentativa e não rodei o Cypress de novo.
+validada.
 
 Notas, justificativas e evidências transcritas da saída do CUA:
 
@@ -207,16 +139,14 @@ Artefatos em `demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus
 `history.json`, `judge.json`, `capturas.json`, `screenshots/`, `prompt.md`,
 `model.json` e `executar.py`.
 
-Somando as três sessões que produziram notas (run44 e duas tentativas na run35):
-**US$ 10,260612, 1.172,65 s (19min33s) e 2.354.237 tokens**. O erro inicial de
-configuração na run44 continua registrado separadamente, sem cobrança de inferência.
-
 ## Minha avaliação {#minha-avaliacao}
 
 Avaliei as duas finalistas pela interface, seguindo o roteiro do
 [post das finalistas](/blog/finalistas-nielsen). Preenchi com valores digitados na hora,
 e não com os dados de `PADRAO`. Nas duas runs, o envio gerou o ofício completo, com
-valor, CEP, CPF e data de nascimento formatados.
+valor, CEP, CPF e data de nascimento formatados. As anotações cruas que fiz enquanto
+verificava os critérios, com os ofícios gerados, estão em
+[`_resultados.md`](https://github.com/Educg550/tcc/blob/main/blog/2026-10-06-resultados-nielsen/_resultados.md).
 
 ### `deepseek/run44/baseline`
 
@@ -224,7 +154,7 @@ valor, CEP, CPF e data de nascimento formatados.
 |---|---|---|
 | 1. Visibilidade do estado do sistema | Regular | O formulário separa bem as seções e mostra o erro "Preencha todos os campos" de forma visível, mas não indica qual campo está vazio. A validação de e-mail, CPF, CEP e valor funciona. |
 | 2. Correspondência entre o sistema e o mundo real | Excelente | Os valores digitados ganham o formato esperado, conforme o requisito. |
-| 3. Controle e liberdade do usuário | Excelente | O progresso se mantém ao trocar de aba e também ao recarregar a página. |
+| 3. Controle e liberdade do usuário | Excelente | O progresso se mantém ao trocar de aba. |
 | 4. Consistência e padrões | Excelente | As duas abas têm a mesma aparência, com campos consistentes e separados em seções. |
 | 5. Prevenção de erros | Excelente | Há placeholders e seleções sempre que possível. |
 | 6. Reconhecimento em vez de memorização | Excelente | — |
@@ -239,7 +169,7 @@ valor, CEP, CPF e data de nascimento formatados.
 |---|---|---|
 | 1. Visibilidade do estado do sistema | Regular | O formulário separa bem as seções e mostra o erro "Preencha todos os campos" de forma visível, mas não indica qual campo está vazio. A validação de e-mail, CPF, CEP e valor funciona. |
 | 2. Correspondência entre o sistema e o mundo real | Excelente | Todos os campos com formatação automática funcionam. |
-| 3. Controle e liberdade do usuário | Regular | Os dados persistem ao trocar de aba no meio do preenchimento, mas recarregar a página apaga o progresso (requisito não funcional). |
+| 3. Controle e liberdade do usuário | Regular | Os dados persistem ao trocar de aba no meio do preenchimento. |
 | 4. Consistência e padrões | Bom | O alinhamento dos campos não é consistente. |
 | 5. Prevenção de erros | Excelente | Há placeholders e seleções sempre que possível. |
 | 6. Reconhecimento em vez de memorização | Excelente | — |
@@ -251,26 +181,24 @@ valor, CEP, CPF e data de nascimento formatados.
 ### Comparação com o CUA
 
 Minhas notas coincidem com as do CUA em 1 das 10 heurísticas na run44. Na run35, coincidem
-em 1 com a primeira sessão e em 2 com a reexecução. A 7 (Excelente) é a única em que
+em 2. A 7 (Excelente) é a única em que
 todos concordam. Fui mais severo nas heurísticas 1, 8 e 9 e mais generoso nas 2, 3, 5,
 6 e 10, nas duas runs.
 
 - **9.** Vimos a mesma falha: a mensagem genérica que não aponta o campo. Dei Ruim, e o
-  CUA deu Regular nas três sessões. Também usei essa falha para baixar a heurística 1.
+  CUA deu Regular nas duas runs. Também usei essa falha para baixar a heurística 1.
 - **8.** Na run44, nós dois registramos a rolagem até o botão de envio. Dei Regular, e o
   CUA deu Bom. Na run35, as caixas desalinhadas que me levaram a Regular não aparecem
   nas justificativas do CUA.
 - **10.** Tomei as instruções do ofício como a orientação depois do envio. O CUA procurou
   ajuda na página, não encontrou e achou vago o "Encaminhe-se ao Serviço Financeiro".
-- **3.** Testei a troca de abas e o recarregamento. O CUA testou voltar da confirmação
-  para corrigir o pedido e não achou caminho, o que lhe rendeu Ruim nas três sessões.
+- **3.** Testei a troca de abas. O CUA testou voltar da confirmação
+  para corrigir o pedido e não achou caminho, o que lhe rendeu Ruim nas duas runs.
   Minhas justificativas não tratam desse caminho.
 - **2 e 5.** O CUA apontou problemas de texto que minhas justificativas não citam: o
-  ofício diz que a CCP "aprovou" um pedido recém-enviado (nas duas runs), o exemplo de
-  CPF não tem a pontuação que o rótulo pede (run44) e o placeholder `1500` fica num
-  campo que trata os dígitos como centavos (run35).
+  ofício diz que a CCP "aprovou" um pedido recém-enviado (nas duas runs), e o exemplo de
+  CPF não tem a pontuação que o rótulo pede (run44).
 
 Entre as finalistas, minhas notas põem a run44 acima da run35 nas heurísticas 3 e 4 e
 as empatam nas demais, o que acompanha o resultado do torneio. As do CUA vão no
-sentido oposto: a run35 fica acima na heurística 4 na primeira sessão e nas 2 e 5 na
-reexecução, com empate nas demais.
+sentido oposto: a run35 fica acima nas heurísticas 2 e 5, com empate nas demais.
