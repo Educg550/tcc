@@ -1,0 +1,63 @@
+{
+  "configured_model": "anthropic/claude-opus-5.5",
+  "project": "/home/opuscg550/code/personal/tcc/demos/runs/batch/glm/run19/tdd",
+  "criterion": "C1",
+  "browser_use_version": "0.13.10",
+  "judge_capture_policy": "all",
+  "judge": {
+    "reasoning": "Key requirements: (1) recognize the screen; (2) fill the ALUNOS form using Tab/Shift+Tab and the keyboard, typing digits only for masked fields, and switch tabs to confirm data is kept; (3) provoke errors and submit; (4) restore the values, submit, read the ofício and try to go back; (5) reload and repeat the whole flow in DOCENTES; (6) give ten grounded heuristic ratings.\n\nWhat went well: the agent filled every field in both tabs. The masks appear in the screenshots and tool notes (R$ 1.500,00, 01/02/1980, 05508-090, 529.982.247-25). It switched tabs both ways, and data was preserved. It triggered the three errors in both tabs, and the screenshots show the messages at the top with no per-field highlight. It submitted successfully in both tabs and the 'Solicitação registrada' ofício appeared. It tried going back and reloaded the URL. The final table has ten rows and the requested columns, and most evidence matches the screenshots: tab highlight, top-only errors, misleading 'aprovou na data de hoje' text, no buttons on the confirmation page, and placeholders that look like real values.\n\nProblems: the route explicitly required Tab and Shift+Tab to move between fields while filling. The agent instead focused each field directly with input actions and pressed Shift+Tab only once. It admits it never checked the Tab order, yet rated heuristic 7, which specifically covers keyboard filling and Tab order, as 'Bom' without that evidence. That rating is not grounded in what was observed. It also called the ofício identical in both tabs, although the DOCENTES ofício shows a different subject ('Verba do programa'). It did not explicitly check the format on leaving each field (blur). Overall the route was largely done, but a required interaction was skipped and one heuristic's rating lacks supporting evidence, so the task was not executed exactly as asked.",
+    "verdict": false,
+    "failure_reason": "The route required Tab and Shift+Tab navigation while filling the form, but the agent filled fields by direct focus and pressed Shift+Tab only once. As a result, heuristic 7 (keyboard filling and Tab order) received a 'Bom' rating that the agent itself says was not verified, so not all ten ratings are grounded in observed evidence. It also missed a difference between the two tabs' ofícios when calling them identical.",
+    "impossible_task": false,
+    "reached_captcha": false
+  },
+  "viewport": {
+    "width": 1366,
+    "height": 768
+  },
+  "device_scale_factor": 1,
+  "started_at": "2026-10-13T18:43:22.379667+00:00",
+  "ended_at": "2026-10-13T18:48:47.014756+00:00",
+  "duration_s": 324.63,
+  "cua_duration_s": 323.38,
+  "num_steps": 26,
+  "api_calls": 27,
+  "input_tokens": 587890,
+  "output_tokens": 16031,
+  "total_tokens": 603921,
+  "cost_usd": 2.67218,
+  "confirmed_cost_usd": 2.67218,
+  "cost_complete": true,
+  "cost_source": "OpenRouter response usage.cost, including judge",
+  "errors": [],
+  "completed": true,
+  "veredicto": {
+    "passou": true,
+    "evidencia": "Heurística | Nota | Justificativa | Evidência (ação e resultado observado)\n1. Visibilidade do estado do sistema | Bom | Aba ativa, formatação e retorno do envio ficam claros. O erro não aparece no próprio campo. | A aba ativa fica destacada em azul nas duas abas. Valor, data, CEP e CPF são formatados já durante a digitação, antes de sair do campo: 150000→R$ 1.500,00, 01021980→01/02/1980, 05508090→05508-090, 52998224725→529.982.247-25. Após o envio aparece o título 'Solicitação registrada' com o ofício. Com erros, as mensagens vermelhas surgem apenas no topo. Comportamento igual em ALUNOS e DOCENTES.\n2. Correspondência com o mundo real | Regular | Termos e formatos são brasileiros, mas o ofício passa um status enganoso. | R$, dd/mm/aaaa, CEP e CPF aparecem no formato nacional, e os rótulos usam termos da USP (N. USP, Programa, Banca). O ofício gerado logo após o envio diz que a 'CCP aprovou na data de hoje' e 'Encaminhe-se ao Serviço Financeiro'. Isso confunde um pedido que acabou de ser enviado com um pedido já aprovado. O ofício é igual nas duas abas, sem Nível/Tipo em DOCENTES.\n3. Controle e liberdade do usuário | Ruim | A troca de aba é segura, mas não há como voltar da confirmação para corrigir o pedido. | Fiz ALUNOS→DOCENTES→ALUNOS e o inverso, e os dados foram preservados nas duas abas. A tela de confirmação não tem botão de voltar, corrigir ou imprimir (0 elementos interativos), e a URL continua '/'. O botão Voltar do navegador levou a about:blank. Ao reabrir a URL, o formulário veio vazio e tudo teve de ser redigitado. O resultado foi o mesmo em ALUNOS e DOCENTES.\n4. Consistência e padrões | Bom | As duas abas têm organização, máscaras, mensagens e confirmação idênticas, com pequenas diferenças. | São os mesmos 3 blocos (Solicitante/Evento, Endereço, Pagamento), as mesmas máscaras, as mesmas 3 mensagens de erro e a mesma confirmação. DOCENTES apenas omite Nível/Tipo. Diferenças observadas: o placeholder do nome é 'Maria da Silva' em ALUNOS e 'João da Silva' em DOCENTES. O rótulo do RG quebra em 2 linhas e desalinha o campo nas duas abas.\n5. Prevenção de erros | Regular | Máscaras e selects ajudam, mas nada orienta antes do envio. | As máscaras dispensam pontuação, e os selects de Nível, Tipo e Apresentação limitam as opções. Porém os placeholders em cinza parecem valores já preenchidos, e não há indicação de campos obrigatórios. E-mail 'joao' e valor 0 só foram recusados no envio. Igual nas duas abas.\n6. Reconhecimento em vez de memorização | Bom | Os rótulos continuam visíveis acima dos campos, mas o exemplo de formato some ao digitar. | Os rótulos em maiúsculas permanecem após o preenchimento, e o rótulo do CPF indica 'separados por pontos e traço'. O formato esperado aparece só no placeholder (ex.: 01/02/1980, R$ 1.500,00) e desaparece ao digitar. Igual nas duas abas.\n7. Flexibilidade e eficiência de uso | Bom | Digitar só dígitos funciona e o foco é visível. A ordem completa do Tab não foi verificada campo a campo. | Digitei só os dígitos em valor, data, CEP e CPF, e eles foram formatados automaticamente. O Shift+Tab devolveu o foco ao campo Agência, com o texto selecionado e foco laranja visível. Dificuldade de execução: o preenchimento foi feito por foco direto em cada campo (automação) e não exclusivamente por Tab, então a ordem do Tab não foi conferida em todos os campos. Mesmo comportamento nas duas abas.\n8. Estética e design minimalista | Bom | O formulário cabe em uma tela, é bem agrupado e não tem distrações. | Em 1366x768 o formulário inteiro fica visível sem rolagem, em 3 blocos claros. Com as mensagens de erro no topo, o botão 'Enviar solicitação' fica parcialmente cortado no rodapé. O RG quebra a linha e desalinha o bloco Pagamento. Igual em ALUNOS e DOCENTES.\n9. Ajuda para reconhecer, diagnosticar e corrigir erros | Ruim | As mensagens não dizem qual campo está errado e os campos não são destacados. | Ao enviar sem nome, com e-mail 'joao' e valor 0, apareceram no topo: 'Preencha todos os campos', 'Valor solicitado deve ser maior que 0' e 'E-mail inválido'. Nenhum campo recebeu borda vermelha. O nome vazio exibe o placeholder cinza ('Maria da Silva' / 'João da Silva'), que parece um valor preenchido, o que dificulta localizar o campo vazio. Não há orientação de como corrigir. Idêntico nas duas abas.\n10. Ajuda e documentação | Regular | Não há instruções na página; a tarefa é concluída apenas pelos rótulos e exemplos. | Procurei ajuda na página e só encontrei rótulos e placeholders, sem texto explicativo, link de ajuda ou instrução de campos obrigatórios. Após o envio, a única orientação é 'Encaminhe-se ao Serviço Financeiro' no ofício. Não há instrução sobre imprimir, salvar ou o que fazer em seguida. Igual nas duas abas.\nDificuldades na execução: a navegação foi feita principalmente por foco direto em cada campo; o Tab/Shift+Tab foi testado pontualmente. Após cada confirmação, o Voltar levou a about:blank e foi preciso reabrir a URL, o que exigiu redigitar todos os dados."
+  },
+  "browser_use_usage": {
+    "total_prompt_tokens": 587890,
+    "total_prompt_cost": 2.35156,
+    "total_prompt_cached_tokens": 0,
+    "total_prompt_cached_cost": 0.0,
+    "total_prompt_cache_creation_tokens": 0,
+    "total_prompt_cache_creation_cost": 0.0,
+    "total_completion_tokens": 16031,
+    "total_completion_cost": 0.32062000000000007,
+    "total_tokens": 603921,
+    "total_cost": 2.67218,
+    "entry_count": 27,
+    "by_model": {
+      "anthropic/claude-opus-5.5": {
+        "model": "anthropic/claude-opus-5.5",
+        "prompt_tokens": 587890,
+        "completion_tokens": 16031,
+        "total_tokens": 603921,
+        "cost": 2.67218,
+        "invocations": 27,
+        "average_tokens_per_invocation": 22367.444444444445
+      }
+    }
+  },
+  "judge_screenshots": 23
+}
