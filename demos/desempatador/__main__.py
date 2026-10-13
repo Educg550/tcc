@@ -1,12 +1,14 @@
 import json
 import random
 import secrets
+import sys
 from pathlib import Path
 
 from flask import Flask, abort, jsonify, request, send_file
 
 GALERIA = Path("runs/galeria").resolve()
-ESTADO = GALERIA / "torneio.json"
+GRUPO = sys.argv[1] if len(sys.argv) > 1 else ""
+ESTADO = GALERIA / f"torneio{GRUPO and '-' + GRUPO}.json"
 TELAS = ("1-alunos.png", "2-docentes.png", "3-oficio.png")
 
 
@@ -96,7 +98,7 @@ if __name__ == "__main__":
     if ESTADO.exists():
         estado.update(json.loads(ESTADO.read_text()))
     else:
-        pastas = sorted(p.name for p in GALERIA.iterdir() if all((p / t).is_file() for t in TELAS))
+        pastas = sorted(p.name for p in GALERIA.iterdir() if p.name.endswith(GRUPO) and all((p / t).is_file() for t in TELAS))
         estado.update(seed=secrets.randbits(32), escolhas=[],
                       candidatos={secrets.token_hex(4): p for p in pastas})
     salvar()
