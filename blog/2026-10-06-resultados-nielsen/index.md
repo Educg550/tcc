@@ -22,12 +22,8 @@ em vez de memorização, 7 flexibilidade e eficiência, 8 estética e design min
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | `deepseek/run44/baseline` | CUA Opus 5.5 | Bom | Regular | Ruim | Bom | Regular | Bom | Excelente | Bom | Regular | Regular |
 | `deepseek/run44/baseline` | Eduardo | Regular | Excelente | Excelente | Excelente | Excelente | Excelente | Excelente | Regular | Ruim | Excelente |
-| `deepseek/run35/baseline` | CUA Opus 5.5 (contestado pelo judge) | Bom | Bom | Ruim | Bom | Bom | Bom | Excelente | Bom | Regular | Regular |
+| `deepseek/run35/baseline` | CUA Opus 5.5 | Bom | Bom | Ruim | Excelente | Regular | Bom | Excelente | Excelente | Ruim | Regular |
 | `deepseek/run35/baseline` | Eduardo | Regular | Excelente | Regular | Bom | Excelente | Excelente | Excelente | Regular | Ruim | Excelente |
-
-As notas da run35 são as que o agente devolveu. O judge do browser-use contestou o
-teste de teclado e a descrição dos ofícios; conferi esses pontos no histórico e nas
-imagens.
 
 ## Finalistas do torneio — Opus 5.5
 
@@ -37,19 +33,18 @@ as dez heurísticas e as duas abas. Não rodei o Cypress de novo.
 
 | Medida | `deepseek/run44/baseline` (campeã) | `deepseek/run35/baseline` (vice) |
 |---|---:|---:|
-| Duração total da sessão | 433,45 s (7min13s) | 320,43 s (5min20s) |
-| Duração do CUA, incluindo judge | 431,66 s | 318,24 s |
-| Passos do agente | 37 de 80 | 27 de 80 |
-| Chamadas à API, incluindo judge | 38 | 28 |
-| Tokens de entrada | 840.420 | 610.456 |
-| Tokens de saída | 18.557 | 14.864 |
-| Tokens totais | 858.977 | 625.320 |
-| Custo confirmado | US$ 3,732820 | US$ 2,739104 |
-| Capturas recebidas pelo judge | 10 (as últimas) | 24 (todas) |
+| Duração total da sessão | 433,45 s (7min13s) | 411,00 s (6min51s) |
+| Duração do CUA, incluindo judge | 431,66 s | 409,61 s |
+| Passos do agente | 37 de 80 | 38 de 80 |
+| Chamadas à API, incluindo judge | 38 | 39 |
+| Tokens de entrada | 840.420 | 921.207 |
+| Tokens de saída | 18.557 | 18.668 |
+| Tokens totais | 858.977 | 939.875 |
+| Custo confirmado | US$ 3,732820 | US$ 4,058188 |
 | Conclusão declarada pelo CUA (`passou`) | `true` | `true` |
-| Veredito do judge | `true` | `false` |
+| Veredito do judge | `true` | `true` |
 
-**Total: US$ 6,471924, 753,88 s (12min34s) e 1.484.297 tokens.** O custo é a soma de
+**Total: US$ 7,791008, 844,45 s (14min4s) e 1.798.852 tokens.** O custo é a soma de
 `usage.cost` das respostas do OpenRouter, incluindo a chamada de judge de cada sessão.
 A duração total inclui a consulta ao catálogo e a subida da aplicação; a duração do
 CUA mede a chamada `Agent.run`, incluindo o judge e o encerramento do navegador.
@@ -98,44 +93,29 @@ ao arquivo preservado, sem alterar o histórico original.
 
 ### `deepseek/run35/baseline`
 
-Nesta sessão, o script passou ao judge todas as capturas, e o navegador usou um perfil
-novo, com navegação restrita à aplicação local.
-
-O judge reconheceu a execução de ALUNOS e DOCENTES. Contestou a fundamentação da
-avaliação por outros motivos: o agente preencheu os campos diretamente, sem testar
-a navegação completa por Tab e Shift+Tab, mas deu Excelente à heurística 7; também
-afirmou que os ofícios eram idênticos, embora assunto e programa sejam diferentes.
-O parecer ainda apontou pouca busca por ajuda.
-
-Conferi o histórico e as capturas das confirmações. Houve **62 ações `input`, seis
-Tab e nenhum Shift+Tab**. O judge disse que havia um único Tab, o que também é
-impreciso; ainda assim, seis usos isolados não demonstram o preenchimento inteiro
-por teclado exigido pelo roteiro. Na captura do passo 13, o ofício de ALUNOS traz
-`Participação em evento` e `Matemática Aplicada - Mestrado`. Na do passo 26, o de
-DOCENTES traz `Verba do programa` e `Matemática Aplicada`. Portanto, a afirmação
-do CUA de que os ofícios eram idênticos contradiz as capturas.
-
-Guardei as notas que o agente devolveu, mas não considero a avaliação integralmente
-validada.
+O judge aceitou a avaliação e considerou as notas sustentadas pelo percurso e pelas
+capturas. Registrou duas ressalvas: o Excelente na heurística 4 é um pouco generoso, e o
+agente disse que o ofício é o mesmo nas duas abas, embora o de DOCENTES traga o assunto
+`Verba do programa` e não traga o nível.
 
 Notas, justificativas e evidências transcritas da saída do CUA:
 
 | Heurística | Nota | Justificativa | Evidência (ação e resultado observado) |
 |---|---|---|---|
-| 1. Visibilidade do estado do sistema | Bom | O estado aparece de forma clara na aba ativa, nas máscaras e na confirmação. O banner de erro, porém, continua na tela depois da correção. | A aba ativa fica mais escura (ALUNOS e DOCENTES). Ao sair dos campos, a formatação é aplicada: 150000→R$ 1.500,00, 01021980→01/02/1980, 05508090→05508-090, 52998224725→529.982.247-25. O envio correto mostra 'Solicitação registrada' com o ofício. Depois de corrigir os campos, o banner rosa continuou visível até o reenvio. O comportamento foi igual nas duas abas. |
-| 2. Correspondência entre o sistema e o mundo real | Bom | Os termos são da USP/CCP e os formatos são brasileiros (R$, dd/mm/aaaa, CEP, CPF). O ofício, porém, tem um trecho ambíguo. | Os rótulos são N. USP, PROGRAMA, banca de exame/defesa, RG/RNM e agência/conta. O ofício fica legível e com os dados formatados. Ele diz 'A CCP aprovou na data de hoje', sem data explícita, o que confunde o pedido com a aprovação. O ofício é idêntico para ALUNOS e DOCENTES e não indica a categoria. Termina com 'Encaminhe-se ao Serviço Financeiro'. |
-| 3. Controle e liberdade do usuário | Ruim | Trocar de aba e corrigir erros preserva os dados. Já para voltar da confirmação e corrigir o pedido não há caminho, e tudo se perde. | ALUNOS→DOCENTES→ALUNOS e DOCENTES→ALUNOS→DOCENTES mantiveram todos os dados. O envio com erros também preservou os demais campos. A página de confirmação não tem nenhum botão ou link (0 elementos interativos) e permanece na mesma URL. O Voltar do navegador levou a about:blank em ALUNOS e também em DOCENTES. Ao reabrir a URL, o formulário voltou vazio, com perda total dos dados. Corrigir o pedido exigiria redigitar tudo. |
-| 4. Consistência e padrões | Bom | As duas abas têm o mesmo layout, as mesmas máscaras, as mesmas mensagens e a mesma confirmação. A única diferença é esperada, e o ofício não distingue a categoria. | Ambas têm 3 blocos (Solicitante e evento, Endereço, Pagamento) e o botão 'Enviar solicitação'. DOCENTES apenas omite NÍVEL e TIPO DE AUXÍLIO. As máscaras e o banner de erro foram idênticos nas duas abas, e o ofício também, sem indicar aluno ou docente. |
-| 5. Prevenção de erros | Bom | As máscaras, os placeholders com exemplo e os selects orientam antes do envio. A validação de e-mail e de valor, porém, só ocorre ao enviar. | As seleções de Nível, Tipo de auxílio e Apresentação são feitas por select. As máscaras de valor, data, CEP e CPF dispensam pontuação manual. O valor 0 foi aceito no campo (virou R$ 0,00) e o e-mail 'joao' também. Os dois só foram barrados no envio, sem aviso ao sair do campo. Os rótulos de CPF/RG pedem 'separados por pontos e traço', mas a máscara já faz isso no CPF. |
-| 6. Reconhecimento em vez de memorização | Bom | Os rótulos permanecem visíveis acima dos campos. O formato de exemplo, porém, está só no placeholder, que some ao digitar. | Durante todo o preenchimento, os rótulos em caixa alta ficaram visíveis. Ao digitar, os placeholders de exemplo desapareceram, e não há legenda fixa com o formato. As máscaras compensam parcialmente. O comportamento foi igual nas duas abas. |
-| 7. Flexibilidade e eficiência de uso | Excelente | O formulário pode ser preenchido inteiro pelo teclado, a ordem do Tab é coerente e não há pontuação manual. | O preenchimento foi feito sequencialmente nas duas abas, seguindo a grade. O Tab após o campo Conta levou o foco ao botão Enviar, com borda de foco visível. Os campos de valor, data, CEP e CPF foram digitados só com dígitos e formatados automaticamente. |
-| 8. Estética e design minimalista | Bom | O formulário inteiro fica visível sem rolagem, agrupado em 3 blocos e sem distrações. Os rótulos, porém, são pequenos e a grade é densa. | Em 1366x768, a página coube sem rolagem nas duas abas. A grade tem até 8 colunas, com rótulos em caixa alta pequena, o que exige atenção na leitura. Não há elementos supérfluos. |
-| 9. Ajuda para reconhecer, diagnosticar e corrigir erros | Regular | As mensagens aparecem, mas são genéricas, e os campos com erro não são destacados. | Ao enviar com nome vazio, e-mail 'joao' e valor 0, apareceu um banner rosa no topo com 'Preencha todos os campos', 'Valor solicitado deve ser maior que 0' e 'E-mail inválido'. A primeira mensagem não indica qual campo está vazio, e nenhum campo ganhou borda ou realce. Foi preciso procurar o campo e interpretar a mensagem. O comportamento foi idêntico em DOCENTES. |
-| 10. Ajuda e documentação | Regular | Não há orientações além dos placeholders e rótulos, nem instruções sobre o que fazer após o envio. | A página não tem texto de ajuda, legenda ou link de instruções, e não encontrei ajuda ao surgir a dúvida sobre o erro. A única orientação pós-envio é a frase final do ofício, 'Encaminhe-se ao Serviço Financeiro'. Ela não diz se o usuário deve imprimir, salvar ou aguardar. O comportamento foi igual nas duas abas. |
+| 1. Visibilidade do estado do sistema | Bom | A aba ativa e as máscaras são claras, mas o erro antigo não acompanha as correções e a confirmação é ambígua. | A aba ativa aparece em azul escuro nas duas abas e o foco é visível no Tab. Ao sair dos campos, valor, data, CEP e CPF são formatados (150000→R$ 1.500,00; 01021980→01/02/1980; 05508090→05508-090; 52998224725→529.982.247-25). Após corrigir os campos, o banner vermelho continua visível até o novo envio. A confirmação 'Solicitação registrada' aparece com o ofício. A URL fica sempre em '/'. Comportamento igual em ALUNOS e DOCENTES. |
+| 2. Correspondência com o mundo real | Bom | Os termos e formatos são brasileiros e institucionais, mas o ofício e o exemplo de período confundem. | Os rótulos usam o vocabulário da USP (N. USP, Programa, Banca). Valor em R$ com vírgula, CPF, CEP e data em dd/mm/aaaa. O placeholder do período ('10 a 14 de julho de 2024') difere do formato usado (10/03/2026 a 14/03/2026). O ofício afirma que a 'CCP aprovou na data de hoje' para um pedido recém-enviado e diz 'Encaminhe-se ao Serviço Financeiro'. Igual nas duas abas. |
+| 3. Controle e liberdade do usuário | Ruim | Não é possível voltar da confirmação para corrigir o pedido, e os dados se perdem. | A troca de aba preserva os dados (ALUNOS→DOCENTES→ALUNOS e DOCENTES→ALUNOS→DOCENTES). Após um envio com erro, os dados também são preservados. A tela de confirmação não tem nenhum botão ou link (0 elementos interativos). O Voltar do navegador leva a about:blank. Ao reabrir a URL, o formulário vem vazio e na aba ALUNOS, perdendo o pedido inteiro. Igual nas duas abas. |
+| 4. Consistência e padrões | Excelente | As duas abas têm a mesma organização, aparência e comportamento. | Ambas têm três blocos, os mesmos rótulos e placeholders, as mesmas máscaras, o mesmo banner de erro e o mesmo ofício. Diferença coerente: DOCENTES não tem Nível nem Tipo de auxílio, e sua primeira linha fica com 8 campos. |
+| 5. Prevenção de erros | Regular | Há máscaras, selects e exemplos, mas nada valida antes do envio e o valor é ambíguo. | Os selects (Nível, Tipo, Apresentação) evitam erros de digitação, e as máscaras são aplicadas ao sair dos campos. O placeholder do valor é '1500', mas os dígitos são lidos como centavos (150000→R$ 1.500,00). O e-mail 'joao' e o valor 0 só são acusados após clicar em Enviar. Os rótulos de CPF e RG pedem pontos e traço, mas o CPF aceita só dígitos. Igual nas duas abas. |
+| 6. Reconhecimento em vez de memorização | Bom | Os rótulos ficam sempre visíveis, mas o formato esperado some ao digitar. | Os rótulos em caixa alta ficam acima dos campos e continuam visíveis após o preenchimento. O formato esperado existe apenas no placeholder, que desaparece quando se digita. Não há texto de ajuda fixo. Igual nas duas abas. |
+| 7. Flexibilidade e eficiência de uso | Excelente | Todo o preenchimento foi possível pelo teclado, sem pontuação manual. | Os dois formulários completos foram preenchidos com Tab e Shift+Tab. A ordem do Tab segue o layout em linhas. Os selects aceitam a letra inicial (M=Mestrado, P=Participação/Pôster). Valor, data, CEP e CPF foram digitados só com dígitos. |
+| 8. Estética e design minimalista | Excelente | O formulário cabe inteiro na tela, bem agrupado e sem distrações. | Em 1366x768, os três blocos e o botão Enviar ficam visíveis sem rolagem nas duas abas. Os blocos têm títulos claros e não há elementos supérfluos. Os rótulos são pequenos e alguns textos ficam truncados (nome do evento, logradouro), uma ressalva menor. |
+| 9. Ajuda para reconhecer e corrigir erros | Ruim | As mensagens são genéricas e não localizam os campos com problema. | Ao enviar sem nome, com e-mail 'joao' e valor 0, aparece um banner vermelho no topo: 'Preencha todos os campos', 'Valor solicitado deve ser maior que 0', 'E-mail inválido'. A mensagem não diz qual campo está vazio, nenhum campo é destacado (sem borda ou ícone) e não há orientação de como corrigir. O banner persiste após a correção. Igual nas duas abas. |
+| 10. Ajuda e documentação | Regular | Só existem placeholders, e nada explica o que acontece após o envio. | Não há link, ícone ou texto de ajuda na página. As orientações se limitam aos placeholders e às instruções nos rótulos (ex.: 'separados por pontos e traço'). Após o envio, a única instrução é 'Encaminhe-se ao Serviço Financeiro', sem dizer como imprimir, salvar ou corrigir o pedido. |
 
-Dificuldades na execução: o percurso completo foi feito nas duas abas na mesma sessão. A confirmação usa a mesma URL do formulário e não cria entrada utilizável no histórico, por isso o Voltar levou a about:blank. Pode ser que a sessão tenha começado sem histórico anterior, mas a interface também não oferece um caminho próprio de volta. Para iniciar DOCENTES, foi necessário reabrir a URL, e os dados de ALUNOS se perderam.
+Dificuldades na execução: não houve caminho pela interface para voltar da confirmação. Tentei o Voltar do navegador, que levou a about:blank, e reabri a URL, que trouxe o formulário vazio nas duas abas.
 
-Artefatos em `demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-reexecucao-20261011T180723Z/`: `resultado.json`, `relatorio.md`, `api-usage.jsonl`,
+Artefatos em `demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261013T193004Z/`: `resultado.json`, `relatorio.md`, `api-usage.jsonl`,
 `history.json`, `judge.json`, `capturas.json`, `screenshots/`, `prompt.md`,
 `model.json` e `executar.py`.
 
@@ -180,13 +160,12 @@ verificava os critérios, com os ofícios gerados, estão em
 
 ### Comparação com o CUA
 
-Minhas notas coincidem com as do CUA em 1 das 10 heurísticas na run44. Na run35, coincidem
-em 2. A 7 (Excelente) é a única em que
-todos concordam. Fui mais severo nas heurísticas 1, 8 e 9 e mais generoso nas 2, 3, 5,
-6 e 10, nas duas runs.
+Minhas notas coincidem com as do CUA em 1 das 10 heurísticas na run44 e em 2 na run35. A 7
+(Excelente) é a única em que todos concordam. Fui mais severo nas heurísticas 1 e 8 e mais
+generoso nas 2, 3, 5, 6 e 10, nas duas runs.
 
-- **9.** Vimos a mesma falha: a mensagem genérica que não aponta o campo. Dei Ruim, e o
-  CUA deu Regular nas duas runs. Também usei essa falha para baixar a heurística 1.
+- **9.** Vimos a mesma falha: a mensagem genérica que não aponta o campo. Dei Ruim nas duas
+  runs; o CUA deu Regular na run44 e Ruim na run35. Também usei essa falha para baixar a heurística 1.
 - **8.** Na run44, nós dois registramos a rolagem até o botão de envio. Dei Regular, e o
   CUA deu Bom. Na run35, as caixas desalinhadas que me levaram a Regular não aparecem
   nas justificativas do CUA.
@@ -196,9 +175,11 @@ todos concordam. Fui mais severo nas heurísticas 1, 8 e 9 e mais generoso nas 2
   para corrigir o pedido e não achou caminho, o que lhe rendeu Ruim nas duas runs.
   Minhas justificativas não tratam desse caminho.
 - **2 e 5.** O CUA apontou problemas de texto que minhas justificativas não citam: o
-  ofício diz que a CCP "aprovou" um pedido recém-enviado (nas duas runs), e o exemplo de
-  CPF não tem a pontuação que o rótulo pede (run44).
+  ofício diz que a CCP "aprovou" um pedido recém-enviado (nas duas runs), o exemplo de
+  CPF não tem a pontuação que o rótulo pede (run44) e o placeholder `1500` fica num campo
+  que trata os dígitos como centavos (run35).
 
 Entre as finalistas, minhas notas põem a run44 acima da run35 nas heurísticas 3 e 4 e
 as empatam nas demais, o que acompanha o resultado do torneio. As do CUA vão no
-sentido oposto: a run35 fica acima nas heurísticas 2 e 5, com empate nas demais.
+sentido oposto: a run35 fica acima nas heurísticas 2, 4 e 8, a run44 fica acima na 9, e as demais
+empatam.

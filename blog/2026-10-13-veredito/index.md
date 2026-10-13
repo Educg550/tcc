@@ -24,10 +24,11 @@ notas estão no [post dos resultados](/blog/resultados-nielsen).
 | Avaliador | run44 melhor | run35 melhor | Empate |
 |---|---|---|---|
 | Eduardo | 2 (heurísticas 3 e 4) | 0 | 8 |
-| CUA | 0 | 2 (heurísticas 2 e 5) | 8 |
+| CUA | 1 (heurística 9) | 3 (heurísticas 2, 4 e 8) | 6 |
 
-Eu ponho a run44 na frente em duas heurísticas, o CUA põe a run35 em outras duas, e o
-resto empata. Na prática, a avaliação Nielsen não separa as duas.
+Eu ponho a run44 na frente em duas heurísticas. O CUA põe a run35 na frente em três e a
+run44 em uma. Os dois avaliadores apontam para lados opostos, e na prática a avaliação
+Nielsen não separa as duas.
 
 ## Abas e seções
 
