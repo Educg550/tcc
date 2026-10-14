@@ -30,7 +30,7 @@ subir() {
 
     # bases do build não ficam no image store; o digest vem do log, e o que não foi reconstruído mantém o registro anterior
     {
-        grep -oE 'FROM docker.io/[^ ]+@sha256:[0-9a-f]+' "$log" | cut -d' ' -f2
+        sed -nE 's/.*FROM (docker\.io\/[^ ]+@sha256:[0-9a-f]+).*/\1/p' "$log"
         docker image inspect --format '{{index .RepoDigests 0}}' redis rnwood/smtp4dev alpine
         cat ../demos/caronte/imagens.txt
     } | sort -s -u -t@ -k1,1 > "$log.imagens"
