@@ -4,5 +4,5 @@ set -euo pipefail
 porta="${4:-8000}"
 cd "$(dirname "$0")/runs/batch/${3:-deepseek}/run${1:?informe o numero da run}/${2:?informe o grupo: baseline ou tdd}"
 echo "http://localhost:$porta"
-exec uv run --isolated --no-project --python 3.11 --with pytest --with "fastapi[standard]" \
+exec uv run --isolated --no-project --python 3.11 --with pytest==9.1.1 --with "fastapi[standard]==0.143.1" \
   uvicorn app:app --host 127.0.0.1 --port "$porta"

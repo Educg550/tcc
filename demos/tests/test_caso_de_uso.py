@@ -64,7 +64,7 @@ def test_modelo_de_caso_de_uso_e_input_valido():
 
 
 def test_criterios_do_modelo_e_do_caso_01():
-    for diretorio in (MODELO, REQUISITOS / "01-formulario-docentes"):
+    for diretorio in (MODELO, REQUISITOS / "01-formulario-docentes-glm"):
         criterios = Requisito(diretorio).criterios
 
         assert criterios, diretorio
@@ -77,7 +77,7 @@ def test_criterios_do_modelo_e_do_caso_01():
 
 
 def test_prompt_da_sessao_nao_deixa_placeholder():
-    criterio = Requisito(REQUISITOS / "01-formulario-docentes").criterios[0]
+    criterio = Requisito(REQUISITOS / "01-formulario-docentes-glm").criterios[0]
 
     prompt = load("cua_task").format(
         base_url="http://localhost:1234",
