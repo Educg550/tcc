@@ -1,0 +1,48 @@
+<form-builder
+  data-schema-url="{{ url_for('static', filename='schema/form.schema.json') }}"
+  data-initial-value='{{ existing_form | tojson if existing_form else "null" }}'
+  data-i18n='{{ {
+    'titlePt':        _('Title (PT)'),
+    'titleEn':        _('Title (EN)'),
+    'descriptionPt':  _('Description (PT)'),
+    'descriptionEn':  _('Description (EN)'),
+    'addTag':         _('Add Tag'),
+    'key':            _('Key'),
+    'value':          _('Value'),
+    'deleteTag':      _('Remove Tag'),
+    'addSection':     _('Add Section'),
+    'deleteSection':  _('Delete Section'),
+    'moveUp':         _('Move Up'),
+    'moveDown':       _('Move Down'),
+    'sectionTitlePt': _('Section Title (PT)'),
+    'sectionTitleEn': _('Section Title (EN)'),
+    'sectionDescPt':  _('Section Description (PT)'),
+    'sectionDescEn':  _('Section Description (EN)'),
+    'addField':       _('Add Field'),
+    'confirmAddField':_('Add'),
+    'deleteField':    _('Delete Field'),
+    'fieldLabelPt':   _('Label (PT)'),
+    'fieldLabelEn':   _('Label (EN)'),
+    'fieldRequired':  _('Required'),
+    'fieldDisabled':  _('Disabled'),
+    'fieldPlaceholder': _('Placeholder'),
+    'fieldValidation': _('Validation'),
+    'fieldPrefix':    _('Prefix'),
+    'fieldDescPt':    _('Description (PT)'),
+    'fieldDescEn':    _('Description (EN)'),
+    'fieldErrorPt':   _('Error Message (PT)'),
+    'fieldErrorEn':   _('Error Message (EN)'),
+    'fieldPosition':  _('Position'),
+    'expandConfig':   _('Configure'),
+    'collapseConfig': _('Close'),
+    'addOption':      _('Add Option'),
+    'deleteOption':   _('Delete Option'),
+    'optionValuePt':  _('Option Value (PT)'),
+    'optionValueEn':  _('Option Value (EN)')
+  } | tojson }}'
+>
+  <div id="builder-form-fields"></div>
+  <div id="builder-tags"></div>
+  <div id="builder-sections"></div>
+  <button data-add-section id="delete-section-button" type="button">{{ _("Add Section") }}</button>
+</form-builder>

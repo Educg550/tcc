@@ -1,0 +1,224 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.postgres
+    restart: always
+    ports:
+      - '8084:5432'
+    volumes:
+      - ${DOCKER_DATA_PATH}/postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_ADMIN_USER}
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD}
+      POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --locale=pt_BR.utf8'
+    env_file:
+      - ./.env
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d postgres -t 1']
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+    networks:
+      - shared_network
+
+  prejanus-back:
+    user: 'appuser'
+    build:
+      context: ./prejanus-back
+      dockerfile: docker/Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - '8083:8000'
+    volumes:
+      - ./prejanus-back/src/infra/database/migrations/versions:/home/appuser/src/infra/database/migrations/versions
+      - ${DOCKER_DATA_PATH}/shared_uploads:/shared/uploads
+      - ${DOCKER_DATA_PATH}/shared_tmp:/shared/tmp
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      bash -c "alembic upgrade head && 
+      uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload"
+    deploy:
+      resources:
+        limits:
+          memory: 350M
+    networks:
+      - shared_network
+
+  prejanus-front:
+    build:
+      context: ./prejanus-front
+      dockerfile: docker/Dockerfile
+    env_file:
+      - ./.env
+    environment:
+      NODE_ENV: production
+    ports:
+      - '3000'
+    depends_on:
+      - prejanus-back
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+    networks:
+      - shared_network
+
+  forms:
+    build:
+      context: ./forms
+      dockerfile: docker/Dockerfile
+    image: infra-forms-web
+    container_name: infra-forms
+    user: 'appuser'
+    restart: unless-stopped
+    ports:
+      - '5000'
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'python3 -c "import urllib.request; urllib.request.urlopen(\"http://localhost:5000\")" || exit 1']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+      # - ./docker/logs:/src/logs
+      - ${DOCKER_DATA_PATH}/clamd_socket:/run/clamav
+      - ${DOCKER_DATA_PATH}/shared_tmp:/shared/tmp
+      - ${DOCKER_DATA_PATH}/shared_uploads:/shared/uploads
+    entrypoint:
+      ['gunicorn', 'app:create_app()', '-w', '3', '-b', '0.0.0.0:5000']
+    deploy:
+      resources:
+        limits:
+          memory: 350M
+    networks:
+      - shared_network
+
+  celery-worker:
+    image: infra-forms-web
+    container_name: celery-worker
+    entrypoint:
+      [
+        'celery',
+        '-A',
+        'app.tasks',
+        'worker',
+        '--beat',
+        '--loglevel=info',
+        '--concurrency=1',
+      ]
+    user: 'appuser'
+    volumes:
+      - ${DOCKER_DATA_PATH}/shared_uploads:/shared/uploads
+    depends_on:
+      - redis
+      - forms
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+    networks:
+      - shared_network
+
+  smtp:
+    image: rnwood/smtp4dev
+    restart: always
+    ports:
+      - '8080:80' # web interface
+      - '25' # SMTP server
+      - '143' # IMAP server
+    environment:
+      - ServerOptions__Urls=http://*:80
+      - ServerOptions__HostName=smtp4dev
+      - ServerOptions__BasePath=/smtp4dev
+    profiles: [develop]
+    networks:
+      - shared_network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  nginx:
+    build:
+      dockerfile: ./docker/nginx/Dockerfile.nginx
+      context: .
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+    ports:
+      - '80:80'
+    volumes:
+      - ./static-assets:/usr/share/nginx/static-assets:ro
+    networks:
+      - shared_network
+    depends_on:
+      forms:
+        condition: service_healthy
+      prejanus-front:
+        condition: service_started
+
+  redis:
+    image: redis
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - ${DOCKER_DATA_PATH}/redis_cache:/data
+    healthcheck:
+      test: ['CMD-SHELL', 'redis-cli ping | grep PONG']
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+    networks:
+      - shared_network
+
+  clamav:
+    container_name: clamav
+    build:
+      dockerfile: ./docker/Dockerfile.clamav
+      context: .
+    restart: unless-stopped
+    profiles: [clamav]
+    volumes:
+      - ${DOCKER_DATA_PATH}/shared_tmp:/shared/tmp
+      - ${DOCKER_DATA_PATH}/clamd_socket:/run/clamav
+      - ./docker/clamd.conf:/etc/clamav/clamd.conf
+      - ./docker/freshclam.conf:/etc/clamav/freshclam.conf
+    entrypoint: ['/entrypoint.sh']
+    networks:
+      - shared_network
+    healthcheck:
+      test: ['CMD-SHELL', 'clamdscan --version || exit 1']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+networks:
+  shared_network:
+    name: shared_network
+    driver: bridge

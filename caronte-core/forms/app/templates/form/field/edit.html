@@ -1,0 +1,51 @@
+{% import "helpers/forms.html" as forms %}
+{% block head %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+<form action="{{url_for('form.field_edit', **request.view_args)}}" method="post" id="{{token}}">
+
+<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+<h3>{{ _("Rótulo") }}</h3>
+<table>
+{% for key, value in field_data["label"].items() %}
+    <tr>
+        <th style="vertical-align:top; padding-top: 12px;" scope="row">{{key}}</th>
+        <td>
+            {{ forms.load_field(
+                { "0": value }, 
+                { "type": "Text", "name": "label." ~ key, "position": 0 }) 
+            }}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+<h3>{{ _("Descrição") }}</h3>
+<table>
+{% for key, value in field_data["description"].items() %}
+    <tr>
+        <th style="vertical-align:top; padding-top: 12px;" scope="row">{{key}}</th>
+        <td style="width: 100%;">
+            {{ forms.load_field(
+                { "0": value }, 
+                { "type": "LongText", "name": "description." ~ key, "position": 0 }) 
+            }}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+
+<div class="form__field form__field--button">
+    <button>
+        <p class="button__text">
+            {{ _("Editar") }}
+        </p>
+    </button>
+</div>
+
+</form>

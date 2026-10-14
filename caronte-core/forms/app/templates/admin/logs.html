@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Logs") }}{% endblock %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+
+<main class="container-wrapper">
+<pre id="output"></pre>
+</main>
+
+<script>
+    const loadLogs = () => {
+        fetch("{{ url_for('api.logs') }}")
+            .then(response => {
+                const elem = document.getElementById('output')
+                elem.textContent = ""
+                const reader = response.body.getReader()
+                const readStream = ({ done,value }) => {
+                    if (done) return
+                    let chunk = String.fromCharCode.apply(null, value)
+                    elem.textContent += chunk + '\n'
+                    return reader.read().then(readStream)
+                }
+                reader.read().then(readStream)
+            })
+    }
+
+    setInterval(loadLogs, 10000)
+    loadLogs()
+</script>
+
+{% endblock %}

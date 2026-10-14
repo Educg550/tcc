@@ -1,0 +1,89 @@
+{% import "helpers/forms.html" as forms %}
+
+{% if not popup_mode %}
+
+{% extends "base.html" %}
+{% block title %}{{ _("Formulário") }}{% endblock %}
+{% block og_title %}{{form.title}}{% endblock %}
+{% block head %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% endif %}
+
+{% block content %}
+
+<main class="container-wrapper">
+
+	{% if form.title %}<h1>{{form.title}}</h1>{% endif %}
+
+	{% if form.description %}<markdown-text>{{form.description|striptags|e}}</markdown-text>{% endif %}
+
+    {% if form.title_section %}<h3>{{form.title_section}}</h3>{% endif %}
+
+	{% if form.description_section %}<markdown-text>{{form.description_section|striptags|e}}</markdown-text>{% endif %}
+
+	<form method="post" id="{{token}}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        
+        {% for field in form.fields %}
+            {{ forms.load_field(entry, field) }}
+        {% endfor %}
+
+        <div class="form__field form__field--button">
+            {% if section_pos > 0 %}
+                <button name="back" class="secondary" formNoValidate>
+                    <p class="button__text">
+                        {{ _("Voltar") }}
+                    </p>
+                    <svg width="16" height="16" class="button__spinner" style="display: none">
+                        <use xlink:href="#icon-loading"></use>
+                    </svg>
+                </button>
+            {% endif %}
+
+            {% if section_pos < total %}
+                <button name="next" class="secondary">
+                    <p class="button__text">
+                        {{ _("Próximo") }}
+                    </p>
+                    <svg width="16" height="16" class="button__spinner" style="display: none">
+                        <use xlink:href="#icon-loading"></use>
+                    </svg>
+                </button>
+            {% endif %}
+
+            {% if section_pos >= total %}
+                <button>
+                    <p class="button__text">
+                        {{ _("Enviar") }}
+                    </p>
+                    <svg width="16" height="16" class="button__spinner" style="display: none">
+                        <use xlink:href="#icon-loading"></use>
+                    </svg>
+                </button>
+            {% endif %}
+        </div>
+	<form>
+</main>
+
+{{ forms.scripts(token) }}
+
+<!--
+<div class="center form__field form__field--radio">
+    <div>
+        <input type="radio" id="type_text" name="form_type" value="type_text" checked />
+        <label for="type_text">Texto</label>
+    </div>
+
+    <div>
+        <input type="radio" id="type_pdf" name="form_type" value="type_pdf" />
+        <label for="type_pdf">PDF</label>
+    </div>
+</div>-->
+    
+{% endblock %}
+

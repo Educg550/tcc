@@ -1,0 +1,185 @@
+.tab-bar {
+	display: flex;
+	gap: 0;
+	margin-bottom: 1rem;
+}
+
+.tab-btn {
+	background: none;
+	border: none;
+	border-bottom: 2px solid transparent;
+	margin-bottom: -1px;
+	padding: 0.5rem 1.25rem;
+	cursor: pointer;
+	font-size: var(--body-font-size);
+	color: var(--medium-emphasis-color);
+	transition:
+		color 0.15s ease,
+		border-color 0.15s ease;
+
+	&:hover {
+		color: var(--high-emphasis-color);
+	}
+
+	&--active {
+		border-bottom-color: light-dark(
+			var(--primary-color),
+			var(--high-emphasis-color)
+		);
+		color: light-dark(var(--primary-color), var(--high-emphasis-color));
+		font-weight: var(--semi-bold-font);
+	}
+}
+
+#builder-form-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	margin-bottom: 1rem;
+}
+
+.fields-container {
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	padding: 0.75rem;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.builder-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+
+	label {
+		font-size: var(--body2-font-size);
+		color: var(--medium-emphasis-color);
+	}
+}
+
+#builder-tags {
+	margin-bottom: 1rem;
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0.5rem 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	li {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+	}
+}
+
+#builder-form-fields input[type='text'],
+#builder-form-fields textarea,
+#builder-tags input[type='text'],
+#builder-sections input[type='text'] {
+	--input-radius: 16px;
+	background: var(--surface-color--variant);
+	border: 1px solid var(--border-color);
+	border-radius: var(--input-radius);
+	padding: 10px 16px;
+	color: var(--high-emphasis-color);
+	font-size: var(--body-font-size);
+	outline: 3px solid transparent;
+	transition:
+		outline-color 0.15s ease,
+		border-color 0.15s ease;
+
+	&:focus {
+		outline-color: var(--primary-color--variant);
+		border-color: var(--border-color--variant);
+	}
+}
+
+#builder-tags button,
+#builder-sections button,
+#delete-section-button {
+	padding: 10px 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: opacity 0.15s ease;
+
+	&:hover {
+		opacity: 0.85;
+	}
+
+	&:focus {
+		border-color: var(--border-color--variant);
+		outline: 3px solid var(--primary-color--variant);
+	}
+}
+
+[data-field-config] {
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	padding: 0.75rem;
+	gap: 10px;
+	display: flex;
+	flex-direction: column;
+
+	> div {
+		display: grid;
+		grid-template-columns: 150px 1fr;
+		align-items: center;
+		gap: 8px;
+	}
+}
+
+#builder-sections {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-bottom: 1rem;
+	width: 100%;
+}
+
+#add-section-button {
+	min-width: 100%;
+}
+
+.section-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 0.75rem;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+}
+
+.field-options-buttons {
+	display: flex;
+	flex-direction: row;
+}
+
+.field-card {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.field-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.field-option-buttons,
+.section-buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}
+
+.preview-checkboxes {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}

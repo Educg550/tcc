@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta 
+        name="viewport" 
+        content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content"
+    />
+    
+    <title>{% block title required %}{% endblock %}</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.bundle.min.css') }}">
+    <link rel="stylesheet" media="(max-width: 650px)" href="{{ url_for('static', filename='mobile.bundle.min.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+    <meta name="description" content="">
+
+    <meta property="og:url" content="{{ app_url }}{{ request.full_path }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{% block og_title %}Formulários IME-USP{% endblock %}" />
+    <meta property="og:description" content="" />
+    <meta property="og:locale" content="{{ lang }}" />
+    <meta property="og:image" content="{{ url_for('static', filename='images/og_image.png', _external=True) }}" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="logo" />
+
+    <style>
+        html[data-theme="dark"] {
+            color-scheme: dark;
+        }
+        html[data-theme="light"] {
+            color-scheme: light;
+        }
+    </style>
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div style="display: none;">
+        {% include 'icons.html' %}
+    </div>
+    
+    <content>
+        <nav class="navigation navigation__header">
+            <div></div>
+            <header class="container-wrapper">
+                <a aria-label="{{ _('Redirecionar para a página inicial') }}" href="{{url_for('pages.index')}}">
+                <picture>
+                    <source srcset="{{ url_for('static', filename='images/logo-mobile-black.svg') }}" media="(max-width: 650px) and (prefers-color-scheme: dark)">
+                    <source srcset="{{ url_for('static', filename='images/logo-mobile-white.svg') }}" media="(max-width: 650px) and (prefers-color-scheme: light)">
+                    <source srcset="{{ url_for('static', filename='images/logo-black.svg') }}" media="(prefers-color-scheme: dark)">
+                    <img width="100%" src="{{ url_for('static', filename='images/logo-white.svg') }}" alt="logo">
+                </picture>
+                </a>
+            </header>
+            <div data-dropdown class="menu__icons dropdown">
+                {% if user %}
+                    <div id="menu_clicker" class="lessicon">
+                        <svg width="19" height="19">
+                            <use xlink:href="#icon-dot-grid"></use>
+                        </svg>
+                    </div>
+
+                    <div id="menu" class="dropdown__element disabled" style="display: none;">
+                        <a href="{{url_for('pages.profile')}}" class="dropdown__item lessicon">
+                            <svg width="19" height="19">
+                                <use xlink:href="#icon-user"></use>
+                            </svg>
+                            <p class="bold">{{ _("Perfil") }}</p>
+                        </a>
+                        <a href="{{url_for('form.forms')}}" class="dropdown__item lessicon">
+                            <svg width="19" height="19">
+                                <use xlink:href="#icon-admin"></use>
+                            </svg>
+                            <p class="bold">{{ _("Formulários") }}</p>
+                        </a>
+                        {% if user["roleApplication"] == "administrator" %}
+                            <a href="{{url_for('admin.logs')}}" class="dropdown__item lessicon">
+                                <svg width="19" height="19">
+                                    <use xlink:href="#icon-log"></use>
+                                </svg>
+                                <p class="bold">{{ _("Logs") }}</p>
+                            </a>
+                            <a href="{{url_for('admin.scripts')}}" class="dropdown__item lessicon">
+                                <svg width="19" height="19">
+                                    <use xlink:href="#icon-doc-code"></use>
+                                </svg>
+                                <p class="bold">{{ _("Scripts") }}</p>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+
+        {% block content %}{% endblock %}
+    </content>
+
+    <message-info></message-info>
+
+    <footer class="hero">
+        <div data-dropdown class="menu__icons dropdown">
+            <div id="menu_clicker" title="Ajuda" style="cursor: pointer;">
+                <svg width="19" height="19">
+                    <use xlink:href="#icon-info"></use>
+                </svg>
+            </div>
+
+            <div id="menu" class="dropdown__element dropdown__element--left dropdown__element--bottom disabled" style="display: none;">
+                <a target="_blank" href="{{ url_for('pages.about') }}" style="display: flex;align-items: center;justify-content: center;gap: 24px;">
+                    <svg width="19" height="19">
+                        <use xlink:href="#icon-users"></use>
+                    </svg>
+                    <p class="bold">{{ _("Sobre nós") }}</p>
+                </a>
+                <a target="_blank" href="mailto:poscomp-sistema@ime.usp.br?subject=Ajuda no sistema de formulários Caronte IME-USP" style="display: flex;align-items: center;justify-content: center;gap: 24px;">
+                    <svg width="19" height="19">
+                        <use xlink:href="#icon-main""></use>
+                    </svg>
+                    <p class="bold">{{ _("Entre em contato") }}</p>
+                </a>
+            </div>
+        </div>
+        <p>
+            {{ _("Formulários Caronte IME-USP") }} | <a target="_blank" class="land__link" href="https://gitlab.com/ccsl-usp/poscomp-ime/caronte">{{ _("Software livre") }}</a>
+        </p>
+        <div class="toolbar">
+            {% set args = request.view_args or {} %}
+            {% if request.endpoint %}
+            <form id="langForm" method="get">
+                <div class="form__field--select">
+                    <select class="small" onchange="window.location.href=this.value">
+                        <option value="{{ url_for(request.endpoint, lang_code='pt', **args) }}"
+                                {% if lang == 'pt' %}selected{% endif %}>
+                        🇧🇷 Português
+                        </option>
+                        <option value="{{ url_for(request.endpoint, lang_code='en', **args) }}"
+                                {% if lang == 'en' %}selected{% endif %}>
+                        🇬🇧 English
+                        </option>
+                    </select>
+                </div>
+            </form>
+            {% endif %}
+            <button class="small icon" id="toggleTheme">🌙</button>
+        </div>
+    </footer>
+
+    <script defer src="{{ url_for('static', filename='bundle.min.js') }}"></script>
+
+    <script>
+        if ("virtualKeyboard" in navigator) {
+            navigator.virtualKeyboard.overlaysContent = true
+        }
+
+        window.onload = function() {
+            // error messages flash()
+            const message = document.querySelector('message-info');
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                    message.addMessageInfo({ description: "{{ message }}", type: "{{ category }}" });
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        };
+
+        const button = document.getElementById('toggleTheme');
+        const html = document.documentElement;
+
+        let theme = localStorage.getItem('theme') || 'auto';
+        html.dataset.theme = theme;
+
+        button.addEventListener('click', () => {
+            theme = theme === 'light' ? 'dark' : theme === 'dark' ? 'auto' : 'light';
+            html.dataset.theme = theme;
+            localStorage.setItem('theme', theme);
+            updateButton();
+        });
+
+        function updateButton() {
+            button.textContent = theme === 'dark'
+                ? '☀️'
+                : theme === 'light'
+                ? '🌓'
+                : '🌙';
+            button.title = theme === 'dark'
+                ? 'Claro'
+                : theme === 'light'
+                ? 'Automático'
+                : 'Escuro';
+        }
+
+        updateButton();
+    </script>
+</body>
+</html>

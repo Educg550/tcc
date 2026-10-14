@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}401{% endblock %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-center">
+    <h1 class="bigger">401</h1>
+
+    <p>{{ message }}</p>
+
+    <p>{{ _("Você está sendo direcionado para a área de login.") }}</p>
+    
+    <p>
+        {% autoescape false %}
+        {{ 
+            _(
+                "Se o redirecionamento não acontecer automaticamente em alguns segundos, %(start_tag)sclique aqui para acessar o login%(end_tag)s.", 
+                start_tag="<a aria-label='Redirecionar para a página de login' id='redirect' href='%s'>" % url_for('pages.login', callback_url=request.url_rule.endpoint, **request.view_args) | striptags | escape, 
+                end_tag="</a>"
+            ) 
+        }}
+        {% endautoescape %}
+    </p>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById("redirect").click()
+        }, 5 * 1000)
+    </script>
+</div>
+
+{% endblock %}
+

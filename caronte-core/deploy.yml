@@ -1,0 +1,141 @@
+---
+- name: Deploy aplicação (Modo Staging / Dev Bypass)
+  hosts: all
+  become: true
+
+  vars:
+    app_dir: /home/caronte/caronte-core
+    repo_url: https://gitlab.com/ccsl-usp/poscomp-ime/caronte/caronte-core.git
+    branch: dev
+    dev_email: 'dev@example.com'
+    dev_name: 'Dev User'
+    dev_nusp: '0000000'
+    # Pega o valor enviado pelo CI/CD do GitLab ou usa um padrao se nao for enviado
+    domain_url: "{{ staging_domain_url | default('http://localhost') }}"
+
+  tasks:
+    - name: Extrair host (domain) a partir da URL
+      ansible.builtin.set_fact:
+        domain_host:
+          "{{ domain_url | regex_replace('^https?://', '') |
+          regex_replace('/.*$', '') }}"
+
+    - name: Instalar dependências do sistema
+      apt:
+        name:
+          - git
+          - docker-compose-plugin
+          - nodejs
+          - npm
+        state: present
+        update_cache: true
+
+    - name: Clonar ou atualizar repositório
+      git:
+        repo: '{{ repo_url }}'
+        dest: '{{ app_dir }}'
+        version: '{{ branch }}'
+        update: true
+        force: true
+
+    - name: Garantir existência dos arquivos .env no projeto
+      ansible.builtin.copy:
+        src: '{{ app_dir }}/{{ item }}/.env.example'
+        dest: '{{ app_dir }}/{{ item }}/.env'
+        remote_src: true
+        force: false # Preserva as configurações de .env já editadas
+      loop:
+        - '.' # Root .env
+        - 'forms'
+        - 'prejanus-back'
+        - 'prejanus-front'
+
+    - name: Atualizar URLs de localhost para o domínio configurado nos .env
+      ansible.builtin.replace:
+        path: '{{ app_dir }}/{{ item }}/.env'
+        regexp: 'http://localhost'
+        replace: '{{ domain_url }}'
+      loop:
+        - '.'
+        - 'forms'
+        - 'prejanus-back'
+        - 'prejanus-front'
+
+    - name: Ajustar localhost remanescentes nos .env
+      ansible.builtin.replace:
+        path: '{{ app_dir }}/{{ item }}/.env'
+        regexp: 'localhost(?!:5432)' # Evita alterar a conexão do banco docker internal (db:5432)
+        replace: '{{ domain_host }}'
+      loop:
+        - '.'
+        - 'forms'
+        - 'prejanus-back'
+        - 'prejanus-front'
+
+    - name: Instalar dependências dos static assets
+      command: npm install
+      args:
+        chdir: '{{ app_dir }}/static-assets'
+
+    - name: Compilar static assets (gera a pasta dist/)
+      command: npm run build
+      args:
+        chdir: '{{ app_dir }}/static-assets'
+
+    - name: Construir e recriar containers atualizados
+      command:
+        docker compose -f docker-compose.yml up --build -d --remove-orphans
+      args:
+        chdir: '{{ app_dir }}'
+
+    - name: Aguardar o banco de dados inicializar
+      pause:
+        seconds: 10
+
+    - name: Inserir usuário Dev no banco do Forms
+      command: >
+        docker compose exec -T db psql -U caronte_forms -d caronte_forms -c
+        "INSERT INTO users (email, role, created_at)
+         VALUES ('{{ dev_email }}', 'administrator', NOW())
+         ON CONFLICT (email) DO NOTHING;"
+      args:
+        chdir: '{{ app_dir }}'
+      ignore_errors: true
+
+    - name: Inserir usuário Dev no banco do Prejanus-back
+      command: >
+        docker compose exec -T db psql -U caronte_prejanus -d caronte_prejanus
+        -c "INSERT INTO \"user\" (email, name, nusp, role)
+         VALUES ('{{ dev_email }}', '{{ dev_name }}', '{{ dev_nusp }}',
+        'administrator')
+         ON CONFLICT (email) DO NOTHING;"
+      args:
+        chdir: '{{ app_dir }}'
+      ignore_errors: true
+
+    - name: Verificar status dos containers
+      command: docker compose ps
+      args:
+        chdir: '{{ app_dir }}'
+      register: compose_ps
+
+    - name: Exibir status dos containers
+      debug:
+        var: compose_ps.stdout_lines
+
+    - name: Verificar endpoint HTTP principal
+      uri:
+        url: http://127.0.0.1/
+        method: GET
+        status_code: 200
+        timeout: 5
+      register: healthcheck
+      retries: 12
+      delay: 5
+      until: healthcheck.status == 200
+
+  handlers:
+    - name: Mostrar logs dos containers
+      command: docker compose logs --tail=100
+      args:
+        chdir: '{{ app_dir }}'

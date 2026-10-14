@@ -1,0 +1,117 @@
+{% import "helpers/forms.html" as forms %}
+{% import "helpers/table.html" as table %}
+
+{% extends "form/base.html" %}
+{% block title %}{{ _("Configurações") }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+
+{{ super() }}
+
+<main class="container-wrapper">
+
+<h4>{{ _("Informações") }}</h4>
+
+<div class="form__field">
+    <p>
+        {% autoescape false %}
+            {{ _("Visualize e copie o %(start_b)sidentificador único%(end_b)s deste formulário, necessário para integração e referências internas.", start_b = "<b>", end_b="</b>") }}
+        {% endautoescape %}
+    </p>
+
+    <div>
+        {{ forms.load_field({ "0": form_id }, { "type": "Text", "position": 0, "name": "identifier", "label": _("Identificador do Formulário"), "disabled": True }) }}
+    </div>
+</div>
+
+<h4>{{ _("Tokens ativos") }}</h4>
+
+<div class="form__field">
+    <p>
+        {% autoescape false %}
+            {{ _("Confira a lista de %(start_b)stokens%(end_b)s atualmente ativos para este formulário, usados para autenticação e controle de acesso.", start_b = "<b>", end_b="</b>") }}
+        {% endautoescape %}
+    </p>
+
+    <p>
+        {% autoescape false %}
+            {{ _("Revogue %(start_b)stokens%(end_b)s existentes para impedir acessos não autorizados ou expirados.", start_b = "<b>", end_b="</b>") }}
+        {% endautoescape %}
+    </p>
+
+    {{ 
+        table.create(
+        "", header_tokens, tokens,
+        redirects = { "redirect_by": { "value": "form.edit_token", "type": "popup" } }) 
+    }}
+</div>
+
+<h4>{{ _("Criar Novo Token") }}</h4>
+
+<div class="form__field">
+    <p>{{ _("Gere um novo token de acesso para permitir integrações seguras com este formulário. Defina permissões e validade conforme necessário.") }}</p>
+
+    <form action="{{url_for('form.create_token', **request.view_args)}}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+        {% for field in form_new_token.fields %}
+            {{ forms.load_field(entry, field) }}
+        {% endfor %}
+
+        <div class="form__field form__field--button">
+            <input type="submit" value="{{ _('Criar') }}" aria-label="{{ _('Criar') }}">
+        </div>
+	</form>
+
+    {{ forms.scripts() }}
+</div>
+
+<div class="form__field">
+    {{ 
+        table.create(
+        "", header_collaborator, collaborators ) 
+    }}
+</div>
+
+<h4>{{ _("Adicionar colaborador") }}</h4>
+
+<div class="form__field">
+    <form action="{{url_for('form.invite_collaborator', **request.view_args)}}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+        {% for field in form_invite_collaborator.fields %}
+            {{ forms.load_field(entry, field) }}
+        {% endfor %}
+
+        <div class="form__field form__field--button">
+            <input type="submit" value="{{ _('Adicionar') }}" aria-label="{{ _('Adicionar') }}">
+        </div>
+	</form>
+
+    {{ forms.scripts() }}
+</div>
+
+<h4>{{ _("Remover esse formulário") }}</h4>
+
+<div class="form__field">
+    <p>{{ _("Depois de excluir um formulário, não há como voltar atrás. Por favor, tenha certeza.") }}</p>
+
+    <p>{{ _("Todas as respostas enviadas para este formulário também serão perdidas.") }}</p>
+
+    <form action="{{url_for('form.remove_form', **request.view_args)}}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+        <div class="form__field form__field--button">
+            <input class="danger" type="submit" value="{{ _('Remover') }}" aria-label="{{ _('Remover') }}">
+        </div>
+	</form>
+</div>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% import "helpers/table.html" as table %}
+
+{% extends "base.html" %}
+{% block title %}{{ _("Formulários") }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block content %}
+
+<main class="container-wrapper">
+
+{{ 
+    table.create(
+        _("Formulários"), header, list_forms,
+        options = options, 
+        redirects = { "redirect_by": { "value": "form.viewer", "type": "default" }, "download": "api.forms", "create": "form.create" }) 
+}}
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% import "helpers/forms.html" as forms %}
+
+{% if not popup_mode %}
+
+    {% extends "base.html" %}
+    {% block title %}{{ _("Script") }}{% endblock %}
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+    <meta name="robots" content="noindex, nofollow">
+    {% endblock %}
+
+{% endif %}
+
+{% block content %}
+
+{% if not popup_mode %}
+<main class="container-wrapper">
+{% endif %}
+
+<h4>{{script["name"]}}</h4>
+
+{% if "help" in script %}
+<p>{{script["help"]}}</p>
+{% endif %}
+
+<form action="{{url_for('admin.script', **request.view_args)}}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    
+    {% if "params" in script %}
+        {% for param in script["params"] %}
+            {{ forms.load_field({ }, param) }}
+        {% endfor %}
+    {% endif %}
+
+    <div class="form__field form__field--button">
+        <input type="submit" value="{{ _('Executar') }}" aria-label="{{ _('Executar') }}">
+    </div>
+<form>
+
+{{ forms.scripts() }}
+
+{% if not popup_mode %}
+</main>
+{% endif %}
+
+{% endblock %}

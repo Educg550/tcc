@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Início") }}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% if public_forms | length > 0 %}
+<main class="container-wrapper">
+    <h1>{{ _("Formulários abertos") }}</h1>
+    <div class="list list--vertical">
+        {% for public_form in public_forms %}
+            <div data-clicked="true" class="card" onclick="window.location.href='{{url_for("form.access_shared", token=public_form.token)}}'">
+                {% set form = public_form.first_page %}
+                {% set popup_mode = true %}
+                <div class="card__preview">{% include 'form/index.html' %}</div>
+                <div class="card__description--wrapper">
+                    <div class="card__description">
+                        <div>
+                            <p><b>{{public_form.title}}</b></p>
+                            <p>
+                                {% if public_form.unique_answers == true %}
+                                    {{ _("Só é permitida uma resposta por participante") }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div>
+                            <p>{{ _("Expira em") }} <b>{{public_form.expiration_at|format_datetime}}</b></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% else %}
+<main class="container-center ">
+    <p>{{ _("Não foi possível encontrar nenhum formulário.") }}</p>
+</main>
+{% endif %}
+
+{% endblock %}
+

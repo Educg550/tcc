@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "prejanus-back"
+version = "0.1.1"
+description = ""
+authors = ["Victor Lima <victor.p.lima@ime.usp.br>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+fastapi = "^0.114.0"
+SQLAlchemy = { extras = ["asyncio"], version = "^2.0.34"}
+alembic = "^1.13.2"
+pydantic = "^2.9.1"
+uvicorn = "^0.30.6"
+pydantic-settings = "^2.5.2"
+psycopg = { extras = ["c"], version = "^3.2.1" }
+python-multipart = "^0.0.17"
+argon2-cffi = "^23.1.0"
+email-validator = "^2.2.0"
+fastapi-mail = "^1.4.2"
+senhaunicapy = { git = "https://gitlab.com/ccsl-usp/poscomp-ime/senhaunicapy.git", branch = "main" }
+fpdf2 = "^2.8.4"
+matplotlib = "^3.10.7"
+pypdf = "^6.1.3"
+babel = "^2.17.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+aiosqlite = "^0.20.0"
+httpx = "^0.27.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

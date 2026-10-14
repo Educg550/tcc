@@ -1,0 +1,131 @@
+{% import "helpers/forms.html" as forms %} {% extends "form/base.html" %} {%
+block title %}{{ _("Visualização") }}{% endblock %} {% block head %}
+<link
+	rel="stylesheet"
+	href="{{ url_for('static', filename='form.bundle.min.css') }}" />
+
+<meta
+	name="robots"
+	content="noindex, nofollow" />
+{% endblock %} {% block content %} {{ super() }}
+
+<main class="container-wrapper">
+	<div class="menu">
+		<div></div>
+		<div></div>
+
+		<div class="menu__icons">
+			<a
+				aria-label="{{ _('Download do formulário em formato json') }}"
+				href="{{ url_for('api.viewer', **request.view_args) }}"
+				id="download"
+				class="icon">
+				<svg
+					width="16"
+					height="16">
+					<use xlink:href="#icon-download"></use>
+				</svg>
+			</a>
+			<button
+				aria-label="{{ _('Editar formulário') }}"
+				id="edit-form"
+				class="icon"
+				onclick="openEditForm()">
+				<svg
+					width="16"
+					height="16">
+					<use xlink:href="#icon-edit"></use>
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<div class="card card__bigger">
+		{% if form.title %}
+		<h1>{{ form.title }}</h1>
+		{% endif %} {% if form.description %}
+		<markdown-text>{{ form.description|striptags|e }}</markdown-text>
+		{% endif %}
+	</div>
+
+	<section class="form-sections">
+		{% for section in form.sections %}
+		<details
+			class="form-section"
+			open>
+			<summary class="section-header">
+				<div>
+					{% if section.title %}
+					<h2>{{ section.title }}</h2>
+					{% endif %} {% if section.description %}
+					<markdown-text>{{ section.description|striptags|e }}</markdown-text>
+					{% endif %}
+				</div>
+
+				<span class="section-chevron">
+					<svg
+						width="18"
+						height="18">
+						<use xlink:href="#icon-chevron-down"></use>
+					</svg>
+				</span>
+			</summary>
+
+			{% for field in section.fields %}
+			<div class="card card__bigger">
+				{% set edit_url = url_for("form.field_edit", name=field["name"],
+				**request.view_args) %}
+				<div
+					class="edit-field-button"
+					data-edit_url="{{ edit_url }}"></div>
+
+				{{ forms.load_field(entry, field) }}
+			</div>
+			{% endfor %}
+		</details>
+		{% endfor %}
+	</section>
+</main>
+
+{{ forms.scripts() }}
+
+<script>
+	let isEditModeActive = false
+
+	function openEditField(url_request) {
+		const popup = document.createElement('popup-element')
+		popup.dataset.url_request = url_request
+		popup.dataset.title = "{{ _('Editar') }}"
+		document.body.appendChild(popup)
+	}
+
+	function openEditForm() {
+		const popup = document.createElement('popup-element')
+		popup.dataset.url_request = "{{ url_for('form.edit_form', id=form_id) }}"
+		popup.dataset.title = "{{ _('Editar Formulário') }}"
+		document.body.appendChild(popup)
+	}
+
+	function toggleActiveMode() {
+		isEditModeActive = !isEditModeActive
+
+		document.querySelectorAll('.edit-field-button').forEach((element) => {
+			if (isEditModeActive) {
+				const url = element.dataset.edit_url
+
+				element.innerHTML = `
+                <a style="display: initial;"
+                   aria-label="{{ _('Editar campo do formulário') }}"
+                   onclick="openEditField('${url}')"
+                   class="icon edit-button"
+                   title="{{ _('Editar') }}">
+                    {{ _("Editar") }}
+                </a>
+                `
+			} else {
+				element.innerHTML = ''
+			}
+		})
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% import "helpers/forms.html" as forms %} {% block content %}
+
+<div class="tab-bar">
+	<button
+		id="tab-visual"
+		class="tab-btn tab-btn--active">
+		{{ _("Visual") }}
+	</button>
+	<button
+		id="tab-json"
+		class="tab-btn">
+		{{ _("JSON") }}
+	</button>
+</div>
+
+<form
+	action="{{ url_for('form.edit_form', id=form_id) if existing_form else url_for('form.create') }}"
+	method="post"
+	novalidate>
+	<input
+		type="hidden"
+		name="_csrf_token"
+		value="{{ csrf_token() }}" />
+
+	<div id="builder-panel">
+		{% include "form/_builder_panel.html" %}
+	</div>
+
+	<div
+		id="json-panel"
+		style="display: none">
+		{% include "form/_json_panel.html" %}
+	</div>
+
+	<div class="form__field form__field--button">
+		<input
+			type="submit"
+			data-builder-save
+			disabled
+			value="{{ _('Publicar') }}"
+			aria-label="{{ _('Publicar') }}" />
+	</div>
+</form>
+
+<tab-controller
+	data-tabs="tab-visual,tab-json"
+	data-panels="builder-panel,json-panel"></tab-controller>
+
+{{ forms.scripts() }}
+
+<script>
+	customElements.whenDefined('form-builder').then(function () {
+		document
+			.querySelector('form-builder')
+			.addEventListener('builder:schema-error', function () {
+				document.getElementById('builder-panel').style.display = 'none'
+				document.getElementById('json-panel').style.display = ''
+				document.getElementById('tab-json').classList.add('tab-btn--active')
+				document
+					.getElementById('tab-visual')
+					.classList.remove('tab-btn--active')
+				document.getElementById('tab-visual').disabled = true
+
+				const msg = document.createElement('message-info')
+				document.querySelector('.tab-bar').before(msg)
+				msg.addMessageInfo({
+					description:
+						'{{ _("O construtor visual não pôde ser carregado. Use o editor JSON.") }}',
+					type: 'error',
+				})
+			})
+	})
+</script>
+
+{% endblock %}

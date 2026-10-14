@@ -1,0 +1,37 @@
+{% import "helpers/forms.html" as forms %}
+
+{% if not popup_mode %}
+
+    {% extends "base.html" %}
+    {% block title %}{{ _("Editar Token") }}{% endblock %}
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+    <meta name="robots" content="noindex, nofollow">
+    {% endblock %}
+
+{% endif %}
+
+{% block content %}
+
+{% if not popup_mode %}
+<main class="container-wrapper">
+{% endif %}
+
+<form action="{{url_for('form.edit_token', **request.view_args)}}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+    {% for field in form_edit_token.fields %}
+        {{ forms.load_field(entry, field) }}
+    {% endfor %}
+
+    <div class="form__field form__field--button">
+        <input type="submit" value="{{ _('Editar') }}" aria-label="{{ _('Editar') }}">
+    </div>
+</form>
+
+{% if not popup_mode %}
+</main>
+{% endif %}
+
+{% endblock %}

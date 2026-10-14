@@ -1,0 +1,48 @@
+{% import "helpers/forms.html" as forms %}
+
+<p>{{ _("Este schema JSON define a estrutura, tipos e validações dos campos que devem compor o formulário. Use-o como referência para construir um formulário que atenda exatamente às regras especificadas.") }}</p>
+
+<a href="{{ url_for('static', filename='schema/form.schema.json') }}" target="_blank" rel="noopener noreferrer">{{ _("Clique aqui para acessar o JSON Schema") }}</a>
+
+<p><b>{{ _("O que fazer:") }}</b></p>
+
+<ol>
+    {% autoescape false %}
+    <li>
+        {{
+            _(
+                "%(start_b)sAnalise o schema JSON%(end_b)s observe os campos dentro da propriedade %(start_code_i)s\"properties\"%(end_code_i)s, seus tipos (%(start_code_ii)sstring%(end_code_ii)s, %(start_code_iii)snumber%(end_code_iii)s, %(start_code_iv)sboolean%(end_code_iv)s, etc.), títulos, descrições e restrições.",
+                start_b = "<b>", end_b = "</b>",
+                start_code_i = "<code>", end_code_i = "</code>",
+                start_code_ii = "<code>", end_code_ii = "</code>",
+                start_code_iii = "<code>", end_code_iii = "</code>",
+                start_code_iv = "<code>", end_code_iv = "</code>")
+        }}
+    </li>
+
+    <li>
+        {{ _("%(start_b)sImplemente validações%(end_b)s conforme descritas no schema (formatos regex em %(start_code)svalidation%(end_code)s).", start_b = "<b>", end_b="</b>", start_code="<code>", end_code="</code>") }}
+    </li>
+    {% endautoescape %}
+</ol>
+
+<p><b>{{ _("Exemplo de campo:") }}</b></p>
+
+<pre class="code">
+...
+{
+    "name": "fullname",
+    "label": "{{ _("Nome Completo") }}",
+    "type": "Text",
+    "required": true
+}
+...
+</pre>
+
+<p>
+    {% autoescape false %}
+        {{ _("Nota: campo %(start_code)s\"name\"%(end_code)s é opcional.", start_code = "<code>", end_code = "</code>") }}
+    {% endautoescape %}
+</p>
+
+{{ forms.load_field({}, { "type": "LongText", "name": "form", "label": _("Formulário"), "position": 0, "placeholder": "{ }", "language": "json", "required": False }) }}

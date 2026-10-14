@@ -1,0 +1,492 @@
+{% macro text(entry, field) %}
+
+<div class="input__group">
+	{% if field.prefix %}
+		<span class="group__prefix">
+			{{field.prefix|striptags|e}}
+		</span>
+	{% endif %}
+
+	<input
+		id="input--{{field.position}}"
+		name="{{field.name}}"
+		{% if field.required %}required aria-required="true"{% endif %}
+		{% if field.placeholder %}placeholder="{{field.placeholder}}"{% endif %}
+		{% if field.disabled %}disabled{% endif %}
+		{% if field.validation %}pattern="{{field.validation}}"{% endif %}
+		{% if field.position|string in entry %}value="{{entry[field.position|string]|striptags|e}}"{% endif %}
+		{% if field.error_message %}
+			oninvalid="this.setCustomValidity('{{ field.error_message|striptags|e }}')"
+			onchange="this.setCustomValidity('')"
+		{% endif %}
+		{% if field.options %}
+			oninput="filterList(this.value, '{{field.position}}', {{field.options}})"
+			data-autocomplete="true"
+		{% endif %}
+		autocomplete="off"
+		type="text">
+	</input>
+
+	{% if field.options %}
+		<div id="list--{{field.position}}" class="autocomplete-items"></div>
+	{% endif %}
+
+</div>
+
+{% endmacro %}
+
+{% macro number(entry, field) %}
+
+<input
+	id="{{field.position}}"
+	name="{{field.name}}"
+	{% if field.required %}required aria-required="true"{% endif %}
+	{% if field.placeholder %}placeholder="{{field.placeholder}}"{% endif %}
+	{% if field.disabled %}disabled{% endif %}
+	{% if field.validation %}pattern="{{field.validation}}"{% endif %}
+	{% if field.position|string in entry %}value="{{entry[field.position|string]|striptags|e}}"{% endif %}
+	{% if field.error_message %}
+		oninvalid="this.setCustomValidity('{{ field.error_message|striptags|e }}')"
+		onchange="this.setCustomValidity('')"
+	{% endif %}
+	autocomplete="off"
+	type="number">
+</input>
+
+{% endmacro %}
+
+{% macro long_text(entry, field) %}
+
+<resizer-text 
+	data-direction="auto" 
+	data-language="{{field.language}}"
+	data-schema-url="{{ url_for('static', filename='schema/form.schema.json') }}"
+>
+	<label class="wrapper" for="{{field.position}}">
+		<div class="container__item textarea code">
+			<textarea 
+				name="{{field.name}}" 
+				style="display:none;"
+				id="{{field.position}}" 
+				autocomplete="off" 
+				{% if field.required %}required aria-required="true"{% endif %}
+				{% if field.disabled %}disabled{% endif %} 
+				rows="3">
+				{% if field.position|string in entry %}{{entry[field.position|string]|striptags|e}}{% endif %}
+			</textarea>
+		</div>
+	</label>
+</resizer-text>
+
+{% endmacro %}
+
+{% macro checkbox(entry, field) %}
+
+{% for option in field.options %}
+	<div>
+		<input 
+			name="{{field.name}}[{{loop.index}}]" 
+			value="{{option}}" 
+			type="checkbox"
+			id="{{field.position}}_{{loop.index}}"
+			{% if field.position ~ "_" ~ loop.index in entry and entry[field.position ~ "_" ~ loop.index|string] %}checked{% endif %}></input>
+
+		<label for="{{field.position}}_{{loop.index}}">{{option}}</label>
+	</div>
+{% endfor %}
+
+{% endmacro %}
+
+{% macro radio(entry, field) %}
+
+{% for option in field.options %}
+	<div>
+		<input 
+			name="{{field.name}}" 
+			value="{{option}}" 
+			type="radio"
+			id="{{field.position}}_{{loop.index}}"
+			{% if field.position|string in entry and entry[field.position|string] == option %}checked{% endif %}></input>
+
+		<label for="{{field.position}}_{{loop.index}}">{{option}}</label>
+	</div>
+{% endfor %}
+
+{% endmacro %}
+
+{% macro date(entry, field) %}
+
+<input
+	id="{{field.position}}"
+	name="{{field.name}}"
+	{% if field.required %}required aria-required="true"{% endif %}
+	{% if field.disabled %}disabled{% endif %}
+	{% if field.position|string in entry %}value="{{entry[field.position|string]|striptags|e}}"{% endif %}
+	autocomplete="off"
+	type="date">
+</input>
+
+{% endmacro %}
+
+{% macro file(entry, field) %}
+
+{% if field.position|string in entry %}
+<div id="removeFile__{{field.position}}">
+	{% set download_file_url = url_for("form.download_file", filename=entry[field.position|string]|striptags|e, **request.view_args) %}
+
+	<p>{{ _("Arquivo já enviado") }}: <a target="_blank" href="{{download_file_url}}">{{entry[field.position|string]|striptags|e}}</a></p>
+	<div class="form__field form__field--button">
+		{% set remove_file_url = url_for('form.remove_file', **request.view_args) %}
+
+		<button 
+			class="secondary" 
+			onclick="handleRemoveFile(
+				event, 
+				'{{field.position}}', 
+				'{{entry[field.position|string]|striptags|e}}', 
+				'{{field.name}}', 
+				'{{remove_file_url}}'
+			)"
+		>
+			{{ _("Remover arquivo") }}
+		</button>
+	</div>
+</div>
+{% endif %}
+
+<input
+	id="{{field.position}}"
+	name="{{field.name}}"
+	{% if field.required %}required aria-required="true"{% endif %}
+	{% if field.disabled %}disabled{% endif %}
+	{% if field.accept %}
+		accept="{{field.accept}}"
+	{% else %}
+		accept=".pdf"
+	{% endif %}
+	autocomplete="off"
+	{% if field.position|string in entry %}style="display:none;" hidden disabled{% endif %}
+	onchange="this.setCustomValidity('')"
+	type="file">
+</input>
+
+{% endmacro %}
+
+{% macro load_field(entry, field) %}
+
+{% if field.type == "Text" %}
+	<div class="form__field form__field--text">
+		<label for="{{field.position}}">{{field.label}}{% if field.required %}<span class="form__required">*</span>{% endif %}</label>
+		{% if field.description %}<markdown-text>{{field.description|striptags|e}}</markdown-text>{% endif %}
+			
+		{{ text(entry, field) }}
+	</div>
+{% elif field.type == "Number" %}
+	<div class="form__field form__field--text">
+		<label for="{{field.position}}">{{field.label}}{% if field.required %}<span class="form__required">*</span>{% endif %}</label>
+		{% if field.description %}<markdown-text>{{field.description|striptags|e}}</markdown-text>{% endif %}
+
+		{{ number(entry, field) }}	
+	</div>
+{% elif field.type == "LongText" %}
+	<div class="form__field form__field--longtext">
+		<label for="{{field.position}}">{{field.label}}{% if field.required %}<span class="form__required">*</span>{% endif %}</label>
+		{% if field.description %}<markdown-text>{{field.description|striptags|e}}</markdown-text>{% endif %}
+
+		{{ long_text(entry, field) }}	
+	</div>
+{% elif field.type == "CheckBox" %}
+	<div class="form__field form__field--checkbox">
+		<fieldset name="{{field.name}}">
+		<legend>{{field.label}}{% if field.required %}<span class="form__required">*</span>{% endif %}</legend>
+		{% if field.description %}<markdown-text>{{field.description|striptags|e}}</markdown-text>{% endif %}
+
+		{{ checkbox(entry, field) }}
+		</fieldset>
+	</div>
+{% elif field.type == "Date" %}
+	<div class="form__field form__field--text">
+		<label for="{{field.position}}">{{field.label}}{% if field.required %}<span class="form__required">*</span>{% endif %}</label>
+		{% if field.description %}<markdown-text>{{field.description|striptags|e}}</markdown-text>{% endif %}
+			
+		{{ date(entry, field) }}
+	</div>
+{% elif field.type == "Radio" %}
+	<div class="form__field form__field--checkbox">
+		<fieldset name="{{field.name}}">
+		<legend>{{field.label}}{% if field.required %}<span class="form__required">*</span>{% endif %}</legend>
+		{% if field.description %}<markdown-text>{{field.description|striptags|e}}</markdown-text>{% endif %}
+
+		{{ radio(entry, field) }}
+		</fieldset>
+	</div>
+{% elif field.type == "File" %}
+	<div class="form__field form__field--file">
+		<label for="{{field.position}}">{{field.label}}{% if field.required %}<span class="form__required">*</span>{% endif %}</label>
+		{% if field.description %}<markdown-text>{{field.description|striptags|e}}</markdown-text>{% endif %}
+		
+		{{ file(entry, field) }}
+	</div>
+{% else %}
+	TODO
+{% endif %}
+
+{% endmacro %}
+
+{% macro scripts(token) %}
+
+<script>
+	let csrfToken = "{{ csrf_token() }}"
+	let token = "{{token or ''}}"
+
+	const maxFileSize = 1 * 1024 * 1024
+
+	const form = document.getElementById(token)
+
+	async function handleRemoveFile(event, inputId, filename, inputName, url) {
+		event.preventDefault()
+		const input = document.getElementById(inputId)
+		const handler = document.getElementById(`removeFile__${inputId}`)
+		handler.remove()
+		input.style.removeProperty('display')
+		input.removeAttribute('hidden')
+		input.removeAttribute('disabled')
+
+		// remove file from server
+		try {
+			const form_action = url
+			const response = await fetch(form_action, {
+				method: "DELETE",
+				body: JSON.stringify({
+					filename: filename,
+					inputName: inputName
+				}),
+				headers: {
+					"X-CSRFToken": csrfToken,
+					"Content-Type": "application/json"
+				},
+				credentials: "include"
+			})
+
+			if (!response.ok) throw new Error(response.status)
+		} catch (error) {
+			console.error(error)
+			input.setCustomValidity('{{ _("Ocorreu uma falha ao tentar remover o arquivo. Tente novamente mais tarde.") }}')
+			input.reportValidity()
+			input.value = ""
+		}
+	}
+
+	function removeAccents(str) {
+		return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+	}
+
+	function filterList(value, listId, items) {
+		const list = document.getElementById(`list--${listId}`)
+		list.innerHTML = ""
+		if (!value) {
+			list.classList.remove("active")
+			return
+		}
+		const normalizedValue = removeAccents(value.toLowerCase())
+		items.forEach(item => {
+			if (removeAccents(item.toLowerCase()).includes(normalizedValue)) {
+				const div = document.createElement("div")
+				div.textContent = item;
+				div.onclick = () => {
+					document.getElementById(`input--${listId}`).value = item
+					list.innerHTML = ""
+					list.classList.remove("active")
+				}
+				list.appendChild(div)
+			}
+		})
+
+		if (list.children.length > 0) {
+			list.classList.add("active")
+		} else {
+			list.classList.remove("active")
+		}
+	}
+
+	document.querySelectorAll('input[data-autocomplete="true"]').forEach(input => {
+		input.addEventListener("keydown", function(e) {
+			const listId = input.id.replace("input--", "")
+			const list = document.getElementById(`list--${listId}`)
+			const items = list.querySelectorAll("div")
+
+			if (!items || items.length === 0) return
+
+			if (e.key === "Tab" || e.key === "Enter") {
+				e.preventDefault()
+				e.stopPropagation()
+				items[0].click()
+				list.classList.remove("active")
+			} else if (e.key === "Escape") {
+				list.classList.remove("active")
+			}
+		})
+	})
+
+	document.addEventListener("click", function(e) {
+		const allLists = document.querySelectorAll(".autocomplete-items")
+		allLists.forEach(list => {
+			if (!list.contains(e.target) && !document.getElementById(`input--${list.id.split('--')[1]}`).contains(e.target)) {
+				list.classList.remove("active")
+			}
+		})
+	})
+
+	document.addEventListener("keydown", function(e) {
+		if (e.key === "Escape") {
+			document.querySelectorAll(".autocomplete-items").forEach(list => {
+				list.classList.remove("active")
+			})
+		}
+	})
+
+	if (token != "") {
+		const fileInputs = document.querySelectorAll('input[type="file"]')
+		fileInputs.forEach(input => {
+			input.addEventListener("change", async (event) => {
+				const file = input.files[0]
+				if (!file) return
+
+				const maxFileSize = 1 * 1024 * 1024; // 1MB
+				if (file.size >= maxFileSize) {
+					input.setCustomValidity('{{ _("O arquivo selecionado é muito grande. O tamanho máximo permitido é 1 MB.") }}')
+					input.reportValidity()
+					input.value = ""
+					return
+				}
+
+				const formData = new FormData()
+				formData.append(input.name, file)
+
+				try {
+					const form_action = `${new URL(form.action).toString()}/upload`
+					const response = await fetch(form_action, {
+						method: "POST",
+						body: formData,
+						headers: {
+							"X-CSRFToken": csrfToken
+						},
+						credentials: "include"
+					})
+
+					if (!response.ok) throw response
+				} catch (error) {
+					const message = document.querySelector('message-info');
+					if (error.status === 403) {
+						message.addMessageInfo({ description: '{{ _("Sessão expirada. Recarregue a página e tente novamente.") }}', type: "error" });
+						input.setCustomValidity('{{ _("Sessão expirada. Recarregue a página e tente novamente.") }}')
+					} else {
+						input.setCustomValidity('{{ _("Ocorreu uma falha ao tentar enviar o arquivo. Tente novamente mais tarde.") }}')
+					}
+					input.reportValidity()
+					input.value = ""
+				}
+			})
+		})
+
+		let isSubmitting = false
+
+		async function submit(event) {
+			event.preventDefault()
+
+			if (isSubmitting) return
+    		isSubmitting = true
+
+			const button = event.submitter
+
+			const text = button.querySelector(".button__text");
+			const spinner = button.querySelector(".button__spinner")
+			let defaultText = ""
+			if (text) {
+				defaultText = text.textContent
+			}
+
+			function setLoading() {
+				const buttons = event.target.querySelectorAll('button, input[type="submit"], input[type="button"], input[type="reset"]')
+				buttons.forEach(button => {
+					button.disabled = true
+					button.style.cursor = "not-allowed"
+				})
+
+				button.style.cursor = "wait"
+				const rect = button.getBoundingClientRect()
+				const width = rect.width
+				const height = rect.height
+				button.style.width = `${width}px`
+				button.style.height = `${height}px`
+
+				if (text) text.textContent = ""
+				if (spinner) spinner.style.display = "inline-block"
+			}
+
+			function removeLoading() {
+				const buttons = event.target.querySelectorAll('button, input[type="submit"], input[type="button"], input[type="reset"]')
+				buttons.forEach(button => {
+					button.disabled = false
+					button.style.removeProperty("cursor")
+				})
+
+				button.style.removeProperty("width")
+				button.style.removeProperty("height")
+
+				if (text) text.textContent = defaultText
+				if (spinner) spinner.style.display = "none"
+			}
+
+			try {
+				setLoading()
+
+				const hidden = document.createElement("input")
+				hidden.type = "hidden"
+				hidden.name = button.name
+				hidden.value = button.value
+				event.target.appendChild(hidden)
+
+				const fileInputs = form.querySelectorAll('input[type="file"]')
+				fileInputs.forEach(input => input.type = "hidden")
+
+				const formData = new FormData(form)
+				const form_action = new URL(form.action).pathname
+				const response = await fetch(form_action, {
+					method: "POST",
+					body: formData,
+					headers: {
+						"X-CSRFToken": csrfToken,
+						'X-Fetch-Location': 'true',
+					},
+					credentials: "include",
+					redirect: "manual"
+				})
+				if (!response.ok) throw response
+				const data = await response.json()
+				if (data.url_redirect) {
+					window.location.href = data.url_redirect
+				} else if (response.ok) {
+					window.location.reload()
+				}
+			} catch (error) {
+				const message = document.querySelector('message-info');
+				if (error.status === 403) {
+					message.addMessageInfo({ description: '{{ _("Sessão expirada. Recarregue a página e tente novamente.") }}', type: "error" });
+				} else {
+					message.addMessageInfo({ description: '{{ _("Ocorreu uma falha ao tentar enviar o formulário") }}', type: "error" });
+				}
+				isSubmitting = false
+
+				removeLoading()
+
+				const fileInputs = form.querySelectorAll('.form__field--file input[type="hidden"]')
+				fileInputs.forEach(input => input.type = "file")
+			}
+		}
+		
+		if (form) form.addEventListener("submit", submit)
+	}
+</script>
+
+{% endmacro %}

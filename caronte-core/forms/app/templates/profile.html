@@ -1,0 +1,58 @@
+{% import "helpers/forms.html" as forms %}
+
+{% extends "base.html" %}
+{% block title %}{{ _("Perfil") }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block content %}
+
+<div class="container-wrapper">
+    <h1>{{ _("Perfil") }}</h1>
+
+    <div>
+        <h4>{{ _("Informações") }}</h4>
+
+        <div>
+            {{ forms.load_field({ "0": user.nomeUsuario }, { "type": "Text", "position": 0, "name": "name", "label": _("Nome"), "disabled": True }) }}
+        </div>
+        <div>
+            {{ forms.load_field({ "1": user.emailPrincipalUsuario }, { "type": "Text", "position": 1, "name": "email", "label": _("E-mail"), "disabled": True }) }}
+        </div>
+    </div>
+
+    <div>
+        <h4>{{ _("Vínculos") }}</h4>
+
+        <div class="form__field">
+            {% for vinculo in user.vinculo %}
+                <p>
+                    <span class="bold" title="{{ vinculo.codigoUnidade }}">{{ vinculo.nomeUnidade }} ({{ vinculo.siglaUnidade }})</span> 
+                    - 
+                    <span title="{{ vinculo.codigoSetor }}">{{ vinculo.nomeSetor }} ({{ vinculo.nomeAbreviadoSetor }})</span>
+                </p>
+
+                <div>
+                    {{ forms.load_field({ "2": vinculo.nomeVinculo ~ ' (' ~ vinculo.tipoVinculo ~ ')' }, { "type": "Text", "position": 2, "name": "relationship","label": _("Vínculo"), "disabled": True }) }}
+                </div>
+
+                <div>
+                    {{ forms.load_field({ "3": vinculo.tipoFuncao ~ ' (' ~ vinculo.nomeAbreviadoFuncao ~ ')' }, { "type": "Text", "position": 3, "name": "role", "label": _("Função"), "disabled": True }) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        <h4>{{ _("Logout") }}</h4>
+
+        <div class="form__field form__field--button">
+            <a class="button danger" href="{{url_for('pages.logout')}}">{{ _("Logout") }}</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

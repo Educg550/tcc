@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav class="container-wrapper navigation">
+	<a 	aria-label="{{ _('Redirecionar para a página de visualização') }}"
+		href="{{url_for('form.viewer', id=form_id)}}"
+		{% if "viewer" in request.endpoint %}data-current="true"{% endif %}>{{ _("Visualização") }}</a>
+
+	<a  aria-label="{{ _('Redirecionar para a página de submissões') }}"
+		href="{{url_for('form.submissions', id=form_id)}}"
+		{% if "submissions" in request.endpoint %}data-current="true"{% endif %}>{{ _("Submissões") }}</a>
+
+	<a  aria-label="{{ _('Redirecionar para a página de configurações') }}"
+		href="{{url_for('form.settings', id=form_id)}}"
+		{% if "settings" in request.endpoint %}data-current="true"{% endif %}>{{ _("Configurações") }}</a>
+</nav>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://127.0.0.1/static/schema/form.schema.json",
+	"title": "Formulário",
+	"description": "Formulário dinâmico",
+	"type": "object",
+
+	"$defs": {
+		"i18n": {
+			"type": "object",
+			"description": "Objeto de internacionalização, onde cada chave é um idioma e o valor é string",
+			"additionalProperties": { "type": "string" }
+		}
+	},
+
+	"properties": {
+		"title": {
+			"description": "Título do formulário. Usando i18n como chaves",
+			"$ref": "#/$defs/i18n"
+		},
+		"description": {
+			"description": "Descrição do formulário. Usando i18n como chaves",
+			"$ref": "#/$defs/i18n"
+		},
+		"sections": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"description": {
+						"description": "Descrição da seção. Usando i18n como chaves",
+						"$ref": "#/$defs/i18n"
+					},
+					"fields": {
+						"type": "array",
+						"description": "Campos presentes no formulário",
+						"items": {
+							"type": "object",
+							"properties": {
+								"name": {
+									"description": "Gerado pela propriedade label",
+									"type": "string"
+								},
+								"label": {
+									"description": "Label do campo, em formato i18n",
+									"$ref": "#/$defs/i18n"
+								},
+								"type": {
+									"description": "Tipo do campo",
+									"type": "string"
+								},
+								"placeholder": {
+									"type": "string"
+								},
+								"required": {
+									"type": "boolean",
+									"default": false
+								},
+								"disabled": {
+									"type": "boolean",
+									"default": false
+								},
+								"validation": {
+									"description": "Validação em regex",
+									"type": "string"
+								},
+								"prefix": {
+									"type": "string"
+								},
+								"position": {
+									"description": "Ordem em que o campo é visualizado",
+									"type": "integer",
+									"default": 0,
+									"minimum": 0
+								},
+								"description": {
+									"description": "Descrição do campo, em formato i18n",
+									"$ref": "#/$defs/i18n"
+								},
+								"error_message": {
+									"$ref": "#/$defs/i18n"
+								},
+								"options": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"value": {
+												"$ref": "#/$defs/i18n"
+											}
+										}
+									}
+								}
+							},
+							"required": ["name", "type", "label"]
+						}
+					}
+				},
+				"required": ["title", "description", "fields"]
+			}
+		},
+		"tags": {
+			"type": "object",
+			"additionalProperties": { "type": "string" }
+		},
+		"metadata": {
+			"type": "object",
+			"additionalProperties": true
+		}
+	},
+	"required": ["title", "description", "sections", "tags"]
+}

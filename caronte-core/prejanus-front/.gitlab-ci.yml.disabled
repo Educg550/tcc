@@ -1,0 +1,70 @@
+stages:
+    - build
+    - test
+    - deploy
+    - build-prod
+    - deploy-prod
+
+default:
+    image: node:20.17.0
+    retry: 2
+    before_script:
+        - npm install
+
+build:
+    stage: build
+    environment: staging
+    allow_failure: true
+    script:
+        - npm run build
+
+lint:
+    stage: build
+    environment: staging
+    allow_failure: true
+    script:
+        - npm run lint
+
+test:
+    stage: test
+    environment: staging
+    script:
+        - echo "This job tests something, but takes more time"
+        - npm run test
+        - sleep 20
+
+deploy-stag:
+    stage: deploy
+    environment: staging
+    rules:
+        - if: $CI_COMMIT_REF_PROTECTED == 'true'
+    script:
+        - echo "Updating staging environment"
+
+build-prod:
+    stage: build-prod
+    environment: production
+    rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+        - if: $CI_COMMIT_REF_PROTECTED == 'true'
+    script:
+        - npm run build
+
+lint-prod:
+    stage: build-prod
+    environment: production
+    rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+        - if: $CI_COMMIT_REF_PROTECTED == 'true'
+    script:
+        - npm run lint
+
+deploy-prod:
+    stage: deploy-prod
+    environment: production
+    when: manual
+    rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+        - if: $CI_COMMIT_REF_PROTECTED == 'true'
+    script:
+        - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."

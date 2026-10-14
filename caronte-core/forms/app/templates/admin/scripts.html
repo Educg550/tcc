@@ -1,0 +1,25 @@
+{% import "helpers/table.html" as table %}
+
+{% extends "base.html" %}
+{% block title %}{{ _("Scripts") }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block content %}
+
+{{ super() }}
+
+<main class="container-wrapper">
+
+{{ 
+    table.create(
+        _("Scripts"), header, scripts, 
+        options = options, 
+        redirects = { "redirect_by": { "value": "admin.script", "type": "popup" } }) 
+}}
+
+</main>
+
+{% endblock %}

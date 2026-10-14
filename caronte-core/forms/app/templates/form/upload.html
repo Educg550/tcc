@@ -1,0 +1,56 @@
+{% import "helpers/forms.html" as forms %}
+
+{% if not popup_mode %}
+
+    {% extends "base.html" %}
+    {% block title %}{{ _("Upload") }}{% endblock %}
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+    <meta name="robots" content="noindex, nofollow">
+    {% endblock %}
+
+{% endif %}
+
+{% block content %}
+
+{% if not popup_mode %}
+<main class="container-wrapper">
+{% endif %}
+
+<p>
+    {% autoescape false %}
+        {{ _("É importante observar que o %(start_b)scabeçalho%(end_b)s do arquivo deve seguir exatamente o padrão dos rótulos (%(start_i)slabels%(end_i)s) utilizados no formulário.", start_b = "<b>", end_b="</b>", start_i = "<i>", end_i="</i>") }}
+    {% endautoescape %}
+</p>
+
+<p><b>{{ _("Exemplo:") }}</b></p>
+
+<pre class="code">
+"labels": [
+    "{{ _("Nome Completo") }}",
+    "{{ _("E-mail") }}",
+    "{{ _("Endereço") }}"
+]
+</pre>
+
+<pre class="code">
+"{{ _("Nome Completo") }}","{{ _("E-mail") }}","{{ _("Endereço") }}"
+"Donald E. Knuth","taocp@cs.stanford.edu","Stanford University"
+</pre>
+
+<form action="{{url_for('form.upload', **request.view_args)}}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    
+    {{ forms.load_field({ }, { "type": "File", "name": "file", "label": _("Arquivo"), "position": 0, "required": True, "accept": ".csv" }) }}
+    
+    <div class="form__field form__field--button">
+        <input type="submit" value="{{ _('Publicar') }}" aria-label="{{ _('Publicar') }}">
+    </div>
+</form>
+
+{% if not popup_mode %}
+</main>
+{% endif %}
+
+{% endblock %}

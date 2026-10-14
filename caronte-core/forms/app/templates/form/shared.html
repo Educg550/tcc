@@ -1,0 +1,61 @@
+{% import "helpers/forms.html" as forms %}
+
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - Formulários IME-USP{% endblock %}
+{% block og_title %}{{ title }} - Formulários IME-USP{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, follow">
+{% endblock %}
+
+{% block content %}
+
+<main class="container-wrapper">
+    <h1>{{ title }}</h1>
+
+    <p>{{ _("Para garantir o envio correto da sua resposta e permitir que você receba uma cópia por e-mail, solicitamos que informe um endereço de e-mail válido ao preencher este formulário.") }}</p>
+
+    <p>{{ _("Este e-mail será utilizado exclusivamente para:") }}</p>
+
+    <ul>
+        <li>{{ _("Confirmar o recebimento da sua resposta;") }}</li>
+        <li>{{ _("enviar uma cópia do que foi preenchido;") }}</li>
+        <li>{{ _("entrar em contato caso seja necessário complementar alguma informação.") }}</li>
+    </ul>
+
+    {% if unique_answers %}
+    <p>
+        {{ _("Cada participante pode enviar apenas uma resposta. Ao editar, é como reiniciar sua submissão: use o mesmo e-mail, revise os dados e clique em Enviar ao final para que seja registrada.") }}
+    </p>
+    {% endif %}
+
+	<form method="post" id="{{token}}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+        {{ 
+            forms.load_field(
+                { }, 
+                { 
+                    "type": "Text", 
+                    "name": "__email__", 
+                    "label": _("E-mail"), 
+                    "position": 0, 
+                    "required": True,
+                    "validation": "[\w\.\-]+@[\dA-z\.\-]+\.[A-z\.]+",
+                    "error_message": _("Esse campo aceita apenas o formato de e-mail")
+                }) 
+        }}
+
+        <div class="form__field form__field--button">
+            <input type="submit" value="{{ _('Receber link de acesso') }}" aria-label="{{ _('Receber link de acesso') }}">
+        </div>
+	<form>
+</main>
+
+{{ forms.scripts() }}
+    
+{% endblock %}
+

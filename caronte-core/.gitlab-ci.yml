@@ -1,0 +1,157 @@
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
+stages:
+  - lint
+  - build
+  - test
+  - homolog
+  - deploy
+
+default:
+  interruptible: true
+
+cache:
+  paths:
+    - .cache/pip
+
+# =========================
+# FORMS
+# =========================
+
+forms-lint:
+  stage: lint
+  image: python:3.9
+  before_script:
+    - cd forms
+    - pip install -r requirements.txt
+    - pip install ruff==0.15.21
+  script:
+    - ruff check .
+  rules:
+    - changes:
+        - forms/**/*
+
+forms-smoke-test:
+  stage: test
+  image: python:3.9
+  before_script:
+    - cd forms
+    - cp .env.example .env
+    - pip install -r requirements.txt
+    - pybabel compile -d translations
+  script:
+    - gunicorn "app:create_app()" -w 3 -b 0.0.0.0:5000 --daemon
+    - sleep 5
+    - curl --fail --retry 5 --retry-delay 5 --retry-all-errors
+      --retry-connrefused http://localhost:5000
+  after_script:
+    - pkill gunicorn || true
+  rules:
+    - changes:
+        - forms/**/*
+
+# =========================
+# PREJANUS FRONT
+# =========================
+
+prejanus-front-lint:
+  stage: lint
+  image: node:24
+  before_script:
+    - cd prejanus-front
+    - npm ci
+  script:
+    - npm run lint
+  rules:
+    - changes:
+        - prejanus-front/**/*
+
+prejanus-front-build:
+  stage: build
+  image: node:24
+  before_script:
+    - cd prejanus-front
+    - npm ci
+  script:
+    - npm run build
+  rules:
+    - changes:
+        - prejanus-front/**/*
+
+# =========================
+# STATIC ASSETS
+# =========================
+
+static-assets-build:
+  stage: build
+  image: node:24
+  before_script:
+    - cd static-assets
+    - npm ci
+  script:
+    - npm run build
+  rules:
+    - changes:
+        - static-assets/**/*
+
+# =========================
+# PREJANUS BACK
+# =========================
+
+prejanus-back-lint:
+  stage: lint
+  image: python:3.11
+  before_script:
+    - pip install poetry
+    - cd prejanus-back
+    - poetry install
+    - poetry add ruff==0.15.21
+  script:
+    - poetry run ruff check .
+  rules:
+    - changes:
+        - prejanus-back/**/*
+
+# =========================
+# DEPLOY
+# =========================
+
+deploy-homolog:
+  stage: homolog
+  image: python:3.12
+
+  before_script:
+    - apt-get update
+    - apt-get install -y ansible openssh-client git iputils-ping netcat-openbsd
+
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+    - echo "$SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_ed25519
+    - chmod 600 ~/.ssh/id_ed25519
+
+    - echo "HOST=$STAGING_HOST"
+    - echo "PORT=$SSH_PORT"
+    - echo "USER=$SSH_USER"
+
+    - echo "STAGING_HOST=$STAGING_HOST"
+    - getent hosts "$STAGING_HOST" || true
+
+    - ping -c 2 "$STAGING_HOST" || true
+    - nc -vz -w 5 "$STAGING_HOST" "$SSH_PORT" || true
+    - ssh-keyscan -T 10 -v -p "$SSH_PORT" -H "$STAGING_HOST" >>
+      ~/.ssh/known_hosts
+
+    - ssh-keyscan -p "$SSH_PORT" -H "$STAGING_HOST" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+  script:
+    - ansible-playbook -i "${STAGING_HOST}," -u "$SSH_USER" -e
+      "ansible_port=$SSH_PORT" -e "staging_domain_url=$STAGING_DOMAIN_URL"
+      --private-key ~/.ssh/id_ed25519 deploy.yml
+
+  environment:
+    name: homolog

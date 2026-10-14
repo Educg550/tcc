@@ -1,0 +1,60 @@
+services:
+  prejanus-back:
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./prejanus-back/src
+          target: /home/appuser/src
+        - action: rebuild
+          path: ./prejanus-back/pyproject.toml
+    deploy:
+      resources:
+        limits:
+          memory: 800m
+
+  prejanus-front:
+    build:
+      context: ./prejanus-front
+      dockerfile: docker/Dockerfile.develop
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+    develop:
+      watch:
+        - action: sync
+          path: ./prejanus-front/src
+          target: /app/src
+        - action: sync
+          path: ./prejanus-front/public
+          target: /app/public
+        - action: rebuild
+          path: ./prejanus-front/package.json
+        - action: rebuild
+          path: ./prejanus-front/package-lock.json
+
+  forms:
+    environment:
+      - FLASK_ENV=development
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./forms/app
+          target: /src/app
+        - action: sync+restart
+          path: ./forms/test
+          target: /src/test
+        - action: rebuild
+          path: ./forms/requirements.txt
+    deploy:
+      resources:
+        limits:
+          memory: 800m
+
+  smtp:
+    profiles: ['develop']

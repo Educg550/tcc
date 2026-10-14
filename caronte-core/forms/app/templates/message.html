@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{title|e}}{% endblock %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-center">
+    <h1>{{title|e}}</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{message|e}}</p>
+            </br>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}
+

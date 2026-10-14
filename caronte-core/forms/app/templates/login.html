@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ _("Login") }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='form.bundle.min.css') }}">
+
+<meta name="robots" content="noindex, nofollow">
+{% endblock %}
+{% block content %}
+
+<div class="container-wrapper">
+    <h1>{{ _("Login") }}</h1>
+
+    <div class="form__field form__field--button">
+        <button onclick="redirect_senhaunica()">{{ _("Entrar usando senhaunica") }}</button>
+    </div>
+
+    <div id="error_message" class="form__message--error">
+        
+    </div>
+</div>
+
+<script>
+    error_message = document.getElementById('error_message')
+    const redirect_senhaunica = () => {
+        const windowFeatures = "popup=true,status=NO, toolbar=NO, location=NO, directories=NO, resisable=NO, scrollbars=NO, top=10, left=10, width=1000, height=520"
+        const url = "{{url_for('pages.login_senhaunica')}}"
+        const popup = window.open(url, "senhaunica", windowFeatures)
+        if (!popup) {
+            error_message.textContent = "Página está bloqueando a abertura de janelas."
+        }
+        id = setInterval(checkWindowStatus, 500)
+        function checkWindowStatus() {
+            if (popup && popup.closed) {
+                clearInterval(id)
+            }
+        }
+        popup.onerror = () => {
+            clearInterval(id)
+            error_message.textContent = "Ocorreu um erro durante a autenticação."
+        }
+    }
+</script>
+    
+{% endblock %}
+

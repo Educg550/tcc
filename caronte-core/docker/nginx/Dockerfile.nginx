@@ -1,0 +1,8 @@
+FROM nginx:latest
+
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./docker/nginx/maintenance /usr/share/nginx/html/maintenance
+EXPOSE 80
+ENTRYPOINT ["nginx"]
+CMD ["-g", "daemon off;"]

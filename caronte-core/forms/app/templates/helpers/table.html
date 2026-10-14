@@ -1,0 +1,193 @@
+{% macro create(title, header, list, options = {}, redirects = {}) %}
+
+{% if title %}
+<form method="get" class="menu">
+	<h2>{{title}}</h2>
+	
+	<div class="form__field form__field--search">
+		<label for="search">
+			<svg width="16" height="16">
+				<use xlink:href="#icon-search"></use>
+			</svg>
+		</label>
+		<input id="search" name="search" type="search" autocomplete="off" placeholder="{{ _('Pesquisa') }}" {% if options["search"] %}value="{{ options['search']}}"{% endif %}></input>
+	</div>
+
+	<div class="menu__icons">
+		{% if options["order_by"] %}
+		<input type="hidden" name="order_by" value="{{options['order_by']}}"></input>
+		{% endif %}
+		{% if options["order_type"] %}
+		<input type="hidden" name="order_type" value="{{options['order_type']}}"></input>
+		{% endif %}
+
+		{% if redirects["download"] %}
+		<a aria-label="{{ _('Download tabela em formato csv') }}"  href="{{ url_for(redirects['download'], **request.view_args) }}" id="download" class="icon" title="{{ _('Download') }}">
+			<svg width="16" height="16">
+				<use xlink:href="#icon-download"></use>
+			</svg>
+		</a>
+		{% endif %}
+
+		{% if redirects["upload"] %}
+		<a aria-label="{{ _('Upload tabela em formato csv') }}" onclick="openUpload()" id="upload" class="icon" title="{{ _('Upload') }}">
+			<svg width="16" height="16">
+				<use xlink:href="#icon-upload"></use>
+			</svg>
+		</a>
+		{% endif %}
+
+		{% if options["tags"] %}
+		<div data-dropdown class="menu__icons dropdown">
+			<div id="menu_clicker" class="icon" title="{{ _('Filtro') }}">
+				<svg width="16" height="16">
+					<use xlink:href="#icon-filter"></use>
+				</svg>
+			</div>
+
+			<div id="menu" class="dropdown__element disabled" style="display: none;">
+				{% for key, value in options["tags"].items() %}
+					<div class="form__field form__field--text">
+						<label for="{{key}}">{{key}}</label>
+						<input id="{{key}}" name="{{key}}" type="text" autocomplete="off" value="{{value}}"></input>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+
+		<div id="view" class="icon" onclick="changeVisualization()" title="{{ _('Visualização') }}">
+			<svg width="16" height="16">
+				<use xlink:href="#icon-table"></use>
+			</svg>
+		</div>
+	</div>
+
+	<input type="submit" style="display: none;" />
+</form>
+{% endif %}
+
+<div class="wrapper_table">
+
+<table id="table" class="visualization visualization__table">
+	<thead>
+		<tr>
+{% for key, value in header.items() %}
+	{% if key == "id" %}
+			<th scope="column" class="index">#</th>
+	{% else %}
+			<th 
+				scope="column" 
+				{% if options["order_by"] == loop.index0 %}data-ordered="{{options['order_type']}}"{% endif %}
+				{% if options["order_by"] or options["order_type"] %}
+				data-clicked="true" 
+				onclick="window.location.href='{{url_for(request.url_rule.endpoint, order_by=loop.index0, order_type=options["order_type"]+1, search=request.args["search"], **request.view_args)}}'"
+				{% endif %}>{{value["label"]}}</th>
+	{% endif %}
+{% endfor %}
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for item in list %}
+		<tr 
+			{% if redirects['redirect_by'] %}
+				data-clicked="true" 
+				{% if redirects['redirect_by']['type'] == 'default' %}
+					onclick="window.location.href='{{url_for(redirects['redirect_by']['value'], id=item['id'])}}'"
+				{% else %}
+					onclick="openRow('{{url_for(redirects['redirect_by']['value'], id=item['id'])}}')"
+				{% endif %}
+			{% endif %}>
+		{% set outer_loop = loop.index %}
+		{% for key, value in header.items() %}
+			{% if key == "id" %}
+				<th scope="row" class="index">{{item[key]}}</th>
+			{% else %}
+				<td {% if item[key] %}title="{{item[key]}}"{% endif %}>
+				{% if value["type"] == "str" %}
+					{% if item[key] %}{{item[key]}}{% endif %}
+				{% elif value["type"] == "datetime" %}
+					{% if item[key] %}<time datetime="{{item[key]}}">{{item[key]|dateformat}}</time>{% endif %}
+				{% elif value["type"] == "boolean" %}
+					{% if item[key] %}{{ _("Verdadeiro") }}{% else %}{{ _("Falso") }}{% endif %}
+				{% else %}
+					TODO
+				{% endif %}
+				</td>
+			{% endif %}
+		{% endfor %}
+		</tr>
+		{% endfor %}
+		{% if redirects["create"] %}
+		<tr class="visualization__new--item" data-clicked="true" onclick="openCreate()">
+			<th scope="row" colspan="{{header|length}}">
+				<svg width="16" height="16">
+					<use xlink:href="#icon-plus"></use>
+				</svg>
+			</th>
+		</tr>
+		{% endif %}
+	</tbody>
+</table>
+
+</div>
+
+<footer>
+    <p>
+		{% autoescape false %}
+			{{ _("Mostrando %(size)s itens", size=list|length) }}
+		{% endautoescape %}
+	</p>
+</footer>
+
+<!-- Mostrar   
+<select id="page_size" name="page_size">
+	<option value="10">10</option>
+	<option value="25">25</option>
+	<option value="100">100</option>
+</select> 
+entradas -->
+
+<script>
+    function changeVisualization(event) {
+        const table = document.getElementById("table")
+        if (table.classList.contains("visualization__boxes")) {
+            table.classList.remove("visualization__boxes")
+            table.classList.add("visualization__table")
+            document.querySelector('#view').innerHTML = '<svg width="16" height="16"><use xlink:href="#icon-table"></use></svg>'
+        } else {
+            table.classList.remove("visualization__table")
+            table.classList.add("visualization__boxes")
+            document.querySelector('#view').innerHTML = '<svg width="16" height="16"><use xlink:href="#icon-box"></use></svg>'
+        }
+    }
+
+	{% if redirects['redirect_by'] and redirects['redirect_by']['type'] == 'popup' %}
+	function openRow(url_request) {
+		const popup = document.createElement('popup-element')
+		popup.dataset.url_request = url_request
+		document.body.appendChild(popup)
+	}
+	{% endif %}
+
+	{% if redirects["create"] %}
+	function openCreate(event) {
+		const popup = document.createElement('popup-element')
+		popup.dataset.url_request = "{{url_for('form.create')}}"
+		popup.dataset.title = "Criar Formulário"
+		document.body.appendChild(popup)
+	}
+	{% endif %}
+
+	{% if redirects["upload"] %}
+	function openUpload(event) {
+		const popup = document.createElement('popup-element')
+		popup.dataset.url_request = "{{url_for('form.upload', **request.view_args)}}"
+		popup.dataset.title = "Upload"
+		document.body.appendChild(popup)
+	}
+	{% endif %}
+</script>
+
+{% endmacro %}
