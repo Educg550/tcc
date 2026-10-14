@@ -22,17 +22,19 @@ subir() {
 
     (cd static-assets && npm ci && npm run build)
 
+    # sem --build: o original é congelado, então só constrói imagem ausente e não volta ao Docker Hub
     log=$(mktemp)
-    dc --progress plain build 2>&1 | tee "$log"
-    dc up -d --wait
+    dc --progress plain up -d --wait 2>&1 | tee "$log"
     curl -sf --retry 30 --retry-all-errors --retry-delay 2 http://localhost:8083/ > /dev/null
     dc exec -T db psql -v ON_ERROR_STOP=1 -U caronte_prejanus -d caronte_prejanus < ../demos/caronte/seed.sql
 
-    # bases do build não ficam no image store e consultar o registro esbarra no rate limit do Docker Hub
+    # bases do build não ficam no image store; o digest vem do log, e o que não foi reconstruído mantém o registro anterior
     {
-        grep -oE 'FROM docker.io/[^ ]+@sha256:[0-9a-f]+' "$log" | cut -d' ' -f2 | sort -u
+        grep -oE 'FROM docker.io/[^ ]+@sha256:[0-9a-f]+' "$log" | cut -d' ' -f2
         docker image inspect --format '{{index .RepoDigests 0}}' redis rnwood/smtp4dev alpine
-    } > ../demos/caronte/imagens.txt
+        cat ../demos/caronte/imagens.txt
+    } | sort -s -u -t@ -k1,1 > "$log.imagens"
+    mv "$log.imagens" ../demos/caronte/imagens.txt
 }
 
 trocar() {
