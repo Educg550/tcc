@@ -22,16 +22,17 @@ subir() {
 
     (cd static-assets && npm ci && npm run build)
 
-    dc up -d --build --wait
+    log=$(mktemp)
+    dc --progress plain build 2>&1 | tee "$log"
+    dc up -d --wait
     curl -sf --retry 30 --retry-all-errors --retry-delay 2 http://localhost:8083/ > /dev/null
     dc exec -T db psql -v ON_ERROR_STOP=1 -U caronte_prejanus -d caronte_prejanus < ../demos/caronte/seed.sql
 
-    # bases do build não ficam no image store; o registro devolve o digest que o build acabou de resolver
-    for img in postgres:17.6 python:3.11-slim node:18 node:18-alpine ubuntu:20.04 nginx:latest \
-        clamav/clamav:latest redis rnwood/smtp4dev alpine; do
-        docker buildx imagetools inspect --format '{{.Name}}@{{.Manifest.Digest}}' "$img"
-        echo
-    done > ../demos/caronte/imagens.txt
+    # bases do build não ficam no image store e consultar o registro esbarra no rate limit do Docker Hub
+    {
+        grep -oE 'FROM docker.io/[^ ]+@sha256:[0-9a-f]+' "$log" | cut -d' ' -f2 | sort -u
+        docker image inspect --format '{{index .RepoDigests 0}}' redis rnwood/smtp4dev alpine
+    } > ../demos/caronte/imagens.txt
 }
 
 trocar() {
