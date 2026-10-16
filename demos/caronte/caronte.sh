@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# uso: caronte.sh subir | trocar admin|teacher | consulta
+# uso: caronte.sh subir | trocar admin|teacher | consulta | cobertura
 set -euo pipefail
 cd "$(dirname "$0")/../../caronte-core"
 
@@ -46,10 +46,23 @@ trocar() {
     DEV_USER_ID=$id dc up -d --no-deps prejanus-back
 }
 
+imagem=caronte-core-prejanus-back:latest
+uvicorn=(uvicorn src.main:app --host 0.0.0.0 --port 8000)
+
+backend() {
+    local porta=$1; shift
+    docker rm -f "prejanus-back-consulta-$porta" > /dev/null 2>&1 || true
+    docker run -d --rm --name "prejanus-back-consulta-$porta" --network shared_network -p "$porta:8000" \
+        -e DB_CONNECTION_STRING=postgresql+psycopg://caronte_prejanus:caronte_prejanus@db:5432/caronte_prejanus_consulta \
+        -e DB_CONNECTION_STRING_FORMS=postgresql+psycopg://caronte_forms_reader:caronte_forms_reader@db:5432/caronte_forms_consulta \
+        -v "$PWD/../demos/caronte/uploads-consulta:/shared/uploads:ro" "$@" > /dev/null
+    curl -sf --retry 30 --retry-all-errors --retry-delay 1 "http://localhost:$porta/" > /dev/null
+}
+
 consulta() {
     local admin d=../demos/caronte
     admin=$(sed -n 's/^POSTGRES_ADMIN_USER=//p' .env)
-    docker rm -f prejanus-back-consulta > /dev/null 2>&1 || true
+    docker rm -f prejanus-back-consulta-8093 prejanus-back-consulta-8094 > /dev/null 2>&1 || true
     dc exec -T db psql -v ON_ERROR_STOP=1 -q -U "$admin" -d postgres \
         -c "drop database if exists caronte_forms_consulta" \
         -c "drop database if exists caronte_prejanus_consulta" \
@@ -67,18 +80,31 @@ consulta() {
     carga prejanus < $d/fixture-prejanus.sql
     carga prejanus < $d/fixture-consulta-prejanus.sql
 
-    docker run -d --rm --name prejanus-back-consulta --network shared_network -p 8093:8000 \
-        -e APP_ENV=local -e DEV_USER_ID=2 \
-        -e DB_CONNECTION_STRING=postgresql+psycopg://caronte_prejanus:caronte_prejanus@db:5432/caronte_prejanus_consulta \
-        -e DB_CONNECTION_STRING_FORMS=postgresql+psycopg://caronte_forms_reader:caronte_forms_reader@db:5432/caronte_forms_consulta \
-        -v "$PWD/$d/uploads-consulta:/shared/uploads:ro" \
-        caronte-core-prejanus-back:latest uvicorn src.main:app --host 0.0.0.0 --port 8000 > /dev/null
-    curl -sf --retry 30 --retry-all-errors --retry-delay 1 http://localhost:8093/ > /dev/null
+    backend 8093 -e APP_ENV=local -e DEV_USER_ID=2 "$imagem" "${uvicorn[@]}"
+    # sem o atalho DEV_USER_ID, para conferir o 401 sem sessão
+    backend 8094 -e APP_ENV=sem-atalho "$imagem" "${uvicorn[@]}"
+}
+
+cobertura() {
+    # coverage do venv de demos/ montado na imagem congelada: mesmo Python 3.11 e glibc
+    local out=$PWD/../demos/caronte/.cobertura
+    local cov=(-v "$PWD/../demos/.venv/lib/python3.11/site-packages/coverage:/cov/coverage:ro" -e PYTHONPATH=/cov
+               -v "$out:/out" -e COVERAGE_FILE=/out/.coverage -u "$(id -u):$(id -g)")
+    mkdir -p "$out"
+    consulta
+    backend 8093 -e APP_ENV=local -e DEV_USER_ID=2 "${cov[@]}" "$imagem" \
+        python -m coverage run --source=src --omit='*/tests/*,*/migrations/*,*conftest.py' -m "${uvicorn[@]}"
+    (cd ../demos && uv run pytest caronte/oraculo -q)
+    docker stop prejanus-back-consulta-8093 > /dev/null
+    docker run --rm "${cov[@]}" "$imagem" python -m coverage json -q -o /out/cobertura.json
+    (cd ../demos && uv run python caronte/cobertura.py caronte/.cobertura/cobertura.json)
+    backend 8093 -e APP_ENV=local -e DEV_USER_ID=2 "$imagem" "${uvicorn[@]}"
 }
 
 case "${1:-}" in
     subir) subir ;;
     trocar) trocar "${2:-}" ;;
     consulta) consulta ;;
-    *) echo "uso: $0 subir | trocar admin|teacher | consulta" >&2; exit 1 ;;
+    cobertura) cobertura ;;
+    *) echo "uso: $0 subir | trocar admin|teacher | consulta | cobertura" >&2; exit 1 ;;
 esac
