@@ -27,7 +27,8 @@ os anexos de `/shared/uploads/`, o volume compartilhado do original. No
 original, subir com `bash demos/caronte/caronte.sh subir`, a partir da raiz
 do TCC. A reconstrução substitui apenas o serviço `prejanus-back`,
 preservando o banco `db`, o volume de uploads, a porta e o contrato de
-preparação.
+preparação. O estado de consulta é restaurado por
+`bash demos/caronte/caronte.sh consulta`.
 
 ### PIL-BD-01 — Compatibilidade com a fixture SQL
 
@@ -73,7 +74,9 @@ Este último organiza os campos por seção, com seus identificadores, nomes,
 rótulos, tipos e valores. O e-mail de acesso do candidato aparece nos
 detalhes. Campos não preenchidos podem vir sem valor; os preenchidos
 correspondem aos valores conhecidos da fixture, incluindo escolhas e textos
-opcionais.
+opcionais. A nota do POSCOMP fica vazia e `ethnicity-race` fica fora do
+mapeamento do edital, para contornar duas falhas do original (ver
+[`fixture.md`](./fixture.md)).
 
 ### PIL-DOC-03 — Baixar todos os anexos enviados
 

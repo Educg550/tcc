@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# uso: caronte.sh subir | trocar admin|teacher
+# uso: caronte.sh subir | trocar admin|teacher | consulta
 set -euo pipefail
 cd "$(dirname "$0")/../../caronte-core"
 
@@ -46,8 +46,39 @@ trocar() {
     DEV_USER_ID=$id dc up -d --no-deps prejanus-back
 }
 
+consulta() {
+    local admin d=../demos/caronte
+    admin=$(sed -n 's/^POSTGRES_ADMIN_USER=//p' .env)
+    docker rm -f prejanus-back-consulta > /dev/null 2>&1 || true
+    dc exec -T db psql -v ON_ERROR_STOP=1 -q -U "$admin" -d postgres \
+        -c "drop database if exists caronte_forms_consulta" \
+        -c "drop database if exists caronte_prejanus_consulta" \
+        -c "create database caronte_forms_consulta owner caronte_forms" \
+        -c "create database caronte_prejanus_consulta owner caronte_prejanus" \
+        -c "grant connect on database caronte_forms_consulta to caronte_forms_reader"
+    for b in forms prejanus; do
+        dc exec -T db pg_dump -s -U "$admin" "caronte_$b" |
+            dc exec -T db psql -v ON_ERROR_STOP=1 -q -U "$admin" -d "caronte_${b}_consulta" > /dev/null
+    done
+    carga() { dc exec -T db psql -v ON_ERROR_STOP=1 -q --single-transaction -U "caronte_$1" -d "caronte_$1_consulta" > /dev/null; }
+    carga forms < $d/fixture-forms.sql
+    carga forms < $d/fixture-consulta-forms.sql
+    carga prejanus < $d/seed.sql
+    carga prejanus < $d/fixture-prejanus.sql
+    carga prejanus < $d/fixture-consulta-prejanus.sql
+
+    docker run -d --rm --name prejanus-back-consulta --network shared_network -p 8093:8000 \
+        -e APP_ENV=local -e DEV_USER_ID=2 \
+        -e DB_CONNECTION_STRING=postgresql+psycopg://caronte_prejanus:caronte_prejanus@db:5432/caronte_prejanus_consulta \
+        -e DB_CONNECTION_STRING_FORMS=postgresql+psycopg://caronte_forms_reader:caronte_forms_reader@db:5432/caronte_forms_consulta \
+        -v "$PWD/$d/uploads-consulta:/shared/uploads:ro" \
+        caronte-core-prejanus-back:latest uvicorn src.main:app --host 0.0.0.0 --port 8000 > /dev/null
+    curl -sf --retry 30 --retry-all-errors --retry-delay 1 http://localhost:8093/ > /dev/null
+}
+
 case "${1:-}" in
     subir) subir ;;
     trocar) trocar "${2:-}" ;;
-    *) echo "uso: $0 subir | trocar admin|teacher" >&2; exit 1 ;;
+    consulta) consulta ;;
+    *) echo "uso: $0 subir | trocar admin|teacher | consulta" >&2; exit 1 ;;
 esac

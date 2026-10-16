@@ -44,14 +44,15 @@ de arquivo (quatro obrigatórios) e os rótulos/opções bilíngues originais.
 
 Pontos que a validação em execução deve resolver antes do congelamento:
 
-- Banco: a fixture inicial foi materializada e restaurada em bancos
-  temporários com esquema original. Falta materializar e conferir o estado
-  de consulta, com respostas, `submission` e os oito PDFs. O prejanus-back
+- Banco: o estado de consulta foi materializado e conferido no original em
+  16/10/2026, com `caronte.sh consulta` (ver `fixture.md`). Duas falhas do
+  original, em `ethnicity-race` e na nota do POSCOMP, são contornadas por
+  dados; não as descreva como requisito. O prejanus-back
   lê o forms pelas funções SQL `get_all_submissions` e
   `get_submissions_by_id`, definidas nas migrações do forms; elas são
   infraestrutura do original, não parte da reconstrução.
-- HTTP: capturar os payloads efetivos de PIL-DOC-01..03 e o 401 sem sessão
-  de PIL-AUT-01 no original.
+- HTTP: status, cabeçalho dos anexos e 401 sem sessão conferidos; os
+  payloads completos ficam registrados pela suíte.
 - Issue 26: reproduzida por HTTP em 16/10/2026 (ver `fixture.md`). Uma
   resposta finalizada sem linha em `submission` faz a listagem retornar 500.
   O estado de consulta não pode conter resposta assim.

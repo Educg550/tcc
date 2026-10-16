@@ -81,10 +81,7 @@ INSERT INTO edict_form_mappings (id, edict_id, form_id, form_type, form_version,
     "section": 2,
     "field": 16
   },
-  "ethnicity-race": {
-    "section": 2,
-    "field": 17
-  },
+  "ethnicity-race": null,
   "ethnicity-race-file": {
     "section": 2,
     "field": 18

@@ -21,23 +21,34 @@ em `46b89c1d5519aeae40c088ee94262e9b739a7d48`.
 O esquema deve existir antes da carga: as fixtures são dados SQL, não
 migrações. Os ids são fixos e iguais para todas as implementações. O nome
 `email` nos mapeamentos é nulo porque o endereço de acesso pertence a
-`form_response.email`, não a um campo do formulário. A consulta acrescenta a
-essa base o estado descrito abaixo.
+`form_response.email`, não a um campo do formulário. O de `ethnicity-race`
+também é nulo, para contornar uma falha do original (ver abaixo). A consulta
+acrescenta a essa base o estado descrito a seguir.
 
-## Estado de consulta: contrato de preparação
+## Estado de consulta
 
 O piloto reconstrói só a consulta do prejanus-back (ver `requisitos.md`).
-O estado de consulta contém a fixture inicial mais uma inscrição concluída
-no forms, suas respostas conhecidas, oito PDFs distintos em
-`/shared/uploads/` e a linha correspondente em `prejanus.submission`. Banco e
-arquivos são fixos e iguais no original e nas reconstruções. Os testes
-conferem a leitura desses dados, sem atribuir sua criação ao sistema avaliado.
+O estado de consulta é a fixture inicial mais:
 
-Esse estado ainda não foi materializado nem validado. Prepará-lo a partir de
-bancos e armazenamento restaurados: uma resposta finalizada sem registro em
-`submission` provoca o erro 500 da issue 26, mesmo que outra inscrição já
-esteja preparada. Não importar dados no ambiente existente para ocultar a
-falha.
+- `fixture-consulta-forms.sql`: a resposta finalizada 1 do formulário 1, com
+  os 42 campos nos formatos que o forms grava (texto da opção em português,
+  caixa de seleção como array JSON, anexo como `<hex>_<nome>.pdf`). A nota do
+  POSCOMP fica vazia, por outra falha do original.
+- `fixture-consulta-prejanus.sql`: a linha 1 de `submission` dessa resposta,
+  exigida pelo original antes de listá-la (issue 26).
+- `uploads-consulta/`: os oito PDFs sintéticos, um por campo de arquivo, com
+  conteúdo distinto.
+
+Banco e arquivos são fixos e iguais no original e nas reconstruções. Os
+testes conferem a leitura desses dados, sem atribuir sua criação ao sistema
+avaliado.
+
+Com a stack ligada, `bash demos/caronte/caronte.sh consulta` recria os bancos
+`caronte_forms_consulta` e `caronte_prejanus_consulta` a partir do esquema dos
+bancos da aplicação, carrega as cinco fixtures e sobe o prejanus-back
+original em `http://localhost:8093/`, como docente (`DEV_USER_ID=2`) e com
+`uploads-consulta/` montado só para leitura em `/shared/uploads`. Os bancos
+e o volume da aplicação não são tocados, e rodar de novo restaura o estado.
 
 ## Carga em bancos recém-migrados e vazios
 
@@ -109,5 +120,37 @@ a falha.
 
 O código original foi preservado. Com a criação da inscrição fora do
 piloto, a falha só restringe a preparação: o estado de consulta não pode
-conter resposta finalizada sem `submission`. A leitura dos oito documentos
-pelo docente continua por validar no original.
+conter resposta finalizada sem `submission`.
+
+## Consulta conferida no original
+
+Em 16/10/2026, com `caronte.sh consulta`:
+
+| Rota | Resultado |
+|---|---|
+| `GET /auth/login` | 200, docente id 2; 401 sem o atalho e sem sessão |
+| `GET /edicts`, `/edicts/1` | 200, o edital da fixture |
+| `GET /edicts/1/submissions` | 200, uma inscrição; repetida, continua uma linha em `submission` |
+| `GET /submissions/1` | 200, oito seções e 42 campos iguais à fixture; e-mail de acesso no `summary` |
+| `GET /submissions/1/files/<campo>/<arquivo>` | 200 nos oito, `attachment` e conteúdo idêntico |
+
+O 401 foi conferido num segundo contêiner com `APP_ENV` diferente de
+`local`, que desliga o atalho.
+
+## Falhas do original contornadas por dados
+
+A primeira carga, com o PPI marcado e a nota do POSCOMP preenchida, deu 500
+na listagem e no detalhe:
+
+1. `get_all_from_edict.py:356` aplica `json.loads` ao valor de
+   `ethnicity-race`, que `parse_value` já converteu em lista. A listagem
+   falha com qualquer valor que o forms grava nesse campo, inclusive o `[]`
+   da caixa desmarcada; `disabilities`, ao lado, tem a proteção `isinstance`.
+2. `get_by_id.py:632` passa `grades-poscomp`, do tipo `Number` e já
+   convertido em `int`, para `PosCompSchema.score`, que exige `str`. O detalhe
+   falha sempre que a nota está preenchida.
+
+Por decisão de Eduardo em 16/10/2026, o original continua intocado e a
+fixture contorna as duas falhas: mapeamento de `ethnicity-race` nulo no
+edital, que é dado administrativo, e nota do POSCOMP vazia, que é opcional.
+Com isso, nem o PPI nem a nota são verificados no piloto.
