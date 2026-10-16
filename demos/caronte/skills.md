@@ -43,8 +43,8 @@ eficácia no modelo usado pelo piloto.
 - **Ponytail:** usar somente `skills/ponytail` da release 5.3.1. Não instalar
   hooks, plugin, comandos de auditoria ou interface da extensão. O pacote
   já disponível localmente declara 5.3.1, e seu SKILL.md coincide com o
-  arquivo da release. A escolha de nível do piloto ainda deve ser registrada
-  no harness; a sessão de preparação está em ultra.
+  arquivo da release. O piloto usa o nível full, o padrão da skill: nada a
+  configurar no harness. A sessão de preparação estava em ultra.
 - **Flask:** o ramo atual removeu essa skill em fevereiro. Foi recuperada
   a revisão de 20/01/2026 que ainda contém o diretório completo e a licença.
   Ela recomenda Flask-SQLAlchemy, Flask-Login e Flask-WTF; essas sugestões
@@ -103,15 +103,14 @@ no README; Next declara MIT no README. Nenhum dos dois repositórios contém
 um arquivo LICENSE separado no índice da revisão consultada, e a API GitHub
 não reconhece uma licença nesses repositórios. O manifesto distingue
 `declaration_only` de `license_file`; não registra um texto de licença nem
-um titular que não foram encontrados. Antes de redistribuir essas duas
-cópias, resolver a forma de acompanhar a licença/atribuição; não tratá-las
-como pacotes já homologados para distribuição.
+um titular que não foram encontrados. As duas cópias levam um `ATTRIBUTION.md`
+que aponta a declaração MIT no commit fixado, com o README copiado em `_origem/`.
 
 O CLI pode copiar apenas o diretório da skill, deixando LICENSE e README
-na raiz do repositório de origem. Portanto, os comandos abaixo não bastam
-para preparar uma distribuição com os avisos: o empacotamento deve levar
-também os arquivos de evidência indicados no manifesto. Nenhuma skill foi
-copiada para o repositório ou ativada para uma run nesta pesquisa.
+na raiz do repositório de origem. Por isso as skills não são instaladas pelos
+comandos abaixo: `vendorizar.py` materializa cada uma em `skills/<nome>/` no
+commit do manifesto, confere a árvore git e o SHA-256 do SKILL.md, e copia as
+evidências de licença de fora do diretório da skill para `_origem/`.
 
 ## Entrada dos agentes e orçamento
 
