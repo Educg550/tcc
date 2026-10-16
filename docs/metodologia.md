@@ -71,6 +71,19 @@ O batch é obrigatório no experimento porque o feedback humano é uma ajuda ext
 
 ---
 
+## Contagem de Falhas
+
+O campo `etapas_ok` do `RUN.log` (todas as etapas terminaram com sucesso) não significa a mesma coisa nos dois grupos, e por isso não serve como critério de elegibilidade na comparação:
+
+- **Baseline:** uma etapa só e nenhum portão que possa reprovar. `etapas_ok` é verdadeiro sempre que o modelo escreve algum arquivo.
+- **Experimental:** o pytest é portão. `etapas_ok` é falso quando o pipeline esgota as tentativas sem passar nos testes.
+
+No lote de 200 runs isso apareceu como zero runs baseline descartadas por `etapas_ok` contra 22 runs TDD. Descartar essas runs e comparar só as elegíveis esconde a falha do TDD no portão e mantém todas as falhas do baseline, que só aparecem depois, na avaliação. O viés favorece o grupo experimental: entre elegíveis, o TDD vence em tudo; contando as inelegíveis como reprovação, o baseline fica à frente com o DeepSeek (82% contra 76%) e atrás com o GLM (6% contra 24%).
+
+Decisão: **o denominador de toda taxa é o número de tentativas por célula (modelo × grupo), não o de runs elegíveis.** Uma run que não chega à avaliação, por falhar no portão ou não produzir sistema executável, conta como reprovada no grupo em que ocorreu.
+
+---
+
 ## Procedimento
 
 1. Definir a lista de N requisitos (sistema com frontend)
