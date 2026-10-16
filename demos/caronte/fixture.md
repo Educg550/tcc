@@ -3,7 +3,7 @@
 Preparada e conferida em 16/10/2026 no Postgres 17.6 do original congelado
 em `46b89c1d5519aeae40c088ee94262e9b739a7d48`.
 
-## Cenário de candidatura: fixture inicial
+## Fixture inicial
 
 - `fixture-forms.sql`: exportação de dados pelos comandos originais
   `flask commands create_application_form mestrado 2026` e
@@ -21,29 +21,23 @@ em `46b89c1d5519aeae40c088ee94262e9b739a7d48`.
 O esquema deve existir antes da carga: as fixtures são dados SQL, não
 migrações. Os ids são fixos e iguais para todas as implementações. O nome
 `email` nos mapeamentos é nulo porque o endereço de acesso pertence a
-`form_response.email`, não a um campo do formulário. O cenário de candidatura
-verifica a gravação no forms; a consulta no prejanus usa outro estado de
-preparação, descrito abaixo.
+`form_response.email`, não a um campo do formulário. A consulta acrescenta a
+essa base o estado descrito abaixo.
 
-## Cenário de consulta: contrato de preparação
+## Estado de consulta: contrato de preparação
 
-Por decisão de 16/10/2026, o commit original permanece congelado e o piloto
-passa a ter dois cenários independentes. A criação/sincronização automática
-da inscrição no prejanus fica fora do recorte por causa da issue 26. Essa
-decisão não corrige a falha nem comprova a integração entre os cenários.
+O piloto reconstrói só a consulta do prejanus-back (ver `requisitos.md`).
+O estado de consulta contém a fixture inicial mais uma inscrição concluída
+no forms, suas respostas conhecidas, oito PDFs distintos em
+`/shared/uploads/` e a linha correspondente em `prejanus.submission`. Banco e
+arquivos são fixos e iguais no original e nas reconstruções. Os testes
+conferem a leitura desses dados, sem atribuir sua criação ao sistema avaliado.
 
-O estado de consulta deve conter os mesmos usuários, edital, formulários e
-mapeamentos da fixture inicial, mais uma inscrição concluída no forms, suas
-respostas conhecidas, oito PDFs distintos no armazenamento compartilhado e
-a linha correspondente em `prejanus.submission`. Banco e arquivos devem ser
-fixos e iguais no original e nas reconstruções. Os testes conferem a leitura
-desses dados, sem atribuir sua criação ao sistema avaliado.
-
-Esse estado ainda não foi materializado nem validado. Sua preparação deve
-partir de bancos e armazenamento isolados ou restaurados, sem reutilizar o
-estado deixado pelo cenário de candidatura: uma resposta nova sem registro
-no prejanus ainda provoca o erro 500, mesmo que outra inscrição já esteja
-preparada. Não importar dados no ambiente existente para ocultar a falha.
+Esse estado ainda não foi materializado nem validado. Prepará-lo a partir de
+bancos e armazenamento restaurados: uma resposta finalizada sem registro em
+`submission` provoca o erro 500 da issue 26, mesmo que outra inscrição já
+esteja preparada. Não importar dados no ambiente existente para ocultar a
+falha.
 
 ## Carga em bancos recém-migrados e vazios
 
@@ -66,10 +60,7 @@ bash demos/caronte/caronte.sh trocar teacher
 ```
 
 Cada importação usa uma transação; a carga nos dois bancos não é uma
-transação distribuída. Não alterar os arquivos entre os grupos. O link de
-acesso inicial é `/pt/form/shared/<token>`, com o token de `form_shared`
-incluído na fixture. O token é dado sintético público de preparação, não
-uma credencial institucional.
+transação distribuída. Não alterar os arquivos entre os grupos.
 
 ## Conferência realizada
 
@@ -116,10 +107,7 @@ foi conferido que restaram zero respostas. A fixture exportada não contém
 esse diagnóstico nem prepara uma inscrição antecipadamente para ocultar
 a falha.
 
-O requisito PIL-DOC-01 foi revisto para a consulta de uma inscrição
-preparada, em estado independente, e permanece sem validação de aprovação
-no original. O código original foi preservado. Os testes HTTP/tela de
-rejeição de upload e a validação dos oito documentos pelo docente continuam
-por executar. Só a restauração da fixture inicial e o diagnóstico HTTP
-descritos acima foram conferidos; não são evidência de aprovação dos dois
-cenários completos.
+O código original foi preservado. Com a criação da inscrição fora do
+piloto, a falha só restringe a preparação: o estado de consulta não pode
+conter resposta finalizada sem `submission`. A leitura dos oito documentos
+pelo docente continua por validar no original.
