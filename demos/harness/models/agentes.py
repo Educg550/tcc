@@ -57,11 +57,6 @@ class Agente:
             use_json_mode=True,
         )
 
-    @classmethod
-    def de(cls, papel: str, model_id: str) -> "Agente":
-        """O papel nomeia o prompt; o modelo vem do caso de uso, não do harness."""
-        return cls(model_id, load(papel))
-
     async def propor(self, prompt: str) -> Resposta:
         async with self._agno.model.get_async_client():
             resposta = await self._agno.arun(prompt)

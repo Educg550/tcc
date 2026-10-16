@@ -1,7 +1,6 @@
 import asyncio
 
-from harness.models.agentes import Resposta
-from harness.models.dominio import Alvo, Arquivo, Mudanca, Projeto
+from harness.models.dominio import Alvo, Projeto
 from harness.models.etapas import Etapa, EtapaCodigo, EtapaTestes
 from harness.models.politicas import (
     Aprovado,
@@ -11,6 +10,7 @@ from harness.models.politicas import (
     Orcamento,
     Permissao,
 )
+from harness.models.sessao import Turno
 from harness.models.tracing import Resultado, Trace
 
 ALVO = Alvo(
@@ -22,25 +22,28 @@ ALVO = Alvo(
 ORCAMENTO = Orcamento(passos=5, custo_usd=1.0, tempo_s=60)
 
 
-class AgenteRoteirizado:
-    """Propõe os caminhos na ordem dada e guarda os prompts que recebeu."""
+class SessaoRoteirizada:
+    """Escreve os caminhos na ordem dada, como a sessão do opencode faria, e guarda os
+    prompts que recebeu. `None` simula uma chamada que terminou com erro."""
 
     model_id = "stub/stub"
+    id = "ses_stub"
 
-    def __init__(self, *caminhos: str):
+    def __init__(self, *caminhos: str | None):
         self.caminhos = list(caminhos)
         self.prompts: list[str] = []
+        self.chamadas: list[tuple[dict, list]] = []
 
-    async def propor(self, prompt: str) -> Resposta:
+    async def enviar(self, prompt, projeto, escopo_edit, skills, tempo_s) -> Turno:
         self.prompts.append(prompt)
-        arquivo = Arquivo(caminho=self.caminhos.pop(0), conteudo="x = 1\n")
-        return Resposta(
-            mudanca=Mudanca(arquivos=[arquivo]),
-            custo_usd=0.0,
-            input_tokens=0,
-            output_tokens=0,
-            total_tokens=0,
-        )
+        self.chamadas.append((escopo_edit, skills))
+        caminho = self.caminhos.pop(0)
+        if caminho is None:
+            return Turno(0.01, 10, 2, 12, [], erro="APIError 502")
+        destino = projeto.raiz / caminho
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        destino.write_text(f"x = {len(self.prompts)}\n")
+        return Turno(0.01, 10, 2, 12, ["ponytail"])
 
 
 class RejeitaUmaVez(Permissao):
@@ -52,87 +55,61 @@ class RejeitaUmaVez(Permissao):
         return Aprovado() if self.vezes > 1 else FeedbackHumano("faltou o caso vazio")
 
 
-def rodar(tmp_path, agente, permissao, classe: type[Etapa] = EtapaTestes) -> dict:
+def rodar(tmp_path, sessao, permissao, classe: type[Etapa] = EtapaTestes) -> dict:
     projeto = Projeto(tmp_path, ALVO)
     projeto.preparar()
     etapa = classe(
-        "etapa", agente, permissao, ORCAMENTO, Trace(projeto.saida / "trace.jsonl")
+        "etapa", sessao, permissao, ORCAMENTO, Trace(projeto.saida / "trace.jsonl")
     )
     return asyncio.run(etapa.executar("REQUISITO", projeto))
 
 
-def test_escopo_violado_volta_ao_modelo_e_nao_encerra_a_etapa(tmp_path):
-    agente = AgenteRoteirizado("app.py", "tests/test_x.py")
+def test_escrita_fora_do_escopo_encerra_a_etapa(tmp_path):
+    sessao = SessaoRoteirizada("app.py")
 
-    parte = rodar(tmp_path, agente, Batch())
+    parte = rodar(tmp_path, sessao, Batch())
 
-    assert parte["ok"] and parte["motivo"] == "verde"
-    # A proposta rejeitada não chega ao disco, mas custa um passo e volta no prompt.
-    assert parte["arquivos"] == ["tests/test_x.py"]
-    assert (parte["passos"], parte["retries"]) == (2, 1)
-    assert "PROPOSTA REJEITADA" in agente.prompts[1]
-    assert not (tmp_path / "app.py").exists()
+    # O opencode já nega a escrita; se ela passar, a medição foi adulterada.
+    assert not parte["ok"] and parte["motivo"] == "escopo"
+    assert parte["arquivos"] == ["app.py"]
+    assert sessao.chamadas[0][0] == {"*": "deny", "tests/**": "allow"}
 
 
-class AgenteQueFalhaUmaVez:
-    """Primeiro devolve resposta que não virou Mudanca, depois um caminho válido."""
+def test_sessao_com_erro_volta_ao_modelo_e_nao_derruba_a_etapa(tmp_path):
+    sessao = SessaoRoteirizada(None, "tests/test_x.py")
 
-    model_id = "stub/stub"
-
-    def __init__(self):
-        self.prompts: list[str] = []
-
-    async def propor(self, prompt: str) -> Resposta:
-        self.prompts.append(prompt)
-        if len(self.prompts) == 1:
-            return Resposta(
-                mudanca=None,
-                custo_usd=0.0,
-                input_tokens=0,
-                output_tokens=0,
-                total_tokens=0,
-                erro="Invalid JSON: expected value at line 1 column 1",
-            )
-        arquivo = Arquivo(caminho="tests/test_x.py", conteudo="x = 1\n")
-        return Resposta(
-            mudanca=Mudanca(arquivos=[arquivo]),
-            custo_usd=0.0,
-            input_tokens=0,
-            output_tokens=0,
-            total_tokens=0,
-        )
-
-
-def test_resposta_invalida_volta_ao_modelo_e_nao_derruba_a_etapa(tmp_path):
-    agente = AgenteQueFalhaUmaVez()
-
-    parte = rodar(tmp_path, agente, Batch())
+    parte = rodar(tmp_path, sessao, Batch())
 
     assert parte["ok"] and parte["motivo"] == "verde"
     assert (parte["passos"], parte["retries"]) == (2, 1)
-    assert "RESPOSTA INVÁLIDA" in agente.prompts[1]
+    assert "SESSÃO INTERROMPIDA" in sessao.prompts[1]
+    assert parte["cost_usd"] == 0.02 and parte["total_tokens"] == 24
 
 
 def test_feedback_humano_volta_ao_modelo_e_nao_encerra_a_etapa(tmp_path):
-    agente = AgenteRoteirizado("tests/test_x.py", "tests/test_y.py")
+    sessao = SessaoRoteirizada("tests/test_x.py", "tests/test_y.py")
 
-    parte = rodar(tmp_path, agente, RejeitaUmaVez())
+    parte = rodar(tmp_path, sessao, RejeitaUmaVez())
 
     assert parte["ok"] and (parte["passos"], parte["retries"]) == (2, 1)
-    assert "faltou o caso vazio" in agente.prompts[1]
+    assert "faltou o caso vazio" in sessao.prompts[1]
+    # A sessão já tem o requisito no histórico: o passo seguinte leva só a observação.
+    assert "REQUISITO" not in sessao.prompts[1]
+    assert parte["arquivos"] == ["tests/test_x.py", "tests/test_y.py"]
+    assert parte["skills"] == ["ponytail", "ponytail"]
 
 
 def test_orcamento_estourado_encerra_sem_verde(tmp_path):
-    agente = AgenteRoteirizado(*["app.py"] * 5)
+    sessao = SessaoRoteirizada(*[None] * 5)
 
-    parte = rodar(tmp_path, agente, Batch())
+    parte = rodar(tmp_path, sessao, Batch())
 
     assert not parte["ok"] and parte["motivo"] == "passos"
     assert parte["passos"] == 5 and parte["arquivos"] == []
 
 
 def test_etapa_de_codigo_registra_a_impressao_dos_testes(tmp_path):
-    parte = rodar(tmp_path, AgenteRoteirizado("app.py"), Batch(), EtapaCodigo)
+    parte = rodar(tmp_path, SessaoRoteirizada("app.py"), Batch(), EtapaCodigo)
 
     # Sem gate de pytest: é a etapa do baseline, e tests_vermelhos não se aplica.
     assert parte["ok"] and parte["impressao"]

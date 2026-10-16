@@ -139,6 +139,20 @@ class Requisito:
     def orcamento(self) -> Orcamento:
         return Orcamento(**self._declarado["orcamento"])
 
+    @property
+    def skills(self) -> dict[str, list[Path]]:
+        """Skills vendorizadas ao lado do manifesto que o alvo.toml aponta, por propósito.
+        Sem manifesto declarado, nenhuma."""
+        lock = self._declarado.get("skills", {}).get("lock")
+        if not lock:
+            return {}
+        manifesto = (self.diretorio / lock).resolve()
+        por_proposito: dict[str, list[Path]] = {}
+        for s in json.loads(manifesto.read_text(encoding="utf-8"))["skills"]:
+            pasta = manifesto.parent / "skills" / s["name"]
+            por_proposito.setdefault(s["purpose"], []).append(pasta)
+        return por_proposito
+
 
 class Criterio(BaseModel):
     """Critério de aceitação: autocontido. Se depende de um passo anterior, o passo está
@@ -268,6 +282,21 @@ class Projeto:
             destino.write_text(conteudo, encoding="utf-8")
             escritos.append(str(destino.relative_to(self.raiz)))
         return escritos
+
+    def estado(self) -> dict[str, tuple[int, int]]:
+        """mtime e tamanho de cada arquivo: basta para saber o que uma sessão tocou."""
+        estado = {}
+        for pasta, dirs, arquivos in os.walk(self.raiz):
+            dirs[:] = [d for d in dirs if d not in (*IGNORADOS, ".git")]
+            for nome in arquivos:
+                s = os.stat(os.path.join(pasta, nome))
+                rel = os.path.relpath(os.path.join(pasta, nome), self.raiz)
+                estado[rel] = (s.st_mtime_ns, s.st_size)
+        return estado
+
+    def alterados(self, antes: dict[str, tuple[int, int]]) -> list[str]:
+        depois = self.estado()
+        return sorted(a for a in antes.keys() | depois.keys() if antes.get(a) != depois.get(a))
 
     def impressao(self) -> str:
         h = hashlib.sha256()
