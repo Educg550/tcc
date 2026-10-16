@@ -56,9 +56,9 @@ falha se algo disso chegar ao prompt.
 Skills: só as do manifesto declarado em `[skills]`, carregadas sob demanda. As de
 propósito `testing` só entram na etapa de testes. As usadas ficam em `skills` no `RUN.log`.
 
-O custo de cada chamada é o delta de uso da chave em `GET /api/v1/key` do OpenRouter, o
-valor cobrado, e não a estimativa do opencode. Por isso as runs não podem rodar em
-paralelo com a mesma chave.
+O custo de cada etapa é o `cost` que o opencode calcula por passo com a tabela de preços
+embutida na versão fixada. O uso da chave no OpenRouter (`GET /api/v1/key`) seria o valor
+cobrado, mas chega com minutos de atraso e não separa etapa nem run.
 
 ## Rodar
 
@@ -92,8 +92,8 @@ Executa 50 pares TDD/baseline para cada requisito
 avaliação (CUA ou Cypress). São 200 execuções em 100 pastas-mãe:
 `runs/batch/<deepseek|glm>/run<1..50>/<tdd|baseline>/`, com as métricas em `_harness/RUN.log`.
 Usa DeepSeek V4.1 Flash e GLM-5.3, com os orçamentos dos respectivos `alvo.toml`.
-Roda uma execução de cada vez: o custo vem do delta de uso da chave, e runs em
-paralelo somariam o gasto umas das outras.
+Roda em lotes de até 25 execuções simultâneas, cada uma em sua própria thread;
+espera o lote inteiro terminar antes de iniciar o próximo.
 
 Ao executar novamente, pula projetos com `RUN.log`, inclusive os encerrados por
 orçamento ou com testes falhando. Uma exceção encerra o batch depois das execuções
@@ -163,7 +163,7 @@ não pode vazar para dentro do que ela mede.
 | `models/etapas.py` | o laço de uma etapa: a sessão edita → o harness confere o escopo → observa → autoriza. `Escopo` (onde cada etapa pode escrever), `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
 | `models/propostas.py` | o que sobra da proposta depois de aplicada: `PropostaAceita` ou `PropostaRejeitada` |
 | `models/observacoes.py` | o que volta à sessão entre chamadas: `PytestFalhou`, `SessaoFalhou` e o feedback humano |
-| `models/sessao.py` | a `Sessao` do opencode: config por etapa, isolamento do ambiente, tokens do JSONL e custo pela chave |
+| `models/sessao.py` | a `Sessao` do opencode: config por etapa, isolamento do ambiente, tokens e custo do JSONL |
 | `models/agentes.py` | o `Agente` Agno da avaliação, que traduz resposta de provedor em `Mudanca` (a suíte Cypress) |
 | `models/avaliacao.py` | o `Avaliador`: a suíte Cypress sobre os critérios determinísticos e o CUA (browser-use) sobre os subjetivos |
 | `models/politicas.py` | `Orcamento` (passos, custo, tempo) e `Permissao` (`Batch`/`Interativa`), que decide por `Aprovado` ou `FeedbackHumano` |

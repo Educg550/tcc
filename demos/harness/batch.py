@@ -1,4 +1,5 @@
 import asyncio
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from tempfile import mkdtemp
 
@@ -31,10 +32,11 @@ def executar(destino: Path = DEMOS / "runs" / "batch") -> None:
                     raiz.rename(arquivo / classe.grupo)
                     print(f"tentativa incompleta preservada: {arquivo}", flush=True)
                 pendentes.append((classe, projeto, requisito))
-    # Uma de cada vez: o custo de cada passo é o delta de uso da chave, e runs em
-    # paralelo somariam o gasto umas das outras.
-    for args in pendentes:
-        rodar(*args)
+    with ThreadPoolExecutor(max_workers=25) as pool:
+        for inicio in range(0, len(pendentes), 25):
+            lote = [pool.submit(rodar, *args) for args in pendentes[inicio:inicio + 25]]
+            for run in lote:
+                run.result()
 
 
 if __name__ == "__main__":

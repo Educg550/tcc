@@ -3,8 +3,7 @@ import json
 import os
 import subprocess
 import tempfile
-import urllib.request
-from dataclasses import dataclass, replace
+from dataclasses import dataclass
 from pathlib import Path
 
 from .agentes import load
@@ -38,14 +37,15 @@ class Turno:
     erro: str | None = None
 
 
-def uso_da_chave() -> float:
-    """Gasto acumulado da chave no OpenRouter: o custo real, não a tabela do opencode."""
-    pedido = urllib.request.Request(
-        f"{API}/key",
-        headers={"Authorization": f"Bearer {os.environ['OPENROUTER_API_KEY']}"},
+def relativo_ao_opencode(raiz: Path, regras: dict) -> dict:
+    """O opencode casa os padrões de permissão com o caminho relativo ao topo do git que
+    contém o projeto, ou a `/` fora de um: `tests/**` só vale com esse prefixo."""
+    topo = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"], cwd=raiz, capture_output=True, text=True
     )
-    with urllib.request.urlopen(pedido, timeout=30) as r:
-        return json.load(r)["data"]["usage"]
+    base = Path(topo.stdout.strip()) if topo.returncode == 0 else Path("/")
+    prefixo = "" if raiz == base else f"{raiz.relative_to(base)}/"
+    return {k if k == "*" else prefixo + k: v for k, v in regras.items()}
 
 
 class Sessao:
@@ -60,7 +60,7 @@ class Sessao:
         self.casa = Path(tempfile.mkdtemp(prefix="opencode-"))
         self.chamadas = 0
 
-    def config(self, escopo_edit: dict, skills: list[Path]) -> dict:
+    def config(self, raiz: Path, escopo_edit: dict, skills: list[Path]) -> dict:
         return {
             "$schema": "https://opencode.ai/config.json",
             "autoupdate": False,
@@ -85,12 +85,12 @@ class Sessao:
                     "prompt": load(self.papel) + "\n\n" + load("estilo_codigo"),
                     "permission": {
                         "*": "deny",
-                        "read": {"*": "allow", "_harness/**": "deny"},
+                        "read": relativo_ao_opencode(raiz, {"*": "allow", "_harness/**": "deny"}),
                         "glob": "allow",
                         "grep": "allow",
                         "list": "allow",
                         "todowrite": "allow",
-                        "edit": escopo_edit,
+                        "edit": relativo_ao_opencode(raiz, escopo_edit),
                         "external_directory": {
                             "*": "deny",
                             **{f"{s}/**": "allow" for s in skills},
@@ -131,14 +131,13 @@ class Sessao:
             if versao != VERSAO:
                 raise SystemExit(f"opencode {versao}: o harness fixa {VERSAO}")
             (self.casa / "opencode.json").write_text(
-                json.dumps(self.config(escopo_edit, skills), indent=2), encoding="utf-8"
+                json.dumps(self.config(projeto.raiz, escopo_edit, skills), indent=2), encoding="utf-8"
             )
         cmd = ["opencode", "run", "--format", "json", "--agent", self.papel]
         cmd += ["--title", self.papel, "--dir", str(projeto.raiz)]
         if self.id:
             cmd += ["--session", self.id]
 
-        antes = uso_da_chave()
         proc = await asyncio.create_subprocess_exec(
             *cmd,
             cwd=projeto.raiz,
@@ -154,8 +153,13 @@ class Sessao:
                 proc.communicate(prompt.encode()), timeout=max(tempo_s, 1)
             )
         except TimeoutError:
-            proc.kill()
-            saida, stderr = await proc.communicate()
+            # O opencode só despeja o JSONL ao sair: kill direto perde tokens, custo e o id.
+            proc.terminate()
+            try:
+                saida, stderr = await asyncio.wait_for(proc.communicate(), timeout=10)
+            except TimeoutError:
+                proc.kill()
+                saida, stderr = await proc.communicate()
             erro = "tempo da etapa esgotado durante a sessão"
         if proc.returncode and erro is None:
             erro = stderr.decode(errors="replace")[-2000:]
@@ -164,13 +168,13 @@ class Sessao:
         bruto = projeto.saida / "opencode" / f"{self.papel}-{self.chamadas}.jsonl"
         bruto.parent.mkdir(parents=True, exist_ok=True)
         bruto.write_bytes(saida)
-        turno = self._turno(saida.decode(errors="replace"), erro)
-        # shortcut: lê o uso da chave logo depois da sessão; se o OpenRouter contabilizar
-        # com atraso, o custo do passo vaza para o seguinte. Conferir na run paga.
-        return replace(turno, custo_usd=uso_da_chave() - antes)
+        return self._turno(saida.decode(errors="replace"), erro)
 
     def _turno(self, jsonl: str, erro: str | None) -> Turno:
         tin = tout = total = 0
+        # Custo pela tabela de preços do opencode: o uso da chave no OpenRouter chega com
+        # minutos de atraso e não separa as etapas.
+        custo = 0.0
         skills = []
         for linha in jsonl.splitlines():
             evento = json.loads(linha)
@@ -181,8 +185,9 @@ class Sessao:
                 tin += t["input"] + t["cache"]["read"] + t["cache"]["write"]
                 tout += t["output"] + t["reasoning"]
                 total += t["total"]
+                custo += parte["cost"]
             elif evento["type"] == "tool_use" and parte.get("tool") == "skill":
                 skills.append(parte["state"]["input"].get("name"))
             elif evento["type"] == "error":
                 erro = erro or json.dumps(evento["error"], ensure_ascii=False)[:2000]
-        return Turno(0.0, tin, tout, total, skills, erro)
+        return Turno(custo, tin, tout, total, skills, erro)

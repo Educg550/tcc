@@ -1,7 +1,7 @@
 import asyncio
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from threading import Lock
+from threading import Barrier, Lock
 from unittest.mock import patch
 
 from harness.batch import executar
@@ -11,6 +11,7 @@ from harness.models.harness import Harness
 
 def test_batch_200_runs_sem_avaliacao_e_retomada():
     chamadas = []
+    barreira = Barrier(25, timeout=10)
     lock = Lock()
     ativas = pico = 0
 
@@ -19,6 +20,7 @@ def test_batch_200_runs_sem_avaliacao_e_retomada():
         with lock:
             ativas += 1
             pico = max(pico, ativas)
+        barreira.wait()
         assert not harness.com_cua
         assert isinstance(harness.permissao, Batch)
         assert not harness.projeto.raiz.exists()
@@ -54,6 +56,6 @@ def test_batch_200_runs_sem_avaliacao_e_retomada():
         }
         assert len(chamadas) == 200
         assert set(chamadas) == esperado
-        assert pico == 1
+        assert pico == 25
         executar(destino)
         assert len(chamadas) == 200
