@@ -1,0 +1,115 @@
+{
+  "started_at": "2026-10-17T10:22:42",
+  "ended_at": "2026-10-17T10:43:33",
+  "total_duration_s": 1251.15,
+  "grupo": "tdd",
+  "requisito_id": "02-caronte-consulta",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 0.0.0.0 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "",
+    "python": "3.11",
+    "pacotes": [
+      "pytest==9.0.3",
+      "fastapi==0.114.2",
+      "uvicorn==0.30.6",
+      "psycopg[binary]==3.2.9",
+      "sqlalchemy==2.0.43",
+      "pydantic==2.11.7",
+      "httpx==0.28.1"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3"
+    },
+    "amostragem": {
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "orcamento": {
+    "passos": 12,
+    "custo_usd": 2.0,
+    "tempo_s": 1200
+  },
+  "total_cost_usd": 0.569621,
+  "total_tokens": 2006961,
+  "total_retries": 4,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "executor": "opencode 1.19.0",
+      "imagem": "ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a",
+      "sessao": "ses_eb5f874faffek00bSh3vjCaDPd",
+      "duration_s": 44.32,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/test_consulta.py"
+      ],
+      "skills": [],
+      "historico": [],
+      "input_tokens": 183551,
+      "output_tokens": 3316,
+      "total_tokens": 186867,
+      "cost_usd": 0.022978
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "executor": "opencode 1.19.0",
+      "imagem": "ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a",
+      "sessao": "ses_eb5f795d7ffe1X45AeKMBGoLk6",
+      "duration_s": 1201.38,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 5,
+      "retries": 4,
+      "arquivos": [
+        "app.py"
+      ],
+      "skills": [
+        "ponytail"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 3,
+          "errors": 11,
+          "total": 14
+        },
+        {
+          "passed": 0,
+          "failed": 3,
+          "errors": 11,
+          "total": 14
+        },
+        {
+          "passed": 0,
+          "failed": 3,
+          "errors": 11,
+          "total": 14
+        }
+      ],
+      "input_tokens": 1719842,
+      "output_tokens": 100252,
+      "total_tokens": 1820094,
+      "cost_usd": 0.546643,
+      "impressao": "ab38274a8678765d6d5950e74517e0431381145d6e563e9dc3a0a7599f0422e4",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 3,
+    "errors": 11,
+    "total": 14
+  },
+  "integridade": {
+    "medido_sha256": "ab38274a8678765d6d5950e74517e0431381145d6e563e9dc3a0a7599f0422e4",
+    "intacto": true
+  }
+}

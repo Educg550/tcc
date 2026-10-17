@@ -26,6 +26,36 @@ Ambos os grupos recebem os mesmos requisitos. O baseline é a geração direta s
 
 Os dois grupos são avaliados pela mesma régua externa, descrita a seguir.
 
+### Executor do piloto Caronte
+
+No piloto Caronte, os grupos usam OpenCode 1.19.0 como infraestrutura comum
+de geração, em container com imagem fixada por digest. O orquestrador deste
+trabalho define os papéis, a sequência das etapas, os escopos de escrita, a
+execução do pytest, o feedback e o registro das métricas. O OpenCode conduz
+as chamadas ao modelo e suas ferramentas de leitura e edição dentro de cada
+sessão; portanto, parte da execução agêntica é fornecida por essa ferramenta.
+
+O baseline é **geração agêntica direta**, sem testes gerados, execução de
+comandos ou feedback de avaliação. Uma sessão pode envolver várias chamadas
+ao modelo para ler e editar arquivos; não significa uma única chamada à API.
+No grupo TDD, sessões distintas escrevem os testes e implementam o código,
+com o pytest executado pelo orquestrador e suas falhas devolvidas ao coder.
+
+Os grupos compartilham modelo, versão e imagem do executor, parâmetros de
+amostragem e inventário de skills de implementação. Skills de autoria de
+testes só são disponibilizadas à etapa de testes. O piloto fixa
+`temperature=0.1` e `top_p=0.9`; são escolhas desta execução, sem pressupor
+determinismo ou desempenho ótimo. As referências para os parâmetros são o
+[Prompt Engineering Guide](https://www.promptingguide.ai/introduction/settings)
+e o [texto de Soso Sukhitashvili](https://medium.com/@sukhitashvili.soso/choosing-temperature-topk-and-topp-for-llm-text-generation-7b0972a9bb2a).
+
+A comparação mede os pipelines nessas condições, não um harness inteiramente
+autoral nem o efeito isolado de TDD, separado das demais diferenças entre
+as etapas. Resultados anteriores obtidos com Agno pertencem a outra
+configuração experimental e não são agregados aos do OpenCode como
+repetições da mesma condição. Este piloto avalia apenas a consulta HTTP do
+prejanus-back com uma suíte-oráculo externa; não exercita o CUA.
+
 ---
 
 ## Critérios de Aceitação

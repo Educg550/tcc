@@ -1,0 +1,80 @@
+{
+  "started_at": "2026-10-17T10:44:19",
+  "ended_at": "2026-10-17T10:46:11",
+  "total_duration_s": 112.35,
+  "grupo": "rework",
+  "requisito_id": "entrada-rework",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 0.0.0.0 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "",
+    "python": "3.11",
+    "pacotes": [
+      "pytest==9.0.3",
+      "fastapi==0.114.2",
+      "uvicorn==0.30.6",
+      "psycopg[binary]==3.2.9",
+      "sqlalchemy==2.0.43",
+      "pydantic==2.11.7",
+      "httpx==0.28.1"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3"
+    },
+    "amostragem": {
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "orcamento": {
+    "passos": 12,
+    "custo_usd": 2.0,
+    "tempo_s": 1200
+  },
+  "total_cost_usd": 0.033588,
+  "total_tokens": 219693,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "executor": "opencode 1.19.0",
+      "imagem": "ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a",
+      "sessao": "ses_eb5e3f6f2ffet536NIdfXaI4In",
+      "duration_s": 101.15,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py"
+      ],
+      "skills": [],
+      "historico": [
+        {
+          "passed": 20,
+          "failed": 0,
+          "errors": 0,
+          "total": 20
+        }
+      ],
+      "input_tokens": 214405,
+      "output_tokens": 5288,
+      "total_tokens": 219693,
+      "cost_usd": 0.033588,
+      "impressao": "c7854bc7f939b534402cb594a37db4492258da71f00fb92d4585a124812f708e",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 20,
+    "failed": 0,
+    "errors": 0,
+    "total": 20
+  },
+  "integridade": {
+    "medido_sha256": "c7854bc7f939b534402cb594a37db4492258da71f00fb92d4585a124812f708e",
+    "intacto": true
+  }
+}

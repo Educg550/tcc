@@ -10,7 +10,9 @@ from .agentes import load
 from .dominio import Projeto
 
 VERSAO = "1.19.0"
+IMAGEM = "ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a"
 API = "https://openrouter.ai/api/v1"
+AMOSTRAGEM = {"temperature": 0.1, "top_p": 0.9}
 
 # Sem isto o opencode lê do ambiente de quem roda: ~/.claude/CLAUDE.md, as skills de
 # ~/.claude e ~/.agents e o AGENTS.md da raiz do repositório que contém o projeto.
@@ -37,15 +39,12 @@ class Turno:
     erro: str | None = None
 
 
-def relativo_ao_opencode(raiz: Path, regras: dict) -> dict:
-    """O opencode casa os padrões de permissão com o caminho relativo ao topo do git que
-    contém o projeto, ou a `/` fora de um: `tests/**` só vale com esse prefixo."""
-    topo = subprocess.run(
-        ["git", "rev-parse", "--show-toplevel"], cwd=raiz, capture_output=True, text=True
-    )
-    base = Path(topo.stdout.strip()) if topo.returncode == 0 else Path("/")
-    prefixo = "" if raiz == base else f"{raiz.relative_to(base)}/"
-    return {k if k == "*" else prefixo + k: v for k, v in regras.items()}
+def no_container(regras: dict) -> dict:
+    """Sem git na imagem, a base do opencode é `/`; só `/workspace` é editável."""
+    return {"*": "deny", **{
+        "workspace/**" if k == "*" else f"workspace/{k}": v
+        for k, v in regras.items()
+    }}
 
 
 class Sessao:
@@ -60,7 +59,8 @@ class Sessao:
         self.casa = Path(tempfile.mkdtemp(prefix="opencode-"))
         self.chamadas = 0
 
-    def config(self, raiz: Path, escopo_edit: dict, skills: list[Path]) -> dict:
+    def config(self, escopo_edit: dict, skills: list[Path]) -> dict:
+        skills = [Path("/skills") / s.name for s in skills]
         return {
             "$schema": "https://opencode.ai/config.json",
             "autoupdate": False,
@@ -81,16 +81,18 @@ class Sessao:
             "agent": {
                 self.papel: {
                     "mode": "primary",
+                    **AMOSTRAGEM,
                     # A diretiva de código mínimo é constante do experimento: idêntica nos dois grupos.
                     "prompt": load(self.papel) + "\n\n" + load("estilo_codigo"),
                     "permission": {
                         "*": "deny",
-                        "read": relativo_ao_opencode(raiz, {"*": "allow", "_harness/**": "deny"}),
+                        "read": {**no_container({"*": "allow", "_harness": "deny", "_harness/**": "deny"}),
+                                 "skills/**": "allow"},
                         "glob": "allow",
                         "grep": "allow",
                         "list": "allow",
                         "todowrite": "allow",
-                        "edit": relativo_ao_opencode(raiz, escopo_edit),
+                        "edit": no_container(escopo_edit),
                         "external_directory": {
                             "*": "deny",
                             **{f"{s}/**": "allow" for s in skills},
@@ -103,9 +105,8 @@ class Sessao:
         }
 
     def ambiente(self) -> dict:
-        casa = str(self.casa)
+        casa = "/estado"
         return {
-            "PATH": os.environ["PATH"],
             "OPENROUTER_API_KEY": os.environ["OPENROUTER_API_KEY"],
             "HOME": casa,
             "XDG_CONFIG_HOME": f"{casa}/config",
@@ -115,6 +116,19 @@ class Sessao:
             "OPENCODE_CONFIG": f"{casa}/opencode.json",
             **ISOLAMENTO,
         }
+
+    def container(self, projeto: Projeto, skills: list[Path]) -> list[str]:
+        cmd = ["docker", "run", "--rm", "-i", "--init", "--name", self.casa.name,
+               "--user", f"{os.getuid()}:{os.getgid()}", "--read-only", "--tmpfs", "/tmp",
+               "--cap-drop=ALL", "--security-opt=no-new-privileges", "--workdir", "/workspace",
+               "--mount", f"type=bind,src={projeto.raiz},dst=/workspace",
+               "--mount", f"type=bind,src={self.casa},dst=/estado",
+               "--mount", "type=tmpfs,dst=/workspace/_harness"]
+        for skill in skills:
+            cmd += ["--mount", f"type=bind,src={skill},dst=/skills/{skill.name},readonly"]
+        for nome, valor in self.ambiente().items():
+            cmd += ["--env", nome if nome == "OPENROUTER_API_KEY" else f"{nome}={valor}"]
+        return cmd + [IMAGEM]
 
     async def enviar(
         self,
@@ -126,22 +140,23 @@ class Sessao:
     ) -> Turno:
         if self.id is None:
             versao = subprocess.run(
-                ["opencode", "--version"], capture_output=True, text=True, check=True
+                self.container(projeto, skills) + ["--version"],
+                capture_output=True, text=True, check=True
             ).stdout.strip()
             if versao != VERSAO:
                 raise SystemExit(f"opencode {versao}: o harness fixa {VERSAO}")
             (self.casa / "opencode.json").write_text(
-                json.dumps(self.config(projeto.raiz, escopo_edit, skills), indent=2), encoding="utf-8"
+                json.dumps(self.config(escopo_edit, skills), indent=2), encoding="utf-8"
             )
-        cmd = ["opencode", "run", "--format", "json", "--agent", self.papel]
-        cmd += ["--title", self.papel, "--dir", str(projeto.raiz)]
+        cmd = self.container(projeto, skills) + ["run", "--format", "json", "--agent", self.papel]
+        cmd += ["--title", self.papel, "--dir", "/workspace"]
         if self.id:
             cmd += ["--session", self.id]
 
         proc = await asyncio.create_subprocess_exec(
             *cmd,
             cwd=projeto.raiz,
-            env=self.ambiente(),
+            env=os.environ.copy(),
             stdin=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
@@ -160,9 +175,11 @@ class Sessao:
             except TimeoutError:
                 proc.kill()
                 saida, stderr = await proc.communicate()
+            subprocess.run(["docker", "rm", "-f", self.casa.name],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             erro = "tempo da etapa esgotado durante a sessão"
         if proc.returncode and erro is None:
-            erro = stderr.decode(errors="replace")[-2000:]
+            erro = stderr.decode(errors="replace")[-2000:] or f"opencode retornou {proc.returncode}"
 
         self.chamadas += 1
         bruto = projeto.saida / "opencode" / f"{self.papel}-{self.chamadas}.jsonl"

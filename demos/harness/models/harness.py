@@ -6,7 +6,7 @@ from .avaliacao import Avaliador
 from .dominio import Projeto, Requisito
 from .etapas import Etapa, EtapaCodigo, EtapaTDD, EtapaTestes
 from .politicas import Permissao
-from .sessao import Sessao
+from .sessao import AMOSTRAGEM, Sessao
 from .tracing import Resultado, Trace
 
 
@@ -72,7 +72,11 @@ class Harness(ABC):
         resultado = Resultado(
             grupo=self.grupo,
             requisito_id=self.requisito.id,
-            alvo={**self.projeto.alvo.como_dict(), "modelos": self.requisito.modelos},
+            alvo={
+                **self.projeto.alvo.como_dict(),
+                "modelos": self.requisito.modelos,
+                "amostragem": AMOSTRAGEM,
+            },
             orcamento=asdict(self.orcamento),
         )
         resultado.stages = await self.etapas()

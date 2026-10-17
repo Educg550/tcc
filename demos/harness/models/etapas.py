@@ -7,7 +7,7 @@ from .dominio import MEDIDO, Mudanca, Projeto, ResultadoPytest
 from .observacoes import PytestFalhou, SessaoFalhou
 from .politicas import Orcamento, Permissao
 from .propostas import Proposta, PropostaAceita, PropostaRejeitada
-from .sessao import VERSAO, Sessao
+from .sessao import IMAGEM, VERSAO, Sessao
 from .tracing import Trace
 
 
@@ -116,6 +116,7 @@ class Etapa(ABC):
                 "id": self.id,
                 "configured_model": self.sessao.model_id,
                 "executor": f"opencode {VERSAO}",
+                "imagem": IMAGEM,
                 "sessao": self.sessao.id,
                 "duration_s": round(time.time() - inicio, 2),
                 "ok": ok,

@@ -15,7 +15,7 @@ idênticos nos dois grupos, então a régua não muda entre baseline e experimen
 uv sync
 uv run playwright install chromium     # o CUA usa Playwright
 npm install                            # o Cypress da avaliação, um install para todas as runs
-npm install -g opencode-ai@1.19.0      # o executor das etapas; outra versão é recusada
+docker pull ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a
 cp .env.example .env                   # OPENROUTER_API_KEY e as duas ANTHROPIC_*
 ```
 
@@ -40,21 +40,29 @@ abre cada arquivo no `$EDITOR`.
 
 ## Executor
 
-Cada etapa é uma sessão do [opencode](https://github.com/anomalyco/opencode) 1.19.0, com o
-modelo do `alvo.toml` via OpenRouter. O modelo lê e edita o projeto com as ferramentas que o
+Cada etapa é uma sessão do [opencode](https://github.com/anomalyco/opencode) 1.19.0 na
+imagem oficial fixada por digest em `models/sessao.py`, com o modelo do `alvo.toml` via
+OpenRouter. Docker é necessário; não é preciso instalar o opencode no host.
+O modelo lê e edita o projeto com as ferramentas que o
 escopo da etapa libera: o test writer só escreve em `tests/`, o coder em tudo menos `tests/`,
 `pytest.ini`, `conftest.py`, `_harness/` e `.git/`. Bash e as demais ferramentas ficam
 negados: quem roda o pytest é o harness, e a falha volta para a mesma sessão. Depois de
 cada chamada o harness confere o que mudou em disco; escrita fora do escopo encerra a etapa.
 
-A sessão não enxerga o ambiente de quem roda: `HOME` e XDG próprios, `env` limpo (só `PATH`
-e `OPENROUTER_API_KEY`) e as flags de isolamento em `models/sessao.py`. Sem elas o opencode
-carrega o `~/.claude/CLAUDE.md`, as skills de `~/.claude` e `~/.agents` e o `AGENTS.md` da
-raiz do repositório. `tests/test_sessao.py` roda o opencode contra um provedor falso e
-falha se algo disso chegar ao prompt.
+A sessão só recebe o projeto em `/workspace`, seu estado próprio em `/estado` e as
+skills permitidas em `/skills/<nome>` (somente leitura). A imagem tem raiz somente
+leitura; `_harness/` é ocultado por um volume temporário vazio. O original, o oráculo,
+o repositório pai e o socket Docker não são montados. `HOME` e XDG próprios e as flags
+em `models/sessao.py` impedem instruções e skills pessoais no prompt.
+`tests/test_sessao.py` usa um provedor falso para conferir o isolamento, incluindo
+tentativas de leitura e busca no original e no oráculo. A imagem fica no `RUN.log`.
 
 Skills: só as do manifesto declarado em `[skills]`, carregadas sob demanda. As de
 propósito `testing` só entram na etapa de testes. As usadas ficam em `skills` no `RUN.log`.
+
+As etapas fixam `temperature=0.1` e `top_p=0.9`, iguais nos dois grupos.
+Os valores ficam em `alvo.amostragem` no `RUN.log`; o teste com provedor falso
+confere os parâmetros no corpo HTTP enviado pelo opencode.
 
 O custo de cada etapa é o `cost` que o opencode calcula por passo com a tabela de preços
 embutida na versão fixada. O uso da chave no OpenRouter (`GET /api/v1/key`) seria o valor

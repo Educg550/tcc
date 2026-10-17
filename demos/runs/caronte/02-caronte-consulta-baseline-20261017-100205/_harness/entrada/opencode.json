@@ -1,0 +1,92 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": false,
+  "share": "disabled",
+  "formatter": false,
+  "lsp": false,
+  "enabled_providers": [
+    "openrouter"
+  ],
+  "provider": {
+    "openrouter": {
+      "options": {
+        "baseURL": "https://openrouter.ai/api/v1"
+      },
+      "models": {
+        "z-ai/glm-5.3": {}
+      }
+    }
+  },
+  "model": "openrouter/z-ai/glm-5.3",
+  "small_model": "openrouter/z-ai/glm-5.3",
+  "skills": {
+    "paths": [
+      "/skills/ponytail",
+      "/skills/fastapi",
+      "/skills/vercel-react-best-practices",
+      "/skills/next-best-practices",
+      "/skills/supabase-postgres-best-practices",
+      "/skills/docker-compose-patterns",
+      "/skills/material-ui-nextjs",
+      "/skills/flask"
+    ]
+  },
+  "agent": {
+    "direto": {
+      "mode": "primary",
+      "temperature": 0.1,
+      "top_p": 0.9,
+      "prompt": "Voc\u00ea implementa a aplica\u00e7\u00e3o descrita no requisito.\n\nEdite os arquivos do projeto com as ferramentas de edi\u00e7\u00e3o.\n\nRegras:\n- Voc\u00ea n\u00e3o executa comandos, e n\u00e3o h\u00e1 passo seguinte: quando voc\u00ea terminar, o que\n  estiver no projeto \u00e9 a entrega.\n- Se o requisito descreve r\u00f3tulos ou textos vis\u00edveis, use-os literalmente: eles s\u00e3o o\n  contrato com quem usa a aplica\u00e7\u00e3o.\n\n\n## Estilo de c\u00f3digo\n\nEscreva o m\u00ednimo que resolve o problema. Nada especulativo.\n\n- Nada al\u00e9m do que foi pedido: sem funcionalidade extra, sem flexibilidade ou\n  configurabilidade n\u00e3o solicitada, sem tratamento de erro para cen\u00e1rio imposs\u00edvel.\n- Sem abstra\u00e7\u00e3o para c\u00f3digo de uso \u00fanico: nada de interface com uma implementa\u00e7\u00e3o,\n  f\u00e1brica para um produto, config para valor que nunca muda.\n- Reuse o que j\u00e1 existe no projeto antes de reimplementar. Biblioteca padr\u00e3o antes de\n  depend\u00eancia nova. Recurso nativo da plataforma antes de biblioteca.\n- Uma linha antes de cinquenta. Dele\u00e7\u00e3o acima de adi\u00e7\u00e3o. C\u00f3digo entediante acima de\n  c\u00f3digo esperto.\n- Mudan\u00e7a cir\u00fargica: toque s\u00f3 no que a tarefa exige, sem reformatar nem refatorar o\n  que est\u00e1 em volta.\n- O que nunca se corta: valida\u00e7\u00e3o de entrada em fronteira de confian\u00e7a, tratamento de\n  erro que evita perda de dados, seguran\u00e7a, acessibilidade b\u00e1sica, e o que foi pedido\n  explicitamente.\n",
+      "permission": {
+        "*": "deny",
+        "read": {
+          "*": "deny",
+          "workspace/**": "allow",
+          "workspace/_harness": "deny",
+          "workspace/_harness/**": "deny",
+          "skills/**": "allow"
+        },
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "todowrite": "allow",
+        "edit": {
+          "*": "deny",
+          "workspace/**": "allow",
+          "workspace/tests": "deny",
+          "workspace/tests/**": "deny",
+          "workspace/pytest.ini": "deny",
+          "workspace/pytest.ini/**": "deny",
+          "workspace/conftest.py": "deny",
+          "workspace/conftest.py/**": "deny",
+          "workspace/_harness": "deny",
+          "workspace/_harness/**": "deny",
+          "workspace/.git": "deny",
+          "workspace/.git/**": "deny"
+        },
+        "external_directory": {
+          "*": "deny",
+          "/skills/ponytail/**": "allow",
+          "/skills/fastapi/**": "allow",
+          "/skills/vercel-react-best-practices/**": "allow",
+          "/skills/next-best-practices/**": "allow",
+          "/skills/supabase-postgres-best-practices/**": "allow",
+          "/skills/docker-compose-patterns/**": "allow",
+          "/skills/material-ui-nextjs/**": "allow",
+          "/skills/flask/**": "allow"
+        },
+        "skill": {
+          "*": "deny",
+          "ponytail": "allow",
+          "fastapi": "allow",
+          "vercel-react-best-practices": "allow",
+          "next-best-practices": "allow",
+          "supabase-postgres-best-practices": "allow",
+          "docker-compose-patterns": "allow",
+          "material-ui-nextjs": "allow",
+          "flask": "allow"
+        }
+      }
+    }
+  }
+}

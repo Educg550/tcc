@@ -1,0 +1,73 @@
+{
+  "started_at": "2026-10-17T10:02:05",
+  "ended_at": "2026-10-17T10:03:15",
+  "total_duration_s": 70.24,
+  "grupo": "baseline",
+  "requisito_id": "02-caronte-consulta",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 0.0.0.0 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "",
+    "python": "3.11",
+    "pacotes": [
+      "pytest==9.0.3",
+      "fastapi==0.114.2",
+      "uvicorn==0.30.6",
+      "psycopg[binary]==3.2.9",
+      "sqlalchemy==2.0.43",
+      "pydantic==2.11.7",
+      "httpx==0.28.1"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3"
+    },
+    "amostragem": {
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "orcamento": {
+    "passos": 1,
+    "custo_usd": 2.0,
+    "tempo_s": 1200
+  },
+  "total_cost_usd": 0.059672,
+  "total_tokens": 372717,
+  "total_retries": 0,
+  "stages": [
+    {
+      "id": "direto",
+      "configured_model": "z-ai/glm-5.3",
+      "executor": "opencode 1.19.0",
+      "imagem": "ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a",
+      "sessao": "ses_eb60b52b1ffeMsG7igWkucRWLM",
+      "duration_s": 68.95,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "app.py"
+      ],
+      "skills": [],
+      "historico": [],
+      "input_tokens": 363172,
+      "output_tokens": 9545,
+      "total_tokens": 372717,
+      "cost_usd": 0.059672,
+      "impressao": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+      "tests_vermelhos": null
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 0,
+    "errors": 0,
+    "total": 0
+  },
+  "integridade": {
+    "medido_sha256": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5",
+    "intacto": true
+  }
+}

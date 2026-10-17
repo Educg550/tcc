@@ -1,0 +1,385 @@
+diff --git a/demos/harness/README.md b/demos/harness/README.md
+index ff1c495..fdd04c0 100644
+--- a/demos/harness/README.md
++++ b/demos/harness/README.md
+@@ -15,7 +15,7 @@ idênticos nos dois grupos, então a régua não muda entre baseline e experimen
+ uv sync
+ uv run playwright install chromium     # o CUA usa Playwright
+ npm install                            # o Cypress da avaliação, um install para todas as runs
+-npm install -g opencode-ai@1.19.0      # o executor das etapas; outra versão é recusada
++docker pull ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a
+ cp .env.example .env                   # OPENROUTER_API_KEY e as duas ANTHROPIC_*
+ ```
+ 
+@@ -40,22 +40,30 @@ abre cada arquivo no `$EDITOR`.
+ 
+ ## Executor
+ 
+-Cada etapa é uma sessão do [opencode](https://github.com/anomalyco/opencode) 1.19.0, com o
+-modelo do `alvo.toml` via OpenRouter. O modelo lê e edita o projeto com as ferramentas que o
++Cada etapa é uma sessão do [opencode](https://github.com/anomalyco/opencode) 1.19.0 na
++imagem oficial fixada por digest em `models/sessao.py`, com o modelo do `alvo.toml` via
++OpenRouter. Docker é necessário; não é preciso instalar o opencode no host.
++O modelo lê e edita o projeto com as ferramentas que o
+ escopo da etapa libera: o test writer só escreve em `tests/`, o coder em tudo menos `tests/`,
+ `pytest.ini`, `conftest.py`, `_harness/` e `.git/`. Bash e as demais ferramentas ficam
+ negados: quem roda o pytest é o harness, e a falha volta para a mesma sessão. Depois de
+ cada chamada o harness confere o que mudou em disco; escrita fora do escopo encerra a etapa.
+ 
+-A sessão não enxerga o ambiente de quem roda: `HOME` e XDG próprios, `env` limpo (só `PATH`
+-e `OPENROUTER_API_KEY`) e as flags de isolamento em `models/sessao.py`. Sem elas o opencode
+-carrega o `~/.claude/CLAUDE.md`, as skills de `~/.claude` e `~/.agents` e o `AGENTS.md` da
+-raiz do repositório. `tests/test_sessao.py` roda o opencode contra um provedor falso e
+-falha se algo disso chegar ao prompt.
++A sessão só recebe o projeto em `/workspace`, seu estado próprio em `/estado` e as
++skills permitidas em `/skills/<nome>` (somente leitura). A imagem tem raiz somente
++leitura; `_harness/` é ocultado por um volume temporário vazio. O original, o oráculo,
++o repositório pai e o socket Docker não são montados. `HOME` e XDG próprios e as flags
++em `models/sessao.py` impedem instruções e skills pessoais no prompt.
++`tests/test_sessao.py` usa um provedor falso para conferir o isolamento, incluindo
++tentativas de leitura e busca no original e no oráculo. A imagem fica no `RUN.log`.
+ 
+ Skills: só as do manifesto declarado em `[skills]`, carregadas sob demanda. As de
+ propósito `testing` só entram na etapa de testes. As usadas ficam em `skills` no `RUN.log`.
+ 
++As etapas fixam `temperature=0.1` e `top_p=0.9`, iguais nos dois grupos.
++Os valores ficam em `alvo.amostragem` no `RUN.log`; o teste com provedor falso
++confere os parâmetros no corpo HTTP enviado pelo opencode.
++
+ O custo de cada etapa é o `cost` que o opencode calcula por passo com a tabela de preços
+ embutida na versão fixada. O uso da chave no OpenRouter (`GET /api/v1/key`) seria o valor
+ cobrado, mas chega com minutos de atraso e não separa etapa nem run.
+diff --git a/demos/harness/models/etapas.py b/demos/harness/models/etapas.py
+index 865af28..4809101 100644
+--- a/demos/harness/models/etapas.py
++++ b/demos/harness/models/etapas.py
+@@ -7,7 +7,7 @@ from .dominio import MEDIDO, Mudanca, Projeto, ResultadoPytest
+ from .observacoes import PytestFalhou, SessaoFalhou
+ from .politicas import Orcamento, Permissao
+ from .propostas import Proposta, PropostaAceita, PropostaRejeitada
+-from .sessao import VERSAO, Sessao
++from .sessao import IMAGEM, VERSAO, Sessao
+ from .tracing import Trace
+ 
+ 
+@@ -116,6 +116,7 @@ class Etapa(ABC):
+                 "id": self.id,
+                 "configured_model": self.sessao.model_id,
+                 "executor": f"opencode {VERSAO}",
++                "imagem": IMAGEM,
+                 "sessao": self.sessao.id,
+                 "duration_s": round(time.time() - inicio, 2),
+                 "ok": ok,
+diff --git a/demos/harness/models/harness.py b/demos/harness/models/harness.py
+index cf77ded..a2c47ce 100644
+--- a/demos/harness/models/harness.py
++++ b/demos/harness/models/harness.py
+@@ -6,7 +6,7 @@ from .avaliacao import Avaliador
+ from .dominio import Projeto, Requisito
+ from .etapas import Etapa, EtapaCodigo, EtapaTDD, EtapaTestes
+ from .politicas import Permissao
+-from .sessao import Sessao
++from .sessao import AMOSTRAGEM, Sessao
+ from .tracing import Resultado, Trace
+ 
+ 
+@@ -72,7 +72,11 @@ class Harness(ABC):
+         resultado = Resultado(
+             grupo=self.grupo,
+             requisito_id=self.requisito.id,
+-            alvo={**self.projeto.alvo.como_dict(), "modelos": self.requisito.modelos},
++            alvo={
++                **self.projeto.alvo.como_dict(),
++                "modelos": self.requisito.modelos,
++                "amostragem": AMOSTRAGEM,
++            },
+             orcamento=asdict(self.orcamento),
+         )
+         resultado.stages = await self.etapas()
+diff --git a/demos/harness/models/sessao.py b/demos/harness/models/sessao.py
+index 929c5bb..1d8379c 100644
+--- a/demos/harness/models/sessao.py
++++ b/demos/harness/models/sessao.py
+@@ -10,7 +10,9 @@ from .agentes import load
+ from .dominio import Projeto
+ 
+ VERSAO = "1.19.0"
++IMAGEM = "ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a"
+ API = "https://openrouter.ai/api/v1"
++AMOSTRAGEM = {"temperature": 0.1, "top_p": 0.9}
+ 
+ # Sem isto o opencode lê do ambiente de quem roda: ~/.claude/CLAUDE.md, as skills de
+ # ~/.claude e ~/.agents e o AGENTS.md da raiz do repositório que contém o projeto.
+@@ -37,15 +39,12 @@ class Turno:
+     erro: str | None = None
+ 
+ 
+-def relativo_ao_opencode(raiz: Path, regras: dict) -> dict:
+-    """O opencode casa os padrões de permissão com o caminho relativo ao topo do git que
+-    contém o projeto, ou a `/` fora de um: `tests/**` só vale com esse prefixo."""
+-    topo = subprocess.run(
+-        ["git", "rev-parse", "--show-toplevel"], cwd=raiz, capture_output=True, text=True
+-    )
+-    base = Path(topo.stdout.strip()) if topo.returncode == 0 else Path("/")
+-    prefixo = "" if raiz == base else f"{raiz.relative_to(base)}/"
+-    return {k if k == "*" else prefixo + k: v for k, v in regras.items()}
++def no_container(regras: dict) -> dict:
++    """Sem git na imagem, a base do opencode é `/`; só `/workspace` é editável."""
++    return {"*": "deny", **{
++        "workspace/**" if k == "*" else f"workspace/{k}": v
++        for k, v in regras.items()
++    }}
+ 
+ 
+ class Sessao:
+@@ -60,7 +59,8 @@ class Sessao:
+         self.casa = Path(tempfile.mkdtemp(prefix="opencode-"))
+         self.chamadas = 0
+ 
+-    def config(self, raiz: Path, escopo_edit: dict, skills: list[Path]) -> dict:
++    def config(self, escopo_edit: dict, skills: list[Path]) -> dict:
++        skills = [Path("/skills") / s.name for s in skills]
+         return {
+             "$schema": "https://opencode.ai/config.json",
+             "autoupdate": False,
+@@ -81,16 +81,18 @@ class Sessao:
+             "agent": {
+                 self.papel: {
+                     "mode": "primary",
++                    **AMOSTRAGEM,
+                     # A diretiva de código mínimo é constante do experimento: idêntica nos dois grupos.
+                     "prompt": load(self.papel) + "\n\n" + load("estilo_codigo"),
+                     "permission": {
+                         "*": "deny",
+-                        "read": relativo_ao_opencode(raiz, {"*": "allow", "_harness/**": "deny"}),
++                        "read": {**no_container({"*": "allow", "_harness": "deny", "_harness/**": "deny"}),
++                                 "skills/**": "allow"},
+                         "glob": "allow",
+                         "grep": "allow",
+                         "list": "allow",
+                         "todowrite": "allow",
+-                        "edit": relativo_ao_opencode(raiz, escopo_edit),
++                        "edit": no_container(escopo_edit),
+                         "external_directory": {
+                             "*": "deny",
+                             **{f"{s}/**": "allow" for s in skills},
+@@ -103,9 +105,8 @@ class Sessao:
+         }
+ 
+     def ambiente(self) -> dict:
+-        casa = str(self.casa)
++        casa = "/estado"
+         return {
+-            "PATH": os.environ["PATH"],
+             "OPENROUTER_API_KEY": os.environ["OPENROUTER_API_KEY"],
+             "HOME": casa,
+             "XDG_CONFIG_HOME": f"{casa}/config",
+@@ -116,6 +117,19 @@ class Sessao:
+             **ISOLAMENTO,
+         }
+ 
++    def container(self, projeto: Projeto, skills: list[Path]) -> list[str]:
++        cmd = ["docker", "run", "--rm", "-i", "--init", "--name", self.casa.name,
++               "--user", f"{os.getuid()}:{os.getgid()}", "--read-only", "--tmpfs", "/tmp",
++               "--cap-drop=ALL", "--security-opt=no-new-privileges", "--workdir", "/workspace",
++               "--mount", f"type=bind,src={projeto.raiz},dst=/workspace",
++               "--mount", f"type=bind,src={self.casa},dst=/estado",
++               "--mount", "type=tmpfs,dst=/workspace/_harness"]
++        for skill in skills:
++            cmd += ["--mount", f"type=bind,src={skill},dst=/skills/{skill.name},readonly"]
++        for nome, valor in self.ambiente().items():
++            cmd += ["--env", nome if nome == "OPENROUTER_API_KEY" else f"{nome}={valor}"]
++        return cmd + [IMAGEM]
++
+     async def enviar(
+         self,
+         prompt: str,
+@@ -126,22 +140,23 @@ class Sessao:
+     ) -> Turno:
+         if self.id is None:
+             versao = subprocess.run(
+-                ["opencode", "--version"], capture_output=True, text=True, check=True
++                self.container(projeto, skills) + ["--version"],
++                capture_output=True, text=True, check=True
+             ).stdout.strip()
+             if versao != VERSAO:
+                 raise SystemExit(f"opencode {versao}: o harness fixa {VERSAO}")
+             (self.casa / "opencode.json").write_text(
+-                json.dumps(self.config(projeto.raiz, escopo_edit, skills), indent=2), encoding="utf-8"
++                json.dumps(self.config(escopo_edit, skills), indent=2), encoding="utf-8"
+             )
+-        cmd = ["opencode", "run", "--format", "json", "--agent", self.papel]
+-        cmd += ["--title", self.papel, "--dir", str(projeto.raiz)]
++        cmd = self.container(projeto, skills) + ["run", "--format", "json", "--agent", self.papel]
++        cmd += ["--title", self.papel, "--dir", "/workspace"]
+         if self.id:
+             cmd += ["--session", self.id]
+ 
+         proc = await asyncio.create_subprocess_exec(
+             *cmd,
+             cwd=projeto.raiz,
+-            env=self.ambiente(),
++            env=os.environ.copy(),
+             stdin=asyncio.subprocess.PIPE,
+             stdout=asyncio.subprocess.PIPE,
+             stderr=asyncio.subprocess.PIPE,
+@@ -160,9 +175,11 @@ class Sessao:
+             except TimeoutError:
+                 proc.kill()
+                 saida, stderr = await proc.communicate()
++            subprocess.run(["docker", "rm", "-f", self.casa.name],
++                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+             erro = "tempo da etapa esgotado durante a sessão"
+         if proc.returncode and erro is None:
+-            erro = stderr.decode(errors="replace")[-2000:]
++            erro = stderr.decode(errors="replace")[-2000:] or f"opencode retornou {proc.returncode}"
+ 
+         self.chamadas += 1
+         bruto = projeto.saida / "opencode" / f"{self.papel}-{self.chamadas}.jsonl"
+diff --git a/demos/tests/test_sessao.py b/demos/tests/test_sessao.py
+index 07daa71..5e8a62c 100644
+--- a/demos/tests/test_sessao.py
++++ b/demos/tests/test_sessao.py
+@@ -11,7 +11,7 @@ import pytest
+ from harness.models import sessao as modulo
+ from harness.models.dominio import Alvo, Projeto
+ from harness.models.etapas import CODIGO, SO_TESTES
+-from harness.models.sessao import VERSAO, Sessao
++from harness.models.sessao import IMAGEM, VERSAO, Sessao
+ 
+ ALVO = Alvo(comando_app="app", comando_teste="pytest -q", python="3.11", pacotes=())
+ 
+@@ -47,15 +47,17 @@ class Provedor(BaseHTTPRequestHandler):
+     escritas do roteiro como chamadas de ferramenta; depois, só texto."""
+ 
+     pedidos: list[dict] = []
+-    roteiro: list[str] = []
++    roteiro: list[str | dict] = []
+ 
+     def do_POST(self):
+         Provedor.pedidos.append(json.loads(self.rfile.read(int(self.headers["Content-Length"]))))
+         if Provedor.roteiro:
+-            argumentos = json.dumps({"filePath": Provedor.roteiro.pop(0), "content": "x = 1\n"})
++            acao = Provedor.roteiro.pop(0)
++            ferramenta = acao["tool"] if isinstance(acao, dict) else "write"
++            argumentos = json.dumps(acao["input"] if isinstance(acao, dict) else {"filePath": acao, "content": "x = 1\n"})
+             delta = {"role": "assistant", "tool_calls": [{
+                 "index": 0, "id": f"call_{len(Provedor.pedidos)}", "type": "function",
+-                "function": {"name": "write", "arguments": argumentos}}]}
++                "function": {"name": ferramenta, "arguments": argumentos}}]}
+             fim = "tool_calls"
+         else:
+             delta, fim = {"role": "assistant", "content": "ok"}, "stop"
+@@ -74,16 +76,17 @@ class Provedor(BaseHTTPRequestHandler):
+ 
+ 
+ def opencode_fixado() -> bool:
+-    if not shutil.which("opencode"):
++    if not shutil.which("docker"):
+         return False
+-    versao = subprocess.run(["opencode", "--version"], capture_output=True, text=True)
+-    return versao.stdout.strip() == VERSAO
++    return subprocess.run(["docker", "image", "inspect", IMAGEM],
++                          capture_output=True).returncode == 0
+ 
+ 
+ def conversar(monkeypatch, projeto, escopo, skills=(), roteiro=()):
+-    servidor = ThreadingHTTPServer(("127.0.0.1", 0), Provedor)
++    servidor = ThreadingHTTPServer(("0.0.0.0", 0), Provedor)
+     threading.Thread(target=servidor.serve_forever, daemon=True).start()
+-    monkeypatch.setattr(modulo, "API", f"http://127.0.0.1:{servidor.server_port}/v1")
++    # shortcut: host.docker.internal exige Docker Desktop; usar provedor em container no CI Linux.
++    monkeypatch.setattr(modulo, "API", f"http://host.docker.internal:{servidor.server_port}/v1")
+     monkeypatch.setenv("OPENROUTER_API_KEY", "sk-falsa")
+     Provedor.pedidos, Provedor.roteiro = [], list(roteiro)
+     papel = "test_writer" if escopo is SO_TESTES else "coder"
+@@ -118,6 +121,8 @@ def test_sessao_nao_leva_ambiente_de_quem_roda(tmp_path, monkeypatch):
+     assert turno.erro is None
+     # Uma chamada só: --title evita a do título, que ficaria fora da contabilidade.
+     assert len(Provedor.pedidos) == 1
++    assert Provedor.pedidos[0]["temperature"] == 0.1
++    assert Provedor.pedidos[0]["top_p"] == 0.9
+     corpo = json.dumps(Provedor.pedidos[0], ensure_ascii=False)
+     assert "Instructions from:" not in corpo
+     for canario in ("CANARIO-AGENTS", "CANARIO-CLAUDE", "CANARIO-SKILL"):
+@@ -149,3 +154,39 @@ def test_escopo_vale_dentro_e_fora_de_repositorio(tmp_path, monkeypatch, em_repo
+ 
+     assert (projeto.raiz / permitido).is_file()
+     assert not (projeto.raiz / negado).exists()
++
++
++@pytest.mark.skipif(not opencode_fixado(), reason=f"requer opencode {VERSAO}")
++def test_sessao_nao_le_original_ou_oraculo_no_repo_pai(tmp_path, monkeypatch):
++    repo = tmp_path / "repo"
++    subprocess.run(["git", "init", "-q", str(repo)], check=True)
++    original = repo / "original.py"
++    original.write_text("CANARIO-ORIGINAL-OCULTO")
++    oraculo = repo / "oraculo.py"
++    oraculo.write_text("CANARIO-ORACULO-OCULTO")
++    fixa = repo / "skills" / "fixa"
++    fixa.mkdir(parents=True)
++    (fixa / "SKILL.md").write_text("---\nname: fixa\ndescription: A liberada.\n---\nCANARIO-SKILL-PERMITIDA\n")
++    projeto = Projeto(repo / "runs" / "run", ALVO)
++    projeto.preparar()
++    (projeto.raiz / "entrada.txt").write_text("CANARIO-ENTRADA-PERMITIDA")
++    (projeto.saida / "segredo.txt").write_text("CANARIO-MEDICAO-OCULTA")
++    roteiro = [
++        {"tool": "read", "input": {"filePath": "/workspace/entrada.txt"}},
++        {"tool": "read", "input": {"filePath": str(original)}},
++        {"tool": "read", "input": {"filePath": str(oraculo)}},
++        {"tool": "grep", "input": {"path": str(repo), "pattern": "CANARIO"}},
++        {"tool": "glob", "input": {"path": str(repo), "pattern": "*.py"}},
++        {"tool": "grep", "input": {"path": "/workspace", "pattern": "CANARIO"}},
++        {"tool": "skill", "input": {"name": "fixa"}},
++    ]
++
++    turno = conversar(monkeypatch, projeto, CODIGO, [fixa], roteiro)
++
++    assert turno.erro is None
++    corpo = json.dumps(Provedor.pedidos, ensure_ascii=False)
++    assert "CANARIO-ENTRADA-PERMITIDA" in corpo
++    assert "CANARIO-SKILL-PERMITIDA" in corpo
++    assert "CANARIO-ORIGINAL-OCULTO" not in corpo
++    assert "CANARIO-ORACULO-OCULTO" not in corpo
++    assert "CANARIO-MEDICAO-OCULTA" not in corpo
+diff --git a/docs/metodologia.md b/docs/metodologia.md
+index 357f131..8bca44f 100644
+--- a/docs/metodologia.md
++++ b/docs/metodologia.md
+@@ -26,6 +26,36 @@ Ambos os grupos recebem os mesmos requisitos. O baseline é a geração direta s
+ 
+ Os dois grupos são avaliados pela mesma régua externa, descrita a seguir.
+ 
++### Executor do piloto Caronte
++
++No piloto Caronte, os grupos usam OpenCode 1.19.0 como infraestrutura comum
++de geração, em container com imagem fixada por digest. O orquestrador deste
++trabalho define os papéis, a sequência das etapas, os escopos de escrita, a
++execução do pytest, o feedback e o registro das métricas. O OpenCode conduz
++as chamadas ao modelo e suas ferramentas de leitura e edição dentro de cada
++sessão; portanto, parte da execução agêntica é fornecida por essa ferramenta.
++
++O baseline é **geração agêntica direta**, sem testes gerados, execução de
++comandos ou feedback de avaliação. Uma sessão pode envolver várias chamadas
++ao modelo para ler e editar arquivos; não significa uma única chamada à API.
++No grupo TDD, sessões distintas escrevem os testes e implementam o código,
++com o pytest executado pelo orquestrador e suas falhas devolvidas ao coder.
++
++Os grupos compartilham modelo, versão e imagem do executor, parâmetros de
++amostragem e inventário de skills de implementação. Skills de autoria de
++testes só são disponibilizadas à etapa de testes. O piloto fixa
++`temperature=0.1` e `top_p=0.9`; são escolhas desta execução, sem pressupor
++determinismo ou desempenho ótimo. As referências para os parâmetros são o
++[Prompt Engineering Guide](https://www.promptingguide.ai/introduction/settings)
++e o [texto de Soso Sukhitashvili](https://medium.com/@sukhitashvili.soso/choosing-temperature-topk-and-topp-for-llm-text-generation-7b0972a9bb2a).
++
++A comparação mede os pipelines nessas condições, não um harness inteiramente
++autoral nem o efeito isolado de TDD, separado das demais diferenças entre
++as etapas. Resultados anteriores obtidos com Agno pertencem a outra
++configuração experimental e não são agregados aos do OpenCode como
++repetições da mesma condição. Este piloto avalia apenas a consulta HTTP do
++prejanus-back com uma suíte-oráculo externa; não exercita o CUA.
++
+ ---
+ 
+ ## Critérios de Aceitação

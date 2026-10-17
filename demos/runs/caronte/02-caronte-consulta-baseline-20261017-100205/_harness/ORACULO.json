@@ -1,0 +1,199 @@
+{
+  "instrumento": "pytest + httpx, suite-oraculo congelada",
+  "aprovado_geral": false,
+  "passed": 27,
+  "failed": 1,
+  "total": 28,
+  "comportamentais": {
+    "passed": 26,
+    "failed": 1,
+    "total": 27
+  },
+  "rastreio": {
+    "passed": 1,
+    "failed": 0,
+    "total": 1
+  },
+  "comando": "CARONTE_API=http://localhost:8095 CARONTE_API_SEM_ATALHO=http://localhost:8096 .venv/bin/python -m pytest caronte/oraculo -q --tb=short --junitxml=<run>/_harness/oraculo.xml",
+  "runtime_image": "sha256:de2233fd51964447ae4dc633d2898930ac80b0c581b6b99101feb1eec3fc70b9",
+  "app_sha256_antes_e_depois": "b17bb3537c86102d406b1cd3c9b6889c2d30c416838aa96704e33323503bedd4",
+  "suite_sha256": {
+    "oraculo/conftest.py": "b9a4982ed954f7bee46220cfc6e599ce161b8f0585b2d5b81a999bbe6082dec6",
+    "oraculo/dados.py": "f836db217ca39d728f51223f7cea8c467dc9eb944221272129825b1a5c4dc166",
+    "oraculo/split.py": "a1cca71ff430c665d631880c2c30c63dd74e86089ae94996de836130ac245c91",
+    "oraculo/test_consulta.py": "a3b175b51b910e71ec2f858cbb4a97041fd87210fb24501d9e56e5f4b2c64d82",
+    "oraculo/test_rastreio.py": "9254c373e1e8a48f5b26d3ec3418ab52dda053f321f882e2fc0a29899db3a42c"
+  },
+  "causa": "O detalhe descarta campos sem mapeamento; ethnicity-race deve continuar nas respostas brutas, embora nao esteja mapeado para o resumo.",
+  "limite_textual": "fixture.md diz que PPI nao e verificado; o oraculo verifica o valor bruto ethnicity-race no formulario, sem avaliar sua interpretacao no resumo. Esta distincao deve ser explicitada antes de generalizar o resultado. Requisitos e oraculo nao foram alterados nesta run.",
+  "casos": [
+    {
+      "nome": "test_api_responde",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_login_local_reconhece_o_docente",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_sem_atalho_e_sem_sessao_responde_401[/auth/login]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_sem_atalho_e_sem_sessao_responde_401[/edicts]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_sem_atalho_e_sem_sessao_responde_401[/edicts/1/submissions]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_sem_atalho_e_sem_sessao_responde_401[/submissions/1]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_lista_o_edital",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_consulta_o_edital",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_encontra_a_inscricao_pelo_nome",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_consultas_repetidas_nao_duplicam",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_identifica_a_candidata",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[0]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[1]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": false,
+      "erro": "KeyError: 'ethnicity-race'"
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[2]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[3]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[4]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[5]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[6]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_detalhe_traz_as_respostas_da_secao[7]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000001_official-document-file.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000002_disabilities-file.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000003_ethnicity-race-file.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000004_lattes-cv-file.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000005_studies-transcripts.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000006_poscomp-file.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000007_graduate-courses-file.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_baixa_o_anexo[00000000000000000000000000000008_motivation-letter.pdf]",
+      "classe": "caronte.oraculo.test_consulta",
+      "passou": true,
+      "erro": null
+    },
+    {
+      "nome": "test_todo_requisito_tem_teste",
+      "classe": "caronte.oraculo.test_rastreio",
+      "passou": true,
+      "erro": null
+    }
+  ]
+}
