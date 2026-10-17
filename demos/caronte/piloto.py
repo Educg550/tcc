@@ -104,14 +104,13 @@ class ProjetoPiloto(Projeto):
         self.gates += 1
         extras = []
         with ExitStack() as stack:
-            if self.grupo == "rework":
-                for atalho, variavel in ((True, "CARONTE_API"), (False, "CARONTE_API_SEM_ATALHO")):
-                    _, url = stack.enter_context(self.servidor(atalho))
-                    extras += ["-e", f"{variavel}={url}"]
+            for atalho, variavel in ((True, "CARONTE_API"), (False, "CARONTE_API_SEM_ATALHO")):
+                _, url = stack.enter_context(self.servidor(atalho))
+                extras += ["-e", f"{variavel}={url}"]
             cmd = self.runtime() + ["--rm", *extras, RUNTIME, *shlex.split(self.alvo.comando_teste), "-p", "no:cacheprovider"]
             r = subprocess.run(cmd, capture_output=True, text=True)
         saida = r.stdout + "\n" + r.stderr
-        if r.returncode and self.grupo == "rework":
+        if r.returncode:
             saida += "\n" + "\n".join(p.read_text() for p in sorted(self.saida.glob("app-*.log"))[-2:])
         self.saida.mkdir(parents=True, exist_ok=True)
         (self.saida / f"pytest-{self.gates}.txt").write_text(saida)

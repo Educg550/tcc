@@ -23,11 +23,12 @@ O runtime limpo é a imagem congelada em `piloto.RUNTIME`, construída com o
 Dockerfile e as dependências transitivas guardados no `_harness/runtime/` do
 baseline. O OpenCode usa a imagem oficial fixada em `harness/models/sessao.py`.
 
-No TDD, test-writer e coder usam sessões distintas. O gate executa pytest
-com as dependências declaradas, Postgres e uploads em container; o prompt
-do test-writer pede TestClient para exercitar a API. No rework, os 20 casos
-visíveis são fornecidos antes do coder; o gate sobe duas instâncias HTTP,
-com e sem atalho de autenticação. A exportação especializa os parâmetros
+No TDD, test-writer e coder usam sessões distintas. Para novas execuções,
+os dois grupos recebem no gate as URLs `CARONTE_API` e
+`CARONTE_API_SEM_ATALHO`, com e sem atalho de autenticação. O pytest roda
+com dependências declaradas, Postgres e uploads em container. Essa correção
+não altera os resultados nem os snapshots do TDD medido no v1. No rework,
+os 20 casos visíveis são fornecidos antes do coder. A exportação especializa os parâmetros
 visíveis, sem copiar os casos reservados. `entrada-rework/` contém essa entrada.
 
 As etapas têm US$ 2, 12 passos e 1200 segundos. O custo é verificado após

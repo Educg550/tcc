@@ -34,6 +34,20 @@ Nenhuma credencial real é parte deste pacote. O cenário de sessão precisa
 de HTTPS local para que o cliente respeite o cookie `Secure`; não alterar
 o contrato do cookie apenas para o ensaio passar.
 
+## Testes do pipeline
+
+O pytest do gate roda em container separado, com o backend já em execução
+no ambiente de integração. Testes de rota usam `httpx.Client` síncrono com
+a URL de uma variável de ambiente, nunca uma porta fixa:
+
+| Variável | Instância |
+|---|---|
+| `CARONTE_API` | `APP_ENV=local`, `DEV_USER_ID=2` (docente já cadastrado) |
+| `CARONTE_API_SEM_ATALHO` | Fora do ambiente local: sem sessão, rotas protegidas respondem 401 |
+
+A porta 8083 citada no requisito é a publicação no ambiente de integração,
+não um endereço disponível dentro do gate.
+
 ## Dados e serviços
 
 Os esquemas e funções SQL são os do original congelado. Os bancos
