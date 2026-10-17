@@ -1,0 +1,37 @@
+# Piloto v2 — backend completo do PreJanus
+
+Rascunho de escopo preparado em 17/10/2026. O piloto v1 de consulta foi
+concluído com baseline, TDD e rework; seus requisitos, oráculo, fixtures,
+logs e resultados ficam preservados. O v2 amplia a reconstrução para
+todo o `prejanus-back` e suas integrações. Não há execução paga v2.
+
+A entrada de reconstrução está em
+[`../../requisitos/03-caronte-prejanus-completo/requisito.md`](../../requisitos/03-caronte-prejanus-completo/requisito.md).
+O OpenAPI original acompanha essa entrada como contrato declarativo.
+[`interfaces.json`](./interfaces.json) relaciona cada uma das 50 operações
+com seu requisito, fonte e integrações. [`avaliacao.md`](./avaliacao.md)
+descreve os estados e evidências necessários para avaliar o novo escopo.
+
+| Dimensão | Piloto v1 | Piloto v2 |
+|---|---|---|
+| Produto reconstruído | Consulta do PreJanus Back | Todas as 50 operações do backend |
+| Formulários | Candidatura de mestrado preparada | Mestrado, doutorado, recomendação e aceite; versões distintas |
+| Banco Forms | Leitura | Leitura e escrita pelas integrações |
+| Identidade | Atalho local e 401 sem sessão | Também OAuth, whitelist e sessão com provedor local |
+| Comunicação | Fora do recorte | Solicitação de correção, convite de aceite e carta no SMTP local |
+| Relatórios | Fora do recorte | Participantes, PDF e matriz de interesses em CSV |
+| Estado | Consulta pré-carregada | Também criação, alterações, fases e percursos completos |
+| Clientes e dependências | Bancos e uploads | Também Forms, Front, proxy e serviços auxiliares originais |
+
+Os três grupos continuam: geração agêntica direta (baseline), TDD e rework
+a partir dos testes visíveis. A infraestrutura comum é OpenCode 1.19.0 na
+imagem fixada, GLM 5.3 via OpenRouter, temperatura 0.1, top-p 0.9 e o mesmo
+inventário de skills de implementação. Não juntar as amostras v1 e v2.
+A nova ampliação não autoriza automaticamente outras chamadas pagas.
+
+O pacote ainda não está congelado nem executável: as fixtures, o provedor
+OAuth local, os contratos de mensagens e a suíte ampliada precisam ser
+materializados e validados. O problema do gate TDD registrado em
+`tcc-hqt.12` precisa ser resolvido antes de executar o novo grupo.
+Tarefas e dependências são mantidas no beads; estes documentos são o
+contrato e o protocolo, não uma lista de tarefas.

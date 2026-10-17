@@ -1,11 +1,16 @@
 # Piloto de consulta
 
+Baseline, TDD e rework deste recorte foram concluídos em 17/10/2026;
+os resultados estão em `../runs/caronte/RESUMO.json`. A ampliação para o
+backend completo está separada em [`piloto-v2/`](./piloto-v2/README.md).
+
 Recorte congelado do prejanus-back: login local, editais, inscrições, detalhe
 e anexos. Requisitos e oráculo estão em `requisitos.md` e `oraculo/`.
 
 O baseline está preservado em
 `../runs/caronte/02-caronte-consulta-baseline-20261017-100205/`.
-As duas execuções restantes, a partir de `demos/`, são:
+Para gerar novas entregas TDD e rework desse mesmo recorte, a partir de
+`demos/`:
 
 ```bash
 uv run python -m caronte.piloto tdd

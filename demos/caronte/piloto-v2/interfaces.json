@@ -1,0 +1,664 @@
+{
+  "status": "rascunho; inventário conferido, comportamentos v2 ainda não validados",
+  "data": "2026-10-17",
+  "original": {
+    "commit_registrado": "46b89c1d5519aeae40c088ee94262e9b739a7d48",
+    "arvore_local": "caronte-core/prejanus-back/src",
+    "sha256_arvore_python": "22aa07d76754be7fc94d0379f186b4762be63be95ee1e4162a188bb3d2f2e02f",
+    "algoritmo_arvore": "arquivos *.py em ordem de caminho relativo POSIX: caminho UTF-8, NUL, bytes do arquivo, NUL"
+  },
+  "openapi": {
+    "arquivo": "../../requisitos/03-caronte-prejanus-completo/infra/openapi-original.json",
+    "origem": "GET http://localhost:8093/openapi.json",
+    "sha256": "150c029643fe638be39f58b74187ee7fe38b4b6c1975cac68c944b03b3fffba5"
+  },
+  "total_operacoes": 50,
+  "requisitos_transversais": [
+    "V2-BD-01",
+    "V2-AUT-03",
+    "V2-INT-01",
+    "V2-INT-02",
+    "V2-INT-03"
+  ],
+  "integracoes": {
+    "INT-PREJANUS-DB": {
+      "requisitos": [
+        "V2-BD-01"
+      ],
+      "tipo": "direta"
+    },
+    "INT-FORMS-DB": {
+      "requisitos": [
+        "V2-BD-01",
+        "V2-EDI-03",
+        "V2-MAI-01",
+        "V2-MAI-02"
+      ],
+      "tipo": "direta"
+    },
+    "INT-UPLOADS": {
+      "requisitos": [
+        "V2-INS-03",
+        "V2-INT-01"
+      ],
+      "tipo": "direta"
+    },
+    "INT-SMTP": {
+      "requisitos": [
+        "V2-MAI-01",
+        "V2-MAI-02",
+        "V2-MAI-03"
+      ],
+      "tipo": "direta"
+    },
+    "INT-OAUTH": {
+      "requisitos": [
+        "V2-AUT-02"
+      ],
+      "tipo": "direta; provedor local de contrato"
+    },
+    "INT-RELATORIOS": {
+      "requisitos": [
+        "V2-REL-01",
+        "V2-REL-02",
+        "V2-REL-03"
+      ],
+      "tipo": "direta"
+    },
+    "INT-FRONT": {
+      "requisitos": [
+        "V2-AMB-01",
+        "V2-INT-03"
+      ],
+      "tipo": "cliente e proxy originais"
+    },
+    "INT-FORMS-STACK": {
+      "requisitos": [
+        "V2-INT-01",
+        "V2-INT-02",
+        "V2-INT-03"
+      ],
+      "tipo": "indireta pelo Forms original",
+      "servicos": [
+        "forms",
+        "redis",
+        "celery-worker",
+        "clamav",
+        "smtp"
+      ]
+    }
+  },
+  "operacoes": [
+    {
+      "metodo": "GET",
+      "caminho": "/",
+      "requisito": "V2-AMB-01",
+      "autenticacao_get_user": false,
+      "integracoes": [],
+      "fonte": "main.py",
+      "funcao": "root"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/auth/login",
+      "requisito": "V2-AUT-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/auth_routers.py",
+      "funcao": "login"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/auth/login/senhaunica",
+      "requisito": "V2-AUT-02",
+      "autenticacao_get_user": false,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-OAUTH"
+      ],
+      "fonte": "routers/auth_routers.py",
+      "funcao": "login_senhaunica"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts",
+      "requisito": "V2-EDI-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "get_all"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/{edict_id}/submissions",
+      "requisito": "V2-INS-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "get_all_submissions_from_edict"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts",
+      "requisito": "V2-EDI-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "create_edict"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/{edict_id}",
+      "requisito": "V2-EDI-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "get_edict"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/edit",
+      "requisito": "V2-EDI-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "edit_date_edict"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/edit-date",
+      "requisito": "V2-EDI-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "edit_edict_date_only"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/advance-phase",
+      "requisito": "V2-EDI-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "advance_edict"
+    },
+    {
+      "metodo": "DELETE",
+      "caminho": "/edicts/{edict_id}/remove",
+      "requisito": "V2-EDI-04",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "remove_edict"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/interactors_list",
+      "requisito": "V2-REL-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB",
+        "INT-RELATORIOS"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "interactors_list"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/pairing-biddings",
+      "requisito": "V2-REL-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB",
+        "INT-RELATORIOS"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "pairing_biddings"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/download_pdf/{job_id}",
+      "requisito": "V2-REL-03",
+      "autenticacao_get_user": false,
+      "integracoes": [
+        "INT-RELATORIOS"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "download_pdf"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/download_csv/{job_id}",
+      "requisito": "V2-REL-03",
+      "autenticacao_get_user": false,
+      "integracoes": [
+        "INT-RELATORIOS"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "download_csv"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/slots",
+      "requisito": "V2-SEL-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "set_user_slots"
+    },
+    {
+      "metodo": "PATCH",
+      "caminho": "/edicts/{edict_id}/close",
+      "requisito": "V2-EDI-04",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "close_edict"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/recommenders/mappings/versions/{version}/",
+      "requisito": "V2-MAP-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "create_recommender_form_mapping"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/edicts/{edict_id}/candidates/mappings/versions/{version}/",
+      "requisito": "V2-MAP-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "create_candidate_form_mapping"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/{edict_id}/candidates/mappings",
+      "requisito": "V2-MAP-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "get_submission_form_mapping"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/{edict_id}/recommenders/mappings",
+      "requisito": "V2-MAP-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "get_recommender_form_mapping"
+    },
+    {
+      "metodo": "PUT",
+      "caminho": "/edicts/{edict_id}/recommenders/mappings/versions/{version}/{mapping_id}",
+      "requisito": "V2-MAP-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "update_recommender_mapping"
+    },
+    {
+      "metodo": "PUT",
+      "caminho": "/edicts/{edict_id}/candidates/mappings/versions/{version}/{mapping_id}",
+      "requisito": "V2-MAP-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "update_candidate_mapping"
+    },
+    {
+      "metodo": "DELETE",
+      "caminho": "/edicts/{edict_id}/candidates/mappings/versions/{version}/{mapping_id}",
+      "requisito": "V2-MAP-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "delete_candidate_mapping"
+    },
+    {
+      "metodo": "DELETE",
+      "caminho": "/edicts/{edict_id}/recommenders/mappings/versions/{version}/{mapping_id}",
+      "requisito": "V2-MAP-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "delete_recommender_mapping"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/{edict_id}/candidates/forms/versions/unmapped",
+      "requisito": "V2-MAP-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "get_candidates_unmapped_versions"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/edicts/{edict_id}/recommenders/forms/versions/unmapped",
+      "requisito": "V2-MAP-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/edict_routers.py",
+      "funcao": "get_recommenders_unmapped_versions"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/forms",
+      "requisito": "V2-FOR-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/forms_routers.py",
+      "funcao": "get_all"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/forms/{form_id}",
+      "requisito": "V2-FOR-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/forms_routers.py",
+      "funcao": "get_form_full"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/forms/{form_id}/sections",
+      "requisito": "V2-FOR-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/forms_routers.py",
+      "funcao": "get_form_sections"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/forms/{form_id}/sessions/{section_id}/fields",
+      "requisito": "V2-FOR-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/forms_routers.py",
+      "funcao": "get_form_fields"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/submissions/{submission_id}",
+      "requisito": "V2-INS-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "get_details"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/send-accept",
+      "requisito": "V2-MAI-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB",
+        "INT-SMTP"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "send_accept_forms"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/send-letter",
+      "requisito": "V2-MAI-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB",
+        "INT-SMTP"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "send_accept_letter"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/submissions/{submission_id}/comments",
+      "requisito": "V2-AVA-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "get_all_comments"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/comments",
+      "requisito": "V2-AVA-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "add_comment"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/submissions/{submission_id}/labels",
+      "requisito": "V2-AVA-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "get_label"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/labels",
+      "requisito": "V2-AVA-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "add_label"
+    },
+    {
+      "metodo": "DELETE",
+      "caminho": "/submissions/label/{label_id}",
+      "requisito": "V2-AVA-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "remove_label"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/private_notes",
+      "requisito": "V2-AVA-04",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "add_or_update_note"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/reesend_submission",
+      "requisito": "V2-MAI-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB",
+        "INT-SMTP"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "reesend_submission"
+    },
+    {
+      "metodo": "DELETE",
+      "caminho": "/submissions/comments/{comment_id}",
+      "requisito": "V2-AVA-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "remove_comment"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/favorites",
+      "requisito": "V2-AVA-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "create_favorite"
+    },
+    {
+      "metodo": "DELETE",
+      "caminho": "/submissions/{submission_id}/favorites",
+      "requisito": "V2-AVA-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "remove_favorite"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/select",
+      "requisito": "V2-SEL-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "select_stats"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/bidding",
+      "requisito": "V2-SEL-01",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "toggle_bidding"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/entry-semester",
+      "requisito": "V2-SEL-02",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "toggle_entry_semester"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/submissions/{submission_id}/files/{label}/{filename}",
+      "requisito": "V2-INS-03",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB",
+        "INT-FORMS-DB",
+        "INT-UPLOADS"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "get_file"
+    },
+    {
+      "metodo": "POST",
+      "caminho": "/submissions/{submission_id}/view",
+      "requisito": "V2-AVA-05",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "register_view"
+    },
+    {
+      "metodo": "GET",
+      "caminho": "/submissions/{submission_id}/view",
+      "requisito": "V2-AVA-05",
+      "autenticacao_get_user": true,
+      "integracoes": [
+        "INT-PREJANUS-DB"
+      ],
+      "fonte": "routers/submission_routers.py",
+      "funcao": "get_submission_views"
+    }
+  ]
+}
