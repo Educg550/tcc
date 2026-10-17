@@ -390,9 +390,8 @@ aprovado uma carta HTML com sua identificação, orientador, semestre e
 ano de ingresso, copiando o orientador e incluindo a assinatura fornecida.
 Responder com `message` e `email_sent` e persistir `letter_sent=true`.
 Uma candidatura não aprovada ou carta já enviada responde 400; repetir
-não envia outra carta. Manter os assuntos e textos institucionais
-congelados no pacote de dados, distinguindo conteúdo fixo de valores
-personalizados.
+não envia outra carta. Assuntos e textos institucionais ficam a critério
+da implementação; os valores personalizados citados acima são obrigatórios.
 
 Todos os e-mails do ensaio são entregues ao SMTP local; o estado no banco
 e a recepção da mensagem são evidências distintas. Um retorno 200 ou uma

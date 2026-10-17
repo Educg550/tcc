@@ -1,0 +1,60 @@
+{
+  "referencia": "46b89c1",
+  "decisao": "manter: o teste segue o requisito e falha no original (17/10/2026)",
+  "achados": {
+    "issue-26": {
+      "descricao": "Candidatura finalizada no Forms sem Submission local: a listagem responde 500 em vez de criar a inscrição",
+      "requisitos": ["V2-INS-01"],
+      "testes": ["test_inscricoes.py::test_candidatura_recem_finalizada_entra_na_listagem"]
+    },
+    "ppi": {
+      "descricao": "Com ethnicity-race mapeado, a listagem responde 500 (json.loads sobre valor já convertido em lista)",
+      "requisitos": ["V2-INS-01"],
+      "testes": ["test_inscricoes.py::test_listagem_com_ppi_mapeado"]
+    },
+    "poscomp": {
+      "descricao": "Com a nota do POSCOMP preenchida, o detalhe responde 500 (int passado a PosCompSchema.score: str)",
+      "requisitos": ["V2-INS-02"],
+      "testes": ["test_inscricoes.py::test_resumo_com_nota_do_poscomp"]
+    },
+    "include-comments": {
+      "descricao": "include_comments=true carrega os comentários, mas summary.comments volta vazio",
+      "requisitos": ["V2-INS-02", "V2-AVA-01"],
+      "testes": ["test_inscricoes.py::test_detalhe_com_comentarios"]
+    },
+    "send-accept": {
+      "descricao": "send-accept responde 500 sempre: indexa por 'email' a lista de seções devolvida por get_submissions_forms_by_id",
+      "requisitos": ["V2-MAI-02", "V2-INT-02"],
+      "testes": ["test_mensagens.py::test_envia_formulario_de_aceite",
+                 "test_mensagens.py::test_aceite_nao_e_criado_duas_vezes",
+                 "test_percursos.py::test_da_homologacao_ao_resultado_e_aceite"]
+    },
+    "aceite-pendente": {
+      "descricao": "Convite de aceite ainda sem resposta aparece como replied: basta existirem seções no formulário",
+      "requisitos": ["V2-MAI-02"],
+      "testes": ["test_mensagens.py::test_estado_do_aceite_pendente"]
+    },
+    "send-letter": {
+      "descricao": "send-letter responde 500 sempre, pelo mesmo acesso de send-accept",
+      "requisitos": ["V2-MAI-03"],
+      "testes": ["test_mensagens.py::test_envia_carta_de_aceite",
+                 "test_mensagens.py::test_carta_nao_e_enviada_duas_vezes"]
+    },
+    "multiplos-orientadores": {
+      "descricao": "Aprovação com lista vazia ou com dois orientadores responde 200 sem alterar nada (exceção devolvida, não levantada)",
+      "requisitos": ["V2-SEL-02"],
+      "testes": ["test_selecao.py::test_aprovacao_exige_um_unico_orientador_existente[user_ids1]",
+                 "test_selecao.py::test_aprovacao_exige_um_unico_orientador_existente[user_ids3]"]
+    },
+    "cadastro-oauth": {
+      "descricao": "Usuário novo via Senha Única é gravado com papel 'TEACHER' (nome do enum), não 'teacher'",
+      "requisitos": ["V2-AUT-02"],
+      "testes": ["test_acesso.py::test_novo_usuario_autorizado_vira_docente"]
+    },
+    "email-de-acesso-no-relatorio": {
+      "descricao": "Anexos de e-mails de candidatos no PDF saem vazios: a listagem só lê e-mail do mapeamento, nunca de form_response.email",
+      "requisitos": ["V2-REL-01"],
+      "testes": ["test_relatorios.py::test_pdf_com_todas_as_secoes"]
+    }
+  }
+}

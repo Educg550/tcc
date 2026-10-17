@@ -1,0 +1,119 @@
+name: caronte-piloto-v2
+services:
+  db:
+    image: sha256:21fe3be5c6b71348e6b0a16867c892b5b809735c219c2fa873ef90627c86a740
+    pull_policy: never
+    environment:
+      POSTGRES_USER: caronte_admin
+      POSTGRES_PASSWORD: caronte_admin
+      POSTGRES_ADMIN_PASSWORD: caronte_admin
+      FORMS_DB: caronte_forms
+      FORMS_USER: caronte_forms
+      FORMS_PASSWORD: caronte_forms
+      FORMS_READER: caronte_forms_reader
+      FORMS_READER_PASSWORD: caronte_forms_reader
+      PREJANUS_DB: caronte_prejanus
+      PREJANUS_USER: caronte_prejanus
+      PREJANUS_PASSWORD: caronte_prejanus
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U caronte_admin -d caronte_forms"]
+      interval: 1s
+      timeout: 3s
+      retries: 40
+  prejanus-back:
+    image: sha256:0105d76caff0ff7725fd8e5dd1f1aae4b56969411e3946ae7da44ecb510441c5
+    pull_policy: never
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    env_file: backend.env
+    volumes:
+      - uploads:/shared/uploads:ro
+      - ./dados/recursos:/home/appuser/data:ro
+    depends_on:
+      db:
+        condition: service_healthy
+  local:
+    extends: prejanus-back
+    environment:
+      APP_ENV: local
+      DEV_USER_ID: 2
+  sem-atalho:
+    extends: prejanus-back
+    environment:
+      APP_ENV: producao
+      DEV_USER_ID: 2
+  oauth:
+    image: sha256:0105d76caff0ff7725fd8e5dd1f1aae4b56969411e3946ae7da44ecb510441c5
+    pull_policy: never
+    working_dir: /provedor
+    command: ["uvicorn", "oauth:app", "--host", "0.0.0.0", "--port", "8000"]
+    volumes:
+      - ./oauth.py:/provedor/oauth.py:ro
+    ports:
+      - "127.0.0.1:8181:8000"
+  forms:
+    image: sha256:9c6924273520aed1f145744ec56016333c14c9cf309892caa2fbb1649fbcf002
+    pull_policy: never
+    entrypoint: ["gunicorn", "app:create_app()", "-w", "1", "-b", "0.0.0.0:5000"]
+    volumes:
+      - ./forms.env:/src/.env:ro
+      - uploads:/shared/uploads
+      - temporarios:/shared/tmp
+      - clamd:/run/clamav
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+  worker:
+    extends: forms
+    entrypoint: ["celery", "-A", "app.tasks", "worker", "--loglevel=info", "--concurrency=1"]
+  redis:
+    image: redis@sha256:2c2dff791878316e3b083188be0d578423b24813cdda5de0e80ea4f7b3e6bfd6
+    pull_policy: never
+  smtp:
+    image: rnwood/smtp4dev@sha256:25c434c1900a9c5b61e17ead0a774d9e81b80554d05cf64719d69e5ea8c66537
+    pull_policy: never
+    environment:
+      ServerOptions__Urls: http://*:80
+    ports:
+      - "127.0.0.1:8182:80"
+  front:
+    image: sha256:0e632687f237b409b757a80f28c64c198384e014601b39adb2aba4350cf86067
+    pull_policy: never
+    environment:
+      NEXT_PUBLIC_API_URL: http://prejanus-back:8000
+      NEXT_PUBLIC_BASE_URL: https://localhost:8543
+      HOSTNAME: 0.0.0.0
+  proxy:
+    image: sha256:0e58e2499a9a0e3d5c625070f5082960f309468dd14d0deb4aca28ca7f5cd9ec
+    pull_policy: never
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./.estado/tls:/tls:ro
+      - ../../../caronte-core/static-assets/dist:/usr/share/nginx/static-assets/dist:ro
+    ports:
+      - "127.0.0.1:8180:80"
+      - "127.0.0.1:8543:443"
+    depends_on:
+      - prejanus-back
+      - local
+      - sem-atalho
+      - forms
+      - front
+  clamav:
+    image: sha256:45ec8c479e91f3f83067662bd4bb2d8ec6a25c7531e7d3af7dfa1db8686501eb
+    pull_policy: never
+    entrypoint: ["clamd", "--foreground=true", "--config-file=/etc/clamav/clamd.conf"]
+    volumes:
+      - clamd:/run/clamav
+      - temporarios:/shared/tmp
+      - assinaturas:/var/lib/clamav
+      - ../../../caronte-core/docker/clamd.conf:/etc/clamav/clamd.conf:ro
+volumes:
+  postgres:
+  uploads:
+  temporarios:
+  clamd:
+  assinaturas:

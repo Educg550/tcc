@@ -77,6 +77,18 @@ aprova o percurso de candidatura nova. Cobrir múltiplos candidatos e
 docentes com dados distintos para detectar hardcoding e vazamento de
 estado. Respostas reservadas usam outros valores dentro do mesmo contrato.
 
+Materialização em 17/10/2026: `ambiente.py preparar` sobe o projeto
+Compose `caronte-piloto-v2` e grava `dados/forms.sql` e `dados/prejanus.sql`;
+`ambiente.py restaurar` volta a esse estado antes de cada teste, inclusive os
+PDFs dos uploads, gerados a partir das respostas `File`. A base cobre S0, S1
+e S3: três editais (mestrado, doutorado, mestrado com PPI mapeado), quatro
+candidaturas em duas versões do mestrado e uma de doutorado, três
+recomendações (uma com recomendador repetido em outro candidato) e seis
+papéis com login pelo provedor OAuth local. S4 a S7 são construídos pelos
+testes via API; S2, por inserção no banco do Forms no formato que o Forms
+grava. O percurso pelas telas do Forms (V2-INT-01) e pelo Front (V2-INT-03)
+está pendente de decisão.
+
 Os formulários completos devem ser exportados do Forms original, incluindo
 os campos adicionais de doutorado; não adaptar o de mestrado trocando
 somente o título. Mapeamentos de candidatura e recomendação precisam
@@ -86,9 +98,10 @@ administrativamente no estado inicial, pois a API não oferece essa edição.
 O pacote inicial deve incluir dados e recursos estáticos declarativos,
 inclusive `data/signature.png` e recursos do PDF, sem código Python do
 original. Conservar hashes dos bancos exportados, formulários, arquivos,
-configuração e imagens. Os assuntos e corpos de e-mail são contratos a
-congelar; as referências a 2026 e a mestrado existentes no original não
-podem ser generalizadas silenciosamente ao avaliar doutorado.
+configuração e imagens. Decisão de 17/10/2026: assuntos e textos
+institucionais dos e-mails não são avaliados, pois não fazem parte da
+entrada do agente; a suíte confere destinatários, cópias, nome, link,
+prazo, semestre, ano e assinatura.
 
 ## Tratamento das divergências do original
 
@@ -99,20 +112,52 @@ HTTP/banco/SMTP, requisito afetado e uma decisão explícita antes de
 congelar a suíte. Comportamento desejado e compatibilidade com um bug são
 medidas diferentes.
 
-| Achado | Evidência disponível | Consequência para o v2 |
-|---|---|---|
-| Candidatura finalizada sem Submission local retorna 500 (issue 26) | Reproduzido por HTTP no v1; get_all_from_edict verifica a linha antes do upsert | S2 permanece no escopo; S3 pré-carregado não é substituto. Resolver tratamento antes de validar V2-INT-01 |
-| PPI mapeado quebra a listagem; POSCOMP preenchido quebra detalhe | Reproduzidos no v1; conversão duplicada de checkbox e score numérico versus schema string | O v2 inclui esses valores. Não repetir as exclusões por dados do v1 para declarar cobertura completa |
-| send-accept e send-letter tratam seções como objeto com email/responses | Indício por leitura: get_submissions_forms_by_id devolve lista de seções, os dois consumidores usam chaves de objeto | Reproduzir S6; não declarar envio funcionando só pela existência das rotas |
-| Aceite pendente pode aparecer como replied | Indício por leitura: a presença de seções torna get_accept_info verdadeiro antes de submitted_at | Verificar os três estados, com a mesma resposta antes e depois do envio |
-| Cadastro OAuth usa enum de papel onde a coluna é string | Indício por leitura em get_or_register_user | Conferir cadastro de novo usuário no provedor local; não testar só usuário existente |
-| Múltiplos orientadores retornam objeto de exceção em vez de levantar erro | Indício por leitura em select_stats_submission | Conferir status HTTP e persistência; não presumir 409 pela classe da exceção |
-| Edição/criação associam date_verification a avaliacao e date_evaluation a homologacao | Leitura de insert_edict e edit_edict | Registrar associação observada e expectativa antes de congelar; não corrigir os nomes por intuição |
-| Inclusão de comentários no detalhe carrega relações, mas summary.comments permanece vazio | Indício por leitura em get_submission_by_id | Validar separadamente include_comments e GET comments; não inferir histórico correto a partir do OpenAPI |
+Em 17/10/2026 todos os achados abaixo foram reproduzidos por HTTP no
+original, com a fixture v2 (`dados/`) e a suíte em `oraculo/`. Cada teste
+segue o requisito, não o original; o mapeamento achado → testes está em
+[`oraculo/divergencias.json`](./oraculo/divergencias.json), e o relatório
+`.estado/ORACULO.json` acusa falha não registrada ou divergência que passou.
 
-Issue 26, falha do PPI e falha do POSCOMP foram reproduzidos no v1 e
-continuam registrados em `../fixture.md`; os demais achados ainda não
-foram reproduzidos nesta preparação.
+| Achado | Reprodução | Testes que falham no original |
+|---|---|---|
+| Candidatura finalizada sem Submission local (issue 26) | Listagem 500 `No Submission found for candidate form 20` | `test_candidatura_recem_finalizada_entra_na_listagem` |
+| PPI mapeado | Listagem do edital 3 (PPI mapeado, mesmo formulário) responde 500 | `test_listagem_com_ppi_mapeado` |
+| Nota do POSCOMP preenchida | Detalhe da inscrição 4 (Diego) responde 500 | `test_resumo_com_nota_do_poscomp` |
+| `include_comments` | 200, mas `summary.comments` vazio com comentário gravado | `test_detalhe_com_comentarios` |
+| `send-accept` | 500 sempre: indexa por `email` a lista de seções | `test_envia_formulario_de_aceite`, `test_aceite_nao_e_criado_duas_vezes`, `test_da_homologacao_ao_resultado_e_aceite` |
+| Aceite pendente como `replied` | Convite sem resposta (montado por SQL) já aparece respondido | `test_estado_do_aceite_pendente` |
+| `send-letter` | 500 sempre, mesmo acesso | `test_envia_carta_de_aceite`, `test_carta_nao_e_enviada_duas_vezes` |
+| Múltiplos orientadores | `user_ids` vazio ou com dois ids: 200 sem alteração | `test_aprovacao_exige_um_unico_orientador_existente[user_ids1/3]` |
+| Cadastro OAuth | Usuário novo gravado com papel `TEACHER` | `test_novo_usuario_autorizado_vira_docente` |
+| E-mail de acesso nos relatórios | Anexos de e-mails de candidatos do PDF saem vazios; a listagem nunca lê `form_response.email` | `test_pdf_com_todas_as_secoes` |
+
+Decisão de 17/10/2026: os testes continuam exigindo o comportamento do
+requisito e contam no denominador; no original, falham. Não há xfail.
+
+V2-INT-01 (candidatura pelas telas do Forms, com ClamAV e Celery) e
+V2-INT-03 (Front original) ficam para a etapa final do CUA, separada das
+runs, e não entram na suíte HTTP. A suíte cobre o lado do backend desses
+percursos: resposta nova gravada no banco do Forms, anexos no volume e o
+link de correção abrindo no Forms real.
+
+Os casos que quebram o original ficam isolados em dados próprios (edital 3,
+inscrição 4, respostas criadas no teste), para não contaminar o restante:
+os demais testes passam no original.
+
+Observações sem teste reprovado, porque o requisito não fixa o comportamento:
+
+- O detalhe de uma inscrição de formulário versionado traz as seções de
+  todas as versões, com `null` nos campos da outra versão; o teste só exige
+  que todos os campos respondidos estejam presentes.
+- NUSP fora da whitelist responde 500, sem sessão nem cadastro; datas fora de
+  ordem respondem 500 e vagas não inteiras também; edital inexistente, 400.
+  Os testes exigem só a recusa (código ≥ 400) e o estado inalterado.
+- A listagem devolve o orientador com `id: -1` fixo, com nome e e-mail certos.
+- A associação de datas a fases já está escrita em V2-EDI-02 como o original
+  faz; os testes a confirmam.
+- O esquema original declara `version NOT NULL DEFAULT 1` em seções e campos.
+  O fallback para versão nula de V2-FOR-02 é inalcançável e não é testado.
+
 Nada aqui constitui resultado de uma execução v2. Se houver correção da
 referência, ela exige nova identificação e um conjunto de dados/suíte
 congelados para todos os grupos; não misturar esse caso com o original v1.
@@ -139,6 +184,13 @@ antes das runs. Aplicar a estratificação também às integrações e aos
 fluxos, não apenas às rotas. Variantes do mesmo cenário compartilham a
 partição quando revelarem sua resposta esperada. Não copiar parametrizações
 reservadas para o workspace e apenas marcá-las como skip.
+
+Split congelado em 17/10/2026 por `oraculo/split.py` (regra no próprio
+arquivo e em `oraculo/split.json`): a unidade é a função de teste, com
+todas as parametrizações; estratos são o primeiro requisito. Resultado:
+94 funções visíveis e 32 reservadas, 161 e 85 casos. A proporção por caso
+passa de 25% porque a matriz de 403 por papel (26 casos) caiu inteira na
+reserva.
 
 Baseline e TDD recebem requisito e infraestrutura declarativa comum; a
 suíte externa inteira permanece oculta. O TDD escreve seus próprios testes

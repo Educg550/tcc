@@ -29,9 +29,13 @@ imagem fixada, GLM 5.3 via OpenRouter, temperatura 0.1, top-p 0.9 e o mesmo
 inventário de skills de implementação. Não juntar as amostras v1 e v2.
 A nova ampliação não autoriza automaticamente outras chamadas pagas.
 
-O pacote ainda não está congelado nem executável: as fixtures, o provedor
-OAuth local, os contratos de mensagens e a suíte ampliada precisam ser
-materializados e validados. O problema do gate TDD registrado em
-`tcc-hqt.12` precisa ser resolvido antes de executar o novo grupo.
+Ambiente, fixture e suíte-oráculo estão materializados: `ambiente.py
+preparar` sobe o projeto Compose isolado e grava `dados/`; `oraculo/` roda
+contra o original pelo proxy HTTPS (de `demos/`: `uv run pytest
+caronte/piloto-v2/oraculo -p no:cacheprovider`). No original, falham só os
+casos registrados em `oraculo/divergencias.json`. Decisões e split
+75/25 (`oraculo/split.json`) estão registrados em `avaliacao.md`. O
+problema do gate TDD registrado em `tcc-hqt.12` precisa ser resolvido antes
+de executar o novo grupo.
 Tarefas e dependências são mantidas no beads; estes documentos são o
 contrato e o protocolo, não uma lista de tarefas.
