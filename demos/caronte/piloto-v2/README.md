@@ -37,5 +37,31 @@ casos registrados em `oraculo/divergencias.json`. Decisões e split
 75/25 (`oraculo/split.json`) estão registrados em `avaliacao.md`. O
 problema do gate TDD registrado em `tcc-hqt.12` precisa ser resolvido antes
 de executar o novo grupo.
+## Execução
+
+De `demos/`, com o ambiente de pé (`uv run python caronte/piloto-v2/ambiente.py preparar`):
+
+```bash
+uv run python -m caronte.piloto_v2 baseline|tdd|rework
+uv run python -m caronte.piloto_v2 avaliar ../runs/caronte/<run>
+```
+
+O candidato substitui os três backends do Compose (`prejanus-back`, `local`,
+`sem-atalho`) por um override; proxy, Forms, OAuth e SMTP continuam os
+originais. O runtime (`runtime/Dockerfile`) é a imagem do original sem `src/`
+e com pytest: mesmas dependências exatas, listadas no `alvo.toml`. No gate do
+TDD, os testes do agente rodam num container desse runtime com
+`CARONTE_API=http://local:8000` e `CARONTE_API_SEM_ATALHO`. No rework, o gate
+executa a cópia do avaliador das 94 funções visíveis, não a do workspace;
+`entrada-rework/` é gerada a partir do split. Ensaiado sem modelo em
+17/10/2026: o original como candidato dá 233/247 na avaliação, igual à imagem
+original; o gate TDD aprova testes válidos e reprova entrega sem `app.py`
+(`tests/test_gate_piloto_v2.py`); o gate do rework reprova só nas 8
+divergências visíveis.
+
+Orçamento por etapa: US$ 2, 40 passos, 3600 s. No pior caso as quatro
+etapas (baseline, test-writer e coder do TDD, rework) somam US$ 8, dentro do
+saldo de US$ 9,25 do teto de US$ 10 do piloto.
+
 Tarefas e dependências são mantidas no beads; estes documentos são o
 contrato e o protocolo, não uma lista de tarefas.
