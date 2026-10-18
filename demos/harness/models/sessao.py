@@ -72,7 +72,9 @@ class Sessao:
             "provider": {
                 "openrouter": {
                     "options": {"baseURL": API},
-                    "models": {self.model_id: {}},
+                    # Sem limite declarado o opencode corta a saída em 32k, e o raciocínio do
+                    # GLM 5.3 consome tudo isso num passo só (run baseline v2 de 17/10/2026).
+                    "models": {self.model_id: {"limit": {"context": 1048576, "output": 131072}}},
                 }
             },
             "model": f"openrouter/{self.model_id}",
