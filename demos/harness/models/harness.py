@@ -45,8 +45,12 @@ class Harness(ABC):
         )
 
     def prompt(self, *partes: str) -> str:
+        # O agente não lê arquivos: os anexos de texto (contratos, esquemas) vão no prompt.
+        anexos = "\n\n".join(
+            self.projeto.contexto(d.name) for d in self.requisito.anexos if d.name != "tests"
+        )
         return "\n\n".join(
-            p for p in (self.requisito.texto, self.contrato, *partes) if p.strip()
+            p for p in (self.requisito.texto, self.contrato, anexos, *partes) if p.strip()
         )
 
     def agente(self, papel: str, model_id: str, classe: type[Etapa]) -> Agente:
