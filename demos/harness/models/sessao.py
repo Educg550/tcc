@@ -24,6 +24,8 @@ ISOLAMENTO = {
     "OPENCODE_DISABLE_MODELS_FETCH": "1",
     "OPENCODE_DISABLE_AUTOUPDATE": "1",
     "OPENCODE_DISABLE_SHARE": "1",
+    # Teto próprio do opencode (32k), aplicado mesmo com o limite do modelo declarado.
+    "OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX": "131072",
 }
 
 
@@ -72,8 +74,7 @@ class Sessao:
             "provider": {
                 "openrouter": {
                     "options": {"baseURL": API},
-                    # Sem limite declarado o opencode corta a saída em 32k, e o raciocínio do
-                    # GLM 5.3 consome tudo isso num passo só (run baseline v2 de 17/10/2026).
+                    # O raciocínio do GLM 5.3 esgotou 32k num passo só nas runs baseline v2.
                     "models": {self.model_id: {"limit": {"context": 1048576, "output": 131072}}},
                 }
             },
