@@ -34,6 +34,20 @@ Nenhuma credencial real é parte deste pacote. O cenário de sessão precisa
 de HTTPS local para que o cliente respeite o cookie `Secure`; não alterar
 o contrato do cookie apenas para o ensaio passar.
 
+## Contrato da Senha Única
+
+OAuth 1.0a com assinatura HMAC-SHA1, chave e segredo de `SENHAUNICA_CONSUMER_*`,
+todas as rotas relativas a `SENHAUNICA_OAUTH_HOST`:
+
+| Passo | Requisição | Resposta |
+|---|---|---|
+| Request token | `POST {SENHAUNICA_REQUEST_TOKEN_RESOURCE}`, assinado só com a chave do consumidor | `application/x-www-form-urlencoded` com `oauth_token` e `oauth_token_secret` |
+| Autorização | O usuário abre `{SENHAUNICA_AUTHORIZE_URL}?oauth_token=...&callback_id={SENHAUNICA_CALLBACK_ID}` | O provedor devolve `oauth_token` e `oauth_verifier` ao callback |
+| Access token | `POST {SENHAUNICA_ACCESS_TOKEN_RESOURCE}`, assinado com o request token, seu segredo e o verifier | `application/x-www-form-urlencoded` com `oauth_token` e `oauth_token_secret` |
+| Dados do usuário | `POST wsusuario/oauth/usuariousp`, assinado com o access token e seu segredo | JSON com `loginUsuario` (NUSP), `nomeUsuario`, `emailPrincipalUsuario` e `vinculo` |
+
+O pacote `senhaunicapy` listado no alvo implementa esse cliente; usá-lo é opcional.
+
 ## Testes do pipeline
 
 O pytest do gate roda em container separado, com o backend já em execução
@@ -50,7 +64,8 @@ não um endereço disponível dentro do gate.
 
 ## Dados e serviços
 
-Os esquemas e funções SQL são os do original congelado. Os bancos
+Os esquemas e funções SQL são os do original congelado, em `esquema-prejanus.sql`
+e `esquema-forms.sql`, já aplicados nos bancos do ambiente. Os bancos
 PreJanus e Forms são conexões distintas. A preparação deve fornecer
 concessões explícitas para leitura e escrita necessárias; o nome histórico
 do usuário `forms_reader` não comprova essas concessões.

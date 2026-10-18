@@ -25,7 +25,7 @@ from harness.models.sessao import Sessao
 AQUI = Path(__file__).resolve().parent
 V2 = AQUI / "piloto-v2"
 sys.path.insert(0, str(V2))
-from ambiente import DC, ESTADO, URL, dc, esperar, restaurar  # noqa: E402
+from ambiente import DC, ESTADO, URL, dc, esperar, limpar_esquema, restaurar  # noqa: E402
 
 DEMOS = AQUI.parent
 REQUISITO = DEMOS / "requisitos/03-caronte-prejanus-completo"
@@ -51,6 +51,7 @@ def candidato(raiz, saida):
     saida.mkdir(parents=True, exist_ok=True)
     arquivo.write_text(yaml.safe_dump(override(raiz)))
     com = ["-f", str(V2 / "compose.yml"), "-f", str(arquivo)]
+    limpar_esquema()
     subprocess.run([*DC, *com[2:], "up", "-d", "--force-recreate", *BACKENDS], check=True, capture_output=True)
     # O nginx resolve os upstreams só ao subir; recriados, os backends trocam de IP.
     dc("restart", "proxy")
@@ -68,6 +69,7 @@ def candidato(raiz, saida):
             (saida / f"app-{nome}.log").write_bytes(log.stdout + log.stderr)
         dc("up", "-d", "--force-recreate", *BACKENDS)
         dc("restart", "proxy")
+        limpar_esquema()
 
 
 def pytest_oraculo(saida, nome, ids=()):

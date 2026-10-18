@@ -59,6 +59,16 @@ original; o gate TDD aprova testes válidos e reprova entrega sem `app.py`
 (`tests/test_gate_piloto_v2.py`); o gate do rework reprova só nas 8
 divergências visíveis.
 
+Tentativas inválidas do baseline, preservadas em `../../runs/caronte/` e
+fora dos resultados: `…-20261017-133643` (US$ 0,16) terminou sem código porque o
+opencode cortava a saída do GLM 5.3 em 32k tokens, todos gastos em raciocínio;
+`…-20261018-132235` (US$ 0,51, 33/247) recebeu uma entrada sem os esquemas SQL e
+sem o contrato de dados do usuário da Senha Única, e o login de todos os perfis
+falhou. As duas lacunas eram do pacote, não do modelo: os limites do modelo
+estão declarados em `harness/models/sessao.py`, os esquemas e o contrato OAuth
+em `infra/`, e o ambiente apaga tabelas criadas por um candidato antes do
+próximo.
+
 Orçamento por etapa: US$ 2, 40 passos, 3600 s. No pior caso as quatro
 etapas (baseline, test-writer e coder do TDD, rework) somam US$ 8, dentro do
 saldo de US$ 9,25 do teto de US$ 10 do piloto.

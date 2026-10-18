@@ -2,6 +2,7 @@
 import argparse
 import io
 import json
+import re
 import subprocess
 import tarfile
 import time
@@ -64,6 +65,17 @@ def pdf(texto):
 def anexos():
     return linhas("SELECT r.response_id, f.name, r.value FROM responses r JOIN form_field f "
                   "ON f.id = r.field_id WHERE f.type = 'File' AND r.value <> '' ORDER BY 1, 2", "forms")
+
+
+def limpar_esquema():
+    """Apaga tabelas que um candidato criou fora do esquema original, antes do próximo."""
+    for banco in ("forms", "prejanus"):
+        texto = (RAIZ / f"demos/requisitos/03-caronte-prejanus-completo/infra/esquema-{banco}.sql").read_text()
+        originais = set(re.findall(r'CREATE TABLE public\."?(\w+)', texto))
+        extras = [t["tablename"] for t in linhas("SELECT tablename FROM pg_tables WHERE schemaname='public'", banco)
+                  if t["tablename"] not in originais]
+        if extras:
+            sql("DROP TABLE " + ", ".join(f'"{t}"' for t in extras) + " CASCADE;", banco)
 
 
 def restaurar():
