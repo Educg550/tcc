@@ -11,8 +11,9 @@ from .dominio import Mudanca
 MAX_TOKENS = 100000
 AMOSTRAGEM = {"temperature": 0.1, "top_p": 0.9}
 
-# Sem este extra_body o OpenRouter não devolve custo e metrics.cost fica None.
-USAGE_ACCOUNTING = {"usage": {"include": True}}
+# Sem este extra_body o OpenRouter não devolve custo e metrics.cost fica None. O teto de
+# raciocínio deixa espaço para a resposta: no piloto v2 o GLM 5.3 gastou os 100k só pensando.
+USAGE_ACCOUNTING = {"usage": {"include": True}, "reasoning": {"max_tokens": 32000}}
 
 PROMPTS = Path(__file__).resolve().parent.parent / "prompts"
 
