@@ -25,14 +25,16 @@ class PytestFalhou(Observacao):
 
 
 @dataclass(frozen=True)
-class SessaoFalhou(Observacao):
-    """A sessão terminou com erro do provedor ou sem tempo. Sem isto uma falha
-    transitória derruba a run inteira em vez de custar um passo e voltar ao modelo."""
+class RespostaInvalida(Observacao):
+    """A resposta não virou uma Mudanca: cercada em ```, truncada ou com o conteúdo do
+    arquivo mal escapado. Sem isto uma resposta malformada derruba a run inteira em vez
+    de custar um passo e voltar ao modelo."""
 
     erro: str
 
     def como_prompt(self) -> str:
         return (
-            f"## SESSÃO INTERROMPIDA\n{self.erro}\n"
-            "A resposta anterior foi interrompida. Continue a tarefa de onde parou.\n"
+            f"## RESPOSTA INVÁLIDA\n{self.erro}\n"
+            "Responda só com o JSON da Mudanca, sem cerca ```. O conteúdo de cada "
+            "arquivo vai escapado dentro da string `conteudo`.\n"
         )

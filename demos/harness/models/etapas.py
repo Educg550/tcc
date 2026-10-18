@@ -3,11 +3,11 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from pathlib import Path
 
+from .agentes import Agente
 from .dominio import MEDIDO, Mudanca, Projeto, ResultadoPytest
-from .observacoes import PytestFalhou, SessaoFalhou
+from .observacoes import Observacao, PytestFalhou, RespostaInvalida
 from .politicas import Orcamento, Permissao
 from .propostas import Proposta, PropostaAceita, PropostaRejeitada
-from .sessao import IMAGEM, VERSAO, Sessao
 from .tracing import Trace
 
 
@@ -38,13 +38,6 @@ class Escopo:
             return f"todo caminho começa com `{self.dentro}/`"
         return "nenhum caminho em " + ", ".join(f"`{f}`" for f in self.fora)
 
-    @property
-    def permissao(self) -> dict:
-        """A mesma regra no formato de edição do opencode, onde vale a última que casa."""
-        if self.dentro:
-            return {"*": "deny", f"{self.dentro}/**": "allow"}
-        return {"*": "allow", **{p: "deny" for f in self.fora for p in (f, f"{f}/**")}}
-
     def aplicar(self, mudanca: Mudanca, projeto: Projeto) -> Proposta:
         """Valida todos os caminhos antes de escrever qualquer um: proposta inválida
         não deixa mudança pela metade para o pytest medir."""
@@ -63,12 +56,10 @@ CODIGO = Escopo(fora=MEDIDO + ("_harness", ".git"))
 
 
 class Etapa(ABC):
-    """Um laço: a sessão edita → o harness confere o escopo → observa → autoriza, até o
-    orçamento estourar ou nada mais haver a observar. O modelo nunca executa: quem roda
-    o pytest é o harness, quem decide é a Permissao."""
+    """Um laço: propor → validar → escrever → observar → autorizar, até o orçamento
+    estourar ou nada mais haver a observar. O modelo nunca executa: quem escreve é
+    o Projeto, quem decide é a Permissao."""
 
-    # Skills de autoria de testes só nas etapas que escrevem testes: a baseline e o coder
-    # recebem o mesmo inventário de implementação.
     propositos: tuple[str, ...] = ("implementation",)
 
     @property
@@ -80,18 +71,16 @@ class Etapa(ABC):
     def __init__(
         self,
         id: str,
-        sessao: Sessao,
+        agente: Agente,
         permissao: Permissao,
         orcamento: Orcamento,
         trace: Trace,
-        skills: list[Path] = (),
     ):
         self.id = id
-        self.sessao = sessao
+        self.agente = agente
         self.permissao = permissao
         self.orcamento = orcamento
         self.trace = trace
-        self.skills = list(skills)
 
     def inicio(self, projeto: Projeto) -> dict:
         """Estado do projeto no instante em que a etapa começa, medido uma vez e gravado
@@ -101,32 +90,29 @@ class Etapa(ABC):
     def verificar(self, projeto: Projeto) -> ResultadoPytest | None:
         return None
 
+    def _prompt(self, base: str, observacoes: list[Observacao]) -> str:
+        return "\n\n".join([base, *(o.como_prompt() for o in observacoes)])
+
     async def executar(self, base: str, projeto: Projeto) -> dict:
         inicio, passos, custo = time.time(), 0, 0.0
         tokens_in, tokens_out, tokens = 0, 0, 0
-        arquivos: set[str] = set()
-        skills: list[str] = []
+        observacoes: list[Observacao] = []
+        arquivos: list[str] = []
         historico: list[dict] = []
         inicial = self.inicio(projeto)
-        # A sessão guarda o histórico: depois do primeiro passo só vai a observação nova.
-        prompt = base
 
         def parte(ok: bool, motivo: str) -> dict:
             return {
                 "id": self.id,
-                "configured_model": self.sessao.model_id,
-                "executor": f"opencode {VERSAO}",
-                "imagem": IMAGEM,
-                "sessao": self.sessao.id,
+                "configured_model": self.agente.model_id,
                 "duration_s": round(time.time() - inicio, 2),
                 "ok": ok,
                 "motivo": motivo,
                 "passos": passos,
                 # Derivado de passos, e mantido porque total_retries é chave congelada
-                # do RUN.log: chamadas além da primeira. Zero no baseline por definição.
+                # do RUN.log: propostas além da primeira. Zero no baseline por definição.
                 "retries": max(passos - 1, 0),
-                "arquivos": sorted(arquivos),
-                "skills": skills,
+                "arquivos": arquivos,
                 "historico": historico,
                 "input_tokens": tokens_in,
                 "output_tokens": tokens_out,
@@ -140,54 +126,51 @@ class Etapa(ABC):
             if estouro:
                 return parte(False, estouro)
 
-            antes = projeto.estado()
-            restante = self.orcamento.tempo_s - (time.time() - inicio)
-            turno = await self.sessao.enviar(
-                prompt, projeto, self.escopo.permissao, self.skills, restante
-            )
+            resposta = await self.agente.propor(self._prompt(base, observacoes))
             passos += 1
-            custo += turno.custo_usd
-            tokens_in += turno.input_tokens
-            tokens_out += turno.output_tokens
-            tokens += turno.total_tokens
-            skills += turno.skills
-            novos = projeto.alterados(antes)
-            arquivos.update(novos)
-            evento = {
-                "etapa": self.id,
-                "passo": passos,
-                "arquivos": novos,
-                "cost_usd": round(custo, 6),
-            }
+            custo += resposta.custo_usd
+            tokens_in += resposta.input_tokens
+            tokens_out += resposta.output_tokens
+            tokens += resposta.total_tokens
 
-            # O opencode já nega a edição fora do escopo; isto confere que negou. Escrita
-            # que passou mesmo assim adulterou a medição, e a etapa termina aqui.
-            try:
-                for a in novos:
-                    self.escopo.destino(projeto.raiz, a)
-            except EscopoViolado as erro:
-                self.trace.registrar({**evento, "erro": str(erro)})
-                return parte(False, "escopo")
-
-            if turno.erro:
-                self.trace.registrar({**evento, "erro": turno.erro})
-                prompt = SessaoFalhou(turno.erro).como_prompt()
+            proposta = (
+                RespostaInvalida(resposta.erro)
+                if resposta.mudanca is None
+                else self.escopo.aplicar(resposta.mudanca, projeto)
+            )
+            if isinstance(proposta, Observacao):
+                observacoes.append(proposta)
+                self.trace.registrar(
+                    {
+                        "etapa": self.id,
+                        "passo": passos,
+                        "erro": proposta.erro,
+                        "cost_usd": round(custo, 6),
+                    }
+                )
                 continue
+            arquivos = proposta.arquivos
 
             resultado = self.verificar(projeto)
             if resultado is not None:
                 historico.append(resultado.contagem)
             self.trace.registrar(
-                {**evento, "pytest": historico[-1] if resultado is not None else None}
+                {
+                    "etapa": self.id,
+                    "passo": passos,
+                    "arquivos": arquivos,
+                    "pytest": historico[-1] if resultado is not None else None,
+                    "cost_usd": round(custo, 6),
+                }
             )
             if resultado is not None and not resultado.passou:
-                prompt = PytestFalhou(resultado.saida).como_prompt()
+                observacoes.append(PytestFalhou(resultado.saida))
                 continue
 
-            decisao = self.permissao.autorizar(self.id, "\n".join(sorted(arquivos)))
+            decisao = self.permissao.autorizar(self.id, "\n".join(arquivos))
             if decisao.aprovado:
                 return parte(True, "verde")
-            prompt = decisao.como_prompt()
+            observacoes.append(decisao)
 
 
 class EtapaTestes(Etapa):

@@ -20,7 +20,6 @@ from harness.models.dominio import Projeto, Requisito, ResultadoPytest
 from harness.models.etapas import EtapaTDD
 from harness.models.harness import Harness, HarnessDireto, HarnessTDD
 from harness.models.politicas import Batch
-from harness.models.sessao import Sessao
 
 AQUI = Path(__file__).resolve().parent
 V2 = AQUI / "piloto-v2"
@@ -153,7 +152,7 @@ class HarnessRework(Harness):
     grupo = "rework"
 
     async def etapas(self):
-        codigo = self.etapa("code", Sessao("coder", self.requisito.modelos["coder"]), EtapaTDD)
+        codigo = self.etapa("code", self.agente("coder", self.requisito.modelos["coder"], EtapaTDD), EtapaTDD)
         return [await codigo.executar(self.prompt("## TESTES A FAZER PASSAR\n\n" + self.projeto.contexto("tests")), self.projeto)]
 
 

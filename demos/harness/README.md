@@ -15,7 +15,6 @@ idênticos nos dois grupos, então a régua não muda entre baseline e experimen
 uv sync
 uv run playwright install chromium     # o CUA usa Playwright
 npm install                            # o Cypress da avaliação, um install para todas as runs
-docker pull ghcr.io/anomalyco/opencode@sha256:543fe6b18470c9e4787e9be9813c4d340fba5738085b833ea76fb330ddff514a
 cp .env.example .env                   # OPENROUTER_API_KEY e as duas ANTHROPIC_*
 ```
 
@@ -29,7 +28,7 @@ Um requisito é uma pasta em `requisitos/` com três arquivos:
 |--|--|
 | `requisito.md` | o requisito em linguagem natural, entrada dos agentes |
 | `criterios.toml` | critérios de aceitação, cada um com `tipo`: `deterministico` vira spec de Cypress, `subjetivo` vai para o CUA (uma sessão por critério) |
-| `alvo.toml` | `[comandos]` (app, teste e `teste_frontend`), `[dependencias]` (versão do Python e pacotes), `[modelos]` por etapa, `[orcamento]` e, opcional, `[skills]` com `lock`: o caminho de um manifesto de skills vendorizadas (ex.: `../../caronte/skills.lock.json`) |
+| `alvo.toml` | `[comandos]` (app, teste e `teste_frontend`), `[dependencias]` (versão do Python e pacotes), `[modelos]` por etapa e `[orcamento]` |
 
 Sem `teste_frontend` no `alvo.toml` não há suíte Cypress, e só o CUA avalia - é assim que
 um caso de uso sem interface declara que não tem o que medir no navegador.
@@ -37,36 +36,6 @@ um caso de uso sem interface declara que não tem o que medir no navegador.
 `requisitos/00-exemplo-caso-de-uso/` é o modelo. Para criar um caso novo a
 partir dele, rode `run` sem o segundo argumento. O harness copia o modelo e
 abre cada arquivo no `$EDITOR`.
-
-## Executor
-
-Cada etapa é uma sessão do [opencode](https://github.com/anomalyco/opencode) 1.19.0 na
-imagem oficial fixada por digest em `models/sessao.py`, com o modelo do `alvo.toml` via
-OpenRouter. Docker é necessário; não é preciso instalar o opencode no host.
-O modelo lê e edita o projeto com as ferramentas que o
-escopo da etapa libera: o test writer só escreve em `tests/`, o coder em tudo menos `tests/`,
-`pytest.ini`, `conftest.py`, `_harness/` e `.git/`. Bash e as demais ferramentas ficam
-negados: quem roda o pytest é o harness, e a falha volta para a mesma sessão. Depois de
-cada chamada o harness confere o que mudou em disco; escrita fora do escopo encerra a etapa.
-
-A sessão só recebe o projeto em `/workspace`, seu estado próprio em `/estado` e as
-skills permitidas em `/skills/<nome>` (somente leitura). A imagem tem raiz somente
-leitura; `_harness/` é ocultado por um volume temporário vazio. O original, o oráculo,
-o repositório pai e o socket Docker não são montados. `HOME` e XDG próprios e as flags
-em `models/sessao.py` impedem instruções e skills pessoais no prompt.
-`tests/test_sessao.py` usa um provedor falso para conferir o isolamento, incluindo
-tentativas de leitura e busca no original e no oráculo. A imagem fica no `RUN.log`.
-
-Skills: só as do manifesto declarado em `[skills]`, carregadas sob demanda. As de
-propósito `testing` só entram na etapa de testes. As usadas ficam em `skills` no `RUN.log`.
-
-As etapas fixam `temperature=0.1` e `top_p=0.9`, iguais nos dois grupos.
-Os valores ficam em `alvo.amostragem` no `RUN.log`; o teste com provedor falso
-confere os parâmetros no corpo HTTP enviado pelo opencode.
-
-O custo de cada etapa é o `cost` que o opencode calcula por passo com a tabela de preços
-embutida na versão fixada. O uso da chave no OpenRouter (`GET /api/v1/key`) seria o valor
-cobrado, mas chega com minutos de atraso e não separa etapa nem run.
 
 ## Rodar
 
@@ -153,8 +122,7 @@ Uma pasta por projeto gerado, em `<destino>/<requisito>-<grupo>-<data>/_harness/
 
 - `RUN.log` - a medida do pipeline: duração, tokens, custo USD e retries por etapa, `pytest_final` e `integridade` dos testes.
 - `AVALIACAO.log` - a medida do comportamento: veredito por critério, dos dois instrumentos, com o custo de cada um. Fica fora do `RUN.log` porque mede o app rodando, não o pipeline que o escreveu.
-- `trace.jsonl` - um evento por chamada à sessão: arquivos alterados, pytest e custo acumulado.
-- `opencode/<papel>-<n>.jsonl` - a saída bruta de cada chamada ao opencode.
+- `trace.jsonl` - um evento por ação proposta pelo modelo.
 - `cypress/e2e/*.cy.js` - a suíte gerada, e `cypress.config.js`. Ficam aqui, e não na raiz do projeto, porque são medição: o coder não pode escrever em `_harness/`.
 - `<criterio>.png` e `app-<criterio>.log` - tela final e log do app em cada sessão do CUA.
 
@@ -168,11 +136,10 @@ não pode vazar para dentro do que ela mede.
 | `cli.py` | os dois comandos, `run` e `avaliar` |
 | `models/dominio.py` | tudo que o modelo vê e interage com: `Requisito` (o caso de uso em disco), `Alvo` (como rodar o gerado), `Projeto` |
 | `models/harness.py` | o loop: `HarnessTDD` (experimental) e `HarnessDireto` (baseline) |
-| `models/etapas.py` | o laço de uma etapa: a sessão edita → o harness confere o escopo → observa → autoriza. `Escopo` (onde cada etapa pode escrever), `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
+| `models/etapas.py` | o laço de uma etapa: propor → validar → escrever → observar → autorizar. `Escopo` (onde cada etapa pode escrever), `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
 | `models/propostas.py` | o que sobra da proposta depois de aplicada: `PropostaAceita` ou `PropostaRejeitada` |
-| `models/observacoes.py` | o que volta à sessão entre chamadas: `PytestFalhou`, `SessaoFalhou` e o feedback humano |
-| `models/sessao.py` | a `Sessao` do opencode: config por etapa, isolamento do ambiente, tokens e custo do JSONL |
-| `models/agentes.py` | o `Agente` Agno da avaliação, que traduz resposta de provedor em `Mudanca` (a suíte Cypress) |
+| `models/observacoes.py` | o que volta ao modelo entre propostas: `PytestFalhou`, e as rejeições |
+| `models/agentes.py` | os agentes Agno: `Agente`, que traduz resposta de provedor em `Mudanca` |
 | `models/avaliacao.py` | o `Avaliador`: a suíte Cypress sobre os critérios determinísticos e o CUA (browser-use) sobre os subjetivos |
 | `models/politicas.py` | `Orcamento` (passos, custo, tempo) e `Permissao` (`Batch`/`Interativa`), que decide por `Aprovado` ou `FeedbackHumano` |
 | `models/tracing.py` | classes `Trace`, `Resultado` que viram `RUN.log` |

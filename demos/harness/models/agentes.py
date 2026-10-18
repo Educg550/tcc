@@ -3,11 +3,13 @@ from pathlib import Path
 
 from agno.agent import Agent
 from agno.models.openrouter import OpenRouter
+from agno.skills import LocalSkills, Skills
 from pydantic import ValidationError
 
 from .dominio import Mudanca
 
 MAX_TOKENS = 100000
+AMOSTRAGEM = {"temperature": 0.1, "top_p": 0.9}
 
 # Sem este extra_body o OpenRouter não devolve custo e metrics.cost fica None.
 USAGE_ACCOUNTING = {"usage": {"include": True}}
@@ -41,21 +43,34 @@ class Resposta:
     erro: str | None = None
 
 
+class SoLeitura(Skills):
+    """O modelo sugere e não executa: scripts de skill só podem ser lidos."""
+
+    def _get_skill_script(self, skill_name, script_path, execute=False, args=None, timeout=30):
+        return super()._get_skill_script(skill_name, script_path, False)
+
+
 class Agente:
     """Único ponto que traduz resposta de provedor em objeto de domínio. Papéis
     diferem por model_id e instruções, que são argumentos, não subclasses."""
 
-    def __init__(self, model_id: str, instrucoes: str):
+    def __init__(self, model_id: str, instrucoes: str, skills: list[Path] = ()):
         self.model_id = model_id
         self._agno = Agent(
             model=OpenRouter(
-                id=model_id, max_tokens=MAX_TOKENS, extra_body=USAGE_ACCOUNTING
+                id=model_id, max_tokens=MAX_TOKENS, extra_body=USAGE_ACCOUNTING, **AMOSTRAGEM
             ),
+            skills=SoLeitura([LocalSkills(str(s), validate=False) for s in skills]) if skills else None,
             # A diretiva de código mínimo é constante do experimento: idêntica nos dois grupos.
             instructions=instrucoes + "\n\n" + load("estilo_codigo"),
             output_schema=Mudanca.model_json_schema(),
             use_json_mode=True,
         )
+
+    @classmethod
+    def de(cls, papel: str, model_id: str, skills: list[Path] = ()) -> "Agente":
+        """O papel nomeia o prompt; o modelo vem do caso de uso, não do harness."""
+        return cls(model_id, load(papel), skills)
 
     async def propor(self, prompt: str) -> Resposta:
         async with self._agno.model.get_async_client():
