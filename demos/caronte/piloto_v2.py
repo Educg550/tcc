@@ -124,10 +124,30 @@ def avaliar(raiz):
     return resultado
 
 
-def preparar_rework():
-    destino = V2 / "entrada-rework"
+def definidos(no):
+    if isinstance(no, (ast.FunctionDef, ast.ClassDef)):
+        return {no.name}
+    if isinstance(no, ast.Assign):
+        return {t.id for t in no.targets if isinstance(t, ast.Name)}
+    return set()
+
+
+def podar(modulo, importados):
+    """Tira dados, fixtures e parametrizações que só os testes reservados usavam."""
+    while True:
+        usos = [{x.id if isinstance(x, ast.Name) else x.arg for x in ast.walk(n) if isinstance(x, (ast.Name, ast.arg))}
+                for n in modulo.body]
+        orfaos = [n for i, n in enumerate(modulo.body) if definidos(n) and not any(
+            nome.startswith("test_") or nome in ("pytestmark", *importados) or any(nome in u for j, u in enumerate(usos) if j != i)
+            for nome in definidos(n))]
+        if not orfaos:
+            return
+        modulo.body = [n for n in modulo.body if n not in orfaos]
+
+
+def preparar_rework(requisito=REQUISITO, destino=V2 / "entrada-rework"):
     shutil.rmtree(destino, ignore_errors=True)
-    shutil.copytree(REQUISITO, destino)
+    shutil.copytree(requisito, destino)
     texto = (destino / "alvo.toml").read_text().replace("../../caronte/skills.lock.json", "../../skills.lock.json")
     (destino / "alvo.toml").write_text(texto)
     (destino / "requisito.md").write_text((V2 / "rework.md").read_text())
@@ -137,10 +157,16 @@ def preparar_rework():
     for i in VISIVEIS:
         arquivo, funcao = i.split("::")
         visiveis.setdefault(arquivo, set()).add(funcao)
+    modulos = {}
     for arquivo, funcoes in visiveis.items():
         modulo = ast.parse((V2 / "oraculo" / arquivo).read_text())
         modulo.body = [n for n in modulo.body if not (isinstance(n, ast.FunctionDef) and n.name.startswith("test_")
                                                       and n.name not in funcoes)]
+        modulos[arquivo] = modulo
+    importados = {a.name for m in modulos.values() for n in m.body
+                  if isinstance(n, ast.ImportFrom) and (n.module or "").startswith("test_") for a in n.names}
+    for arquivo, modulo in modulos.items():
+        podar(modulo, importados)
         (testes / arquivo).write_text(ast.unparse(modulo) + "\n")
     for nome in ("conftest.py",):
         shutil.copyfile(V2 / "oraculo" / nome, testes / nome)
