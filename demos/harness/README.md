@@ -58,6 +58,33 @@ uv run python -m harness.cli run runs requisitos/01-formulario-docentes
 - `--yes` - modo batch, sem gate humano. É o modo do experimento: os dois grupos recebem a mesma ajuda humana, nenhuma. Sem a flag a execução é interativa e pausa em cada etapa pedindo `y/n`, exigindo feedback textual no `n`.
 - `--direto` - grupo baseline: uma etapa só, requisito → código, sem testes gerados nem CI. A ausência das etapas é a variável independente do experimento.
 
+## Escrita dos arquivos
+
+O agente usa ferramentas nativas do Agno para listar e ler o projeto, criar um
+arquivo e substituir um trecho exato. A resposta final é um resumo livre; não há
+schema de saída para transportar o projeto inteiro em JSON. `Arquivo` e `Mudanca`
+são apenas o registro interno das alterações que as ferramentas acumularam.
+
+As ferramentas mostram as edições pendentes na própria sessão. Ao terminar, a etapa
+aplica os arquivos. Entre propostas, o agente mantém o histórico em memória e pode
+ler o código atual em disco. Criar um arquivo existente é recusado; a substituição
+exige um trecho não vazio que apareça exatamente uma vez. Python com sintaxe inválida
+é recusado antes de substituir a versão anterior, sem importar nem executar o código.
+Os escopos continuam valendo: test-writer escreve em `tests/`; coder pode ler os
+testes, mas não alterá-los nem acessar a medição em `_harness/`.
+
+Os prompts orientam a trabalhar em blocos funcionais pequenos até cobrir todo o
+requisito. Não há divisão automática do requisito em novas etapas. O baseline faz
+uma sessão de implementação com várias chamadas de ferramentas, sem feedback de
+testes; TDD e rework recebem o resultado do gate entre propostas.
+
+`passos` e `retries` continuam contando propostas e retornos ao gate. O campo
+`chamadas_modelo` conta as chamadas ao provedor, incluindo as do ciclo de ferramentas.
+Tokens e custo somam todas essas chamadas, inclusive antes de uma falha. O harness
+confere custo e tempo antes de cada chamada; uma chamada já em andamento pode
+ultrapassar o teto. Se o teto interrompe a sessão, os arquivos completos já propostos
+são gravados, e a etapa termina sem sucesso.
+
 ## Batch por provider
 
 ```bash
@@ -139,7 +166,8 @@ não pode vazar para dentro do que ela mede.
 | `models/etapas.py` | o laço de uma etapa: propor → validar → escrever → observar → autorizar. `Escopo` (onde cada etapa pode escrever), `EtapaTestes`, `EtapaCodigo` (baseline) e `EtapaTDD` (com gate de pytest) |
 | `models/propostas.py` | o que sobra da proposta depois de aplicada: `PropostaAceita` ou `PropostaRejeitada` |
 | `models/observacoes.py` | o que volta ao modelo entre propostas: `PytestFalhou`, e as rejeições |
-| `models/agentes.py` | os agentes Agno: `Agente`, que traduz resposta de provedor em `Mudanca` |
+| `models/agentes.py` | sessão Agno, histórico e consumo do provedor, com orçamento entre chamadas |
+| `models/arquivos.py` | ferramentas de leitura, criação e substituição de trecho; acumulam a `Mudanca` interna |
 | `models/avaliacao.py` | o `Avaliador`: a suíte Cypress sobre os critérios determinísticos e o CUA (browser-use) sobre os subjetivos |
 | `models/politicas.py` | `Orcamento` (passos, custo, tempo) e `Permissao` (`Batch`/`Interativa`), que decide por `Aprovado` ou `FeedbackHumano` |
 | `models/tracing.py` | classes `Trace`, `Resultado` que viram `RUN.log` |

@@ -1,4 +1,5 @@
 import asyncio
+from dataclasses import replace
 
 from harness.models.agentes import Resposta
 from harness.models.dominio import Alvo, Arquivo, Mudanca, Projeto
@@ -30,6 +31,9 @@ class AgenteRoteirizado:
     def __init__(self, *caminhos: str):
         self.caminhos = list(caminhos)
         self.prompts: list[str] = []
+
+    def preparar(self, *args):
+        pass
 
     async def propor(self, prompt: str) -> Resposta:
         self.prompts.append(prompt)
@@ -75,12 +79,15 @@ def test_escopo_violado_volta_ao_modelo_e_nao_encerra_a_etapa(tmp_path):
 
 
 class AgenteQueFalhaUmaVez:
-    """Primeiro devolve resposta que não virou Mudanca, depois um caminho válido."""
+    """Primeiro termina sem editar arquivos, depois propõe um caminho válido."""
 
     model_id = "stub/stub"
 
     def __init__(self):
         self.prompts: list[str] = []
+
+    def preparar(self, *args):
+        pass
 
     async def propor(self, prompt: str) -> Resposta:
         self.prompts.append(prompt)
@@ -91,7 +98,7 @@ class AgenteQueFalhaUmaVez:
                 input_tokens=0,
                 output_tokens=0,
                 total_tokens=0,
-                erro="Invalid JSON: expected value at line 1 column 1",
+                erro="Nenhum arquivo foi editado.",
             )
         arquivo = Arquivo(caminho="tests/test_x.py", conteudo="x = 1\n")
         return Resposta(
@@ -120,6 +127,21 @@ def test_feedback_humano_volta_ao_modelo_e_nao_encerra_a_etapa(tmp_path):
 
     assert parte["ok"] and (parte["passos"], parte["retries"]) == (2, 1)
     assert "faltou o caso vazio" in agente.prompts[1]
+    assert parte["arquivos"] == ["tests/test_x.py", "tests/test_y.py"]
+
+
+def test_interrupcao_preserva_arquivos_completos_sem_aprovar_a_etapa(tmp_path):
+    class AgenteInterrompido(AgenteRoteirizado):
+        async def propor(self, prompt):
+            resposta = await super().propor(prompt)
+            return replace(resposta, erro="Orçamento esgotado", limite="custo",
+                           custo_usd=0.02, chamadas=2, total_tokens=24)
+
+    parte = rodar(tmp_path, AgenteInterrompido("app.py"), Batch(), EtapaCodigo)
+    assert not parte["ok"] and parte["motivo"] == "custo"
+    assert (tmp_path / "app.py").read_text() == "x = 1\n"
+    assert parte["chamadas_modelo"] == 2 and parte["passos"] == 1
+    assert parte["cost_usd"] == 0.02 and parte["total_tokens"] == 24
 
 
 def test_orcamento_estourado_encerra_sem_verde(tmp_path):

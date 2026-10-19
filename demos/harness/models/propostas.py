@@ -24,6 +24,6 @@ class PropostaRejeitada(Proposta, Observacao):
     def como_prompt(self) -> str:
         return (
             f"## PROPOSTA REJEITADA\n{self.erro}\n"
-            f"Reenvie a Mudanca com caminhos relativos à raiz do projeto: "
+            f"Use as ferramentas com caminhos relativos à raiz do projeto: "
             f"{self.regra}.\n"
         )

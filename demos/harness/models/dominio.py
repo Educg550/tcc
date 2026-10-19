@@ -173,7 +173,7 @@ class Arquivo(BaseModel):
 
 
 class Mudanca(BaseModel):
-    """Única ação que o modelo pode propor: escrever estes arquivos."""
+    """Alterações acumuladas pelas ferramentas, para aplicação pela etapa."""
 
     arquivos: list[Arquivo]
 

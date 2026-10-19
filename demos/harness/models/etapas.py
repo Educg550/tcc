@@ -25,12 +25,18 @@ class Escopo:
     def destino(self, raiz: Path, caminho: str) -> Path:
         alvo = (raiz / caminho).resolve()
         limite = (raiz / self.dentro).resolve() if self.dentro else raiz
-        if not alvo.is_relative_to(limite):
+        if not alvo.is_relative_to(raiz) or not alvo.is_relative_to(limite):
             raise EscopoViolado(f"{caminho}: fora de {self.dentro or '.'}/")
         for negado in self.fora:
             if alvo.is_relative_to((raiz / negado).resolve()):
                 raise EscopoViolado(f"{caminho}: {negado} é proibido")
         return alvo
+
+    def validar(self, raiz: Path, caminho: str, conteudo: str) -> Path:
+        destino = self.destino(raiz, caminho)
+        if destino.suffix == ".py":
+            compile(conteudo, str(destino), "exec")
+        return destino
 
     @property
     def regra(self) -> str:
@@ -43,10 +49,10 @@ class Escopo:
         não deixa mudança pela metade para o pytest medir."""
         try:
             destinos = [
-                (self.destino(projeto.raiz, a.caminho), a.conteudo)
+                (self.validar(projeto.raiz, a.caminho, a.conteudo), a.conteudo)
                 for a in mudanca.arquivos
             ]
-        except EscopoViolado as erro:
+        except (ValueError, SyntaxError) as erro:
             return PropostaRejeitada(str(erro), self.regra)
         return PropostaAceita(projeto.escrever(destinos))
 
@@ -91,10 +97,12 @@ class Etapa(ABC):
         return None
 
     def _prompt(self, base: str, observacoes: list[Observacao]) -> str:
-        return "\n\n".join([base, *(o.como_prompt() for o in observacoes)])
+        return observacoes[-1].como_prompt() if observacoes else base
 
     async def executar(self, base: str, projeto: Projeto) -> dict:
         inicio, passos, custo = time.time(), 0, 0.0
+        chamadas_modelo = 0
+        self.agente.preparar(projeto, self.escopo, self.orcamento, inicio)
         tokens_in, tokens_out, tokens = 0, 0, 0
         observacoes: list[Observacao] = []
         arquivos: list[str] = []
@@ -109,9 +117,8 @@ class Etapa(ABC):
                 "ok": ok,
                 "motivo": motivo,
                 "passos": passos,
-                # Derivado de passos, e mantido porque total_retries é chave congelada
-                # do RUN.log: propostas além da primeira. Zero no baseline por definição.
                 "retries": max(passos - 1, 0),
+                "chamadas_modelo": chamadas_modelo,
                 "arquivos": arquivos,
                 "historico": historico,
                 "input_tokens": tokens_in,
@@ -128,6 +135,7 @@ class Etapa(ABC):
 
             resposta = await self.agente.propor(self._prompt(base, observacoes))
             passos += 1
+            chamadas_modelo += resposta.chamadas
             custo += resposta.custo_usd
             tokens_in += resposta.input_tokens
             tokens_out += resposta.output_tokens
@@ -149,7 +157,13 @@ class Etapa(ABC):
                     }
                 )
                 continue
-            arquivos = proposta.arquivos
+            arquivos = list(dict.fromkeys([*arquivos, *proposta.arquivos]))
+
+            if resposta.erro:
+                self.trace.registrar({"etapa": self.id, "passo": passos,
+                                      "arquivos": arquivos, "erro": resposta.erro,
+                                      "cost_usd": round(custo, 6)})
+                return parte(False, resposta.limite or "erro_modelo")
 
             resultado = self.verificar(projeto)
             if resultado is not None:

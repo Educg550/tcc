@@ -63,8 +63,8 @@ class Interativa(Permissao):
 
 @dataclass(frozen=True)
 class Orcamento:
-    """Teto da etapa, declarado pelo caso de uso. Toda proposta custa um passo, inclusive
-    a rejeitada: ela também custou uma chamada de modelo."""
+    """Teto da etapa. Cada proposta custa um passo, inclusive a rejeitada; uma
+    proposta pode usar várias chamadas ao modelo através das ferramentas."""
 
     passos: int
     custo_usd: float

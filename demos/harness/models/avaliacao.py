@@ -96,9 +96,12 @@ class Avaliador:
                 ],
             }
 
+        # Reavaliação começa com uma suíte nova, sem specs da medição anterior.
+        shutil.rmtree(projeto.saida / "cypress" / "e2e", ignore_errors=True)
         agente = Agente(
             self.model_specs, load("cypress_writer") + "\n\n" + load("cypress_regras")
         )
+        agente.preparar(projeto, SPECS, requisito.orcamento, inicio)
         prompt = "\n\n".join(
             [
                 "## CRITÉRIOS\n\n"
@@ -112,11 +115,8 @@ class Avaliador:
         )
         resposta = await agente.propor(prompt)
         if resposta.mudanca is None:
-            arquivos, blobs, saida = [], [], f"o modelo não devolveu Mudanca: {resposta.erro}"
+            arquivos, blobs, saida = [], [], f"o modelo não editou arquivos: {resposta.erro}"
         else:
-            # Suíte anterior fora: reavaliar o mesmo projeto com nomes de arquivo
-            # diferentes deixaria os specs velhos rodando junto com os novos.
-            shutil.rmtree(projeto.saida / "cypress" / "e2e", ignore_errors=True)
             proposta = SPECS.aplicar(resposta.mudanca, projeto)
             arquivos = getattr(proposta, "arquivos", [])
             blobs, saida = projeto.rodar_frontend()

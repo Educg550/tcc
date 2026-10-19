@@ -1,12 +1,16 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 from agno.agent import Agent
+from agno.db.in_memory import InMemoryDb
 from agno.models.openrouter import OpenRouter
+from agno.metrics import MessageMetrics
+from agno.run.base import RunStatus
 from agno.skills import LocalSkills, Skills
-from pydantic import ValidationError
 
-from .dominio import Mudanca
+from .arquivos import Arquivos
+from .dominio import Mudanca, Projeto
+from .politicas import Orcamento
 
 MAX_TOKENS = 100000
 AMOSTRAGEM = {"temperature": 0.1, "top_p": 0.9}
@@ -23,18 +27,33 @@ def load(nome: str) -> str:
     return (PROMPTS / f"{nome}.md").read_text(encoding="utf-8")
 
 
-def _sem_cerca(texto: str) -> str:
-    """Mesmo em json_mode o modelo às vezes cerca a resposta em ```json."""
-    t = texto.strip()
-    if t.startswith("```"):
-        t = t.split("\n", 1)[-1].rsplit("```", 1)[0]
-    return t
+@dataclass
+class ModeloComOrcamento(OpenRouter):
+    """Confere o teto entre chamadas, inclusive dentro do ciclo de ferramentas."""
+
+    orcamento: Orcamento | None = None
+    inicio: float = 0
+    chamadas: int = 0
+    metricas: list[MessageMetrics] = field(default_factory=list)
+    limite: str | None = None
+
+    async def ainvoke(self, *args, **kwargs):
+        custo = sum(m.cost or 0 for m in self.metricas)
+        if self.orcamento:
+            # Passos são propostas ao gate; chamadas de ferramentas não são retries.
+            self.limite = self.orcamento.estourou(0, custo, self.inicio)
+            if self.limite:
+                raise RuntimeError(f"Orçamento esgotado: {self.limite}")
+        self.chamadas += 1
+        resposta = await super().ainvoke(*args, **kwargs)
+        if resposta.response_usage:
+            self.metricas.append(resposta.response_usage)
+        return resposta
 
 
 @dataclass(frozen=True)
 class Resposta:
-    """O que o provedor devolveu: a mudança proposta e o que ela custou. Sem `mudanca`
-    quando a resposta não virou JSON válido - o passo custou mesmo assim."""
+    """Arquivos editados pelas ferramentas e consumo das chamadas desta sessão."""
 
     mudanca: Mudanca | None
     custo_usd: float
@@ -42,6 +61,8 @@ class Resposta:
     output_tokens: int
     total_tokens: int
     erro: str | None = None
+    chamadas: int = 1
+    limite: str | None = None
 
 
 class SoLeitura(Skills):
@@ -52,21 +73,31 @@ class SoLeitura(Skills):
 
 
 class Agente:
-    """Único ponto que traduz resposta de provedor em objeto de domínio. Papéis
-    diferem por model_id e instruções, que são argumentos, não subclasses."""
+    """Sessão Agno com leitura e edição incremental, sem comandos de terminal."""
 
     def __init__(self, model_id: str, instrucoes: str, skills: list[Path] = ()):
         self.model_id = model_id
         self._agno = Agent(
-            model=OpenRouter(
-                id=model_id, max_tokens=MAX_TOKENS, extra_body=USAGE_ACCOUNTING, **AMOSTRAGEM
+            model=ModeloComOrcamento(
+                id=model_id, max_tokens=MAX_TOKENS, extra_body=USAGE_ACCOUNTING,
+                request_params={"parallel_tool_calls": False}, **AMOSTRAGEM
             ),
             skills=SoLeitura([LocalSkills(str(s), validate=False) for s in skills]) if skills else None,
             # A diretiva de código mínimo é constante do experimento: idêntica nos dois grupos.
-            instructions=instrucoes + "\n\n" + load("estilo_codigo"),
-            output_schema=Mudanca.model_json_schema(),
-            use_json_mode=True,
+            instructions="\n\n".join([instrucoes, load("estilo_codigo"), load("arquivos")]),
+            db=InMemoryDb(),
+            cache_session=True,
+            add_history_to_context=True,
         )
+
+    def preparar(self, projeto: Projeto, escopo, orcamento: Orcamento, inicio: float):
+        self.arquivos = Arquivos(projeto, escopo)
+        self._agno.set_tools([
+            self.arquivos.listar_arquivos, self.arquivos.ler_arquivo,
+            self.arquivos.criar_arquivo, self.arquivos.substituir_trecho,
+        ])
+        self._agno.model.orcamento = orcamento
+        self._agno.model.inicio = inicio
 
     @classmethod
     def de(cls, papel: str, model_id: str, skills: list[Path] = ()) -> "Agente":
@@ -74,28 +105,24 @@ class Agente:
         return cls(model_id, load(papel), skills)
 
     async def propor(self, prompt: str) -> Resposta:
+        self.arquivos.pendentes.clear()
+        modelo = self._agno.model
+        antes, chamadas = len(modelo.metricas), modelo.chamadas
         async with self._agno.model.get_async_client():
             resposta = await self._agno.arun(prompt)
-        m = getattr(resposta, "metrics", None)
-        try:
-            mudanca, erro = self._mudanca(resposta.content), None
-        except (ValidationError, ValueError) as falha:
-            mudanca, erro = None, str(falha)[:2000]
+        metricas = modelo.metricas[antes:]
+        mudanca = self.arquivos.mudanca()
+        erro = str(resposta.content)[:2000] if resposta.status == RunStatus.error else None
+        if not mudanca.arquivos:
+            mudanca = None
+            erro = erro or "Nenhum arquivo foi editado. Use as ferramentas de arquivos."
         return Resposta(
             mudanca=mudanca,
             erro=erro,
-            custo_usd=getattr(m, "cost", None) or 0.0,
-            input_tokens=getattr(m, "input_tokens", None) or 0,
-            output_tokens=getattr(m, "output_tokens", None) or 0,
-            total_tokens=getattr(m, "total_tokens", None) or 0,
+            chamadas=modelo.chamadas - chamadas,
+            limite=modelo.limite,
+            custo_usd=sum(m.cost or 0 for m in metricas),
+            input_tokens=sum(m.input_tokens or 0 for m in metricas),
+            output_tokens=sum(m.output_tokens or 0 for m in metricas),
+            total_tokens=sum(m.total_tokens or 0 for m in metricas),
         )
-
-    @staticmethod
-    def _mudanca(content) -> Mudanca:
-        if content is None or content == "":
-            raise ValueError("O provedor devolveu uma resposta vazia, sem arquivos.")
-        if isinstance(content, Mudanca):
-            return content
-        if isinstance(content, str):
-            return Mudanca.model_validate_json(_sem_cerca(content))
-        return Mudanca.model_validate(content)
