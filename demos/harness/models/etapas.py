@@ -102,6 +102,7 @@ class Etapa(ABC):
     async def executar(self, base: str, projeto: Projeto) -> dict:
         inicio, passos, custo = time.time(), 0, 0.0
         chamadas_modelo = 0
+        contexto_max_tokens = 0
         self.agente.preparar(projeto, self.escopo, self.orcamento, inicio)
         tokens_in, tokens_out, tokens = 0, 0, 0
         observacoes: list[Observacao] = []
@@ -119,6 +120,7 @@ class Etapa(ABC):
                 "passos": passos,
                 "retries": max(passos - 1, 0),
                 "chamadas_modelo": chamadas_modelo,
+                "contexto_max_tokens": contexto_max_tokens,
                 "arquivos": arquivos,
                 "historico": historico,
                 "input_tokens": tokens_in,
@@ -136,6 +138,7 @@ class Etapa(ABC):
             resposta = await self.agente.propor(self._prompt(base, observacoes))
             passos += 1
             chamadas_modelo += resposta.chamadas
+            contexto_max_tokens = max(contexto_max_tokens, resposta.contexto_max_tokens)
             custo += resposta.custo_usd
             tokens_in += resposta.input_tokens
             tokens_out += resposta.output_tokens

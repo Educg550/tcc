@@ -45,7 +45,7 @@ class Harness(ABC):
         )
 
     def prompt(self, *partes: str) -> str:
-        # O agente não lê arquivos: os anexos de texto (contratos, esquemas) vão no prompt.
+        # Contratos e esquemas entram na primeira mensagem; depois podem ser relidos.
         anexos = "\n\n".join(
             self.projeto.contexto(d.name) for d in self.requisito.anexos if d.name != "tests"
         )

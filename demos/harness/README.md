@@ -80,9 +80,14 @@ testes; TDD e rework recebem o resultado do gate entre propostas.
 
 `passos` e `retries` continuam contando propostas e retornos ao gate. O campo
 `chamadas_modelo` conta as chamadas ao provedor, incluindo as do ciclo de ferramentas.
+`contexto_max_tokens` é o maior input de uma chamada, incluindo tokens de cache.
+`chamadas_modelo.jsonl` registra as métricas individuais, tamanho das requisições,
+sessão, ferramentas solicitadas e erros; o total acumulado de tokens não é o contexto.
 Tokens e custo somam todas essas chamadas, inclusive antes de uma falha. O harness
 confere custo e tempo antes de cada chamada; uma chamada já em andamento pode
-ultrapassar o teto. Se o teto interrompe a sessão, os arquivos completos já propostos
+ultrapassar o teto. Quando há `provider.max_price`, reserva também um limite
+conservador do custo da próxima entrada e da saída máxima antes de enviá-la.
+Se o teto interrompe a sessão, os arquivos completos já propostos
 são gravados, e a etapa termina sem sucesso.
 
 ## Batch por provider

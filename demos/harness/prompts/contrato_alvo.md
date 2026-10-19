@@ -12,10 +12,11 @@ E verifica com:
 {comando_teste}
 ```
 
-O ambiente é **Python {python}** e tem exatamente estes pacotes, mais a biblioteca padrão:
+O ambiente Python é **Python {python}** e tem estes pacotes, mais a biblioteca padrão:
 
 {pacotes}
 
-Nada além disso está instalado. Importar qualquer outra coisa quebra na hora de rodar, e a
-sintaxe tem que ser válida na versão de Python acima. Escreva a aplicação de modo que o
+Não importe pacotes Python fora dessa lista. A sintaxe tem que ser válida na versão de
+Python acima. Outros runtimes e suas dependências, quando necessários, são declarados
+no requisito. Escreva a aplicação de modo que o
 comando acima a inicie. Você não executa nenhum comando - quem executa é o harness.

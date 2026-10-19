@@ -91,6 +91,7 @@ def test_ferramentas_editam_incrementalmente_com_historico_e_metricas(tmp_path):
         assert not resposta.erro
         assert resposta.chamadas == 4
         assert resposta.total_tokens == 48
+        assert resposta.contexto_max_tokens == 10
         assert resposta.custo_usd == pytest.approx(0.04)
         assert resposta.mudanca.arquivos[0].conteudo == "x = 3\ny = 2\n"
         assert not (tmp_path / "app.py").exists()
@@ -105,6 +106,34 @@ def test_ferramentas_editam_incrementalmente_com_historico_e_metricas(tmp_path):
         assert resposta2.mudanca.arquivos[0].conteudo == "x = 4\ny = 2\n"
         assert any(m.get("content") == "REQUISITO" for m in pedidos[4]["messages"])
         assert pedidos[5]["messages"][-1]["content"] == "x = 3\ny = 2\n"
+        eventos = [json.loads(linha) for linha in
+                   (tmp_path / "_harness/chamadas_modelo.jsonl").read_text().splitlines()]
+        inicios = [e for e in eventos if e["evento"] == "inicio"]
+        fins = [e for e in eventos if e["evento"] == "fim"]
+        assert len(inicios) == len(fins) == 7
+        assert inicios[0]["session_id"]
+        assert len({e["session_id"] for e in inicios}) == 1
+        assert inicios[-1]["request_bytes"] > inicios[0]["request_bytes"]
+        assert sum(e["metricas"]["total_tokens"] for e in fins) == 84
+        assert fins[0]["ferramentas"] == ["criar_arquivo"]
+
+    asyncio.run(verificar())
+
+
+def test_reserva_de_custo_impede_chamada_que_poderia_ultrapassar_teto(tmp_path):
+    async def verificar():
+        pedidos = []
+        agente, cliente = configurar(tmp_path, lambda pedido: pedidos.append(pedido))
+        agente._agno.model.extra_body = {
+            **agente._agno.model.extra_body,
+            "provider": {"max_price": {"prompt": 10, "completion": 10}},
+        }
+        resposta = await agente.propor("REQUISITO")
+        assert not pedidos and cliente.is_closed()
+        assert resposta.limite == "custo" and resposta.chamadas == 0
+        assert resposta.custo_usd == 0 and resposta.total_tokens == 0
+        evento = json.loads((tmp_path / "_harness/chamadas_modelo.jsonl").read_text())
+        assert evento["reserva_usd"] > ORCAMENTO.custo_usd
 
     asyncio.run(verificar())
 
