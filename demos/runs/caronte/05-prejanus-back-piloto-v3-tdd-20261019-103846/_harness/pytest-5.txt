@@ -1,0 +1,85 @@
+F...................F...........................                         [100%]
+=================================== FAILURES ===================================
+_______________________ test_senhaunica_inicio_do_fluxo ________________________
+tests/test_comunicacao.py:7: in test_senhaunica_inicio_do_fluxo
+    assert resp.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________________ test_comentarios_fora_da_fase_avaliacao_400 __________________
+tests/test_interacoes.py:12: in test_comentarios_fora_da_fase_avaliacao_400
+    pytest.skip("edital em fase de avaliação")
+    ^^^^^^
+E   NameError: name 'pytest' is not defined
+=========================== short test summary info ============================
+FAILED tests/test_comunicacao.py::test_senhaunica_inicio_do_fluxo - assert 50...
+FAILED tests/test_interacoes.py::test_comentarios_fora_da_fase_avaliacao_400
+2 failed, 46 passed in 1.57s
+
+
+ "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-1  |     return meth(
+local-1  |            ^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-1  |     return connection._execute_clauseelement(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-1  |     ret = self._execute_context(
+local-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-1  |     return self._exec_single_context(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-1  |     self._handle_dbapi_exception(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-1  |     self.dialect.do_execute(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-1  |     cursor.execute(statement, parameters)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-1  |     value = await result
+local-1  |             ^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-1  |     raise ex.with_traceback(None)
+local-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna "recommender_form_ids" não existe
+local-1  | LINE 1: select id, candidate_form_id, recommender_form_ids from subm...
+local-1  |                                       ^
+local-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-1  | [SQL: select id, candidate_form_id, recommender_form_ids from submission where edict_id = %(eid)s]
+local-1  | [parameters: {'eid': 3}]
+local-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-1  | INFO:     192.168.96.13:37690 - "GET /edicts/3/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/5/files/official-document-file/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37690 - "GET /submissions/5/files/official-document-file/outro-arquivo.pdf HTTP/1.1" 404 Not Found
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.7:42818 - "GET / HTTP/1.1" 200 OK
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:42020 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "POST /submissions/1/send-accept HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "POST /submissions/1/send-letter HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "GET /edicts/download_pdf/job-inexistente-000 HTTP/1.1" 404 Not Found
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "GET /edicts/download_csv/job-inexistente-000 HTTP/1.1" 404 Not Found
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "GET /auth/login HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:49198 - "GET /edicts/1/submissions HTTP/1.1" 401 Unauthorized

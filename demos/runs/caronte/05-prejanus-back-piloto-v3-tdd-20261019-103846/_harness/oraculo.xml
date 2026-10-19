@@ -1,0 +1,2176 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="152" failures="66" skipped="0" tests="247" time="888.761" timestamp="2026-10-19T13:38:48.281628-03:00" hostname="EvertonGuedas"><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_raiz_responde_hello_world" time="3.688" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_documentacao_exposta[docs]" time="3.103" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_documentacao_exposta[openapi.json]" time="2.721" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_openapi_declara_as_operacoes" time="2.675" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_cors_com_credenciais_para_a_origem_configurada" time="3.066" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_cors_recusa_origem_desconhecida" time="3.013" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_atalho_local_usa_o_usuario_configurado" time="2.640" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[GET-auth/login]" time="2.596" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[GET-edicts]" time="3.423" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[GET-edicts/1]" time="3.697" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[GET-edicts/1/submissions]" time="4.396" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[GET-forms]" time="4.209" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[GET-submissions/1]" time="4.847" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[GET-submissions/1/comments]" time="5.939" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[POST-submissions/1/view]" time="5.037" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_fora_do_ambiente_local_o_atalho_nao_autentica[POST-edicts]" time="3.910" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[GET-auth/login]" time="3.066" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[GET-edicts]" time="2.963" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[GET-edicts/1]" time="3.861" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[GET-edicts/1/submissions]" time="4.898" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[GET-forms]" time="5.346" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[GET-submissions/1]" time="3.405" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[GET-submissions/1/comments]" time="4.164" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[POST-submissions/1/view]" time="3.326" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_sem_sessao_responde_401[POST-edicts]" time="2.628" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_inicio_do_login_redireciona_ao_provedor" time="3.088"><failure message="assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:90: in test_inicio_do_login_redireciona_ao_provedor
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_login_reconhece_usuario_existente_e_preserva_o_papel" time="3.039"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:97: in test_login_reconhece_usuario_existente_e_preserva_o_papel
+    r = entrar(anonimo, "secretaria")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_cookie_de_sessao_seguro_lax_de_oito_horas" time="2.634"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:108: in test_cookie_de_sessao_seguro_lax_de_oito_horas
+    r = entrar(anonimo, "docente")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_novo_usuario_autorizado_vira_docente" time="3.379"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:116: in test_novo_usuario_autorizado_vira_docente
+    r = entrar(anonimo, "novo")
+        ^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_nusp_fora_da_whitelist_nao_entra" time="3.357"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:126: in test_nusp_fora_da_whitelist_nao_entra
+    assert entrar(anonimo, "negado").status_code &gt;= 400
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_retorno_sem_o_segredo_da_sessao_responde_401" time="2.854"><failure message="json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)">caronte/piloto-v2/oraculo/test_acesso.py:135: in test_retorno_sem_o_segredo_da_sessao_responde_401
+    inicio = outro.post("auth/login/senhaunica").json()["redirect_to"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_verifier_invalido_responde_500" time="3.081"><failure message="json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)">caronte/piloto-v2/oraculo/test_acesso.py:144: in test_verifier_invalido_responde_500
+    inicio = anonimo.post("auth/login/senhaunica").json()["redirect_to"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts-docente]" time="4.181"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts-estudante]" time="2.756"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/edit-docente]" time="3.074"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/edit-estudante]" time="3.197"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/edit-date-docente]" time="3.465"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/edit-date-estudante]" time="3.437"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/advance-phase-docente]" time="3.022"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/advance-phase-estudante]" time="2.973"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[PATCH edicts/1/close-docente]" time="2.864"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[PATCH edicts/1/close-estudante]" time="3.346"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[DELETE edicts/1/remove-docente]" time="3.338"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[DELETE edicts/1/remove-estudante]" time="4.014"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/candidates/mappings/versions/3/-docente]" time="3.605"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/candidates/mappings/versions/3/-estudante]" time="5.578"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[PUT edicts/1/candidates/mappings/versions/1/1-docente]" time="5.020"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[PUT edicts/1/candidates/mappings/versions/1/1-estudante]" time="4.170"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[DELETE edicts/1/recommenders/mappings/versions/1/2-docente]" time="6.258"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[DELETE edicts/1/recommenders/mappings/versions/1/2-estudante]" time="10.879"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST submissions/1/select-docente]" time="5.386"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST submissions/1/select-estudante]" time="4.271"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST submissions/1/reesend_submission-docente]" time="5.370"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST submissions/1/reesend_submission-estudante]" time="3.586"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/interactors_list-docente]" time="3.270"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/interactors_list-estudante]" time="4.105"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/pairing-biddings-docente]" time="4.257"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papel_nao_administrativo_recebe_403[POST edicts/1/pairing-biddings-estudante]" time="3.068"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:154: in test_papel_nao_administrativo_recebe_403
+    c = clientes(perfil)
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papeis_administrativos_alteram_editais[admin]" time="3.229"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:164: in test_papeis_administrativos_alteram_editais
+    r = clientes(perfil).post("edicts/1/edit-date", json={"closed_date": "2031-01-01"})
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papeis_administrativos_alteram_editais[secretaria]" time="2.974"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:164: in test_papeis_administrativos_alteram_editais
+    r = clientes(perfil).post("edicts/1/edit-date", json={"closed_date": "2031-01-01"})
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_papeis_administrativos_alteram_editais[coordenador]" time="2.945"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:164: in test_papeis_administrativos_alteram_editais
+    r = clientes(perfil).post("edicts/1/edit-date", json={"closed_date": "2031-01-01"})
+        ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_download_de_relatorio_e_publico" time="3.013" /><testcase classname="caronte.piloto-v2.oraculo.test_acesso" name="test_ids_dos_perfis_do_ensaio" time="3.542"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_acesso.py:177: in test_ids_dos_perfis_do_ensaio
+    assert clientes(perfil).get("auth/login").json()["id"] == id
+           ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_cria_comentario_com_autor_e_data" time="2.573"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_comentario_respeita_data_informada" time="3.012"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_comentario_fora_da_avaliacao_responde_400[inscricoes]" time="3.277"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_comentario_fora_da_avaliacao_responde_400[homologacao]" time="2.981"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_comentario_fora_da_avaliacao_responde_400[encerrado]" time="3.526"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_atividade_reune_comentarios_candidatura_e_recomendacoes" time="2.974"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:48: in test_atividade_reune_comentarios_candidatura_e_recomendacoes
+    clientes("docente").get("edicts/1/submissions")
+    ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_ler_a_atividade_nao_cria_eventos" time="2.910"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_exclui_somente_o_proprio_comentario" time="2.674"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:69: in test_exclui_somente_o_proprio_comentario
+    id = clientes("docente").post("submissions/1/comments", json={"comment": "Meu"}).json()["id"]
+         ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_favorito_por_usuario" time="2.655"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:79: in test_favorito_por_usuario
+    assert clientes("docente").post("submissions/1/favorites").status_code == 201
+           ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_favorito_fora_da_avaliacao_responde_400" time="2.986"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_etiqueta_com_autor_e_contexto_de_candidato" time="2.626"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_cor_propaga_ao_mesmo_rotulo_do_mesmo_autor" time="3.123"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:109: in test_cor_propaga_ao_mesmo_rotulo_do_mesmo_autor
+    docente, outro = clientes("docente"), clientes("outro")
+                     ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_catalogo_de_etiquetas_do_usuario" time="3.663"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:123: in test_catalogo_de_etiquetas_do_usuario
+    clientes("docente").post("submissions/1/labels", json={"label": "forte", "color": "#111111"})
+    ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_exclui_somente_a_propria_etiqueta" time="3.195"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:135: in test_exclui_somente_a_propria_etiqueta
+    id = clientes("docente").post("submissions/1/labels", json={"label": "minha", "color": "#123456"}).json()["id"]
+         ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_etiqueta_fora_da_avaliacao_responde_400" time="2.897"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_nota_privada_cria_e_atualiza_uma_unica_nota" time="3.061"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_nota_privada_nao_aparece_para_outro_usuario" time="2.714"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:158: in test_nota_privada_nao_aparece_para_outro_usuario
+    clientes("docente").post("submissions/1/private_notes", json={"note": "Segredo da docente"})
+    ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_nota_fora_da_avaliacao_responde_400" time="2.611"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_visualizacao_uma_por_usuario_e_dia" time="2.769"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_avaliacao.py:173: in test_visualizacao_uma_por_usuario_e_dia
+    assert clientes("docente").post("submissions/1/view").status_code == 200
+           ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_visualizacao_de_outro_dia_cria_nova_linha" time="3.752"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_avaliacao" name="test_dia_e_o_de_sao_paulo" time="4.247"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_lista_editais_com_os_campos_do_contrato" time="4.185"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_lista_por_encerramento_decrescente" time="3.690"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_filtra_por_tipo_e_situacao[filtros0-esperado0]" time="3.257"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_filtra_por_tipo_e_situacao[filtros1-esperado1]" time="4.117"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_filtra_por_tipo_e_situacao[filtros2-esperado2]" time="3.436"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_filtra_por_tipo_e_situacao[filtros3-esperado3]" time="3.214"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_filtra_por_tipo_e_situacao[filtros4-esperado4]" time="3.121"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_filtra_por_tipo_e_situacao[filtros5-esperado5]" time="2.838"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_consulta_configuracao_completa" time="3.271"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_vagas_sao_do_usuario_autenticado" time="3.407"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_editais.py:61: in test_vagas_sao_do_usuario_autenticado
+    assert clientes("docente").post("edicts/1/slots", json={"amount": "3"}).status_code == 200
+           ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_edital_inexistente_e_recusado" time="3.042"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_cria_edital_com_quatro_fases" time="3.257"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_editais.py:74: in test_cria_edital_com_quatro_fases
+    r = clientes("secretaria").post("edicts", json=NOVO)
+        ^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_datas_fora_de_ordem_sao_recusadas[edicts]" time="4.689"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_datas_fora_de_ordem_sao_recusadas[edicts/1/edit]" time="3.030"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_edicao_completa_altera_dados_e_datas" time="3.428"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_edicao_da_data_de_encerramento" time="3.814"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_mudanca_de_fase_propaga_ao_forms[inscricoes-Registration]" time="3.332"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_mudanca_de_fase_propaga_ao_forms[homologacao-Approval]" time="3.515"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_mudanca_de_fase_propaga_ao_forms[avaliacao-Completed]" time="3.370"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_mudanca_de_fase_propaga_ao_forms[encerrado-Completed]" time="3.233"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_encerra_uma_unica_vez" time="3.624"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_editais" name="test_remove_edital_e_dependentes_preservando_o_forms" time="3.260"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_lista_todos_os_formularios_com_metadados" time="4.543"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_filtra_por_ano_e_edital[filtros0-esperado0]" time="4.540"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_filtra_por_ano_e_edital[filtros1-esperado1]" time="3.375"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_filtra_por_ano_e_edital[filtros2-esperado2]" time="6.134"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_filtra_por_ano_e_edital[filtros3-esperado3]" time="3.390"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_filtra_por_ano_e_edital[filtros4-esperado4]" time="4.636"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_filtra_por_ano_e_edital[filtros5-esperado5]" time="3.782"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_estrutura_com_secoes_e_campos_em_ordem[1-None-is_active]" time="3.298"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_estrutura_com_secoes_e_campos_em_ordem[1-1-version=1]" time="3.864"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_estrutura_com_secoes_e_campos_em_ordem[1-2-version=2]" time="3.083"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_estrutura_com_secoes_e_campos_em_ordem[2-None-is_active]" time="3.334"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_estrutura_com_secoes_e_campos_em_ordem[3-None-is_active]" time="3.442"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_estrutura_com_secoes_e_campos_em_ordem[3-1-version=1]" time="3.376"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_estrutura_com_secoes_e_campos_em_ordem[4-None-is_active]" time="3.329"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_ids_das_secoes[1-None-is_active]" time="3.508"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_ids_das_secoes[1-1-version=1]" time="3.209"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_ids_das_secoes[1-2-version=2]" time="4.109"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_ids_das_secoes[3-None-is_active]" time="5.370"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_versao_sem_secoes_cai_para_todas_as_secoes" time="3.553"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_campos_da_secao_com_metadados[1-2]" time="3.768"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_campos_da_secao_com_metadados[1-102]" time="3.186"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_campos_da_secao_com_metadados[2-10]" time="3.995"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_campos_da_secao_com_metadados[3-13]" time="4.868"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_formularios" name="test_campos_da_secao_com_metadados[4-18]" time="3.996"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_lista_candidaturas_do_edital[1-esperado0]" time="4.302"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_lista_candidaturas_do_edital[2-esperado1]" time="3.160"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_listagem_traz_dados_mapeados" time="4.634"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_filtra_por_situacao" time="4.744"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_filtra_favoritos_de_quem_consulta" time="3.587"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_inscricoes.py:70: in test_filtra_favoritos_de_quem_consulta
+    assert clientes("docente").post("submissions/4/favorites").status_code == 201
+           ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_associa_recomendacoes_sem_misturar_candidatos" time="4.857"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_leituras_repetidas_nao_duplicam_nem_apagam_decisoes" time="3.971"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_candidatura_recem_finalizada_entra_na_listagem" time="3.390"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_candidatura_em_preenchimento_nao_aparece" time="3.404"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_listagem_com_ppi_mapeado" time="4.445"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_resumo_identifica_a_candidatura[1]" time="3.354"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_resumo_identifica_a_candidatura[2]" time="2.776"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_resumo_identifica_a_candidatura[3]" time="2.750"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_resumo_traz_formacao_pesquisa_e_semestre" time="3.673"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_resumo_com_nota_do_poscomp" time="3.854"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_resumo_traz_recomendacoes_e_convites_pendentes" time="3.504"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_formulario_traz_todos_os_campos_respondidos[1]" time="6.006"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_formulario_traz_todos_os_campos_respondidos[2]" time="3.796"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_formulario_traz_todos_os_campos_respondidos[3]" time="2.894"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_detalhe_inexistente_responde_404_sem_criar_inscricao" time="2.928"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_detalhe_com_comentarios" time="2.794"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_baixa_todos_os_anexos_da_candidatura[1]" time="2.619"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_baixa_todos_os_anexos_da_candidatura[2]" time="2.824"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_baixa_todos_os_anexos_da_candidatura[3]" time="2.912"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_nao_entrega_arquivo_de_outro_campo_ou_candidatura[submissions/1/files/lattes-cv-file/00000000000000000000000000000005_studies-transcripts.pdf]" time="3.038"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_nao_entrega_arquivo_de_outro_campo_ou_candidatura[submissions/2/files/lattes-cv-file/00000000000000000000000000000004_lattes-cv-file.pdf]" time="3.553"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_nao_entrega_arquivo_de_outro_campo_ou_candidatura[submissions/1/files/lattes-cv-file/..%2F..%2Fetc%2Fpasswd]" time="3.132"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_nao_entrega_arquivo_de_outro_campo_ou_candidatura[submissions/999/files/lattes-cv-file/00000000000000000000000000000004_lattes-cv-file.pdf]" time="3.046"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_inscricoes" name="test_estado_sobrevive_ao_reinicio_do_backend" time="3.653"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_cria_mapeamento_de_candidatura_para_nova_versao" time="3.993"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_mapeamentos.py:19: in test_cria_mapeamento_de_candidatura_para_nova_versao
+    r = clientes("coordenador").post("edicts/2/candidates/mappings/versions/2/",
+        ^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_cria_mapeamento_de_recomendacao" time="3.373"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_referencia_invalida_na_versao_responde_422[1-arvore0]" time="3.941"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_referencia_invalida_na_versao_responde_422[2-arvore1]" time="3.439"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_referencia_invalida_na_versao_responde_422[1-arvore2]" time="3.153"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_versao_sem_campos_usa_todos_os_campos_do_formulario" time="4.249"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_nao_duplica_mapeamento_do_mesmo_tipo_e_versao" time="4.442"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_lista_mapeamentos_por_tipo[candidates-candidate]" time="4.615"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_lista_mapeamentos_por_tipo[recommenders-recommender]" time="2.966"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_atualiza_a_arvore_preservando_outras_versoes" time="3.103"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_atualiza_mapeamento_de_recomendacao" time="3.214"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_exclui_mapeamento[candidates-candidate]" time="3.166"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_exclui_mapeamento[recommenders-recommender]" time="3.694"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/2/1-PUT]" time="3.722"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/2/1-DELETE]" time="3.085"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/2/candidates/mappings/versions/1/1-PUT]" time="3.062"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/2/candidates/mappings/versions/1/1-DELETE]" time="2.928"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/1/recommenders/mappings/versions/1/1-PUT]" time="2.837"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/1/recommenders/mappings/versions/1/1-DELETE]" time="2.911"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/1/999-PUT]" time="3.757"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/1/999-DELETE]" time="3.018"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_versoes_sem_mapeamento[1-candidates-esperado0]" time="2.914"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_versoes_sem_mapeamento[1-recommenders-esperado1]" time="4.734"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_versoes_sem_mapeamento[2-candidates-esperado2]" time="4.446"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_versoes_sem_mapeamento[2-recommenders-esperado3]" time="3.858"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento" time="3.809"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mapeamentos" name="test_versao_sem_inscricoes_nao_aparece" time="3.186"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_solicita_correcao_reabrindo_e_avisando_o_candidato" time="4.074"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_link_de_correcao_abre_a_candidatura_no_forms" time="2.963"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_correcao_fora_da_homologacao_responde_400[inscricoes]" time="3.302"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_correcao_fora_da_homologacao_responde_400[avaliacao]" time="3.166"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_correcao_fora_da_homologacao_responde_400[encerrado]" time="3.015"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_correcao_de_inscricao_inexistente_responde_404" time="2.992"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_envia_formulario_de_aceite" time="2.939"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_mensagens.py:89: in test_envia_formulario_de_aceite
+    aprovar(clientes("admin"))
+            ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_aceite_nao_e_criado_duas_vezes" time="2.932"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_mensagens.py:110: in test_aceite_nao_e_criado_duas_vezes
+    aprovar(clientes("admin"))
+            ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_aceite_exige_aprovacao" time="2.846"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_aceite_sem_formulario_configurado_responde_404" time="2.819"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_mensagens.py:127: in test_aceite_sem_formulario_configurado_responde_404
+    aprovar(clientes("admin"))
+            ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_estado_do_aceite_sem_convite" time="3.014"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_estado_do_aceite_pendente" time="3.600"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_estado_do_aceite_respondido" time="3.330"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_envia_carta_de_aceite" time="3.213"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_mensagens.py:161: in test_envia_carta_de_aceite
+    aprovar(clientes("admin"))
+            ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_carta_nao_e_enviada_duas_vezes" time="3.033"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_mensagens.py:179: in test_carta_nao_e_enviada_duas_vezes
+    aprovar(clientes("admin"))
+            ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_mensagens" name="test_carta_exige_aprovacao" time="3.202"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_percursos" name="test_da_homologacao_ao_resultado_e_aceite" time="3.570"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_percursos.py:13: in test_da_homologacao_ao_resultado_e_aceite
+    admin, docente, outro = clientes("admin"), clientes("docente"), clientes("outro")
+                            ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_rastreio" name="test_todo_requisito_tem_teste" time="3.389" /><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_lista_quem_interagiu_no_edital" time="3.424"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_relatorios.py:43: in test_lista_quem_interagiu_no_edital
+    interagir(clientes)
+caronte/piloto-v2/oraculo/test_relatorios.py:15: in interagir
+    clientes("docente").post("submissions/1/comments", json={"comment": "c"})
+    ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_pdf_com_todas_as_secoes" time="3.492"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_relatorios.py:52: in test_pdf_com_todas_as_secoes
+    interagir(clientes)
+caronte/piloto-v2/oraculo/test_relatorios.py:15: in interagir
+    clientes("docente").post("submissions/1/comments", json={"comment": "c"})
+    ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_pdf_sem_secoes_opcionais_nem_emails" time="3.494"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_relatorios.py:67: in test_pdf_sem_secoes_opcionais_nem_emails
+    interagir(clientes)
+caronte/piloto-v2/oraculo/test_relatorios.py:15: in interagir
+    clientes("docente").post("submissions/1/comments", json={"comment": "c"})
+    ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_pdf_conta_candidaturas_em_preenchimento" time="5.014"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_relatorios.py:78: in test_pdf_conta_candidaturas_em_preenchimento
+    texto = gerar_pdf(clientes("admin"), {"general_statistics": True})
+                      ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_csv_de_interesses_e_vagas" time="3.303"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_relatorios.py:85: in test_csv_de_interesses_e_vagas
+    clientes("docente").post("edicts/1/slots", json={"amount": "2"})
+    ^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_download_consumido_uma_unica_vez[pdf-application/pdf]" time="3.405"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_download_consumido_uma_unica_vez[csv-text/csv]" time="3.350"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_jobs_distintos_nao_se_confundem" time="3.010"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_job_inexistente_responde_404[pdf]" time="2.910" /><testcase classname="caronte.piloto-v2.oraculo.test_relatorios" name="test_job_inexistente_responde_404[csv]" time="3.466" /><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_vagas_do_usuario[3-3]" time="4.010"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_vagas_do_usuario[0-0]" time="4.333"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_vagas_do_usuario[-0]" time="5.179"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_vagas_do_usuario[-4-0]" time="4.075"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_vagas_repetidas_atualizam_o_registro" time="3.353"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_vagas_nao_inteiras_sao_recusadas" time="2.879"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_interesse_aceita_os_valores_do_contrato[decline]" time="3.127"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_interesse_aceita_os_valores_do_contrato[available]" time="3.410"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_interesse_aceita_os_valores_do_contrato[interested]" time="4.415"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_interesse_aceita_os_valores_do_contrato[agreed]" time="4.071"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_interesse_aceita_os_valores_do_contrato[interested_scholarship]" time="3.851"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_interesse_aceita_os_valores_do_contrato[]" time="2.925"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_interesse_invalido_e_recusado" time="3.268"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_um_interesse_corrente_por_usuario_refletido_na_listagem" time="3.145"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_somente_administrativo_indica_outro_usuario[admin-3]" time="2.875"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_selecao.py:63: in test_somente_administrativo_indica_outro_usuario
+    clientes(perfil).post("submissions/1/bidding", json={"bidding": "interested", "user_id": 3})
+    ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_somente_administrativo_indica_outro_usuario[coordenador-3]" time="2.921"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_selecao.py:63: in test_somente_administrativo_indica_outro_usuario
+    clientes(perfil).post("submissions/1/bidding", json={"bidding": "interested", "user_id": 3})
+    ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_somente_administrativo_indica_outro_usuario[docente-2]" time="3.258"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_selecao.py:63: in test_somente_administrativo_indica_outro_usuario
+    clientes(perfil).post("submissions/1/bidding", json={"bidding": "interested", "user_id": 3})
+    ^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_aprova_com_um_orientador" time="2.888"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_outras_situacoes_atualizam_o_estado[refused]" time="3.653"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_selecao.py:78: in test_outras_situacoes_atualizam_o_estado
+    assert clientes("secretaria").post("submissions/2/select", json={"stats": stats, "user_ids": None}).status_code == 200
+           ^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_outras_situacoes_atualizam_o_estado[underreview]" time="3.967"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_selecao.py:78: in test_outras_situacoes_atualizam_o_estado
+    assert clientes("secretaria").post("submissions/2/select", json={"stats": stats, "user_ids": None}).status_code == 200
+           ^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_outras_situacoes_atualizam_o_estado[waitlist]" time="3.658"><failure message="AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code">caronte/piloto-v2/oraculo/test_selecao.py:78: in test_outras_situacoes_atualizam_o_estado
+    assert clientes("secretaria").post("submissions/2/select", json={"stats": stats, "user_ids": None}).status_code == 200
+           ^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</failure></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_aprovacao_exige_um_unico_orientador_existente[None]" time="3.381"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_aprovacao_exige_um_unico_orientador_existente[user_ids1]" time="3.310"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_aprovacao_exige_um_unico_orientador_existente[user_ids2]" time="2.943"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_aprovacao_exige_um_unico_orientador_existente[user_ids3]" time="3.211"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_selecao_de_inscricao_inexistente_responde_404" time="3.575"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_edital_fechado_impede_decisoes" time="3.677"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:89: in admin
+    return clientes("admin")
+           ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_semestre_de_ingresso_normalizado[primeiro-Primeiro semestre.]" time="5.505"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.]" time="4.567"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_semestre_de_ingresso_normalizado[SEGUNDO SEMESTRE.-Segundo semestre.]" time="4.657"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_semestre_de_ingresso_normalizado[first-Primeiro semestre.]" time="3.296"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_semestre_de_ingresso_normalizado[2027/1-2027/1]" time="3.127"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase><testcase classname="caronte.piloto-v2.oraculo.test_selecao" name="test_semestre_de_inscricao_inexistente_responde_404" time="4.026"><error message="failed on setup with &quot;AssertionError: Internal Server Error&#10;assert 500 == 200&#10; +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code&quot;">caronte/piloto-v2/oraculo/conftest.py:84: in api
+    return clientes()
+           ^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:71: in criar
+    r = entrar(c, perfil)
+        ^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:43: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = &lt;Response [500 Internal Server Error]&gt;.status_code</error></testcase></testsuite></testsuites>

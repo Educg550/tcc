@@ -1,0 +1,67 @@
+Projeto: /home/opuscg550/code/personal/tcc/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261019-103846
+ERROR    Error in Agent run: Orçamento esgotado: custo                          
+{"run": "/home/opuscg550/code/personal/tcc/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261019-103846", "custo_usd": 1.295881, "arquivos": {"producao": 15, "infra_semeada": 4, "harness": 1, "testes_autorais": 8}, "pytest_final": {"passed": 46, "failed": 2, "errors": 0, "total": 48}, "stages": [{"id": "tests", "configured_model": "z-ai/glm-5.3", "duration_s": 153.99, "ok": true, "motivo": "verde", "passos": 1, "retries": 0, "chamadas_modelo": 16, "contexto_max_tokens": 51862, "arquivos": ["tests/conftest.py", "tests/test_root_auth.py", "tests/test_forms.py", "tests/test_edicts.py", "tests/test_submissions.py", "tests/test_interacoes.py", "tests/test_relatorios.py", "tests/test_comunicacao.py"], "historico": [], "input_tokens": 763628, "output_tokens": 9777, "total_tokens": 773405, "cost_usd": 0.160862}, {"id": "code", "configured_model": "z-ai/glm-5.3", "duration_s": 2020.16, "ok": false, "motivo": "custo", "passos": 4, "retries": 3, "chamadas_modelo": 48, "contexto_max_tokens": 193245, "arquivos": ["config.py", "database.py", "auth.py", "services/mailer.py", "services/oauth.py", "services/__init__.py", "services/forms_service.py", "services/submission_builder.py", "routers/__init__.py", "routers/auth.py", "routers/forms.py", "services/reports.py", "routers/edicts.py", "routers/submissions.py", "app.py"], "historico": [{"passed": 28, "failed": 1, "errors": 19, "total": 48}, {"passed": 28, "failed": 1, "errors": 19, "total": 48}, {"passed": 46, "failed": 2, "errors": 0, "total": 48}], "input_tokens": 5927255, "output_tokens": 115422, "total_tokens": 6042677, "cost_usd": 1.135019, "impressao": "6b06e0b096a1998e0f2fa82457af64f274829bf69bf2577e8490170d6db3a98b", "tests_vermelhos": true}]}
+Traceback (most recent call last):
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto_v2.py", line 64, in candidato
+    yield
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto_v2.py", line 111, in avaliar
+    r = pytest_oraculo(saida, "oraculo")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto_v2.py", line 78, in pytest_oraculo
+    return subprocess.run(cmd, cwd=DEMOS, capture_output=True, text=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 2115, in _communicate
+    ready = selector.select(timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/selectors.py", line 415, in select
+    fd_event_list = self._selector.poll(timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto_v3.py", line 102, in <module>
+    main()
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto_v3.py", line 97, in main
+    resultado = avaliar(raiz)
+                ^^^^^^^^^^^^^
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto_v2.py", line 110, in avaliar
+    with candidato(raiz, saida):
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/contextlib.py", line 158, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto_v2.py", line 71, in candidato
+    limpar_esquema()
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/ambiente.py", line 75, in limpar_esquema
+    extras = [t["tablename"] for t in linhas("SELECT tablename FROM pg_tables WHERE schemaname='public'", banco)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/ambiente.py", line 36, in linhas
+    return json.loads(sql(f"SELECT coalesce(json_agg(q), '[]') FROM ({consulta}) q;", banco))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/ambiente.py", line 30, in sql
+    return dc("exec", "-T", "db", "psql", "-X", "-qAt", "-v", "ON_ERROR_STOP=1",
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/ambiente.py", line 22, in dc
+    resultado = subprocess.run([*DC, *args], input=entrada, text=True,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 2115, in _communicate
+    ready = selector.select(timeout)
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/opuscg550/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/selectors.py", line 415, in select
+    fd_event_list = self._selector.poll(timeout)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
