@@ -1,0 +1,3926 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/edicts": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Get All",
+        "description": "Get all edicts from the application (respecting the selected filters, if filled).",
+        "operationId": "get_all_edicts_get",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by type of edict.",
+              "title": "Type"
+            },
+            "description": "Filter by type of edict."
+          },
+          {
+            "name": "is_open",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by open/closed edicts.",
+              "title": "Is Open"
+            },
+            "description": "Filter by open/closed edicts."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EdictSchema"
+                  },
+                  "title": "Response Get All Edicts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Create Edict",
+        "description": "Create a new edict.",
+        "operationId": "create_edict_edicts_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InsertEdictSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsertEdictResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/submissions": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Get All Submissions From Edict",
+        "description": "Get all submissions from the application associated with a given edict.",
+        "operationId": "get_all_submissions_from_edict_edicts__edict_id__submissions_get",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "stats",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Stats"
+            }
+          },
+          {
+            "name": "only_favorites",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter to only show favorite submissions of a specific user.",
+              "default": false,
+              "title": "Only Favorites"
+            },
+            "description": "Filter to only show favorite submissions of a specific user."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAllSubmissionsFromEdictResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Get Edict",
+        "description": "Get edict by its ID",
+        "operationId": "get_edict_edicts__edict_id__get",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EdictByIdSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/edit": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Edit Date Edict",
+        "description": "Edit edict by its ID",
+        "operationId": "edit_date_edict_edicts__edict_id__edit_post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditEdictSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditEdictResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/edit-date": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Edit Edict Date Only",
+        "description": "Edit date edict by its ID",
+        "operationId": "edit_edict_date_only_edicts__edict_id__edit_date_post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditEdictDateSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EditEdictDateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/advance-phase": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Advance Edict",
+        "description": "Advance phase edict by its ID",
+        "operationId": "advance_edict_edicts__edict_id__advance_phase_post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdvancePhaseEdictSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvancePhaseEdictResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/remove": {
+      "delete": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Remove Edict",
+        "description": "Remove a given edict.",
+        "operationId": "remove_edict_edicts__edict_id__remove_delete",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/interactors_list": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Interactors List",
+        "operationId": "interactors_list_edicts__edict_id__interactors_list_post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "plain_text",
+              "title": "Mode"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SectionsDocument",
+                "default": {}
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/pairing-biddings": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Pairing Biddings",
+        "operationId": "pairing_biddings_edicts__edict_id__pairing_biddings_post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/download_pdf/{job_id}": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Download Pdf",
+        "operationId": "download_pdf_edicts_download_pdf__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/download_csv/{job_id}": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Download Csv",
+        "operationId": "download_csv_edicts_download_csv__job_id__get",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/slots": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Set User Slots",
+        "description": "Definir quantidade de vagas por orientador do edital",
+        "operationId": "set_user_slots_edicts__edict_id__slots_post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SlotsSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SlotsResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/close": {
+      "patch": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Close Edict",
+        "description": "Closes a given edict.",
+        "operationId": "close_edict_edicts__edict_id__close_patch",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloseEdictSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/recommenders/mappings/versions/{version}/": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Create Recommender Form Mapping",
+        "operationId": "create_recommender_form_mapping_edicts__edict_id__recommenders_mappings_versions__version___post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Version"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MappingNode"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/candidates/mappings/versions/{version}/": {
+      "post": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Create Candidate Form Mapping",
+        "operationId": "create_candidate_form_mapping_edicts__edict_id__candidates_mappings_versions__version___post",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Version"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MappingNode"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/candidates/mappings": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Get Submission Form Mapping",
+        "operationId": "get_submission_form_mapping_edicts__edict_id__candidates_mappings_get",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/recommenders/mappings": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Get Recommender Form Mapping",
+        "operationId": "get_recommender_form_mapping_edicts__edict_id__recommenders_mappings_get",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/recommenders/mappings/versions/{version}/{mapping_id}": {
+      "put": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Update Recommender Mapping",
+        "operationId": "update_recommender_mapping_edicts__edict_id__recommenders_mappings_versions__version___mapping_id__put",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "mapping_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Mapping Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Version"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Delete Recommender Mapping",
+        "operationId": "delete_recommender_mapping_edicts__edict_id__recommenders_mappings_versions__version___mapping_id__delete",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "mapping_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Mapping Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/candidates/mappings/versions/{version}/{mapping_id}": {
+      "put": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Update Candidate Mapping",
+        "operationId": "update_candidate_mapping_edicts__edict_id__candidates_mappings_versions__version___mapping_id__put",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "mapping_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Mapping Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Payload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Delete Candidate Mapping",
+        "operationId": "delete_candidate_mapping_edicts__edict_id__candidates_mappings_versions__version___mapping_id__delete",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          },
+          {
+            "name": "mapping_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Mapping Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/candidates/forms/versions/unmapped": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Get Candidates Unmapped Versions",
+        "operationId": "get_candidates_unmapped_versions_edicts__edict_id__candidates_forms_versions_unmapped_get",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/edicts/{edict_id}/recommenders/forms/versions/unmapped": {
+      "get": {
+        "tags": [
+          "edicts"
+        ],
+        "summary": "Get Recommenders Unmapped Versions",
+        "operationId": "get_recommenders_unmapped_versions_edicts__edict_id__recommenders_forms_versions_unmapped_get",
+        "parameters": [
+          {
+            "name": "edict_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Edict Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get Details",
+        "description": "Get submission details by its ID.",
+        "operationId": "get_details_submissions__submission_id__get",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          },
+          {
+            "name": "include_comments",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Include the submission comments in the response.",
+              "default": false,
+              "title": "Include Comments"
+            },
+            "description": "Include the submission comments in the response."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/send-accept": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Send Accept Forms",
+        "description": "Send accept e-emails.",
+        "operationId": "send_accept_forms_submissions__submission_id__send_accept_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendAcceptFormsByIdResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/send-letter": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Send Accept Letter",
+        "description": "Send accept letter e-emails.",
+        "operationId": "send_accept_letter_submissions__submission_id__send_letter_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendAcceptLettersByIdResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/comments": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get All Comments",
+        "description": "Get all comments from a specific submission",
+        "operationId": "get_all_comments_submissions__submission_id__comments_get",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Add Comment",
+        "description": "Add a comment to a specific submission.",
+        "operationId": "add_comment_submissions__submission_id__comments_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/labels": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get Label",
+        "description": "Get all labels by user.",
+        "operationId": "get_label_submissions__submission_id__labels_get",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserLabelResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Add Label",
+        "description": "Add a label to a specific submission.",
+        "operationId": "add_label_submissions__submission_id__labels_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LabelSchema-Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LabelResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/label/{label_id}": {
+      "delete": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Remove Label",
+        "description": "Delete a label from a specific submission.",
+        "operationId": "remove_label_submissions_label__label_id__delete",
+        "parameters": [
+          {
+            "name": "label_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Label Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/private_notes": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Add Or Update Note",
+        "description": "Add or update a private note to a specific submission by user.",
+        "operationId": "add_or_update_note_submissions__submission_id__private_notes_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PrivateNoteSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateNoteSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/reesend_submission": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Reesend Submission",
+        "description": "Request resubmission.",
+        "operationId": "reesend_submission_submissions__submission_id__reesend_submission_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestReesendSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestReesendResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/comments/{comment_id}": {
+      "delete": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Remove Comment",
+        "description": "Delete a comment from a specific submission.",
+        "operationId": "remove_comment_submissions_comments__comment_id__delete",
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Comment Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/favorites": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Create Favorite",
+        "operationId": "create_favorite_submissions__submission_id__favorites_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Create Favorite Submissions  Submission Id  Favorites Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Remove Favorite",
+        "operationId": "remove_favorite_submissions__submission_id__favorites_delete",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Remove Favorite Submissions  Submission Id  Favorites Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/select": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Select Stats",
+        "description": "Marks the given submission as stats.",
+        "operationId": "select_stats_submissions__submission_id__select_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatsSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Select Stats Submissions  Submission Id  Select Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/bidding": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Toggle Bidding",
+        "description": "Toggle bidding option in submission.",
+        "operationId": "toggle_bidding_submissions__submission_id__bidding_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BiddingSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Toggle Bidding Submissions  Submission Id  Bidding Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/entry-semester": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Toggle Entry Semester",
+        "description": "Toggle entry semester option in submission.",
+        "operationId": "toggle_entry_semester_submissions__submission_id__entry_semester_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EntrySemesterSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "title": "Response Toggle Entry Semester Submissions  Submission Id  Entry Semester Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/files/{label}/{filename}": {
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get File",
+        "description": "Get file with submission.",
+        "operationId": "get_file_submissions__submission_id__files__label___filename__get",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          },
+          {
+            "name": "label",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Label"
+            }
+          },
+          {
+            "name": "filename",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Filename"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/submissions/{submission_id}/view": {
+      "post": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Register View",
+        "description": "Register a view for a submission",
+        "operationId": "register_view_submissions__submission_id__view_post",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "submissions"
+        ],
+        "summary": "Get Submission Views",
+        "description": "Get the view from a submission",
+        "operationId": "get_submission_views_submissions__submission_id__view_get",
+        "parameters": [
+          {
+            "name": "submission_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Submission Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login",
+        "description": "Get existent user or register if it not exists",
+        "operationId": "login_auth_login_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login/senhaunica": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Login Senhaunica",
+        "description": "Get existent user or register if it not exists",
+        "operationId": "login_senhaunica_auth_login_senhaunica_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Get All",
+        "operationId": "get_all_forms_get",
+        "parameters": [
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Year.",
+              "title": "Year"
+            },
+            "description": "Year."
+          },
+          {
+            "name": "notice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Edict Type.",
+              "title": "Notice"
+            },
+            "description": "Edict Type."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/{form_id}": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Get Form Full",
+        "operationId": "get_form_full_forms__form_id__get",
+        "parameters": [
+          {
+            "name": "form_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Form Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Form version.",
+              "title": "Version"
+            },
+            "description": "Form version."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/{form_id}/sections": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Get Form Sections",
+        "operationId": "get_form_sections_forms__form_id__sections_get",
+        "parameters": [
+          {
+            "name": "form_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Form Id"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Form version.",
+              "title": "Version"
+            },
+            "description": "Form version."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/forms/{form_id}/sessions/{section_id}/fields": {
+      "get": {
+        "tags": [
+          "forms"
+        ],
+        "summary": "Get Form Fields",
+        "operationId": "get_form_fields_forms__form_id__sessions__section_id__fields_get",
+        "parameters": [
+          {
+            "name": "form_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Form Id"
+            }
+          },
+          {
+            "name": "section_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Section Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AcceptSchema": {
+        "properties": {
+          "sent": {
+            "$ref": "#/components/schemas/SentStatus",
+            "default": "not_sent"
+          },
+          "accept": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accept"
+          },
+          "comments": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comments"
+          },
+          "submitted_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Submitted At"
+          }
+        },
+        "type": "object",
+        "title": "AcceptSchema"
+      },
+      "AdvancePhaseEdictResponse": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "title": "AdvancePhaseEdictResponse"
+      },
+      "AdvancePhaseEdictSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "AdvancePhaseEdictSchema"
+      },
+      "BiddingEnum": {
+        "type": "string",
+        "enum": [
+          "decline",
+          "available",
+          "interested",
+          "agreed",
+          "interested_scholarship",
+          ""
+        ],
+        "title": "BiddingEnum"
+      },
+      "BiddingSchema": {
+        "properties": {
+          "bidding": {
+            "$ref": "#/components/schemas/BiddingEnum"
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bidding"
+        ],
+        "title": "BiddingSchema"
+      },
+      "BiddingUserSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "slots": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Slots"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "email"
+        ],
+        "title": "BiddingUserSchema"
+      },
+      "BiddingUsersSchema": {
+        "properties": {
+          "data": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/BiddingUserSchema"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "title": "BiddingUsersSchema"
+      },
+      "CloseEdictSchema": {
+        "properties": {
+          "confirmation_deadline": {
+            "type": "string",
+            "format": "date",
+            "title": "Confirmation Deadline"
+          },
+          "send_approval_letter": {
+            "type": "boolean",
+            "title": "Send Approval Letter"
+          }
+        },
+        "type": "object",
+        "required": [
+          "confirmation_deadline",
+          "send_approval_letter"
+        ],
+        "title": "CloseEdictSchema"
+      },
+      "CommentResponseSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponseSchema"
+          },
+          "submission_id": {
+            "type": "integer",
+            "title": "Submission Id"
+          },
+          "comment": {
+            "type": "string",
+            "title": "Comment"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user",
+          "submission_id",
+          "comment"
+        ],
+        "title": "CommentResponseSchema"
+      },
+      "CommentSchema": {
+        "properties": {
+          "comment": {
+            "type": "string",
+            "title": "Comment"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "comment"
+        ],
+        "title": "CommentSchema"
+      },
+      "EdictByIdSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "candidate_form_id": {
+            "type": "string",
+            "title": "Candidate Form Id"
+          },
+          "recommender_form_id": {
+            "type": "string",
+            "title": "Recommender Form Id"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "closed_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closed Date"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          },
+          "semester": {
+            "type": "integer",
+            "title": "Semester"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "is_open": {
+            "type": "boolean",
+            "title": "Is Open"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "phase": {
+            "type": "string",
+            "title": "Phase"
+          },
+          "phases": {
+            "items": {
+              "$ref": "#/components/schemas/EdictPhaseResponse"
+            },
+            "type": "array",
+            "title": "Phases"
+          },
+          "slots": {
+            "type": "string",
+            "title": "Slots"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "candidate_form_id",
+          "recommender_form_id",
+          "description",
+          "year",
+          "semester",
+          "type",
+          "is_open",
+          "phase",
+          "phases",
+          "slots"
+        ],
+        "title": "EdictByIdSchema"
+      },
+      "EdictPhaseResponse": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "closed_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closed Date"
+          },
+          "phase": {
+            "type": "string",
+            "title": "Phase"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "phase"
+        ],
+        "title": "EdictPhaseResponse"
+      },
+      "EdictSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          },
+          "semester": {
+            "type": "integer",
+            "title": "Semester"
+          },
+          "edict_type": {
+            "type": "string",
+            "title": "Edict Type"
+          },
+          "is_open": {
+            "type": "boolean",
+            "title": "Is Open"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "year",
+          "semester",
+          "edict_type",
+          "is_open"
+        ],
+        "title": "EdictSchema"
+      },
+      "EditEdictDateResponse": {
+        "properties": {
+          "closed_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Closed Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "closed_date"
+        ],
+        "title": "EditEdictDateResponse"
+      },
+      "EditEdictDateSchema": {
+        "properties": {
+          "closed_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Closed Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "closed_date"
+        ],
+        "title": "EditEdictDateSchema"
+      },
+      "EditEdictResponse": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "year": {
+            "type": "string",
+            "title": "Year"
+          },
+          "semester": {
+            "type": "string",
+            "title": "Semester"
+          },
+          "edict_type": {
+            "type": "string",
+            "title": "Edict Type"
+          },
+          "date_application": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Application"
+          },
+          "date_verification": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Verification"
+          },
+          "date_evaluation": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Evaluation"
+          },
+          "date_closed": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Closed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "year",
+          "semester",
+          "edict_type",
+          "date_application",
+          "date_verification",
+          "date_evaluation",
+          "date_closed"
+        ],
+        "title": "EditEdictResponse"
+      },
+      "EditEdictSchema": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "year": {
+            "type": "string",
+            "title": "Year"
+          },
+          "semester": {
+            "type": "string",
+            "title": "Semester"
+          },
+          "edict_type": {
+            "type": "string",
+            "title": "Edict Type"
+          },
+          "date_application": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Application"
+          },
+          "date_verification": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Verification"
+          },
+          "date_evaluation": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Evaluation"
+          },
+          "date_closed": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Closed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "description",
+          "year",
+          "semester",
+          "edict_type",
+          "date_application",
+          "date_verification",
+          "date_evaluation",
+          "date_closed"
+        ],
+        "title": "EditEdictSchema"
+      },
+      "EntrySemesterSchema": {
+        "properties": {
+          "semester": {
+            "type": "string",
+            "title": "Semester"
+          }
+        },
+        "type": "object",
+        "required": [
+          "semester"
+        ],
+        "title": "EntrySemesterSchema"
+      },
+      "GetAllSubmissionsFromEdictResponse": {
+        "properties": {
+          "submissions": {
+            "items": {
+              "$ref": "#/components/schemas/SubmissionSchema"
+            },
+            "type": "array",
+            "title": "Submissions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "submissions"
+        ],
+        "title": "GetAllSubmissionsFromEdictResponse"
+      },
+      "GraduationSchema": {
+        "properties": {
+          "country": {
+            "type": "string",
+            "title": "Country"
+          },
+          "course": {
+            "type": "string",
+            "title": "Course"
+          },
+          "institution": {
+            "type": "string",
+            "title": "Institution"
+          },
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          }
+        },
+        "type": "object",
+        "required": [
+          "country",
+          "course",
+          "institution",
+          "year"
+        ],
+        "title": "GraduationSchema"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InsertEdictResponse": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          },
+          "semester": {
+            "type": "integer",
+            "title": "Semester"
+          },
+          "edict_type": {
+            "type": "string",
+            "title": "Edict Type"
+          },
+          "is_open": {
+            "type": "boolean",
+            "title": "Is Open"
+          },
+          "candidate_forms": {
+            "type": "integer",
+            "title": "Candidate Forms"
+          },
+          "recommenders_forms": {
+            "type": "integer",
+            "title": "Recommenders Forms"
+          },
+          "date_application": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Application"
+          },
+          "date_verification": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Verification"
+          },
+          "date_evaluation": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Evaluation"
+          },
+          "date_closed": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Closed"
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "closed_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Closed Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "year",
+          "semester",
+          "edict_type",
+          "is_open",
+          "candidate_forms",
+          "recommenders_forms",
+          "date_application",
+          "date_verification",
+          "date_evaluation",
+          "date_closed",
+          "id",
+          "closed_date"
+        ],
+        "title": "InsertEdictResponse"
+      },
+      "InsertEdictSchema": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          },
+          "semester": {
+            "type": "integer",
+            "title": "Semester"
+          },
+          "edict_type": {
+            "type": "string",
+            "title": "Edict Type"
+          },
+          "is_open": {
+            "type": "boolean",
+            "title": "Is Open"
+          },
+          "candidate_forms": {
+            "type": "integer",
+            "title": "Candidate Forms"
+          },
+          "recommenders_forms": {
+            "type": "integer",
+            "title": "Recommenders Forms"
+          },
+          "date_application": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Application"
+          },
+          "date_verification": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Verification"
+          },
+          "date_evaluation": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Evaluation"
+          },
+          "date_closed": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Date Closed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "year",
+          "semester",
+          "edict_type",
+          "is_open",
+          "candidate_forms",
+          "recommenders_forms",
+          "date_application",
+          "date_verification",
+          "date_evaluation",
+          "date_closed"
+        ],
+        "title": "InsertEdictSchema"
+      },
+      "LabelResponseSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserResponseSchema"
+          },
+          "submission_id": {
+            "type": "integer",
+            "title": "Submission Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user",
+          "submission_id",
+          "label"
+        ],
+        "title": "LabelResponseSchema"
+      },
+      "LabelSchema-Input": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "color": {
+            "type": "string",
+            "title": "Color"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "color"
+        ],
+        "title": "LabelSchema"
+      },
+      "LabelSchema-Output": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "color": {
+            "type": "string",
+            "title": "Color"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "color"
+        ],
+        "title": "LabelSchema"
+      },
+      "MappingLeaf": {
+        "properties": {
+          "section": {
+            "type": "integer",
+            "title": "Section"
+          },
+          "field": {
+            "type": "integer",
+            "title": "Field"
+          }
+        },
+        "type": "object",
+        "required": [
+          "section",
+          "field"
+        ],
+        "title": "MappingLeaf"
+      },
+      "MappingNode": {
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/MappingNode"
+            },
+            {
+              "$ref": "#/components/schemas/MappingLeaf"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": "object",
+        "title": "MappingNode"
+      },
+      "PosCompSchema": {
+        "properties": {
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          },
+          "score": {
+            "type": "string",
+            "title": "Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "year",
+          "score"
+        ],
+        "title": "PosCompSchema"
+      },
+      "PrivateNoteSchema": {
+        "properties": {
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "note"
+        ],
+        "title": "PrivateNoteSchema"
+      },
+      "RequestReesendResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "email_sent": {
+            "type": "string",
+            "title": "Email Sent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "email_sent"
+        ],
+        "title": "RequestReesendResponse"
+      },
+      "RequestReesendSchema": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "RequestReesendSchema"
+      },
+      "ResearchFieldsSchema": {
+        "properties": {
+          "primary": {
+            "type": "string",
+            "title": "Primary"
+          },
+          "secondary": {
+            "type": "string",
+            "title": "Secondary"
+          }
+        },
+        "type": "object",
+        "required": [
+          "primary",
+          "secondary"
+        ],
+        "title": "ResearchFieldsSchema"
+      },
+      "ResearchSchema": {
+        "properties": {
+          "program": {
+            "type": "string",
+            "title": "Program"
+          },
+          "semester": {
+            "type": "string",
+            "title": "Semester"
+          },
+          "field": {
+            "$ref": "#/components/schemas/ResearchFieldsSchema"
+          },
+          "will_apply_scholarship": {
+            "type": "boolean",
+            "title": "Will Apply Scholarship"
+          },
+          "dedication_level": {
+            "type": "string",
+            "title": "Dedication Level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "program",
+          "semester",
+          "field",
+          "will_apply_scholarship",
+          "dedication_level"
+        ],
+        "title": "ResearchSchema"
+      },
+      "SectionsDocument": {
+        "properties": {
+          "list_of_advisors": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "List Of Advisors",
+            "default": false
+          },
+          "relation": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relation",
+            "default": false
+          },
+          "approved": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved",
+            "default": false
+          },
+          "refused": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Refused",
+            "default": false
+          },
+          "underreview": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Underreview",
+            "default": false
+          },
+          "general_statistics": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "General Statistics",
+            "default": false
+          },
+          "show_emails": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Show Emails",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "SectionsDocument"
+      },
+      "SendAcceptFormsByIdResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "email_sent": {
+            "type": "string",
+            "title": "Email Sent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "email_sent"
+        ],
+        "title": "SendAcceptFormsByIdResponse"
+      },
+      "SendAcceptLettersByIdResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "email_sent": {
+            "type": "string",
+            "title": "Email Sent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "email_sent"
+        ],
+        "title": "SendAcceptLettersByIdResponse"
+      },
+      "SentStatus": {
+        "type": "string",
+        "enum": [
+          "not_sent",
+          "sent",
+          "replied"
+        ],
+        "title": "SentStatus"
+      },
+      "SlotsResponseSchema": {
+        "properties": {
+          "amount": {
+            "type": "string",
+            "title": "Amount"
+          }
+        },
+        "type": "object",
+        "required": [
+          "amount"
+        ],
+        "title": "SlotsResponseSchema"
+      },
+      "SlotsSchema": {
+        "properties": {
+          "amount": {
+            "type": "string",
+            "title": "Amount"
+          }
+        },
+        "type": "object",
+        "required": [
+          "amount"
+        ],
+        "title": "SlotsSchema"
+      },
+      "StatsEnum": {
+        "type": "string",
+        "enum": [
+          "approved",
+          "refused",
+          "underreview",
+          "waitlist"
+        ],
+        "title": "StatsEnum"
+      },
+      "StatsSchema": {
+        "properties": {
+          "user_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Ids"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/StatsEnum"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_ids",
+          "stats"
+        ],
+        "title": "StatsSchema"
+      },
+      "SubmissionSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "phone_number": {
+            "type": "string",
+            "title": "Phone Number"
+          },
+          "nationality": {
+            "type": "string",
+            "title": "Nationality"
+          },
+          "personal_website": {
+            "type": "string",
+            "title": "Personal Website"
+          },
+          "gender": {
+            "type": "string",
+            "title": "Gender"
+          },
+          "advisor": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UserSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Birth Date"
+          },
+          "graduation": {
+            "$ref": "#/components/schemas/GraduationSchema"
+          },
+          "poscomp": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PosCompSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "current_occupation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Occupation"
+          },
+          "research": {
+            "$ref": "#/components/schemas/ResearchSchema"
+          },
+          "lattes_curriculum": {
+            "type": "string",
+            "title": "Lattes Curriculum"
+          },
+          "stats": {
+            "type": "string",
+            "title": "Stats"
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "title": "Is Favorite"
+          },
+          "bidding_users": {
+            "$ref": "#/components/schemas/BiddingUsersSchema"
+          },
+          "labels": {
+            "items": {
+              "$ref": "#/components/schemas/LabelSchema-Output"
+            },
+            "type": "array",
+            "title": "Labels"
+          },
+          "disabilities": {
+            "type": "boolean",
+            "title": "Disabilities"
+          },
+          "ethnicity_race": {
+            "type": "boolean",
+            "title": "Ethnicity Race"
+          },
+          "accept": {
+            "$ref": "#/components/schemas/AcceptSchema"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "token",
+          "name",
+          "email",
+          "phone_number",
+          "nationality",
+          "personal_website",
+          "gender",
+          "advisor",
+          "birth_date",
+          "graduation",
+          "poscomp",
+          "current_occupation",
+          "research",
+          "lattes_curriculum",
+          "stats",
+          "is_favorite",
+          "bidding_users",
+          "labels",
+          "disabilities",
+          "ethnicity_race",
+          "accept"
+        ],
+        "title": "SubmissionSchema"
+      },
+      "UserLabelResponseSchema": {
+        "properties": {
+          "labels": {
+            "items": {
+              "$ref": "#/components/schemas/LabelSchema-Output"
+            },
+            "type": "array",
+            "title": "Labels"
+          }
+        },
+        "type": "object",
+        "required": [
+          "labels"
+        ],
+        "title": "UserLabelResponseSchema"
+      },
+      "UserResponseSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "UserResponseSchema"
+      },
+      "UserSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "email"
+        ],
+        "title": "UserSchema"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

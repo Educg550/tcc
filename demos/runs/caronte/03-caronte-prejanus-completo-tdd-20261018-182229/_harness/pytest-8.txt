@@ -1,0 +1,386 @@
+FFFFFEEEEEFFFFFF...F....FFFF.FFFFFF                                      [100%]
+==================================== ERRORS ====================================
+__________________ ERROR at setup of test_favorites_lifecycle __________________
+tests/test_evaluation.py:8: in eval_edict
+    ed = find_edict(client, phase="avaliacao", with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+___________________ ERROR at setup of test_labels_lifecycle ____________________
+tests/test_evaluation.py:8: in eval_edict
+    ed = find_edict(client, phase="avaliacao", with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+_____________________ ERROR at setup of test_private_notes _____________________
+tests/test_evaluation.py:8: in eval_edict
+    ed = find_edict(client, phase="avaliacao", with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+_________________________ ERROR at setup of test_views _________________________
+tests/test_evaluation.py:8: in eval_edict
+    ed = find_edict(client, phase="avaliacao", with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+__________________ ERROR at setup of test_comments_lifecycle ___________________
+tests/test_evaluation.py:8: in eval_edict
+    ed = find_edict(client, phase="avaliacao", with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+=================================== FAILURES ===================================
+____________________________ test_edicts_list_keys _____________________________
+tests/test_edicts.py:22: in test_edicts_list_keys
+    eds = get_edicts(client)
+          ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+_____________________________ test_edicts_filters ______________________________
+tests/test_edicts.py:29: in test_edicts_filters
+    eds = get_edicts(client)
+          ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+______________________________ test_edict_detail _______________________________
+tests/test_edicts.py:40: in test_edict_detail
+    eds = get_edicts(client)
+          ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+__________________ test_teacher_forbidden_on_admin_operations __________________
+tests/test_edicts.py:63: in test_teacher_forbidden_on_admin_operations
+    eds = get_edicts(client)
+          ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+______________________ test_mappings_consultation_allowed ______________________
+tests/test_edicts.py:98: in test_mappings_consultation_allowed
+    eds = get_edicts(client)
+          ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+____________________ test_comment_outside_avaliacao_is_400 _____________________
+tests/test_evaluation.py:102: in test_comment_outside_avaliacao_is_400
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+_______________________________ test_forms_list ________________________________
+tests/test_forms.py:9: in test_forms_list
+    assert r.status_code == 200
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+______________________ test_forms_filters_year_and_notice ______________________
+tests/test_forms.py:22: in test_forms_filters_year_and_notice
+    tags = f.get("tags") or {}
+           ^^^^^
+E   AttributeError: 'str' object has no attribute 'get'
+________________________________ test_form_full ________________________________
+tests/test_forms.py:40: in test_form_full
+    fid = _first_form(client)["id"]
+          ^^^^^^^^^^^^^^^^^^^
+tests/test_forms.py:4: in _first_form
+    return forms[0]
+           ^^^^^^^^
+E   KeyError: 0
+______________________________ test_form_sections ______________________________
+tests/test_forms.py:49: in test_form_sections
+    fid = _first_form(client)["id"]
+          ^^^^^^^^^^^^^^^^^^^
+tests/test_forms.py:4: in _first_form
+    return forms[0]
+           ^^^^^^^^
+E   KeyError: 0
+______________________ test_form_fields_sessions_segment _______________________
+tests/test_forms.py:59: in test_form_fields_sessions_segment
+    fid = _first_form(client)["id"]
+          ^^^^^^^^^^^^^^^^^^^
+tests/test_forms.py:4: in _first_form
+    return forms[0]
+           ^^^^^^^^
+E   KeyError: 0
+_____________________________ test_login_dev_user ______________________________
+tests/test_root_auth.py:48: in test_login_dev_user
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________________________________ test_slots __________________________________
+tests/test_selection_reports.py:7: in test_slots
+    eid = get_edicts(client)[0]["id"]
+          ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+_________________________________ test_bidding _________________________________
+tests/test_selection_reports.py:18: in test_bidding
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+______________________ test_select_forbidden_for_teacher _______________________
+tests/test_selection_reports.py:31: in test_select_forbidden_for_teacher
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+________________ test_reesend_submission_forbidden_for_teacher _________________
+tests/test_selection_reports.py:42: in test_reesend_submission_forbidden_for_teacher
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+____________________________ test_submissions_list _____________________________
+tests/test_submissions.py:39: in test_submissions_list
+    ed = _edict_with_submissions(client)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_submissions.py:32: in _edict_with_submissions
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+________________________ test_submissions_stats_filter _________________________
+tests/test_submissions.py:50: in test_submissions_stats_filter
+    ed = _edict_with_submissions(client)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_submissions.py:32: in _edict_with_submissions
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+____________________ test_submissions_only_favorites_filter ____________________
+tests/test_submissions.py:58: in test_submissions_only_favorites_filter
+    ed = _edict_with_submissions(client)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_submissions.py:32: in _edict_with_submissions
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+____________________________ test_submission_detail ____________________________
+tests/test_submissions.py:64: in test_submission_detail
+    ed = _edict_with_submissions(client)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_submissions.py:32: in _edict_with_submissions
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+__________________________ test_submission_detail_404 __________________________
+tests/test_submissions.py:76: in test_submission_detail_404
+    assert client.get("/submissions/99999999").status_code == 404
+E   AssertionError: assert 401 == 404
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+E    +    where <Response [401 Unauthorized]> = get('/submissions/99999999')
+E    +      where get = <httpx.Client object at 0x71468391f4d0>.get
+___________________________ test_download_attachment ___________________________
+tests/test_submissions.py:96: in test_download_attachment
+    ed = _edict_with_submissions(client)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_submissions.py:32: in _edict_with_submissions
+    ed = find_edict(client, with_submissions=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/conftest.py:48: in find_edict
+    for e in get_edicts(client):
+             ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:31: in get_edicts
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Not authenticated"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+=========================== short test summary info ============================
+FAILED tests/test_edicts.py::test_edicts_list_keys - AssertionError: {"detail...
+FAILED tests/test_edicts.py::test_edicts_filters - AssertionError: {"detail":...
+FAILED tests/test_edicts.py::test_edict_detail - AssertionError: {"detail":"N...
+FAILED tests/test_edicts.py::test_teacher_forbidden_on_admin_operations - Ass...
+FAILED tests/test_edicts.py::test_mappings_consultation_allowed - AssertionEr...
+FAILED tests/test_evaluation.py::test_comment_outside_avaliacao_is_400 - Asse...
+FAILED tests/test_forms.py::test_forms_list - assert 401 == 200
+FAILED tests/test_forms.py::test_forms_filters_year_and_notice - AttributeErr...
+FAILED tests/test_forms.py::test_form_full - KeyError: 0
+FAILED tests/test_forms.py::test_form_sections - KeyError: 0
+FAILED tests/test_forms.py::test_form_fields_sessions_segment - KeyError: 0
+FAILED tests/test_root_auth.py::test_login_dev_user - assert 500 == 200
+FAILED tests/test_selection_reports.py::test_slots - AssertionError: {"detail...
+FAILED tests/test_selection_reports.py::test_bidding - AssertionError: {"deta...
+FAILED tests/test_selection_reports.py::test_select_forbidden_for_teacher - A...
+FAILED tests/test_selection_reports.py::test_reesend_submission_forbidden_for_teacher
+FAILED tests/test_submissions.py::test_submissions_list - AssertionError: {"d...
+FAILED tests/test_submissions.py::test_submissions_stats_filter - AssertionEr...
+FAILED tests/test_submissions.py::test_submissions_only_favorites_filter - As...
+FAILED tests/test_submissions.py::test_submission_detail - AssertionError: {"...
+FAILED tests/test_submissions.py::test_submission_detail_404 - AssertionError...
+FAILED tests/test_submissions.py::test_download_attachment - AssertionError: ...
+ERROR tests/test_evaluation.py::test_favorites_lifecycle - AssertionError: {"...
+ERROR tests/test_evaluation.py::test_labels_lifecycle - AssertionError: {"det...
+ERROR tests/test_evaluation.py::test_private_notes - AssertionError: {"detail...
+ERROR tests/test_evaluation.py::test_views - AssertionError: {"detail":"Not a...
+ERROR tests/test_evaluation.py::test_comments_lifecycle - AssertionError: {"d...
+22 failed, 8 passed, 5 errors in 0.67s
+
+
+readpool(dependant.call, **values)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 39, in run_in_threadpool
+local-1  |     return await anyio.to_thread.run_sync(func, *args)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+local-1  |     return await get_async_backend().run_sync_in_worker_thread(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2476, in run_sync_in_worker_thread
+local-1  |     return await future
+local-1  |            ^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+local-1  |     result = context.run(func, *args)
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/app.py", line 108, in login
+local-1  |     user = fetch_user(uid) if uid else None
+local-1  |            ^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/app.py", line 75, in fetch_user
+local-1  |     with pj_conn() as c, c.cursor() as cur:
+local-1  |          ^^^^^^^^^
+local-1  |   File "/workspace/app.py", line 57, in pj_conn
+local-1  |     return psycopg.connect(os.getenv("DB_CONNECTION_STRING", ""))
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/connection.py", line 93, in connect
+local-1  |     params = cls._get_connection_params(conninfo, **kwargs)
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/connection.py", line 166, in _get_connection_params
+local-1  |     return conninfo_to_dict(conninfo, **kwargs)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/conninfo.py", line 82, in conninfo_to_dict
+local-1  |     opts = _parse_conninfo(conninfo)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/conninfo.py", line 103, in _parse_conninfo
+local-1  |     raise e.ProgrammingError(str(ex)) from None
+local-1  | psycopg.ProgrammingError: missing "=" after "postgresql+psycopg://caronte_prejanus:caronte_prejanus@db:5432/caronte_prejanus" in connection info string
+local-1  | 
+local-1  | INFO:     192.168.96.13:33474 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:33474 - "POST /auth/login/senhaunica?oauth_token=invalido&oauth_verifier=invalido HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts/download_pdf/job-inexistente HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts/download_csv/job-inexistente HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /submissions/99999999 HTTP/1.1" 401 Unauthorized
+local-1  | INFO:     192.168.96.13:33474 - "GET /edicts HTTP/1.1" 401 Unauthorized
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.7:33382 - "GET / HTTP/1.1" 200 OK
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:52530 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.13:36800 - "GET /auth/login HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:36800 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:36800 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:36800 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:36800 - "POST /submissions/1/favorites HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:36800 - "POST /edicts/1/slots HTTP/1.1" 401 Unauthorized

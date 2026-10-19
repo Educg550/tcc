@@ -1,0 +1,155 @@
+{
+  "started_at": "2026-10-18T18:22:29",
+  "ended_at": "2026-10-18T19:44:18",
+  "total_duration_s": 4908.97,
+  "grupo": "tdd",
+  "requisito_id": "03-caronte-prejanus-completo",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 0.0.0.0 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "",
+    "python": "3.11",
+    "pacotes": [
+      "pytest==9.0.3",
+      "fastapi==0.114.2",
+      "uvicorn==0.30.6",
+      "sqlalchemy[asyncio]==2.0.43",
+      "psycopg[c]==3.2.9",
+      "pydantic==2.11.7",
+      "pydantic-settings==2.10.1",
+      "python-multipart==0.0.17",
+      "itsdangerous==2.2.0",
+      "httpx==0.27.2",
+      "requests==2.32.5",
+      "oauthlib==3.3.1",
+      "senhaunicapy @ git+https://gitlab.com/ccsl-usp/poscomp-ime/senhaunicapy.git@db099c3532eda31ab6257030ef298290fce59e78",
+      "fastapi-mail==1.5.0",
+      "email-validator==2.3.0",
+      "fpdf2==2.8.4",
+      "matplotlib==3.10.7",
+      "pypdf==6.1.3",
+      "babel==2.17.0",
+      "alembic==1.16.5",
+      "argon2-cffi==23.1.0"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3"
+    },
+    "amostragem": {
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "orcamento": {
+    "passos": 40,
+    "custo_usd": 2.0,
+    "tempo_s": 3600
+  },
+  "total_cost_usd": 0.69564,
+  "total_tokens": 969426,
+  "total_retries": 8,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 83.65,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "arquivos": [
+        "tests/conftest.py",
+        "tests/test_root_auth.py",
+        "tests/test_forms.py",
+        "tests/test_edicts.py",
+        "tests/test_submissions.py",
+        "tests/test_evaluation.py",
+        "tests/test_selection_reports.py"
+      ],
+      "historico": [],
+      "input_tokens": 41975,
+      "output_tokens": 13852,
+      "total_tokens": 55827,
+      "cost_usd": 0.036938
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 4373.91,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 9,
+      "retries": 8,
+      "arquivos": [
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 33,
+          "failed": 1,
+          "errors": 0,
+          "total": 34
+        },
+        {
+          "passed": 0,
+          "failed": 30,
+          "errors": 5,
+          "total": 35
+        },
+        {
+          "passed": 32,
+          "failed": 1,
+          "errors": 0,
+          "total": 33
+        },
+        {
+          "passed": 31,
+          "failed": 3,
+          "errors": 0,
+          "total": 34
+        },
+        {
+          "passed": 0,
+          "failed": 30,
+          "errors": 5,
+          "total": 35
+        },
+        {
+          "passed": 32,
+          "failed": 2,
+          "errors": 0,
+          "total": 34
+        },
+        {
+          "passed": 8,
+          "failed": 22,
+          "errors": 5,
+          "total": 35
+        },
+        {
+          "passed": 0,
+          "failed": 30,
+          "errors": 5,
+          "total": 35
+        }
+      ],
+      "input_tokens": 469285,
+      "output_tokens": 444314,
+      "total_tokens": 913599,
+      "cost_usd": 0.658702,
+      "impressao": "9ad8c0d5ea756c235a206769847b1e5d8e41f9237b58bd5aa2c932e35c448689",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 0,
+    "failed": 30,
+    "errors": 5,
+    "total": 35
+  },
+  "integridade": {
+    "medido_sha256": "9ad8c0d5ea756c235a206769847b1e5d8e41f9237b58bd5aa2c932e35c448689",
+    "intacto": true
+  }
+}

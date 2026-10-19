@@ -1,0 +1,68 @@
+sem-atalho-1  | Traceback (most recent call last):
+sem-atalho-1  |   File "/home/appuser/venv/bin/uvicorn", line 6, in <module>
+sem-atalho-1  |     sys.exit(main())
+sem-atalho-1  |              ^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1442, in __call__
+sem-atalho-1  |     return self.main(*args, **kwargs)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1363, in main
+sem-atalho-1  |     rv = self.invoke(ctx)
+sem-atalho-1  |          ^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1226, in invoke
+sem-atalho-1  |     return ctx.invoke(self.callback, **ctx.params)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 794, in invoke
+sem-atalho-1  |     return callback(*args, **kwargs)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 410, in main
+sem-atalho-1  |     run(
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 577, in run
+sem-atalho-1  |     server.run()
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+sem-atalho-1  |     return asyncio.run(self.serve(sockets=sockets))
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+sem-atalho-1  |     return runner.run(main)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+sem-atalho-1  |     return self._loop.run_until_complete(task)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 69, in serve
+sem-atalho-1  |     await self._serve(sockets)
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 76, in _serve
+sem-atalho-1  |     config.load()
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/config.py", line 434, in load
+sem-atalho-1  |     self.loaded_app = import_from_string(self.app)
+sem-atalho-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/importer.py", line 19, in import_from_string
+sem-atalho-1  |     module = importlib.import_module(module_str)
+sem-atalho-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+sem-atalho-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+sem-atalho-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+sem-atalho-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+sem-atalho-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+sem-atalho-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+sem-atalho-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+sem-atalho-1  |   File "/workspace/app.py", line 352, in <module>
+sem-atalho-1  |     seed()
+sem-atalho-1  |   File "/workspace/app.py", line 341, in seed
+sem-atalho-1  |     pdf_bytes = make_pdf_bytes(["Documento do candidato", "PreJanus"])
+sem-atalho-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/workspace/app.py", line 294, in make_pdf_bytes
+sem-atalho-1  |     pdf.multi_cell(0, 8, str(ln))
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 221, in wrapper
+sem-atalho-1  |     return fn(self, *args, **kwargs)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/deprecation.py", line 32, in wrapper
+sem-atalho-1  |     return fn(self, *args, **kwargs)
+sem-atalho-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 4208, in multi_cell
+sem-atalho-1  |     text_line = multi_line_break.get_line()
+sem-atalho-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sem-atalho-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/line_break.py", line 794, in get_line
+sem-atalho-1  |     raise FPDFException(
+sem-atalho-1  | fpdf.errors.FPDFException: Not enough horizontal space to render a single character

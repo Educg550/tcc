@@ -1,0 +1,77 @@
+..........s..........F............s                                      [100%]
+=================================== FAILURES ===================================
+______________________ test_senhaunica_request_token_step ______________________
+tests/test_root_auth.py:67: in test_senhaunica_request_token_step
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+=========================== short test summary info ============================
+FAILED tests/test_root_auth.py::test_senhaunica_request_token_step - assert 5...
+1 failed, 32 passed, 2 skipped in 1.89s
+
+
+.13:37392 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "POST /edicts/3/slots HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "POST /submissions/5/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "POST /submissions/5/select HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "POST /submissions/5/reesend_submission HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/download_pdf/job-inexistente HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/download_csv/job-inexistente HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions?stats=underreview HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /submissions/5?include_comments=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.13:37392 - "GET /submissions/5 HTTP/1.1" 200 OK
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.12:40594 - "GET / HTTP/1.1" 200 OK
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.12:34670 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.13:33836 - "GET /auth/login HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:33836 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:33836 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:33836 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:33836 - "POST /submissions/1/favorites HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.13:33836 - "POST /edicts/1/slots HTTP/1.1" 401 Unauthorized

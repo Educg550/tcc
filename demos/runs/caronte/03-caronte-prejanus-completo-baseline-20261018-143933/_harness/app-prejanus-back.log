@@ -1,0 +1,87 @@
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 490, in __call__
+prejanus-back-1  |     field_value = self.prepare_field_value(field_name, field, field_value, value_is_complex)
+prejanus-back-1  |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 120, in prepare_field_value
+prejanus-back-1  |     raise e
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/pydantic_settings/sources/providers/env.py", line 117, in prepare_field_value
+prejanus-back-1  |     value = self.decode_complex_value(field_name, field, value)
+prejanus-back-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 186, in decode_complex_value
+prejanus-back-1  |     return json.loads(value)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/json/__init__.py", line 346, in loads
+prejanus-back-1  |     return _default_decoder.decode(s)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/json/decoder.py", line 337, in decode
+prejanus-back-1  |     obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/json/decoder.py", line 355, in raw_decode
+prejanus-back-1  |     raise JSONDecodeError("Expecting value", s, err.value) from None
+prejanus-back-1  | json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/bin/uvicorn", line 6, in <module>
+prejanus-back-1  |     sys.exit(main())
+prejanus-back-1  |              ^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1442, in __call__
+prejanus-back-1  |     return self.main(*args, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1363, in main
+prejanus-back-1  |     rv = self.invoke(ctx)
+prejanus-back-1  |          ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1226, in invoke
+prejanus-back-1  |     return ctx.invoke(self.callback, **ctx.params)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 794, in invoke
+prejanus-back-1  |     return callback(*args, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 410, in main
+prejanus-back-1  |     run(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 577, in run
+prejanus-back-1  |     server.run()
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+prejanus-back-1  |     return asyncio.run(self.serve(sockets=sockets))
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+prejanus-back-1  |     return runner.run(main)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+prejanus-back-1  |     return self._loop.run_until_complete(task)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 69, in serve
+prejanus-back-1  |     await self._serve(sockets)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 76, in _serve
+prejanus-back-1  |     config.load()
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/config.py", line 434, in load
+prejanus-back-1  |     self.loaded_app = import_from_string(self.app)
+prejanus-back-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/importer.py", line 19, in import_from_string
+prejanus-back-1  |     module = importlib.import_module(module_str)
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+prejanus-back-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+prejanus-back-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+prejanus-back-1  |   File "/workspace/app.py", line 6, in <module>
+prejanus-back-1  |     from config import settings
+prejanus-back-1  |   File "/workspace/config.py", line 34, in <module>
+prejanus-back-1  |     settings = Settings()
+prejanus-back-1  |                ^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/pydantic_settings/main.py", line 189, in __init__
+prejanus-back-1  |     **__pydantic_self__._settings_build_values(
+prejanus-back-1  |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/pydantic_settings/main.py", line 424, in _settings_build_values
+prejanus-back-1  |     source_state = source()
+prejanus-back-1  |                    ^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/pydantic_settings/sources/base.py", line 492, in __call__
+prejanus-back-1  |     raise SettingsError(
+prejanus-back-1  | pydantic_settings.exceptions.SettingsError: error parsing value for field "BACKEND_CORS_ORIGINS" from source "EnvSettingsSource"

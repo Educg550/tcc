@@ -1,0 +1,68 @@
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/bin/uvicorn", line 6, in <module>
+prejanus-back-1  |     sys.exit(main())
+prejanus-back-1  |              ^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1442, in __call__
+prejanus-back-1  |     return self.main(*args, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1363, in main
+prejanus-back-1  |     rv = self.invoke(ctx)
+prejanus-back-1  |          ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1226, in invoke
+prejanus-back-1  |     return ctx.invoke(self.callback, **ctx.params)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 794, in invoke
+prejanus-back-1  |     return callback(*args, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 410, in main
+prejanus-back-1  |     run(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 577, in run
+prejanus-back-1  |     server.run()
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+prejanus-back-1  |     return asyncio.run(self.serve(sockets=sockets))
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+prejanus-back-1  |     return runner.run(main)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+prejanus-back-1  |     return self._loop.run_until_complete(task)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 69, in serve
+prejanus-back-1  |     await self._serve(sockets)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 76, in _serve
+prejanus-back-1  |     config.load()
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/config.py", line 434, in load
+prejanus-back-1  |     self.loaded_app = import_from_string(self.app)
+prejanus-back-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/importer.py", line 19, in import_from_string
+prejanus-back-1  |     module = importlib.import_module(module_str)
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+prejanus-back-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+prejanus-back-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+prejanus-back-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+prejanus-back-1  |   File "/workspace/app.py", line 352, in <module>
+prejanus-back-1  |     seed()
+prejanus-back-1  |   File "/workspace/app.py", line 341, in seed
+prejanus-back-1  |     pdf_bytes = make_pdf_bytes(["Documento do candidato", "PreJanus"])
+prejanus-back-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/app.py", line 294, in make_pdf_bytes
+prejanus-back-1  |     pdf.multi_cell(0, 8, str(ln))
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 221, in wrapper
+prejanus-back-1  |     return fn(self, *args, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/deprecation.py", line 32, in wrapper
+prejanus-back-1  |     return fn(self, *args, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 4208, in multi_cell
+prejanus-back-1  |     text_line = multi_line_break.get_line()
+prejanus-back-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/line_break.py", line 794, in get_line
+prejanus-back-1  |     raise FPDFException(
+prejanus-back-1  | fpdf.errors.FPDFException: Not enough horizontal space to render a single character
