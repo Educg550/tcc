@@ -32,3 +32,16 @@ HTTP/navegador, sem corrigir manualmente a entrega. Não há avaliação CUA nes
 
 Fontes: [endpoint do modelo](https://openrouter.ai/api/v1/models/z-ai/glm-5.3/endpoints)
 e [limite de preços](https://openrouter.ai/docs/guides/routing/provider-selection#max-price).
+
+## Primeira execução
+
+`runs/marketplace/04-marketplace-glm-baseline-20261019-093026/`: 42 arquivos,
+46 chamadas, US$ 0,298045, pico de entrada de 48.105 tokens. Backend sobe e passa
+nos dez checks HTTP externos. O frontend original não instala: material-nextjs 7.3.1
+não existe. Em cópia separada com apenas essa dependência em 7.3.0, o build encontra
+`useRouter` sem import na tela de conversa. A entrega original não foi corrigida.
+
+A entrada desta primeira execução está congelada em `_harness/entrada/`. Depois
+dela, o requisito foi corrigido para usar e-mails `example.com` (EmailStr recusa
+`example.test`) e declarar a versão 7.3.0 do pacote de integração MUI/Next. Não houve
+segunda geração. Os testes HTTP desta pasta nunca são enviados ao gerador.

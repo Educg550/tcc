@@ -14,6 +14,8 @@ Use a stack do Caronte/PreJanus:
   Pode usar SQLAlchemy síncrono; escolha uma forma consistente para toda a aplicação.
 - Frontend em `frontend/`: Next.js **15.5.7**, React e React DOM **19.1.1**,
   TypeScript **5.9.2**, Material UI **7.3.1** e Emotion **11.14.x**. Use App Router.
+  Para integrar MUI e Next, use `@mui/material-nextjs` **7.3.0**, versão do Caronte;
+  a versão desse pacote não acompanha necessariamente a de `@mui/material`.
   Declare essas dependências em `frontend/package.json`, com scripts `dev`, `build`
   e `start`. O executor fornece Node.js e instala os pacotes após a geração.
 - O frontend usa URLs relativas `/api/...`. Configure um rewrite do Next para
@@ -159,8 +161,8 @@ Interface em pt-BR, valores com `R$`, datas legíveis, layout responsivo para ce
 e desktop, campos com rótulos e botões acessíveis por teclado. Use componentes MUI
 com hierarquia visual consistente e um visual próprio de marketplace.
 
-Em banco vazio, semeie uma única vez as contas `ana@example.test`,
-`bruno@example.test` e `carla@example.test`, nomes Ana, Bruno e Carla, senha
+Em banco vazio, semeie uma única vez as contas `ana@example.com`,
+`bruno@example.com` e `carla@example.com`, nomes Ana, Bruno e Carla, senha
 `Marketplace123!`, e pelo menos 12 anúncios variados distribuídos entre Ana e Bruno.
 Inclua `Bicicleta urbana`, `Notebook para estudos` e `Estante de madeira`.
 Não duplique seeds a cada startup. Carla pode usar o fluxo completo de compra.

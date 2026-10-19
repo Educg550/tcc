@@ -1,0 +1,30 @@
+npm warn deprecated next@15.5.7: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
+
+added 107 packages in 40s
+npm notice
+npm notice New major version of npm available! 10.9.9 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
+
+> build
+> next build
+
+   ▲ Next.js 15.5.7
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 15.1s
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/conversations/[id]/page.tsx:22:18
+Type error: Cannot find name 'useRouter'. Did you mean 'router'?
+
+[0m [90m 20 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mConversationPage[39m() {
+ [90m 21 |[39m   [36mconst[39m params [33m=[39m useParams[33m<[39m{ id[33m:[39m string }[33m>[39m()[33m;[39m
+[31m[1m>[22m[39m[90m 22 |[39m   [36mconst[39m router [33m=[39m useRouter()[33m;[39m
+ [90m    |[39m                  [31m[1m^[22m[39m
+ [90m 23 |[39m   [36mconst[39m { user[33m,[39m loading } [33m=[39m useAuth()[33m;[39m
+ [90m 24 |[39m   [36mconst[39m [conversation[33m,[39m setConversation] [33m=[39m useState[33m<[39m[33mConversation[39m [33m|[39m [36mnull[39m[33m>[39m([36mnull[39m)[33m;[39m
+ [90m 25 |[39m   [36mconst[39m [messages[33m,[39m setMessages] [33m=[39m useState[33m<[39m[33mMessage[39m[][33m>[39m([])[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null
