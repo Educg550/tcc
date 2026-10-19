@@ -1,0 +1,83 @@
+Projeto: /home/opuscg550/code/personal/tcc/demos/runs/caronte/05-prejanus-back-piloto-v3-baseline-20261019-095708
+WARNING  Could not run function substituir_trecho(antigo=...,                   
+         caminho=routers/edicts.py, novo=...): non-default argument follows     
+         default argument (edicts.py, line 558)                                 
+ERROR    non-default argument follows default argument (edicts.py, line 558)    
+         Traceback (most recent call last):                                     
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/.venv/lib/python3.11/site-pack
+         ages/agno/tools/function.py", line 1068, in execute                    
+             result = self.function.entrypoint(**entrypoint_args,               
+         **self.arguments)  # type: ignore                                      
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         ^^^                                                                    
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/.venv/lib/python3.11/site-pack
+         ages/pydantic/_internal/_validate_call.py", line 40, in                
+         wrapper_function                                                       
+             return wrapper(*args, **kwargs)                                    
+                    ^^^^^^^^^^^^^^^^^^^^^^^^                                    
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/.venv/lib/python3.11/site-pack
+         ages/pydantic/_internal/_validate_call.py", line 137, in __call__      
+             res =                                                              
+         self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(ar
+         gs, kwargs))                                                           
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         ^^^^^^^^^^^^^^^^^^^^^^                                                 
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/harness/models/arquivos.py",  
+         line 78, in substituir_trecho                                          
+             return self._guardar(caminho, conteudo.replace(antigo, novo, 1))   
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/harness/models/arquivos.py",  
+         line 53, in _guardar                                                   
+             destino = self.escopo.validar(self.projeto.raiz, caminho, conteudo)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/harness/models/etapas.py",    
+         line 38, in validar                                                    
+             compile(conteudo, str(destino), "exec")                            
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/runs/caronte/05-prejanus-back-
+         piloto-v3-baseline-20261019-095708/routers/edicts.py", line 558        
+             background_tasks: BackgroundTasks,                                 
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                  
+         SyntaxError: non-default argument follows default argument             
+WARNING  Could not run function substituir_trecho(antigo=...,                   
+         caminho=routers/edicts.py, novo=...): O trecho antigo deve aparecer    
+         exatamente uma vez. Leia o arquivo novamente.                          
+ERROR    O trecho antigo deve aparecer exatamente uma vez. Leia o arquivo       
+         novamente.                                                             
+         Traceback (most recent call last):                                     
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/.venv/lib/python3.11/site-pack
+         ages/agno/tools/function.py", line 1068, in execute                    
+             result = self.function.entrypoint(**entrypoint_args,               
+         **self.arguments)  # type: ignore                                      
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         ^^^                                                                    
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/.venv/lib/python3.11/site-pack
+         ages/pydantic/_internal/_validate_call.py", line 40, in                
+         wrapper_function                                                       
+             return wrapper(*args, **kwargs)                                    
+                    ^^^^^^^^^^^^^^^^^^^^^^^^                                    
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/.venv/lib/python3.11/site-pack
+         ages/pydantic/_internal/_validate_call.py", line 137, in __call__      
+             res =                                                              
+         self.__pydantic_validator__.validate_python(pydantic_core.ArgsKwargs(ar
+         gs, kwargs))                                                           
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         ^^^^^^^^^^^^^^^^^^^^^^                                                 
+           File                                                                 
+         "/home/opuscg550/code/personal/tcc/demos/harness/models/arquivos.py",  
+         line 77, in substituir_trecho                                          
+             raise ValueError("O trecho antigo deve aparecer exatamente uma vez.
+         Leia o arquivo novamente.")                                            
+         ValueError: O trecho antigo deve aparecer exatamente uma vez. Leia o   
+         arquivo novamente.                                                     
+{"run": "/home/opuscg550/code/personal/tcc/demos/runs/caronte/05-prejanus-back-piloto-v3-baseline-20261019-095708", "custo_usd": 0.379988, "arquivos": 17, "stages": [{"id": "direto", "configured_model": "z-ai/glm-5.3", "duration_s": 550.01, "ok": true, "motivo": "verde", "passos": 1, "retries": 0, "chamadas_modelo": 24, "contexto_max_tokens": 93334, "arquivos": ["database.py", "config.py", "models.py", "schemas.py", "services/forms_service.py", "auth.py", "services/mapping.py", "services/mailer.py", "services/submissions_service.py", "services/reports.py", "routers/forms.py", "routers/auth.py", "routers/edicts.py", "routers/submissions.py", "app.py", "services/__init__.py", "routers/__init__.py"], "historico": [], "input_tokens": 1699196, "output_tokens": 48272, "total_tokens": 1747468, "cost_usd": 0.379988, "impressao": "97c724c12efdaf604f57819549544f78cc28901a9f1ec0686fe1c26ddbc816b5", "tests_vermelhos": null}]}
+{"passed": 26, "total": 247, "visiveis": {"passed": 15, "total": 161}, "reservados": {"passed": 10, "total": 85}}

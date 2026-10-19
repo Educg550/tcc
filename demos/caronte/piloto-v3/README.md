@@ -27,3 +27,21 @@ A nova pasta em `runs/caronte/05-prejanus-back-piloto-v3-baseline-*` preserva a
 entrada, prompts, runtime/provedor, hashes e linhas dos arquivos gerados, métricas
 por chamada e resultados do oráculo. O original tem 233/247 casos aprovados;
 as 14 divergências conhecidas continuam registradas no protocolo v2.
+
+## Execução de 19/10/2026
+
+Run `05-prejanus-back-piloto-v3-baseline-20261019-095708`: 17 arquivos Python,
+2.865 linhas, `app.py` com 39 linhas, 24 chamadas em uma sessão. Custo US$ 0,379988
+de US$ 2; geração em 550,01 s; pico de entrada 93.334 tokens (8,90% da janela).
+A API iniciou e declarou as 50 operações, mais duas extras.
+
+Oráculo: 26/247 aprovados, 69 falhas e 152 erros de preparação por OAuth.
+Um aprovado é a rastreabilidade da suíte: são 25/246 casos comportamentais.
+Visíveis: 15/161; reservados: 10/85. O código concatena host e recurso sem a barra
+necessária, produzindo `http://oauth:8000wsusuario/...` e login 500. A entrega não
+foi corrigida. Não houve nova geração, TDD/rework ou CUA. A referência 233/247 do
+original é histórica; uma conferência adicional foi interrompida após 26 aprovados.
+
+Entrega, entrada, prompts, manifesto, métricas e oráculo ficam em `../../runs/caronte/`
+na pasta da run. O diário detalha o resultado em
+`../../../blog/2026-10-19-piloto-v3-baseline-modular.md`.
