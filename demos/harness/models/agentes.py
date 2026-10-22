@@ -46,24 +46,21 @@ class ModeloComOrcamento(OpenRouter):
         pedido = {"messages": self._format_all_messages(mensagens), "tools": kwargs.get("tools")}
         tamanho = len(json.dumps(pedido, ensure_ascii=False).encode("utf-8"))
         precos = (self.extra_body or {}).get("provider", {}).get("max_price")
-        # Limite conservador por bytes, com folga para a formatação interna do provedor.
-        reserva = ((tamanho + 512 * len(mensagens) + 2048) * precos["prompt"]
-                   + self.max_tokens * precos["completion"]) / 1_000_000 if precos else 0
         custo = sum(m.cost or 0 for m in self.metricas)
         if self.orcamento:
-            # Passos são propostas ao gate; chamadas de ferramentas não são retries.
-            self.limite = self.orcamento.estourou(0, custo + reserva, self.inicio)
+            # Custo e tempo são conferidos entre chamadas: a última pode passar do teto, e o RUN.log
+            # registra o valor real. Uma reserva pelo pior caso deixava o coder em ~57% do teto.
+            self.limite = self.orcamento.estourou(0, custo, self.inicio)
             if self.limite:
                 if self.trace:
-                    self.trace.registrar({"evento": "limite", "motivo": self.limite,
-                                          "cost_usd": custo, "reserva_usd": reserva})
+                    self.trace.registrar({"evento": "limite", "motivo": self.limite, "cost_usd": custo})
                 raise RuntimeError(f"Orçamento esgotado: {self.limite}")
         self.chamadas += 1
         inicio = time.time()
         evento = {"chamada": self.chamadas, "model": self.id,
                   "session_id": getattr(kwargs.get("run_response"), "session_id", None),
                   "request_bytes": tamanho, "mensagens": len(mensagens),
-                  "max_output_tokens": self.max_tokens, "reserva_usd": reserva}
+                  "max_output_tokens": self.max_tokens}
         if self.trace:
             self.trace.registrar({**evento, "evento": "inicio", "timestamp": inicio})
         try:

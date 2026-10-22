@@ -120,20 +120,24 @@ def test_ferramentas_editam_incrementalmente_com_historico_e_metricas(tmp_path):
     asyncio.run(verificar())
 
 
-def test_reserva_de_custo_impede_chamada_que_poderia_ultrapassar_teto(tmp_path):
+def test_teto_de_custo_conferido_entre_chamadas(tmp_path):
     async def verificar():
         pedidos = []
-        agente, cliente = configurar(tmp_path, lambda pedido: pedidos.append(pedido))
+
+        def responder(pedido):
+            pedidos.append(pedido)
+            return {"tool_calls": [ferramenta("listar_arquivos")]}
+
+        agente, cliente = configurar(tmp_path, responder, replace(ORCAMENTO, custo_usd=0.015))
         agente._agno.model.extra_body = {
             **agente._agno.model.extra_body,
             "provider": {"max_price": {"prompt": 10, "completion": 10}},
         }
         resposta = await agente.propor("REQUISITO")
-        assert not pedidos and cliente.is_closed()
-        assert resposta.limite == "custo" and resposta.chamadas == 0
-        assert resposta.custo_usd == 0 and resposta.total_tokens == 0
-        evento = json.loads((tmp_path / "_harness/chamadas_modelo.jsonl").read_text())
-        assert evento["reserva_usd"] > ORCAMENTO.custo_usd
+        # Cada chamada custa 0,01: a segunda começa abaixo do teto e termina acima; a terceira não começa.
+        assert len(pedidos) == 2 and cliente.is_closed()
+        assert resposta.limite == "custo" and resposta.chamadas == 2
+        assert resposta.custo_usd == pytest.approx(0.02)
 
     asyncio.run(verificar())
 
