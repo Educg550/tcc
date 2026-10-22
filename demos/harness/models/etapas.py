@@ -1,3 +1,5 @@
+import builtins
+import symtable
 import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
@@ -15,12 +17,28 @@ class EscopoViolado(ValueError):
     pass
 
 
+def nomes_indefinidos(conteudo: str, arquivo: str) -> list[str]:
+    """Nomes globais lidos e nunca definidos no módulo, como `pytest.skip` sem `import pytest`."""
+    modulo = symtable.symtable(conteudo, arquivo, "exec")
+    definidos, lidos, pendentes = set(dir(builtins)) | {"__file__"}, set(), [modulo]
+    while pendentes:
+        tabela = pendentes.pop()
+        pendentes += tabela.get_children()
+        for s in tabela.get_symbols():
+            if (tabela is modulo or s.is_declared_global()) and (s.is_assigned() or s.is_imported()):
+                definidos.add(s.get_name())
+            if s.is_referenced() and (tabela is modulo or s.is_global()):
+                lidos.add(s.get_name())
+    return sorted(lidos - definidos)
+
+
 @dataclass(frozen=True)
 class Escopo:
     """Onde uma etapa pode escrever: um prefixo permitido e prefixos negados."""
 
     dentro: str | None = None
     fora: tuple[str, ...] = ()
+    nomes: bool = False
 
     def destino(self, raiz: Path, caminho: str) -> Path:
         alvo = (raiz / caminho).resolve()
@@ -36,6 +54,8 @@ class Escopo:
         destino = self.destino(raiz, caminho)
         if destino.suffix == ".py":
             compile(conteudo, str(destino), "exec")
+            if self.nomes and (faltam := nomes_indefinidos(conteudo, str(destino))):
+                raise ValueError(f"{caminho}: nomes usados e não definidos nem importados: {', '.join(faltam)}")
         return destino
 
     @property
@@ -57,7 +77,8 @@ class Escopo:
         return PropostaAceita(projeto.escrever(destinos))
 
 
-SO_TESTES = Escopo(dentro="tests")
+# Só nos testes: o coder não pode corrigi-los, e um nome indefinido reprova até código correto.
+SO_TESTES = Escopo(dentro="tests", nomes=True)
 CODIGO = Escopo(fora=MEDIDO + ("_harness", ".git"))
 
 

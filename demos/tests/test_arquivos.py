@@ -77,6 +77,16 @@ def test_test_writer_so_cria_testes_e_specs_so_editam_a_propria_subarvore(arquiv
         specs.ler_arquivo("_harness/trace.jsonl")
 
 
+def test_test_writer_nao_grava_teste_com_nome_indefinido(arquivos):
+    testes = Arquivos(arquivos.projeto, SO_TESTES)
+    corpo = "def test_x(cliente):\n    if not cliente:\n        pytest.skip('sem cliente')\n"
+    with pytest.raises(ValueError, match="pytest"):
+        testes.criar_arquivo("tests/test_x.py", corpo)
+    testes.criar_arquivo("tests/test_x.py", "import pytest\n\n" + corpo)
+    # O coder não é checado: nome indefinido no código aparece no pytest, como na baseline.
+    arquivos.criar_arquivo("app.py", "x = y\n")
+
+
 def test_proposta_com_sintaxe_invalida_nao_grava_nenhum_arquivo(arquivos):
     mudanca = Mudanca(arquivos=[
         Arquivo(caminho="valido.py", conteudo="x = 1\n"),
