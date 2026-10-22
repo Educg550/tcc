@@ -24,5 +24,7 @@ def test_gate_tdd_roda_testes_http_contra_o_candidato_no_ambiente_v2(tmp_path):
         '    assert httpx.get(os.environ["CARONTE_API_SEM_ATALHO"]).status_code == 200\n'
     )
     assert projeto.rodar_pytest().passou
-    (tmp_path / "app.py").unlink()
-    assert not projeto.rodar_pytest().passou
+    (tmp_path / "app.py").write_text("from routers import auth\n")
+    r = projeto.rodar_pytest()
+    assert not r.passou and "nenhum teste foi executado" in r.saida
+    assert "ModuleNotFoundError: No module named 'routers'" in r.saida

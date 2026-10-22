@@ -41,6 +41,20 @@ def override(raiz):
     return {"services": {nome: servico for nome in BACKENDS}}
 
 
+def no_ar(tentativas=120):
+    """Espera os backends; desiste quando um contêiner sai, como num erro de import."""
+    for _ in range(tentativas):
+        if dc("ps", "-q", "--status", "exited", *BACKENDS).stdout.strip():
+            return False
+        try:
+            for caminho in CAMINHOS:
+                esperar(URL + caminho, tentativas=1)
+            return True
+        except RuntimeError:
+            pass
+    return False
+
+
 @contextmanager
 def candidato(raiz, saida):
     """Troca os backends do ambiente pelo app gerado e devolve o original ao sair."""
@@ -54,13 +68,9 @@ def candidato(raiz, saida):
     # O nginx resolve os upstreams só ao subir; recriados, os backends trocam de IP.
     dc("restart", "proxy")
     try:
-        try:
-            for caminho in CAMINHOS:
-                esperar(URL + caminho, tentativas=120)
-        except RuntimeError:
-            pass  # app que não sobe reprova nos testes, com o log anexado ao gate
+        subiu = no_ar()
         restaurar()
-        yield
+        yield subiu
     finally:
         for nome in BACKENDS:
             log = subprocess.run([*DC, "logs", "--no-color", nome], capture_output=True)
@@ -84,8 +94,11 @@ class ProjetoV2(Projeto):
 
     def rodar_pytest(self):
         self.gates += 1
-        with candidato(self.raiz, self.saida):
-            if self.grupo == "rework":
+        with candidato(self.raiz, self.saida) as subiu:
+            if not subiu:
+                # Contra um app fora do ar a suíte só acumula 502 e gasta o teto de tempo da etapa.
+                r = subprocess.CompletedProcess([], 1, "", "App não respondeu; nenhum teste foi executado.")
+            elif self.grupo == "rework":
                 # Executa a cópia do avaliador, não a do workspace: editar testes não muda o gate.
                 r = pytest_oraculo(self.saida, f"gate-{self.gates}", VISIVEIS)
             else:
