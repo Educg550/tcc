@@ -146,8 +146,8 @@ def test_nao_entrega_arquivo_de_outro_campo_ou_candidatura(api, caminho):
 def test_estado_sobrevive_ao_reinicio_do_backend(api):
     api.post('submissions/1/comments', json={'comment': 'Persistente'})
     api.post('submissions/1/private_notes', json={'note': 'Nota persistente'})
-    dc('restart', 'prejanus-back')
-    esperar(BASE + '/backend/')
+    dc('restart', 'local')
+    esperar(BASE + '/local/')
     resumo = api.get('submissions/1').json()['summary']
     assert resumo['private_note'] == 'Nota persistente'
     assert 'Persistente' in json.dumps(api.get('submissions/1/comments').json(), ensure_ascii=False)

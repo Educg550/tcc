@@ -185,6 +185,38 @@ fluxos, não apenas às rotas. Variantes do mesmo cenário compartilham a
 partição quando revelarem sua resposta esperada. Não copiar parametrizações
 reservadas para o workspace e apenas marcá-las como skip.
 
+Cobertura viva medida em 19/10/2026 por `ambiente.py cobertura` (os três
+backends originais sob coverage, descontado `../codigo-morto.json`):
+2398/2565 linhas (93,5%), 50/50 operações exercitadas, 233/247 casos
+aprovados e só as 14 divergências registradas falhando. O coverage precisa de
+`--concurrency=thread,greenlet`: o SQLAlchemy async retoma em greenlet e,
+sem isso, perde as linhas após cada consulta (dava 68,1%; os 52,9% do v1
+foram medidos assim e estão subestimados). O que sobra descoberto é sobretudo
+o que as divergências impedem de executar (`send-accept`, `send-letter`) e
+código sem chamador que o vulture não pegou (`send_approved_emails.py`, a
+primeira implementação em `utils/map_candidate.py`).
+
+Decisão de 21/10/2026: o login OAuth deixa de ser porta única. Com a
+fixture anterior, todo caso logado passava por `entrar()`, e um defeito no
+login do candidato virava erro de preparação em 152/247 casos (62%), sem
+exercitar a regra do caso. Agora `clientes(perfil)` usa o atalho
+`DEV_USER_ID` do V2-AUT-01, com uma instância `local-<perfil>` por perfil,
+e o fluxo OAuth fica nos 7 testes de V2-AUT-02, que entram por `anonimo`.
+No original o resultado não mudou: 233/247, só as 14 divergências
+registradas falhando, 50/50 operações e 2398/2565 linhas (93,5%).
+
+Reavaliação das runs v3 com a fixture nova (código idêntico, conferido
+pelos hashes; resultados em `_harness/oraculo-atalho/`, os anteriores
+preservados):
+
+| Run | Antes | Depois | Visíveis | Reservados | V2-AUT-02 |
+|---|---|---|---|---|---|
+| Baseline v3 | 26/247 | 139/247 | 89/161 | 49/85 | 0/7 |
+| TDD v3 | 29/247 | 185/247 | 123/161 | 61/85 | 0/7 |
+
+As runs v2 e anteriores foram medidas com a fixture antiga e não são
+comparáveis a esses números sem reavaliação.
+
 Split congelado em 17/10/2026 por `oraculo/split.py` (regra no próprio
 arquivo e em `oraculo/split.json`): a unidade é a função de teste, com
 todas as parametrizações; estratos são o primeiro requisito. Resultado:

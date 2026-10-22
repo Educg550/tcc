@@ -3,7 +3,9 @@ import argparse
 import io
 import json
 import re
+import shutil
 import subprocess
+import sys
 import tarfile
 import time
 from pathlib import Path
@@ -16,6 +18,9 @@ DADOS = AQUI / "dados"
 ESTADO = AQUI / ".estado"
 URL = "https://localhost:8543"
 DC = ["docker", "compose", "-f", str(AQUI / "compose.yml")]
+BACKENDS = ("prejanus-back", "local", "sem-atalho",
+            *(f"local-{p}" for p in ("admin", "outro", "secretaria", "coordenador", "estudante")))
+CAMINHOS = ("/backend/", *(f"/{b}/" for b in BACKENDS[1:]))
 
 
 def dc(*args, entrada=None, check=True):
@@ -143,8 +148,8 @@ def preparar():
                       f"caronte_{banco}").stdout
             # Não restaurar o controle de migrações como parte dos dados de um cenário.
             (DADOS / f"{banco}.sql").write_text(dump)
-    dc("up", "-d", "prejanus-back", "local", "sem-atalho", "forms", "worker", "front", "proxy")
-    for caminho in ("/backend/", "/local/", "/sem-atalho/", "/prejanus/login", "/pt/"):
+    dc("up", "-d", *BACKENDS, "forms", "worker", "front", "proxy")
+    for caminho in (*CAMINHOS, "/prejanus/login", "/pt/"):
         esperar(URL + caminho)
     restaurar()
     imagens = json.loads(dc("images", "--format", "json").stdout)
@@ -152,12 +157,46 @@ def preparar():
     print(f"Ambiente v2: {URL}; SMTP http://localhost:8182; bancos e rede próprios.")
 
 
+def cobertura():
+    """Roda o oráculo no original sob coverage e conta as linhas vivas cobertas (caronte/cobertura.py)."""
+    saida = ESTADO / "cobertura"
+    shutil.rmtree(saida, ignore_errors=True)
+    saida.mkdir(parents=True)
+    saida.chmod(0o777)
+    servico = {"environment": {"PYTHONPATH": "/cov", "COVERAGE_FILE": "/out/.coverage"},
+               "volumes": [f"{RAIZ}/demos/.venv/lib/python3.11/site-packages/coverage:/cov/coverage:ro",
+                           f"{saida}:/out"],
+               "command": ["python", "-m", "coverage", "run", "--parallel-mode", "--concurrency=thread,greenlet", "--source=src",
+                           "--omit=*/tests/*,*/migrations/*,*conftest.py",
+                           "-m", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]}
+    override = ESTADO / "compose.cobertura.yml"
+    override.write_text(json.dumps({"services": {nome: servico for nome in BACKENDS}}))
+    com = [*DC, "-f", str(override)]
+    subprocess.run([*com, "up", "-d", "--force-recreate", *BACKENDS], check=True, capture_output=True)
+    dc("restart", "proxy")
+    try:
+        for caminho in CAMINHOS:
+            esperar(URL + caminho)
+        subprocess.run([sys.executable, "-m", "pytest", str(AQUI / "oraculo"), "-q", "-p", "no:cacheprovider"],
+                       cwd=RAIZ / "demos")
+    finally:
+        dc("stop", *BACKENDS)
+        subprocess.run([*com, "run", "--rm", "--no-deps", "--entrypoint", "sh", "prejanus-back", "-c",
+                        "python -m coverage combine -q /out && python -m coverage json -q -o /out/cobertura.json"],
+                       check=True, capture_output=True)
+        dc("up", "-d", "--force-recreate", *BACKENDS)
+        dc("restart", "proxy")
+    subprocess.run([sys.executable, str(RAIZ / "demos/caronte/cobertura.py"), str(saida / "cobertura.json")], check=True)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("acao", choices=("preparar", "restaurar", "parar"))
+    parser.add_argument("acao", choices=("preparar", "restaurar", "parar", "cobertura"))
     acao = parser.parse_args().acao
     if acao == "preparar":
         preparar()
+    elif acao == "cobertura":
+        cobertura()
     elif acao == "restaurar":
         restaurar()
     else:

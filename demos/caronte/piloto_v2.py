@@ -24,12 +24,11 @@ from harness.models.politicas import Batch
 AQUI = Path(__file__).resolve().parent
 V2 = AQUI / "piloto-v2"
 sys.path.insert(0, str(V2))
-from ambiente import DC, ESTADO, URL, dc, esperar, limpar_esquema, restaurar  # noqa: E402
+from ambiente import BACKENDS, CAMINHOS, DC, ESTADO, URL, dc, esperar, limpar_esquema, restaurar  # noqa: E402
 
 DEMOS = AQUI.parent
 REQUISITO = DEMOS / "requisitos/03-caronte-prejanus-completo"
 RUNTIME = "sha256:e10c92c97762c4c419297360e59d245bfa36db080e07e1d77beb9e11ee4b934c"
-BACKENDS = ("prejanus-back", "local", "sem-atalho")
 SPLIT = json.loads((V2 / "oraculo/split.json").read_text())
 VISIVEIS = sorted({i.split("[")[0] for i in SPLIT["visiveis"]})
 
@@ -44,7 +43,7 @@ def override(raiz):
 
 @contextmanager
 def candidato(raiz, saida):
-    """Troca os três backends do ambiente pelo app gerado e devolve o original ao sair."""
+    """Troca os backends do ambiente pelo app gerado e devolve o original ao sair."""
     (raiz / "_harness").mkdir(exist_ok=True)
     arquivo = saida / "compose.candidato.yml"
     saida.mkdir(parents=True, exist_ok=True)
@@ -56,7 +55,7 @@ def candidato(raiz, saida):
     dc("restart", "proxy")
     try:
         try:
-            for caminho in ("/backend/", "/local/", "/sem-atalho/"):
+            for caminho in CAMINHOS:
                 esperar(URL + caminho, tentativas=120)
         except RuntimeError:
             pass  # app que não sobe reprova nos testes, com o log anexado ao gate
@@ -104,9 +103,9 @@ class ProjetoV2(Projeto):
         return ResultadoPytest.de_saida(saida, r.returncode == 0)
 
 
-def avaliar(raiz):
+def avaliar(raiz, saida=None):
     """Oráculo inteiro depois da geração; nada volta para a sessão."""
-    saida = raiz / "_harness"
+    saida = saida or raiz / "_harness"
     with candidato(raiz, saida):
         r = pytest_oraculo(saida, "oraculo")
     (saida / "oraculo.txt").write_text(r.stdout + "\n" + r.stderr)
@@ -186,9 +185,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("grupo", choices=("baseline", "tdd", "rework", "avaliar"))
     parser.add_argument("projeto", nargs="?", help="pasta da run, para avaliar")
+    parser.add_argument("--saida", type=Path, help="pasta dos resultados, para não sobrescrever _harness")
     args = parser.parse_args()
     if args.grupo == "avaliar":
-        r = avaliar(Path(args.projeto).resolve())
+        r = avaliar(Path(args.projeto).resolve(), args.saida and args.saida.resolve())
         print(json.dumps({k: r[k] for k in ("passed", "total", "visiveis", "reservados")}))
         return
     classe = {"baseline": HarnessDireto, "tdd": HarnessTDD, "rework": HarnessRework}[args.grupo]

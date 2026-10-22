@@ -1,0 +1,198 @@
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.17:55136 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:53528 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:53536 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:43270 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:43280 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:48702 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:48716 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:48728 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:48738 - "DELETE /submissions/1/favorites HTTP/1.1" 404 Not Found
+local-outro-1  | INFO:     192.168.96.17:48748 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:48752 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:48760 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:48768 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:35196 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:35206 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:46962 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:46972 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:41894 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:41904 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:52166 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | ERROR:root:falha ao sincronizar inscrições do edital 1
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna "recommender_form_ids" não existe
+local-outro-1  | LINE 1: select id, candidate_form_id, recommender_form_ids from subm...
+local-outro-1  |                                       ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/workspace/routers/edicts.py", line 433, in get_all_submissions_from_edict
+local-outro-1  |     await sb.sync_submissions(db, fdb, edict)
+local-outro-1  |   File "/workspace/services/submission_builder.py", line 195, in sync_submissions
+local-outro-1  |     rows = await db.execute(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-outro-1  |     result = await greenlet_spawn(
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna "recommender_form_ids" não existe
+local-outro-1  | LINE 1: select id, candidate_form_id, recommender_form_ids from subm...
+local-outro-1  |                                       ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: select id, candidate_form_id, recommender_form_ids from submission where edict_id = %(eid)s]
+local-outro-1  | [parameters: {'eid': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | INFO:     192.168.96.17:52180 - "GET /edicts/1/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:52184 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | ERROR:root:falha ao sincronizar inscrições do edital 1
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna "recommender_form_ids" não existe
+local-outro-1  | LINE 1: select id, candidate_form_id, recommender_form_ids from subm...
+local-outro-1  |                                       ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/workspace/routers/edicts.py", line 433, in get_all_submissions_from_edict
+local-outro-1  |     await sb.sync_submissions(db, fdb, edict)
+local-outro-1  |   File "/workspace/services/submission_builder.py", line 195, in sync_submissions
+local-outro-1  |     rows = await db.execute(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-outro-1  |     result = await greenlet_spawn(
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna "recommender_form_ids" não existe
+local-outro-1  | LINE 1: select id, candidate_form_id, recommender_form_ids from subm...
+local-outro-1  |                                       ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: select id, candidate_form_id, recommender_form_ids from submission where edict_id = %(eid)s]
+local-outro-1  | [parameters: {'eid': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | INFO:     192.168.96.17:52186 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:46668 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:46682 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:46692 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.17:54622 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:54626 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.17:49308 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:49322 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.17:49326 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:49342 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:49354 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.17:49368 - "POST /submissions/1/bidding HTTP/1.1" 200 OK

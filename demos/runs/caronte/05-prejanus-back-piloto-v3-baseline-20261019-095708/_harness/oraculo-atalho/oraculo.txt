@@ -1,0 +1,1153 @@
+.........................FFFFFFF.............................F......FFFF [ 29%]
+.F.F..FF.....F.........F..F......F.......FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 58%]
+FFFFF.F.F.....FFF...F.FFFFFFFFFFFFFFFFFFFF......FF..FFFFF.F..FFF....FF.. [ 87%]
+....FFFFFF.F...F.........FFFFF.                                          [100%]
+=================================== FAILURES ===================================
+_________________ test_inicio_do_login_redireciona_ao_provedor _________________
+caronte/piloto-v2/oraculo/test_acesso.py:90: in test_inicio_do_login_redireciona_ao_provedor
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________ test_login_reconhece_usuario_existente_e_preserva_o_papel ___________
+caronte/piloto-v2/oraculo/test_acesso.py:97: in test_login_reconhece_usuario_existente_e_preserva_o_papel
+    r = entrar(anonimo, "secretaria")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________ test_cookie_de_sessao_seguro_lax_de_oito_horas ________________
+caronte/piloto-v2/oraculo/test_acesso.py:108: in test_cookie_de_sessao_seguro_lax_de_oito_horas
+    r = entrar(anonimo, "docente")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________________ test_novo_usuario_autorizado_vira_docente ___________________
+caronte/piloto-v2/oraculo/test_acesso.py:116: in test_novo_usuario_autorizado_vira_docente
+    r = entrar(anonimo, "novo")
+        ^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________________ test_nusp_fora_da_whitelist_nao_entra _____________________
+caronte/piloto-v2/oraculo/test_acesso.py:126: in test_nusp_fora_da_whitelist_nao_entra
+    assert entrar(anonimo, "negado").status_code >= 400
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________ test_retorno_sem_o_segredo_da_sessao_responde_401 _______________
+caronte/piloto-v2/oraculo/test_acesso.py:135: in test_retorno_sem_o_segredo_da_sessao_responde_401
+    inicio = outro.post("auth/login/senhaunica").json()["redirect_to"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________________ test_verifier_invalido_responde_500 ______________________
+caronte/piloto-v2/oraculo/test_acesso.py:144: in test_verifier_invalido_responde_500
+    inicio = anonimo.post("auth/login/senhaunica").json()["redirect_to"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________________ test_download_de_relatorio_e_publico _____________________
+caronte/piloto-v2/oraculo/test_acesso.py:171: in test_download_de_relatorio_e_publico
+    assert anonimo.get("edicts/download_pdf/inexistente").status_code == 404
+E   AssertionError: assert 401 == 404
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+E    +    where <Response [401 Unauthorized]> = get('edicts/download_pdf/inexistente')
+E    +      where get = <httpx.Client object at 0x7fc3370fb890>.get
+_________ test_atividade_reune_comentarios_candidatura_e_recomendacoes _________
+caronte/piloto-v2/oraculo/test_avaliacao.py:51: in test_atividade_reune_comentarios_candidatura_e_recomendacoes
+    eventos = atividade(clientes("docente"))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_avaliacao.py:14: in atividade
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________________ test_ler_a_atividade_nao_cria_eventos _____________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:63: in test_ler_a_atividade_nao_cria_eventos
+    assert atividade(api) == atividade(api)
+           ^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_avaliacao.py:14: in atividade
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_exclui_somente_o_proprio_comentario ___________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:73: in test_exclui_somente_o_proprio_comentario
+    assert "Meu" not in [e["comment"] for e in atividade(clientes("docente"))]
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_avaliacao.py:73: in <listcomp>
+    assert "Meu" not in [e["comment"] for e in atividade(clientes("docente"))]
+                         ^^^^^^^^^^^^
+E   KeyError: 'comment'
+__________________________ test_favorito_por_usuario ___________________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:81: in test_favorito_por_usuario
+    assert clientes("docente").get("submissions/1").json()["summary"]["is_favorite"] is True
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_etiqueta_com_autor_e_contexto_de_candidato ________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:104: in test_etiqueta_com_autor_e_contexto_de_candidato
+    assert [(l["label"], l["color"]) for l in api.get("submissions/1").json()["summary"]["labels"]] == [("forte", "#00ff00")]
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+____________________ test_catalogo_de_etiquetas_do_usuario _____________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:130: in test_catalogo_de_etiquetas_do_usuario
+    assert [l["label"] for l in clientes("docente").get("submissions/1").json()["summary"]["labels"]] == ["forte"]
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_nota_privada_cria_e_atualiza_uma_unica_nota _______________
+caronte/piloto-v2/oraculo/test_avaliacao.py:153: in test_nota_privada_cria_e_atualiza_uma_unica_nota
+    assert api.get("submissions/1").json()["summary"]["private_note"] == "Revisada"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_nota_privada_nao_aparece_para_outro_usuario _______________
+caronte/piloto-v2/oraculo/test_avaliacao.py:159: in test_nota_privada_nao_aparece_para_outro_usuario
+    assert clientes("outro").get("submissions/1").json()["summary"]["private_note"] == ""
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+___________________ test_lista_por_encerramento_decrescente ____________________
+caronte/piloto-v2/oraculo/test_editais.py:28: in test_lista_por_encerramento_decrescente
+    novo = admin.post("edicts", json=NOVO).json()["id"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'id'
+______________________ test_cria_edital_com_quatro_fases _______________________
+caronte/piloto-v2/oraculo/test_editais.py:75: in test_cria_edital_com_quatro_fases
+    assert r.status_code == 200
+E   assert 422 == 200
+E    +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+__________________ test_edicao_completa_altera_dados_e_datas ___________________
+caronte/piloto-v2/oraculo/test_editais.py:99: in test_edicao_completa_altera_dados_e_datas
+    assert r.status_code == 200
+E   assert 422 == 200
+E    +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+_____________ test_remove_edital_e_dependentes_preservando_o_forms _____________
+caronte/piloto-v2/oraculo/test_editais.py:153: in test_remove_edital_e_dependentes_preservando_o_forms
+    assert admin.get("edicts/1/submissions").status_code == 200
+E   AssertionError: assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = get('edicts/1/submissions')
+E    +      where get = <httpx.Client object at 0x7fc336e06410>.get
+________ test_estrutura_com_secoes_e_campos_em_ordem[1-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+__________ test_estrutura_com_secoes_e_campos_em_ordem[1-1-version=1] __________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+__________ test_estrutura_com_secoes_e_campos_em_ordem[1-2-version=2] __________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+________ test_estrutura_com_secoes_e_campos_em_ordem[2-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+________ test_estrutura_com_secoes_e_campos_em_ordem[3-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+__________ test_estrutura_com_secoes_e_campos_em_ordem[3-1-version=1] __________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+________ test_estrutura_com_secoes_e_campos_em_ordem[4-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+____________________ test_ids_das_secoes[1-None-is_active] _____________________
+caronte/piloto-v2/oraculo/test_formularios.py:59: in test_ids_das_secoes
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:59: in <listcomp>
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: 'int' object is not subscriptable
+______________________ test_ids_das_secoes[1-1-version=1] ______________________
+caronte/piloto-v2/oraculo/test_formularios.py:59: in test_ids_das_secoes
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:59: in <listcomp>
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: 'int' object is not subscriptable
+______________________ test_ids_das_secoes[1-2-version=2] ______________________
+caronte/piloto-v2/oraculo/test_formularios.py:59: in test_ids_das_secoes
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:59: in <listcomp>
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: 'int' object is not subscriptable
+____________________ test_ids_das_secoes[3-None-is_active] _____________________
+caronte/piloto-v2/oraculo/test_formularios.py:59: in test_ids_das_secoes
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:59: in <listcomp>
+    assert [s["id"] for s in api.get(f"forms/{form_id}/sections", params=params).json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: 'int' object is not subscriptable
+_______________ test_versao_sem_secoes_cai_para_todas_as_secoes ________________
+caronte/piloto-v2/oraculo/test_formularios.py:66: in test_versao_sem_secoes_cai_para_todas_as_secoes
+    ids = [s["id"] for s in api.get(rota, params={"version": 7}).json()]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:66: in <listcomp>
+    ids = [s["id"] for s in api.get(rota, params={"version": 7}).json()]
+           ^^^^^^^
+E   TypeError: 'int' object is not subscriptable
+___________________ test_campos_da_secao_com_metadados[1-2] ____________________
+caronte/piloto-v2/oraculo/test_formularios.py:77: in test_campos_da_secao_com_metadados
+    assert all({"id", "section_id", "label", "type", "position"} <= set(c) for c in r.json())
+E   assert False
+E    +  where False = all(<generator object test_campos_da_secao_com_metadados.<locals>.<genexpr> at 0x7fc3371f7680>)
+__________________ test_campos_da_secao_com_metadados[1-102] ___________________
+caronte/piloto-v2/oraculo/test_formularios.py:77: in test_campos_da_secao_com_metadados
+    assert all({"id", "section_id", "label", "type", "position"} <= set(c) for c in r.json())
+E   assert False
+E    +  where False = all(<generator object test_campos_da_secao_com_metadados.<locals>.<genexpr> at 0x7fc338c8b760>)
+___________________ test_campos_da_secao_com_metadados[2-10] ___________________
+caronte/piloto-v2/oraculo/test_formularios.py:77: in test_campos_da_secao_com_metadados
+    assert all({"id", "section_id", "label", "type", "position"} <= set(c) for c in r.json())
+E   assert False
+E    +  where False = all(<generator object test_campos_da_secao_com_metadados.<locals>.<genexpr> at 0x7fc3371f6f80>)
+___________________ test_campos_da_secao_com_metadados[3-13] ___________________
+caronte/piloto-v2/oraculo/test_formularios.py:77: in test_campos_da_secao_com_metadados
+    assert all({"id", "section_id", "label", "type", "position"} <= set(c) for c in r.json())
+E   assert False
+E    +  where False = all(<generator object test_campos_da_secao_com_metadados.<locals>.<genexpr> at 0x7fc3371f7140>)
+___________________ test_campos_da_secao_com_metadados[4-18] ___________________
+caronte/piloto-v2/oraculo/test_formularios.py:77: in test_campos_da_secao_com_metadados
+    assert all({"id", "section_id", "label", "type", "position"} <= set(c) for c in r.json())
+E   assert False
+E    +  where False = all(<generator object test_campos_da_secao_com_metadados.<locals>.<genexpr> at 0x7fc3371f6960>)
+________________ test_lista_candidaturas_do_edital[1-esperado0] ________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:43: in test_lista_candidaturas_do_edital
+    lista = listar(api, edict_id)
+            ^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________ test_lista_candidaturas_do_edital[2-esperado1] ________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:43: in test_lista_candidaturas_do_edital
+    lista = listar(api, edict_id)
+            ^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________________ test_listagem_traz_dados_mapeados _______________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:51: in test_listagem_traz_dados_mapeados
+    ana = listar(api, 1)[1]
+          ^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________________ test_filtra_por_situacao ___________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:64: in test_filtra_por_situacao
+    assert set(listar(admin, 1, stats="refused")) == {2}
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________________ test_filtra_favoritos_de_quem_consulta ____________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:71: in test_filtra_favoritos_de_quem_consulta
+    assert set(listar(clientes("docente"), 1, only_favorites="true")) == {4}
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________ test_associa_recomendacoes_sem_misturar_candidatos ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:80: in test_associa_recomendacoes_sem_misturar_candidatos
+    listar(api, 1)
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________ test_leituras_repetidas_nao_duplicam_nem_apagam_decisoes ___________
+caronte/piloto-v2/oraculo/test_inscricoes.py:92: in test_leituras_repetidas_nao_duplicam_nem_apagam_decisoes
+    listar(admin, 1)
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ test_candidatura_recem_finalizada_entra_na_listagem ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:102: in test_candidatura_recem_finalizada_entra_na_listagem
+    nomes = {s["name"] for s in listar(api, 1).values()}
+                                ^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________ test_candidatura_em_preenchimento_nao_aparece _________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:112: in test_candidatura_em_preenchimento_nao_aparece
+    assert "Fabio Rascunho" not in {s["name"] for s in listar(api, 1).values()}
+                                                       ^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________________ test_listagem_com_ppi_mapeado _________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:117: in test_listagem_com_ppi_mapeado
+    lista = listar(api, 3)
+            ^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_resumo_identifica_a_candidatura[1] ____________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:126: in test_resumo_identifica_a_candidatura
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_resumo_identifica_a_candidatura[2] ____________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:126: in test_resumo_identifica_a_candidatura
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_resumo_identifica_a_candidatura[3] ____________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:126: in test_resumo_identifica_a_candidatura
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________ test_resumo_traz_formacao_pesquisa_e_semestre _________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:134: in test_resumo_traz_formacao_pesquisa_e_semestre
+    resumo = api.get("submissions/1").json()["summary"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________________ test_resumo_com_nota_do_poscomp ________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:143: in test_resumo_com_nota_do_poscomp
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ test_resumo_traz_recomendacoes_e_convites_pendentes ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:151: in test_resumo_traz_recomendacoes_e_convites_pendentes
+    listar(api, 1)
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ test_formulario_traz_todos_os_campos_respondidos[1] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_formulario_traz_todos_os_campos_respondidos[2] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_formulario_traz_todos_os_campos_respondidos[3] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_________________________ test_detalhe_com_comentarios _________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:188: in test_detalhe_com_comentarios
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________________ test_baixa_todos_os_anexos_da_candidatura[2] _________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:200: in test_baixa_todos_os_anexos_da_candidatura
+    assert r.status_code == 200, a
+E   AssertionError: {'name': 'disabilities-file', 'response_id': 2, 'value': '00000000000000000000000000000bc8_disabilities-file.pdf'}
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+_________________ test_estado_sobrevive_ao_reinicio_do_backend _________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:227: in test_estado_sobrevive_ao_reinicio_do_backend
+    resumo = api.get("submissions/1").json()["summary"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_cria_mapeamento_de_candidatura_para_nova_versao _____________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:21: in test_cria_mapeamento_de_candidatura_para_nova_versao
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_cria_mapeamento_de_recomendacao _____________________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:34: in test_cria_mapeamento_de_recomendacao
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________ test_versao_sem_campos_usa_todos_os_campos_do_formulario ___________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:55: in test_versao_sem_campos_usa_todos_os_campos_do_formulario
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________ test_lista_mapeamentos_por_tipo[candidates-candidate] _____________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:70: in test_lista_mapeamentos_por_tipo
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________ test_lista_mapeamentos_por_tipo[recommenders-recommender] ___________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:70: in test_lista_mapeamentos_por_tipo
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________ test_atualiza_a_arvore_preservando_outras_versoes _______________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:81: in test_atualiza_a_arvore_preservando_outras_versoes
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_atualiza_mapeamento_de_recomendacao ___________________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:91: in test_atualiza_mapeamento_de_recomendacao
+    assert admin.put(f"edicts/1/recommenders/mappings/versions/1/{rec['id']}", json=arvore).status_code == 200
+E   AssertionError: assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = put('edicts/1/recommenders/mappings/versions/1/2', json={'fullname': {'field': 44, 'section': 9}})
+E    +      where put = <httpx.Client object at 0x7fc336e1b450>.put
+_________________ test_exclui_mapeamento[candidates-candidate] _________________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:100: in test_exclui_mapeamento
+    assert (r.status_code, r.json()) == (200, {"message": "Mapping deleted successfully"})
+                           ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_exclui_mapeamento[recommenders-recommender] _______________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:100: in test_exclui_mapeamento
+    assert (r.status_code, r.json()) == (200, {"message": "Mapping deleted successfully"})
+                           ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_ test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/2/1-PUT] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_ test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/2/1-DELETE] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_ test_combinacao_inexistente_responde_404[edicts/2/candidates/mappings/versions/1/1-PUT] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_ test_combinacao_inexistente_responde_404[edicts/2/candidates/mappings/versions/1/1-DELETE] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_ test_combinacao_inexistente_responde_404[edicts/1/recommenders/mappings/versions/1/1-PUT] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_ test_combinacao_inexistente_responde_404[edicts/1/recommenders/mappings/versions/1/1-DELETE] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_ test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/1/999-PUT] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_ test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/1/999-DELETE] _
+caronte/piloto-v2/oraculo/test_mapeamentos.py:115: in test_combinacao_inexistente_responde_404
+    assert r.status_code == 404
+E   assert 500 == 404
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ test_versoes_sem_mapeamento[1-candidates-esperado0] ______________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:125: in test_versoes_sem_mapeamento
+    assert (r.status_code, sorted(r.json())) == (200, esperado)
+                                  ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+____________ test_versoes_sem_mapeamento[1-recommenders-esperado1] _____________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:125: in test_versoes_sem_mapeamento
+    assert (r.status_code, sorted(r.json())) == (200, esperado)
+                                  ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_versoes_sem_mapeamento[2-candidates-esperado2] ______________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:125: in test_versoes_sem_mapeamento
+    assert (r.status_code, sorted(r.json())) == (200, esperado)
+                                  ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+____________ test_versoes_sem_mapeamento[2-recommenders-esperado3] _____________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:125: in test_versoes_sem_mapeamento
+    assert (r.status_code, sorted(r.json())) == (200, esperado)
+                                  ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______ test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento ________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:132: in test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento
+    assert admin.get("edicts/1/candidates/forms/versions/unmapped").json() == [2]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+____________________ test_versao_sem_inscricoes_nao_aparece ____________________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:140: in test_versao_sem_inscricoes_nao_aparece
+    assert admin.get("edicts/1/candidates/forms/versions/unmapped").json() == [2]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________________ test_envia_formulario_de_aceite ________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:91: in test_envia_formulario_de_aceite
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_aceite_nao_e_criado_duas_vezes ______________________
+caronte/piloto-v2/oraculo/test_mensagens.py:114: in test_aceite_nao_e_criado_duas_vezes
+    assert clientes("docente").post("submissions/1/send-accept").status_code == 400
+E   AssertionError: assert 500 == 400
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = post('submissions/1/send-accept')
+E    +      where post = <httpx.Client object at 0x7fc338a29510>.post
+E    +        where <httpx.Client object at 0x7fc338a29510> = <function clientes.<locals>.criar at 0x7fc336fd3060>('docente')
+______________________ test_estado_do_aceite_sem_convite _______________________
+caronte/piloto-v2/oraculo/test_mensagens.py:135: in test_estado_do_aceite_sem_convite
+    assert api.get("submissions/1").json()["summary"]["accept"]["sent"] == "not_sent"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+________________________ test_estado_do_aceite_pendente ________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:142: in test_estado_do_aceite_pendente
+    assert api.get("submissions/1").json()["summary"]["accept"]["sent"] == "sent"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________________ test_estado_do_aceite_respondido _______________________
+caronte/piloto-v2/oraculo/test_mensagens.py:151: in test_estado_do_aceite_respondido
+    aceite = api.get("submissions/1").json()["summary"]["accept"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+__________________________ test_envia_carta_de_aceite __________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:164: in test_envia_carta_de_aceite
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_carta_nao_e_enviada_duas_vezes ______________________
+caronte/piloto-v2/oraculo/test_mensagens.py:182: in test_carta_nao_e_enviada_duas_vezes
+    assert clientes("docente").post("submissions/1/send-letter").status_code == 400
+E   AssertionError: assert 500 == 400
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = post('submissions/1/send-letter')
+E    +      where post = <httpx.Client object at 0x7fc336ecfe50>.post
+E    +        where <httpx.Client object at 0x7fc336ecfe50> = <function clientes.<locals>.criar at 0x7fc336fd3ce0>('docente')
+__________________ test_da_homologacao_ao_resultado_e_aceite ___________________
+caronte/piloto-v2/oraculo/test_percursos.py:15: in test_da_homologacao_ao_resultado_e_aceite
+    assert novo.status_code == 200
+E   assert 422 == 200
+E    +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+_________________________ test_pdf_com_todas_as_secoes _________________________
+caronte/piloto-v2/oraculo/test_relatorios.py:61: in test_pdf_com_todas_as_secoes
+    assert trecho in texto, trecho
+E   AssertionError: Estatísticas Gerais
+E   assert 'Estatísticas Gerais' in 'Relatorio do Edital Piloto TCC - Mestrado 2026\nAno: 2026\nGerado em: 21/10/2026 14:33\nEstatisticas gerais\nCandidat...o@example.com>\nSecretaria Piloto <secretaria.piloto@example.com>\nCoordenador Piloto <coordenador.piloto@example.com>'
+___________________ test_pdf_sem_secoes_opcionais_nem_emails ___________________
+caronte/piloto-v2/oraculo/test_relatorios.py:69: in test_pdf_sem_secoes_opcionais_nem_emails
+    assert "Observações Finais" in texto
+E   AssertionError: assert 'Observações Finais' in 'Relatorio do Edital Piloto TCC - Mestrado 2026\nAno: 2026\nGerado em: 21/10/2026 14:34'
+_________________ test_pdf_conta_candidaturas_em_preenchimento _________________
+caronte/piloto-v2/oraculo/test_relatorios.py:79: in test_pdf_conta_candidaturas_em_preenchimento
+    assert "3 submissões finalizadas" in texto
+E   AssertionError: assert '3 submissões finalizadas' in 'Relatorio do Edital Piloto TCC - Mestrado 2026\nAno: 2026\nGerado em: 21/10/2026 14:34\nEstatisticas gerais\nCandidaturas finalizadas: 3\nCandidaturas em preenchimento: 1\nAprovadas: 0\nRecusadas: 0\nEm analise: 3'
+____________________ test_job_inexistente_responde_404[pdf] ____________________
+caronte/piloto-v2/oraculo/test_relatorios.py:131: in test_job_inexistente_responde_404
+    assert anonimo.get(f"edicts/download_{tipo}/00000000-0000-0000-0000-000000000000").status_code == 404
+E   AssertionError: assert 401 == 404
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+E    +    where <Response [401 Unauthorized]> = get('edicts/download_pdf/00000000-0000-0000-0000-000000000000')
+E    +      where get = <httpx.Client object at 0x7fc336f6bb50>.get
+____________________ test_job_inexistente_responde_404[csv] ____________________
+caronte/piloto-v2/oraculo/test_relatorios.py:131: in test_job_inexistente_responde_404
+    assert anonimo.get(f"edicts/download_{tipo}/00000000-0000-0000-0000-000000000000").status_code == 404
+E   AssertionError: assert 401 == 404
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+E    +    where <Response [401 Unauthorized]> = get('edicts/download_csv/00000000-0000-0000-0000-000000000000')
+E    +      where get = <httpx.Client object at 0x7fc3370c6010>.get
+____________ test_interesse_aceita_os_valores_do_contrato[decline] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+___________ test_interesse_aceita_os_valores_do_contrato[available] ____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+___________ test_interesse_aceita_os_valores_do_contrato[interested] ___________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_interesse_aceita_os_valores_do_contrato[agreed] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____ test_interesse_aceita_os_valores_do_contrato[interested_scholarship] _____
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+________________ test_interesse_aceita_os_valores_do_contrato[] ________________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_________ test_um_interesse_corrente_por_usuario_refletido_na_listagem _________
+caronte/piloto-v2/oraculo/test_selecao.py:54: in test_um_interesse_corrente_por_usuario_refletido_na_listagem
+    ana = {s["id"]: s for s in api.get("edicts/1/submissions").json()["submissions"]}[1]
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+________________________ test_aprova_com_um_orientador _________________________
+caronte/piloto-v2/oraculo/test_selecao.py:72: in test_aprova_com_um_orientador
+    assert admin.get("submissions/1").json()["summary"]["stats"] == "approved"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+______ test_semestre_de_ingresso_normalizado[primeiro-Primeiro semestre.] ______
+caronte/piloto-v2/oraculo/test_selecao.py:110: in test_semestre_de_ingresso_normalizado
+    assert api.get("submissions/1").json()["summary"]["entry_semester"] == gravado
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+___ test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.] ___
+caronte/piloto-v2/oraculo/test_selecao.py:109: in test_semestre_de_ingresso_normalizado
+    assert submissao(1)["entry_semester"] == gravado
+E   AssertionError: assert 'Second semester' == 'Segundo semestre.'
+E     
+E     - Segundo semestre.
+E     ?   ^^  -        --
+E     + Second semester
+E     ?   ^^         +
+__ test_semestre_de_ingresso_normalizado[SEGUNDO SEMESTRE.-Segundo semestre.] __
+caronte/piloto-v2/oraculo/test_selecao.py:109: in test_semestre_de_ingresso_normalizado
+    assert submissao(1)["entry_semester"] == gravado
+E   AssertionError: assert 'SEGUNDO SEMESTRE.' == 'Segundo semestre.'
+E     
+E     - Segundo semestre.
+E     + SEGUNDO SEMESTRE.
+_______ test_semestre_de_ingresso_normalizado[first-Primeiro semestre.] ________
+caronte/piloto-v2/oraculo/test_selecao.py:110: in test_semestre_de_ingresso_normalizado
+    assert api.get("submissions/1").json()["summary"]["entry_semester"] == gravado
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_semestre_de_ingresso_normalizado[2027/1-2027/1] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:110: in test_semestre_de_ingresso_normalizado
+    assert api.get("submissions/1").json()["summary"]["entry_semester"] == gravado
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+=========================== short test summary info ============================
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_inicio_do_login_redireciona_ao_provedor
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_login_reconhece_usuario_existente_e_preserva_o_papel
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_cookie_de_sessao_seguro_lax_de_oito_horas
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_novo_usuario_autorizado_vira_docente
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_nusp_fora_da_whitelist_nao_entra
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_retorno_sem_o_segredo_da_sessao_responde_401
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_verifier_invalido_responde_500
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_download_de_relatorio_e_publico
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_atividade_reune_comentarios_candidatura_e_recomendacoes
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_ler_a_atividade_nao_cria_eventos
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_exclui_somente_o_proprio_comentario
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_favorito_por_usuario
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_etiqueta_com_autor_e_contexto_de_candidato
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_catalogo_de_etiquetas_do_usuario
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_nota_privada_cria_e_atualiza_uma_unica_nota
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_nota_privada_nao_aparece_para_outro_usuario
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_lista_por_encerramento_decrescente
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_cria_edital_com_quatro_fases
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_edicao_completa_altera_dados_e_datas
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_remove_edital_e_dependentes_preservando_o_forms
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[1-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[1-1-version=1]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[1-2-version=2]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[2-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[3-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[3-1-version=1]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[4-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_ids_das_secoes[1-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_ids_das_secoes[1-1-version=1]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_ids_das_secoes[1-2-version=2]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_ids_das_secoes[3-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_versao_sem_secoes_cai_para_todas_as_secoes
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_campos_da_secao_com_metadados[1-2]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_campos_da_secao_com_metadados[1-102]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_campos_da_secao_com_metadados[2-10]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_campos_da_secao_com_metadados[3-13]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_campos_da_secao_com_metadados[4-18]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_lista_candidaturas_do_edital[1-esperado0]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_lista_candidaturas_do_edital[2-esperado1]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_traz_dados_mapeados
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_filtra_por_situacao
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_filtra_favoritos_de_quem_consulta
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_associa_recomendacoes_sem_misturar_candidatos
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_leituras_repetidas_nao_duplicam_nem_apagam_decisoes
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_candidatura_recem_finalizada_entra_na_listagem
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_candidatura_em_preenchimento_nao_aparece
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_com_ppi_mapeado
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_identifica_a_candidatura[1]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_identifica_a_candidatura[2]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_identifica_a_candidatura[3]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_traz_formacao_pesquisa_e_semestre
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_com_nota_do_poscomp
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_traz_recomendacoes_e_convites_pendentes
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[1]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[2]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[3]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_detalhe_com_comentarios
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_baixa_todos_os_anexos_da_candidatura[2]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_estado_sobrevive_ao_reinicio_do_backend
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_cria_mapeamento_de_candidatura_para_nova_versao
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_cria_mapeamento_de_recomendacao
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_versao_sem_campos_usa_todos_os_campos_do_formulario
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_lista_mapeamentos_por_tipo[candidates-candidate]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_lista_mapeamentos_por_tipo[recommenders-recommender]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_atualiza_a_arvore_preservando_outras_versoes
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_atualiza_mapeamento_de_recomendacao
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_exclui_mapeamento[candidates-candidate]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_exclui_mapeamento[recommenders-recommender]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/2/1-PUT]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/2/1-DELETE]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/2/candidates/mappings/versions/1/1-PUT]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/2/candidates/mappings/versions/1/1-DELETE]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/1/recommenders/mappings/versions/1/1-PUT]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/1/recommenders/mappings/versions/1/1-DELETE]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/1/999-PUT]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_combinacao_inexistente_responde_404[edicts/1/candidates/mappings/versions/1/999-DELETE]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_versoes_sem_mapeamento[1-candidates-esperado0]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_versoes_sem_mapeamento[1-recommenders-esperado1]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_versoes_sem_mapeamento[2-candidates-esperado2]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_versoes_sem_mapeamento[2-recommenders-esperado3]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_versao_sem_inscricoes_nao_aparece
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_envia_formulario_de_aceite
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_aceite_nao_e_criado_duas_vezes
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_estado_do_aceite_sem_convite
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_estado_do_aceite_pendente
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_estado_do_aceite_respondido
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_envia_carta_de_aceite
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_carta_nao_e_enviada_duas_vezes
+FAILED caronte/piloto-v2/oraculo/test_percursos.py::test_da_homologacao_ao_resultado_e_aceite
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_com_todas_as_secoes
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_sem_secoes_opcionais_nem_emails
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_conta_candidaturas_em_preenchimento
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_job_inexistente_responde_404[pdf]
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_job_inexistente_responde_404[csv]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[decline]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[available]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[agreed]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested_scholarship]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_um_interesse_corrente_por_usuario_refletido_na_listagem
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_aprova_com_um_orientador
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[primeiro-Primeiro semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[SEGUNDO SEMESTRE.-Segundo semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[first-Primeiro semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[2027/1-2027/1]
+108 failed, 139 passed in 568.78s (0:09:28)
+

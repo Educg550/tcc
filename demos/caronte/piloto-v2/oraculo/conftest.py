@@ -21,13 +21,12 @@ INVENTARIO = json.loads((AQUI / "interfaces.json").read_text())
 DIVERGENCIAS = json.loads((AQUI / "oraculo/divergencias.json").read_text())
 CHAMADAS, CASOS = [], []
 ATUAL = ""
-COOKIES = {}
 
 
 def rastrear(response):
-    p = response.request.url.path
-    if p.startswith("/backend/"):
-        caminho = p[len("/backend"):]
+    prefixo, _, resto = response.request.url.path[1:].partition("/")
+    if prefixo == "backend" or prefixo.startswith("local"):
+        caminho = "/" + resto
         CHAMADAS.append({"caso": ATUAL, "metodo": response.request.method,
                          "caminho": caminho, "status": response.status_code,
                          "erro": response.text[:1500] if response.status_code >= 400 else None})
@@ -65,14 +64,11 @@ def estado_inicial(request):
 def clientes():
     abertos = []
     def criar(perfil="docente"):
-        c = cliente()
+        # O OAuth fica nos testes de autenticação; aqui o atalho DEV_USER_ID, uma instância por perfil.
+        c = cliente("/local/" if perfil == "docente" else f"/local-{perfil}/")
         abertos.append(c)
-        if perfil not in COOKIES:
-            r = entrar(c, perfil)
-            assert r.status_code == 200, r.text
-            COOKIES[perfil] = dict(c.cookies)
-        else:
-            c.cookies.update(COOKIES[perfil])
+        r = c.get("auth/login")
+        assert r.status_code == 200, r.text
         return c
     yield criar
     for c in abertos:

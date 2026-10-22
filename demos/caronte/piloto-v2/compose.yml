@@ -43,6 +43,26 @@ services:
     environment:
       APP_ENV: producao
       DEV_USER_ID: 2
+  local-admin:
+    extends: local
+    environment:
+      DEV_USER_ID: 1
+  local-outro:
+    extends: local
+    environment:
+      DEV_USER_ID: 3
+  local-secretaria:
+    extends: local
+    environment:
+      DEV_USER_ID: 4
+  local-coordenador:
+    extends: local
+    environment:
+      DEV_USER_ID: 5
+  local-estudante:
+    extends: local
+    environment:
+      DEV_USER_ID: 6
   oauth:
     image: sha256:0105d76caff0ff7725fd8e5dd1f1aae4b56969411e3946ae7da44ecb510441c5
     pull_policy: never
