@@ -1,0 +1,660 @@
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.17:54978 - "GET / HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.17:47076 - "GET / HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.17:47082 - "GET /docs HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.17:37362 - "GET /openapi.json HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.17:37368 - "GET /openapi.json HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.17:37384 - "OPTIONS /edicts HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.17:37388 - "OPTIONS /edicts HTTP/1.1" 400 Bad Request
+prejanus-back-1  | INFO:     192.168.96.17:52838 - "GET /auth/login HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:44006 - "GET /edicts HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:44014 - "GET /edicts/1 HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:44026 - "GET /edicts/1/submissions HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:44032 - "GET /forms HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:36830 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:36840 - "GET /submissions/1/comments HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:36856 - "POST /submissions/1/view HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:36864 - "POST /edicts HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:56282 - "POST /auth/login/senhaunica HTTP/1.1" 500 Internal Server Error
+prejanus-back-1  | ERROR:    Exception in ASGI application
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 423, in parse_url
+prejanus-back-1  |     host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]
+prejanus-back-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  | AttributeError: 'NoneType' object has no attribute 'groups'
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 433, in prepare_url
+prejanus-back-1  |     scheme, auth, host, port, path, query, fragment = parse_url(url)
+prejanus-back-1  |                                                       ^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 449, in parse_url
+prejanus-back-1  |     raise LocationParseError(source_url) from e
+prejanus-back-1  | urllib3.exceptions.LocationParseError: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | 
+prejanus-back-1  | During handling of the above exception, another exception occurred:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+prejanus-back-1  |     result = await app(  # type: ignore[func-returns-value]
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+prejanus-back-1  |     return await self.app(scope, receive, send)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+prejanus-back-1  |     await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send_wrapper)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/router_auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     token, secret = auth.oauth_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 114, in oauth_request_token
+prejanus-back-1  |     resp = _oauth_post(_host(settings.senhaunica_request_token_resource), _oauth_params())
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 94, in _oauth_post
+prejanus-back-1  |     resp = requests.post(url, headers={"Authorization": f"OAuth {header}"}, timeout=30)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+prejanus-back-1  |     return request("post", url, data=data, json=json, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+prejanus-back-1  |     return session.request(method=method, url=url, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+prejanus-back-1  |     prep = self.prepare_request(req)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 484, in prepare_request
+prejanus-back-1  |     p.prepare(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 367, in prepare
+prejanus-back-1  |     self.prepare_url(url, params)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 435, in prepare_url
+prejanus-back-1  |     raise InvalidURL(*e.args)
+prejanus-back-1  | requests.exceptions.InvalidURL: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | INFO:     192.168.96.17:56296 - "POST /auth/login/senhaunica HTTP/1.1" 500 Internal Server Error
+prejanus-back-1  | ERROR:    Exception in ASGI application
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 423, in parse_url
+prejanus-back-1  |     host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]
+prejanus-back-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  | AttributeError: 'NoneType' object has no attribute 'groups'
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 433, in prepare_url
+prejanus-back-1  |     scheme, auth, host, port, path, query, fragment = parse_url(url)
+prejanus-back-1  |                                                       ^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 449, in parse_url
+prejanus-back-1  |     raise LocationParseError(source_url) from e
+prejanus-back-1  | urllib3.exceptions.LocationParseError: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | 
+prejanus-back-1  | During handling of the above exception, another exception occurred:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+prejanus-back-1  |     result = await app(  # type: ignore[func-returns-value]
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+prejanus-back-1  |     return await self.app(scope, receive, send)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+prejanus-back-1  |     await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send_wrapper)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/router_auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     token, secret = auth.oauth_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 114, in oauth_request_token
+prejanus-back-1  |     resp = _oauth_post(_host(settings.senhaunica_request_token_resource), _oauth_params())
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 94, in _oauth_post
+prejanus-back-1  |     resp = requests.post(url, headers={"Authorization": f"OAuth {header}"}, timeout=30)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+prejanus-back-1  |     return request("post", url, data=data, json=json, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+prejanus-back-1  |     return session.request(method=method, url=url, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+prejanus-back-1  |     prep = self.prepare_request(req)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 484, in prepare_request
+prejanus-back-1  |     p.prepare(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 367, in prepare
+prejanus-back-1  |     self.prepare_url(url, params)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 435, in prepare_url
+prejanus-back-1  |     raise InvalidURL(*e.args)
+prejanus-back-1  | requests.exceptions.InvalidURL: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | INFO:     192.168.96.17:56310 - "POST /auth/login/senhaunica HTTP/1.1" 500 Internal Server Error
+prejanus-back-1  | ERROR:    Exception in ASGI application
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 423, in parse_url
+prejanus-back-1  |     host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]
+prejanus-back-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  | AttributeError: 'NoneType' object has no attribute 'groups'
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 433, in prepare_url
+prejanus-back-1  |     scheme, auth, host, port, path, query, fragment = parse_url(url)
+prejanus-back-1  |                                                       ^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 449, in parse_url
+prejanus-back-1  |     raise LocationParseError(source_url) from e
+prejanus-back-1  | urllib3.exceptions.LocationParseError: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | 
+prejanus-back-1  | During handling of the above exception, another exception occurred:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+prejanus-back-1  |     result = await app(  # type: ignore[func-returns-value]
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+prejanus-back-1  |     return await self.app(scope, receive, send)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+prejanus-back-1  |     await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send_wrapper)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/router_auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     token, secret = auth.oauth_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 114, in oauth_request_token
+prejanus-back-1  |     resp = _oauth_post(_host(settings.senhaunica_request_token_resource), _oauth_params())
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 94, in _oauth_post
+prejanus-back-1  |     resp = requests.post(url, headers={"Authorization": f"OAuth {header}"}, timeout=30)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+prejanus-back-1  |     return request("post", url, data=data, json=json, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+prejanus-back-1  |     return session.request(method=method, url=url, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+prejanus-back-1  |     prep = self.prepare_request(req)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 484, in prepare_request
+prejanus-back-1  |     p.prepare(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 367, in prepare
+prejanus-back-1  |     self.prepare_url(url, params)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 435, in prepare_url
+prejanus-back-1  |     raise InvalidURL(*e.args)
+prejanus-back-1  | requests.exceptions.InvalidURL: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | INFO:     192.168.96.17:56322 - "POST /auth/login/senhaunica HTTP/1.1" 500 Internal Server Error
+prejanus-back-1  | ERROR:    Exception in ASGI application
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 423, in parse_url
+prejanus-back-1  |     host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]
+prejanus-back-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  | AttributeError: 'NoneType' object has no attribute 'groups'
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 433, in prepare_url
+prejanus-back-1  |     scheme, auth, host, port, path, query, fragment = parse_url(url)
+prejanus-back-1  |                                                       ^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 449, in parse_url
+prejanus-back-1  |     raise LocationParseError(source_url) from e
+prejanus-back-1  | urllib3.exceptions.LocationParseError: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | 
+prejanus-back-1  | During handling of the above exception, another exception occurred:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+prejanus-back-1  |     result = await app(  # type: ignore[func-returns-value]
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+prejanus-back-1  |     return await self.app(scope, receive, send)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+prejanus-back-1  |     await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send_wrapper)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/router_auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     token, secret = auth.oauth_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 114, in oauth_request_token
+prejanus-back-1  |     resp = _oauth_post(_host(settings.senhaunica_request_token_resource), _oauth_params())
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 94, in _oauth_post
+prejanus-back-1  |     resp = requests.post(url, headers={"Authorization": f"OAuth {header}"}, timeout=30)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+prejanus-back-1  |     return request("post", url, data=data, json=json, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+prejanus-back-1  |     return session.request(method=method, url=url, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+prejanus-back-1  |     prep = self.prepare_request(req)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 484, in prepare_request
+prejanus-back-1  |     p.prepare(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 367, in prepare
+prejanus-back-1  |     self.prepare_url(url, params)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 435, in prepare_url
+prejanus-back-1  |     raise InvalidURL(*e.args)
+prejanus-back-1  | requests.exceptions.InvalidURL: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | INFO:     192.168.96.17:56984 - "POST /auth/login/senhaunica HTTP/1.1" 500 Internal Server Error
+prejanus-back-1  | ERROR:    Exception in ASGI application
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 423, in parse_url
+prejanus-back-1  |     host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]
+prejanus-back-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  | AttributeError: 'NoneType' object has no attribute 'groups'
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 433, in prepare_url
+prejanus-back-1  |     scheme, auth, host, port, path, query, fragment = parse_url(url)
+prejanus-back-1  |                                                       ^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 449, in parse_url
+prejanus-back-1  |     raise LocationParseError(source_url) from e
+prejanus-back-1  | urllib3.exceptions.LocationParseError: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | 
+prejanus-back-1  | During handling of the above exception, another exception occurred:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+prejanus-back-1  |     result = await app(  # type: ignore[func-returns-value]
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+prejanus-back-1  |     return await self.app(scope, receive, send)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+prejanus-back-1  |     await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send_wrapper)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/router_auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     token, secret = auth.oauth_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 114, in oauth_request_token
+prejanus-back-1  |     resp = _oauth_post(_host(settings.senhaunica_request_token_resource), _oauth_params())
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 94, in _oauth_post
+prejanus-back-1  |     resp = requests.post(url, headers={"Authorization": f"OAuth {header}"}, timeout=30)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+prejanus-back-1  |     return request("post", url, data=data, json=json, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+prejanus-back-1  |     return session.request(method=method, url=url, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+prejanus-back-1  |     prep = self.prepare_request(req)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 484, in prepare_request
+prejanus-back-1  |     p.prepare(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 367, in prepare
+prejanus-back-1  |     self.prepare_url(url, params)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 435, in prepare_url
+prejanus-back-1  |     raise InvalidURL(*e.args)
+prejanus-back-1  | requests.exceptions.InvalidURL: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | INFO:     192.168.96.17:56992 - "POST /auth/login/senhaunica HTTP/1.1" 500 Internal Server Error
+prejanus-back-1  | ERROR:    Exception in ASGI application
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 423, in parse_url
+prejanus-back-1  |     host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]
+prejanus-back-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  | AttributeError: 'NoneType' object has no attribute 'groups'
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 433, in prepare_url
+prejanus-back-1  |     scheme, auth, host, port, path, query, fragment = parse_url(url)
+prejanus-back-1  |                                                       ^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 449, in parse_url
+prejanus-back-1  |     raise LocationParseError(source_url) from e
+prejanus-back-1  | urllib3.exceptions.LocationParseError: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | 
+prejanus-back-1  | During handling of the above exception, another exception occurred:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+prejanus-back-1  |     result = await app(  # type: ignore[func-returns-value]
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+prejanus-back-1  |     return await self.app(scope, receive, send)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+prejanus-back-1  |     await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send_wrapper)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/router_auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     token, secret = auth.oauth_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 114, in oauth_request_token
+prejanus-back-1  |     resp = _oauth_post(_host(settings.senhaunica_request_token_resource), _oauth_params())
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 94, in _oauth_post
+prejanus-back-1  |     resp = requests.post(url, headers={"Authorization": f"OAuth {header}"}, timeout=30)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+prejanus-back-1  |     return request("post", url, data=data, json=json, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+prejanus-back-1  |     return session.request(method=method, url=url, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+prejanus-back-1  |     prep = self.prepare_request(req)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 484, in prepare_request
+prejanus-back-1  |     p.prepare(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 367, in prepare
+prejanus-back-1  |     self.prepare_url(url, params)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 435, in prepare_url
+prejanus-back-1  |     raise InvalidURL(*e.args)
+prejanus-back-1  | requests.exceptions.InvalidURL: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | INFO:     192.168.96.17:57006 - "POST /auth/login/senhaunica HTTP/1.1" 500 Internal Server Error
+prejanus-back-1  | ERROR:    Exception in ASGI application
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 423, in parse_url
+prejanus-back-1  |     host, port = _HOST_PORT_RE.match(host_port).groups()  # type: ignore[union-attr]
+prejanus-back-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  | AttributeError: 'NoneType' object has no attribute 'groups'
+prejanus-back-1  | 
+prejanus-back-1  | The above exception was the direct cause of the following exception:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 433, in prepare_url
+prejanus-back-1  |     scheme, auth, host, port, path, query, fragment = parse_url(url)
+prejanus-back-1  |                                                       ^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/urllib3/util/url.py", line 449, in parse_url
+prejanus-back-1  |     raise LocationParseError(source_url) from e
+prejanus-back-1  | urllib3.exceptions.LocationParseError: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | 
+prejanus-back-1  | During handling of the above exception, another exception occurred:
+prejanus-back-1  | 
+prejanus-back-1  | Traceback (most recent call last):
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+prejanus-back-1  |     result = await app(  # type: ignore[func-returns-value]
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+prejanus-back-1  |     return await self.app(scope, receive, send)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+prejanus-back-1  |     await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send_wrapper)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/router_auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     token, secret = auth.oauth_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 114, in oauth_request_token
+prejanus-back-1  |     resp = _oauth_post(_host(settings.senhaunica_request_token_resource), _oauth_params())
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/auth.py", line 94, in _oauth_post
+prejanus-back-1  |     resp = requests.post(url, headers={"Authorization": f"OAuth {header}"}, timeout=30)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+prejanus-back-1  |     return request("post", url, data=data, json=json, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+prejanus-back-1  |     return session.request(method=method, url=url, **kwargs)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+prejanus-back-1  |     prep = self.prepare_request(req)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/sessions.py", line 484, in prepare_request
+prejanus-back-1  |     p.prepare(
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 367, in prepare
+prejanus-back-1  |     self.prepare_url(url, params)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/requests/models.py", line 435, in prepare_url
+prejanus-back-1  |     raise InvalidURL(*e.args)
+prejanus-back-1  | requests.exceptions.InvalidURL: Failed to parse: http://oauth:8000wsusuario/oauth/request_token
+prejanus-back-1  | INFO:     192.168.96.17:60354 - "GET /edicts/download_pdf/inexistente HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:41792 - "GET /edicts/download_pdf/00000000-0000-0000-0000-000000000000 HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.17:41794 - "GET /edicts/download_csv/00000000-0000-0000-0000-000000000000 HTTP/1.1" 401 Unauthorized

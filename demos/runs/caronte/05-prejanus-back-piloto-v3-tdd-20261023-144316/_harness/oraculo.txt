@@ -1,0 +1,324 @@
+....................................................................F.F. [ 29%]
+...F........................FFFF.....................F......F..F...F.... [ 58%]
+.FFFF..........FF..FF...FF..............F.......F......F..F..FFF.F...... [ 87%]
+....FFFFFF.F..............FF...                                          [100%]
+=================================== FAILURES ===================================
+_________ test_atividade_reune_comentarios_candidatura_e_recomendacoes _________
+caronte/piloto-v2/oraculo/test_avaliacao.py:54: in test_atividade_reune_comentarios_candidatura_e_recomendacoes
+    autores = {e["user"]["name"] for e in eventos if e["type"] != "comment"}
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_avaliacao.py:54: in <setcomp>
+    autores = {e["user"]["name"] for e in eventos if e["type"] != "comment"}
+               ^^^^^^^^^
+E   KeyError: 'user'
+___________________ test_exclui_somente_o_proprio_comentario ___________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:73: in test_exclui_somente_o_proprio_comentario
+    assert "Meu" not in [e["comment"] for e in atividade(clientes("docente"))]
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_avaliacao.py:73: in <listcomp>
+    assert "Meu" not in [e["comment"] for e in atividade(clientes("docente"))]
+                         ^^^^^^^^^^^^
+E   KeyError: 'comment'
+____________________ test_catalogo_de_etiquetas_do_usuario _____________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:130: in test_catalogo_de_etiquetas_do_usuario
+    assert [l["label"] for l in clientes("docente").get("submissions/1").json()["summary"]["labels"]] == ["forte"]
+E   AssertionError: assert ['forte', 'alheia'] == ['forte']
+E     
+E     Left contains one more item: 'alheia'
+E     Use -v to get more diff
+________ test_mudanca_de_fase_propaga_ao_forms[inscricoes-Registration] ________
+caronte/piloto-v2/oraculo/test_editais.py:123: in test_mudanca_de_fase_propaga_ao_forms
+    assert (r.status_code, r.json()) == (200, {"id": fase_id, "label": fase})
+                           ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_________ test_mudanca_de_fase_propaga_ao_forms[homologacao-Approval] __________
+caronte/piloto-v2/oraculo/test_editais.py:123: in test_mudanca_de_fase_propaga_ao_forms
+    assert (r.status_code, r.json()) == (200, {"id": fase_id, "label": fase})
+                           ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+__________ test_mudanca_de_fase_propaga_ao_forms[avaliacao-Completed] __________
+caronte/piloto-v2/oraculo/test_editais.py:123: in test_mudanca_de_fase_propaga_ao_forms
+    assert (r.status_code, r.json()) == (200, {"id": fase_id, "label": fase})
+                           ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+__________ test_mudanca_de_fase_propaga_ao_forms[encerrado-Completed] __________
+caronte/piloto-v2/oraculo/test_editais.py:123: in test_mudanca_de_fase_propaga_ao_forms
+    assert (r.status_code, r.json()) == (200, {"id": fase_id, "label": fase})
+                           ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+___________________ test_campos_da_secao_com_metadados[1-2] ____________________
+caronte/piloto-v2/oraculo/test_formularios.py:76: in test_campos_da_secao_com_metadados
+    assert [c["name"] for c in r.json()] == campos(section_id)
+E   AssertionError: assert [] == ['fullname', ...', 'cpf', ...]
+E     
+E     Right contains 17 more items, first extra item: 'fullname'
+E     Use -v to get more diff
+______________________ test_listagem_traz_dados_mapeados _______________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:55: in test_listagem_traz_dados_mapeados
+    assert (ana["stats"], ana["is_favorite"], ana["labels"], ana["disabilities"]) == ("underreview", False, [], True)
+E   AssertionError: assert ('underreview...se, [], False) == ('underreview...lse, [], True)
+E     
+E     At index 3 diff: False != True
+E     Use -v to get more diff
+______________ test_associa_recomendacoes_sem_misturar_candidatos ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:83: in test_associa_recomendacoes_sem_misturar_candidatos
+    assert ids == {1: [4, 5], 2: [6], 4: []}
+E   assert {1: [], 2: [], 4: []} == {1: [4, 5], 2: [6], 4: []}
+E     
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {1: []} != {1: [4, 5]}
+E     {2: []} != {2: [6]}
+E     Use -v to get more diff
+________________________ test_listagem_com_ppi_mapeado _________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:119: in test_listagem_com_ppi_mapeado
+    assert all(s["ethnicity_race"] is True for s in lista.values())
+E   assert False
+E    +  where False = all(<generator object test_listagem_com_ppi_mapeado.<locals>.<genexpr> at 0x751daba1b5e0>)
+_____________ test_resumo_traz_recomendacoes_e_convites_pendentes ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:152: in test_resumo_traz_recomendacoes_e_convites_pendentes
+    recs = {r["fullname"]: r for r in api.get("submissions/1").json()["summary"]["recommenders"]}
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'recommenders'
+_____________ test_formulario_traz_todos_os_campos_respondidos[1] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_formulario_traz_todos_os_campos_respondidos[2] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_formulario_traz_todos_os_campos_respondidos[3] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_cria_mapeamento_de_candidatura_para_nova_versao _____________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:21: in test_cria_mapeamento_de_candidatura_para_nova_versao
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_cria_mapeamento_de_recomendacao _____________________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:34: in test_cria_mapeamento_de_recomendacao
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________ test_referencia_invalida_na_versao_responde_422[1-arvore2] __________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:48: in test_referencia_invalida_na_versao_responde_422
+    assert r.status_code == 422
+E   assert 500 == 422
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________ test_versao_sem_campos_usa_todos_os_campos_do_formulario ___________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:55: in test_versao_sem_campos_usa_todos_os_campos_do_formulario
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________ test_atualiza_a_arvore_preservando_outras_versoes _______________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:81: in test_atualiza_a_arvore_preservando_outras_versoes
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_atualiza_mapeamento_de_recomendacao ___________________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:91: in test_atualiza_mapeamento_de_recomendacao
+    assert admin.put(f"edicts/1/recommenders/mappings/versions/1/{rec['id']}", json=arvore).status_code == 200
+E   AssertionError: assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = put('edicts/1/recommenders/mappings/versions/1/2', json={'fullname': {'field': 44, 'section': 9}})
+E    +      where put = <httpx.Client object at 0x751da9ea1650>.put
+_______ test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento ________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:134: in test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento
+    assert admin.get("edicts/1/candidates/forms/versions/unmapped").json() == []
+E   assert [2] == []
+E     
+E     Left contains one more item: 2
+E     Use -v to get more diff
+_______________________ test_envia_formulario_de_aceite ________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:104: in test_envia_formulario_de_aceite
+    assert f"https://localhost:8543/form/{resposta['token']}" in texto
+E   AssertionError: assert 'https://localhost:8543/form/4a7fea0b-0d8d-456e-8faa-1a83813af435' in 'Sua cliente de e-mail não suporta mensagens HTML.\r\n\n<p>Caro(a) Ana Piloto Caronte,</p><p>Parabéns! Sua candidatura... candidate, your application was approved. Please fill the acceptance form until 2030-04-01 at the link above.</p>\r\n'
+__________________________ test_envia_carta_de_aceite __________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:171: in test_envia_carta_de_aceite
+    assert "Ana Piloto Caronte" in html and "Outra Docente" in html and "2026" in html and "segundo" in html
+E   assert ('Ana Piloto Caronte' in '<h2>Carta de Aprovação</h2><p>Prezado(a) Ana Piloto Caronte,</p><p>Informamos que sua candidatura ao programa de pós-... ingresso: Segundo semestre.</p><p>Ano de ingresso: 2026</p><p><img src="cid:signature.png" alt="Assinatura"/></p>\r\n' and 'Outra Docente' in '<h2>Carta de Aprovação</h2><p>Prezado(a) Ana Piloto Caronte,</p><p>Informamos que sua candidatura ao programa de pós-... ingresso: Segundo semestre.</p><p>Ano de ingresso: 2026</p><p><img src="cid:signature.png" alt="Assinatura"/></p>\r\n' and '2026' in '<h2>Carta de Aprovação</h2><p>Prezado(a) Ana Piloto Caronte,</p><p>Informamos que sua candidatura ao programa de pós-... ingresso: Segundo semestre.</p><p>Ano de ingresso: 2026</p><p><img src="cid:signature.png" alt="Assinatura"/></p>\r\n' and 'segundo' in '<h2>Carta de Aprovação</h2><p>Prezado(a) Ana Piloto Caronte,</p><p>Informamos que sua candidatura ao programa de pós-... ingresso: Segundo semestre.</p><p>Ano de ingresso: 2026</p><p><img src="cid:signature.png" alt="Assinatura"/></p>\r\n')
+__________________ test_da_homologacao_ao_resultado_e_aceite ___________________
+caronte/piloto-v2/oraculo/test_percursos.py:18: in test_da_homologacao_ao_resultado_e_aceite
+    assert admin.post(f"edicts/{edital}/candidates/mappings/versions/1/", json=arvore).status_code == 200
+E   AssertionError: assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = post('edicts/4/candidates/mappings/versions/1/', json={'about-this-program': None, 'acknowledgment': {'field': 49, 'section': 11}, 'address': {'field': 56, 'section': 13}, 'biological-sex': None, ...})
+E    +      where post = <httpx.Client object at 0x751da9eb7950>.post
+_________________________ test_pdf_com_todas_as_secoes _________________________
+caronte/piloto-v2/oraculo/test_relatorios.py:55: in test_pdf_com_todas_as_secoes
+    texto = gerar_pdf(clientes("admin"), TODAS)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_relatorios.py:36: in gerar_pdf
+    assert pdf.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+___________________ test_pdf_sem_secoes_opcionais_nem_emails ___________________
+caronte/piloto-v2/oraculo/test_relatorios.py:68: in test_pdf_sem_secoes_opcionais_nem_emails
+    texto = gerar_pdf(clientes("admin"), {})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_relatorios.py:36: in gerar_pdf
+    assert pdf.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+_________________ test_pdf_conta_candidaturas_em_preenchimento _________________
+caronte/piloto-v2/oraculo/test_relatorios.py:78: in test_pdf_conta_candidaturas_em_preenchimento
+    texto = gerar_pdf(clientes("admin"), {"general_statistics": True})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_relatorios.py:36: in gerar_pdf
+    assert pdf.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+__________ test_download_consumido_uma_unica_vez[pdf-application/pdf] __________
+caronte/piloto-v2/oraculo/test_relatorios.py:113: in test_download_consumido_uma_unica_vez
+    assert arquivo.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+____________ test_interesse_aceita_os_valores_do_contrato[decline] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+___________ test_interesse_aceita_os_valores_do_contrato[available] ____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+___________ test_interesse_aceita_os_valores_do_contrato[interested] ___________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+_____________ test_interesse_aceita_os_valores_do_contrato[agreed] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+_____ test_interesse_aceita_os_valores_do_contrato[interested_scholarship] _____
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+________________ test_interesse_aceita_os_valores_do_contrato[] ________________
+caronte/piloto-v2/oraculo/test_selecao.py:40: in test_interesse_aceita_os_valores_do_contrato
+    assert banco("SELECT user_id, label FROM labels WHERE context_type='bidding'") == [{"user_id": 2, "label": valor}]
+E   AssertionError: assert [] == [{'label': '', 'user_id': 2}]
+E     
+E     Right contains one more item: {'label': '', 'user_id': 2}
+E     Use -v to get more diff
+_________ test_um_interesse_corrente_por_usuario_refletido_na_listagem _________
+caronte/piloto-v2/oraculo/test_selecao.py:56: in test_um_interesse_corrente_por_usuario_refletido_na_listagem
+    assert ana["bidding_users"]["data"]["interested"] == []
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'interested'
+___ test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.] ___
+caronte/piloto-v2/oraculo/test_selecao.py:109: in test_semestre_de_ingresso_normalizado
+    assert submissao(1)["entry_semester"] == gravado
+E   AssertionError: assert 'Second semester' == 'Segundo semestre.'
+E     
+E     - Segundo semestre.
+E     ?   ^^  -        --
+E     + Second semester
+E     ?   ^^         +
+__ test_semestre_de_ingresso_normalizado[SEGUNDO SEMESTRE.-Segundo semestre.] __
+caronte/piloto-v2/oraculo/test_selecao.py:109: in test_semestre_de_ingresso_normalizado
+    assert submissao(1)["entry_semester"] == gravado
+E   AssertionError: assert 'SEGUNDO SEMESTRE.' == 'Segundo semestre.'
+E     
+E     - Segundo semestre.
+E     + SEGUNDO SEMESTRE.
+=========================== short test summary info ============================
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_atividade_reune_comentarios_candidatura_e_recomendacoes
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_exclui_somente_o_proprio_comentario
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_catalogo_de_etiquetas_do_usuario
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_mudanca_de_fase_propaga_ao_forms[inscricoes-Registration]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_mudanca_de_fase_propaga_ao_forms[homologacao-Approval]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_mudanca_de_fase_propaga_ao_forms[avaliacao-Completed]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_mudanca_de_fase_propaga_ao_forms[encerrado-Completed]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_campos_da_secao_com_metadados[1-2]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_traz_dados_mapeados
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_associa_recomendacoes_sem_misturar_candidatos
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_com_ppi_mapeado
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_traz_recomendacoes_e_convites_pendentes
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[1]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[2]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[3]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_cria_mapeamento_de_candidatura_para_nova_versao
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_cria_mapeamento_de_recomendacao
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_referencia_invalida_na_versao_responde_422[1-arvore2]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_versao_sem_campos_usa_todos_os_campos_do_formulario
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_atualiza_a_arvore_preservando_outras_versoes
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_atualiza_mapeamento_de_recomendacao
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_envia_formulario_de_aceite
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_envia_carta_de_aceite
+FAILED caronte/piloto-v2/oraculo/test_percursos.py::test_da_homologacao_ao_resultado_e_aceite
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_com_todas_as_secoes
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_sem_secoes_opcionais_nem_emails
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_conta_candidaturas_em_preenchimento
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_download_consumido_uma_unica_vez[pdf-application/pdf]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[decline]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[available]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[agreed]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested_scholarship]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_um_interesse_corrente_por_usuario_refletido_na_listagem
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[SEGUNDO SEMESTRE.-Segundo semestre.]
+38 failed, 209 passed in 935.45s (0:15:35)
+

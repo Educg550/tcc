@@ -1,0 +1,102 @@
+.....................F..........s...............                         [100%]
+=================================== FAILURES ===================================
+____________________ test_senhaunica_request_token_redirect ____________________
+tests/test_root_auth.py:40: in test_senhaunica_request_token_redirect
+    assert resp.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+=========================== short test summary info ============================
+FAILED tests/test_root_auth.py::test_senhaunica_request_token_redirect - asse...
+1 failed, 46 passed, 1 skipped in 1.59s
+
+
+local-admin-1  | INFO:     Started server process [1]
+local-admin-1  | INFO:     Waiting for application startup.
+local-admin-1  | INFO:     Application startup complete.
+local-admin-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-admin-1  | INFO:     192.168.96.7:45390 - "GET / HTTP/1.1" 200 OK
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.7:55742 - "GET / HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.7:51522 - "GET / HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.7:53890 - "GET / HTTP/1.1" 200 OK
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.7:44042 - "GET / HTTP/1.1" 200 OK
+
+
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "DELETE /submissions/comments/999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "DELETE /submissions/5/favorites HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/favorites HTTP/1.1" 201 Created
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/favorites HTTP/1.1" 409 Conflict
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "DELETE /submissions/5/favorites HTTP/1.1" 204 No Content
+local-1  | INFO:     192.168.96.18:47556 - "DELETE /submissions/5/favorites HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "DELETE /submissions/label/1 HTTP/1.1" 204 No Content
+local-1  | INFO:     192.168.96.18:47556 - "DELETE /submissions/label/1 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:47556 - "DELETE /submissions/label/999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/select HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/999999/select HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5/files/official-document-file/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:47556 - "GET /submissions/5/files/qualquer/b525a8d539f44e0e901619e0a0547519.pdf HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/reesend_submission HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/send-accept HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.18:47556 - "POST /submissions/5/send-letter HTTP/1.1" 400 Bad Request
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.7:57036 - "GET / HTTP/1.1" 200 OK
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:52716 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:46184 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:46184 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:46184 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:46184 - "GET /auth/login HTTP/1.1" 401 Unauthorized
