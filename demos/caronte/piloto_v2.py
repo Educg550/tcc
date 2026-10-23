@@ -11,6 +11,7 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from contextlib import contextmanager
+from dataclasses import replace
 from pathlib import Path
 
 import yaml
@@ -110,10 +111,11 @@ class ProjetoV2(Projeto):
                      "-w", "/workspace", RUNTIME, "pytest", "-q", "--tb=short", "-p", "no:cacheprovider"],
                     capture_output=True, text=True)
         saida = r.stdout + "\n" + r.stderr
-        if r.returncode:
-            saida += "\n" + "\n".join(p.read_text(errors="replace")[-4000:] for p in sorted(self.saida.glob("app-*.log")))
-        (self.saida / f"pytest-{self.gates}.txt").write_text(saida)
-        return ResultadoPytest.de_saida(saida, r.returncode == 0)
+        logs = "\n".join(p.read_text(errors="replace")[-4000:] for p in sorted(self.saida.glob("app-*.log")))
+        (self.saida / f"pytest-{self.gates}.txt").write_text(saida + ("\n" + logs if r.returncode else ""))
+        resultado = ResultadoPytest.de_saida(saida, r.returncode == 0)
+        # O coder só vê o fim da saída: com o app de pé, o resumo do pytest; fora do ar, o log de subida.
+        return resultado if subiu else replace(resultado, saida=saida + "\n" + logs)
 
 
 def avaliar(raiz, saida=None):

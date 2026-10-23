@@ -24,6 +24,11 @@ def test_gate_tdd_roda_testes_http_contra_o_candidato_no_ambiente_v2(tmp_path):
         '    assert httpx.get(os.environ["CARONTE_API_SEM_ATALHO"]).status_code == 200\n'
     )
     assert projeto.rodar_pytest().passou
+    (tmp_path / "tests/test_falha.py").write_text("def test_falha():\n    assert False\n")
+    r = projeto.rodar_pytest()
+    assert (r.passed, r.failed) == (1, 1)
+    assert "1 failed, 1 passed" in r.saida[-4000:] and "Uvicorn running" not in r.saida
+    (tmp_path / "tests/test_falha.py").unlink()
     (tmp_path / "app.py").write_text("from routers import auth\n")
     r = projeto.rodar_pytest()
     assert not r.passou and "nenhum teste foi executado" in r.saida
