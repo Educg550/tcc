@@ -1,0 +1,29 @@
+services:
+  local: &id001
+    cap_drop:
+    - ALL
+    command:
+    - uvicorn
+    - app:app
+    - --app-dir
+    - /workspace
+    - --host
+    - 0.0.0.0
+    - --port
+    - '8000'
+    image: sha256:e10c92c97762c4c419297360e59d245bfa36db080e07e1d77beb9e11ee4b934c
+    read_only: true
+    security_opt:
+    - no-new-privileges:true
+    tmpfs:
+    - /tmp
+    - /workspace/_harness
+    volumes:
+    - /home/opuscg550/code/personal/tcc/demos/runs/caronte/05-prejanus-back-piloto-v3-rework-20261021-155621:/workspace:ro
+  local-admin: *id001
+  local-coordenador: *id001
+  local-estudante: *id001
+  local-outro: *id001
+  local-secretaria: *id001
+  prejanus-back: *id001
+  sem-atalho: *id001

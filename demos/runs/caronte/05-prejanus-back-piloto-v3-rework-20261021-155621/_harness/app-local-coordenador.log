@@ -1,0 +1,52 @@
+local-coordenador-1  | Traceback (most recent call last):
+local-coordenador-1  |   File "/home/appuser/venv/bin/uvicorn", line 6, in <module>
+local-coordenador-1  |     sys.exit(main())
+local-coordenador-1  |              ^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1442, in __call__
+local-coordenador-1  |     return self.main(*args, **kwargs)
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1363, in main
+local-coordenador-1  |     rv = self.invoke(ctx)
+local-coordenador-1  |          ^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 1226, in invoke
+local-coordenador-1  |     return ctx.invoke(self.callback, **ctx.params)
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/click/core.py", line 794, in invoke
+local-coordenador-1  |     return callback(*args, **kwargs)
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 410, in main
+local-coordenador-1  |     run(
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/main.py", line 577, in run
+local-coordenador-1  |     server.run()
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 65, in run
+local-coordenador-1  |     return asyncio.run(self.serve(sockets=sockets))
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 190, in run
+local-coordenador-1  |     return runner.run(main)
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/usr/local/lib/python3.11/asyncio/runners.py", line 118, in run
+local-coordenador-1  |     return self._loop.run_until_complete(task)
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 69, in serve
+local-coordenador-1  |     await self._serve(sockets)
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/server.py", line 76, in _serve
+local-coordenador-1  |     config.load()
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/config.py", line 434, in load
+local-coordenador-1  |     self.loaded_app = import_from_string(self.app)
+local-coordenador-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/importer.py", line 19, in import_from_string
+local-coordenador-1  |     module = importlib.import_module(module_str)
+local-coordenador-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+local-coordenador-1  |     return _bootstrap._gcd_import(name[level:], package, level)
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+local-coordenador-1  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+local-coordenador-1  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+local-coordenador-1  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+local-coordenador-1  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+local-coordenador-1  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+local-coordenador-1  |   File "/workspace/app.py", line 6, in <module>
+local-coordenador-1  |     from routers import auth, edicts, forms, submissions
+local-coordenador-1  | ImportError: cannot import name 'auth' from 'routers' (/workspace/routers/__init__.py)
