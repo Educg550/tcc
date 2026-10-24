@@ -1,0 +1,621 @@
+.F......FF...................................FFFFFFFF....F......FFFFFF.. [ 44%]
+..F............FF..................................F.......F.FF.F...FF.. [ 89%]
+..FFFFFF.........                                                        [100%]
+=================================== FAILURES ===================================
+________________ test_cookie_de_sessao_seguro_lax_de_oito_horas ________________
+caronte/piloto-v2/oraculo/test_acesso.py:109: in test_cookie_de_sessao_seguro_lax_de_oito_horas
+    cookie = r.headers["set-cookie"].lower()
+             ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:302: in __getitem__
+    raise KeyError(key)
+E   KeyError: 'set-cookie'
+__________ test_login_reconhece_usuario_existente_e_preserva_o_papel ___________
+caronte/piloto-v2/oraculo/test_acesso.py:98: in test_login_reconhece_usuario_existente_e_preserva_o_papel
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________________ test_novo_usuario_autorizado_vira_docente ___________________
+caronte/piloto-v2/oraculo/test_acesso.py:117: in test_novo_usuario_autorizado_vira_docente
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ test_filtra_por_tipo_e_situacao[filtros0-esperado0] ______________
+caronte/piloto-v2/oraculo/test_editais.py:43: in test_filtra_por_tipo_e_situacao
+    assert {e["id"] for e in admin.get("edicts", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_filtra_por_tipo_e_situacao[filtros1-esperado1] ______________
+caronte/piloto-v2/oraculo/test_editais.py:43: in test_filtra_por_tipo_e_situacao
+    assert {e["id"] for e in admin.get("edicts", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_filtra_por_tipo_e_situacao[filtros2-esperado2] ______________
+caronte/piloto-v2/oraculo/test_editais.py:43: in test_filtra_por_tipo_e_situacao
+    assert {e["id"] for e in admin.get("edicts", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_filtra_por_tipo_e_situacao[filtros3-esperado3] ______________
+caronte/piloto-v2/oraculo/test_editais.py:43: in test_filtra_por_tipo_e_situacao
+    assert {e["id"] for e in admin.get("edicts", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_filtra_por_tipo_e_situacao[filtros4-esperado4] ______________
+caronte/piloto-v2/oraculo/test_editais.py:43: in test_filtra_por_tipo_e_situacao
+    assert {e["id"] for e in admin.get("edicts", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_filtra_por_tipo_e_situacao[filtros5-esperado5] ______________
+caronte/piloto-v2/oraculo/test_editais.py:43: in test_filtra_por_tipo_e_situacao
+    assert {e["id"] for e in admin.get("edicts", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_________________ test_lista_editais_com_os_campos_do_contrato _________________
+caronte/piloto-v2/oraculo/test_editais.py:21: in test_lista_editais_com_os_campos_do_contrato
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_lista_por_encerramento_decrescente ____________________
+caronte/piloto-v2/oraculo/test_editais.py:30: in test_lista_por_encerramento_decrescente
+    assert [e["id"] for e in admin.get("edicts").json()][0] == novo
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_remove_edital_e_dependentes_preservando_o_forms _____________
+caronte/piloto-v2/oraculo/test_editais.py:146: in test_remove_edital_e_dependentes_preservando_o_forms
+    assert 2 not in [e["id"] for e in admin.get("edicts").json()]
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_filtra_por_ano_e_edital[filtros0-esperado0] _______________
+caronte/piloto-v2/oraculo/test_formularios.py:36: in test_filtra_por_ano_e_edital
+    assert {f["id"] for f in api.get("forms", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_filtra_por_ano_e_edital[filtros1-esperado1] _______________
+caronte/piloto-v2/oraculo/test_formularios.py:36: in test_filtra_por_ano_e_edital
+    assert {f["id"] for f in api.get("forms", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_filtra_por_ano_e_edital[filtros2-esperado2] _______________
+caronte/piloto-v2/oraculo/test_formularios.py:36: in test_filtra_por_ano_e_edital
+    assert {f["id"] for f in api.get("forms", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_filtra_por_ano_e_edital[filtros3-esperado3] _______________
+caronte/piloto-v2/oraculo/test_formularios.py:36: in test_filtra_por_ano_e_edital
+    assert {f["id"] for f in api.get("forms", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_filtra_por_ano_e_edital[filtros4-esperado4] _______________
+caronte/piloto-v2/oraculo/test_formularios.py:36: in test_filtra_por_ano_e_edital
+    assert {f["id"] for f in api.get("forms", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_______________ test_filtra_por_ano_e_edital[filtros5-esperado5] _______________
+caronte/piloto-v2/oraculo/test_formularios.py:36: in test_filtra_por_ano_e_edital
+    assert {f["id"] for f in api.get("forms", params=filtros).json()} == esperado
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+________________ test_lista_todos_os_formularios_com_metadados _________________
+caronte/piloto-v2/oraculo/test_formularios.py:18: in test_lista_todos_os_formularios_com_metadados
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________________ test_listagem_com_ppi_mapeado _________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:119: in test_listagem_com_ppi_mapeado
+    assert all(s["ethnicity_race"] is True for s in lista.values())
+E   assert False
+E    +  where False = all(<generator object test_listagem_com_ppi_mapeado.<locals>.<genexpr> at 0x7c3d0415a670>)
+______________________ test_listagem_traz_dados_mapeados _______________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:55: in test_listagem_traz_dados_mapeados
+    assert (ana["stats"], ana["is_favorite"], ana["labels"], ana["disabilities"]) == ("underreview", False, [], True)
+E   AssertionError: assert ('underreview...se, [], False) == ('underreview...lse, [], True)
+E     
+E     At index 3 diff: False != True
+E     Use -v to get more diff
+_____________________ test_aceite_nao_e_criado_duas_vezes ______________________
+caronte/piloto-v2/oraculo/test_mensagens.py:114: in test_aceite_nao_e_criado_duas_vezes
+    assert clientes("docente").post("submissions/1/send-accept").status_code == 400
+E   AssertionError: assert 500 == 400
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = post('submissions/1/send-accept')
+E    +      where post = <httpx.Client object at 0x7c3d01a3a210>.post
+E    +        where <httpx.Client object at 0x7c3d01a3a210> = <function clientes.<locals>.criar at 0x7c3d01baf880>('docente')
+_______________________ test_envia_formulario_de_aceite ________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:91: in test_envia_formulario_de_aceite
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________ test_solicita_correcao_reabrindo_e_avisando_o_candidato ____________
+caronte/piloto-v2/oraculo/test_mensagens.py:55: in test_solicita_correcao_reabrindo_e_avisando_o_candidato
+    assert "Falta o histórico escolar." in texto
+E   AssertionError: assert 'Falta o histórico escolar.' in 'Falta o hist�rico escolar.\r\n\r\nAcesse o formul�rio para corrigir sua inscri��o:\r\nhttps://localhost:8543/form/c0a5e1f0-0000-4000-8000-000000000001'
+__________________ test_da_homologacao_ao_resultado_e_aceite ___________________
+caronte/piloto-v2/oraculo/test_percursos.py:29: in test_da_homologacao_ao_resultado_e_aceite
+    assert link.status_code == 200
+E   assert 302 == 200
+E    +  where 302 = <Response [302 FOUND]>.status_code
+__________ test_download_consumido_uma_unica_vez[pdf-application/pdf] __________
+caronte/piloto-v2/oraculo/test_relatorios.py:111: in test_download_consumido_uma_unica_vez
+    job = r.json()["job_id"]
+          ^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_________________ test_pdf_conta_candidaturas_em_preenchimento _________________
+caronte/piloto-v2/oraculo/test_relatorios.py:78: in test_pdf_conta_candidaturas_em_preenchimento
+    texto = gerar_pdf(clientes("admin"), {"general_statistics": True})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_relatorios.py:34: in gerar_pdf
+    assert r.status_code == 200 and r.json()["status"] == "processing"
+E   assert (500 == 200)
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_pdf_sem_secoes_opcionais_nem_emails ___________________
+caronte/piloto-v2/oraculo/test_relatorios.py:68: in test_pdf_sem_secoes_opcionais_nem_emails
+    texto = gerar_pdf(clientes("admin"), {})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_relatorios.py:34: in gerar_pdf
+    assert r.status_code == 200 and r.json()["status"] == "processing"
+E   assert (500 == 200)
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______ test_semestre_de_ingresso_normalizado[primeiro-Primeiro semestre.] ______
+caronte/piloto-v2/oraculo/test_selecao.py:108: in test_semestre_de_ingresso_normalizado
+    assert api.post("submissions/1/entry-semester", json={"semester": enviado}).status_code == 200
+E   AssertionError: assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+E    +    where <Response [403 Forbidden]> = post('submissions/1/entry-semester', json={'semester': 'primeiro'})
+E    +      where post = <httpx.Client object at 0x7c3d019cf590>.post
+___ test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.] ___
+caronte/piloto-v2/oraculo/test_selecao.py:108: in test_semestre_de_ingresso_normalizado
+    assert api.post("submissions/1/entry-semester", json={"semester": enviado}).status_code == 200
+E   AssertionError: assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+E    +    where <Response [403 Forbidden]> = post('submissions/1/entry-semester', json={'semester': 'Second semester'})
+E    +      where post = <httpx.Client object at 0x7c3d0362fa90>.post
+__ test_semestre_de_ingresso_normalizado[SEGUNDO SEMESTRE.-Segundo semestre.] __
+caronte/piloto-v2/oraculo/test_selecao.py:108: in test_semestre_de_ingresso_normalizado
+    assert api.post("submissions/1/entry-semester", json={"semester": enviado}).status_code == 200
+E   AssertionError: assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+E    +    where <Response [403 Forbidden]> = post('submissions/1/entry-semester', json={'semester': 'SEGUNDO SEMESTRE.'})
+E    +      where post = <httpx.Client object at 0x7c3d01a44ad0>.post
+_______ test_semestre_de_ingresso_normalizado[first-Primeiro semestre.] ________
+caronte/piloto-v2/oraculo/test_selecao.py:108: in test_semestre_de_ingresso_normalizado
+    assert api.post("submissions/1/entry-semester", json={"semester": enviado}).status_code == 200
+E   AssertionError: assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+E    +    where <Response [403 Forbidden]> = post('submissions/1/entry-semester', json={'semester': 'first'})
+E    +      where post = <httpx.Client object at 0x7c3d0375e910>.post
+_____________ test_semestre_de_ingresso_normalizado[2027/1-2027/1] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:108: in test_semestre_de_ingresso_normalizado
+    assert api.post("submissions/1/entry-semester", json={"semester": enviado}).status_code == 200
+E   AssertionError: assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+E    +    where <Response [403 Forbidden]> = post('submissions/1/entry-semester', json={'semester': '2027/1'})
+E    +      where post = <httpx.Client object at 0x7c3d0375c990>.post
+_____________ test_semestre_de_inscricao_inexistente_responde_404 ______________
+caronte/piloto-v2/oraculo/test_selecao.py:115: in test_semestre_de_inscricao_inexistente_responde_404
+    assert api.post("submissions/999/entry-semester", json={"semester": "primeiro"}).status_code == 404
+E   AssertionError: assert 403 == 404
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+E    +    where <Response [403 Forbidden]> = post('submissions/999/entry-semester', json={'semester': 'primeiro'})
+E    +      where post = <httpx.Client object at 0x7c3d01983550>.post
+=========================== short test summary info ============================
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_cookie_de_sessao_seguro_lax_de_oito_horas
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_login_reconhece_usuario_existente_e_preserva_o_papel
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_novo_usuario_autorizado_vira_docente
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_filtra_por_tipo_e_situacao[filtros0-esperado0]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_filtra_por_tipo_e_situacao[filtros1-esperado1]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_filtra_por_tipo_e_situacao[filtros2-esperado2]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_filtra_por_tipo_e_situacao[filtros3-esperado3]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_filtra_por_tipo_e_situacao[filtros4-esperado4]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_filtra_por_tipo_e_situacao[filtros5-esperado5]
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_lista_editais_com_os_campos_do_contrato
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_lista_por_encerramento_decrescente
+FAILED caronte/piloto-v2/oraculo/test_editais.py::test_remove_edital_e_dependentes_preservando_o_forms
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_filtra_por_ano_e_edital[filtros0-esperado0]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_filtra_por_ano_e_edital[filtros1-esperado1]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_filtra_por_ano_e_edital[filtros2-esperado2]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_filtra_por_ano_e_edital[filtros3-esperado3]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_filtra_por_ano_e_edital[filtros4-esperado4]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_filtra_por_ano_e_edital[filtros5-esperado5]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_lista_todos_os_formularios_com_metadados
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_com_ppi_mapeado
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_traz_dados_mapeados
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_aceite_nao_e_criado_duas_vezes
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_envia_formulario_de_aceite
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_solicita_correcao_reabrindo_e_avisando_o_candidato
+FAILED caronte/piloto-v2/oraculo/test_percursos.py::test_da_homologacao_ao_resultado_e_aceite
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_download_consumido_uma_unica_vez[pdf-application/pdf]
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_conta_candidaturas_em_preenchimento
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_sem_secoes_opcionais_nem_emails
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[primeiro-Primeiro semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[SEGUNDO SEMESTRE.-Segundo semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[first-Primeiro semestre.]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[2027/1-2027/1]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_inscricao_inexistente_responde_404
+34 failed, 127 passed in 428.09s (0:07:08)
+
+
+it app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 319, in interactors_list
+local-admin-1  |     content = reports.build_interactors_pdf(
+local-admin-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/services/reports.py", line 87, in build_interactors_pdf
+local-admin-1  |     pdf.multi_cell(0, 7, line)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 221, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/deprecation.py", line 32, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 4208, in multi_cell
+local-admin-1  |     text_line = multi_line_break.get_line()
+local-admin-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/line_break.py", line 794, in get_line
+local-admin-1  |     raise FPDFException(
+local-admin-1  | fpdf.errors.FPDFException: Not enough horizontal space to render a single character
+local-admin-1  | INFO:     192.168.96.7:51986 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51998 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52010 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45798 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45802 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45814 - "POST /submissions/1/select HTTP/1.1" 409 Conflict
+local-admin-1  | INFO:     192.168.96.7:45816 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45818 - "POST /submissions/999/select HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:34328 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:34332 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.7:56848 - "GET / HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:42202 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:42214 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:51412 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:51414 - "POST /edicts/1/edit-date HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:37654 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:37670 - "POST /edicts/2/candidates/mappings/versions/2/ HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:50374 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:50386 - "POST /submissions/4/private_notes HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:50398 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:50400 - "POST /submissions/4/private_notes HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:33040 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:33046 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.7:55160 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:45418 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:45422 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:48298 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:48308 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:48322 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:48338 - "POST /submissions/1/view HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.7:60244 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:51042 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:51044 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:60694 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:60702 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:43240 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:43250 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:42872 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:42880 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:53802 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:53816 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:39848 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:42490 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:42496 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:42500 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:42506 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:40120 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:40130 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.7:40142 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:40152 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.7:40084 - "GET / HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:40522 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:40534 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:47408 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:47412 - "POST /edicts/1/edit-date HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:32944 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:32948 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:32962 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:32964 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+
+ubmissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46758 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35960 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35968 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35970 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35980 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35990 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35996 - "POST /submissions/2/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36002 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36006 - "POST /submissions/4/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:59522 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:59536 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:59548 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:59550 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49292 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49302 - "POST /submissions/1/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.7:49306 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49308 - "POST /submissions/1/entry-semester HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45420 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45426 - "POST /submissions/1/entry-semester HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45432 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45438 - "POST /submissions/1/entry-semester HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45442 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45448 - "POST /submissions/1/entry-semester HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45452 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45460 - "POST /submissions/1/entry-semester HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45468 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45478 - "POST /submissions/999/entry-semester HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:51288 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51298 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51314 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51328 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51332 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51338 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47278 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47288 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47292 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47294 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47296 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47310 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47316 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47324 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47338 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47340 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47344 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47354 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46932 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46948 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46960 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+
+  await super().__call__(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/routers/auth.py", line 35, in login_senhaunica
+prejanus-back-1  |     info = get_user(oauth_token, oauth_verifier)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/oauth.py", line 54, in get_user
+prejanus-back-1  |     response.raise_for_status()
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/httpx/_models.py", line 763, in raise_for_status
+prejanus-back-1  |     raise HTTPStatusError(message, request=request, response=self)
+prejanus-back-1  | httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'http://oauth:8000/wsusuario/oauth/access_token'
+prejanus-back-1  | For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:41552 - "GET / HTTP/1.1" 200 OK

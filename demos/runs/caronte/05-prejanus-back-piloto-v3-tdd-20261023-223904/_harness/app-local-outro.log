@@ -1,0 +1,168 @@
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.7:38034 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54922 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54924 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:50158 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:50172 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:51636 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:51652 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:51656 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:51658 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54368 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54380 - "GET /submissions/1 HTTP/1.1" 552 
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedFunction: operador não existe: form_type_enum = character varying
+local-outro-1  | LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/prejanus/routers/submissions.py", line 70, in get_details
+local-outro-1  |     return await subservice.build_detail(db, edict, sub, user.id, include_comments)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/prejanus/subservice.py", line 369, in build_detail
+local-outro-1  |     payload = await build_submission_payload(db, edict, sub, user_id)
+local-outro-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/prejanus/subservice.py", line 205, in build_submission_payload
+local-outro-1  |     name, email, resp, mapped, _values = await candidate_identity(db, edict, sub)
+local-outro-1  |                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/prejanus/subservice.py", line 73, in candidate_identity
+local-outro-1  |     mapping = await get_mapping(db, edict.id, "candidate", sub.candidate_form_version)
+local-outro-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/prejanus/subservice.py", line 59, in get_mapping
+local-outro-1  |     result = await db.execute(
+local-outro-1  |              ^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-outro-1  |     result = await greenlet_spawn(
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedFunction) operador não existe: form_type_enum = character varying
+local-outro-1  | LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+local-outro-1  | [SQL: SELECT edict_form_mappings.id, edict_form_mappings.edict_id, edict_form_mappings.form_type, edict_form_mappings.mapping, edict_form_mappings.is_active, edict_form_mappings.created_at, edict_form_mappings.form_id, edict_form_mappings.user_id, edict_form_mappings.form_version 
+local-outro-1  | FROM edict_form_mappings 
+local-outro-1  | WHERE edict_form_mappings.edict_id = %(edict_id_1)s::INTEGER AND edict_form_mappings.form_type = %(form_type_1)s::VARCHAR AND edict_form_mappings.form_version = %(form_version_1)s::INTEGER AND edict_form_mappings.is_active IS true]
+local-outro-1  | [parameters: {'edict_id_1': 1, 'form_type_1': 'candidate', 'form_version_1': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | INFO:     192.168.96.7:54396 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54398 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54886 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54902 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:37954 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:55646 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:55656 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.7:55662 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:55664 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.7:60396 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:60408 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.7:41214 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:41228 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:41234 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:41242 - "POST /submissions/1/bidding HTTP/1.1" 200 OK

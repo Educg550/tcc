@@ -5,6 +5,9 @@ authors: [eduardo]
 tags: [tcc, experimento]
 ---
 
+> Atualização em 24/10: o TDD desta nota foi invalidado por um defeito no harness, e as
+> runs foram refeitas. Ver [Dois defeitos no harness e as runs refeitas](/blog/runs-refeitas-harness).
+
 Rodei as duas runs do experimento 1 no PreJanus-back, com o escopo, os tetos e o harness
 registrados no [post de escopo](/blog/escopo-experimento-prejanus-back). O TDD passou em
 209 dos 247 casos do oráculo, e a baseline em 191. Nenhuma run foi invalidada.

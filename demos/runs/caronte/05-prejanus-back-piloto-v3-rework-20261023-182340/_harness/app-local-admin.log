@@ -1,0 +1,1645 @@
+local-admin-1  | INFO:     Started server process [1]
+local-admin-1  | INFO:     Waiting for application startup.
+local-admin-1  | INFO:     Application startup complete.
+local-admin-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-admin-1  | INFO:     192.168.96.7:56506 - "GET / HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35026 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35032 - "POST /edicts/1/edit-date HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:53436 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:53438 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41202 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41208 - "DELETE /submissions/comments/1 HTTP/1.1" 403 Forbidden
+local-admin-1  | INFO:     192.168.96.7:60976 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:60992 - "DELETE /submissions/label/1 HTTP/1.1" 403 Forbidden
+local-admin-1  | INFO:     192.168.96.7:59514 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59520 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48572 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48578 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48584 - "POST /edicts/2/edit-date HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48596 - "GET /edicts HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': None, 'o': None}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:48602 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48610 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48626 - "GET /edicts?type=doutorado HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': 'doutorado', 'o': None}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:51014 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51024 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51040 - "GET /edicts?type=mestrado HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': 'mestrado', 'o': None}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:51044 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51052 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51064 - "GET /edicts?is_open=true HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': None, 'o': True}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:51076 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51082 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51096 - "GET /edicts?is_open=false HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': None, 'o': False}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:51102 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51116 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51130 - "GET /edicts?type=mestrado&is_open=true HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': 'mestrado', 'o': True}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:51138 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51140 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:51152 - "GET /edicts?type=doutorado&is_open=false HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': 'doutorado', 'o': False}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:52064 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52076 - "POST /edicts HTTP/1.1" 400 Bad Request
+local-admin-1  | INFO:     192.168.96.7:52078 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52084 - "POST /edicts/1/edit HTTP/1.1" 400 Bad Request
+local-admin-1  | INFO:     192.168.96.7:52100 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52114 - "POST /edicts/1/edit HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52126 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52130 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52138 - "POST /edicts/2/edit-date HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:52144 - "GET /edicts/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:54402 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:54418 - "POST /edicts/2/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:54430 - "GET /edicts/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:54446 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:54450 - "POST /edicts/2/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:54452 - "GET /edicts/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:54460 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59610 - "POST /edicts/2/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59612 - "GET /edicts/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59624 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59626 - "POST /edicts/2/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59642 - "GET /edicts/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59656 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59660 - "PATCH /edicts/2/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59672 - "GET /edicts/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59688 - "PATCH /edicts/2/close HTTP/1.1" 409 Conflict
+local-admin-1  | INFO:     192.168.96.7:59702 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59706 - "POST /submissions/3/comments HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59722 - "POST /submissions/3/favorites HTTP/1.1" 201 Created
+local-admin-1  | INFO:     192.168.96.7:59724 - "POST /edicts/2/slots HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:57032 - "DELETE /edicts/2/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:57048 - "GET /edicts/2 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:57050 - "GET /edicts HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.AmbiguousParameter: não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 42, in get_all
+local-admin-1  |     rows = (await session.execute(text(
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.AmbiguousParameter) não foi possível determinar o tipo de dados do parâmetro $1
+local-admin-1  | LINE 1: ..., year, semester, type, is_open FROM edict WHERE ($1 IS NULL...
+local-admin-1  |                                                              ^
+local-admin-1  | [SQL: SELECT id, title, year, semester, type, is_open FROM edict WHERE (%(t)s IS NULL OR type = %(t)s) AND (%(o)s IS NULL OR is_open = %(o)s) ORDER BY closed_date DESC NULLS LAST, id DESC]
+local-admin-1  | [parameters: {'t': None, 'o': None}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.7:45446 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45448 - "GET /edicts/1/submissions?stats=refused HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45460 - "GET /edicts/1/submissions?stats=underreview HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45468 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45484 - "POST /submissions/2/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45500 - "POST /submissions/2/entry-semester HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:44578 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:44592 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:44600 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:44608 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33576 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33590 - "POST /edicts/2/recommenders/mappings/versions/1/ HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33592 - "GET /edicts/2/recommenders/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33598 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33614 - "POST /edicts/1/candidates/mappings/versions/1/ HTTP/1.1" 422 Unprocessable Entity
+local-admin-1  | INFO:     192.168.96.7:35426 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35432 - "POST /edicts/1/candidates/mappings/versions/2/ HTTP/1.1" 422 Unprocessable Entity
+local-admin-1  | INFO:     192.168.96.7:35444 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35460 - "POST /edicts/1/candidates/mappings/versions/1/ HTTP/1.1" 422 Unprocessable Entity
+local-admin-1  | INFO:     192.168.96.7:35466 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35470 - "POST /edicts/1/candidates/mappings/versions/9/ HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39210 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39214 - "POST /edicts/1/candidates/mappings/versions/2/ HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.UniqueViolation: duplicar valor da chave viola a restrição de unicidade "edict_form_mappings_edict_id_form_type_form_version_key"
+local-admin-1  | DETAIL:  Chave (edict_id, form_type, form_version)=(1, candidate, 2) já existe.
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 407, in create_candidate_form_mapping
+local-admin-1  |     return await _create_mapping(edict_id, version, 'candidate', payload, user,
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 389, in _create_mapping
+local-admin-1  |     row = (await session.execute(text(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.IntegrityError: (psycopg.errors.UniqueViolation) duplicar valor da chave viola a restrição de unicidade "edict_form_mappings_edict_id_form_type_form_version_key"
+local-admin-1  | DETAIL:  Chave (edict_id, form_type, form_version)=(1, candidate, 2) já existe.
+local-admin-1  | [SQL: INSERT INTO edict_form_mappings (edict_id, form_type, mapping, is_active, created_at, form_id, user_id, form_version) VALUES (%(e)s, CAST(%(t)s AS form_type_enum), CAST(%(m)s AS jsonb), true, now(), %(f)s, %(u)s, %(v)s) RETURNING *]
+local-admin-1  | [parameters: {'e': 1, 't': 'candidate', 'm': '{"name": {"section": 102, "field": 1002}, "email": null, "graduation": {"course": {"section": 103, "field": 1021}, "country": null}}', 'f': '1', 'u': 1, 'v': 2}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/gkpj)
+local-admin-1  | INFO:     192.168.96.7:59066 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59074 - "PUT /edicts/1/candidates/mappings/versions/2/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59086 - "GET /edicts/1/candidates/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59102 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59108 - "PUT /edicts/1/recommenders/mappings/versions/1/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41512 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41516 - "DELETE /edicts/1/candidates/mappings/versions/1/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41526 - "GET /edicts/1/candidates/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41542 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41548 - "DELETE /edicts/1/recommenders/mappings/versions/1/2 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41554 - "GET /edicts/1/recommenders/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41564 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41568 - "PUT /edicts/1/candidates/mappings/versions/2/1 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:42636 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42640 - "DELETE /edicts/1/candidates/mappings/versions/2/1 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:42650 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42666 - "PUT /edicts/2/candidates/mappings/versions/1/1 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:42670 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42682 - "DELETE /edicts/2/candidates/mappings/versions/1/1 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:44656 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:44672 - "PUT /edicts/1/recommenders/mappings/versions/1/1 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:44684 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:44698 - "DELETE /edicts/1/recommenders/mappings/versions/1/1 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:49034 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:49038 - "PUT /edicts/1/candidates/mappings/versions/1/999 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:49048 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:49056 - "DELETE /edicts/1/candidates/mappings/versions/1/999 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:33466 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33468 - "DELETE /edicts/1/candidates/mappings/versions/2/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33482 - "GET /edicts/1/candidates/forms/versions/unmapped HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33496 - "POST /edicts/1/candidates/mappings/versions/2/ HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33508 - "GET /edicts/1/candidates/forms/versions/unmapped HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:55788 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:55794 - "GET /edicts/1/candidates/forms/versions/unmapped HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:55802 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:55814 - "POST /submissions/1/reesend_submission HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:55830 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:55842 - "POST /submissions/1/reesend_submission HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48266 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48270 - "POST /submissions/1/reesend_submission HTTP/1.1" 400 Bad Request
+local-admin-1  | INFO:     192.168.96.7:48284 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:48300 - "POST /submissions/1/reesend_submission HTTP/1.1" 400 Bad Request
+local-admin-1  | INFO:     192.168.96.7:36322 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36332 - "POST /submissions/1/reesend_submission HTTP/1.1" 400 Bad Request
+local-admin-1  | INFO:     192.168.96.7:36348 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36358 - "POST /submissions/999/reesend_submission HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:42804 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42808 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42822 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42834 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:40340 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:40346 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41680 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41692 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41700 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41716 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41722 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:41734 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:47048 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:47050 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:47060 - "GET /edicts/2/candidates/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:47064 - "POST /edicts/4/candidates/mappings/versions/1/ HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:47076 - "GET /edicts/4 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:47080 - "POST /edicts/4/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:47082 - "POST /submissions/3/reesend_submission HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59016 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59020 - "POST /submissions/3/comments HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59026 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59042 - "POST /edicts/1/interactors_list HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59054 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59070 - "POST /submissions/3/comments HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59082 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59086 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59098 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59106 - "POST /submissions/2/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59122 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59130 - "POST /edicts/1/interactors_list?mode=pdf HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 319, in interactors_list
+local-admin-1  |     content = reports.build_interactors_pdf(
+local-admin-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/services/reports.py", line 87, in build_interactors_pdf
+local-admin-1  |     pdf.multi_cell(0, 7, line)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 221, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/deprecation.py", line 32, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 4208, in multi_cell
+local-admin-1  |     text_line = multi_line_break.get_line()
+local-admin-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/line_break.py", line 794, in get_line
+local-admin-1  |     raise FPDFException(
+local-admin-1  | fpdf.errors.FPDFException: Not enough horizontal space to render a single character
+local-admin-1  | INFO:     192.168.96.7:59144 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59154 - "POST /submissions/3/comments HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59158 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:59164 - "POST /edicts/1/interactors_list?mode=pdf HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 319, in interactors_list
+local-admin-1  |     content = reports.build_interactors_pdf(
+local-admin-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/services/reports.py", line 87, in build_interactors_pdf
+local-admin-1  |     pdf.multi_cell(0, 7, line)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 221, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/deprecation.py", line 32, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 4208, in multi_cell
+local-admin-1  |     text_line = multi_line_break.get_line()
+local-admin-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/line_break.py", line 794, in get_line
+local-admin-1  |     raise FPDFException(
+local-admin-1  | fpdf.errors.FPDFException: Not enough horizontal space to render a single character
+local-admin-1  | INFO:     192.168.96.7:35572 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35586 - "POST /edicts/1/interactors_list?mode=pdf HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 319, in interactors_list
+local-admin-1  |     content = reports.build_interactors_pdf(
+local-admin-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/services/reports.py", line 87, in build_interactors_pdf
+local-admin-1  |     pdf.multi_cell(0, 7, line)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 221, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/deprecation.py", line 32, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 4208, in multi_cell
+local-admin-1  |     text_line = multi_line_break.get_line()
+local-admin-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/line_break.py", line 794, in get_line
+local-admin-1  |     raise FPDFException(
+local-admin-1  | fpdf.errors.FPDFException: Not enough horizontal space to render a single character
+local-admin-1  | INFO:     192.168.96.7:35588 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35602 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35604 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35606 - "GET /edicts/download_csv/8765e5fdc9914b758e278f8152ac7591 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35612 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35620 - "POST /edicts/1/interactors_list?mode=pdf HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/edicts.py", line 319, in interactors_list
+local-admin-1  |     content = reports.build_interactors_pdf(
+local-admin-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/services/reports.py", line 87, in build_interactors_pdf
+local-admin-1  |     pdf.multi_cell(0, 7, line)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 221, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/deprecation.py", line 32, in wrapper
+local-admin-1  |     return fn(self, *args, **kwargs)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/fpdf.py", line 4208, in multi_cell
+local-admin-1  |     text_line = multi_line_break.get_line()
+local-admin-1  |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fpdf/line_break.py", line 794, in get_line
+local-admin-1  |     raise FPDFException(
+local-admin-1  | fpdf.errors.FPDFException: Not enough horizontal space to render a single character
+local-admin-1  | INFO:     192.168.96.7:35626 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35640 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35654 - "GET /edicts/download_csv/4423fc2a0f754fc3ae2c23ff96e83bcf HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35666 - "GET /edicts/download_csv/4423fc2a0f754fc3ae2c23ff96e83bcf HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:35674 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35686 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35696 - "POST /edicts/2/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35704 - "GET /edicts/download_csv/7372c210637944aca7987857f7cd96ac HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:35718 - "GET /edicts/download_csv/cfbab2216743413c85d5b7b3018cf6ac HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:38966 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:38978 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:38994 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:38996 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39004 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33334 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:33340 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39012 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39024 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39040 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39046 - "POST /submissions/1/select HTTP/1.1" 500 Internal Server Error
+local-admin-1  | ERROR:    Exception in ASGI application
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | psycopg.errors.ForeignKeyViolation: inserção ou atualização em tabela "submission" viola restrição de chave estrangeira "submission_advisor_id_fkey"
+local-admin-1  | DETAIL:  Chave (advisor_id)=(999) não está presente na tabela "user".
+local-admin-1  | 
+local-admin-1  | The above exception was the direct cause of the following exception:
+local-admin-1  | 
+local-admin-1  | Traceback (most recent call last):
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-admin-1  |     result = await app(  # type: ignore[func-returns-value]
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-admin-1  |     return await self.app(scope, receive, send)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-admin-1  |     await super().__call__(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-admin-1  |     await self.app(scope, receive, _send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-admin-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-admin-1  |     await self.middleware_stack(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-admin-1  |     await route.handle(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-admin-1  |     await self.app(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-admin-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-admin-1  |     raise exc
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-admin-1  |     await app(scope, receive, sender)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-admin-1  |     response = await f(request)
+local-admin-1  |                ^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-admin-1  |     raw_response = await run_endpoint_function(
+local-admin-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-admin-1  |     return await dependant.call(**values)
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/routers/submissions.py", line 270, in select_stats
+local-admin-1  |     await session.execute(text(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-admin-1  |     result = await greenlet_spawn(
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-admin-1  |     result = context.throw(*sys.exc_info())
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-admin-1  |     return self._execute_internal(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-admin-1  |     result = conn.execute(
+local-admin-1  |              ^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.IntegrityError: (psycopg.errors.ForeignKeyViolation) inserção ou atualização em tabela "submission" viola restrição de chave estrangeira "submission_advisor_id_fkey"
+local-admin-1  | DETAIL:  Chave (advisor_id)=(999) não está presente na tabela "user".
+local-admin-1  | [SQL: UPDATE submission SET stats = %(st)s, advisor_id = %(a)s, updated_at = now() WHERE id = %(i)s]
+local-admin-1  | [parameters: {'st': 'approved', 'a': 999, 'i': 1}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/gkpj)
+local-admin-1  | INFO:     192.168.96.7:39052 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:39060 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42772 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42788 - "POST /submissions/999/select HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:42796 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42812 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:42828 - "POST /submissions/1/select HTTP/1.1" 409 Conflict

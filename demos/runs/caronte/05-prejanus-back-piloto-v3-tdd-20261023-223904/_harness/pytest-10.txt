@@ -1,0 +1,616 @@
+.........sEEEEE...............FFFFFFFFFFF.EEE.EEEFFFFF.FF                [100%]
+==================================== ERRORS ====================================
+_____________________ ERROR at setup of test_comment_crud ______________________
+tests/test_avaliation.py:10: in avaliacao
+    assert found, "nenhum edital com inscricoes"
+E   AssertionError: nenhum edital com inscricoes
+E   assert []
+_______________________ ERROR at setup of test_favorites _______________________
+tests/test_avaliation.py:10: in avaliacao
+    assert found, "nenhum edital com inscricoes"
+E   AssertionError: nenhum edital com inscricoes
+E   assert []
+________________________ ERROR at setup of test_labels _________________________
+tests/test_avaliation.py:10: in avaliacao
+    assert found, "nenhum edital com inscricoes"
+E   AssertionError: nenhum edital com inscricoes
+E   assert []
+_____________________ ERROR at setup of test_private_notes _____________________
+tests/test_avaliation.py:10: in avaliacao
+    assert found, "nenhum edital com inscricoes"
+E   AssertionError: nenhum edital com inscricoes
+E   assert []
+_________________________ ERROR at setup of test_views _________________________
+tests/test_avaliation.py:10: in avaliacao
+    assert found, "nenhum edital com inscricoes"
+E   AssertionError: nenhum edital com inscricoes
+E   assert []
+_________________________ ERROR at setup of test_slots _________________________
+tests/test_selection.py:9: in base
+    assert found
+E   assert []
+________________________ ERROR at setup of test_bidding ________________________
+tests/test_selection.py:9: in base
+    assert found
+E   assert []
+_________________ ERROR at setup of test_select_requires_admin _________________
+tests/test_selection.py:9: in base
+    assert found
+E   assert []
+______________ ERROR at setup of test_select_approve_with_advisor ______________
+tests/test_selection.py:9: in base
+    assert found
+E   assert []
+_____________ ERROR at setup of test_entry_semester_normalization ______________
+tests/test_selection.py:9: in base
+    assert found
+E   assert []
+____________ ERROR at setup of test_select_blocked_on_closed_edict _____________
+tests/test_selection.py:9: in base
+    assert found
+E   assert []
+=================================== FAILURES ===================================
+___________________________ test_reesend_submission ____________________________
+tests/test_mail.py:33: in test_reesend_submission
+    eid, subs = _avaliacao(admin)
+                ^^^^^^^^^^^^^^^^^
+tests/test_mail.py:22: in _avaliacao
+    assert found
+E   assert []
+_______________________________ test_send_accept _______________________________
+tests/test_mail.py:62: in test_send_accept
+    eid, sub = _approved_submission(admin)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_mail.py:11: in _approved_submission
+    eid, subs = edicts_with_submissions(admin)[0]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   IndexError: list index out of range
+_______________________________ test_send_letter _______________________________
+tests/test_mail.py:90: in test_send_letter
+    _eid, sub = _approved_submission(admin)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_mail.py:11: in _approved_submission
+    eid, subs = edicts_with_submissions(admin)[0]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   IndexError: list index out of range
+_________________________ test_candidate_mapping_crud __________________________
+tests/test_mappings.py:52: in test_candidate_mapping_crud
+    assert r.status_code == 200, r.text
+E   AssertionError: 552
+E     Traceback (most recent call last):
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+E         self.dialect.do_execute(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+E         cursor.execute(statement, parameters)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+E         result = self.await_(self._cursor.execute(query, params, **kw))
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+E         return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+E         value = await result
+E                 ^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+E         raise ex.with_traceback(None)
+E     psycopg.errors.UndefinedFunction: operador não existe: form_type_enum = character varying
+E     LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+E                                                                  ^
+E     HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+E     
+E     The above exception was the direct cause of the following exception:
+E     
+E     Traceback (most recent call last):
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+E         await self.app(scope, receive, _send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+E         await self.app(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+E         await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+E         raise exc
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+E         await app(scope, receive, sender)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+E         await self.middleware_stack(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+E         await route.handle(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+E         await self.app(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+E         await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+E         raise exc
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+E         await app(scope, receive, sender)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+E         response = await f(request)
+E                    ^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+E         raw_response = await run_endpoint_function(
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+E         return await dependant.call(**values)
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/workspace/prejanus/routers/edicts.py", line 435, in create_candidate_form_mapping
+E         return await _create_mapping(db, edict, "candidates", version, tree, user)
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/workspace/prejanus/routers/edicts.py", line 394, in _create_mapping
+E         await db.execute(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+E         result = await greenlet_spawn(
+E                  ^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+E         result = context.throw(*sys.exc_info())
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+E         return self._execute_internal(
+E                ^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+E         result: Result[Any] = compile_state_cls.orm_execute_statement(
+E                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+E         result = conn.execute(
+E                  ^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+E         return meth(
+E                ^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+E         return connection._execute_clauseelement(
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+E         ret = self._execute_context(
+E               ^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+E         return self._exec_single_context(
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+E         self._handle_dbapi_exception(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+E         raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+E         self.dialect.do_execute(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+E         cursor.execute(statement, parameters)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+E         result = self.await_(self._cursor.execute(query, params, **kw))
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+E         return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+E         value = await result
+E                 ^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+E         raise ex.with_traceback(None)
+E     sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedFunction) operador não existe: form_type_enum = character varying
+E     LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+E                                                                  ^
+E     HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+E     [SQL: SELECT edict_form_mappings.id, edict_form_mappings.edict_id, edict_form_mappings.form_type, edict_form_mappings.mapping, edict_form_mappings.is_active, edict_form_mappings.created_at, edict_form_mappings.form_id, edict_form_mappings.user_id, edict_form_mappings.form_version 
+E     FROM edict_form_mappings 
+E     WHERE edict_form_mappings.edict_id = %(edict_id_1)s::INTEGER AND edict_form_mappings.form_type = %(form_type_1)s::VARCHAR AND edict_form_mappings.form_version = %(form_version_1)s::INTEGER]
+E     [parameters: {'edict_id_1': 12, 'form_type_1': 'candidate', 'form_version_1': 1}]
+E     (Background on this error at: https://sqlalche.me/e/20/f405)
+E     
+E   assert 552 == 200
+E    +  where 552 = <Response [552 ]>.status_code
+________________________ test_recommender_mapping_crud _________________________
+tests/test_mappings.py:111: in test_recommender_mapping_crud
+    assert r.status_code == 200, r.text
+E   AssertionError: 552
+E     Traceback (most recent call last):
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+E         self.dialect.do_execute(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+E         cursor.execute(statement, parameters)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+E         result = self.await_(self._cursor.execute(query, params, **kw))
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+E         return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+E         value = await result
+E                 ^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+E         raise ex.with_traceback(None)
+E     psycopg.errors.UndefinedFunction: operador não existe: form_type_enum = character varying
+E     LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+E                                                                  ^
+E     HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+E     
+E     The above exception was the direct cause of the following exception:
+E     
+E     Traceback (most recent call last):
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+E         await self.app(scope, receive, _send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+E         await self.app(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+E         await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+E         raise exc
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+E         await app(scope, receive, sender)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+E         await self.middleware_stack(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+E         await route.handle(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+E         await self.app(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+E         await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+E         raise exc
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+E         await app(scope, receive, sender)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+E         response = await f(request)
+E                    ^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+E         raw_response = await run_endpoint_function(
+E                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+E         return await dependant.call(**values)
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/workspace/prejanus/routers/edicts.py", line 447, in create_recommender_form_mapping
+E         return await _create_mapping(db, edict, "recommenders", version, tree, user)
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/workspace/prejanus/routers/edicts.py", line 394, in _create_mapping
+E         await db.execute(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+E         result = await greenlet_spawn(
+E                  ^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+E         result = context.throw(*sys.exc_info())
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+E         return self._execute_internal(
+E                ^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+E         result: Result[Any] = compile_state_cls.orm_execute_statement(
+E                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+E         result = conn.execute(
+E                  ^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+E         return meth(
+E                ^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+E         return connection._execute_clauseelement(
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+E         ret = self._execute_context(
+E               ^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+E         return self._exec_single_context(
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+E         self._handle_dbapi_exception(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+E         raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+E         self.dialect.do_execute(
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+E         cursor.execute(statement, parameters)
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+E         result = self.await_(self._cursor.execute(query, params, **kw))
+E                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+E         return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+E                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+E         value = await result
+E                 ^^^^^^^^^^^^
+E       File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+E         raise ex.with_traceback(None)
+E     sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedFunction) operador não existe: form_type_enum = character varying
+E     LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+E                                                                  ^
+E     HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+E     [SQL: SELECT edict_form_mappings.id, edict_form_mappings.edict_id, edict_form_mappings.form_type, edict_form_mappings.mapping, edict_form_mappings.is_active, edict_form_mappings.created_at, edict_form_mappings.form_id, edict_form_mappings.user_id, edict_form_mappings.form_version 
+E     FROM edict_form_mappings 
+E     WHERE edict_form_mappings.edict_id = %(edict_id_1)s::INTEGER AND edict_form_mappings.form_type = %(form_type_1)s::VARCHAR AND edict_form_mappings.form_version = %(form_version_1)s::INTEGER]
+E     [parameters: {'edict_id_1': 13, 'form_type_1': 'recommender', 'form_version_1': 1}]
+E     (Background on this error at: https://sqlalche.me/e/20/f405)
+E     
+E   assert 552 == 200
+E    +  where 552 = <Response [552 ]>.status_code
+_______________________ test_mapping_requires_admin_role _______________________
+tests/test_mappings.py:123: in test_mapping_requires_admin_role
+    eid, payload = _create_edict(api)
+                   ^^^^^^^^^^^^^^^^^^
+tests/test_mappings.py:33: in _create_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Administrative role required"}
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+____________________________ test_unmapped_versions ____________________________
+tests/test_mappings.py:134: in test_unmapped_versions
+    assert found, "nenhum edital com inscricoes"
+E   AssertionError: nenhum edital com inscricoes
+E   assert []
+_______________________ test_interactors_list_plain_text _______________________
+tests/test_reports.py:23: in test_interactors_list_plain_text
+    eid = _edict(admin)
+          ^^^^^^^^^^^^^
+tests/test_reports.py:8: in _edict
+    assert found
+E   assert []
+__________________________ test_interactors_list_pdf ___________________________
+tests/test_reports.py:30: in test_interactors_list_pdf
+    eid = _edict(admin)
+          ^^^^^^^^^^^^^
+tests/test_reports.py:8: in _edict
+    assert found
+E   assert []
+__________________________ test_pairing_biddings_csv ___________________________
+tests/test_reports.py:49: in test_pairing_biddings_csv
+    eid = _edict(admin)
+          ^^^^^^^^^^^^^
+tests/test_reports.py:8: in _edict
+    assert found
+E   assert []
+_______________________ test_download_jobs_are_distinct ________________________
+tests/test_reports.py:69: in test_download_jobs_are_distinct
+    eid = _edict(admin)
+          ^^^^^^^^^^^^^
+tests/test_reports.py:8: in _edict
+    assert found
+E   assert []
+_________________________ test_list_submissions_shape __________________________
+tests/test_submissions.py:30: in test_list_submissions_shape
+    eid, subs = edicts_with_submissions(api)[0]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   IndexError: list index out of range
+_______________ test_list_submissions_repeated_reads_are_stable ________________
+tests/test_submissions.py:36: in test_list_submissions_repeated_reads_are_stable
+    eid, subs = edicts_with_submissions(api)[0]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   IndexError: list index out of range
+________________________ test_submissions_stats_filter _________________________
+tests/test_submissions.py:46: in test_submissions_stats_filter
+    eid, subs = edicts_with_submissions(api)[0]
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   IndexError: list index out of range
+_______________________ test_submissions_only_favorites ________________________
+tests/test_submissions.py:58: in test_submissions_only_favorites
+    r = outro.post(f"/submissions/{sub['id']}/favorites")
+                                   ^^^^^^^^^
+E   TypeError: 'NoneType' object is not subscriptable
+____________________________ test_submission_detail ____________________________
+tests/test_submissions.py:73: in test_submission_detail
+    _eid, sub = any_submission(api)
+                ^^^^^^^^^^^^^^^^^^^
+tests/utils.py:63: in any_submission
+    assert found, "nenhum edital com inscricoes encontrado no ambiente"
+           ^^^^^
+E   AssertionError: nenhum edital com inscricoes encontrado no ambiente
+______________ test_submission_detail_does_not_create_submission _______________
+tests/test_submissions.py:95: in test_submission_detail_does_not_create_submission
+    _eid, sub = any_submission(api)
+                ^^^^^^^^^^^^^^^^^^^
+tests/utils.py:63: in any_submission
+    assert found, "nenhum edital com inscricoes encontrado no ambiente"
+           ^^^^^
+E   AssertionError: nenhum edital com inscricoes encontrado no ambiente
+________________________ test_submission_files_download ________________________
+tests/test_submissions.py:104: in test_submission_files_download
+    _eid, sub = any_submission(api)
+                ^^^^^^^^^^^^^^^^^^^
+tests/utils.py:63: in any_submission
+    assert found, "nenhum edital com inscricoes encontrado no ambiente"
+           ^^^^^
+E   AssertionError: nenhum edital com inscricoes encontrado no ambiente
+=========================== short test summary info ============================
+FAILED tests/test_mail.py::test_reesend_submission - assert []
+FAILED tests/test_mail.py::test_send_accept - IndexError: list index out of r...
+FAILED tests/test_mail.py::test_send_letter - IndexError: list index out of r...
+FAILED tests/test_mappings.py::test_candidate_mapping_crud - AssertionError: 552
+FAILED tests/test_mappings.py::test_recommender_mapping_crud - AssertionError...
+FAILED tests/test_mappings.py::test_mapping_requires_admin_role - AssertionEr...
+FAILED tests/test_mappings.py::test_unmapped_versions - AssertionError: nenhu...
+FAILED tests/test_reports.py::test_interactors_list_plain_text - assert []
+FAILED tests/test_reports.py::test_interactors_list_pdf - assert []
+FAILED tests/test_reports.py::test_pairing_biddings_csv - assert []
+FAILED tests/test_reports.py::test_download_jobs_are_distinct - assert []
+FAILED tests/test_submissions.py::test_list_submissions_shape - IndexError: l...
+FAILED tests/test_submissions.py::test_list_submissions_repeated_reads_are_stable
+FAILED tests/test_submissions.py::test_submissions_stats_filter - IndexError:...
+FAILED tests/test_submissions.py::test_submissions_only_favorites - TypeError...
+FAILED tests/test_submissions.py::test_submission_detail - AssertionError: ne...
+FAILED tests/test_submissions.py::test_submission_detail_does_not_create_submission
+FAILED tests/test_submissions.py::test_submission_files_download - AssertionE...
+ERROR tests/test_avaliation.py::test_comment_crud - AssertionError: nenhum ed...
+ERROR tests/test_avaliation.py::test_favorites - AssertionError: nenhum edita...
+ERROR tests/test_avaliation.py::test_labels - AssertionError: nenhum edital c...
+ERROR tests/test_avaliation.py::test_private_notes - AssertionError: nenhum e...
+ERROR tests/test_avaliation.py::test_views - AssertionError: nenhum edital co...
+ERROR tests/test_selection.py::test_slots - assert []
+ERROR tests/test_selection.py::test_bidding - assert []
+ERROR tests/test_selection.py::test_select_requires_admin - assert []
+ERROR tests/test_selection.py::test_select_approve_with_advisor - assert []
+ERROR tests/test_selection.py::test_entry_semester_normalization - assert []
+ERROR tests/test_selection.py::test_select_blocked_on_closed_edict - assert []
+18 failed, 27 passed, 1 skipped, 11 errors in 3.35s
+
+
+py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-admin-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-admin-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-admin-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-admin-1  |     value = await result
+local-admin-1  |             ^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedFunction) operador não existe: form_type_enum = character varying
+local-admin-1  | LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+local-admin-1  |                                                              ^
+local-admin-1  | HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+local-admin-1  | [SQL: SELECT edict_form_mappings.id, edict_form_mappings.edict_id, edict_form_mappings.form_type, edict_form_mappings.mapping, edict_form_mappings.is_active, edict_form_mappings.created_at, edict_form_mappings.form_id, edict_form_mappings.user_id, edict_form_mappings.form_version 
+local-admin-1  | FROM edict_form_mappings 
+local-admin-1  | WHERE edict_form_mappings.edict_id = %(edict_id_1)s::INTEGER AND edict_form_mappings.form_type = %(form_type_1)s::VARCHAR AND edict_form_mappings.form_version = %(form_version_1)s::INTEGER AND edict_form_mappings.is_active IS true]
+local-admin-1  | [parameters: {'edict_id_1': 1, 'form_type_1': 'candidate', 'form_version_1': 1}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.18:57340 - "POST /submissions/99999999/select HTTP/1.1" 404 Not Found
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.7:60116 - "GET / HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.18:55266 - "POST /edicts HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.18:55266 - "DELETE /edicts/11/remove HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.7:36792 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.18:47354 - "POST /edicts HTTP/1.1" 403 Forbidden
+
+^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedFunction) operador não existe: form_type_enum = character varying
+local-outro-1  | LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+local-outro-1  | [SQL: SELECT edict_form_mappings.id, edict_form_mappings.edict_id, edict_form_mappings.form_type, edict_form_mappings.mapping, edict_form_mappings.is_active, edict_form_mappings.created_at, edict_form_mappings.form_id, edict_form_mappings.user_id, edict_form_mappings.form_version 
+local-outro-1  | FROM edict_form_mappings 
+local-outro-1  | WHERE edict_form_mappings.edict_id = %(edict_id_1)s::INTEGER AND edict_form_mappings.form_type = %(form_type_1)s::VARCHAR AND edict_form_mappings.form_version = %(form_version_1)s::INTEGER AND edict_form_mappings.is_active IS true]
+local-outro-1  | [parameters: {'edict_id_1': 1, 'form_type_1': 'candidate', 'form_version_1': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.7:34876 - "GET / HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.18:52550 - "POST /edicts HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.18:52550 - "DELETE /edicts/10/remove HTTP/1.1" 200 OK
+
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-1  |     result = conn.execute(
+local-1  |              ^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-1  |     return meth(
+local-1  |            ^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-1  |     return connection._execute_clauseelement(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-1  |     ret = self._execute_context(
+local-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-1  |     return self._exec_single_context(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-1  |     self._handle_dbapi_exception(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-1  |     self.dialect.do_execute(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-1  |     cursor.execute(statement, parameters)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-1  |     value = await result
+local-1  |             ^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-1  |     raise ex.with_traceback(None)
+local-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedFunction) operador não existe: form_type_enum = character varying
+local-1  | LINE 3: ...d = $1::INTEGER AND edict_form_mappings.form_type = $2::VARC...
+local-1  |                                                              ^
+local-1  | HINT:  Nenhum operador corresponde ao nome e tipo de dados dos argumentos fornecidos. Talvez seja necessário adicionar uma conversão de tipo de dados explícita.
+local-1  | [SQL: SELECT edict_form_mappings.id, edict_form_mappings.edict_id, edict_form_mappings.form_type, edict_form_mappings.mapping, edict_form_mappings.is_active, edict_form_mappings.created_at, edict_form_mappings.form_id, edict_form_mappings.user_id, edict_form_mappings.form_version 
+local-1  | FROM edict_form_mappings 
+local-1  | WHERE edict_form_mappings.edict_id = %(edict_id_1)s::INTEGER AND edict_form_mappings.form_type = %(form_type_1)s::VARCHAR AND edict_form_mappings.form_version = %(form_version_1)s::INTEGER AND edict_form_mappings.is_active IS true]
+local-1  | [parameters: {'edict_id_1': 1, 'form_type_1': 'candidate', 'form_version_1': 1}]
+local-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.7:43310 - "GET / HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60300 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60300 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60300 - "GET /auth/login HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60308 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60308 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60308 - "GET /auth/login HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60310 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60310 - "POST /auth/login/senhaunica HTTP/1.1" 403 Forbidden
+prejanus-back-1  | INFO:     192.168.96.18:60310 - "GET /edicts HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:60324 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:60336 - "POST /auth/login/senhaunica HTTP/1.1" 401 Unauthorized
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:55420 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:55732 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:55732 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:55732 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:55732 - "GET /edicts/1/submissions HTTP/1.1" 401 Unauthorized

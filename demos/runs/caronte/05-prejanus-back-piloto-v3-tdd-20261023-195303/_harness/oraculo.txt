@@ -1,0 +1,317 @@
+.........................FFFFFFF....................................F... [ 29%]
+...F.....................................FFFFFFF....FF......F..F...F.... [ 58%]
+.FFFF..........F................................F.....FF..F..FFF........ [ 87%]
+....FFFFFF.F..............F....                                          [100%]
+=================================== FAILURES ===================================
+_________________ test_inicio_do_login_redireciona_ao_provedor _________________
+caronte/piloto-v2/oraculo/test_acesso.py:90: in test_inicio_do_login_redireciona_ao_provedor
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________ test_login_reconhece_usuario_existente_e_preserva_o_papel ___________
+caronte/piloto-v2/oraculo/test_acesso.py:97: in test_login_reconhece_usuario_existente_e_preserva_o_papel
+    r = entrar(anonimo, "secretaria")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: {"detail":"Falha ao obter o request token"}
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________ test_cookie_de_sessao_seguro_lax_de_oito_horas ________________
+caronte/piloto-v2/oraculo/test_acesso.py:108: in test_cookie_de_sessao_seguro_lax_de_oito_horas
+    r = entrar(anonimo, "docente")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: {"detail":"Falha ao obter o request token"}
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________________ test_novo_usuario_autorizado_vira_docente ___________________
+caronte/piloto-v2/oraculo/test_acesso.py:116: in test_novo_usuario_autorizado_vira_docente
+    r = entrar(anonimo, "novo")
+        ^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: {"detail":"Falha ao obter o request token"}
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________________ test_nusp_fora_da_whitelist_nao_entra _____________________
+caronte/piloto-v2/oraculo/test_acesso.py:126: in test_nusp_fora_da_whitelist_nao_entra
+    assert entrar(anonimo, "negado").status_code >= 400
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/conftest.py:42: in entrar
+    assert inicio.status_code == 200, inicio.text
+E   AssertionError: {"detail":"Falha ao obter o request token"}
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________ test_retorno_sem_o_segredo_da_sessao_responde_401 _______________
+caronte/piloto-v2/oraculo/test_acesso.py:135: in test_retorno_sem_o_segredo_da_sessao_responde_401
+    inicio = outro.post("auth/login/senhaunica").json()["redirect_to"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'redirect_to'
+_____________________ test_verifier_invalido_responde_500 ______________________
+caronte/piloto-v2/oraculo/test_acesso.py:144: in test_verifier_invalido_responde_500
+    inicio = anonimo.post("auth/login/senhaunica").json()["redirect_to"]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'redirect_to'
+_________ test_atividade_reune_comentarios_candidatura_e_recomendacoes _________
+caronte/piloto-v2/oraculo/test_avaliacao.py:54: in test_atividade_reune_comentarios_candidatura_e_recomendacoes
+    autores = {e["user"]["name"] for e in eventos if e["type"] != "comment"}
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_avaliacao.py:54: in <setcomp>
+    autores = {e["user"]["name"] for e in eventos if e["type"] != "comment"}
+               ^^^^^^^^^^^^^^^^^
+E   TypeError: 'NoneType' object is not subscriptable
+____________________ test_catalogo_de_etiquetas_do_usuario _____________________
+caronte/piloto-v2/oraculo/test_avaliacao.py:130: in test_catalogo_de_etiquetas_do_usuario
+    assert [l["label"] for l in clientes("docente").get("submissions/1").json()["summary"]["labels"]] == ["forte"]
+E   AssertionError: assert ['forte', 'alheia'] == ['forte']
+E     
+E     Left contains one more item: 'alheia'
+E     Use -v to get more diff
+________ test_estrutura_com_secoes_e_campos_em_ordem[1-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+__________ test_estrutura_com_secoes_e_campos_em_ordem[1-1-version=1] __________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+__________ test_estrutura_com_secoes_e_campos_em_ordem[1-2-version=2] __________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+________ test_estrutura_com_secoes_e_campos_em_ordem[2-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+________ test_estrutura_com_secoes_e_campos_em_ordem[3-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+__________ test_estrutura_com_secoes_e_campos_em_ordem[3-1-version=1] __________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+________ test_estrutura_com_secoes_e_campos_em_ordem[4-None-is_active] _________
+caronte/piloto-v2/oraculo/test_formularios.py:49: in test_estrutura_com_secoes_e_campos_em_ordem
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:49: in <listcomp>
+    assert [s["id"] for s in r.json()] == secoes(form_id, filtro)
+            ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+_______________ test_versao_sem_secoes_cai_para_todas_as_secoes ________________
+caronte/piloto-v2/oraculo/test_formularios.py:66: in test_versao_sem_secoes_cai_para_todas_as_secoes
+    ids = [s["id"] for s in api.get(rota, params={"version": 7}).json()]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_formularios.py:66: in <listcomp>
+    ids = [s["id"] for s in api.get(rota, params={"version": 7}).json()]
+           ^^^^^^^
+E   TypeError: string indices must be integers, not 'str'
+___________________ test_campos_da_secao_com_metadados[1-2] ____________________
+caronte/piloto-v2/oraculo/test_formularios.py:76: in test_campos_da_secao_com_metadados
+    assert [c["name"] for c in r.json()] == campos(section_id)
+E   AssertionError: assert [] == ['fullname', ...', 'cpf', ...]
+E     
+E     Right contains 17 more items, first extra item: 'fullname'
+E     Use -v to get more diff
+______________________ test_listagem_traz_dados_mapeados _______________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:55: in test_listagem_traz_dados_mapeados
+    assert (ana["stats"], ana["is_favorite"], ana["labels"], ana["disabilities"]) == ("underreview", False, [], True)
+E   AssertionError: assert ('underreview...se, [], False) == ('underreview...lse, [], True)
+E     
+E     At index 3 diff: False != True
+E     Use -v to get more diff
+______________ test_associa_recomendacoes_sem_misturar_candidatos ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:83: in test_associa_recomendacoes_sem_misturar_candidatos
+    assert ids == {1: [4, 5], 2: [6], 4: []}
+E   assert {1: [5], 2: [6], 4: []} == {1: [4, 5], 2: [6], 4: []}
+E     
+E     Omitting 2 identical items, use -vv to show
+E     Differing items:
+E     {1: [5]} != {1: [4, 5]}
+E     Use -v to get more diff
+________________________ test_listagem_com_ppi_mapeado _________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:119: in test_listagem_com_ppi_mapeado
+    assert all(s["ethnicity_race"] is True for s in lista.values())
+E   assert False
+E    +  where False = all(<generator object test_listagem_com_ppi_mapeado.<locals>.<genexpr> at 0x7b340bf07780>)
+_____________ test_resumo_traz_recomendacoes_e_convites_pendentes ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:152: in test_resumo_traz_recomendacoes_e_convites_pendentes
+    recs = {r["fullname"]: r for r in api.get("submissions/1").json()["summary"]["recommenders"]}
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'recommenders'
+_____________ test_formulario_traz_todos_os_campos_respondidos[1] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_formulario_traz_todos_os_campos_respondidos[2] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_formulario_traz_todos_os_campos_respondidos[3] ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/oraculo/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_cria_mapeamento_de_candidatura_para_nova_versao _____________
+caronte/piloto-v2/oraculo/test_mapeamentos.py:26: in test_cria_mapeamento_de_candidatura_para_nova_versao
+    assert str(m["version"]) == "2"
+               ^^^^^^^^^^^^
+E   KeyError: 'version'
+_______________________ test_envia_formulario_de_aceite ________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:103: in test_envia_formulario_de_aceite
+    assert "Ana Piloto Caronte" in texto
+E   assert 'Ana Piloto Caronte' in 'Sua cliente de e-mail não suporta HTML.\r\n\n\r\n    <html><body>\r\n    <p>Prezado(a) ,</p>\r\n    <p>Dear ,</p>\r\n...28a9d63976">https://localhost:8543/form/ac38d4fd-fd92-42cd-b89a-3528a9d63976</a></p>\r\n    </body></html>\r\n    \r\n'
+_______________________ test_estado_do_aceite_respondido _______________________
+caronte/piloto-v2/oraculo/test_mensagens.py:152: in test_estado_do_aceite_respondido
+    assert (aceite["sent"], aceite["accept"], aceite["comments"]) == ("replied", "Aceito a vaga.", "Começo em março.")
+E   AssertionError: assert ('replied', '...eito a vaga.') == ('replied', '...ço em março.')
+E     
+E     At index 1 diff: 'Começo em março.' != 'Aceito a vaga.'
+E     Use -v to get more diff
+__________________________ test_envia_carta_de_aceite __________________________
+caronte/piloto-v2/oraculo/test_mensagens.py:171: in test_envia_carta_de_aceite
+    assert "Ana Piloto Caronte" in html and "Outra Docente" in html and "2026" in html and "segundo" in html
+E   assert ('Ana Piloto Caronte' in '\r\n    <html><body>\r\n    <h2>Carta de Aceite</h2>\r\n    <p>Prezado(a) Ana Piloto Caronte,</p>\r\n    <p>É com sat...JAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=" alt="Assinatura" height="80"></p>\r\n    </body></html>\r\n    \r\n' and 'Outra Docente' in '\r\n    <html><body>\r\n    <h2>Carta de Aceite</h2>\r\n    <p>Prezado(a) Ana Piloto Caronte,</p>\r\n    <p>É com sat...JAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=" alt="Assinatura" height="80"></p>\r\n    </body></html>\r\n    \r\n' and '2026' in '\r\n    <html><body>\r\n    <h2>Carta de Aceite</h2>\r\n    <p>Prezado(a) Ana Piloto Caronte,</p>\r\n    <p>É com sat...JAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=" alt="Assinatura" height="80"></p>\r\n    </body></html>\r\n    \r\n' and 'segundo' in '\r\n    <html><body>\r\n    <h2>Carta de Aceite</h2>\r\n    <p>Prezado(a) Ana Piloto Caronte,</p>\r\n    <p>É com sat...JAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=" alt="Assinatura" height="80"></p>\r\n    </body></html>\r\n    \r\n')
+__________________ test_da_homologacao_ao_resultado_e_aceite ___________________
+caronte/piloto-v2/oraculo/test_percursos.py:29: in test_da_homologacao_ao_resultado_e_aceite
+    assert link.status_code == 200
+E   assert 302 == 200
+E    +  where 302 = <Response [302 FOUND]>.status_code
+_________________________ test_pdf_com_todas_as_secoes _________________________
+caronte/piloto-v2/oraculo/test_relatorios.py:61: in test_pdf_com_todas_as_secoes
+    assert trecho in texto, trecho
+E   AssertionError: Estatísticas Gerais
+E   assert 'Estatísticas Gerais' in 'Relatorio do Edital: Piloto TCC - Mestrado 2026'
+___________________ test_pdf_sem_secoes_opcionais_nem_emails ___________________
+caronte/piloto-v2/oraculo/test_relatorios.py:69: in test_pdf_sem_secoes_opcionais_nem_emails
+    assert "Observações Finais" in texto
+E   AssertionError: assert 'Observações Finais' in 'Relatorio do Edital: Piloto TCC - Mestrado 2026'
+_________________ test_pdf_conta_candidaturas_em_preenchimento _________________
+caronte/piloto-v2/oraculo/test_relatorios.py:79: in test_pdf_conta_candidaturas_em_preenchimento
+    assert "3 submissões finalizadas" in texto
+E   AssertionError: assert '3 submissões finalizadas' in 'Relatorio do Edital: Piloto TCC - Mestrado 2026'
+____________ test_interesse_aceita_os_valores_do_contrato[decline] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+___________ test_interesse_aceita_os_valores_do_contrato[available] ____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+___________ test_interesse_aceita_os_valores_do_contrato[interested] ___________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+_____________ test_interesse_aceita_os_valores_do_contrato[agreed] _____________
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+_____ test_interesse_aceita_os_valores_do_contrato[interested_scholarship] _____
+caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    assert api.get("submissions/1").json()["summary"]["user_bidding"] == valor
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'user_bidding'
+________________ test_interesse_aceita_os_valores_do_contrato[] ________________
+caronte/piloto-v2/oraculo/test_selecao.py:40: in test_interesse_aceita_os_valores_do_contrato
+    assert banco("SELECT user_id, label FROM labels WHERE context_type='bidding'") == [{"user_id": 2, "label": valor}]
+E   AssertionError: assert [] == [{'label': '', 'user_id': 2}]
+E     
+E     Right contains one more item: {'label': '', 'user_id': 2}
+E     Use -v to get more diff
+_________ test_um_interesse_corrente_por_usuario_refletido_na_listagem _________
+caronte/piloto-v2/oraculo/test_selecao.py:55: in test_um_interesse_corrente_por_usuario_refletido_na_listagem
+    assert [u["id"] for u in ana["bidding_users"]["data"]["agreed"]] == [2]
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   TypeError: list indices must be integers or slices, not str
+___ test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.] ___
+caronte/piloto-v2/oraculo/test_selecao.py:109: in test_semestre_de_ingresso_normalizado
+    assert submissao(1)["entry_semester"] == gravado
+E   AssertionError: assert 'Second semester' == 'Segundo semestre.'
+E     
+E     - Segundo semestre.
+E     ?   ^^  -        --
+E     + Second semester
+E     ?   ^^         +
+=========================== short test summary info ============================
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_inicio_do_login_redireciona_ao_provedor
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_login_reconhece_usuario_existente_e_preserva_o_papel
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_cookie_de_sessao_seguro_lax_de_oito_horas
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_novo_usuario_autorizado_vira_docente
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_nusp_fora_da_whitelist_nao_entra
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_retorno_sem_o_segredo_da_sessao_responde_401
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_verifier_invalido_responde_500
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_atividade_reune_comentarios_candidatura_e_recomendacoes
+FAILED caronte/piloto-v2/oraculo/test_avaliacao.py::test_catalogo_de_etiquetas_do_usuario
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[1-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[1-1-version=1]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[1-2-version=2]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[2-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[3-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[3-1-version=1]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_estrutura_com_secoes_e_campos_em_ordem[4-None-is_active]
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_versao_sem_secoes_cai_para_todas_as_secoes
+FAILED caronte/piloto-v2/oraculo/test_formularios.py::test_campos_da_secao_com_metadados[1-2]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_traz_dados_mapeados
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_associa_recomendacoes_sem_misturar_candidatos
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_com_ppi_mapeado
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_resumo_traz_recomendacoes_e_convites_pendentes
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[1]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[2]
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[3]
+FAILED caronte/piloto-v2/oraculo/test_mapeamentos.py::test_cria_mapeamento_de_candidatura_para_nova_versao
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_envia_formulario_de_aceite
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_estado_do_aceite_respondido
+FAILED caronte/piloto-v2/oraculo/test_mensagens.py::test_envia_carta_de_aceite
+FAILED caronte/piloto-v2/oraculo/test_percursos.py::test_da_homologacao_ao_resultado_e_aceite
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_com_todas_as_secoes
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_sem_secoes_opcionais_nem_emails
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_conta_candidaturas_em_preenchimento
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[decline]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[available]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[agreed]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested_scholarship]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[]
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_um_interesse_corrente_por_usuario_refletido_na_listagem
+FAILED caronte/piloto-v2/oraculo/test_selecao.py::test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.]
+41 failed, 206 passed in 664.67s (0:11:04)
+

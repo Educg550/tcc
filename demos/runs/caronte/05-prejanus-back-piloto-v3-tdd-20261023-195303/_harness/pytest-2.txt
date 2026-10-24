@@ -1,0 +1,119 @@
+................................ss.FF.....F....F..s.                     [100%]
+=================================== FAILURES ===================================
+_______________________________ test_pdf_report ________________________________
+tests/test_reports.py:29: in test_pdf_report
+    assert resp.status_code == 200
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+_______________________________ test_csv_report ________________________________
+tests/test_reports.py:46: in test_csv_report
+    assert resp.status_code == 200
+E   assert 403 == 200
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+_______________________ test_select_submission_not_found _______________________
+tests/test_selection.py:88: in test_select_submission_not_found
+    assert resp.status_code == 404
+E   assert 403 == 404
+E    +  where 403 = <Response [403 Forbidden]>.status_code
+____________________________ test_submission_detail ____________________________
+tests/test_submissions.py:79: in test_submission_detail
+    assert found_field
+E   assert False
+=========================== short test summary info ============================
+FAILED tests/test_reports.py::test_pdf_report - assert 403 == 200
+FAILED tests/test_reports.py::test_csv_report - assert 403 == 200
+FAILED tests/test_selection.py::test_select_submission_not_found - assert 403...
+FAILED tests/test_submissions.py::test_submission_detail - assert False
+4 failed, 45 passed, 3 skipped in 1.50s
+
+
+local-admin-1  | INFO:     Started server process [1]
+local-admin-1  | INFO:     Waiting for application startup.
+local-admin-1  | INFO:     Application startup complete.
+local-admin-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-admin-1  | INFO:     192.168.96.7:55108 - "GET / HTTP/1.1" 200 OK
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.7:34610 - "GET / HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.7:60718 - "GET / HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.7:47906 - "GET / HTTP/1.1" 200 OK
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.7:51018 - "GET / HTTP/1.1" 200 OK
+
+  192.168.96.18:50224 - "GET /forms/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /forms HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /forms/1/sections HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /forms HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /forms/1/sections?version=1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /forms HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /forms/1/sections HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /forms/1/sessions/101/fields HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/reesend_submission HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/99999999/send-accept HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/99999999/send-letter HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/send-letter HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/send-accept HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/download_pdf/nao-existe HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/download_csv/nao-existe HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:50224 - "POST /edicts/3/interactors_list?mode=pdf HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:50224 - "POST /edicts/3/pairing-biddings HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:50224 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /edicts/3/slots HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/select HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/99999999/select HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /edicts/3/submissions?stats=underreview HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/5?include_comments=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:50224 - "GET /submissions/5/files/qualquer/outro.pdf HTTP/1.1" 404 Not Found
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.7:50988 - "GET / HTTP/1.1" 200 OK
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:47310 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:37754 - "GET /auth/login HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:37754 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:37754 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:37754 - "GET /edicts/1 HTTP/1.1" 401 Unauthorized

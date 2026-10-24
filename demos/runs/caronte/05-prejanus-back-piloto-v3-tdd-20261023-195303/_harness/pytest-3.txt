@@ -1,0 +1,108 @@
+..........F.....................ss.F................                     [100%]
+=================================== FAILURES ===================================
+__________________ test_teacher_forbidden_on_admin_operations __________________
+tests/test_edicts.py:122: in test_teacher_forbidden_on_admin_operations
+    assert (
+E   AssertionError: assert 200 == 403
+E    +  where 200 = <Response [200 OK]>.status_code
+E    +    where <Response [200 OK]> = post('/edicts/3/pairing-biddings')
+E    +      where post = <httpx.Client object at 0x75f13a741ed0>.post
+_______________________________ test_pdf_report ________________________________
+tests/test_reports.py:34: in test_pdf_report
+    pdf = _download(client, f"/edicts/download_pdf/{job_id}")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_reports.py:14: in _download
+    raise AssertionError(f"relatório não ficou pronto: {path}")
+E   AssertionError: relatório não ficou pronto: /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac
+=========================== short test summary info ============================
+FAILED tests/test_edicts.py::test_teacher_forbidden_on_admin_operations - Ass...
+FAILED tests/test_reports.py::test_pdf_report - AssertionError: relatório não...
+2 failed, 48 passed, 2 skipped in 32.33s
+
+
+local-admin-1  | INFO:     Started server process [1]
+local-admin-1  | INFO:     Waiting for application startup.
+local-admin-1  | INFO:     Application startup complete.
+local-admin-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-admin-1  | INFO:     192.168.96.7:49470 - "GET / HTTP/1.1" 200 OK
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.7:54600 - "GET / HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.7:57374 - "GET / HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.7:38734 - "GET / HTTP/1.1" 200 OK
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.7:48850 - "GET / HTTP/1.1" 200 OK
+
+50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_pdf/fdd43c50c2da488ea3e977122431e6ac HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "POST /edicts/3/pairing-biddings HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_csv/96980d34b845483a9afa9b72e0632ff4 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_csv/96980d34b845483a9afa9b72e0632ff4 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/download_csv/96980d34b845483a9afa9b72e0632ff4 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /edicts/3/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /edicts/3/slots HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/5/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/5/select HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/99999999/select HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /edicts/3/submissions?stats=underreview HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5?include_comments=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5/files/official-document-file/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49624 - "GET /submissions/5/files/qualquer/outro.pdf HTTP/1.1" 404 Not Found
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.7:42912 - "GET / HTTP/1.1" 200 OK
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:48268 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:49122 - "GET /auth/login HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:49122 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:49122 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:49122 - "GET /edicts/1 HTTP/1.1" 401 Unauthorized

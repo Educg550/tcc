@@ -1,0 +1,275 @@
+.........F.............................................................. [ 44%]
+........F.F....F..............................................F.....FF.. [ 89%]
+.................                                                        [100%]
+=================================== FAILURES ===================================
+__________________ test_novo_usuario_autorizado_vira_docente ___________________
+caronte/piloto-v2/oraculo/test_acesso.py:118: in test_novo_usuario_autorizado_vira_docente
+    assert anonimo.get("auth/login").json()["role"] == "teacher"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'role'
+_____________ test_candidatura_recem_finalizada_entra_na_listagem ______________
+caronte/piloto-v2/oraculo/test_inscricoes.py:102: in test_candidatura_recem_finalizada_entra_na_listagem
+    nomes = {s["name"] for s in listar(api, 1).values()}
+                                ^^^^^^^^^^^^^^
+caronte/piloto-v2/oraculo/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________________ test_estado_sobrevive_ao_reinicio_do_backend _________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:229: in test_estado_sobrevive_ao_reinicio_do_backend
+    assert "Persistente" in json.dumps(api.get("submissions/1/comments").json(), ensure_ascii=False)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+________________________ test_listagem_com_ppi_mapeado _________________________
+caronte/piloto-v2/oraculo/test_inscricoes.py:119: in test_listagem_com_ppi_mapeado
+    assert all(s["ethnicity_race"] is True for s in lista.values())
+E   assert False
+E    +  where False = all(<generator object test_listagem_com_ppi_mapeado.<locals>.<genexpr> at 0x76fe21d4bc60>)
+__________________ test_da_homologacao_ao_resultado_e_aceite ___________________
+caronte/piloto-v2/oraculo/test_percursos.py:29: in test_da_homologacao_ao_resultado_e_aceite
+    assert link.status_code == 200
+E   assert 302 == 200
+E    +  where 302 = <Response [302 FOUND]>.status_code
+_________________ test_pdf_conta_candidaturas_em_preenchimento _________________
+caronte/piloto-v2/oraculo/test_relatorios.py:79: in test_pdf_conta_candidaturas_em_preenchimento
+    assert "3 submissões finalizadas" in texto
+E   AssertionError: assert '3 submissões finalizadas' in 'Relatório do edital Piloto TCC - Mestrado 2026\nEstatísticas Gerais\n3 submissıes finalizadas\n1 submissıes em preenchimento\nObservaçıes Finais\nTotal de candidatos: 3\n'
+___________________ test_pdf_sem_secoes_opcionais_nem_emails ___________________
+caronte/piloto-v2/oraculo/test_relatorios.py:69: in test_pdf_sem_secoes_opcionais_nem_emails
+    assert "Observações Finais" in texto
+E   AssertionError: assert 'Observações Finais' in 'Relatório do edital Piloto TCC - Mestrado 2026\nObservaçıes Finais\nTotal de candidatos: 3\n'
+=========================== short test summary info ============================
+FAILED caronte/piloto-v2/oraculo/test_acesso.py::test_novo_usuario_autorizado_vira_docente
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_candidatura_recem_finalizada_entra_na_listagem
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_estado_sobrevive_ao_reinicio_do_backend
+FAILED caronte/piloto-v2/oraculo/test_inscricoes.py::test_listagem_com_ppi_mapeado
+FAILED caronte/piloto-v2/oraculo/test_percursos.py::test_da_homologacao_ao_resultado_e_aceite
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_conta_candidaturas_em_preenchimento
+FAILED caronte/piloto-v2/oraculo/test_relatorios.py::test_pdf_sem_secoes_opcionais_nem_emails
+7 failed, 154 passed in 534.12s (0:08:54)
+
+
+e HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36548 - "POST /submissions/3/reesend_submission HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36558 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36568 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36572 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36582 - "GET /edicts/download_csv/bd2c5709-2986-4d29-b93e-37e7379403d9 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36594 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36606 - "POST /edicts/1/interactors_list?mode=pdf HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36622 - "GET /edicts/download_pdf/94ed77ab-e90c-47a3-ad25-910530869fc8 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36624 - "GET /edicts/download_pdf/94ed77ab-e90c-47a3-ad25-910530869fc8 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:36630 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36644 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36648 - "GET /edicts/download_csv/792bd89e-1bdc-4fda-afe4-1d1f8324e177 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:36656 - "GET /edicts/download_csv/792bd89e-1bdc-4fda-afe4-1d1f8324e177 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:43722 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43734 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43744 - "POST /edicts/2/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43760 - "GET /edicts/download_csv/f92d6f19-cea7-4194-99bf-1b65ade0f213 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43776 - "GET /edicts/download_csv/34e396b1-2955-43df-9703-40ae7abfba8e HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43782 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43784 - "POST /submissions/3/comments HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43790 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43804 - "POST /edicts/1/interactors_list HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43810 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43816 - "POST /edicts/1/interactors_list?mode=pdf HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:43826 - "GET /edicts/download_pdf/9f6f1fb9-cc41-4ce4-9187-7f536102feac HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58624 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58626 - "POST /submissions/3/comments HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58636 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58646 - "POST /edicts/1/interactors_list?mode=pdf HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58658 - "GET /edicts/download_pdf/4ebfc124-31f8-4a70-ba54-00689452853b HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58668 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58676 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58688 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58690 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58692 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:58704 - "POST /submissions/1/select HTTP/1.1" 409 Conflict
+local-admin-1  | INFO:     192.168.96.7:45822 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:45830 - "POST /submissions/999/select HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.7:44098 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.7:44108 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.7:34606 - "GET / HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:43070 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:43072 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:56916 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:56928 - "POST /edicts/1/edit-date HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:52918 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:52930 - "POST /edicts/2/candidates/mappings/versions/2/ HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:36712 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:36714 - "POST /submissions/4/private_notes HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:41410 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:41422 - "POST /submissions/4/private_notes HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:40170 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.7:40180 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.7:47432 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:51102 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:51118 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:36320 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:36334 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:54890 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.7:54902 - "POST /submissions/1/view HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.7:51516 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:37976 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:37990 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54148 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:54150 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:35792 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:35796 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:34462 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:34470 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:37122 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:37128 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:39300 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:44672 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:44680 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:44692 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:44708 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:33234 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:33246 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.7:43140 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.7:43154 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.7:38032 - "GET / HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:49998 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:50010 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:51218 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:51224 - "POST /edicts/1/edit-date HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:58152 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:58162 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:49534 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.7:49542 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+
+192.168.96.7:48906 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:48920 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:48936 - "POST /submissions/2/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:48950 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:48960 - "POST /submissions/4/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:50284 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:50300 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44662 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44672 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49484 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49490 - "POST /submissions/1/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.7:49494 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49502 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49516 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49518 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49528 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49544 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53186 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53200 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53214 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53220 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53234 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53238 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53240 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53250 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53264 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45154 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45156 - "POST /submissions/999/entry-semester HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:39544 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39546 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39556 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39558 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39570 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39586 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39594 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39598 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39614 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58390 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58406 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58422 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58430 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58432 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58438 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58454 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58470 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:58480 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33180 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33188 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33196 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+
+ser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+prejanus-back-1  |     await self.app(scope, receive, _send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+prejanus-back-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/routers/auth.py", line 46, in login_senhaunica
+prejanus-back-1  |     access_token, access_secret = oauth.get_access_token(oauth_token, token_secret, oauth_verifier)
+prejanus-back-1  |                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/oauth.py", line 120, in get_access_token
+prejanus-back-1  |     data = _signed_request(
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/oauth.py", line 89, in _signed_request
+prejanus-back-1  |     last.raise_for_status()
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/httpx/_models.py", line 763, in raise_for_status
+prejanus-back-1  |     raise HTTPStatusError(message, request=request, response=self)
+prejanus-back-1  | httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'http://oauth:8000/wsusuario/oauth/access_token'
+prejanus-back-1  | For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:50882 - "GET / HTTP/1.1" 200 OK

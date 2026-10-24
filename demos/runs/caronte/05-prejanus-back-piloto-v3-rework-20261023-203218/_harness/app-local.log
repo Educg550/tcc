@@ -1,0 +1,732 @@
+local-1  | INFO:     Started server process [1]
+local-1  | INFO:     Waiting for application startup.
+local-1  | INFO:     Application startup complete.
+local-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-1  | INFO:     192.168.96.7:55698 - "GET / HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55714 - "GET / HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44916 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:40790 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:40792 - "POST /edicts HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:39322 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39334 - "POST /edicts/1/edit HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45978 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45994 - "POST /edicts/1/edit-date HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:52308 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52318 - "POST /edicts/1/advance-phase HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:37166 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37172 - "PATCH /edicts/1/close HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45772 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45780 - "DELETE /edicts/1/remove HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:45788 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45800 - "POST /edicts/1/candidates/mappings/versions/3/ HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:60062 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60072 - "PUT /edicts/1/candidates/mappings/versions/1/1 HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:41528 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:41530 - "DELETE /edicts/1/recommenders/mappings/versions/1/2 HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.7:41534 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:41548 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57770 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57784 - "POST /submissions/1/reesend_submission HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:57794 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45814 - "POST /edicts/1/interactors_list HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45828 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45830 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52430 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52444 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52448 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52462 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:40658 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:40674 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:40684 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:40696 - "POST /submissions/1/comments HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:40704 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:40718 - "POST /submissions/1/comments HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:53818 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53834 - "POST /submissions/1/comments HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:53840 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53846 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53852 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53856 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53872 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53882 - "GET /submissions/1/comments HTTP/1.1" 500 Internal Server Error
+local-1  | ERROR:    Exception in ASGI application
+local-1  | Traceback (most recent call last):
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-1  |     result = await app(  # type: ignore[func-returns-value]
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-1  |     return await self.app(scope, receive, send)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-1  |     await super().__call__(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-1  |     await self.app(scope, receive, _send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-1  |     await route.handle(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-1  |     response = await f(request)
+local-1  |                ^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-1  |     raw_response = await run_endpoint_function(
+local-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-1  |     return await dependant.call(**values)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/routers/submissions.py", line 144, in get_all_comments
+local-1  |     return await comments_list(db, submission_id)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 268, in comments_list
+local-1  |     return [
+local-1  |            ^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 270, in <listcomp>
+local-1  |     "id": r["id"],
+local-1  |           ~^^^^^^
+local-1  |   File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 54, in sqlalchemy.cyextension.resultproxy.BaseRow.__getitem__
+local-1  | TypeError: tuple indices must be integers or slices, not str
+local-1  | INFO:     192.168.96.7:53894 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53902 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53906 - "GET /submissions/1/comments HTTP/1.1" 500 Internal Server Error
+local-1  | ERROR:    Exception in ASGI application
+local-1  | Traceback (most recent call last):
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-1  |     result = await app(  # type: ignore[func-returns-value]
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-1  |     return await self.app(scope, receive, send)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-1  |     await super().__call__(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-1  |     await self.app(scope, receive, _send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-1  |     await route.handle(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-1  |     response = await f(request)
+local-1  |                ^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-1  |     raw_response = await run_endpoint_function(
+local-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-1  |     return await dependant.call(**values)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/routers/submissions.py", line 144, in get_all_comments
+local-1  |     return await comments_list(db, submission_id)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 268, in comments_list
+local-1  |     return [
+local-1  |            ^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 270, in <listcomp>
+local-1  |     "id": r["id"],
+local-1  |           ~^^^^^^
+local-1  |   File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 54, in sqlalchemy.cyextension.resultproxy.BaseRow.__getitem__
+local-1  | TypeError: tuple indices must be integers or slices, not str
+local-1  | INFO:     192.168.96.7:57662 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57676 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57690 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57704 - "DELETE /submissions/comments/1 HTTP/1.1" 204 No Content
+local-1  | INFO:     192.168.96.7:57706 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57708 - "DELETE /submissions/comments/1 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:57724 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57740 - "GET /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57750 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57760 - "POST /submissions/1/favorites HTTP/1.1" 201 Created
+local-1  | INFO:     192.168.96.7:57764 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57772 - "POST /submissions/1/favorites HTTP/1.1" 201 Created
+local-1  | INFO:     192.168.96.7:57780 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57788 - "POST /submissions/1/favorites HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:57804 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57810 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57814 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42014 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42016 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42022 - "POST /submissions/2/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42028 - "POST /submissions/2/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42044 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42060 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42076 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42082 - "POST /submissions/2/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42088 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42090 - "POST /submissions/2/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42094 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42100 - "GET /submissions/4/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42116 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42122 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42124 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42132 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42142 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42150 - "DELETE /submissions/label/1 HTTP/1.1" 204 No Content
+local-1  | INFO:     192.168.96.7:42156 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42162 - "DELETE /submissions/label/1 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:37878 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37894 - "POST /submissions/1/labels HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:37900 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37908 - "POST /submissions/1/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37922 - "POST /submissions/1/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37926 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37938 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37952 - "POST /submissions/1/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42226 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42232 - "POST /submissions/1/private_notes HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:42236 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42246 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42254 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42262 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42266 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42280 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42282 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42284 - "GET /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42288 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42294 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42302 - "GET /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57540 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57554 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57560 - "GET /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57576 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57590 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44220 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44232 - "GET /edicts/2 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44242 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44246 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44256 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:44264 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52630 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52642 - "GET /edicts/999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:52644 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:52650 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:54350 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:54358 - "GET /forms HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:54368 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:54378 - "GET /forms?notice=doutorado HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60866 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60870 - "GET /forms?notice=mestrado HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60886 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60894 - "GET /forms?year=2026 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60896 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60898 - "GET /forms?year=2025 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55294 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55310 - "GET /forms?year=2026&notice=doutorado HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55320 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55322 - "GET /forms?year=2025&notice=mestrado HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55338 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55348 - "GET /forms/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42862 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42872 - "GET /forms/1?version=1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37386 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37390 - "GET /forms/1?version=2 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35406 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35420 - "GET /forms/2 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35430 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35444 - "GET /forms/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36116 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36118 - "GET /forms/3?version=1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36124 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36128 - "GET /forms/4 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46044 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46052 - "GET /forms/1/sections HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46054 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46056 - "GET /forms/1/sections?version=1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34550 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34558 - "GET /forms/1/sections?version=2 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34564 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34572 - "GET /forms/3/sections HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34580 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34586 - "GET /forms/1/sections?version=7 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34588 - "GET /forms/1?version=7 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36714 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36718 - "GET /forms/1/sessions/2/fields HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36724 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36734 - "GET /forms/1/sessions/102/fields HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36748 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36752 - "GET /forms/2/sessions/10/fields HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35232 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35238 - "GET /forms/3/sessions/13/fields HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35244 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35260 - "GET /forms/4/sessions/18/fields HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46732 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46736 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46740 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46752 - "GET /edicts/2/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46758 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46768 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46772 - "GET /edicts/2/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47760 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47766 - "POST /submissions/4/favorites HTTP/1.1" 201 Created
+local-1  | INFO:     192.168.96.7:47776 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47788 - "GET /edicts/1/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47796 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:47808 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56938 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56944 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56956 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56968 - "GET /edicts/1/submissions HTTP/1.1" 500 Internal Server Error
+local-1  | ERROR:    Exception in ASGI application
+local-1  | Traceback (most recent call last):
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-1  |     self.dialect.do_execute(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-1  |     cursor.execute(statement, parameters)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-1  |     value = await result
+local-1  |             ^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-1  |     raise ex.with_traceback(None)
+local-1  | psycopg.errors.UndefinedColumn: coluna "recommender_form_ids" da relação "submission" não existe
+local-1  | LINE 1: ...SERT INTO submission(edict_id, candidate_form_id, recommende...
+local-1  |                                                              ^
+local-1  | 
+local-1  | The above exception was the direct cause of the following exception:
+local-1  | 
+local-1  | Traceback (most recent call last):
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-1  |     result = await app(  # type: ignore[func-returns-value]
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-1  |     return await self.app(scope, receive, send)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-1  |     await super().__call__(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-1  |     await self.app(scope, receive, _send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-1  |     await route.handle(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-1  |     response = await f(request)
+local-1  |                ^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-1  |     raw_response = await run_endpoint_function(
+local-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-1  |     return await dependant.call(**values)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/routers/edicts.py", line 338, in get_all_submissions_from_edict
+local-1  |     await sync_edict(db, fdb, edict)
+local-1  |   File "/workspace/src/services/submissions_service.py", line 65, in sync_edict
+local-1  |     result = await db.execute(
+local-1  |              ^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 463, in execute
+local-1  |     result = await greenlet_spawn(
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-1  |     result = context.throw(*sys.exc_info())
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-1  |     return self._execute_internal(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2260, in _execute_internal
+local-1  |     result = conn.execute(
+local-1  |              ^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-1  |     return meth(
+local-1  |            ^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-1  |     return connection._execute_clauseelement(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-1  |     ret = self._execute_context(
+local-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-1  |     return self._exec_single_context(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-1  |     self._handle_dbapi_exception(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-1  |     self.dialect.do_execute(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-1  |     cursor.execute(statement, parameters)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-1  |     value = await result
+local-1  |             ^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-1  |     raise ex.with_traceback(None)
+local-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna "recommender_form_ids" da relação "submission" não existe
+local-1  | LINE 1: ...SERT INTO submission(edict_id, candidate_form_id, recommende...
+local-1  |                                                              ^
+local-1  | [SQL: INSERT INTO submission(edict_id, candidate_form_id, recommender_form_ids, stats, recommender_form_version, candidate_form_version, created_at, updated_at) VALUES(%(e)s, %(c)s, CAST('[]' AS json), 'underreview', %(rv)s, %(cv)s, now(), now()) RETURNING id]
+local-1  | [parameters: {'e': 1, 'c': 20, 'rv': 1, 'cv': 2}]
+local-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-1  | INFO:     192.168.96.7:35684 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35700 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35708 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35712 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37262 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37266 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37276 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37278 - "GET /submissions/2 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37292 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37298 - "GET /submissions/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42140 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42142 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42158 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42172 - "GET /submissions/4 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42180 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42188 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42204 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:42218 - "GET /submissions/2 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60486 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60492 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60502 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60516 - "GET /submissions/2 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60524 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60534 - "GET /submissions/3 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:60546 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37842 - "GET /submissions/999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:37854 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37856 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37864 - "GET /submissions/1?include_comments=true HTTP/1.1" 500 Internal Server Error
+local-1  | ERROR:    Exception in ASGI application
+local-1  | Traceback (most recent call last):
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-1  |     result = await app(  # type: ignore[func-returns-value]
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-1  |     return await self.app(scope, receive, send)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-1  |     await super().__call__(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-1  |     await self.app(scope, receive, _send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-1  |     await route.handle(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-1  |     response = await f(request)
+local-1  |                ^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-1  |     raw_response = await run_endpoint_function(
+local-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-1  |     return await dependant.call(**values)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/routers/submissions.py", line 133, in get_details
+local-1  |     result["comments"] = await comments_list(db, sub["id"])
+local-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 268, in comments_list
+local-1  |     return [
+local-1  |            ^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 270, in <listcomp>
+local-1  |     "id": r["id"],
+local-1  |           ~^^^^^^
+local-1  |   File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 54, in sqlalchemy.cyextension.resultproxy.BaseRow.__getitem__
+local-1  | TypeError: tuple indices must be integers or slices, not str
+local-1  | INFO:     192.168.96.7:37880 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37882 - "GET /submissions/1/files/disabilities-file/00000000000000000000000000000002_disabilities-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37890 - "GET /submissions/1/files/ethnicity-race-file/00000000000000000000000000000003_ethnicity-race-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37896 - "GET /submissions/1/files/graduate-courses-file/00000000000000000000000000000007_graduate-courses-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37904 - "GET /submissions/1/files/lattes-cv-file/00000000000000000000000000000004_lattes-cv-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37918 - "GET /submissions/1/files/motivation-letter/00000000000000000000000000000008_motivation-letter.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37934 - "GET /submissions/1/files/official-document-file/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37936 - "GET /submissions/1/files/poscomp-file/00000000000000000000000000000006_poscomp-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37944 - "GET /submissions/1/files/studies-transcripts/00000000000000000000000000000005_studies-transcripts.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56094 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56104 - "GET /submissions/2/files/disabilities-file/00000000000000000000000000000bc8_disabilities-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56106 - "GET /submissions/2/files/ethnicity-race-file/00000000000000000000000000000bca_ethnicity-race-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56110 - "GET /submissions/2/files/graduate-courses-file/00000000000000000000000000000bd5_graduate-courses-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56112 - "GET /submissions/2/files/lattes-cv-file/00000000000000000000000000000bcc_lattes-cv-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56128 - "GET /submissions/2/files/motivation-letter/00000000000000000000000000000bd9_motivation-letter.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56144 - "GET /submissions/2/files/official-document-file/00000000000000000000000000000bc2_official-document-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56154 - "GET /submissions/2/files/poscomp-file/00000000000000000000000000000bd4_poscomp-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56168 - "GET /submissions/2/files/studies-transcripts/00000000000000000000000000000bd1_studies-transcripts.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56184 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56198 - "GET /submissions/3/files/lattes-cv-file/00000000000000000000000000000bf4_lattes-cv-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56208 - "GET /submissions/3/files/masters-degree-diploma/00000000000000000000000000000bf6_masters-degree-diploma.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56216 - "GET /submissions/3/files/masters-thesis-articles/00000000000000000000000000000bfb_masters-thesis-articles.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56230 - "GET /submissions/3/files/masters-transcript/00000000000000000000000000000bfa_masters-transcript.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56238 - "GET /submissions/3/files/motivation-letter/00000000000000000000000000000c03_motivation-letter.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56254 - "GET /submissions/3/files/poscomp-file/00000000000000000000000000000bfe_poscomp-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56258 - "GET /submissions/3/files/research-plan/00000000000000000000000000000bf8_research-plan.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56272 - "GET /submissions/3/files/studies-transcripts/00000000000000000000000000000bf7_studies-transcripts.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56276 - "GET /submissions/3/files/supervisor-acceptance-letter/00000000000000000000000000000bf9_supervisor-acceptance-letter.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56280 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:56292 - "GET /submissions/1/files/lattes-cv-file/00000000000000000000000000000005_studies-transcripts.pdf HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:37452 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37454 - "GET /submissions/2/files/lattes-cv-file/00000000000000000000000000000004_lattes-cv-file.pdf HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:37464 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37480 - "GET /submissions/1/etc/passwd HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:37486 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37490 - "GET /submissions/999/files/lattes-cv-file/00000000000000000000000000000004_lattes-cv-file.pdf HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:37494 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37510 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:37512 - "POST /submissions/1/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     Shutting down
+local-1  | INFO:     Waiting for application shutdown.
+local-1  | INFO:     Application shutdown complete.
+local-1  | INFO:     Finished server process [1]
+local-1  | INFO:     Started server process [1]
+local-1  | INFO:     Waiting for application startup.
+local-1  | INFO:     Application startup complete.
+local-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-1  | INFO:     192.168.96.7:53568 - "GET / HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53580 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53594 - "GET /submissions/1/comments HTTP/1.1" 500 Internal Server Error
+local-1  | ERROR:    Exception in ASGI application
+local-1  | Traceback (most recent call last):
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-1  |     result = await app(  # type: ignore[func-returns-value]
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-1  |     return await self.app(scope, receive, send)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-1  |     await super().__call__(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 187, in __call__
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-1  |     await self.app(scope, receive, _send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-1  |     await self.middleware_stack(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-1  |     await route.handle(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-1  |     await self.app(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-1  |     raise exc
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-1  |     await app(scope, receive, sender)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-1  |     response = await f(request)
+local-1  |                ^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-1  |     raw_response = await run_endpoint_function(
+local-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-1  |     return await dependant.call(**values)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/routers/submissions.py", line 144, in get_all_comments
+local-1  |     return await comments_list(db, submission_id)
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 268, in comments_list
+local-1  |     return [
+local-1  |            ^
+local-1  |   File "/workspace/src/services/submissions_service.py", line 270, in <listcomp>
+local-1  |     "id": r["id"],
+local-1  |           ~^^^^^^
+local-1  |   File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 54, in sqlalchemy.cyextension.resultproxy.BaseRow.__getitem__
+local-1  | TypeError: tuple indices must be integers or slices, not str
+local-1  | INFO:     192.168.96.7:39112 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39118 - "GET /edicts/1/candidates/mappings HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:48986 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:48990 - "GET /edicts/1/recommenders/mappings HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36476 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36486 - "GET /edicts/1/candidates/forms/versions/unmapped HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36502 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:36514 - "GET /edicts/1/recommenders/forms/versions/unmapped HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39622 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39632 - "GET /edicts/2/candidates/forms/versions/unmapped HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39634 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:39644 - "GET /edicts/2/recommenders/forms/versions/unmapped HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34418 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34432 - "POST /submissions/1/send-accept HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34438 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34454 - "POST /submissions/1/send-accept HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34470 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34484 - "POST /submissions/1/send-accept HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:38464 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:38468 - "POST /submissions/1/send-accept HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:38474 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:38490 - "POST /submissions/1/send-accept HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.7:38494 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:38502 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57588 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57602 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57604 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57612 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57628 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57634 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57646 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57648 - "POST /submissions/1/send-letter HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57652 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:57660 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35522 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35536 - "POST /submissions/1/send-letter HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35542 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35550 - "POST /submissions/1/send-letter HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:35554 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35560 - "POST /submissions/1/send-letter HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.7:32770 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:32784 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:32788 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49504 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49510 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49524 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49540 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49550 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49564 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49580 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49588 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49602 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:49616 - "POST /submissions/2/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35354 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:35356 - "POST /submissions/4/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55182 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55184 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55188 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55194 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55196 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55200 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55206 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55222 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:55224 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45778 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45794 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45802 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45816 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45820 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45832 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45848 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45854 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:45858 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33414 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33418 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33426 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33436 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33440 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33446 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33452 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33468 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33476 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33486 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33496 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:33504 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46602 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46610 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46618 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46630 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46634 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46640 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46654 - "POST /submissions/1/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.7:46662 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46668 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46680 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:46684 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:59148 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:59158 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53706 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53710 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53718 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53728 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53736 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:53738 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51506 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51512 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51524 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51528 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51538 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51554 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51570 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51584 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:51590 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34204 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.7:34212 - "POST /submissions/999/entry-semester HTTP/1.1" 404 Not Found

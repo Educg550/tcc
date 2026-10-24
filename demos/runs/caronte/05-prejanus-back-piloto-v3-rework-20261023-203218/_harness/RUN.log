@@ -1,0 +1,121 @@
+{
+  "started_at": "2026-10-23T20:32:18",
+  "ended_at": "2026-10-23T21:45:54",
+  "total_duration_s": 4415.83,
+  "grupo": "rework",
+  "requisito_id": "entrada-rework",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 0.0.0.0 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "",
+    "python": "3.11",
+    "pacotes": [
+      "pytest==9.0.3",
+      "fastapi==0.114.2",
+      "uvicorn==0.30.6",
+      "sqlalchemy[asyncio]==2.0.43",
+      "psycopg[c]==3.2.9",
+      "pydantic==2.11.7",
+      "pydantic-settings==2.10.1",
+      "python-multipart==0.0.17",
+      "itsdangerous==2.2.0",
+      "httpx==0.27.2",
+      "requests==2.32.5",
+      "oauthlib==3.3.1",
+      "senhaunicapy @ git+https://gitlab.com/ccsl-usp/poscomp-ime/senhaunicapy.git@db099c3532eda31ab6257030ef298290fce59e78",
+      "fastapi-mail==1.5.0",
+      "email-validator==2.3.0",
+      "fpdf2==2.8.4",
+      "matplotlib==3.10.7",
+      "pypdf==6.1.3",
+      "babel==2.17.0",
+      "alembic==1.16.5",
+      "argon2-cffi==23.1.0"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3"
+    },
+    "amostragem": {
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "orcamento": {
+    "passos": 40,
+    "custo_usd": 2.0,
+    "tempo_s": 3600
+  },
+  "total_cost_usd": 1.518972,
+  "total_tokens": 9479826,
+  "total_retries": 2,
+  "stages": [
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 3815.94,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 3,
+      "retries": 2,
+      "chamadas_modelo": 54,
+      "contexto_max_tokens": 237715,
+      "arquivos": [
+        "src/db.py",
+        "src/__init__.py",
+        "src/config.py",
+        "src/auth.py",
+        "src/oauth.py",
+        "src/schemas.py",
+        "src/services/__init__.py",
+        "src/services/forms_service.py",
+        "src/services/submissions_service.py",
+        "src/services/mailer.py",
+        "src/services/reports.py",
+        "src/routers/__init__.py",
+        "src/routers/forms.py",
+        "src/routers/auth.py",
+        "src/routers/mappings.py",
+        "src/routers/edicts.py",
+        "src/routers/submissions.py",
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 145,
+          "failed": 16,
+          "errors": 0,
+          "total": 161
+        },
+        {
+          "passed": 149,
+          "failed": 12,
+          "errors": 0,
+          "total": 161
+        },
+        {
+          "passed": 154,
+          "failed": 7,
+          "errors": 0,
+          "total": 161
+        }
+      ],
+      "input_tokens": 9310281,
+      "output_tokens": 169545,
+      "total_tokens": 9479826,
+      "cost_usd": 1.518972,
+      "impressao": "b0bc640ff79efe7c5c91b8e5ab2dd361f00b94666962a1214c6433a927e63d0d",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 154,
+    "failed": 7,
+    "errors": 0,
+    "total": 161
+  },
+  "integridade": {
+    "medido_sha256": "b0bc640ff79efe7c5c91b8e5ab2dd361f00b94666962a1214c6433a927e63d0d",
+    "intacto": true
+  }
+}

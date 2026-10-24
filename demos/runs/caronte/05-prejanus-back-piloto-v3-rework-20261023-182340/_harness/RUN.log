@@ -1,0 +1,127 @@
+{
+  "started_at": "2026-10-23T18:23:40",
+  "ended_at": "2026-10-23T19:36:56",
+  "total_duration_s": 4395.26,
+  "grupo": "rework",
+  "requisito_id": "entrada-rework",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 0.0.0.0 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "",
+    "python": "3.11",
+    "pacotes": [
+      "pytest==9.0.3",
+      "fastapi==0.114.2",
+      "uvicorn==0.30.6",
+      "sqlalchemy[asyncio]==2.0.43",
+      "psycopg[c]==3.2.9",
+      "pydantic==2.11.7",
+      "pydantic-settings==2.10.1",
+      "python-multipart==0.0.17",
+      "itsdangerous==2.2.0",
+      "httpx==0.27.2",
+      "requests==2.32.5",
+      "oauthlib==3.3.1",
+      "senhaunicapy @ git+https://gitlab.com/ccsl-usp/poscomp-ime/senhaunicapy.git@db099c3532eda31ab6257030ef298290fce59e78",
+      "fastapi-mail==1.5.0",
+      "email-validator==2.3.0",
+      "fpdf2==2.8.4",
+      "matplotlib==3.10.7",
+      "pypdf==6.1.3",
+      "babel==2.17.0",
+      "alembic==1.16.5",
+      "argon2-cffi==23.1.0"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3"
+    },
+    "amostragem": {
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "orcamento": {
+    "passos": 40,
+    "custo_usd": 2.0,
+    "tempo_s": 3600
+  },
+  "total_cost_usd": 0.910848,
+  "total_tokens": 3161198,
+  "total_retries": 3,
+  "stages": [
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 3906.03,
+      "ok": false,
+      "motivo": "tempo",
+      "passos": 4,
+      "retries": 3,
+      "chamadas_modelo": 24,
+      "contexto_max_tokens": 254106,
+      "arquivos": [
+        "src/__init__.py",
+        "src/oauth.py",
+        "src/config.py",
+        "src/auth.py",
+        "src/db.py",
+        "src/services/__init__.py",
+        "src/services/forms.py",
+        "src/schemas.py",
+        "src/services/submissions.py",
+        "src/services/reports.py",
+        "src/services/emails.py",
+        "src/routers/auth.py",
+        "src/routers/forms.py",
+        "src/routers/__init__.py",
+        "src/routers/submissions.py",
+        "src/routers/edicts.py",
+        "data/nusp_whitelist.txt",
+        "app.py"
+      ],
+      "historico": [
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 0,
+          "total": 0
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 0,
+          "total": 0
+        },
+        {
+          "passed": 0,
+          "failed": 0,
+          "errors": 0,
+          "total": 0
+        },
+        {
+          "passed": 127,
+          "failed": 34,
+          "errors": 0,
+          "total": 161
+        }
+      ],
+      "input_tokens": 2983719,
+      "output_tokens": 177479,
+      "total_tokens": 3161198,
+      "cost_usd": 0.910848,
+      "impressao": "b0bc640ff79efe7c5c91b8e5ab2dd361f00b94666962a1214c6433a927e63d0d",
+      "tests_vermelhos": true
+    }
+  ],
+  "pytest_final": {
+    "passed": 127,
+    "failed": 34,
+    "errors": 0,
+    "total": 161
+  },
+  "integridade": {
+    "medido_sha256": "b0bc640ff79efe7c5c91b8e5ab2dd361f00b94666962a1214c6433a927e63d0d",
+    "intacto": true
+  }
+}
