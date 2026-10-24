@@ -56,8 +56,28 @@ a URL de uma variável de ambiente, nunca uma porta fixa:
 
 | Variável | Instância |
 |---|---|
-| `CARONTE_API` | `APP_ENV=local`, `DEV_USER_ID=2` (docente já cadastrado) |
+| `CARONTE_API` | `APP_ENV=local`, `DEV_USER_ID=2` (docente `teacher` já cadastrado) |
+| `CARONTE_API_ADMIN` | `APP_ENV=local`, `DEV_USER_ID=1` (`administrator`) |
+| `CARONTE_API_OUTRO` | `APP_ENV=local`, `DEV_USER_ID=3` (outra docente, `teacher`) |
+| `CARONTE_API_SECRETARIA` | `APP_ENV=local`, `DEV_USER_ID=4` (`secretary`) |
+| `CARONTE_API_COORDENADOR` | `APP_ENV=local`, `DEV_USER_ID=5` (`coordinator`) |
+| `CARONTE_API_ESTUDANTE` | `APP_ENV=local`, `DEV_USER_ID=6` (`student`) |
+| `CARONTE_API_SENHAUNICA` | Sem atalho, com login pela Senha Única no provedor local |
 | `CARONTE_API_SEM_ATALHO` | Fora do ambiente local: sem sessão, rotas protegidas respondem 401 |
+| `SENHAUNICA_PROVEDOR` | Provedor OAuth local |
+| `CARONTE_SMTP_API` | API HTTP da caixa SMTP local (smtp4dev) |
+
+O provedor local autoriza sem tela. Com o `oauth_token` do request token,
+`GET {SENHAUNICA_PROVEDOR}/wsusuario/oauth/authorize?oauth_token=...&perfil=...`
+responde em JSON com `oauth_token` e `oauth_verifier`, que seguem para o
+callback. Os perfis são `admin`, `docente`, `outro`, `secretaria`,
+`coordenador` e `estudante`, já cadastrados; `novo`, na whitelist e ainda
+sem cadastro; e `negado`, fora da whitelist.
+
+Na caixa SMTP, `GET /api/Messages` lista as mensagens e
+`GET /api/Messages/{id}/raw` devolve a mensagem completa. Os bancos e a
+caixa voltam ao estado inicial antes de cada execução do gate, não entre
+testes.
 
 A porta 8083 citada no requisito é a publicação no ambiente de integração,
 não um endereço disponível dentro do gate.

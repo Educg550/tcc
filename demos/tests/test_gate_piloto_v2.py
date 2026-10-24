@@ -22,6 +22,10 @@ def test_gate_tdd_roda_testes_http_contra_o_candidato_no_ambiente_v2(tmp_path):
         'def test_api():\n'
         '    assert httpx.get(os.environ["CARONTE_API"]).json() == {"message": "Hello World"}\n'
         '    assert httpx.get(os.environ["CARONTE_API_SEM_ATALHO"]).status_code == 200\n'
+        '    assert httpx.get(os.environ["CARONTE_API_ESTUDANTE"]).status_code == 200\n'
+        '    assert httpx.get(os.environ["CARONTE_SMTP_API"] + "/api/Messages").status_code == 200\n'
+        '    autorizar = os.environ["SENHAUNICA_PROVEDOR"] + "/wsusuario/oauth/authorize"\n'
+        '    assert httpx.get(autorizar, params={"oauth_token": "x"}).status_code == 400\n'
     )
     assert projeto.rodar_pytest().passou
     (tmp_path / "tests/test_falha.py").write_text("def test_falha():\n    assert False\n")

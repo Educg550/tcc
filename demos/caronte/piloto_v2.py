@@ -14,6 +14,7 @@ from contextlib import contextmanager
 from dataclasses import replace
 from pathlib import Path
 
+import httpx
 import yaml
 
 from harness.cli import nome_do_projeto
@@ -32,6 +33,12 @@ REQUISITO = DEMOS / "requisitos/03-caronte-prejanus-completo"
 RUNTIME = "sha256:e10c92c97762c4c419297360e59d245bfa36db080e07e1d77beb9e11ee4b934c"
 SPLIT = json.loads((V2 / "oraculo/split.json").read_text())
 VISIVEIS = sorted({i.split("[")[0] for i in SPLIT["visiveis"]})
+# Os testes do test-writer alcançam as mesmas instâncias, provedor OAuth e caixa SMTP que o oráculo.
+GATE_TDD = {"CARONTE_API": "http://local:8000", "CARONTE_API_SEM_ATALHO": "http://sem-atalho:8000",
+            "CARONTE_API_SENHAUNICA": "http://prejanus-back:8000", "SENHAUNICA_PROVEDOR": "http://oauth:8000",
+            "CARONTE_SMTP_API": "http://smtp:80",
+            **{f"CARONTE_API_{p.upper()}": f"http://local-{p}:8000"
+               for p in ("admin", "outro", "secretaria", "coordenador", "estudante")}}
 
 
 def override(raiz):
@@ -71,6 +78,7 @@ def candidato(raiz, saida):
     try:
         subiu = no_ar()
         restaurar()
+        httpx.delete("http://localhost:8182/api/Messages/*").raise_for_status()
         yield subiu
     finally:
         for nome in BACKENDS:
@@ -106,7 +114,7 @@ class ProjetoV2(Projeto):
                 r = subprocess.run(
                     ["docker", "run", "--rm", "--network", "caronte-piloto-v2_default", "--read-only", "--tmpfs", "/tmp",
                      "--cap-drop=ALL", "--security-opt=no-new-privileges", "-e", "PYTHONDONTWRITEBYTECODE=1",
-                     "-e", "CARONTE_API=http://local:8000", "-e", "CARONTE_API_SEM_ATALHO=http://sem-atalho:8000",
+                     *(a for k, v in GATE_TDD.items() for a in ("-e", f"{k}={v}")),
                      "-v", f"{self.raiz}:/workspace:ro", "--mount", "type=tmpfs,dst=/workspace/_harness",
                      "-w", "/workspace", RUNTIME, "pytest", "-q", "--tb=short", "-p", "no:cacheprovider"],
                     capture_output=True, text=True)
