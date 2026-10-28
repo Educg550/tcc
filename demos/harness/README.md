@@ -73,6 +73,32 @@ exige um trecho não vazio que apareça exatamente uma vez. Python com sintaxe i
 Os escopos continuam valendo: test-writer escreve em `tests/`; coder pode ler os
 testes, mas não alterá-los nem acessar a medição em `_harness/`.
 
+Limitação conhecida do pipeline TDD original: depois de aprovada a etapa de testes, as
+etapas seguintes não podem revisá-la. Se um teste exigir um comportamento errado
+ou contraditório com o requisito, o coder pode adaptar o código ao erro ou gastar
+o orçamento tentando satisfazer uma exigência impossível. As checagens de sintaxe
+e nomes indefinidos não validam o significado dos testes. O resultado mede esse
+pipeline com testes congelados; essa restrição limita a generalização para outras
+formas de aplicar TDD. A nota independente vem do gabarito de testes.
+
+No PreJanus-back, a variante exploratória `tdd-revisao` permite ao coder corrigir
+os testes autorais, mantendo o grupo `tdd` original. De `demos/`:
+
+```bash
+uv run python -m caronte.piloto_v3 tdd-revisao
+```
+
+Ela usa os mesmos agentes, entrada e tetos do v3, com um prompt próprio para o
+coder. A configuração do pytest continua protegida. O agente deve justificar suas
+correções em `tests/REVISOES.md`; essa justificativa não é validada automaticamente.
+O harness preserva a suíte inicial em `_harness/revisoes-testes/000.json` e cada
+versão posterior em JSON e diff, inclusive se o orçamento interromper a sessão
+antes do gate. `RUN.log` identifica o grupo, marca `testes_revisaveis` na etapa de
+código e registra as versões e seus hashes. `integridade.intacto=false` continua
+indicando mudança dos testes; nessa variante ela é permitida e precisa ser
+examinada. O gabarito independente só roda depois da geração. O rework mantém os
+testes fornecidos congelados.
+
 Os prompts orientam a trabalhar em blocos funcionais pequenos até cobrir todo o
 requisito. Não há divisão automática do requisito em novas etapas. O baseline faz
 uma sessão de implementação com várias chamadas de ferramentas, sem feedback de

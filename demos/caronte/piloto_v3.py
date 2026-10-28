@@ -1,4 +1,4 @@
-"""Grupos modulares do v3 com o escopo e o avaliador v2. De demos/: python -m caronte.piloto_v3 [baseline|tdd|rework]."""
+"""Grupos do v3. De demos/: python -m caronte.piloto_v3 [baseline|tdd|rework|tdd-revisao]."""
 
 import argparse
 import asyncio
@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 
 from caronte.piloto_v2 import AQUI, DEMOS, RUNTIME, HarnessRework, ProjetoV2, avaliar, preparar_rework
+from caronte.tdd_revisao import HarnessTDDRevisao
 from harness.cli import nome_do_projeto
 from harness.models import Batch, HarnessDireto, HarnessTDD, Requisito
 
@@ -39,7 +40,11 @@ class ReworkV3(V3, HarnessRework):
     pass
 
 
-GRUPOS = {"baseline": BaselineV3, "tdd": TDDV3, "rework": ReworkV3}
+class TDDRevisaoV3(V3, HarnessTDDRevisao):
+    pass
+
+
+GRUPOS = {"baseline": BaselineV3, "tdd": TDDV3, "rework": ReworkV3, "tdd-revisao": TDDRevisaoV3}
 
 
 def preparar_rework_v3():
@@ -86,6 +91,12 @@ def main():
     runtime = {"imagem": RUNTIME, "orcamento": log["orcamento"], "provider": PROVEDOR,
                "context_length": 1048576,
                "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()}
+    if grupo == "tdd-revisao":
+        shutil.copyfile(AQUI / "tdd_revisao.py", entrada / "tdd_revisao.py")
+        fontes = [*sorted((DEMOS / "harness").rglob("*.py")),
+                  *(AQUI / n for n in ("piloto_v2.py", "piloto_v3.py", "tdd_revisao.py"))]
+        runtime["harness_sha256"] = {str(p.relative_to(DEMOS)): hashlib.sha256(p.read_bytes()).hexdigest()
+                                    for p in fontes}
     (entrada / "runtime.json").write_text(json.dumps(runtime, indent=2) + "\n")
     arquivos = manifesto(raiz, requisito, grupo)
     (projeto.saida / "MANIFESTO_ENTREGA.json").write_text(json.dumps(arquivos, indent=2) + "\n")
