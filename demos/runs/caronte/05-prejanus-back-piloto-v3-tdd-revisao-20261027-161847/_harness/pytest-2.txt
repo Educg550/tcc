@@ -1,0 +1,238 @@
+................................F...F......F.........................FFF [ 86%]
+FF.........                                                              [100%]
+=================================== FAILURES ===================================
+___________________________ test_reesend_submission ____________________________
+tests/test_emails.py:42: in test_reesend_submission
+    msg = _find_message(email, contains="Corrigir o anexo")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_emails.py:20: in _find_message
+    if to_email in str(m.get("to", "")):
+                       ^^^^^
+E   AttributeError: 'str' object has no attribute 'get'
+_______________________________ test_send_letter _______________________________
+tests/test_emails.py:110: in test_send_letter
+    msg = _find_message(email, contains=name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_emails.py:20: in _find_message
+    if to_email in str(m.get("to", "")):
+                       ^^^^^
+E   AttributeError: 'str' object has no attribute 'get'
+___________________ test_secoes_versao_inexistente_fallback ____________________
+tests/test_forms.py:67: in test_secoes_versao_inexistente_fallback
+    assert r.json() == todas
+E   AssertionError: assert [{'descriptio... 2, ...}, ...] == [{'descriptio... 5, ...}, ...]
+E     
+E     At index 0 diff: {'id': 1, 'title': '', 'description': 'Este é o **formulário de inscrição no processo seletivo para mestrado em Ciência da Computação do Instituto de Matemática e Estatística da Universidade de São Paulo**, para ingresso em **2026**. O formulário conta com 5 partes:\\n \n- Dados pessoais;\\n\n- dados acadêmicos;\\n\n- dados profissionais;\\n\n- interesses de pesquisa e dados adicionais;\\n\n- envio de documentos.\\n\n\nTambém é recomendado que você se informe apropriadamente sobre as [linhas de pesquisa do programa](https://www.ime.usp.br/dcc/areas-pesq...
+E     
+E     ...Full output truncated (3 lines hidden), use '-vv' to show
+______________________________ test_fluxo_docente ______________________________
+tests/test_senhaunica.py:40: in test_fluxo_docente
+    redirect_to = _start(senhaunica)
+                  ^^^^^^^^^^^^^^^^^^
+tests/test_senhaunica.py:9: in _start
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________________ test_novo_usuario_whitelist_cadastra_docente _________________
+tests/test_senhaunica.py:53: in test_novo_usuario_whitelist_cadastra_docente
+    redirect_to = _start(senhaunica)
+                  ^^^^^^^^^^^^^^^^^^
+tests/test_senhaunica.py:9: in _start
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________________ test_fora_da_whitelist_negado _________________________
+tests/test_senhaunica.py:61: in test_fora_da_whitelist_negado
+    redirect_to = _start(senhaunica)
+                  ^^^^^^^^^^^^^^^^^^
+tests/test_senhaunica.py:9: in _start
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_callback_sem_segredo_de_sessao ______________________
+tests/test_senhaunica.py:68: in test_callback_sem_segredo_de_sessao
+    redirect_to = _start(senhaunica)
+                  ^^^^^^^^^^^^^^^^^^
+tests/test_senhaunica.py:9: in _start
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________________________ test_cookie_de_sessao _____________________________
+tests/test_senhaunica.py:80: in test_cookie_de_sessao
+    assert r.status_code == 200
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+=========================== short test summary info ============================
+FAILED tests/test_emails.py::test_reesend_submission - AttributeError: 'str' ...
+FAILED tests/test_emails.py::test_send_letter - AttributeError: 'str' object ...
+FAILED tests/test_forms.py::test_secoes_versao_inexistente_fallback - Asserti...
+FAILED tests/test_senhaunica.py::test_fluxo_docente - AssertionError: Interna...
+FAILED tests/test_senhaunica.py::test_novo_usuario_whitelist_cadastra_docente
+FAILED tests/test_senhaunica.py::test_fora_da_whitelist_negado - AssertionErr...
+FAILED tests/test_senhaunica.py::test_callback_sem_segredo_de_sessao - Assert...
+FAILED tests/test_senhaunica.py::test_cookie_de_sessao - assert 500 == 200
+8 failed, 75 passed in 13.27s
+
+
+168.96.18:40100 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40108 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40108 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40108 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40108 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40108 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40108 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40124 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40124 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40124 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40124 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40124 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40124 - "GET /edicts/3/submissions?stats=refused HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40128 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40128 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40128 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40128 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40128 - "POST /submissions/5/favorites HTTP/1.1" 201 Created
+local-admin-1  | INFO:     192.168.96.18:40128 - "GET /edicts/3/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40128 - "DELETE /submissions/5/favorites HTTP/1.1" 204 No Content
+local-admin-1  | INFO:     192.168.96.18:40138 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40138 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40138 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40138 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40138 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40154 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:40168 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40168 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40168 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40168 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40168 - "GET /submissions/5?include_comments=true HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40170 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40170 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40170 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40170 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40170 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40170 - "GET /submissions/5/files/official-document-file/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40174 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40174 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40174 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40174 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40174 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:40174 - "GET /submissions/5/files/official-document-file/arquivo-inexistente.pdf HTTP/1.1" 404 Not Found
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.17:48692 - "GET / HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.18:34868 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.18:34868 - "GET /edicts/5 HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.17:35048 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.18:39008 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.18:39008 - "POST /edicts HTTP/1.1" 403 Forbidden
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.17:41118 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:58464 - "DELETE /submissions/comments/3 HTTP/1.1" 403 Forbidden
+local-outro-1  | INFO:     192.168.96.18:43278 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:43292 - "DELETE /submissions/label/3 HTTP/1.1" 403 Forbidden
+local-outro-1  | INFO:     192.168.96.18:43300 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:43306 - "POST /submissions/5/view HTTP/1.1" 200 OK
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.17:35740 - "GET / HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.18:46082 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.18:46082 - "GET /edicts/4 HTTP/1.1" 200 OK
+
+local-1  | INFO:     Started server process [1]
+local-1  | INFO:     Waiting for application startup.
+local-1  | INFO:     Application startup complete.
+local-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-1  | INFO:     192.168.96.17:51226 - "GET / HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:41750 - "GET / HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:41752 - "GET /openapi.json HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:41766 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:41782 - "POST /edicts HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:41792 - "POST /edicts/6/edit HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:41792 - "POST /edicts/6/advance-phase HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:41792 - "PATCH /edicts/6/close HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:41792 - "DELETE /edicts/6/remove HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:35520 - "POST /submissions/5/reesend_submission HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:35530 - "POST /edicts/3/interactors_list HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:35530 - "POST /edicts/3/pairing-biddings HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:35536 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:35536 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:35540 - "POST /submissions/5/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.18:35542 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:37126 - "POST /submissions/5/select HTTP/1.1" 403 Forbidden
+
+ait wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/routers/auth_routes.py", line 65, in login_senhaunica
+prejanus-back-1  |     token, secret = oauth.get_request_token()
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/oauth.py", line 29, in get_request_token
+prejanus-back-1  |     uri, headers, body = _sign(url)
+prejanus-back-1  |                          ^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/oauth.py", line 15, in _sign
+prejanus-back-1  |     return client.sign(url, http_method=method)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/oauthlib/oauth1/rfc5849/__init__.py", line 352, in sign
+prejanus-back-1  |     ('oauth_signature', self.get_oauth_signature(request)))
+prejanus-back-1  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/oauthlib/oauth1/rfc5849/__init__.py", line 175, in get_oauth_signature
+prejanus-back-1  |     normalized_uri = signature.base_string_uri(uri, headers.get('Host', None))
+prejanus-back-1  |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/oauthlib/oauth1/rfc5849/signature.py", line 138, in base_string_uri
+prejanus-back-1  |     port = output.port
+prejanus-back-1  |            ^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/urllib/parse.py", line 182, in port
+prejanus-back-1  |     raise ValueError(f"Port could not be cast to integer value as {port!r}")
+prejanus-back-1  | ValueError: Port could not be cast to integer value as '8000wsusuario'
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.17:59068 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:42864 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:42864 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:42876 - "GET /edicts/1 HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:42876 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized

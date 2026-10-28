@@ -1,0 +1,179 @@
+{
+  "started_at": "2026-10-27T16:18:47",
+  "ended_at": "2026-10-27T17:07:33",
+  "total_duration_s": 2925.7,
+  "grupo": "tdd-revisao",
+  "requisito_id": "05-prejanus-back-piloto-v3",
+  "alvo": {
+    "comando_app": "uvicorn app:app --host 0.0.0.0 --port {porta}",
+    "comando_teste": "pytest -q --tb=short",
+    "comando_frontend": "",
+    "python": "3.11",
+    "pacotes": [
+      "pytest==9.0.3",
+      "fastapi==0.114.2",
+      "uvicorn==0.30.6",
+      "sqlalchemy[asyncio]==2.0.43",
+      "psycopg[c]==3.2.9",
+      "pydantic==2.11.7",
+      "pydantic-settings==2.10.1",
+      "python-multipart==0.0.17",
+      "itsdangerous==2.2.0",
+      "httpx==0.27.2",
+      "requests==2.32.5",
+      "oauthlib==3.3.1",
+      "senhaunicapy @ git+https://gitlab.com/ccsl-usp/poscomp-ime/senhaunicapy.git@db099c3532eda31ab6257030ef298290fce59e78",
+      "fastapi-mail==1.5.0",
+      "email-validator==2.3.0",
+      "fpdf2==2.8.4",
+      "matplotlib==3.10.7",
+      "pypdf==6.1.3",
+      "babel==2.17.0",
+      "alembic==1.16.5",
+      "argon2-cffi==23.1.0"
+    ],
+    "modelos": {
+      "test_writer": "z-ai/glm-5.3",
+      "coder": "z-ai/glm-5.3"
+    },
+    "amostragem": {
+      "temperature": 0.1,
+      "top_p": 0.9
+    }
+  },
+  "orcamento": {
+    "passos": 40,
+    "custo_usd": 2.0,
+    "tempo_s": 3600
+  },
+  "total_cost_usd": 2.218339,
+  "total_tokens": 8526253,
+  "total_retries": 5,
+  "stages": [
+    {
+      "id": "tests",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 230.99,
+      "ok": true,
+      "motivo": "verde",
+      "passos": 1,
+      "retries": 0,
+      "chamadas_modelo": 20,
+      "contexto_max_tokens": 64138,
+      "arquivos": [
+        "tests/conftest.py",
+        "tests/test_ambiente_auth.py",
+        "tests/test_senhaunica.py",
+        "tests/test_forms.py",
+        "tests/test_edicts.py",
+        "tests/test_mappings.py",
+        "tests/test_submissions.py",
+        "tests/test_avaliacao.py",
+        "tests/test_selecao.py",
+        "tests/test_emails.py",
+        "tests/test_relatorios.py"
+      ],
+      "historico": [],
+      "input_tokens": 1088247,
+      "output_tokens": 21731,
+      "total_tokens": 1109978,
+      "cost_usd": 0.203606
+    },
+    {
+      "id": "code",
+      "configured_model": "z-ai/glm-5.3",
+      "duration_s": 2609.84,
+      "ok": false,
+      "motivo": "custo",
+      "passos": 6,
+      "retries": 5,
+      "chamadas_modelo": 57,
+      "contexto_max_tokens": 197167,
+      "arquivos": [
+        "database.py",
+        "config.py",
+        "auth.py",
+        "oauth.py",
+        "mailer.py",
+        "services/__init__.py",
+        "services/forms_service.py",
+        "services/submissions_service.py",
+        "services/reports_service.py",
+        "routers/forms_routes.py",
+        "routers/__init__.py",
+        "routers/auth_routes.py",
+        "routers/edicts_routes.py",
+        "routers/mappings_routes.py",
+        "routers/reports_routes.py",
+        "routers/submissions_routes.py",
+        "app.py",
+        "tests/REVISOES.md",
+        "tests/test_emails.py"
+      ],
+      "historico": [
+        {
+          "passed": 75,
+          "failed": 8,
+          "errors": 0,
+          "total": 83
+        },
+        {
+          "passed": 80,
+          "failed": 3,
+          "errors": 0,
+          "total": 83
+        },
+        {
+          "passed": 81,
+          "failed": 2,
+          "errors": 0,
+          "total": 83
+        }
+      ],
+      "input_tokens": 7013070,
+      "output_tokens": 403205,
+      "total_tokens": 7416275,
+      "cost_usd": 2.014733,
+      "impressao": "35cba14ed254ee108bc8e8c2a1cb15ace04e033a77144bcf9e563842c4aa2b1c",
+      "tests_vermelhos": true,
+      "testes_revisaveis": true,
+      "versoes_testes": [
+        {
+          "versao": 0,
+          "sha256": "35cba14ed254ee108bc8e8c2a1cb15ace04e033a77144bcf9e563842c4aa2b1c",
+          "arquivos": [
+            "tests/conftest.py",
+            "tests/test_ambiente_auth.py",
+            "tests/test_avaliacao.py",
+            "tests/test_edicts.py",
+            "tests/test_emails.py",
+            "tests/test_forms.py",
+            "tests/test_mappings.py",
+            "tests/test_relatorios.py",
+            "tests/test_selecao.py",
+            "tests/test_senhaunica.py",
+            "tests/test_submissions.py"
+          ]
+        },
+        {
+          "versao": 1,
+          "sha256": "5edfd0fa1411538aaeb0eac01fc43885482709b938d68119357e248628767157",
+          "arquivos": [
+            "tests/REVISOES.md",
+            "tests/test_emails.py"
+          ]
+        }
+      ]
+    }
+  ],
+  "pytest_final": {
+    "passed": 81,
+    "failed": 2,
+    "errors": 0,
+    "total": 83
+  },
+  "integridade": {
+    "medido_sha256": "35cba14ed254ee108bc8e8c2a1cb15ace04e033a77144bcf9e563842c4aa2b1c",
+    "intacto": false
+  }
+}

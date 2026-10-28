@@ -1,0 +1,146 @@
+.....................................................................FF. [ 86%]
+...........                                                              [100%]
+=================================== FAILURES ===================================
+______________________________ test_fluxo_docente ______________________________
+tests/test_senhaunica.py:43: in test_fluxo_docente
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Missing request token secret in session"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+_________________ test_novo_usuario_whitelist_cadastra_docente _________________
+tests/test_senhaunica.py:56: in test_novo_usuario_whitelist_cadastra_docente
+    assert r.status_code == 200, r.text
+E   AssertionError: {"detail":"Missing request token secret in session"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+=========================== short test summary info ============================
+FAILED tests/test_senhaunica.py::test_fluxo_docente - AssertionError: {"detai...
+FAILED tests/test_senhaunica.py::test_novo_usuario_whitelist_cadastra_docente
+2 failed, 81 passed in 8.68s
+
+
+168.96.18:46630 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46636 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46636 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46636 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46636 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46636 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46636 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46642 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46642 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46642 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46642 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46642 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46642 - "GET /edicts/3/submissions?stats=refused HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46654 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46654 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46654 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46654 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46654 - "POST /submissions/5/favorites HTTP/1.1" 201 Created
+local-admin-1  | INFO:     192.168.96.18:46654 - "GET /edicts/3/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46654 - "DELETE /submissions/5/favorites HTTP/1.1" 204 No Content
+local-admin-1  | INFO:     192.168.96.18:46668 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46668 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46668 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46668 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46668 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46678 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:46686 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46686 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46686 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46686 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46686 - "GET /submissions/5?include_comments=true HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46700 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46700 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46700 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46700 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46700 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46700 - "GET /submissions/5/files/official-document-file/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46702 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46702 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46702 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46702 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46702 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:46702 - "GET /submissions/5/files/official-document-file/arquivo-inexistente.pdf HTTP/1.1" 404 Not Found
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.17:39122 - "GET / HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.18:41650 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.18:41650 - "GET /edicts/5 HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.17:55990 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.18:54986 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.18:54986 - "POST /edicts HTTP/1.1" 403 Forbidden
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.17:35684 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:48168 - "DELETE /submissions/comments/3 HTTP/1.1" 403 Forbidden
+local-outro-1  | INFO:     192.168.96.18:48174 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:48184 - "DELETE /submissions/label/3 HTTP/1.1" 403 Forbidden
+local-outro-1  | INFO:     192.168.96.18:48196 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:48212 - "POST /submissions/5/view HTTP/1.1" 200 OK
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.17:58958 - "GET / HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.18:40416 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.18:40416 - "GET /edicts/4 HTTP/1.1" 200 OK
+
+local-1  | INFO:     Started server process [1]
+local-1  | INFO:     Waiting for application startup.
+local-1  | INFO:     Application startup complete.
+local-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-1  | INFO:     192.168.96.17:33438 - "GET / HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49502 - "GET / HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49506 - "GET /openapi.json HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49518 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49534 - "POST /edicts HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49550 - "POST /edicts/6/edit HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49550 - "POST /edicts/6/advance-phase HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49550 - "PATCH /edicts/6/close HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49550 - "DELETE /edicts/6/remove HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49562 - "POST /submissions/5/reesend_submission HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49564 - "POST /edicts/3/interactors_list HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49564 - "POST /edicts/3/pairing-biddings HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:49578 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49578 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49592 - "POST /submissions/5/bidding HTTP/1.1" 422 Unprocessable Entity
+local-1  | INFO:     192.168.96.18:49594 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:49598 - "POST /submissions/5/select HTTP/1.1" 403 Forbidden
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.17:58544 - "GET / HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:49502 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:49502 - "POST /auth/login/senhaunica HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:49514 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:49514 - "POST /auth/login/senhaunica HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:49518 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:49518 - "POST /auth/login/senhaunica HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:49528 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:49538 - "POST /auth/login/senhaunica HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:49542 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.17:43922 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:48728 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:48728 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:48734 - "GET /edicts/1 HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:48734 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized

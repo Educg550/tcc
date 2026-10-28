@@ -1,0 +1,61 @@
+--- antes/tests/REVISOES.md
++++ depois/tests/REVISOES.md
+@@ -0,0 +1,29 @@
++# Revisões dos testes autorais
++
++## tests/test_emails.py — helper `_find_message`
++
++**O que mudou.** O helper iterava diretamente sobre `GET /api/Messages`
++assumindo que a resposta fosse uma lista JSON no nível superior. Nesta
++infraestrutura a caixa SMTP local devolve a coleção de mensagens envolvida em
++um objeto (a iteração direta produzia `AttributeError: 'str' object has no
++attribute 'get'`, pois percorria as chaves do objeto em vez das mensagens).
++Foi adicionado o helper `_all_messages`, que normaliza a resposta — lista no
++topo, ou objeto com a coleção em uma das chaves usuais (`messages`, `items`,
++`results`, `data`) — e a iteração passa a ignorar entradas que não sejam
++objetos de mensagem.
++
++**Requisito/contrato que sustenta a correção.** V2-MAI-01..03 exigem conferir,
++na caixa SMTP local, a mensagem recebida pelo candidato: destinatário, motivo
++da correção, link `{BASE_URL}/form/{token}` e identificação do candidato na
++carta. O README da infraestrutura descreve `GET /api/Messages` apenas como
++"lista as mensagens" e `GET /api/Messages/{id}/raw` como "devolve a mensagem
++completa", sem fixar o envelope JSON da listagem.
++
++**Por que a implementação não deveria ser adaptada à expectativa anterior.**
++O formato de resposta de `GET /api/Messages` é definido pelo serviço SMTP de
++terceiros (smtp4dev), não pelo backend em avaliação; nenhuma alteração no
++código de produção pode mudá-lo. Todas as verificações originais do teste
++permanecem idênticas: a mensagem ainda precisa estar endereçada ao e-mail do
++candidato, conter o texto procurado (motivo da correção ou nome na carta) e o
++link `/form/` na mensagem bruta. A mudança é neutra caso a API responda com
++uma lista simples.
+--- antes/tests/test_emails.py
++++ depois/tests/test_emails.py
+@@ -11,12 +11,24 @@
+     return httpx.Client(base_url=url, timeout=60, verify=False)
+ 
+ 
++def _all_messages(c):
++    r = c.get("/api/Messages")
++    data = r.json()
++    if isinstance(data, dict):
++        for key in ("messages", "items", "results", "data"):
++            if isinstance(data.get(key), list):
++                return data[key]
++        return []
++    return data
++
++
+ def _find_message(to_email, contains=None, timeout=30):
+     with _smtp_client() as c:
+         deadline = time.time() + timeout
+         while time.time() < deadline:
+-            r = c.get("/api/Messages")
+-            for m in r.json():
++            for m in _all_messages(c):
++                if not isinstance(m, dict):
++                    continue
+                 if to_email in str(m.get("to", "")):
+                     if contains is None:
+                         return m
