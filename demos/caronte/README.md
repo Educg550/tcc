@@ -5,7 +5,7 @@ os resultados estão em `../runs/caronte/RESUMO.json`. A ampliação para o
 backend completo está separada em [`piloto-v2/`](./piloto-v2/README.md).
 
 Recorte congelado do prejanus-back: login local, editais, inscrições, detalhe
-e anexos. Requisitos e oráculo estão em `requisitos.md` e `oraculo/`.
+e anexos. Requisitos e gabarito estão em `requisitos.md` e `gabarito/`.
 
 O baseline está preservado em
 `../runs/caronte/02-caronte-consulta-baseline-20261017-100205/`.
@@ -36,7 +36,7 @@ cada sessão, não é um limite de cobrança por requisição. A soma das chamad
 medidas do piloto tem teto de US$ 10. Os dois comandos geram novas pastas e
 não corrigem nem reutilizam a entrega do baseline.
 
-`piloto.avaliar` aplica o oráculo inteiro somente depois da geração e grava
-`ORACULO.json`, JUnit e logs. No rework, a nota principal são os 7 reservados;
+`piloto.avaliar` aplica o gabarito inteiro somente depois da geração e grava
+`GABARITO.json`, JUnit e logs. No rework, a nota principal são os 7 reservados;
 o resultado nos visíveis é diagnóstico. Restaurar a fixture privada antes
 dessa avaliação. O CUA fica fora deste recorte.

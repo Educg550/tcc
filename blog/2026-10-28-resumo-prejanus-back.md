@@ -5,23 +5,55 @@ authors: [eduardo]
 tags: [tcc, experimento]
 ---
 
-| | Baseline | TDD | TDD com revisão | Rework |
-|---|---:|---:|---:|---:|
-| Experimento | 1 | 1 | exploratório | 2 |
-| Oráculo | 186/247 | 140/247 | 194/247 | 211/247 |
-| Acerto | 75,3% | 56,7% | 78,5% | 85,4% |
-| Visíveis | 123/161 | 90/161 | 130/161 | 151/161 |
-| Reservados | 62/85 | 49/85 | 63/85 | 59/85 |
-| Testes próprios no fim | — | 27/56 | 81/83 | 151/161 |
-| Propostas do coder | 1 | 10 | 6 | 2 |
-| Fim da etapa de código | entrega única | tempo | custo | custo |
-| Custo | US$ 0,56 | US$ 2,07 | US$ 2,22 | US$ 2,03 |
-| Tempo de geração | 518 s | 3.965 s | 2.926 s | 3.952 s |
-| Tokens | 2.645.297 | 7.432.539 | 8.526.253 | 9.366.703 |
+<table>
+  <thead>
+    <tr><th rowSpan={2}>Métrica</th><th colSpan={3}>Experimento 1</th><th>Experimento 2</th></tr>
+    <tr><th>Baseline</th><th>TDD</th><th>TDD com revisão (exploratório)</th><th>Rework</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Gabarito</th><td>186/247</td><td>140/247</td><td>194/247</td><td>211/247</td></tr>
+    <tr><th scope="row">Acerto</th><td>75,3%</td><td>56,7%</td><td>78,5%</td><td>85,4%</td></tr>
+    <tr><th scope="row">Visíveis</th><td>123/161</td><td>90/161</td><td>130/161</td><td>151/161</td></tr>
+    <tr><th scope="row">Reservados</th><td>62/85</td><td>49/85</td><td>63/85</td><td>59/85</td></tr>
+    <tr><th scope="row">Testes próprios no fim</th><td>—</td><td>27/56</td><td>81/83</td><td>151/161</td></tr>
+    <tr><th scope="row">Propostas do coder</th><td>1</td><td>10</td><td>6</td><td>2</td></tr>
+    <tr><th scope="row">Fim da etapa de código</th><td>entrega única</td><td>tempo</td><td>custo</td><td>custo</td></tr>
+    <tr><th scope="row">Custo</th><td>US$ 0,56</td><td>US$ 2,07</td><td>US$ 2,22</td><td>US$ 2,03</td></tr>
+    <tr><th scope="row">Tempo de geração</th><td>518 s</td><td>3.965 s</td><td>2.926 s</td><td>3.952 s</td></tr>
+    <tr><th scope="row">Tokens</th><td>2.645.297</td><td>7.432.539</td><td>8.526.253</td><td>9.366.703</td></tr>
+  </tbody>
+</table>
 
 <!-- truncate -->
 
-## Por área do oráculo
+```mermaid
+flowchart TB
+    subgraph E1["Experimento 1 · geração a partir dos requisitos"]
+        R["Requisitos e contratos"] --> B["Baseline: geração direta de código"]
+        R --> T["TDD: geração de testes próprios"]
+        T --> C["Implementação → pytest → correção<br/>até passar ou atingir o orçamento"]
+        T -.-> REV["Variante exploratória: TDD com revisão<br/>permite revisar os testes aprovados"]
+        REV --> C
+        B --> G["Avaliação final: gabarito completo<br/>247 casos, ocultos dos agentes"]
+        C --> G
+    end
+    subgraph E2["Experimento 2 · rework a partir dos testes"]
+        V["161 casos visíveis e contratos<br/>sem código original nem documento de requisitos"]
+        V --> W["Implementação → pytest dos visíveis → correção<br/>até passar ou atingir o orçamento"]
+        W --> H["Avaliação final: 85 casos reservados<br/>ocultos do agente"]
+    end
+    classDef entrada fill:#dbeafe,stroke:#2563eb,color:#172554
+    classDef geracao fill:#fef3c7,stroke:#d97706,color:#451a03
+    classDef avaliacao fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef exploratorio fill:#f3e8ff,stroke:#9333ea,color:#3b0764
+    class R,V entrada
+    class B,T,C,W geracao
+    class G,H avaliacao
+    class REV exploratorio
+```
+
+
+## Por área do gabarito
 
 | Área | Casos | Original | Baseline | TDD | TDD com revisão | Rework |
 |---|---:|---:|---:|---:|---:|---:|
@@ -40,7 +72,7 @@ tags: [tcc, experimento]
 
 ## Todas as runs
 
-| Run | Grupo | Oráculo | Visíveis | Reservados | Custo | Fim da etapa de código | Situação |
+| Run | Grupo | Gabarito | Visíveis | Reservados | Custo | Fim da etapa de código | Situação |
 |---|---|---:|---:|---:|---:|---|---|
 | 18/10 16:59 | Baseline | app não sobe | — | — | US$ 0,06 | entrega única | Piloto v2, fixture antiga |
 | 18/10 18:22 | TDD | 2/247 | 1/161 | 0/85 | US$ 0,70 | tempo, 9 propostas | Piloto v2, fixture antiga |

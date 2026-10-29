@@ -3,7 +3,7 @@
 Este prompt é destinado ao Claude Code ou Codex com acesso ao original
 congelado. Não é a entrada dos agentes das runs medidas: essa entrada usa
 os requisitos e os dados declarativos congelados, sem acesso ao código
-original, a este roteiro de revisão ou à suíte-oráculo escondida.
+original, a este roteiro de revisão ou ao gabarito escondido.
 
 Leia `demos/caronte/requisitos.md`, `demos/caronte/formulario-mestrado.json`
 e `caronte-workitems.md`. Confira o contrato no código de `caronte-core/`,

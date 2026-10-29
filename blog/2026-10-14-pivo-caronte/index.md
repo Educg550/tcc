@@ -55,7 +55,7 @@ FastAPI, Next e Postgres. O login entra pelo atalho de desenvolvimento que o ori
 `APP_ENV=local` com `DEV_USER_ID`. Postgres, Redis, smtp4dev, ClamAV e nginx vêm do compose
 do original e são os mesmos para todos.
 
-**Suíte-oráculo.** É caixa-preta: testa só a interface externa (HTTP e telas) do caronte no
+**Gabarito de testes.** É caixa-preta: testa só a interface externa (HTTP e telas) do caronte no
 commit congelado, e cada teste cita o id do requisito que verifica. A suíte só vale se
 passar 100% no original. Ela para de crescer quando toda rota e toda tela têm pelo menos um
 teste e a cobertura chega a 75% das linhas vivas de cada subsistema (`forms`,
@@ -65,7 +65,7 @@ juntos, e uma checagem garante que nenhum teste fica sem requisito. Depois a su�
 dividida, estratificada por rota e por tela, em 75% visíveis e 25% de held-out.
 
 **Experimento 1: requisitos → código.** Baseline e TDD reconstroem o sistema do zero a
-partir dos requisitos. A nota é a aprovação na suíte-oráculo inteira, que nenhum agente vê.
+partir dos requisitos. A nota é a aprovação no gabarito inteiro, que nenhum agente vê.
 
 **Experimento 2: rework.** Só o grupo TDD. O agente recebe os 75% visíveis da suíte, sem o
 código e sem as issues, e reescreve a plataforma na mesma stack. A nota é a aprovação nos
@@ -74,9 +74,9 @@ run que termina passaria nela.
 
 O lizard compara as três runs com o original em complexidade ciclomática, NLOC e tamanho de
 função, deixando de fora as mesmas linhas mortas. No experimento 1 é medida secundária: a
-nota continua sendo a suíte-oráculo.
+nota continua sendo o gabarito.
 
-Há duas suítes no experimento 1, como nos formulários. A suíte-oráculo é a régua, igual
+Há duas suítes no experimento 1, como nos formulários. O gabarito é a régua, igual
 para os dois grupos. Os testes que o grupo TDD escreve durante a run são parte do
 tratamento, e o baseline não tem.
 
@@ -97,7 +97,7 @@ edita aos poucos. Os agentes não executam comandos: o bash fica negado, e quem 
 comparação estatística. A análise desce ao nível de rota e de tela, mostrando onde cada
 grupo passa e onde falha.
 
-Requisitos e suíte-oráculo são gerados uma vez, no Claude Code com o Claude Opus 5.5.
+Requisitos e gabarito são gerados uma vez, no Claude Code com o Claude Opus 5.5.
 Eles não são runs medidas: o que os valida é passar no original, a cobertura e a checagem
 de rastreio, não o pipeline que os produziu.
 

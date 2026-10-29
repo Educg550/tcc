@@ -124,7 +124,7 @@ O protocolo do grupo e as restrições do harness prevalecem sobre as skills.
 Em particular, o Ponytail pede um teste para lógica nova, e a skill pytest
 discute TDD: isso não acrescenta escrita/execução de testes, feedback de gate
 ou iteração à baseline. A autoria de testes só é ativada nas etapas que a
-preveem. Nenhum agente ganha bash ou acesso à suíte-oráculo escondida.
+preveem. Nenhum agente ganha bash ou acesso ao gabarito escondido.
 
 O diretório fornecido a cada run deve ser isolado das skills globais e do
 ambiente pessoal de preparação. Não atualizar skills durante runs. Links

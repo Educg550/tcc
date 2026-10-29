@@ -10,13 +10,13 @@ tags: [tcc, experimento]
 
 Rodei as duas runs do experimento 1 no PreJanus-back, com o escopo, os tetos e o harness
 registrados no [post de escopo](/blog/escopo-experimento-prejanus-back). O TDD passou em
-209 dos 247 casos do oráculo, e a baseline em 191. Nenhuma run foi invalidada.
+209 dos 247 casos do gabarito, e a baseline em 191. Nenhuma run foi invalidada.
 
 <!-- truncate -->
 
 | | Baseline | TDD |
 |---|---:|---:|
-| Oráculo | 191/247 | 209/247 |
+| Gabarito | 191/247 | 209/247 |
 | Visíveis | 131/161 | 135/161 |
 | Reservados | 59/85 | 73/85 |
 | Erros de preparação | 0 | 0 |
@@ -38,4 +38,4 @@ run por grupo, 18 casos ficam dentro dessa variação.
 
 As runs estão em `demos/runs/caronte/05-prejanus-back-piloto-v3-baseline-20261023-141645/`
 e `demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261023-144316/`, com `RUN.log`,
-chamadas, gates e oráculo em `_harness/`.
+chamadas, gates e gabarito em `_harness/`.

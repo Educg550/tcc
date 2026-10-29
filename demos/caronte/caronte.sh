@@ -94,7 +94,7 @@ cobertura() {
     consulta
     backend 8093 -e APP_ENV=local -e DEV_USER_ID=2 "${cov[@]}" "$imagem" \
         python -m coverage run --source=src --omit='*/tests/*,*/migrations/*,*conftest.py' -m "${uvicorn[@]}"
-    (cd ../demos && uv run pytest caronte/oraculo -q)
+    (cd ../demos && uv run pytest caronte/gabarito -q)
     docker stop prejanus-back-consulta-8093 > /dev/null
     docker run --rm "${cov[@]}" "$imagem" python -m coverage json -q -o /out/cobertura.json
     (cd ../demos && uv run python caronte/cobertura.py caronte/.cobertura/cobertura.json)

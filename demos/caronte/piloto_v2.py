@@ -31,9 +31,9 @@ from ambiente import BACKENDS, CAMINHOS, DC, ESTADO, URL, dc, esperar, limpar_es
 DEMOS = AQUI.parent
 REQUISITO = DEMOS / "requisitos/03-caronte-prejanus-completo"
 RUNTIME = "sha256:e10c92c97762c4c419297360e59d245bfa36db080e07e1d77beb9e11ee4b934c"
-SPLIT = json.loads((V2 / "oraculo/split.json").read_text())
+SPLIT = json.loads((V2 / "gabarito/split.json").read_text())
 VISIVEIS = sorted({i.split("[")[0] for i in SPLIT["visiveis"]})
-# Os testes do test-writer alcançam as mesmas instâncias, provedor OAuth e caixa SMTP que o oráculo.
+# Os testes do test-writer alcançam as mesmas instâncias, provedor OAuth e caixa SMTP que o gabarito.
 GATE_TDD = {"CARONTE_API": "http://local:8000", "CARONTE_API_SEM_ATALHO": "http://sem-atalho:8000",
             "CARONTE_API_SENHAUNICA": "http://prejanus-back:8000", "SENHAUNICA_PROVEDOR": "http://oauth:8000",
             "CARONTE_SMTP_API": "http://smtp:80",
@@ -89,8 +89,8 @@ def candidato(raiz, saida):
         limpar_esquema()
 
 
-def pytest_oraculo(saida, nome, ids=()):
-    alvos = [str(V2 / "oraculo" / i) for i in ids] or [str(V2 / "oraculo")]
+def pytest_gabarito(saida, nome, ids=()):
+    alvos = [str(V2 / "gabarito" / i) for i in ids] or [str(V2 / "gabarito")]
     cmd = [sys.executable, "-m", "pytest", *alvos, "-q", "--tb=short", "-p", "no:cacheprovider",
            f"--junitxml={saida / (nome + '.xml')}"]
     return subprocess.run(cmd, cwd=DEMOS, capture_output=True, text=True)
@@ -109,7 +109,7 @@ class ProjetoV2(Projeto):
                 r = subprocess.CompletedProcess([], 1, "", "App não respondeu; nenhum teste foi executado.")
             elif self.grupo == "rework":
                 # Executa a cópia do avaliador, não a do workspace: editar testes não muda o gate.
-                r = pytest_oraculo(self.saida, f"gate-{self.gates}", VISIVEIS)
+                r = pytest_gabarito(self.saida, f"gate-{self.gates}", VISIVEIS)
             else:
                 r = subprocess.run(
                     ["docker", "run", "--rm", "--network", "caronte-piloto-v2_default", "--read-only", "--tmpfs", "/tmp",
@@ -127,22 +127,22 @@ class ProjetoV2(Projeto):
 
 
 def avaliar(raiz, saida=None):
-    """Oráculo inteiro depois da geração; nada volta para a sessão."""
+    """Gabarito inteiro depois da geração; nada volta para a sessão."""
     saida = saida or raiz / "_harness"
     with candidato(raiz, saida):
-        r = pytest_oraculo(saida, "oraculo")
-    (saida / "oraculo.txt").write_text(r.stdout + "\n" + r.stderr)
+        r = pytest_gabarito(saida, "gabarito")
+    (saida / "gabarito.txt").write_text(r.stdout + "\n" + r.stderr)
     casos = {f"{Path(t.get('classname').replace('.', '/')).name}.py::{t.get('name')}":
              t.find("failure") is None and t.find("error") is None
-             for t in ET.parse(saida / "oraculo.xml").iter("testcase")}
+             for t in ET.parse(saida / "gabarito.xml").iter("testcase")}
     resultado = {"passed": sum(casos.values()), "total": len(casos), "runtime_image": RUNTIME,
-                 "relatorio": json.loads((ESTADO / "ORACULO.json").read_text())}
+                 "relatorio": json.loads((ESTADO / "GABARITO.json").read_text())}
     for grupo in ("visiveis", "reservados"):
         selecionados = [casos[i] for i in SPLIT[grupo]]
         resultado[grupo] = {"passed": sum(selecionados), "total": len(selecionados)}
     resultado["fontes_sha256"] = {str(p.relative_to(raiz)): hashlib.sha256(p.read_bytes()).hexdigest()
                                   for p in raiz.rglob("*.py") if "_harness" not in p.relative_to(raiz).parts}
-    (saida / "ORACULO.json").write_text(json.dumps(resultado, ensure_ascii=False, indent=2) + "\n")
+    (saida / "GABARITO.json").write_text(json.dumps(resultado, ensure_ascii=False, indent=2) + "\n")
     return resultado
 
 
@@ -181,7 +181,7 @@ def preparar_rework(requisito=REQUISITO, destino=V2 / "entrada-rework"):
         visiveis.setdefault(arquivo, set()).add(funcao)
     modulos = {}
     for arquivo, funcoes in visiveis.items():
-        modulo = ast.parse((V2 / "oraculo" / arquivo).read_text())
+        modulo = ast.parse((V2 / "gabarito" / arquivo).read_text())
         modulo.body = [n for n in modulo.body if not (isinstance(n, ast.FunctionDef) and n.name.startswith("test_")
                                                       and n.name not in funcoes)]
         modulos[arquivo] = modulo
@@ -191,7 +191,7 @@ def preparar_rework(requisito=REQUISITO, destino=V2 / "entrada-rework"):
         podar(modulo, importados)
         (testes / arquivo).write_text(ast.unparse(modulo) + "\n")
     for nome in ("conftest.py",):
-        shutil.copyfile(V2 / "oraculo" / nome, testes / nome)
+        shutil.copyfile(V2 / "gabarito" / nome, testes / nome)
     shutil.copyfile(V2 / "ambiente.py", testes / "ambiente.py")
     return destino
 

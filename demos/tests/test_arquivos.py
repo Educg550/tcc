@@ -49,12 +49,12 @@ def test_coder_nao_edita_fora_do_escopo(arquivos, caminho):
 def test_leitura_permite_testes_e_anexos_mas_esconde_medicao_e_escapes(arquivos, tmp_path):
     (tmp_path / "tests").mkdir()
     (tmp_path / "tests/test_x.py").write_text("assert False\n")
-    (tmp_path / "_harness/oraculo.py").write_text("reservado\n")
-    (tmp_path / "atalho.py").symlink_to(tmp_path / "_harness/oraculo.py")
+    (tmp_path / "_harness/gabarito.py").write_text("reservado\n")
+    (tmp_path / "atalho.py").symlink_to(tmp_path / "_harness/gabarito.py")
     (tmp_path / "externo.py").symlink_to(tmp_path.parent / "fora.py")
     assert arquivos.ler_arquivo("tests/test_x.py") == "assert False\n"
     assert arquivos.listar_arquivos().splitlines() == ["pytest.ini", "tests/test_x.py"]
-    for caminho in ("_harness/oraculo.py", "atalho.py", "externo.py", "../fora.py"):
+    for caminho in ("_harness/gabarito.py", "atalho.py", "externo.py", "../fora.py"):
         with pytest.raises(ValueError):
             arquivos.ler_arquivo(caminho)
         with pytest.raises(ValueError):

@@ -9,7 +9,7 @@ Repeti a geração baseline do PreJanus-back completo com o harness Agno adaptad
 para leitura e escrita incremental. Desta vez, explicitei que separar a aplicação
 em módulos era obrigatório. O GLM 5.3 entregou 17 arquivos Python, com 2.865 linhas;
 `app.py` ficou com 39 linhas. A API iniciou no ambiente isolado.
-O oráculo terminou com 26/247 aprovados; uma falha no OAuth bloqueou grande parte
+O gabarito terminou com 26/247 aprovados; uma falha no OAuth bloqueou grande parte
 dos testes autenticados.
 
 <!-- truncate -->
@@ -33,7 +33,7 @@ mínimo de arquivos: arquivos vazios ou reexportações de um monólito não ate
 A entrada do PreJanus pede configuração, conexões, autenticação, routers e serviços
 de integração separados. A divisão continua sendo feita pelo modelo numa sessão.
 
-Esta rodada é só baseline: nenhuma geração de testes, feedback do oráculo, correção
+Esta rodada é só baseline: nenhuma geração de testes, feedback do gabarito, correção
 manual da implementação ou CUA. O mesmo avaliador HTTP e a infraestrutura do v2
 são usados depois da geração. Não executei TDD nem rework.
 
@@ -63,7 +63,7 @@ O modelo solicitou 17 criações e 13 substituições de trechos. Uma substitui�
 ocorrência única foi recusada; ele voltou a ler o arquivo e continuou editando.
 Esse retorno da ferramenta não é feedback de testes nem retry do gate: houve uma
 única proposta, sem repetição da geração. Todas as escritas Python aceitas passaram
-pela checagem de sintaxe. Os hashes da entrega foram registrados antes do oráculo.
+pela checagem de sintaxe. Os hashes da entrega foram registrados antes do gabarito.
 
 ## A divisão entregue
 
@@ -81,17 +81,17 @@ grandes. O arquivo principal configura middleware, conecta routers e expõe a ra
 
 O OpenAPI gerado contém as 50 operações do contrato e duas operações POST extras
 para mapeamentos. Isso mede presença da interface; a correção dos comportamentos
-depende do oráculo. A quantidade menor de linhas que no original também não
+depende do gabarito. A quantidade menor de linhas que no original também não
 comprova equivalência funcional.
 
 Os 55 testes locais do harness passaram. O pytest final da aplicação encontrou zero
 testes, como esperado nesta baseline; esse campo não é evidência de funcionalidade.
-Iniciei uma conferência adicional do oráculo contra o original, interrompida depois
+Iniciei uma conferência adicional do gabarito contra o original, interrompida depois
 de 26 casos aprovados para evitar disputa das fixtures. A referência histórica do
 original continua sendo 233/247, com 14 divergências conhecidas; não a medi novamente
 por completo nesta rodada.
 
-## Resultado do oráculo
+## Resultado do gabarito
 
 | Resultado | Casos |
 |---|---:|

@@ -6,7 +6,7 @@ vagas restantes vão pelo maior resto, sem reservar todas as funções de um est
 estrato maior e depois para o de menor nome. Dentro do estrato, reserva as funções de menor sha256 do
 nome do arquivo e da função. test_rastreio fica fora da partição.
 
-uso (de demos/): uv run python caronte/piloto-v2/oraculo/split.py
+uso (de demos/): uv run python caronte/piloto-v2/gabarito/split.py
 """
 
 import hashlib
@@ -38,10 +38,10 @@ class Coletor:
 
     def pytest_collection_modifyitems(self, items):
         for item in items:
-            arquivo, funcao = item.nodeid.split("oraculo/")[-1].split("[")[0].split("::")
+            arquivo, funcao = item.nodeid.split("gabarito/")[-1].split("[")[0].split("::")
             if arquivo != "test_rastreio.py":
                 req = next(item.iter_markers("req")).args[0]
-                self.funcoes.setdefault(f"{arquivo}::{funcao}", (req, []))[1].append(item.nodeid.split("oraculo/")[-1])
+                self.funcoes.setdefault(f"{arquivo}::{funcao}", (req, []))[1].append(item.nodeid.split("gabarito/")[-1])
 
 
 if __name__ == "__main__":

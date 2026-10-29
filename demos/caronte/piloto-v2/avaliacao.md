@@ -113,10 +113,10 @@ congelar a suíte. Comportamento desejado e compatibilidade com um bug são
 medidas diferentes.
 
 Em 17/10/2026 todos os achados abaixo foram reproduzidos por HTTP no
-original, com a fixture v2 (`dados/`) e a suíte em `oraculo/`. Cada teste
+original, com a fixture v2 (`dados/`) e a suíte em `gabarito/`. Cada teste
 segue o requisito, não o original; o mapeamento achado → testes está em
-[`oraculo/divergencias.json`](./oraculo/divergencias.json), e o relatório
-`.estado/ORACULO.json` acusa falha não registrada ou divergência que passou.
+[`gabarito/divergencias.json`](./gabarito/divergencias.json), e o relatório
+`.estado/GABARITO.json` acusa falha não registrada ou divergência que passou.
 
 | Achado | Reprodução | Testes que falham no original |
 |---|---|---|
@@ -217,8 +217,8 @@ preservados):
 As runs v2 e anteriores foram medidas com a fixture antiga e não são
 comparáveis a esses números sem reavaliação.
 
-Split congelado em 17/10/2026 por `oraculo/split.py` (regra no próprio
-arquivo e em `oraculo/split.json`): a unidade é a função de teste, com
+Split congelado em 17/10/2026 por `gabarito/split.py` (regra no próprio
+arquivo e em `gabarito/split.json`): a unidade é a função de teste, com
 todas as parametrizações; estratos são o primeiro requisito. Resultado:
 94 funções visíveis e 32 reservadas, 161 e 85 casos. A proporção por caso
 passa de 25% porque a matriz de 403 por papel (26 casos) caiu inteira na

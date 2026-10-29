@@ -45,12 +45,13 @@ for nome, a in manifesto.items():
 testes_autorais = sum(
     sum(isinstance(n, ast.FunctionDef) and n.name.startswith("test_") for n in ast.walk(ast.parse((raiz / n).read_text())))
     for n, a in manifesto.items() if a["tipo"] == "testes_autorais" and n.endswith(".py"))
-oraculo = json.loads((h / "ORACULO.json").read_text())
+nome_gabarito = "gabarito" if (h / "GABARITO.json").exists() else "oraculo"
+gabarito = json.loads((h / f"{nome_gabarito.upper()}.json").read_text())
 casos = {f"{Path(t.get('classname').replace('.', '/')).name}.py::{t.get('name')}":
          "failure" if t.find("failure") is not None else "error" if t.find("error") is not None else "passed"
-         for t in ET.parse(h / "oraculo.xml").iter("testcase")}
+         for t in ET.parse(h / f"{nome_gabarito}.xml").iter("testcase")}
 comport = {k: v for k, v in casos.items() if not k.startswith("test_rastreio")}
-intactos = all(oraculo["fontes_sha256"].get(n) == a["sha256"] for n, a in manifesto.items() if n.endswith(".py"))
+intactos = all(gabarito["fontes_sha256"].get(n) == a["sha256"] for n, a in manifesto.items() if n.endswith(".py"))
 medidas = {
     "run": raiz.name, "grupo": log["grupo"], "run_s": log["total_duration_s"], "cost_usd": log["total_cost_usd"],
     "total_tokens": log["total_tokens"], "pytest_final_proprio": log["pytest_final"],
@@ -59,13 +60,13 @@ medidas = {
     "maiores_modulos_producao": sorted(((n, a["linhas"]) for n, a in manifesto.items() if a["tipo"] == "producao"),
                                        key=lambda x: -x[1])[:5],
     "semeado_alterado": [n for n, a in manifesto.items() if a.get("semeado_alterado")],
-    "oraculo": {"passed": oraculo["passed"], "total": oraculo["total"], "visiveis": oraculo["visiveis"],
-                "reservados": oraculo["reservados"], "resultado": Counter(casos.values()),
+    "gabarito": {"passed": gabarito["passed"], "total": gabarito["total"], "visiveis": gabarito["visiveis"],
+                "reservados": gabarito["reservados"], "resultado": Counter(casos.values()),
                 "comportamentais": {"passed": sum(v == "passed" for v in comport.values()), "total": len(comport)},
                 "rastreabilidade": {"passed": sum(v == "passed" for k, v in casos.items() if k not in comport),
                                     "total": len(casos) - len(comport)},
-                "operacoes_exercitadas": oraculo["relatorio"]["operacoes_exercitadas"]},
-    "hashes_intactos_depois_oraculo": intactos,
+                "operacoes_exercitadas": gabarito["relatorio"]["operacoes_exercitadas"]},
+    "hashes_intactos_depois_gabarito": intactos,
 }
 (h / "MEDIDAS.json").write_text(json.dumps(medidas, ensure_ascii=False, indent=1) + "\n")
 print(json.dumps({k: v for k, v in medidas.items() if k != "etapas"}, ensure_ascii=False, indent=1))

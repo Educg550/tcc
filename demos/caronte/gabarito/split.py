@@ -4,7 +4,7 @@ Regra: total reservado = round(N * 0,25); cada rota recebe floor(n * 0,25) e as 
 pelo maior resto, sem reservar todos os testes de uma rota; empate vai para a rota maior e depois
 para a de menor nome. Dentro da rota, reserva os testes de menor sha256 do id.
 
-uso (de demos/): uv run python caronte/oraculo/split.py
+uso (de demos/): uv run python caronte/gabarito/split.py
 """
 
 import hashlib

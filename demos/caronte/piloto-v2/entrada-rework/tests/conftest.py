@@ -18,7 +18,7 @@ SMTP = "http://localhost:8182"
 OAUTH = "http://localhost:8181"
 IDS = {"admin": 1, "docente": 2, "outro": 3, "secretaria": 4, "coordenador": 5, "estudante": 6}
 INVENTARIO = json.loads((AQUI / "interfaces.json").read_text())
-DIVERGENCIAS = json.loads((AQUI / "oraculo/divergencias.json").read_text())
+DIVERGENCIAS = json.loads((AQUI / "gabarito/divergencias.json").read_text())
 CHAMADAS, CASOS = [], []
 ATUAL = ""
 COOKIES = {}
@@ -143,8 +143,8 @@ def pytest_sessionfinish(session, exitstatus):
                  "nao_exercitadas": [o for o in INVENTARIO["operacoes"]
                                      if (o["metodo"], o["caminho"]) not in vistos]}
     registradas = {t for a in DIVERGENCIAS["achados"].values() for t in a["testes"]}
-    falhas = {c["id"].split("oraculo/")[-1] for c in CASOS if c["resultado"] == "failed"}
+    falhas = {c["id"].split("gabarito/")[-1] for c in CASOS if c["resultado"] == "failed"}
     relatorio["falhas_nao_registradas"] = sorted(falhas - registradas)
     relatorio["divergencias_que_passaram"] = sorted(registradas - falhas)
     ESTADO.mkdir(exist_ok=True)
-    (ESTADO / "ORACULO.json").write_text(json.dumps(relatorio, ensure_ascii=False, indent=2) + "\n")
+    (ESTADO / "GABARITO.json").write_text(json.dumps(relatorio, ensure_ascii=False, indent=2) + "\n")

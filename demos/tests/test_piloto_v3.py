@@ -9,7 +9,7 @@ from harness.models import Batch, Projeto, Requisito
 from harness.models.etapas import EtapaCodigo, EtapaTDD, EtapaTestes
 
 
-def test_v3_preserva_contratos_e_orcamento_sem_entregar_oraculo(tmp_path):
+def test_v3_preserva_contratos_e_orcamento_sem_entregar_gabarito(tmp_path):
     requisito = Requisito(REQUISITO)
     anterior = Requisito(ANTERIOR)
     assert requisito.alvo == anterior.alvo
@@ -59,7 +59,7 @@ def test_entrada_rework_v3_so_tem_testes_visiveis_e_diretiva_modular():
     for reservado in {i.split("[")[0].split("::")[1] for i in SPLIT["reservados"]}:
         assert reservado not in fonte
     assert "divergencias" not in json.dumps(sorted(p.name for p in (ENTRADA_REWORK / "tests").iterdir()))
-    assert (V2 / "oraculo/conftest.py").read_bytes() == (ENTRADA_REWORK / "tests/conftest.py").read_bytes()
+    assert (V2 / "gabarito/conftest.py").read_bytes() == (ENTRADA_REWORK / "tests/conftest.py").read_bytes()
 
 
 def test_manifesto_separa_producao_testes_e_semeado(tmp_path):

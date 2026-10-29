@@ -20,7 +20,7 @@ OAuth local que imita o contrato da USP e um SMTP local. O backend candidato ent
 lugar dos três serviços de backend do original, e o resto continua sendo o sistema
 original.
 
-O oráculo tem 247 casos e exercita as 50 operações. No original, 233 passam. Os 14 que
+O gabarito tem 247 casos e exercita as 50 operações. No original, 233 passam. Os 14 que
 falham são dez divergências do próprio original que reproduzi por HTTP: a issue 26,
 o PPI mapeado, a nota do POSCOMP, `include_comments`, `send-accept` e `send-letter`
 quebrando sempre, aceite pendente aparecendo como respondido, aprovação com vários
@@ -37,7 +37,7 @@ OpenCode (`OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX`), não do modelo nem do prove
 O segundo baseline gerou 3.237 linhas e passou em 33 dos 247 casos. Investigando, achei
 duas lacunas minhas na entrada: os esquemas SQL do original não estavam em `infra/`, e
 o contrato de dados do usuário da Senha Única não estava escrito em lugar nenhum. O
-modelo inventou tabelas e leu o NUSP do lugar errado. Como cada teste do oráculo faz
+modelo inventou tabelas e leu o NUSP do lugar errado. Como cada teste do gabarito faz
 login, quase tudo caiu junto. O terceiro baseline, já com a entrada corrigida, voltou a
 bater no teto de 32k. Guardei as três como tentativas inválidas.
 
@@ -51,7 +51,7 @@ chamada (sem isso o test-writer gastava os 100k do teto só pensando e devolvia 
 resposta vazia), colocar os anexos de texto de `infra/` no prompt (o agente Agno não lê
 arquivos) e fazer o proxy resolver os backends a cada requisição.
 
-| Grupo | Duração | Custo (USD) | Passos | Pytest do gate | Oráculo |
+| Grupo | Duração | Custo (USD) | Passos | Pytest do gate | Gabarito |
 |---|---:|---:|---:|---|---:|
 | Baseline | 256 s | 0,060662 | 1 | — | app não sobe |
 | TDD | 4.909 s | 0,695640 | 1 + 9 | 0/35 no fim | 2/247 |

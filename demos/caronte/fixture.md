@@ -90,7 +90,7 @@ da aplicação mantêm a fixture; o backend está selecionado como docente.
 Não houve alteração do código original nem chamada ao OpenRouter.
 
 Essa conferência valida a carga dos dados no esquema original. Ainda não
-valida a fixture nas reconstruções, a suíte-oráculo ou o percurso completo
+valida a fixture nas reconstruções, o gabarito ou o percurso completo
 pela interface.
 
 ## Falha de sincronização reproduzida

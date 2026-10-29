@@ -2,7 +2,7 @@
 
 Rascunho de 16/10/2026, derivado do original congelado em
 `46b89c1d5519aeae40c088ee94262e9b739a7d48`. O contrato só será congelado
-junto com a suíte-oráculo que passar inteira no original.
+junto com o gabarito que passar inteiro no original.
 
 ## Recorte
 
@@ -112,12 +112,12 @@ regra de arredondamento para grupos pequenos antes das runs. No experimento
 de reconstrução por requisitos, a suíte inteira fica escondida; no rework,
 o agente recebe a parte visível e é avaliado na reservada.
 
-A suíte-oráculo está em `oraculo/` (pytest e httpx, caixa-preta contra
+O gabarito está em `gabarito/` (pytest e httpx, caixa-preta contra
 `CARONTE_API` e `CARONTE_API_SEM_ATALHO`). Em 16/10/2026 passou 28/28 no
 original, com `bash demos/caronte/caronte.sh consulta` e, de `demos/`,
-`uv run pytest caronte/oraculo`; `test_rastreio.py` confere que todo id
-acima tem teste. A divisão está em `oraculo/split.json`, gerada por
-`oraculo/split.py`, que documenta a regra de arredondamento: 20 visíveis
+`uv run pytest caronte/gabarito`; `test_rastreio.py` confere que todo id
+acima tem teste. A divisão está em `gabarito/split.json`, gerada por
+`gabarito/split.py`, que documenta a regra de arredondamento: 20 visíveis
 e 7 reservados. `caronte.sh cobertura` mede o original durante a suíte:
 1358 de 2565 linhas vivas do prejanus-back (52,9%), descontado
 `codigo-morto.json`.

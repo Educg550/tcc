@@ -1,13 +1,13 @@
 ---
 slug: piloto-v3-oraculo-sem-porta-unica
-title: "Piloto v3: o login deixa de ser porta única do oráculo"
+title: "Piloto v3: o login deixa de ser porta única do gabarito"
 authors: [eduardo]
 tags: [tcc, experimento]
 ---
 
 Avaliei a run TDD do piloto v3 e ela empatou com a baseline: 29/247 contra 26/247.
 O empate não dizia nada sobre as regras do PreJanus-back. Nas duas runs o login
-falhava e derrubava 152 casos ainda na preparação. Mudei a forma como o oráculo
+falhava e derrubava 152 casos ainda na preparação. Mudei a forma como o gabarito
 autentica os testes que não avaliam OAuth e reavaliei as duas entregas sem tocar no
 código. A baseline foi para 139/247 e o TDD para 185/247.
 
@@ -23,7 +23,7 @@ US$ 1,30 e 2.201 s. Dos 48 testes, 2 terminaram falhando: um 500 no login da Sen
 Única e um teste inválido do próprio test-writer, que chama `pytest.skip` sem
 importar `pytest`.
 
-No oráculo, a run fez 29/247 (16/161 visíveis, 12/85 reservados). A baseline tinha
+No gabarito, a run fez 29/247 (16/161 visíveis, 12/85 reservados). A baseline tinha
 feito 26/247. Os 152 erros de preparação vieram, nas duas, do login devolvendo 500.
 
 ## Por que o login travava tudo
@@ -42,7 +42,7 @@ dele. A baseline só o aplica em `GET /auth/login`, que grava a sessão. O TDD e
 original o aplicam na dependência comum de autenticação. Por isso a fixture chama
 `GET /auth/login` antes de usar o cliente, como o front faria.
 
-Como o atalho fixa um usuário por instância e o oráculo usa seis perfis, o ambiente
+Como o atalho fixa um usuário por instância e o gabarito usa seis perfis, o ambiente
 ganhou cinco instâncias `local-<perfil>` além da `local` do docente. Os sete testes
 de V2-AUT-02 continuam fazendo o fluxo OAuth real, sem sessão prévia. Um teste mudou
 de corpo: o de persistência após reinício passou a reiniciar a instância que o cliente
@@ -50,11 +50,11 @@ usa.
 
 ## A régua no original
 
-Rodei o oráculo inteiro no PreJanus-back original, sob coverage. O resultado ficou
+Rodei o gabarito inteiro no PreJanus-back original, sob coverage. O resultado ficou
 igual ao de antes da mudança: 233/247, só as 14 divergências registradas falhando,
 50/50 operações exercitadas e 2.398/2.565 linhas vivas cobertas (93,5%).
 
-As divergências continuam no denominador. Quando o original falha e o oráculo segue
+As divergências continuam no denominador. Quando o original falha e o gabarito segue
 o requisito, quem está errado é o original, e um candidato pode acertar esses casos.
 
 ## Reavaliação
@@ -89,4 +89,4 @@ resultados novos estão em `_harness/oraculo-atalho/` de cada run:
 `demos/runs/caronte/05-prejanus-back-piloto-v3-baseline-20261019-095708/` e
 `demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261019-103846/`. A avaliação
 anterior continua em `_harness/ORACULO.json`. O `MEDIDAS.json` das duas runs ainda
-reflete o oráculo antigo.
+reflete o gabarito antigo.

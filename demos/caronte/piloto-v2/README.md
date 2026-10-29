@@ -1,7 +1,7 @@
 # Piloto v2 — backend completo do PreJanus
 
 Rascunho de escopo preparado em 17/10/2026. O piloto v1 de consulta foi
-concluído com baseline, TDD e rework; seus requisitos, oráculo, fixtures,
+concluído com baseline, TDD e rework; seus requisitos, gabarito, fixtures,
 logs e resultados ficam preservados. O v2 amplia a reconstrução para
 todo o `prejanus-back` e suas integrações. Não há execução paga v2.
 
@@ -29,12 +29,12 @@ imagem fixada, GLM 5.3 via OpenRouter, temperatura 0.1, top-p 0.9 e o mesmo
 inventário de skills de implementação. Não juntar as amostras v1 e v2.
 A nova ampliação não autoriza automaticamente outras chamadas pagas.
 
-Ambiente, fixture e suíte-oráculo estão materializados: `ambiente.py
-preparar` sobe o projeto Compose isolado e grava `dados/`; `oraculo/` roda
+Ambiente, fixture e gabarito estão materializados: `ambiente.py
+preparar` sobe o projeto Compose isolado e grava `dados/`; `gabarito/` roda
 contra o original pelo proxy HTTPS (de `demos/`: `uv run pytest
-caronte/piloto-v2/oraculo -p no:cacheprovider`). No original, falham só os
-casos registrados em `oraculo/divergencias.json`. Decisões e split
-75/25 (`oraculo/split.json`) estão registrados em `avaliacao.md`. O
+caronte/piloto-v2/gabarito -p no:cacheprovider`). No original, falham só os
+casos registrados em `gabarito/divergencias.json`. Decisões e split
+75/25 (`gabarito/split.json`) estão registrados em `avaliacao.md`. O
 problema do gate TDD registrado em `tcc-hqt.12` precisa ser resolvido antes
 de executar o novo grupo.
 ## Execução

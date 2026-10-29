@@ -8,7 +8,7 @@ tags: [tcc, experimento]
 Depois das primeiras runs formais, achei dois defeitos no harness que mudavam o que o
 grupo TDD recebia. Invalidei as runs afetadas, corrigi o harness e refiz as três runs
 com a mesma entrada. Com o harness corrigido, a baseline passou em 186 dos 247 casos
-do oráculo, o TDD em 140, e o rework em 59 dos 85 reservados. A variação entre runs da
+do gabarito, o TDD em 140, e o rework em 59 dos 85 reservados. A variação entre runs da
 mesma condição passou de 50 casos, então uma run por grupo não separa os grupos. Vou
 fazer mais runs depois, com o mesmo harness.
 
@@ -27,14 +27,14 @@ quando o app não sobe.
 **Os testes do TDD não alcançavam o ambiente inteiro.** O container que roda os testes
 do test-writer só recebia a URL do docente e a da instância sem atalho. Os testes não
 tinham como entrar como administrador, secretaria, coordenador ou estudante, nem falar
-com o provedor OAuth local ou com a caixa SMTP, que o oráculo e o rework usam. Numa das
+com o provedor OAuth local ou com a caixa SMTP, que o gabarito e o rework usam. Numa das
 runs, o arquivo de testes de OAuth do test-writer foi pulado inteiro. Agora o gate passa
 essas URLs, e o `infra/README.md` da entrada as documenta. Como o README é entrada dos
 três grupos, refiz também a baseline e o rework, para que a entrada fosse a mesma.
 
 ## O que ficou de fora
 
-| Run | Harness | Oráculo | Situação |
+| Run | Harness | Gabarito | Situação |
 |---|---|---:|---|
 | Baseline 23/10 14:16 | `8127059` | 191/247 | Substituída: a entrada mudou |
 | TDD 23/10 14:43 | `8127059` | 209/247 | Invalidada: o coder não via as falhas |
@@ -53,7 +53,7 @@ do ambiente ou de chamada ao modelo.
 
 | | Baseline | TDD | Rework |
 |---|---:|---:|---:|
-| Oráculo | 186/247 | 140/247 | 211/247 |
+| Gabarito | 186/247 | 140/247 | 211/247 |
 | Visíveis | 123/161 | 90/161 | 151/161 |
 | Reservados | 62/85 | 49/85 | 59/85 |
 | Custo | US$ 0,56 | US$ 2,07 | US$ 2,03 |
@@ -72,7 +72,7 @@ esgotou o teto de custo e só passou pelo gate final, com 151. Nos reservados, q
 
 ## Outras conferências
 
-Reavaliei o código da baseline de 23/10 com o oráculo. Deram o mesmo resultado 246 dos
+Reavaliei o código da baseline de 23/10 com o gabarito. Deram o mesmo resultado 246 dos
 247 casos. O que mudou, `test_link_de_correcao_abre_a_candidatura_no_forms`, depende de
 uma página do forms original, que respondeu 400 na segunda vez. Trato esse caso como
 instável.

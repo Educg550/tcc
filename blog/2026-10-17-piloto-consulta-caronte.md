@@ -6,7 +6,7 @@ tags: [tcc]
 ---
 
 Terminei as três runs do piloto atual: baseline, TDD e rework. Cada entrega passou em
-26 das 27 verificações comportamentais do oráculo, mas as falhas foram diferentes.
+26 das 27 verificações comportamentais do gabarito, mas as falhas foram diferentes.
 O TDD também expôs um desencontro entre os testes gerados e o gate.
 
 <!-- truncate -->
@@ -18,16 +18,16 @@ nem o frontend, e o CUA ficou fora dessa avaliação.
 Usei GLM-5.3 via OpenRouter, com temperatura 0,1 e top-p 0,9. Cada etapa rodou no
 OpenCode 1.19.0, em sua imagem oficial fixada por digest. O container só recebeu a pasta
 da reconstrução, o estado da sessão e as skills permitidas. O código original e o
-oráculo completo ficaram fora dos volumes. As skills foram disponibilizadas sob
+gabarito completo ficaram fora dos volumes. As skills foram disponibilizadas sob
 demanda; somente o TDD registrou o carregamento de Ponytail.
 
-| Condição | Tempo de geração e gate | Custo registrado (USD) | Oráculo comportamental | Falha |
+| Condição | Tempo de geração e gate | Custo registrado (USD) | Gabarito comportamental | Falha |
 |---|---:|---:|---:|---|
 | Baseline | 70,24 s | 0,059672 | 26/27 | `ethnicity-race` ausente no detalhe |
 | TDD | 1.251,15 s | 0,569621 | 26/27 | `ethnicity-race` ausente no detalhe |
 | Rework | 112,35 s | 0,033588 | 26/27 | `name` ausente na listagem de inscrições |
 
-O oráculo tem mais uma checagem de rastreio dos requisitos, que passou nos três casos.
+O gabarito tem mais uma checagem de rastreio dos requisitos, que passou nos três casos.
 Por isso o resumo do pytest mostra 27 aprovados e uma falha em cada entrega.
 Login, consulta do edital e os oito downloads passaram nas três reconstruções.
 
@@ -43,15 +43,15 @@ concluídas repetiram o resultado de três falhas e onze erros de conexão. A et
 terminou pelo limite de 1.200 segundos, com duas chamadas interrompidas. Preservei os
 testes e o código gerados; não adaptei o gate durante a run.
 
-Depois, subi a API entregue e apliquei o oráculo externo. Ela passou nas mesmas 26
+Depois, subi a API entregue e apliquei o gabarito externo. Ela passou nas mesmas 26
 verificações que o baseline. A falha do gate não impediu que a aplicação fosse
 executável, e essa run continua na comparação. Esse resultado identifica uma revisão
 necessária no contrato entre test-writer e gate antes de ampliar o experimento.
 
 Há também uma imprecisão no texto da fixture: ele diz que PPI não é verificado, mas
-o oráculo confere o valor bruto de `ethnicity-race` no formulário, embora o campo
+o gabarito confere o valor bruto de `ethnicity-race` no formulário, embora o campo
 esteja fora do mapeamento do resumo. Baseline e TDD o retiraram do detalhe. Os
-requisitos, a fixture e o oráculo usados nestas runs foram preservados; essa distinção
+requisitos, a fixture e o gabarito usados nestas runs foram preservados; essa distinção
 limita a interpretação da falha.
 
 ## O rework e os casos reservados
@@ -85,7 +85,7 @@ teto de US$ 10. Os custos vêm da tabela do executor; o consumo de chamadas inte
 pode não estar integralmente contabilizado nesses valores.
 
 É uma tentativa por condição, num recorte pequeno e fora dos resultados finais.
-Nenhuma entrega passou no oráculo inteiro. Guardei os logs, os resultados por rota,
+Nenhuma entrega passou no gabarito inteiro. Guardei os logs, os resultados por rota,
 os hashes das entregas e das entradas, a integridade dos testes e as imagens usadas.
 O piloto deixou uma falha concreta de integração para resolver antes de aumentar o
 escopo; ainda não permite estimar o custo do prejanus-back completo.

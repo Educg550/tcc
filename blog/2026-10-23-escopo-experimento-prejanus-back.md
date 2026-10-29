@@ -17,9 +17,9 @@ regras para invalidar uma run antes de rodar a primeira, como combinei no
 No pivô, o plano era reconstruir o caronte-core inteiro, com cerca de 30 mil linhas entre
 o forms, o prejanus-back e o prejanus-front. O piloto diria se isso cabia no prazo e no
 crédito que tenho. Os pilotos mostraram que o PreJanus-back sozinho já tem requisito,
-ambiente e suíte-oráculo prontos, e que ele já separa as entregas: no piloto v3, a
+ambiente e gabarito prontos, e que ele já separa as entregas: no piloto v3, a
 baseline passou em 139 dos 247 casos e o TDD em 185. Levar o forms e o front para o
-experimento exigiria requisitos e oráculo de telas que ainda não existem, além de
+experimento exigiria requisitos e gabarito de telas que ainda não existem, além de
 validar o build do front gerado.
 
 ## O desenho
@@ -32,7 +32,7 @@ flowchart TB
 
     subgraph U["Artefatos únicos (Opus 5.5)"]
         R["requisitos com ids<br/>50 operações do contrato<br/>só o que o original já faz"]
-        S["suíte-oráculo HTTP caixa-preta<br/>247 casos, cada um cita um requisito<br/>login por DEV_USER_ID, OAuth real em 7"]
+        S["gabarito HTTP caixa-preta<br/>247 casos, cada um cita um requisito<br/>login por DEV_USER_ID, OAuth real em 7"]
         V{"no original só as 14<br/>divergências registradas falham<br/>50/50 operações e ≥75%<br/>das linhas vivas?"}
         SP["split congelado por função<br/>estratificado por requisito"]
         VIS["161 visíveis"]
@@ -47,7 +47,7 @@ flowchart TB
     subgraph E1["Exp. 1 · uma run por grupo"]
         B["baseline<br/>requisito → código"]
         T["TDD<br/>requisito → testes próprios<br/>→ código → gate"]
-        N1["nota: suíte-oráculo inteira<br/>escondida dos agentes"]
+        N1["nota: gabarito inteiro<br/>escondido dos agentes"]
         B --> N1
         T --> N1
     end
@@ -82,7 +82,7 @@ O que mudou em relação ao desenho de 14/10:
   50 operações no contrato. O forms, o front, o Postgres, o SMTP local, o provedor OAuth
   local da Senha Única e o nginx vêm do original e formam o mesmo ambiente para todas as
   runs.
-- **Suíte-oráculo.** Só HTTP, com 247 casos: 246 de comportamento e um que confere se
+- **Gabarito de testes.** Só HTTP, com 247 casos: 246 de comportamento e um que confere se
   todo requisito tem teste. O login entra pelo atalho `DEV_USER_ID`, e o fluxo OAuth real
   fica nos 7 casos que o avaliam ([post de 21/10](/blog/piloto-v3-oraculo-sem-porta-unica)).
 - **Critério no original.** A suíte não passa em 100% do original. Ela passa em 233/247,
@@ -109,7 +109,7 @@ Todas usam o GLM 5.3 pelo OpenRouter, só no provedor `novita/fp8` e sem fallbac
 dela, só com os testes visíveis e os contratos. O código de `demos/harness/` e
 `demos/caronte/` fica congelado como está no commit `8d3c339` até as três runs
 terminarem. As runs rodam uma de cada vez, porque trocam os mesmos backends do ambiente,
-e o oráculo roda depois de cada geração.
+e o gabarito roda depois de cada geração.
 
 | Run | Experimento | Etapas | Teto de cada etapa |
 |---|---|---|---|
@@ -143,7 +143,7 @@ data posterior a este post.
 
 ## A nota
 
-No experimento 1, a nota é a aprovação na suíte-oráculo inteira, os 247 casos, que nenhum
+No experimento 1, a nota é a aprovação no gabarito inteiro, os 247 casos, que nenhum
 agente vê. Também vou separar visíveis, reservados e os casos de cada requisito.
 
 No experimento 2, a nota é a aprovação nos 85 casos reservados. Os 161 visíveis servem só

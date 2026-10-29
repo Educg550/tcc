@@ -54,7 +54,7 @@ autoral nem o efeito isolado de TDD, separado das demais diferenças entre
 as etapas. Resultados anteriores obtidos com Agno pertencem a outra
 configuração experimental e não são agregados aos do OpenCode como
 repetições da mesma condição. Este piloto avalia apenas a consulta HTTP do
-prejanus-back com uma suíte-oráculo externa; não exercita o CUA.
+prejanus-back com um gabarito externo; não exercita o CUA.
 
 ---
 

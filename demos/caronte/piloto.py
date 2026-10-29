@@ -34,9 +34,9 @@ RUNTIME = "sha256:de2233fd51964447ae4dc633d2898930ac80b0c581b6b99101feb1eec3fc70
 
 def materializar_visiveis():
     """Especializa apenas os casos visíveis, sem entregar parametrizações reservadas."""
-    fonte = ast.parse((AQUI / "oraculo/test_consulta.py").read_text())
+    fonte = ast.parse((AQUI / "gabarito/test_consulta.py").read_text())
     funcoes = {n.name: n for n in fonte.body if isinstance(n, ast.FunctionDef)}
-    ids = json.loads((AQUI / "oraculo/split.json").read_text())["visiveis"]
+    ids = json.loads((AQUI / "gabarito/split.json").read_text())["visiveis"]
     saida = ["import pytest\nfrom dados import CARONTE, respostas_da_fixture, secoes_do_formulario\n"
              'CANDIDATA = "Ana Piloto Caronte"\nEMAIL = "candidata.piloto@example.com"\n']
     for i, id in enumerate(ids):
@@ -138,13 +138,13 @@ def preparar_rework():
     testes = destino / "tests"
     testes.mkdir(exist_ok=True)
     (testes / "test_consulta.py").write_text(materializar_visiveis())
-    shutil.copyfile(AQUI / "oraculo/conftest.py", testes / "conftest.py")
-    dados = (AQUI / "oraculo/dados.py").read_text().replace('Path(__file__).parent.parent', 'Path(__file__).parent / "dados"')
+    shutil.copyfile(AQUI / "gabarito/conftest.py", testes / "conftest.py")
+    dados = (AQUI / "gabarito/dados.py").read_text().replace('Path(__file__).parent.parent', 'Path(__file__).parent / "dados"')
     (testes / "dados.py").write_text(dados)
     (testes / "dados/uploads-consulta").mkdir(parents=True, exist_ok=True)
     for nome in ("fixture-consulta-forms.sql", "formulario-mestrado.json"):
         shutil.copyfile(AQUI / nome, testes / "dados" / nome)
-    visiveis = json.loads((AQUI / "oraculo/split.json").read_text())["visiveis"]
+    visiveis = json.loads((AQUI / "gabarito/split.json").read_text())["visiveis"]
     for id in visiveis:
         if "test_baixa_o_anexo[" in id:
             nome = id.split("[", 1)[1][:-1]
@@ -153,18 +153,18 @@ def preparar_rework():
 
 
 def avaliar(projeto):
-    """Oráculo externo após a geração; nenhum resultado volta para a sessão."""
+    """Gabarito externo após a geração; nenhum resultado volta para a sessão."""
     anteriores = [int(p.stem.split("-")[-1]) for p in projeto.saida.glob("app-[0-9]*.log")]
     projeto.servidores = max(anteriores, default=0)
     with projeto.servidor(True) as (url, _), projeto.servidor(False) as (sem_atalho, _):
-        cmd = [sys.executable, "-m", "pytest", str(AQUI / "oraculo"), "-q", "--tb=short",
-               f"--junitxml={projeto.saida / 'oraculo.xml'}"]
+        cmd = [sys.executable, "-m", "pytest", str(AQUI / "gabarito"), "-q", "--tb=short",
+               f"--junitxml={projeto.saida / 'gabarito.xml'}"]
         r = subprocess.run(cmd, cwd=DEMOS, env={**os.environ, "CARONTE_API": url,
                            "CARONTE_API_SEM_ATALHO": sem_atalho}, capture_output=True, text=True)
-    (projeto.saida / "oraculo.txt").write_text(r.stdout + "\n" + r.stderr)
+    (projeto.saida / "gabarito.txt").write_text(r.stdout + "\n" + r.stderr)
     casos = [{"nome": t.get("name"), "passou": t.find("failure") is None and t.find("error") is None}
-             for t in ET.parse(projeto.saida / "oraculo.xml").iter("testcase")]
-    split = json.loads((AQUI / "oraculo/split.json").read_text())
+             for t in ET.parse(projeto.saida / "gabarito.xml").iter("testcase")]
+    split = json.loads((AQUI / "gabarito/split.json").read_text())
     resultado = {"instrumento": "pytest/httpx externo", "aprovado_geral": all(t["passou"] for t in casos),
                  "passed": sum(t["passou"] for t in casos), "failed": sum(not t["passou"] for t in casos),
                  "total": len(casos), "casos": casos, "runtime_image": RUNTIME}
@@ -177,7 +177,7 @@ def avaliar(projeto):
     fontes = {str(p.relative_to(projeto.raiz)): hashlib.sha256(p.read_bytes()).hexdigest()
               for p in projeto.raiz.rglob("*.py") if "_harness" not in p.relative_to(projeto.raiz).parts}
     resultado["fontes_sha256"] = fontes
-    (projeto.saida / "ORACULO.json").write_text(json.dumps(resultado, ensure_ascii=False, indent=2) + "\n")
+    (projeto.saida / "GABARITO.json").write_text(json.dumps(resultado, ensure_ascii=False, indent=2) + "\n")
     return resultado
 
 

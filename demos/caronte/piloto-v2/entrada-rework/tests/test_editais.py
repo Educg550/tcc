@@ -1,6 +1,6 @@
 import pytest
 from conftest import banco, sql
-NOVO = {'title': 'Piloto v2 - Mestrado 2027', 'description': 'Criado pelo oráculo', 'year': 2027, 'semester': 1, 'edict_type': 'mestrado', 'is_open': True, 'candidate_forms': '1', 'recommenders_forms': '2', 'date_application': '2031-01-10', 'date_verification': '2031-02-10', 'date_evaluation': '2031-03-10', 'date_closed': '2031-04-10'}
+NOVO = {'title': 'Piloto v2 - Mestrado 2027', 'description': 'Criado pelo gabarito', 'year': 2027, 'semester': 1, 'edict_type': 'mestrado', 'is_open': True, 'candidate_forms': '1', 'recommenders_forms': '2', 'date_application': '2031-01-10', 'date_verification': '2031-02-10', 'date_evaluation': '2031-03-10', 'date_closed': '2031-04-10'}
 EDICAO = {'title': 'Mestrado editado', 'description': 'Nova descrição', 'year': '2027', 'semester': '2', 'edict_type': 'doutorado', 'date_application': '2030-01-05', 'date_verification': '2030-02-05', 'date_evaluation': '2030-03-05', 'date_closed': '2030-04-05'}
 
 def fases(edict_id):

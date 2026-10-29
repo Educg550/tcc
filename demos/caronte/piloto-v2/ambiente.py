@@ -158,7 +158,7 @@ def preparar():
 
 
 def cobertura():
-    """Roda o oráculo no original sob coverage e conta as linhas vivas cobertas (caronte/cobertura.py)."""
+    """Roda o gabarito no original sob coverage e conta as linhas vivas cobertas (caronte/cobertura.py)."""
     saida = ESTADO / "cobertura"
     shutil.rmtree(saida, ignore_errors=True)
     saida.mkdir(parents=True)
@@ -177,7 +177,7 @@ def cobertura():
     try:
         for caminho in CAMINHOS:
             esperar(URL + caminho)
-        subprocess.run([sys.executable, "-m", "pytest", str(AQUI / "oraculo"), "-q", "-p", "no:cacheprovider"],
+        subprocess.run([sys.executable, "-m", "pytest", str(AQUI / "gabarito"), "-q", "-p", "no:cacheprovider"],
                        cwd=RAIZ / "demos")
     finally:
         dc("stop", *BACKENDS)
