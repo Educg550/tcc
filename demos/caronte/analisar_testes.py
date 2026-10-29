@@ -31,19 +31,19 @@ def executar():
                                     "resumo": resumir(arquivos), "arquivos": arquivos}
     saida = RAIZ / "demos/analises/prejanus-back"
     saida.mkdir(parents=True, exist_ok=True)
-    resultado = {"ferramentas": {p: version(p) for p in ("lizard", "radon")},
+    resultado = {"ferramentas": {"radon": version("radon")},
                  "coletor_sha256": sha256(Path(__file__).read_bytes()),
                  "projetos": projetos}
     (saida / "testes.json").write_text(json.dumps(resultado, ensure_ascii=False, indent=2) + "\n")
     with (saida / "testes.csv").open("w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(("suite", "arquivos", "nloc", "funcoes", "cc_media", "cc_max",
-                         "cc_acima_10", "nloc_funcao_media", "nloc_funcao_max"))
+        writer = csv.writer(f, lineterminator="\n")
+        writer.writerow(("suite", "arquivos", "sloc", "lloc", "funcoes", "cc_media", "cc_max",
+                         "cc_acima_10", "mi_mediana", "mi_min"))
         for nome, projeto in projetos.items():
             r = projeto["resumo"]
-            writer.writerow((nome, r["arquivos"], r["lizard_nloc"], r["lizard_cc"]["n"],
-                             r["lizard_cc"]["media"], r["lizard_cc"]["max"], r["lizard_cc"]["acima_10"],
-                             r["lizard_nloc_funcao"]["media"], r["lizard_nloc_funcao"]["max"]))
+            writer.writerow((nome, r["arquivos"], r["radon_raw"]["sloc"], r["radon_raw"]["lloc"],
+                             r["radon_cc"]["n"], r["radon_cc"]["media"], r["radon_cc"]["max"],
+                             r["radon_cc"]["acima_10"], r["radon_mi"]["mediana"], r["radon_mi"]["min"]))
     return resultado
 
 

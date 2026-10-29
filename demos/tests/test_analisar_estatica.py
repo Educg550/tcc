@@ -11,16 +11,14 @@ def test_remove_so_faixa_congelada_preserva_linhas_e_nao_executa(tmp_path):
     vivo = analisar_arquivo(arquivo, tmp_path, [(2, 5)])
     assert arquivo.read_text() == codigo
     assert sem_mortas(codigo, [(2, 5)]).splitlines()[5] == 'class Viva:'
-    for ferramenta in ('lizard', 'radon'):
-        assert len(bruto[ferramenta]['funcoes']) == 2
-        assert len(vivo[ferramenta]['funcoes']) == 1
-        assert vivo[ferramenta]['funcoes'][0]['inicio'] == 7
-        assert vivo[ferramenta]['funcoes'][0]['cc'] == 2
+    assert len(bruto['radon']['funcoes']) == 2
+    assert len(vivo['radon']['funcoes']) == 1
+    assert vivo['radon']['funcoes'][0]['inicio'] == 7
+    assert vivo['radon']['funcoes'][0]['cc'] == 2
     assert vivo['sha256'] == bruto['sha256']
     assert vivo['analisado_sha256'] != bruto['analisado_sha256']
     r = resumir([vivo])
-    assert r['lizard_cc']['media'] == r['radon_cc']['media'] == 2
-    assert r['lizard_nloc'] < resumir([bruto])['lizard_nloc']
+    assert r['radon_cc']['media'] == 2
     assert r['radon_raw']['sloc'] < resumir([bruto])['radon_raw']['sloc']
 
 
@@ -29,8 +27,8 @@ def test_media_por_funcao_e_mi_exclui_arquivo_vazio(tmp_path):
     (tmp_path / 'funcoes.py').write_text('def f(x):\n    return 1 if x else 0\ndef g():\n    return 0\n')
     r = resumir([analisar_arquivo(p, tmp_path) for p in sorted(tmp_path.glob('*.py'))])
     assert r['arquivos'] == 2
-    assert r['lizard_cc']['n'] == r['radon_cc']['n'] == 2
-    assert r['lizard_cc']['media'] == r['radon_cc']['media'] == 1.5
+    assert r['radon_cc']['n'] == 2
+    assert r['radon_cc']['media'] == 1.5
     assert r['radon_mi']['arquivos_com_sloc'] == 1
 
 

@@ -8,7 +8,6 @@ from importlib.metadata import version
 from pathlib import Path
 from statistics import mean, median
 
-import lizard
 from radon.complexity import add_inner_blocks, cc_rank, cc_visit
 from radon.metrics import h_visit, mi_visit
 from radon.raw import analyze
@@ -39,14 +38,9 @@ def analisar_arquivo(caminho, base, faixas=()):
     nome = caminho.relative_to(base).as_posix()
     codigo = sem_mortas(dados.decode("utf-8"), faixas)
     compile(codigo, nome, "exec")
-    liz = lizard.analyze_file.analyze_source_code(nome, codigo)
     return {
         "arquivo": nome, "sha256": sha256(dados),
         "analisado_sha256": sha256(codigo.encode()), "faixas_excluidas": faixas,
-        "lizard": {"nloc": liz.nloc, "funcoes": [
-            {"nome": f.long_name, "inicio": f.start_line, "fim": f.end_line,
-             "nloc": f.nloc, "cc": f.cyclomatic_complexity, "parametros": f.parameter_count}
-            for f in liz.function_list]},
         "radon": {
             "raw": analyze(codigo)._asdict(),
             "funcoes": [{"nome": b.fullname, "inicio": b.lineno, "fim": b.endline,
@@ -66,14 +60,10 @@ def distribuicao(valores):
 
 
 def resumir(arquivos):
-    lf = [f for a in arquivos for f in a["lizard"]["funcoes"]]
     rf = [f for a in arquivos for f in a["radon"]["funcoes"]]
     mi = [a["radon"]["mi"] for a in arquivos if a["radon"]["raw"]["sloc"]]
     return {
         "arquivos": len(arquivos),
-        "lizard_nloc": sum(a["lizard"]["nloc"] for a in arquivos),
-        "lizard_cc": distribuicao([f["cc"] for f in lf]),
-        "lizard_nloc_funcao": distribuicao([f["nloc"] for f in lf]),
         "radon_raw": {k: sum(a["radon"]["raw"][k] for a in arquivos)
                       for k in ("loc", "lloc", "sloc", "comments", "multi", "blank", "single_comments")},
         "radon_cc": distribuicao([f["cc"] for f in rf]),
@@ -111,22 +101,18 @@ def executar(saida):
         projetos[nome] = {"origem": base.relative_to(RAIZ).as_posix(),
                           "manifesto_sha256": sha256(manifesto.read_bytes()),
                           "resumo": resumir(arquivos), "arquivos": arquivos}
-    resultado = {"ferramentas": {p: version(p) for p in ("lizard", "radon")},
+    resultado = {"ferramentas": {"radon": version("radon")},
                  "coletor_sha256": sha256(Path(__file__).read_bytes()),
                  "codigo_morto_sha256": sha256(morto.read_bytes()), "projetos": projetos}
     saida.mkdir(parents=True, exist_ok=True)
     (saida / "estatica.json").write_text(json.dumps(resultado, ensure_ascii=False, indent=2) + "\n")
     with (saida / "estatica.csv").open("w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(("projeto", "arquivos", "lizard_nloc", "lizard_funcoes", "lizard_cc_media",
-                         "lizard_cc_max", "lizard_cc_acima_10", "lizard_nloc_funcao_media", "lizard_nloc_funcao_max",
-                         "radon_sloc", "radon_lloc", "radon_funcoes", "radon_cc_media", "radon_cc_max",
-                         "radon_cc_acima_10", "radon_mi_mediana", "radon_mi_min"))
+        writer = csv.writer(f, lineterminator="\n")
+        writer.writerow(("projeto", "arquivos", "radon_sloc", "radon_lloc", "radon_funcoes",
+                         "radon_cc_media", "radon_cc_max", "radon_cc_acima_10", "radon_mi_mediana", "radon_mi_min"))
         for nome, p in projetos.items():
             r = p["resumo"]
-            writer.writerow((nome, r["arquivos"], r["lizard_nloc"], r["lizard_cc"]["n"],
-                             r["lizard_cc"]["media"], r["lizard_cc"]["max"], r["lizard_cc"]["acima_10"],
-                             r["lizard_nloc_funcao"]["media"], r["lizard_nloc_funcao"]["max"],
+            writer.writerow((nome, r["arquivos"],
                              r["radon_raw"]["sloc"], r["radon_raw"]["lloc"], r["radon_cc"]["n"],
                              r["radon_cc"]["media"], r["radon_cc"]["max"], r["radon_cc"]["acima_10"],
                              r["radon_mi"]["mediana"], r["radon_mi"]["min"]))

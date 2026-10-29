@@ -54,58 +54,36 @@ flowchart TB
 
 ## Análise estática
 
-Coletei em 29/10 as métricas do código de produção com lizard 1.24.1 e
-Radon 6.0.1:
+Coletei em 29/10 as métricas do código de produção com Radon 6.0.1:
 
-Todas as métricas das duas tabelas consideram apenas código de produção:
+A tabela abaixo considera apenas código de produção:
 
 - **TDD:** os testes gerados pelo test-writer ficam fora da contagem.
 - **TDD com revisão:** os testes gerados pelo test-writer, inclusive os revisados durante a execução, ficam fora da contagem.
-- **Rework:** os testes visíveis fornecidos como entrada ficam fora da contagem; as 2.110 linhas de NLOC correspondem apenas ao código de produção gerado.
+- **Rework:** os testes visíveis fornecidos como entrada ficam fora da contagem; as 2.110 linhas de SLOC correspondem apenas ao código de produção gerado.
 - **Original e baseline:** também são medidos apenas os arquivos de produção.
 
-Os testes do gabarito ficam fora das métricas em todas as condições.
+Os testes do gabarito ficam fora dessa tabela em todas as condições.
 
-### Lizard
+### Código de produção
 
-| Entrega | Arquivos | NLOC | Funções | CC média | CC máxima | CC > 10 | NLOC/função média | NLOC/função máxima |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Original bruto | 84 | 4847 | 157 | 3,81 | 84 | 8 | 20,54 | 243 |
-| Original sem faixas mortas | 84 | 4723 | 153 | 3,81 | 84 | 8 | 20,42 | 243 |
-| Baseline | 17 | 1730 | 126 | 3,46 | 22 | 6 | 11,58 | 52 |
-| TDD | 17 | 2563 | 139 | 3,80 | 26 | 11 | 14,96 | 59 |
-| Rework | 17 | 2110 | 146 | 3,06 | 19 | 6 | 11,40 | 55 |
-| TDD com revisão (exploratório) | 17 | 2059 | 121 | 3,95 | 29 | 8 | 14,97 | 62 |
-
-Legenda das colunas do [Lizard](https://github.com/terryyin/lizard):
-
-- **Entrega:** versão do código analisada.
-- **Arquivos:** quantidade de arquivos Python de produção analisados.
-- **NLOC:** total de linhas de código, sem comentários nem linhas em branco, segundo a contagem do Lizard.
-- **Funções:** quantidade de funções e métodos identificados.
-- **CC média:** média da complexidade ciclomática das funções e métodos. Essa métrica conta caminhos independentes no fluxo do código: decisões como `if` e laços aumentam o valor. Valores maiores indicam mais caminhos para entender e testar.
-- **CC máxima:** maior complexidade ciclomática encontrada em uma função ou método.
-- **CC > 10:** quantidade de funções e métodos com complexidade ciclomática acima de 10; não é uma porcentagem nem uma contagem de defeitos.
-- **NLOC/função média:** média de linhas de código por função ou método.
-- **NLOC/função máxima:** quantidade de linhas de código da maior função ou método.
-
-### Radon
-
-| Entrega | SLOC | LLOC | CC média | CC máxima | CC > 10 | MI mediano | MI mínimo |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Original bruto | 4967 | 3217 | 3,83 | 84 | 8 | 64,75 | 12,29 |
-| Original sem faixas mortas | 4843 | 3149 | 3,84 | 84 | 8 | 65,40 | 12,29 |
-| Baseline | 1730 | 1511 | 3,46 | 22 | 6 | 53,07 | 17,08 |
-| TDD | 2563 | 1788 | 3,80 | 26 | 11 | 45,99 | 9,42 |
-| Rework | 2110 | 1501 | 3,27 | 19 | 7 | 43,33 | 13,20 |
-| TDD com revisão (exploratório) | 2059 | 1495 | 3,95 | 29 | 8 | 45,03 | 10,89 |
+| Entrega | Arquivos | SLOC | LLOC | Funções | CC média | CC máxima | CC > 10 | MI mediano | MI mínimo |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Original bruto | 84 | 4967 | 3217 | 157 | 3,83 | 84 | 8 | 64,75 | 12,29 |
+| Original sem faixas mortas | 84 | 4843 | 3149 | 153 | 3,84 | 84 | 8 | 65,40 | 12,29 |
+| Baseline | 17 | 1730 | 1511 | 126 | 3,46 | 22 | 6 | 53,07 | 17,08 |
+| TDD | 17 | 2563 | 1788 | 139 | 3,80 | 26 | 11 | 45,99 | 9,42 |
+| Rework | 17 | 2110 | 1501 | 146 | 3,27 | 19 | 7 | 43,33 | 13,20 |
+| TDD com revisão (exploratório) | 17 | 2059 | 1495 | 121 | 3,95 | 29 | 8 | 45,03 | 10,89 |
 
 Legenda das colunas do [Radon](https://radon.readthedocs.io/en/stable/intro.html):
 
-- **Entrega:** versão do código analisada, a mesma da tabela anterior.
+- **Entrega:** versão do código analisada.
+- **Arquivos:** quantidade de arquivos Python de produção analisados.
+- **Funções:** quantidade de funções e métodos identificados.
 - **SLOC:** total de linhas físicas de código, sem linhas em branco e comentários, segundo as regras do Radon.
 - **LLOC:** total de linhas lógicas de código, isto é, instruções em vez de linhas do arquivo. Uma instrução distribuída em várias linhas físicas pode contar como uma linha lógica.
-- **CC média:** média da complexidade ciclomática das funções e métodos, com o mesmo significado da tabela do Lizard, mas segundo as regras do Radon.
+- **CC média:** média da complexidade ciclomática das funções e métodos. Ela conta caminhos independentes no fluxo do código: decisões como `if`, laços e asserções aumentam o valor. Valores maiores indicam mais caminhos para entender e testar.
 - **CC máxima:** maior complexidade ciclomática encontrada em uma função ou método.
 - **CC > 10:** quantidade de funções e métodos com complexidade ciclomática acima de 10.
 - **MI mediano:** mediana do índice de manutenibilidade dos arquivos. O MI combina tamanho, complexidade, volume de Halstead (baseado em operadores e operandos) e proporção de comentários em uma escala de 0 a 100; valores maiores sugerem maior facilidade de manutenção. A mediana é o valor central da distribuição.
@@ -114,7 +92,7 @@ Legenda das colunas do [Radon](https://radon.readthedocs.io/en/stable/intro.html
 As médias de complexidade dão o mesmo peso a cada função ou método. O Radon
 inclui funções internas e não soma classes como funções adicionais. O MI é
 calculado por arquivo, com `multi=False`; a mediana e o mínimo ignoram arquivos
-sem código. As contagens das duas ferramentas seguem regras próprias.
+sem código.
 
 O rework tem a menor complexidade média entre as entregas; o TDD produziu mais
 linhas e mais funções com complexidade acima de 10 que a baseline. Esses
@@ -129,25 +107,28 @@ está em `demos/caronte/analisar_estatica.py`.
 
 ## Análise estática dos testes
 
-Medi separadamente os testes com Lizard 1.24.1. Nos dois TDDs, analisei os
+Medi separadamente os testes com Radon 6.0.1. Nos dois TDDs, analisei os
 testes ao fim da execução; na variante com revisão, isso inclui as alterações
 aprovadas. No rework, são os testes visíveis fornecidos como entrada. O gabarito
 completo (oráculo) inclui os casos visíveis, reservados e de rastreio.
 
-| Suíte | Arquivos | NLOC | Funções | CC média | CC máxima | CC > 10 | NLOC/função média | NLOC/função máxima |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| TDD — testes gerados | 11 | 1095 | 100 | 2,74 | 16 | 1 | 10,30 | 48 |
-| TDD com revisão — testes finais (exploratório) | 11 | 935 | 117 | 1,85 | 14 | 1 | 7,68 | 32 |
-| Rework — testes visíveis fornecidos | 12 | 1062 | 137 | 2,04 | 11 | 2 | 5,91 | 49 |
-| Gabarito completo (oráculo) | 13 | 1414 | 172 | 2,09 | 11 | 2 | 6,02 | 49 |
+| Suíte | Arquivos | SLOC | LLOC | Funções | CC média | CC máxima | CC > 10 | MI mediano | MI mínimo |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| TDD — testes gerados | 11 | 1095 | 1011 | 100 | 4,97 | 20 | 10 | 38,53 | 25,06 |
+| TDD com revisão — testes finais (exploratório) | 11 | 935 | 916 | 117 | 3,74 | 12 | 2 | 39,85 | 34,31 |
+| Rework — testes visíveis fornecidos | 12 | 1069 | 1169 | 137 | 3,66 | 32 | 3 | 35,16 | 24,22 |
+| Gabarito completo (oráculo) | 13 | 1445 | 1452 | 172 | 3,75 | 32 | 4 | 31,87 | 19,09 |
 
-**Legenda:** Arquivos é a quantidade de arquivos Python analisados; NLOC é o
-total de linhas de código, sem comentários nem linhas em branco; Funções conta
-funções e métodos, incluindo testes, fixtures e auxiliares. CC média e CC máxima
-são a média e o maior valor de complexidade ciclomática dessas funções; CC > 10
-conta quantas ultrapassam 10. NLOC/função média e máxima indicam o tamanho médio
-e o tamanho da maior função em linhas de código. As contagens de funções não
-equivalem à quantidade de casos de teste, pois há parametrizações e auxiliares.
+**Legenda:** Arquivos é a quantidade de arquivos Python analisados; SLOC conta
+linhas físicas de código e LLOC conta instruções lógicas. Funções inclui testes,
+fixtures e auxiliares. CC média e máxima são a média e o maior valor de
+complexidade ciclomática dessas funções; CC > 10 conta quantas ultrapassam 10.
+MI mediano e mínimo são a mediana e o menor índice de manutenibilidade dos
+arquivos com código, na escala de 0 a 100 (maior sugere maior facilidade de
+manutenção). As definições são as mesmas da tabela de produção.
+As contagens de funções não equivalem à quantidade de casos de teste, pois há
+parametrizações e auxiliares. O Radon também conta asserções na complexidade:
+um teste com várias verificações pode ter CC alta mesmo sem `if` ou laços.
 
 ## Por área do gabarito
 
