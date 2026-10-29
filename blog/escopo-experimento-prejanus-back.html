@@ -5,8 +5,8 @@
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Escopo, tetos e regras do experimento no PreJanus-back | TCC - Eduardo Cruz Guedes</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://educg550.github.io/tcc/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://educg550.github.io/tcc/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://educg550.github.io/tcc/blog/escopo-experimento-prejanus-back"><meta data-rh="true" property="og:locale" content="pt_BR"><meta data-rh="true" name="docusaurus_locale" content="pt-BR"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="pt-BR"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Escopo, tetos e regras do experimento no PreJanus-back | TCC - Eduardo Cruz Guedes"><meta data-rh="true" name="description" content="O experimento vai reconstruir só o PreJanus-back. Fechei esse escopo com o Paulo e o"><meta data-rh="true" property="og:description" content="O experimento vai reconstruir só o PreJanus-back. Fechei esse escopo com o Paulo e o"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2026-10-23T00:00:00.000Z"><meta data-rh="true" property="article:author" content="https://github.com/Educg550"><meta data-rh="true" property="article:tag" content="TCC,Planejamento"><link data-rh="true" rel="icon" href="/tcc/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://educg550.github.io/tcc/blog/escopo-experimento-prejanus-back"><link data-rh="true" rel="alternate" href="https://educg550.github.io/tcc/blog/escopo-experimento-prejanus-back" hreflang="pt-BR"><link data-rh="true" rel="alternate" href="https://educg550.github.io/tcc/blog/escopo-experimento-prejanus-back" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://educg550.github.io/tcc/blog/escopo-experimento-prejanus-back","mainEntityOfPage":"https://educg550.github.io/tcc/blog/escopo-experimento-prejanus-back","url":"https://educg550.github.io/tcc/blog/escopo-experimento-prejanus-back","headline":"Escopo, tetos e regras do experimento no PreJanus-back","name":"Escopo, tetos e regras do experimento no PreJanus-back","description":"O experimento vai reconstruir só o PreJanus-back. Fechei esse escopo com o Paulo e o","datePublished":"2026-10-23T00:00:00.000Z","author":{"@type":"Person","name":"Eduardo Cruz Guedes","description":"Aluno de BCC - IME-USP","url":"https://github.com/Educg550","image":"https://github.com/Educg550.png"},"keywords":[],"isPartOf":{"@type":"Blog","@id":"https://educg550.github.io/tcc/blog","name":"Blog"}}</script><link rel="alternate" type="application/rss+xml" href="/tcc/blog/rss.xml" title="TCC - Eduardo Cruz Guedes RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/tcc/blog/atom.xml" title="TCC - Eduardo Cruz Guedes Atom Feed"><link rel="stylesheet" href="/tcc/assets/css/styles.0e475abe.css">
-<script src="/tcc/assets/js/runtime~main.e73ca3b9.js" defer="defer"></script>
-<script src="/tcc/assets/js/main.66888ee2.js" defer="defer"></script>
+<script src="/tcc/assets/js/runtime~main.333753ca.js" defer="defer"></script>
+<script src="/tcc/assets/js/main.34467587.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -20,9 +20,9 @@ regras para invalidar uma run antes de rodar a primeira, como combinei no
 <p>No pivô, o plano era reconstruir o caronte-core inteiro, com cerca de 30 mil linhas entre
 o forms, o prejanus-back e o prejanus-front. O piloto diria se isso cabia no prazo e no
 crédito que tenho. Os pilotos mostraram que o PreJanus-back sozinho já tem requisito,
-ambiente e suíte-oráculo prontos, e que ele já separa as entregas: no piloto v3, a
+ambiente e gabarito prontos, e que ele já separa as entregas: no piloto v3, a
 baseline passou em 139 dos 247 casos e o TDD em 185. Levar o forms e o front para o
-experimento exigiria requisitos e oráculo de telas que ainda não existem, além de
+experimento exigiria requisitos e gabarito de telas que ainda não existem, além de
 validar o build do front gerado.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-desenho">O desenho<a href="#o-desenho" class="hash-link" aria-label="Link direto para O desenho" title="Link direto para O desenho" translate="no">​</a></h2>
 <!-- -->
@@ -32,7 +32,7 @@ validar o build do front gerado.</p>
 50 operações no contrato. O forms, o front, o Postgres, o SMTP local, o provedor OAuth
 local da Senha Única e o nginx vêm do original e formam o mesmo ambiente para todas as
 runs.</li>
-<li class=""><strong>Suíte-oráculo.</strong> Só HTTP, com 247 casos: 246 de comportamento e um que confere se
+<li class=""><strong>Gabarito de testes.</strong> Só HTTP, com 247 casos: 246 de comportamento e um que confere se
 todo requisito tem teste. O login entra pelo atalho <code>DEV_USER_ID</code>, e o fluxo OAuth real
 fica nos 7 casos que o avaliam (<a class="" href="/tcc/blog/piloto-v3-oraculo-sem-porta-unica">post de 21/10</a>).</li>
 <li class=""><strong>Critério no original.</strong> A suíte não passa em 100% do original. Ela passa em 233/247,
@@ -57,7 +57,7 @@ a análise desce ao nível de requisito.</li>
 dela, só com os testes visíveis e os contratos. O código de <code>demos/harness/</code> e
 <code>demos/caronte/</code> fica congelado como está no commit <code>8d3c339</code> até as três runs
 terminarem. As runs rodam uma de cada vez, porque trocam os mesmos backends do ambiente,
-e o oráculo roda depois de cada geração.</p>
+e o gabarito roda depois de cada geração.</p>
 <table><thead><tr><th>Run</th><th>Experimento</th><th>Etapas</th><th>Teto de cada etapa</th></tr></thead><tbody><tr><td>baseline</td><td>1</td><td>código</td><td>US$ 2, 40 propostas, 3.600 s</td></tr><tr><td>TDD</td><td>1</td><td>testes e código</td><td>US$ 2, 40 propostas, 3.600 s</td></tr><tr><td>rework</td><td>2</td><td>código, com gate nos 161 visíveis</td><td>US$ 2, 40 propostas, 3.600 s</td></tr></tbody></table>
 <p>Custo e tempo são conferidos antes de cada chamada ao modelo. A última chamada de uma
 etapa pode passar do teto, e o <code>RUN.log</code> registra o valor real. O tempo do gate conta no
@@ -78,7 +78,7 @@ registrada, com o motivo, ao lado da que a substitui.</p>
 formais também vão sair em pastas <code>05-prejanus-back-piloto-v3-*</code>; valem as que tiverem
 data posterior a este post.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-nota">A nota<a href="#a-nota" class="hash-link" aria-label="Link direto para A nota" title="Link direto para A nota" translate="no">​</a></h2>
-<p>No experimento 1, a nota é a aprovação na suíte-oráculo inteira, os 247 casos, que nenhum
+<p>No experimento 1, a nota é a aprovação no gabarito inteiro, os 247 casos, que nenhum
 agente vê. Também vou separar visíveis, reservados e os casos de cada requisito.</p>
 <p>No experimento 2, a nota é a aprovação nos 85 casos reservados. Os 161 visíveis servem só
 de gate.</p>

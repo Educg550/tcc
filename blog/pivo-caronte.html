@@ -5,8 +5,8 @@
 <meta name="generator" content="Docusaurus v3.9.2">
 <title data-rh="true">Fim dos formulários e pivô para o caronte | TCC - Eduardo Cruz Guedes</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://educg550.github.io/tcc/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://educg550.github.io/tcc/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://educg550.github.io/tcc/blog/pivo-caronte"><meta data-rh="true" property="og:locale" content="pt_BR"><meta data-rh="true" name="docusaurus_locale" content="pt-BR"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="pt-BR"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="Fim dos formulários e pivô para o caronte | TCC - Eduardo Cruz Guedes"><meta data-rh="true" name="description" content="Na conversa com os orientadores, encerramos o experimento dos formulários como"><meta data-rh="true" property="og:description" content="Na conversa com os orientadores, encerramos o experimento dos formulários como"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:published_time" content="2026-10-14T00:00:00.000Z"><meta data-rh="true" property="article:author" content="https://github.com/Educg550"><meta data-rh="true" property="article:tag" content="TCC,Planejamento"><link data-rh="true" rel="icon" href="/tcc/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://educg550.github.io/tcc/blog/pivo-caronte"><link data-rh="true" rel="alternate" href="https://educg550.github.io/tcc/blog/pivo-caronte" hreflang="pt-BR"><link data-rh="true" rel="alternate" href="https://educg550.github.io/tcc/blog/pivo-caronte" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://educg550.github.io/tcc/blog/pivo-caronte","mainEntityOfPage":"https://educg550.github.io/tcc/blog/pivo-caronte","url":"https://educg550.github.io/tcc/blog/pivo-caronte","headline":"Fim dos formulários e pivô para o caronte","name":"Fim dos formulários e pivô para o caronte","description":"Na conversa com os orientadores, encerramos o experimento dos formulários como","datePublished":"2026-10-14T00:00:00.000Z","author":{"@type":"Person","name":"Eduardo Cruz Guedes","description":"Aluno de BCC - IME-USP","url":"https://github.com/Educg550","image":"https://github.com/Educg550.png"},"keywords":[],"isPartOf":{"@type":"Blog","@id":"https://educg550.github.io/tcc/blog","name":"Blog"}}</script><link rel="alternate" type="application/rss+xml" href="/tcc/blog/rss.xml" title="TCC - Eduardo Cruz Guedes RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/tcc/blog/atom.xml" title="TCC - Eduardo Cruz Guedes Atom Feed"><link rel="stylesheet" href="/tcc/assets/css/styles.0e475abe.css">
-<script src="/tcc/assets/js/runtime~main.e73ca3b9.js" defer="defer"></script>
-<script src="/tcc/assets/js/main.66888ee2.js" defer="defer"></script>
+<script src="/tcc/assets/js/runtime~main.333753ca.js" defer="defer"></script>
+<script src="/tcc/assets/js/main.34467587.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg style="display: none;"><defs>
@@ -51,7 +51,7 @@ stack do original: rotas, payloads, telas, rótulos e o comando de subida, em Fl
 FastAPI, Next e Postgres. O login entra pelo atalho de desenvolvimento que o original já tem,
 <code>APP_ENV=local</code> com <code>DEV_USER_ID</code>. Postgres, Redis, smtp4dev, ClamAV e nginx vêm do compose
 do original e são os mesmos para todos.</p>
-<p><strong>Suíte-oráculo.</strong> É caixa-preta: testa só a interface externa (HTTP e telas) do caronte no
+<p><strong>Gabarito de testes.</strong> É caixa-preta: testa só a interface externa (HTTP e telas) do caronte no
 commit congelado, e cada teste cita o id do requisito que verifica. A suíte só vale se
 passar 100% no original. Ela para de crescer quando toda rota e toda tela têm pelo menos um
 teste e a cobertura chega a 75% das linhas vivas de cada subsistema (<code>forms</code>,
@@ -60,15 +60,15 @@ uma vez no commit congelado, e a lista fica congelada. Requisitos e suíte são 
 juntos, e uma checagem garante que nenhum teste fica sem requisito. Depois a suíte é
 dividida, estratificada por rota e por tela, em 75% visíveis e 25% de held-out.</p>
 <p><strong>Experimento 1: requisitos → código.</strong> Baseline e TDD reconstroem o sistema do zero a
-partir dos requisitos. A nota é a aprovação na suíte-oráculo inteira, que nenhum agente vê.</p>
+partir dos requisitos. A nota é a aprovação no gabarito inteiro, que nenhum agente vê.</p>
 <p><strong>Experimento 2: rework.</strong> Só o grupo TDD. O agente recebe os 75% visíveis da suíte, sem o
 código e sem as issues, e reescreve a plataforma na mesma stack. A nota é a aprovação nos
 25% de held-out. Usar a suíte que o agente recebeu como nota seria circular, porque toda
 run que termina passaria nela.</p>
 <p>O lizard compara as três runs com o original em complexidade ciclomática, NLOC e tamanho de
 função, deixando de fora as mesmas linhas mortas. No experimento 1 é medida secundária: a
-nota continua sendo a suíte-oráculo.</p>
-<p>Há duas suítes no experimento 1, como nos formulários. A suíte-oráculo é a régua, igual
+nota continua sendo o gabarito.</p>
+<p>Há duas suítes no experimento 1, como nos formulários. O gabarito é a régua, igual
 para os dois grupos. Os testes que o grupo TDD escreve durante a run são parte do
 tratamento, e o baseline não tem.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-as-runs-rodam">Como as runs rodam<a href="#como-as-runs-rodam" class="hash-link" aria-label="Link direto para Como as runs rodam" title="Link direto para Como as runs rodam" translate="no">​</a></h2>
@@ -84,7 +84,7 @@ edita aos poucos. Os agentes não executam comandos: o bash fica negado, e quem 
 <p>É uma run por grupo, então o experimento 1 é um estudo de caso exploratório, não uma
 comparação estatística. A análise desce ao nível de rota e de tela, mostrando onde cada
 grupo passa e onde falha.</p>
-<p>Requisitos e suíte-oráculo são gerados uma vez, no Claude Code com o Claude Opus 5.5.
+<p>Requisitos e gabarito são gerados uma vez, no Claude Code com o Claude Opus 5.5.
 Eles não são runs medidas: o que os valida é passar no original, a cobertura e a checagem
 de rastreio, não o pipeline que os produziu.</p>
 <p>O CUA fica fora destes experimentos por enquanto. Nos formulários, ele se mostrou caro e
