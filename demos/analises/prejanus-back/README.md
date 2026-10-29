@@ -8,12 +8,31 @@ Reprodução, a partir de `demos/`:
 ```bash
 uv run python -m caronte.analisar_estatica
 uv run pytest tests/test_analisar_estatica.py -q
+uv run python -m caronte.analisar_testes
+uv run pytest tests/test_analisar_testes.py -q
 ```
 
 `estatica.json` guarda as métricas por arquivo e função, os hashes das fontes,
 do manifesto de cada run, do coletor e da lista de exclusões. `estatica.csv`
 contém o resumo sem arredondamento. O coletor não importa nem executa as
 aplicações. Os relatórios são determinísticos e ficam fora das pastas das runs.
+
+## Testes e gabarito
+
+`testes.json` conserva as métricas de Lizard e Radon por arquivo e função,
+com hashes; `testes.csv` resume o Lizard, usado na tabela do diário.
+O coletor `caronte/analisar_testes.py` reutiliza a análise do coletor de produção.
+Seleciona apenas arquivos Python de tipo `testes_autorais` ou `testes_fornecidos`
+nos manifestos das mesmas quatro runs, conferindo seus hashes. São os testes
+finais, incluindo revisões, fixtures e auxiliares; a baseline não tem testes
+próprios. A contagem de funções inclui auxiliares e não equivale a casos pytest.
+
+O gabarito completo é medido separadamente: `test_*.py` e `conftest.py` de
+`demos/caronte/piloto-v2/gabarito/`, mais `ambiente.py` do diretório pai,
+usado pelas fixtures. `split.py`, que gera a partição, não faz parte da suíte
+medida. Os testes visíveis do rework são um subconjunto do gabarito com suporte
+adaptado; essas linhas não são independentes nem devem ser somadas.
+Nenhum teste ou serviço da aplicação é executado para coletar essas métricas.
 
 ## Seleção e exclusões
 
