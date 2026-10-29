@@ -7,142 +7,101 @@ title: Metodologia
 
 ## Escopo
 
-Para garantir um experimento controlado e reproduzível, o escopo é limitado a:
+O estudo reconstrói as 50 operações HTTP do PreJanus-back, backend FastAPI
+do Caronte, a partir do original no commit `46b89c1`. Frontend, forms,
+bancos e serviços externos permanecem fixos. A avaliação é HTTP, caixa-preta;
+o CUA previsto na [proposta](/docs/proposta) fica fora deste recorte.
 
-- **N requisitos fechados** de um sistema com frontend (ex: CRUD web simples - sistema de tarefas ou cadastro de usuários)
-- Cada requisito é uma funcionalidade atômica e verificável
-- Frontend é necessário para que o CUA possa interagir visualmente com o sistema
+## Experimentos
 
----
+| Experimento | Condição | Entrada | Gate durante a geração | Avaliação final |
+|---|---|---|---|---|
+| 1 | Baseline | requisitos e contratos | nenhum | 247 casos externos |
+| 1 | TDD | requisitos e contratos | pytest dos testes próprios | mesmos 247 casos |
+| 2 | Rework | 161 testes visíveis e contratos | pytest dos visíveis | 85 casos reservados |
 
-## Grupos Experimentais
+```mermaid
+flowchart TB
+    subgraph E1["Experimento 1 · requisitos → código"]
+        R["Requisitos e contratos"] --> B["Baseline: geração direta"]
+        R --> T["Test-writer: testes próprios"]
+        T --> C["Coder: implementação → pytest → correção"]
+        B --> G["Avaliação final: 247 casos externos"]
+        C --> G
+    end
+    subgraph E2["Experimento 2 · testes → código"]
+        V["161 casos visíveis e contratos"] --> W["Coder: implementação → gate dos visíveis → correção"]
+        W --> H["Avaliação final: 85 reservados"]
+    end
+    classDef entrada fill:#dbeafe,stroke:#2563eb,color:#172554
+    classDef geracao fill:#fef3c7,stroke:#d97706,color:#451a03
+    classDef avaliacao fill:#dcfce7,stroke:#16a34a,color:#14532d
+    class R,V entrada
+    class B,T,C,W geracao
+    class G,H avaliacao
+```
 
-| Grupo | Pipeline |
-|-------|----------|
-| **Baseline** | requisito → LLM → código |
-| **Experimental** | requisito → Agente A gera testes → Agente B implementa → CI → CUA valida comportamento |
+Cada run começa em um workspace vazio. A baseline gera código em uma sessão,
+que pode envolver várias chamadas ao modelo. No TDD, um agente escreve os
+testes e outro implementa e corrige o código até passar ou atingir o teto.
+Os testes aprovados ficam congelados para o coder; sintaxe e nomes indefinidos
+são checados, mas erros de significado podem bloquear a implementação.
 
-Ambos os grupos recebem os mesmos requisitos. O baseline é a geração direta sem estrutura de testes. O experimental acrescenta geração automática de testes (TDD) e validação comportamental via CUA.
+O rework recebe apenas testes visíveis e contratos, sem código original,
+documento de requisitos ou issues. Seu gate usa a cópia dos testes mantida
+pelo avaliador. Nenhum agente acessa os casos reservados; no experimento 1,
+o gabarito inteiro fica oculto.
 
-Os dois grupos são avaliados pela mesma régua externa, descrita a seguir.
+## Gabarito
 
-### Executor do piloto Caronte
+Requisitos e gabarito foram preparados uma vez, com apoio do Claude Opus 5.5,
+fora das runs avaliadas. A suíte pytest/httpx contém 246 casos comportamentais
+e um de rastreio. No original, passam 233/247; as 14 divergências registradas
+permanecem no denominador. A validação exercitou as 50 operações e cobriu
+93,5% das linhas vivas.
 
-No piloto Caronte, os grupos usam OpenCode 1.19.0 como infraestrutura comum
-de geração, em container com imagem fixada por digest. O orquestrador deste
-trabalho define os papéis, a sequência das etapas, os escopos de escrita, a
-execução do pytest, o feedback e o registro das métricas. O OpenCode conduz
-as chamadas ao modelo e suas ferramentas de leitura e edição dentro de cada
-sessão; portanto, parte da execução agêntica é fornecida por essa ferramenta.
+O split, estratificado por requisito, mantém as parametrizações de cada função
+juntas: 161 casos visíveis e 85 reservados. O teste de rastreio fica fora dessa
+divisão. Sete casos avaliam OAuth; os demais usam o login por `DEV_USER_ID`.
 
-O baseline é **geração agêntica direta**, sem testes gerados, execução de
-comandos ou feedback de avaliação. Uma sessão pode envolver várias chamadas
-ao modelo para ler e editar arquivos; não significa uma única chamada à API.
-No grupo TDD, sessões distintas escrevem os testes e implementam o código,
-com o pytest executado pelo orquestrador e suas falhas devolvidas ao coder.
+## Condições de execução
 
-Os grupos compartilham modelo, versão e imagem do executor, parâmetros de
-amostragem e inventário de skills de implementação. Skills de autoria de
-testes só são disponibilizadas à etapa de testes. O piloto fixa
-`temperature=0.1` e `top_p=0.9`; são escolhas desta execução, sem pressupor
-determinismo ou desempenho ótimo. As referências para os parâmetros são o
-[Prompt Engineering Guide](https://www.promptingguide.ai/introduction/settings)
-e o [texto de Soso Sukhitashvili](https://medium.com/@sukhitashvili.soso/choosing-temperature-topk-and-topp-for-llm-text-generation-7b0972a9bb2a).
+As runs usam Agno 2.6.16 e `z-ai/glm-5.3` via OpenRouter, no provedor
+`novita/fp8`, sem fallback, com `temperature=0.1` e `top_p=0.9`. Contratos,
+runtime e skills de implementação são compartilhados. Os agentes leem e
+editam arquivos com histórico por etapa; o harness valida sintaxe e escopo,
+grava as mudanças e executa os comandos.
 
-A comparação mede os pipelines nessas condições, não um harness inteiramente
-autoral nem o efeito isolado de TDD, separado das demais diferenças entre
-as etapas. Resultados anteriores obtidos com Agno pertencem a outra
-configuração experimental e não são agregados aos do OpenCode como
-repetições da mesma condição. Este piloto avalia apenas a consulta HTTP do
-prejanus-back com um gabarito externo; não exercita o CUA.
+A execução é batch, sem feedback humano, uma run de cada vez. As três runs
+principais usam a configuração congelada em `7734bea`.
 
----
+Cada etapa tem teto de **US$ 2, 40 propostas e 3.600 s**. Baseline e rework
+têm uma etapa; TDD tem duas, testes e código. Custo e tempo são conferidos
+antes de cada chamada, que pode ultrapassar o teto ao terminar. O tempo do
+gate entra no orçamento. Propostas e chamadas ao modelo são contadas
+separadamente. O limite solicitado de raciocínio é de 32 mil tokens, embora
+o provedor tenha retornado respostas maiores.
 
-## Critérios de Aceitação
+## Registro e análise
 
-Para cada requisito, o pesquisador escreve **à mão** um arquivo de critérios de aceitação, fora dos dois pipelines. O CUA julga o sistema gerado contra esse arquivo, com o mesmo protocolo para baseline e experimental.
+A entrega e seus hashes são preservados antes da avaliação externa. O
+`RUN.log` registra custo, duração, tokens, propostas, retries e motivo de
+encerramento por etapa. Geração e avaliação têm consumo registrado
+separadamente. Lizard e Radon medem tamanho e complexidade do código de
+produção, com as exclusões congeladas de código morto no original.
 
-Por que os critérios não podem sair do próprio pipeline:
+App que não sobe, teste reprovado e teto atingido contam como resultado.
+Falhas do harness, da infraestrutura ou do provedor invalidam a run, que fica
+registrada com o motivo e sua substituta. Todos os casos da régua permanecem
+no denominador, inclusive erros de preparação.
 
-- O CUA existe para detectar divergências que os testes gerados pelo próprio pipeline podem não cobrir (ver [Proposta](/docs/proposta)). Se os critérios viessem do agente de especificação, o CUA estaria validando a interpretação do próprio pipeline, e a divergência ficaria invisível por construção.
-- O grupo baseline não tem agente de especificação. Sem critérios externos, não existe régua equivalente para os dois grupos.
+Há **uma run válida por condição**; a análise é descritiva. Os casos do
+gabarito compartilham a mesma entrega e não são repetições independentes.
+O TDD com revisão é exploratório: permite revisar testes aprovados, mas usa
+uma suíte recém-gerada e não isola o efeito dessa permissão. Os resultados
+comparam os pipelines nessas condições, sem sustentar superioridade geral
+do TDD. Repetições adicionais ainda não estão definidas.
 
----
-
-## Modos de Execução
-
-O orquestrador roda em dois modos:
-
-| Modo | Comportamento | Uso |
-|------|---------------|-----|
-| **Interativo** (padrão) | aprovação binária `y/n` por etapa, com feedback textual obrigatório na rejeição | desenvolvimento e debug/demonstração |
-| **Batch** (`--yes`) | sem stdin e sem intervenção humana; quem fecha o loop é o CI | **único modo permitido** nas execuções que produzem a comparação entre grupos |
-
-O batch é obrigatório no experimento porque o feedback humano é uma ajuda externa que só o grupo experimental receberia.
-
----
-
-## Métricas
-
-### Métricas Estruturais (CI)
-- **Taxa de sucesso CI:** % de requisitos cujo código passa em todos os testes
-- **Iterações necessárias:** número de ciclos até o CI passar
-- **Complexidade ciclomática:** caminhos de execução do código gerado
-- **Testes de mutação:** robustez dos testes gerados
-
-### Métricas Comportamentais (CUA)
-- **Taxa de sucesso CUA:** % de requisitos aprovados pelo CUA contra os critérios de aceitação, por grupo
-- **Falsos positivos CI:** requisitos que passam no CI mas falham no CUA
-- **Taxa de divergência semântica:** diferença entre o que o CI e o CUA detectam
-
-### Métricas Operacionais
-- **Custo por requisito:** custo em tokens/API para completar cada requisito
-- **Retries e feedback (modo interativo):** número de rejeições por etapa e o texto que as motivou
-
----
-
-## Contagem de Falhas
-
-O campo `etapas_ok` do `RUN.log` (todas as etapas terminaram com sucesso) não significa a mesma coisa nos dois grupos, e por isso não serve como critério de elegibilidade na comparação:
-
-- **Baseline:** uma etapa só e nenhum portão que possa reprovar. `etapas_ok` é verdadeiro sempre que o modelo escreve algum arquivo.
-- **Experimental:** o pytest é portão. `etapas_ok` é falso quando o pipeline esgota as tentativas sem passar nos testes.
-
-No lote de 200 runs isso apareceu como zero runs baseline descartadas por `etapas_ok` contra 22 runs TDD. Descartar essas runs e comparar só as elegíveis esconde a falha do TDD no portão e mantém todas as falhas do baseline, que só aparecem depois, na avaliação. O viés favorece o grupo experimental: entre elegíveis, o TDD vence em tudo; contando as inelegíveis como reprovação, o baseline fica à frente com o DeepSeek (82% contra 76%) e atrás com o GLM (6% contra 24%).
-
-Decisão: **o denominador de toda taxa é o número de tentativas por célula (modelo × grupo), não o de runs elegíveis.** Uma run que não chega à avaliação, por falhar no portão ou não produzir sistema executável, conta como reprovada no grupo em que ocorreu.
-
----
-
-## Procedimento
-
-1. Definir a lista de N requisitos (sistema com frontend)
-2. Escrever, para cada requisito, o arquivo de critérios de aceitação - fora dos dois pipelines
-3. **Baseline:** LLM recebe cada requisito e implementa diretamente; registrar código gerado
-4. **Experimental:** Agente A gera testes → Agente B implementa → CI; registrar resultados de cada etapa
-5. **Avaliação:** o CUA interage com o sistema produzido por cada grupo e julga contra os critérios de aceitação, com o mesmo protocolo nos dois casos
-6. Registrar artefatos de falha, logs e resultados do CUA
-7. Comparar baseline vs experimental: o pipeline TDD+CUA produz código mais correto que a geração direta?
-
-Os passos 3 a 5 rodam sempre em **modo batch**.
-
----
-
-## Ferramentas Previstas
-
-| Papel | Ferramenta |
-|-------|-----------|
-| Pipeline TDD+LLM | [Onion](https://github.com/TOProgramming/onion) ou adaptação com Claude |
-| LLM | GPT-4o-mini, Gemini 2.5-Flash e/ou Claude (para comparação) |
-| CI | pytest, executado deterministicamente |
-| CUA (avaliador) | A definir: Browser Use, Cua Agent SDK ou Gemini CUA |
-
----
-
-## Questões em Aberto
-
-- [ ] Como definir um bom requisito de software?
-- [ ] Como avaliar de forma precisa o resultado de ambos pipelines?
-- [ ] O frontend deve ser gerado pelo próprio pipeline ou é parte fixa do escopo?
-- [ ] Qual o valor de N e quantas repetições por requisito?
-- [ ] Que protocolo os dados do modo interativo precisam para entrar nas conclusões: o que se registra, como o feedback é classificado, quantas execuções?
+Resultados e detalhes de execução estão no [resumo do diário](/blog/resumo-prejanus-back),
+nas [runs refeitas](/blog/runs-refeitas-harness) e na
+[variante com revisão](/blog/tdd-revisao-primeira-run).

@@ -52,6 +52,48 @@ flowchart TB
     class REV exploratorio
 ```
 
+## Análise estática
+
+Coletei em 29/10 as métricas do código de produção com lizard 1.24.1 e
+Radon 6.0.1:
+
+### Lizard
+
+| Entrega | Arquivos | NLOC | Funções | CC média | CC máxima | CC > 10 | NLOC/função média | NLOC/função máxima |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Original bruto | 84 | 4847 | 157 | 3,81 | 84 | 8 | 20,54 | 243 |
+| Original sem faixas mortas | 84 | 4723 | 153 | 3,81 | 84 | 8 | 20,42 | 243 |
+| Baseline | 17 | 1730 | 126 | 3,46 | 22 | 6 | 11,58 | 52 |
+| TDD | 17 | 2563 | 139 | 3,80 | 26 | 11 | 14,96 | 59 |
+| Rework | 17 | 2110 | 146 | 3,06 | 19 | 6 | 11,40 | 55 |
+| TDD com revisão (exploratório) | 17 | 2059 | 121 | 3,95 | 29 | 8 | 14,97 | 62 |
+
+### Radon
+
+| Entrega | SLOC | LLOC | CC média | CC máxima | CC > 10 | MI mediano | MI mínimo |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Original bruto | 4967 | 3217 | 3,83 | 84 | 8 | 64,75 | 12,29 |
+| Original sem faixas mortas | 4843 | 3149 | 3,84 | 84 | 8 | 65,40 | 12,29 |
+| Baseline | 1730 | 1511 | 3,46 | 22 | 6 | 53,07 | 17,08 |
+| TDD | 2563 | 1788 | 3,80 | 26 | 11 | 45,99 | 9,42 |
+| Rework | 2110 | 1501 | 3,27 | 19 | 7 | 43,33 | 13,20 |
+| TDD com revisão (exploratório) | 2059 | 1495 | 3,95 | 29 | 8 | 45,03 | 10,89 |
+
+As médias de complexidade dão o mesmo peso a cada função ou método. O Radon
+inclui funções internas e não soma classes como funções adicionais. O MI é
+calculado por arquivo, com `multi=False`; a mediana e o mínimo ignoram arquivos
+sem código. As contagens das duas ferramentas seguem regras próprias.
+
+O rework tem a menor complexidade média entre as entregas; o TDD produziu mais
+linhas e mais funções com complexidade acima de 10 que a baseline. Esses
+números descrevem a estrutura: não compensam falhas no gabarito, nem mostram
+que uma entrega menor implementa o mesmo comportamento. Há uma run por
+condição, e a variante com revisão continua exploratória.
+
+Guardei o [dados completos e as regras de seleção](https://github.com/educg550/tcc/tree/main/demos/analises/prejanus-back)
+em `demos/analises/prejanus-back/`. O JSON permite localizar cada função e
+conferir os hashes; o CSV preserva as métricas sem arredondamento. O coletor
+está em `demos/caronte/analisar_estatica.py`.
 
 ## Por área do gabarito
 
