@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'TCC - Eduardo Cruz Guedes',
-  tagline: 'Pipeline Multiagente com TDD e Validação via CUA',
+  tagline: 'Geração direta, TDD e reconstrução guiada por testes',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future

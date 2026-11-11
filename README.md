@@ -4,7 +4,7 @@ Site hub do TCC de Eduardo Cruz Guedes, NUSP 13672752, Bacharelado em Ciência d
 
 **Orientadores:** Prof. Paulo Meirelles (IME-USP) · Prof. Jorge Melegati (Universidade do Porto)
 
-**Tema:** Avaliação de um Pipeline Multiagente Baseado em TDD com Validação Comportamental via Computer Using Agents.
+**Tema:** Avaliação de pipelines multiagente de geração de código: geração direta, TDD e reconstrução guiada por testes.
 
 Site publicado em: https://educg550.github.io/tcc/
 

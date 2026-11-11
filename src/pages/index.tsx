@@ -12,7 +12,7 @@ function HomepageHeader() {
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <Heading as="h1" className="hero__title">
-          Avaliação de um Pipeline Multiagente Baseado em TDD com Validação Comportamental via CUAs
+          Avaliação de pipelines multiagente de geração de código: geração direta, TDD e reconstrução guiada por testes
         </Heading>
         <p className="hero__subtitle">
           O pipeline de geração de código baseado em TDD produz código mais correto do que a geração direta de código a partir de requisitos?
