@@ -81,7 +81,8 @@ Os grupos baseline e TDD usam o mesmo formato de entrada.
 \subsection{Entrada}
 \label{subsec:entrada-harness}
 
-Cada caso de uso ocupa um diretório com três arquivos: \texttt{requisito.md},
+Na configuração com avaliação por Cypress e CUA, cada caso de uso ocupa um
+diretório com três arquivos: \texttt{requisito.md},
 que descreve, em linguagem natural, o software a gerar; \texttt{alvo.toml}, que define sua configuração
 de execução; e \texttt{criterios.toml}, que reúne os critérios de aceitação para
 a avaliação final. O diretório também pode conter pastas com imagens, fontes ou
@@ -103,7 +104,7 @@ teste_frontend = "cypress run --project . --config-file _harness/cypress.config.
 
 [dependencias]
 python = "3.11"
-pacotes = ["pytest", "fastapi[standard]"]
+pacotes = ["pytest==9.1.1", "fastapi[standard]==0.143.1"]
 
 [modelos]
 test_writer = "deepseek/deepseek-v4.1-flash"
@@ -120,6 +121,8 @@ Em \texttt{criterios.toml}, cada bloco \texttt{[[criterios]]} contém um
 identificador, o tipo do critério, a ação a realizar e o resultado esperado.
 O tipo \texttt{deterministico} encaminha o critério para testes de interface com
 Cypress; o tipo \texttt{subjetivo} o encaminha para avaliação pelo CUA.
+Os testes de interface dependem também do comando \texttt{teste\_frontend}
+em \texttt{alvo.toml}.
 O Programa~\ref{lst:criterios} mostra um critério do mesmo caso de uso.
 
 \begin{lstlisting}[language={},float=htp,breakatwhitespace=true,caption={Exemplo de critério em \texttt{criterios.toml}.},label={lst:criterios}]
@@ -168,6 +171,30 @@ uv run python -m harness.cli avaliar projeto requisito
   \item \verb|-h| ou \verb|--help|: exibe a ajuda da CLI ou do subcomando escolhido.
 \end{itemize}
 
+
+\subsection{Extensões para o experimento do PreJanus}
+
+O experimento do PreJanus-back reutiliza o harness com uma entrada e uma avaliação
+próprias. Nesse experimento, a geração termina sem executar Cypress ou CUA; em seguida,
+um gabarito de testes independente avalia o código gerado. Portanto,
+\texttt{criterios.toml} não é necessário nesse fluxo. Os resultados do gabarito
+são registrados em \texttt{GABARITO.json} e não retornam ao agente para corrigir
+a implementação.
+
+Além de baseline e TDD, o experimento inclui o grupo \emph{rework}, que gera uma
+implementação do zero a partir de testes visíveis e contratos, sem receber o
+código original nem o documento de requisitos do sistema. No TDD original,
+os testes gerados ficam congelados durante a implementação; no rework, os
+testes fornecidos também ficam congelados. A variante exploratória
+\texttt{tdd-revisao} permite ao agente de implementação alterar os testes
+autorais, preservando versões e diferenças para análise. Essas modalidades são
+selecionadas pela interface específica do experimento, e não por novas opções da
+CLI geral:
+
+\begin{lstlisting}[language={},numbers=none]
+uv run python -m caronte.piloto_v3 \\
+    [baseline|tdd|rework|tdd-revisao]
+\end{lstlisting}
 
 \backmatter
 \pagestyle{backmatter}
