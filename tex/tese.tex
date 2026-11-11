@@ -31,6 +31,51 @@
 \pagestyle{mainmatter}
 \singlespacing
 
+% % Com a ascensão do uso de IA generativa, definida como a inteligência artificial capaz de criar conteúdo original (segundo https://www.ibm.com/br-pt/think/topics/generative-ai), o uso crescente da mesma para gerar código de software tem sido observado. É inegável que diversos setores da sociedade incluiram IA generativa (muitas vezes cunhado/confundido simplesmente (e erroneamente) como IA) em tarefas rotineiras. Se tornou um jargão que já ouvimos praticamente todos os dias.
+% % Muito se questiona sobre a confiabilidade de sistemas de software gerados por IA, especialmente quando se trata de sistemas críticos. Para tal, não à toa existem áreas completamente direcionadas a isso, como é o caso da https://www.ibm.com/br-pt/think/topics/ai-safety.
+% % No entanto, o foco dessa tese não é comprovar como gerar (ou não) o conteúdo produzido por IAs generativas de forma mais confiável ou segura ou até mesmo com mais qualidade. Queremos, na verdade, prestar um pouco mais de atenção nesse último adjetivo: qualidade. 
+% % com o crescimento do AI driven development, muito se questiona sobre a qualidade do software gerado por IA (dar um gancho para uma possível seguinte secao de definicao do funcionamento de uma IA, de forma rasa mas teórica, pra fixar algo pra ficar entendível no tcc). A própria IBM conceitua em https://www.ibm.com/br-pt/think/topics/ai-dlc e https://www.ibm.com/br-pt/think/topics/vibe-coding. isso também volta a recair sobre segurança de IA..
+% % Dessa forma, a principal forma que encontrei para comparar a qualidade de software gerado foi através da introdução de um conceito que remonta da década de 1990 (falar data exata sei la: https://pt.wikipedia.org/wiki/Test-driven_development). A técnica de desenvolvimento de software com TDD (Test-Driven Development) é uma abordagem de desenvolvimento de software que enfatiza a escrita de testes automatizados antes da implementação do código. 
+% % essa tese visa, de forma estruturada, comparar o desempenho de agentes de IA (definir e falar que vamos usar muito esse termo durante o tcc) em dois pipelines principais: pedindo a geração de código via requisito em linguagem natural para uma LLM, porém uma gerará o código imediatamente. a outra fará TDD. será que assim podemos comprovar que a abordagem TDD é mais confiável, segura e de maior qualidade? (ou não, mas pelo menos vamos ter dados pra isso)
+
+\chapter{Introdução}
+\label{cap:introducao}
+
+A inteligência artificial generativa permite produzir conteúdo, incluindo código
+de software, a partir de instruções do usuário \citep{ibmGenerativeAI}.
+Na geração de código, grandes modelos de linguagem (\emph{large language models},
+LLMs) recebem descrições em linguagem natural e produzem implementações.
+Esses modelos também podem integrar agentes: sistemas que usam ferramentas e
+os resultados de suas ações para executar uma tarefa \citep{trivedy2026harness}.
+Ao delegar a implementação a esses sistemas, surge a necessidade de avaliar
+em que medida o software gerado atende aos requisitos.
+
+Essa preocupação se insere em uma discussão mais ampla sobre os riscos do uso
+de IA. A área de segurança de IA (\emph{AI safety}) trata da prevenção e redução
+de danos associados a essas tecnologias \citep{ibmAISafety}. Julgo importante destacar
+que este TCC não avalia \emph{AI safety}; o foco nessa dissertação é a qualidade do 
+software gerado, sobretudo a corretude funcional e aderência aos requisitos.
+
+Uma forma de orientar a implementação é escrever testes automatizados antes do
+código de produção. No desenvolvimento guiado por testes (\emph{test-driven
+development}, TDD), o ciclo consiste em escrever um teste que falha, implementar
+o necessário para fazê-lo passar e refatorar o código \citep{beck2003tdd}.
+A combinação de testes e geração por LLMs também aparece na proposta de
+\emph{Test-Oriented Programming} (TOP), em que desenvolvedores verificam os
+testes gerados e delegam a implementação ao modelo. A prova de conceito dessa
+proposta identificou inconsistências nos próprios testes, que exigiram
+intervenção humana \citep{melegati2026top}.
+
+Inspirado nas abordagens estudadas, este trabalho compara 
+dois pipelines de geração de código a partir dos mesmos
+requisitos em linguagem natural. Na geração direta, denominada baseline, o
+agente produz a implementação sem receber resultados de testes durante a
+geração. No pipeline baseado em TDD, um agente gera testes e outro implementa
+e corrige o código com base nesses testes, até que passem ou que se atinja um
+limite de execução. A comparação busca verificar se essa organização produz
+código mais correto nos casos avaliados. Os testes gerados pelo próprio pipeline
+são parte do processo de implementação; a avaliação usa testes externos a ele.
+
 \chapter{Harness}
 \label{cap:harness}
 % Vamos primeiro entender como funciona um harness. Um harness é, segundo o https://github.com/HKUDS/OpenHarness,
