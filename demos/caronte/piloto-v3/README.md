@@ -28,6 +28,36 @@ entrada, prompts, runtime/provedor, hashes e linhas dos arquivos gerados, métri
 por chamada e resultados do gabarito. O original tem 233/247 casos aprovados;
 as 14 divergências conhecidas continuam registradas no protocolo v2.
 
+## Rodada com lições das execuções anteriores
+
+A opção `--licoes` acrescenta o mesmo bloco de [`licoes.md`](./licoes.md) à
+entrada de todos os agentes, inclusive o test-writer. As entregas começam do
+zero; modelo, provedor, contratos, skills, gates e limites são os anteriores.
+O bloco fica preservado em `_harness/entrada/licoes.md`, e o nome da nova
+run inclui `-licoes-`, separado das execuções anteriores.
+
+A rodada definida em 15/11 tem uma run por condição, nesta ordem e sem
+execução simultânea, pois os gates compartilham o ambiente isolado:
+
+```bash
+uv run python -m caronte.piloto_v3 baseline --licoes
+uv run python -m caronte.piloto_v3 tdd --licoes
+uv run python -m caronte.piloto_v3 rework --licoes
+uv run python -m caronte.piloto_v3 tdd-revisao --licoes
+```
+
+Cada comando inclui a avaliação final pelo gabarito completo. A medida principal
+é o acerto nos 85 reservados, destacando os seis com divergência conhecida do
+original. Os 79 restantes são análise complementar; também se reportam os 161
+visíveis e o total de 247 (inclui um teste de rastreio). Os reservados não são
+usados para elaborar as dicas, e a comparação com as runs anteriores é
+exploratória, sem uma segunda rodada automática.
+
+O orçamento nominal é US$ 2 por etapa: baseline e rework têm uma etapa cada;
+TDD e TDD com revisão têm duas cada, somando US$ 12 para as quatro runs. O teto
+é conferido entre chamadas, portanto a última de cada etapa pode ultrapassá-lo.
+Tempo e propostas continuam limitados a 3600 s e 40 por etapa.
+
 ## Execução de 19/10/2026
 
 Run `05-prejanus-back-piloto-v3-baseline-20261019-095708`: 17 arquivos Python,

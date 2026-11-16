@@ -20,6 +20,11 @@ PROVEDOR = {"only": ["novita/fp8"], "allow_fallbacks": False,
 
 
 class V3:
+    licoes = ""
+
+    def prompt(self, *partes):
+        return super().prompt(self.licoes, *partes)
+
     def agente(self, *args):
         agente = super().agente(*args)
         modelo = agente._agno.model
@@ -78,14 +83,22 @@ def manifesto(raiz, requisito, grupo):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("grupo", nargs="?", default="baseline", choices=GRUPOS)
-    grupo = parser.parse_args().grupo
+    parser.add_argument("--licoes", action="store_true", help="acrescenta as lições das runs anteriores à entrada")
+    args = parser.parse_args()
+    grupo = args.grupo
     requisito = Requisito(preparar_rework_v3() if grupo == "rework" else REQUISITO)
-    raiz = DEMOS / "runs/caronte" / nome_do_projeto(REQUISITO.name, grupo)
+    nome = REQUISITO.name + ("-licoes" if args.licoes else "")
+    raiz = DEMOS / "runs/caronte" / nome_do_projeto(nome, grupo)
     projeto = ProjetoV2(raiz, requisito.alvo, grupo)
+    harness = GRUPOS[grupo](projeto, requisito, Batch(), com_cua=False)
+    if args.licoes:
+        harness.licoes = (AQUI / "piloto-v3/licoes.md").read_text(encoding="utf-8")
     print(f"Projeto: {raiz}", flush=True)
-    log = asyncio.run(GRUPOS[grupo](projeto, requisito, Batch(), com_cua=False).executar())
+    log = asyncio.run(harness.executar())
     entrada = projeto.saida / "entrada"
     shutil.copytree(requisito.diretorio, entrada)
+    if args.licoes:
+        (entrada / "licoes.md").write_text(harness.licoes, encoding="utf-8")
     shutil.copyfile(Path(__file__), entrada / "piloto_v3.py")
     shutil.copytree(DEMOS / "harness/prompts", entrada / "prompts")
     runtime = {"imagem": RUNTIME, "orcamento": log["orcamento"], "provider": PROVEDOR,

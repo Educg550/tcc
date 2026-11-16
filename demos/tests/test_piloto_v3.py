@@ -38,6 +38,24 @@ def test_todos_os_agentes_dos_grupos_fixam_o_provedor(tmp_path):
             assert modelo.extra_body["reasoning"] == {"max_tokens": 32000}
 
 
+def test_licoes_chegam_aos_quatro_grupos_sem_mudar_entrada_original(tmp_path):
+    licoes = (ENTRADA_REWORK.parent / "licoes.md").read_text()
+    for grupo, classe in GRUPOS.items():
+        requisito = Requisito(ENTRADA_REWORK if grupo == "rework" else REQUISITO)
+        harness = classe(Projeto(tmp_path / grupo, requisito.alvo), requisito, Batch(), com_cua=False)
+        original = harness.prompt()
+        assert licoes not in original
+        harness.licoes = licoes
+        for partes in ((), ("## TESTES A FAZER PASSAR\n\ntestes",)):
+            prompt = harness.prompt(*partes)
+            assert prompt.count(licoes) == 1
+            assert requisito.texto in prompt
+            assert all(parte in prompt for parte in partes)
+        assert licoes not in requisito.texto
+        if grupo == "rework":
+            assert "V2-" not in harness.prompt()
+
+
 def test_entrada_rework_v3_so_tem_testes_visiveis_e_diretiva_modular():
     entrada = Requisito(preparar_rework_v3())
     assert entrada.diretorio == ENTRADA_REWORK
