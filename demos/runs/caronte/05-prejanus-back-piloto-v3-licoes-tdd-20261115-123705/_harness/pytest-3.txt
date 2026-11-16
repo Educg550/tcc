@@ -1,0 +1,168 @@
+...FF.F........................F...........                              [100%]
+=================================== FAILURES ===================================
+______________________ test_login_senha_unica_cria_sessao ______________________
+tests/test_auth.py:46: in test_login_senha_unica_cria_sessao
+    assert protegida.status_code == 200, protegida.text
+E   AssertionError: {"detail":"Não autenticado"}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+_________________ test_usuario_novo_na_whitelist_e_cadastrado __________________
+tests/test_auth.py:58: in test_usuario_novo_na_whitelist_e_cadastrado
+    assert client.get("/edicts").status_code == 200
+E   AssertionError: assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+E    +    where <Response [401 Unauthorized]> = get('/edicts')
+E    +      where get = <httpx.Client object at 0x7b0d503a61d0>.get
+_________________ test_openapi_do_backend_cobre_todas_as_rotas _________________
+tests/test_contrato_rotas.py:20: in test_openapi_do_backend_cobre_todas_as_rotas
+    assert caminho in atual["paths"], f"rota ausente: {caminho}"
+E   AssertionError: rota ausente: /edicts/{edict_id}/recommenders/mappings/versions/{version}/
+E   assert '/edicts/{edict_id}/recommenders/mappings/versions/{version}/' in {'/': {'get': {'operationId': 'root__get', 'responses': {'200': {'content': {'application/json': {...}}, 'description'...ion/json': {...}}, 'description': 'Successful Response'}}, 'summary': 'Login Senhaunica Post', 'tags': ['auth']}}, ...}
+_______________________ test_pedir_reenvio_da_submissao ________________________
+tests/test_relatorios_emails.py:54: in test_pedir_reenvio_da_submissao
+    assert mensagens
+E   assert []
+=========================== short test summary info ============================
+FAILED tests/test_auth.py::test_login_senha_unica_cria_sessao - AssertionErro...
+FAILED tests/test_auth.py::test_usuario_novo_na_whitelist_e_cadastrado - Asse...
+FAILED tests/test_contrato_rotas.py::test_openapi_do_backend_cobre_todas_as_rotas
+FAILED tests/test_relatorios_emails.py::test_pedir_reenvio_da_submissao - ass...
+4 failed, 39 passed in 2.58s
+
+
+" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58694 - "DELETE /edicts/5/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58698 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58698 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58698 - "POST /edicts/6/edit HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58698 - "DELETE /edicts/6/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58710 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58710 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58710 - "POST /edicts/7/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58710 - "DELETE /edicts/7/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58726 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58726 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58726 - "DELETE /edicts/8/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58726 - "GET /edicts/8 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:58742 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58742 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58742 - "PATCH /edicts/9/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58742 - "GET /edicts/9 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58742 - "DELETE /edicts/9/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58746 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58746 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58746 - "POST /edicts/10/slots HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58746 - "DELETE /edicts/10/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58762 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58762 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58762 - "POST /edicts/11/candidates/mappings/versions/1/ HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58762 - "GET /edicts/11/candidates/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58762 - "DELETE /edicts/11/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58778 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58778 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58778 - "POST /edicts/12/recommenders/mappings/versions/1/ HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58778 - "GET /edicts/12/recommenders/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58778 - "DELETE /edicts/12/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58788 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58788 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58788 - "POST /edicts/13/candidates/mappings/versions/1/ HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58788 - "GET /edicts/13/candidates/mappings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58788 - "PUT /edicts/13/candidates/mappings/versions/1/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58788 - "DELETE /edicts/13/candidates/mappings/versions/1/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58788 - "DELETE /edicts/13/remove HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58794 - "GET /forms HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58794 - "POST /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58794 - "GET /edicts/14/candidates/forms/versions/unmapped HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58794 - "GET /edicts/14/recommenders/forms/versions/unmapped HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:58794 - "DELETE /edicts/14/remove HTTP/1.1" 200 OK
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.8:50440 - "GET / HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.8:41116 - "GET / HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.8:34904 - "GET / HTTP/1.1" 200 OK
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.8:58682 - "GET / HTTP/1.1" 200 OK
+
+2.168.96.18:54458 - "POST /submissions/1/reesend_submission HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54474 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54474 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54474 - "POST /edicts/1/pairing-biddings HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54478 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54478 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54478 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54492 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54492 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54492 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54508 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54508 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54508 - "POST /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54508 - "GET /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54508 - "DELETE /submissions/comments/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54508 - "GET /submissions/1/comments HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54512 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54512 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54512 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54512 - "GET /submissions/1/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54512 - "DELETE /submissions/label/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54512 - "GET /submissions/1/labels HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54524 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54524 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54524 - "POST /submissions/1/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54524 - "POST /submissions/1/private_notes HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54528 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54528 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54528 - "POST /submissions/1/favorites HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54528 - "GET /edicts/1/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54528 - "DELETE /submissions/1/favorites HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54528 - "GET /edicts/1/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54540 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54540 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54540 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54540 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54546 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54546 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54546 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54546 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54562 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54562 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54562 - "POST /submissions/1/entry-semester HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54566 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54566 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54566 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:54566 - "GET /submissions/1/view HTTP/1.1" 200 OK
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.8:49964 - "GET / HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:54106 - "GET /auth/login HTTP/1.1" 302 Found
+prejanus-back-1  | INFO:     192.168.96.18:54106 - "GET /edicts HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:54112 - "GET /auth/login HTTP/1.1" 302 Found
+prejanus-back-1  | INFO:     192.168.96.18:54112 - "GET /edicts HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:54114 - "GET /auth/login HTTP/1.1" 302 Found
+prejanus-back-1  | INFO:     192.168.96.18:54114 - "GET /edicts HTTP/1.1" 401 Unauthorized
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.8:58446 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:49078 - "GET /edicts HTTP/1.1" 401 Unauthorized

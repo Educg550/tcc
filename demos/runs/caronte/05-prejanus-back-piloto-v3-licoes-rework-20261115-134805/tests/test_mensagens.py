@@ -1,0 +1,105 @@
+import time
+import httpx
+import pytest
+from conftest import BASE, SMTP, banco, corpo, emails, sql
+TOKEN_ANA = 'c0a5e1f0-0000-4000-8000-000000000001'
+
+def caixa(n, espera=15):
+    for _ in range(espera * 2):
+        lista = emails()
+        if len(lista) >= n:
+            return lista
+        time.sleep(0.5)
+    return emails()
+
+def envelope():
+    return [m for m in httpx.get(SMTP + '/api/Messages', params={'pageSize': 100}).json()['results']]
+
+def aprovar(admin, submission_id=1, orientador=3):
+    assert admin.post(f'submissions/{submission_id}/select', json={'stats': 'approved', 'user_ids': [orientador]}).status_code == 200
+
+@pytest.mark.req('V2-MAI-01')
+@pytest.mark.integracao('INT-FORMS-DB', 'INT-SMTP')
+def test_solicita_correcao_reabrindo_e_avisando_o_candidato(admin):
+    sql("UPDATE edict SET phase='homologacao' WHERE id=1")
+    r = admin.post('submissions/1/reesend_submission', json={'text': 'Falta o histórico escolar.'})
+    assert r.status_code == 200
+    assert r.json()['email_sent'] == 'candidata.piloto@example.com' and r.json()['message']
+    assert banco('SELECT current_section FROM form_response WHERE id=1', 'forms') == [{'current_section': 0}]
+    [m] = caixa(1)
+    assert m['To'] == 'candidata.piloto@example.com' and m['Subject']
+    texto = corpo(m)
+    assert 'Falta o histórico escolar.' in texto
+    assert f'https://localhost:8543/form/{TOKEN_ANA}' in texto
+    assert 'admin.piloto@example.com' not in (m['To'] or '') + (m['Cc'] or '')
+    assert any(('admin.piloto@example.com' in str(e.get('to')) for e in envelope()))
+
+@pytest.mark.req('V2-MAI-01')
+@pytest.mark.parametrize('fase', ['inscricoes', 'avaliacao', 'encerrado'])
+def test_correcao_fora_da_homologacao_responde_400(admin, fase):
+    sql(f"UPDATE edict SET phase='{fase}' WHERE id=1")
+    antes = banco('SELECT current_section FROM form_response WHERE id=1', 'forms')
+    assert admin.post('submissions/1/reesend_submission', json={'text': 'x'}).status_code == 400
+    assert banco('SELECT current_section FROM form_response WHERE id=1', 'forms') == antes
+    assert caixa(1, espera=2) == []
+
+@pytest.mark.req('V2-MAI-01')
+def test_correcao_de_inscricao_inexistente_responde_404(admin):
+    assert admin.post('submissions/999/reesend_submission', json={'text': 'x'}).status_code == 404
+
+@pytest.mark.req('V2-MAI-02', 'V2-BD-01')
+@pytest.mark.integracao('INT-FORMS-DB', 'INT-SMTP', 'INT-PREJANUS-DB')
+def test_envia_formulario_de_aceite(clientes):
+    aprovar(clientes('admin'))
+    r = clientes('docente').post('submissions/1/send-accept')
+    assert r.status_code == 200
+    assert r.json()['email_sent'] == 'candidata.piloto@example.com' and r.json()['message']
+    [sub] = banco('SELECT accept_form_id FROM submission WHERE id=1')
+    [resposta] = banco(f"SELECT r.form_id, r.email, r.token::text, r.submitted_at, s.is_public, s.unique_answers, s.expiration_at::date::text AS expira FROM form_response r JOIN form_shared s ON s.id=r.shared_id WHERE r.id={sub['accept_form_id']}", 'forms')
+    assert {k: resposta[k] for k in ('form_id', 'email', 'submitted_at', 'is_public', 'unique_answers', 'expira')} == {'form_id': 4, 'email': 'candidata.piloto@example.com', 'submitted_at': None, 'is_public': False, 'unique_answers': True, 'expira': '2030-04-01'}
+    [m] = caixa(1)
+    assert m['To'] == 'candidata.piloto@example.com' and m['Cc'] == 'outra.piloto@example.com'
+    texto = corpo(m)
+    assert 'Ana Piloto Caronte' in texto
+    assert f"https://localhost:8543/form/{resposta['token']}" in texto
+    assert '1 de abril de 2030' in texto and 'April 1, 2030' in texto
+
+@pytest.mark.req('V2-MAI-02')
+def test_aceite_nao_e_criado_duas_vezes(clientes):
+    aprovar(clientes('admin'))
+    clientes('docente').post('submissions/1/send-accept')
+    caixa(1)
+    antes = banco('SELECT count(*) AS n FROM form_response WHERE form_id=4', 'forms')
+    assert clientes('docente').post('submissions/1/send-accept').status_code == 400
+    assert banco('SELECT count(*) AS n FROM form_response WHERE form_id=4', 'forms') == antes
+    assert len(caixa(2, espera=3)) == 1
+
+@pytest.mark.req('V2-MAI-02')
+def test_aceite_exige_aprovacao(api):
+    assert api.post('submissions/1/send-accept').status_code == 400
+    assert banco('SELECT id FROM form_response WHERE form_id=4', 'forms') == []
+
+@pytest.mark.req('V2-MAI-02')
+def test_aceite_sem_formulario_configurado_responde_404(clientes):
+    aprovar(clientes('admin'))
+    sql('UPDATE edict SET accept_forms=NULL WHERE id=1')
+    assert clientes('docente').post('submissions/1/send-accept').status_code == 404
+
+@pytest.mark.req('V2-MAI-02')
+@pytest.mark.integracao('INT-FORMS-DB')
+def test_estado_do_aceite_sem_convite(api):
+    assert api.get('submissions/1').json()['summary']['accept']['sent'] == 'not_sent'
+
+@pytest.mark.req('V2-MAI-03')
+def test_carta_nao_e_enviada_duas_vezes(clientes):
+    aprovar(clientes('admin'))
+    clientes('docente').post('submissions/1/send-letter')
+    caixa(1)
+    assert clientes('docente').post('submissions/1/send-letter').status_code == 400
+    assert len(caixa(2, espera=3)) == 1
+
+@pytest.mark.req('V2-MAI-03')
+def test_carta_exige_aprovacao(api):
+    assert api.post('submissions/1/send-letter').status_code == 400
+    assert banco('SELECT letter_sent FROM submission WHERE id=1') == [{'letter_sent': False}]
+    assert caixa(1, espera=2) == []

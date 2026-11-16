@@ -1,0 +1,1212 @@
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.8:34668 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:34096 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:34112 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:41664 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:41680 - "POST /submissions/1/comments HTTP/1.1" 500 Internal Server Error
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 140, in add_comment
+local-outro-1  |     sub, edict = await _load_submission(db, submission_id)
+local-outro-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined
+local-outro-1  | INFO:     192.168.96.8:41202 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:41212 - "POST /submissions/1/labels HTTP/1.1" 500 Internal Server Error
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 323, in add_label
+local-outro-1  |     sub, edict = await _load_submission(db, submission_id)
+local-outro-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined
+local-outro-1  | INFO:     192.168.96.8:41214 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  | INFO:     192.168.96.8:41226 - "POST /submissions/1/labels HTTP/1.1" 500 Internal Server Error
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 323, in add_label
+local-outro-1  |     sub, edict = await _load_submission(db, submission_id)
+local-outro-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined
+local-outro-1  | INFO:     192.168.96.8:37956 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:37968 - "GET /submissions/1 HTTP/1.1" 500 Internal Server Error
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 63, in get_details
+local-outro-1  |     sub, edict = await _load_submission(db, submission_id)
+local-outro-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined
+local-outro-1  | INFO:     192.168.96.8:46912 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:46928 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:57124 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:55070 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  | INFO:     192.168.96.8:55080 - "POST /submissions/2/favorites HTTP/1.1" 500 Internal Server Error
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 271, in create_favorite
+local-outro-1  |     sub, edict = await _load_submission(db, submission_id)
+local-outro-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 2}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined
+local-outro-1  | INFO:     192.168.96.8:33132 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:33138 - "POST /submissions/2/favorites HTTP/1.1" 500 Internal Server Error
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 271, in create_favorite
+local-outro-1  |     sub, edict = await _load_submission(db, submission_id)
+local-outro-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 2}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined
+local-outro-1  | INFO:     192.168.96.8:33148 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 271, in create_favorite
+local-outro-1  |     sub, edict = await _load_submission(db, submission_id)
+local-outro-1  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | INFO:     192.168.96.8:33154 - "POST /submissions/2/favorites HTTP/1.1" 500 Internal Server Error
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 2}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined
+local-outro-1  | INFO:     192.168.96.8:51234 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:51250 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:51252 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:51262 - "POST /submissions/1/bidding HTTP/1.1" 500 Internal Server Error
+local-outro-1  | ERROR:    Exception in ASGI application
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | psycopg.errors.UndefinedColumn: coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | 
+local-outro-1  | The above exception was the direct cause of the following exception:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 165, in __call__
+local-outro-1  |     await self.app(scope, receive, _send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/cors.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/sessions.py", line 85, in __call__
+local-outro-1  |     await self.app(scope, receive, send_wrapper)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/exceptions.py", line 62, in __call__
+local-outro-1  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+local-outro-1  |     await route.handle(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+local-outro-1  |     await self.app(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+local-outro-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+local-outro-1  |     raise exc
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+local-outro-1  |     await app(scope, receive, sender)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+local-outro-1  |     response = await f(request)
+local-outro-1  |                ^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+local-outro-1  |     raw_response = await run_endpoint_function(
+local-outro-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+local-outro-1  |     return await dependant.call(**values)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 555, in toggle_bidding
+local-outro-1  |     sub, _edict = await _load_submission(db, submission_id)
+local-outro-1  |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/routers/submissions.py", line 32, in _load_submission
+local-outro-1  |     sub = await db.get(Submission, submission_id)
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/ext/asyncio/session.py", line 606, in get
+local-outro-1  |     return await greenlet_spawn(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 201, in greenlet_spawn
+local-outro-1  |     result = context.throw(*sys.exc_info())
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3694, in get
+local-outro-1  |     return self._get_impl(
+local-outro-1  |            ^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+local-outro-1  |     return db_load_fn(
+local-outro-1  |            ^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+local-outro-1  |     session.execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2365, in execute
+local-outro-1  |     return self._execute_internal(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2251, in _execute_internal
+local-outro-1  |     result: Result[Any] = compile_state_cls.orm_execute_statement(
+local-outro-1  |                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+local-outro-1  |     result = conn.execute(
+local-outro-1  |              ^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-outro-1  |     return meth(
+local-outro-1  |            ^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-outro-1  |     return connection._execute_clauseelement(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-outro-1  |     ret = self._execute_context(
+local-outro-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-outro-1  |     return self._exec_single_context(
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-outro-1  |     self._handle_dbapi_exception(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-outro-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-outro-1  |     self.dialect.do_execute(
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-outro-1  |     cursor.execute(statement, parameters)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-outro-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-outro-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-outro-1  |     value = await result
+local-outro-1  |             ^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-outro-1  |     raise ex.with_traceback(None)
+local-outro-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-outro-1  | LINE 1: ...andidate_form_id AS submission_candidate_form_id, submission...
+local-outro-1  |                                                              ^
+local-outro-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-outro-1  | [SQL: SELECT submission.id AS submission_id, submission.edict_id AS submission_edict_id, submission.advisor_id AS submission_advisor_id, submission.created_at AS submission_created_at, submission.updated_at AS submission_updated_at, submission.candidate_form_id AS submission_candidate_form_id, submission.recommender_form_ids AS submission_recommender_form_ids, submission.stats AS submission_stats, submission.accept_form_id AS submission_accept_form_id, submission.entry_semester AS submission_entry_semester, submission.letter_sent AS submission_letter_sent, submission.recommender_form_version AS submission_recommender_form_version, submission.candidate_form_version AS submission_candidate_form_version 
+local-outro-1  | FROM submission 
+local-outro-1  | WHERE submission.id = %(pk_1)s::INTEGER]
+local-outro-1  | [parameters: {'pk_1': 1}]
+local-outro-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-outro-1  | 
+local-outro-1  | During handling of the above exception, another exception occurred:
+local-outro-1  | 
+local-outro-1  | Traceback (most recent call last):
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/protocols/http/httptools_impl.py", line 401, in run_asgi
+local-outro-1  |     result = await app(  # type: ignore[func-returns-value]
+local-outro-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+local-outro-1  |     return await self.app(scope, receive, send)
+local-outro-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/applications.py", line 1054, in __call__
+local-outro-1  |     await super().__call__(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/applications.py", line 113, in __call__
+local-outro-1  |     await self.middleware_stack(scope, receive, send)
+local-outro-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/middleware/errors.py", line 177, in __call__
+local-outro-1  |     response = await self.handler(request, exc)
+local-outro-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-outro-1  |   File "/workspace/app.py", line 40, in unhandled_exception_handler
+local-outro-1  |     tb = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__))
+local-outro-1  |                  ^^^^^^^^^
+local-outro-1  | NameError: name 'traceback' is not defined

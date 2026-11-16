@@ -1,0 +1,486 @@
+.........................................................F.............. [ 44%]
+....F...F..FFF.FF.........FFF........FF.....FF................FFFFFFFF.. [ 89%]
+...........F.....                                                        [100%]
+=================================== FAILURES ===================================
+_____________ test_remove_edital_e_dependentes_preservando_o_forms _____________
+caronte/piloto-v2/gabarito/test_editais.py:153: in test_remove_edital_e_dependentes_preservando_o_forms
+    assert admin.get("edicts/1/submissions").status_code == 200
+E   AssertionError: assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = get('edicts/1/submissions')
+E    +      where get = <httpx.Client object at 0x7e3ff8b77410>.get
+______________ test_associa_recomendacoes_sem_misturar_candidatos ______________
+caronte/piloto-v2/gabarito/test_inscricoes.py:80: in test_associa_recomendacoes_sem_misturar_candidatos
+    listar(api, 1)
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ test_candidatura_recem_finalizada_entra_na_listagem ______________
+caronte/piloto-v2/gabarito/test_inscricoes.py:102: in test_candidatura_recem_finalizada_entra_na_listagem
+    nomes = {s["name"] for s in listar(api, 1).values()}
+                                ^^^^^^^^^^^^^^
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________________ test_filtra_por_situacao ___________________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:64: in test_filtra_por_situacao
+    assert set(listar(admin, 1, stats="refused")) == {2}
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________ test_leituras_repetidas_nao_duplicam_nem_apagam_decisoes ___________
+caronte/piloto-v2/gabarito/test_inscricoes.py:92: in test_leituras_repetidas_nao_duplicam_nem_apagam_decisoes
+    listar(admin, 1)
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________ test_lista_candidaturas_do_edital[1-esperado0] ________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:43: in test_lista_candidaturas_do_edital
+    lista = listar(api, edict_id)
+            ^^^^^^^^^^^^^^^^^^^^^
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________________ test_listagem_com_ppi_mapeado _________________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:117: in test_listagem_com_ppi_mapeado
+    lista = listar(api, 3)
+            ^^^^^^^^^^^^^^
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________________ test_listagem_traz_dados_mapeados _______________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:51: in test_listagem_traz_dados_mapeados
+    ana = listar(api, 1)[1]
+          ^^^^^^^^^^^^^^
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ test_resumo_traz_recomendacoes_e_convites_pendentes ______________
+caronte/piloto-v2/gabarito/test_inscricoes.py:151: in test_resumo_traz_recomendacoes_e_convites_pendentes
+    listar(api, 1)
+caronte/piloto-v2/gabarito/test_inscricoes.py:27: in listar
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________ test_atualiza_a_arvore_preservando_outras_versoes _______________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mapeamentos.py:81: in test_atualiza_a_arvore_preservando_outras_versoes
+    ???
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_atualiza_mapeamento_de_recomendacao ___________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mapeamentos.py:91: in test_atualiza_mapeamento_de_recomendacao
+    ???
+E   AssertionError: assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+E    +    where <Response [500 Internal Server Error]> = put('edicts/1/recommenders/mappings/versions/1/2', json={'fullname': {'field': 44, 'section': 9}})
+E    +      where put = <httpx.Client object at 0x7e3ff8a35810>.put
+_____________ test_cria_mapeamento_de_candidatura_para_nova_versao _____________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mapeamentos.py:21: in test_cria_mapeamento_de_candidatura_para_nova_versao
+    ???
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_cria_mapeamento_de_recomendacao _____________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mapeamentos.py:34: in test_cria_mapeamento_de_recomendacao
+    ???
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_______ test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento ________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mapeamentos.py:134: in test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento
+    ???
+E   assert [2] == []
+E     
+E     Left contains one more item: 2
+E     Use -v to get more diff
+___________ test_versao_sem_campos_usa_todos_os_campos_do_formulario ___________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mapeamentos.py:55: in test_versao_sem_campos_usa_todos_os_campos_do_formulario
+    ???
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________________ test_da_homologacao_ao_resultado_e_aceite ___________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_percursos.py:18: in test_da_homologacao_ao_resultado_e_aceite
+    ???
+E   AssertionError: assert 422 == 200
+E    +  where 422 = <Response [422 Unprocessable Entity]>.status_code
+E    +    where <Response [422 Unprocessable Entity]> = post('edicts/4/candidates/mappings/versions/1/', json={'about-this-program': None, 'acknowledgment': {'field': 49, 'section': 11}, 'address': {'field': 56, 'section': 13}, 'biological-sex': None, ...})
+E    +      where post = <httpx.Client object at 0x7e3ffa605890>.post
+________________________ test_csv_de_interesses_e_vagas ________________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:92: in test_csv_de_interesses_e_vagas
+    ???
+E   assert (500 == 200)
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________ test_download_consumido_uma_unica_vez[pdf-application/pdf] __________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:111: in test_download_consumido_uma_unica_vez
+    ???
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________ test_download_consumido_uma_unica_vez[csv-text/csv] ______________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:111: in test_download_consumido_uma_unica_vez
+    ???
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________________ test_jobs_distintos_nao_se_confundem _____________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:121: in test_jobs_distintos_nao_se_confundem
+    ???
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+_____________________ test_lista_quem_interagiu_no_edital ______________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:46: in test_lista_quem_interagiu_no_edital
+    ???
+E   assert [2, 3, 4, 5, 6] == [2, 3, 4, 5]
+E     
+E     Left contains one more item: 6
+E     Use -v to get more diff
+_________________ test_pdf_conta_candidaturas_em_preenchimento _________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:78: in test_pdf_conta_candidaturas_em_preenchimento
+    ???
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:34: in gerar_pdf
+    ???
+E   assert (500 == 200)
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_pdf_sem_secoes_opcionais_nem_emails ___________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:68: in test_pdf_sem_secoes_opcionais_nem_emails
+    ???
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:34: in gerar_pdf
+    ???
+E   assert (500 == 200)
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________ test_um_interesse_corrente_por_usuario_refletido_na_listagem _________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:54: in test_um_interesse_corrente_por_usuario_refletido_na_listagem
+    ???
+.venv/lib/python3.11/site-packages/httpx/_models.py:832: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+../../../../.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+=========================== short test summary info ============================
+FAILED caronte/piloto-v2/gabarito/test_editais.py::test_remove_edital_e_dependentes_preservando_o_forms
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_associa_recomendacoes_sem_misturar_candidatos
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_candidatura_recem_finalizada_entra_na_listagem
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_filtra_por_situacao
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_leituras_repetidas_nao_duplicam_nem_apagam_decisoes
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_lista_candidaturas_do_edital[1-esperado0]
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_listagem_com_ppi_mapeado
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_listagem_traz_dados_mapeados
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_resumo_traz_recomendacoes_e_convites_pendentes
+FAILED caronte/piloto-v2/gabarito/test_mapeamentos.py::test_atualiza_a_arvore_preservando_outras_versoes
+FAILED caronte/piloto-v2/gabarito/test_mapeamentos.py::test_atualiza_mapeamento_de_recomendacao
+FAILED caronte/piloto-v2/gabarito/test_mapeamentos.py::test_cria_mapeamento_de_candidatura_para_nova_versao
+FAILED caronte/piloto-v2/gabarito/test_mapeamentos.py::test_cria_mapeamento_de_recomendacao
+FAILED caronte/piloto-v2/gabarito/test_mapeamentos.py::test_remover_e_recriar_mapeamento_altera_versoes_sem_mapeamento
+FAILED caronte/piloto-v2/gabarito/test_mapeamentos.py::test_versao_sem_campos_usa_todos_os_campos_do_formulario
+FAILED caronte/piloto-v2/gabarito/test_percursos.py::test_da_homologacao_ao_resultado_e_aceite
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_csv_de_interesses_e_vagas
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_download_consumido_uma_unica_vez[pdf-application/pdf]
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_download_consumido_uma_unica_vez[csv-text/csv]
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_jobs_distintos_nao_se_confundem
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_lista_quem_interagiu_no_edital
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_pdf_conta_candidaturas_em_preenchimento
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_pdf_sem_secoes_opcionais_nem_emails
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_um_interesse_corrente_por_usuario_refletido_na_listagem
+24 failed, 137 passed in 394.72s (0:06:34)
+
+
+l-admin-1  |   File "/workspace/src/services/reports.py", line 112, in start_pdf_job
+local-admin-1  |     content = _pdf_bytes(conn, fconn, edict, opts)
+local-admin-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/services/reports.py", line 59, in _pdf_bytes
+local-admin-1  |     items = subsvc.list_submissions(conn, fconn, edict, 0)
+local-admin-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/workspace/src/services/submissions.py", line 207, in list_submissions
+local-admin-1  |     sync_submissions(conn, fconn, edict)
+local-admin-1  |   File "/workspace/src/services/submissions.py", line 114, in sync_submissions
+local-admin-1  |     conn.execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-admin-1  |     return meth(
+local-admin-1  |            ^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-admin-1  |     return connection._execute_clauseelement(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-admin-1  |     ret = self._execute_context(
+local-admin-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-admin-1  |     return self._exec_single_context(
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-admin-1  |     self._handle_dbapi_exception(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-admin-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-admin-1  |     self.dialect.do_execute(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-admin-1  |     cursor.execute(statement, parameters)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor.py", line 97, in execute
+local-admin-1  |     raise ex.with_traceback(None)
+local-admin-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.SyntaxError) erro de sintaxe em ou próximo a ":"
+local-admin-1  | LINE 1: UPDATE submission SET recommenders_form_ids = :r::json WHERE...
+local-admin-1  |                                                       ^
+local-admin-1  | [SQL: UPDATE submission SET recommenders_form_ids = :r::json WHERE id = %(i)s]
+local-admin-1  | [parameters: {'i': 1}]
+local-admin-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-admin-1  | INFO:     192.168.96.8:59502 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.8:59510 - "POST /submissions/1/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.8:59524 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.8:52698 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.8:52706 - "PATCH /edicts/1/close HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.8:52708 - "POST /submissions/1/select HTTP/1.1" 409 Conflict
+local-admin-1  | INFO:     192.168.96.8:52724 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.8:52736 - "POST /submissions/999/select HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.8:44992 - "GET /auth/login HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.8:45000 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2476, in run_sync_in_worker_thread
+local-coordenador-1  |     return await future
+local-coordenador-1  |            ^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+local-coordenador-1  |     result = context.run(func, *args)
+local-coordenador-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/workspace/src/routers/edicts.py", line 286, in create_form_mapping
+local-coordenador-1  |     mid = conn.execute(
+local-coordenador-1  |           ^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-coordenador-1  |     return meth(
+local-coordenador-1  |            ^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-coordenador-1  |     return connection._execute_clauseelement(
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-coordenador-1  |     ret = self._execute_context(
+local-coordenador-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-coordenador-1  |     return self._exec_single_context(
+local-coordenador-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-coordenador-1  |     self._handle_dbapi_exception(
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-coordenador-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-coordenador-1  |     self.dialect.do_execute(
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-coordenador-1  |     cursor.execute(statement, parameters)
+local-coordenador-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor.py", line 97, in execute
+local-coordenador-1  |     raise ex.with_traceback(None)
+local-coordenador-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.SyntaxError) erro de sintaxe em ou próximo a ":"
+local-coordenador-1  | LINE 1: ..., form_id, user_id, form_version) VALUES ($1, $2, :m::jsonb,...
+local-coordenador-1  |                                                              ^
+local-coordenador-1  | [SQL: INSERT INTO edict_form_mappings (edict_id, form_type, mapping, is_active, form_id, user_id, form_version) VALUES (%(e)s, %(t)s, :m::jsonb, true, %(f)s, %(u)s, %(v)s) RETURNING id]
+local-coordenador-1  | [parameters: {'e': 2, 't': 'candidate', 'f': '3', 'u': 5, 'v': 2}]
+local-coordenador-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-coordenador-1  | INFO:     192.168.96.8:37174 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.8:37186 - "POST /submissions/4/private_notes HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.8:37198 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.8:37208 - "POST /submissions/4/private_notes HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.8:55950 - "GET /auth/login HTTP/1.1" 200 OK
+local-coordenador-1  | INFO:     192.168.96.8:55954 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.8:50244 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.8:39554 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.8:39556 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.8:41178 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.8:41188 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.8:41196 - "GET /auth/login HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.8:41198 - "POST /submissions/1/view HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.8:39056 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:56198 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:56210 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:60736 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:60746 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:50470 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:50476 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:43412 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:43416 - "POST /submissions/1/view HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:52222 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:52238 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:56052 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:56062 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:56076 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:56082 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:56092 - "POST /submissions/1/bidding HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:44370 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:44372 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+local-outro-1  | INFO:     192.168.96.8:44388 - "GET /auth/login HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.8:44390 - "POST /submissions/2/favorites HTTP/1.1" 201 Created
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.8:36852 - "GET / HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:59316 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:59332 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:36766 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:36768 - "POST /edicts/1/edit-date HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:34862 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:34874 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:34886 - "GET /auth/login HTTP/1.1" 200 OK
+local-secretaria-1  | INFO:     192.168.96.8:34890 - "POST /submissions/1/labels HTTP/1.1" 200 OK
+
+_asyncio.py", line 967, in run
+local-1  |     result = context.run(func, *args)
+local-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/routers/edicts.py", line 218, in get_all_submissions_from_edict
+local-1  |     items = subsvc.list_submissions(conn, fconn, e, user['id'],
+local-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/workspace/src/services/submissions.py", line 207, in list_submissions
+local-1  |     sync_submissions(conn, fconn, edict)
+local-1  |   File "/workspace/src/services/submissions.py", line 114, in sync_submissions
+local-1  |     conn.execute(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-1  |     return meth(
+local-1  |            ^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-1  |     return connection._execute_clauseelement(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-1  |     ret = self._execute_context(
+local-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-1  |     return self._exec_single_context(
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-1  |     self._handle_dbapi_exception(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-1  |     self.dialect.do_execute(
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-1  |     cursor.execute(statement, parameters)
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor.py", line 97, in execute
+local-1  |     raise ex.with_traceback(None)
+local-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.SyntaxError) erro de sintaxe em ou próximo a ":"
+local-1  | LINE 1: UPDATE submission SET recommenders_form_ids = :r::json WHERE...
+local-1  |                                                       ^
+local-1  | [SQL: UPDATE submission SET recommenders_form_ids = :r::json WHERE id = %(i)s]
+local-1  | [parameters: {'i': 1}]
+local-1  | (Background on this error at: https://sqlalche.me/e/20/f405)
+local-1  | INFO:     192.168.96.8:52282 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52294 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52308 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52324 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52336 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52340 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52344 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52356 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52364 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52366 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52380 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:52394 - "GET /edicts/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:33362 - "GET /auth/login HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:33370 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.8:33376 - "POST /edicts/1/slots HTTP/1.1" 200 OK
+
+hon3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 214, in run_endpoint_function
+prejanus-back-1  |     return await run_in_threadpool(dependant.call, **values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/concurrency.py", line 39, in run_in_threadpool
+prejanus-back-1  |     return await anyio.to_thread.run_sync(func, *args)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/to_thread.py", line 56, in run_sync
+prejanus-back-1  |     return await get_async_backend().run_sync_in_worker_thread(
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 2476, in run_sync_in_worker_thread
+prejanus-back-1  |     return await future
+prejanus-back-1  |            ^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+prejanus-back-1  |     result = context.run(func, *args)
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/routers/auth.py", line 22, in login_senhaunica
+prejanus-back-1  |     access_t, access_s = oauth.access_token(oauth_token, oauth_verifier or '')
+prejanus-back-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/services/oauth.py", line 48, in access_token
+prejanus-back-1  |     resp = _post(_url(settings.senhaunica_access_token_resource),
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/src/services/oauth.py", line 25, in _post
+prejanus-back-1  |     raise RuntimeError(f'OAuth falhou ({resp.status_code}): {resp.text}')
+prejanus-back-1  | RuntimeError: OAuth falhou (401): {"detail":"Verifier inválido"}
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.8:51960 - "GET / HTTP/1.1" 200 OK
