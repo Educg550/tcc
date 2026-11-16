@@ -1,5 +1,10 @@
 @default_files = ('tese');
 
+# Serializa compilações para evitar escritas simultâneas nos auxiliares.
+use Fcntl qw(:flock);
+open our $build_lock, '<', 'latexmkrc' or die "Não foi possível abrir a trava: $!\n";
+flock($build_lock, LOCK_EX) or die "Não foi possível travar a compilação: $!\n";
+
 # TeXLive até 2024 produz PDFs identificados como versão 1.5. Ao incorporar
 # arquivos PDF de imagem com versões mais novas, isso faz LaTeX gerar um
 # warning. Como na prática isso não causa problemas e não há boas razões
