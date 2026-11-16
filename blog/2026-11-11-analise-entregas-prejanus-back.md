@@ -21,8 +21,7 @@ formatação e pelo ORM.
 Analisei as quatro entregas válidas: baseline, TDD, rework e a variante exploratória
 do TDD com revisão. Para cada uma, li o código de produção, a saída de cada gate e os
 logs da aplicação durante o gabarito. Depois agrupei os casos que falham por causa
-raiz, com arquivo e linha. Não rodei nenhuma aplicação nem teste de novo. A leitura
-foi feita com o Claude Code (Opus 5.5), um agente por entrega. Conferi à mão os
+raiz, com arquivo e linha. Não rodei nenhuma aplicação nem teste de novo. Conferi à mão os
 defeitos que mais pesam e as contagens que aparecem aqui.
 
 ## Poucos defeitos explicam muitas falhas
