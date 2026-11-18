@@ -2,6 +2,11 @@
 \documentclass[a4paper,12pt,twoside,english,brazilian]{book}
 \usepackage{imegoodies}
 \usepackage[thesis]{imelooks}
+\usepackage{placeins}
+% Impede que figuras, tabelas e código flutuante ultrapassem o próximo título.
+\AddToHook{cmd/section/before}{\FloatBarrier}
+\AddToHook{cmd/subsection/before}{\FloatBarrier}
+\AddToHook{cmd/subsubsection/before}{\FloatBarrier}
 \babeltags{br = brazilian, en = english}
 \addbibresource{bibliografia.bib}
 
@@ -185,8 +190,60 @@ desempenho nos comportamentos avaliados. A clareza da interface requer uma
 avaliação própria, com seus critérios e justificativas. Essas duas dimensões
 permitem delimitar em que sentido uma implementação é considerada melhor que outra.
 
-\chapter{Harness}
+% % Harness vai virar uma secao do capitulo que vai abraanger as ferramentas e o ambiente de execucao do experimento.
+% % o primeiro capítulo vai ser agente (supondo que a pessoa já tem uma ideia vaga do que é um LLM e do mecanismo de transformers e attention, linka o paper do attention is all you need e fala isso epxlicitamente bem breve no comecinho), aqui vamos definir com a definicao de agente que está escrita em alguma nota do diário (nao precisa linkar o diário NUNCA como referência no TCC, somente linka sei la coisas mais formais tipo o langchain)
+% % no agente, vamos supor que alguma coisa é que providencia as tools para ele, que no caso vai ser o gancho pra entrar em harness.
+% % dessa forma, percebe como um CUA na verdade é um agente com harness que possibilita que ele execute ações arbitrárias em ambientes computacionais, "como se fosse um humano"? (focar nessa provocação entre seções pra fazer esse capítulo ser coeso)
+
+\chapter{Ferramentas e ambiente de execução}
+\label{cap:ferramentas}
+
+\section{Agentes}
+\label{sec:agentes}
+
+Pressupõe-se familiaridade com grandes modelos de linguagem e com os conceitos
+de Transformer e atenção, apresentados por \citet{vaswani2017attention}.
+A Figura~\ref{fig:transformer} reproduz a arquitetura do artigo, como referência
+para o modelo que compõe o agente.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.48\textwidth]{figuras/transformer.png}
+  \caption{Arquitetura do Transformer. Fonte: \citet[figura~1]{vaswani2017attention}.}
+  \label{fig:transformer}
+\end{figure}
+
+Neste trabalho, adota-se a definição de \citet{trivedy2026harness}: um agente é a
+combinação de um modelo LLM com um harness. O modelo propõe ações a partir das
+instruções e das observações disponíveis; o harness fornece as ferramentas e
+executa essas ações. Os resultados retornam ao modelo e passam a orientar as
+próximas decisões.
+
+Em uma tarefa de geração de código, por exemplo, o agente pode solicitar a
+leitura de um arquivo, propor sua alteração e executar testes para observar o
+comportamento da implementação. O acesso aos arquivos e a execução dos comandos
+dependem da infraestrutura que envolve o modelo.
+
+\subsection{Determinismo e não determinismo}
+\label{subsec:determinismo}
+
+Determinismo significa que, para as mesmas entradas e condições de execução,
+o resultado é sempre o mesmo. Neste trabalho, os LLMs utilizados e os agentes
+que os incorporam são tratados como fontes de não determinismo: repetir uma
+instrução pode produzir respostas diferentes e, no caso dos agentes, ações e
+percursos de execução diferentes. Assim, duas tentativas de gerar código para
+o mesmo requisito podem resultar em implementações distintas.
+
+Os termos determinismo e não determinismo serão usados ao longo do trabalho
+para discutir tanto a geração de código quanto sua avaliação. Os termos
+modelo e LLM serão usados como equivalentes. Quando o contexto permitir,
+agente também será usado por extensão para o sistema que utiliza esse modelo;
+quando a distinção importar, modelo designará o LLM e agente designará o
+conjunto formado pelo modelo e pelo harness.
+
+\section{Harness}
 \label{cap:harness}
+
 % Vamos primeiro entender como funciona um harness. Um harness é, segundo o https://github.com/HKUDS/OpenHarness,
 % a infraestrutura completa que envolve uma LLM para permitir que ela haja sobre um ambiente.
 % Nesse TCC (em algum lugar dos diarios acho eu defini isso bonitinho, acho que no blog/2026-08-19-harness.md), definimos o ambiente principal como um diretório num sistema de arquivos, operado via shell (linha de comando).
@@ -213,8 +270,8 @@ passo. Esse ciclo constitui o laço agêntico.
 A Figura~\ref{fig:harness-generico} apresenta componentes de um harness genérico.
 Além da execução de ações, o diagrama inclui o fornecimento de contexto, o
 controle do fluxo, a persistência de informações e a observação dos resultados.
-As próximas subseções detalham a arquitetura do harness desenvolvido neste TCC,
-a partir de sua entrada e de sua interface de linha de comando.
+A Subseção~\ref{sec:arquitetura-harness} detalha a arquitetura do harness
+desenvolvido neste TCC, a partir de sua entrada e de sua interface de linha de comando.
 
 \begin{figure}[htp]
   \centering
@@ -224,7 +281,7 @@ a partir de sua entrada e de sua interface de linha de comando.
   \label{fig:harness-generico}
 \end{figure}
 
-\section{Arquitetura do harness}
+\subsection{Arquitetura do harness}
 \label{sec:arquitetura-harness}
 
 O ambiente principal do harness deste TCC é um diretório no sistema de arquivos,
@@ -232,7 +289,7 @@ onde ficam os arquivos do projeto gerado. O harness grava esses arquivos e
 executa os comandos definidos para iniciar a aplicação e realizar os testes.
 Os grupos baseline e TDD usam o mesmo formato de entrada.
 
-\subsection{Entrada}
+\subsubsection{Entrada}
 \label{subsec:entrada-harness}
 
 Na configuração com avaliação por Cypress e CUA, cada caso de uso ocupa um
@@ -293,7 +350,7 @@ A aba `DOCENTES` fica ativa e o formulário mostrado não tem mais os campos `N�
 '''
 \end{lstlisting}
 
-\subsection{Interface de linha de comando}
+\subsubsection{Interface de linha de comando}
 \label{subsec:cli-harness}
 
 A CLI oferece os subcomandos \texttt{run}, para gerar um projeto, e
@@ -326,7 +383,7 @@ uv run python -m harness.cli avaliar projeto requisito
 \end{itemize}
 
 
-\subsection{Extensões para o experimento do PreJanus}
+\subsubsection{Extensões para o experimento do PreJanus}
 
 O experimento do PreJanus-back reutiliza o harness com uma entrada e uma avaliação
 próprias. Nesse experimento, a geração termina sem executar Cypress ou CUA; em seguida,
@@ -349,6 +406,153 @@ CLI geral:
 uv run python -m caronte.piloto_v3 \\
     [baseline|tdd|rework|tdd-revisao]
 \end{lstlisting}
+
+\section{Computer-Using Agents}
+\label{sec:cua}
+
+Um \emph{Computer-Using Agent} (CUA) é um caso particular de agente cujo
+harness oferece ferramentas para observar e operar uma interface computacional,
+realizando ações como clicar, digitar e rolar a tela. Para descrever sua
+configuração, distinguem-se três componentes:
+
+\begin{itemize}
+  \item Harness: infraestrutura que fornece as ferramentas de interação e
+    mantém o laço agêntico.
+  \item Modelo: responsável por interpretar as observações e escolher ações,
+    podendo ser de uso geral ou treinado especificamente para operar interfaces.
+  \item Modo de operação: forma de observar a interface e indicar o alvo das
+    ações, por referências a elementos ou por coordenadas obtidas de uma captura
+    de tela.
+\end{itemize}
+
+\subsection{Harness}
+\label{subsec:cua-harness}
+
+O harness conecta as decisões do modelo à aplicação: obtém observações da
+interface, executa as ações solicitadas e retorna seus resultados ao modelo,
+conforme o laço descrito na Seção~\ref{cap:harness}. As ferramentas disponíveis
+podem permitir consultar elementos de uma página, capturar a tela, clicar,
+digitar ou rolar seu conteúdo.
+
+Frameworks como Browser Use, Cua e Magnitude oferecem infraestrutura para
+construir esses agentes. Browser Use é voltado à automação de navegadores;
+Cua oferece ferramentas e ambientes para operar computadores; Magnitude
+oferece automação de navegador com interação orientada por visão
+\citep{browseruse,cuaFramework,magnitude}. Esses frameworks concretizam o papel
+do harness, com diferentes ferramentas e ambientes de execução.
+
+\subsection{Modelo}
+\label{subsec:cua-modelo}
+
+O modelo interpreta o objetivo e as observações recebidas para decidir o
+próximo passo. Um modelo de uso geral pode desempenhar esse papel por meio de
+instruções e ferramentas, sem treinamento adicional para a tarefa. Outra
+possibilidade é usar um modelo treinado ou ajustado especificamente para
+operar interfaces \citep{sager2026computeruse}. A distinção se refere à
+especialização: modelos de uso geral também passam por pré-treinamento.
+
+Na proposta da OpenAI, por exemplo, o modelo CUA combina capacidades visuais
+do GPT-4o com treinamento por reforço para interação com interfaces
+\citep{openai2025cua}. Também é possível combinar modelos: o Agent S2 distribui
+planejamento e localização de elementos entre modelos generalistas e
+especialistas \citep{agashe2025agents2}. Assim, um mesmo agente pode usar um
+modelo para decidir o que fazer e outro para localizar onde agir.
+
+Nas avaliações de interface das aplicações finalistas deste trabalho, realizadas
+em 11 e 13 de outubro de 2026, fixou-se o Claude Opus 5.5
+(\texttt{anthropic/claude-opus-5.5}, via OpenRouter) como modelo do CUA.
+A decisão de manter o mesmo modelo entre as avaliações e escolher um modelo de
+ponta foi tomada já com a intenção de minimizar o não determinismo do avaliador
+e reduzir falhas de execução associadas ao uso de modelos de menor capacidade.
+Trata-se de uma medida de controle experimental; essa escolha não torna as
+avaliações determinísticas nem demonstra que modelos de menor capacidade sejam
+necessariamente mais variáveis.
+
+A escolha se apoia nos resultados disponíveis antes dessas avaliações. No
+relatório publicado pela Anthropic em 22 de setembro de 2026, o Opus 5.5 obteve
+a maior pontuação entre os três modelos comparados no OSWorld 2.0, na revisão
+das tarefas de 10 de setembro, denominada OSWorld 2.1 na página de lançamento
+\citep{anthropic2026opus55system,anthropic2026opus55}.
+Com esforço de raciocínio máximo, atingiu 81,8\% de pontuação parcial e 48,7\%
+de tarefas integralmente concluídas, frente a 80,7\% e 42,8\% do Fable 5.1 e
+74,0\% e 37,2\% do Opus 5, respectivamente. A
+Figura~\ref{fig:osworld-opus55-custo} apresenta a relação entre custo e
+pontuação. Esses resultados dão suporte à seleção de um modelo com bom
+desempenho em interação com interfaces, embora o harness do benchmark seja
+diferente do Browser Use empregado neste trabalho
+\citep[seção~8.13.3]{anthropic2026opus55system}.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figuras/osworld-opus55-custo-desempenho.png}
+  \caption{Custo médio por tarefa versus pontuação parcial no OSWorld 2.0,
+    na revisão de setembro de 2026. Cada ponto representa um nível de esforço
+    de raciocínio; as pontuações são médias de cinco execuções e os custos usam
+    os preços de tabela da API. Fonte:
+    \citet[figura~8.13.3.B, p.~207]{anthropic2026opus55system}.}
+  \label{fig:osworld-opus55-custo}
+\end{figure}
+
+\subsection{Modo de operação}
+\label{subsec:cua-operacao}
+
+O modo de operação envolve tanto a representação da interface recebida pelo
+modelo quanto a forma de indicar o alvo de uma ação. A literatura distingue
+observações textuais e visuais, além de ações que referenciam elementos
+diretamente ou usam coordenadas de tela \citep{sager2026computeruse}.
+
+\subsubsection{Referências a elementos}
+
+O harness pode fornecer uma árvore de elementos, como o DOM
+(\emph{Document Object Model}) de uma página web ou uma árvore de
+acessibilidade. O modelo seleciona o alvo por uma referência, como um
+identificador ou índice, e solicita uma ação sobre ele. Para clicar em um botão,
+por exemplo, indica o elemento correspondente, sem precisar estimar sua posição
+em pixels. Esse acesso depende da estrutura exposta pela aplicação
+\citep{sager2026computeruse}.
+
+\subsubsection{Coordenadas em capturas de tela}
+
+Na operação por pixels, o modelo recebe uma captura de tela, localiza
+visualmente o alvo e indica coordenadas para uma ação, como um clique em
+$(x,y)$. Na proposta da OpenAI, mouse e teclado virtuais executam a ação e a
+tela resultante é observada antes da próxima decisão \citep{openai2025cua}.
+A Figura~\ref{fig:cua-diagrama} ilustra esse ciclo. Magnitude também utiliza
+um modelo visual para indicar coordenadas em pixels \citep{magnitude}.
+
+\begin{figure}[htp]
+  \centering
+  \colorbox{black}{\includegraphics[width=0.94\textwidth]{figuras/cua-diagrama.png}}
+  \caption{Ciclo de um CUA: instrução e captura de tela como entrada, geração
+    de ações e retorno da tela após sua execução. Fonte: \citet{openai2025cua}.}
+  \label{fig:cua-diagrama}
+\end{figure}
+
+Os dois modos podem coexistir. O Cua Driver, por exemplo, fornece árvore de
+acessibilidade e captura de tela, permitindo agir por referência a um elemento
+ou por coordenadas \citep{cuaDriver}. Portanto, a definição do framework ou do modelo
+não basta para descrever a interação. É preciso indicar quais observações e
+formas de ação estão disponíveis naquela configuração.
+
+\subsection{Uso como avaliador}
+\label{subsec:cua-avaliador}
+
+Essa capacidade motivou a proposta inicial deste TCC: usar CUAs como
+verificadores finais confiáveis do software gerado. Ao operar a aplicação e
+interpretar sua apresentação, o agente poderia avaliar os critérios subjetivos
+discutidos na Seção~\ref{sec:corretude}, como a organização visual de um formulário.
+Isso permitiria automatizar parte da avaliação que exige julgamento, com
+critérios descritos em linguagem natural e evidências obtidas durante o uso.
+A confiabilidade desse verificador era uma expectativa a examinar nos
+experimentos.
+
+O uso de um CUA também acrescenta não determinismo à avaliação automatizada.
+Além da variabilidade dos LLMs que geram código, passa a haver a possibilidade
+de variação nas ações escolhidas pelo avaliador e em sua interpretação do que
+observa. Mesmo sem alterações na aplicação, o percurso e o julgamento podem
+variar entre execuções. Portanto, automatizar esse julgamento não torna o
+critério subjetivo determinístico. O efeito dessa variabilidade sobre o papel
+do CUA neste trabalho será discutido nos experimentos e resultados.
 
 \backmatter
 \pagestyle{backmatter}

@@ -20,6 +20,15 @@ remove também o PDF. Esses arquivos gerados ficam fora do versionamento.
 Os estilos do modelo requerem pacotes adicionais do TeX Live; a relação completa
 está no [README original](https://gitlab.com/ccsl-usp/modelo-latex/-/blob/cb57593d28d3d441c847fec4a7c4870128d3ea3b/README.md).
 
+## Posicionamento de figuras
+
+O preâmbulo de `tese.tex` usa `placeins` e barreiras automáticas antes de cada
+seção, subseção e subsubseção. Figuras, tabelas e listagens flutuantes podem ir
+para a página seguinte quando faltar espaço, mas não ultrapassam o próximo
+título. Novas figuras podem continuar usando `\begin{figure}[htp]`, sem inserir
+barreiras manualmente. Capítulos já esvaziam os elementos pendentes ao começar.
+Essa regra pode deixar espaço em branco no fim da página anterior à figura.
+
 ## Pseudocódigo
 
 O suporte já é carregado por `imelooks.sty`, com `listings` e `lstpseudocode.sty`.
