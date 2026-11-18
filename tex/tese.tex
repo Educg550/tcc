@@ -66,6 +66,15 @@ testes gerados e delegam a implementação ao modelo. A prova de conceito dessa
 proposta identificou inconsistências nos próprios testes, que exigiram
 intervenção humana \citep{melegati2026top}.
 
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.70\textwidth]{figuras/ciclo-tdd.png}
+  \caption{Ciclo do desenvolvimento guiado por testes: escrever um teste que
+    falha, implementar o necessário para fazê-lo passar e refatorar.
+    Fonte: \href{https://marsner.com/wp-content/uploads/test-driven-development-TDD.png}{Marsner}.}
+  \label{fig:ciclo-tdd}
+\end{figure}
+
 Inspirado nas abordagens estudadas, este trabalho compara 
 dois pipelines de geração de código a partir dos mesmos
 requisitos em linguagem natural. Na geração direta, denominada baseline, o
@@ -75,6 +84,106 @@ e corrige o código com base nesses testes, até que passem ou que se atinja um
 limite de execução. A comparação busca verificar se essa organização produz
 código mais correto nos casos avaliados. Os testes gerados pelo próprio pipeline
 são parte do processo de implementação; a avaliação usa testes externos a ele.
+
+% % vamo fazer aqui um pedacinho sobre corretude. talvez ainda dentro do capitulo da introducao, pois estamos definindo as bases pro que vamos precisar mais adiante no TCC ainda. basicamente o que define um código como "correto" ou "melhor" que outro, pra gente ter como base pra comparar nos dois pipelines depois
+% % É importante definirmos o que consideramos correto ou não, com base em testes de software determinísticos. Existem critérios que são obviamente determinísticos, tal qual o resultado de uma soma (sei la bota um snippet pytest bem idiota simples de testar uma funcao de soma). alguns, ainda determinísticos, mas difícieis de distignuir (bota um exemplo mais complexo, tipo teste de coisas em paralelo/threads nao sei). já outros são completamente subjetivos e é um problema difícil decidir se o resultado é correto ou não (bota um exemplo de teste subjetivo, pensei no exemplo de teste que o CUA pega na etapa dos experimentos com formularios, fala aquilo mas ainda nao fala do CUA).
+
+\section{Corretude e critérios de avaliação}
+\label{sec:corretude}
+
+\subsubsection{Corretude}
+
+Como observa \citet[seção~2.1]{dijkstra1969structured}, testes podem revelar a
+presença de defeitos, mas sua execução sem falhas não demonstra a ausência deles.
+
+Neste trabalho, a corretude funcional é entendida como o atendimento ao
+comportamento especificado nos requisitos.
+
+\subsubsection{Critérios objetivos}
+
+Um teste automatizado verifica uma
+parte desse comportamento ao executar uma ação e comparar o resultado observado
+com o esperado. Por exemplo, se uma função deve somar dois inteiros, o
+Programa~\ref{lst:teste-soma} verifica uma entrada cujo resultado é conhecido.
+
+\begin{lstlisting}[language=Python,caption={Teste de uma função de soma.},label={lst:teste-soma}]
+from calculadora import soma
+
+
+def test_soma():
+    assert soma(6, 7) == 13
+\end{lstlisting}
+
+Esse teste verifica apenas o caso escolhido. Uma implementação que devolvesse
+sempre o valor 13 também passaria nele, embora descumprisse o requisito para
+outras entradas. Assim, a aprovação em um conjunto de testes fornece evidência
+sobre os casos exercitados, sem demonstrar a corretude geral da implementação.
+
+Há também requisitos objetivos cuja verificação exige controlar condições de
+execução mais complexas. Considere um contador iniciado em zero que recebe dois
+incrementos concorrentes.
+
+\begin{lstlisting}[language=Python,caption={Teste que força a perda de um incremento concorrente.},label={lst:teste-contador}]
+from threading import Barrier, Thread
+
+
+def test_incrementos_concorrentes():
+    contador = 0
+    barreira = Barrier(2)
+
+    def incrementar():
+        nonlocal contador
+        valor = contador
+        barreira.wait()
+        contador = valor + 1
+
+    threads = [Thread(target=incrementar) for _ in range(2)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
+
+    assert contador == 2
+\end{lstlisting}
+
+No Programa~\ref{lst:teste-contador}, a barreira faz as duas threads aguardarem
+até que ambas tenham lido o contador. As duas leem zero e escrevem 1, fazendo
+a asserção falhar.
+Se ambos os incrementos devem ser contabilizados, o valor final
+esperado é 2. Uma implementação incorreta pode perder um incremento quando as
+operações se intercalam, mas produzir o resultado esperado em outra execução.
+O critério de aceitação continua objetivo; a dificuldade está em exercitar a
+intercalação que revela a falha. Nesse caso, repetir uma execução sem controlar
+a ordem das operações pode deixar o defeito sem detecção.
+
+\subsubsection{Critérios subjetivos}
+
+A qualidade de uma interface inclui ainda aspectos que exigem julgamento.
+Em um formulário, conferir se os dados preenchidos são preservados ao trocar
+de aba permite comparar valores antes e depois da ação. Já avaliar se o
+espaçamento separa adequadamente os blocos de campos ou se a organização visual
+facilita a leitura exige interpretar a apresentação no contexto de uso.
+Esses julgamentos podem ser orientados por critérios explícitos, embora não se
+reduzam à comparação de um valor com uma resposta única.
+
+O formulário da Figura~\ref{fig:formulario-identidade-usp} ilustra essa dificuldade:
+a presença do logotipo e das cores da USP pode ser verificada isoladamente,
+mas avaliar se sua combinação caracteriza a identidade visual da instituição
+exige definir o que se espera da apresentação como um todo.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.80\textwidth]{figuras/formulario-torneio-cego.png}
+  \caption{Como pedir para um teste automatizado verificar que essa interface
+    segue a identidade visual da USP? Recorte do formulário da run44
+    (DeepSeek, baseline), vencedora do torneio cego. Fonte: elaboração própria.}
+  \label{fig:formulario-identidade-usp}
+\end{figure}
+
+Na comparação entre implementações, atender a mais casos de teste indica melhor
+desempenho nos comportamentos avaliados. A clareza da interface requer uma
+avaliação própria, com seus critérios e justificativas. Essas duas dimensões
+permitem delimitar em que sentido uma implementação é considerada melhor que outra.
 
 \chapter{Harness}
 \label{cap:harness}
