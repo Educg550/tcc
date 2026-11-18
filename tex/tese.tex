@@ -93,6 +93,28 @@ são parte do processo de implementação; a avaliação usa testes externos a e
 % % vamo fazer aqui um pedacinho sobre corretude. talvez ainda dentro do capitulo da introducao, pois estamos definindo as bases pro que vamos precisar mais adiante no TCC ainda. basicamente o que define um código como "correto" ou "melhor" que outro, pra gente ter como base pra comparar nos dois pipelines depois
 % % É importante definirmos o que consideramos correto ou não, com base em testes de software determinísticos. Existem critérios que são obviamente determinísticos, tal qual o resultado de uma soma (sei la bota um snippet pytest bem idiota simples de testar uma funcao de soma). alguns, ainda determinísticos, mas difícieis de distignuir (bota um exemplo mais complexo, tipo teste de coisas em paralelo/threads nao sei). já outros são completamente subjetivos e é um problema difícil decidir se o resultado é correto ou não (bota um exemplo de teste subjetivo, pensei no exemplo de teste que o CUA pega na etapa dos experimentos com formularios, fala aquilo mas ainda nao fala do CUA).
 
+% % Dada a diferença entre desenvolvimento de software tradicional, seja direto (sem testes) ou com TDD, queremos nessa tese verificar: o uso (ou não) de TDD melhora a qualidade do código gerado? e o custo-benefício em tokens melhora ou piora? e como avaliar de forma precisa se o código gerado é melhor ou pior que outro? (aqui a gente vai dar um mini gancho pra próxima section)
+
+\section{Pergunta de pesquisa}
+\label{sec:pergunta-pesquisa}
+
+Dada a diferença entre o desenvolvimento de software direto e o desenvolvimento
+com TDD, este trabalho busca responder: o uso de TDD melhora a qualidade do
+software? A relação entre o consumo de tokens e o atendimento aos requisitos
+melhora ou piora? Como avaliar de forma precisa se uma implementação é melhor
+ou pior que outra?
+
+Este trabalho investiga se o uso de TDD na geração por agentes produz código
+que atende melhor aos requisitos do que a geração direta. A comparação se
+restringe aos casos avaliados e considera também o consumo de tokens de cada
+pipeline em relação ao atendimento observado. Busca-se examinar se eventuais
+ganhos de corretude compensam o consumo de tokens necessário para obtê-los.
+
+Essa comparação exige critérios comuns para avaliar as implementações e
+identificar em quais aspectos uma atende melhor aos requisitos do que outra.
+A Seção~\ref{sec:corretude} define a noção de corretude adotada e distingue
+critérios objetivos de critérios que dependem de julgamento.
+
 \section{Corretude e critérios de avaliação}
 \label{sec:corretude}
 
