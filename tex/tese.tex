@@ -1156,16 +1156,174 @@ permaneceu inconclusivo quanto à superioridade geral de um pipeline. Os empates
 funcionais e a variabilidade do CUA motivaram a investigação posterior de um
 backend com mais operações e uma avaliação externa por HTTP.
 
-% INI capítulo para o experimento 2, o prejanus back
-% O segundo experimento sugerido para essa tese envolve a comparação do código gerado pelo harness
-% No contexto em que já é conhecido o código original, o prejanus-back (colocar o link do gitlab pra ele).
-% O sistema Pré Janus se trata de (pesquisa e coloca aqui sobre o que é)
-% Seção Preliminares: foi extraído com agentes e engenharia reversa uma documentação do sistema pré janus, que descreve o funcionamento do sistema e suas operações necessárias para o funcionamento. Também foi feita uma suite que chamaremos frequentemente de "gabarito", com testes de caixa preta (linkar aqui a subseção que explica testes de caixa preta lá no começo). é importante agora sim distinguir bem o que é caixa branca/caixa preta e teste de aceitação, também no capítulo do experimento 1 se necessário
-% Remissão para a redação do capítulo: o gabarito utiliza testes de caixa preta,
-% conforme a Subseção~\ref{sec:testes-caixa-preta}, para avaliar o comportamento pela interface HTTP.
-% esse experimento se separa em duas estratégias principais, descritas melhor à seguir:
-% estratégia 1 e 2 são subseções, procura lá no diário que ta explicado bonitinho. explica de forma bem elementar. também coloca diagramas bonitinhos aqui no mesmo estilo dos outros diagramas que já estão na tese
-% FIM
+% % O segundo experimento sugerido para essa tese envolve a comparação do código gerado pelo harness
+% % No contexto em que já é conhecido o código original, o prejanus-back (colocar o link do gitlab pra ele).
+% % O sistema Pré Janus se trata de (pesquisa e coloca aqui sobre o que é)
+% % Seção Preliminares: foi extraído com agentes e engenharia reversa uma documentação do sistema pré janus, que descreve o funcionamento do sistema e suas operações necessárias para o funcionamento. Também foi feita uma suite que chamaremos frequentemente de "gabarito", com testes de caixa preta (linkar aqui a subseção que explica testes de caixa preta lá no começo). é importante agora sim distinguir bem o que é caixa branca/caixa preta e teste de aceitação, também no capítulo do experimento 1 se necessário
+% % Remissão para a redação do capítulo: o gabarito utiliza testes de caixa preta,
+% % conforme a Subseção~\ref{sec:testes-caixa-preta}, para avaliar o comportamento pela interface HTTP.
+% % esse experimento se separa em duas estratégias principais, descritas melhor à seguir:
+% % estratégia 1 e 2 são subseções, procura lá no diário que ta explicado bonitinho. explica de forma bem elementar. também coloca diagramas bonitinhos aqui no mesmo estilo dos outros diagramas que já estão na tese
+\chapter{Reconstrução do PreJanus-back}
+\label{cap:experimento-prejanus}
+
+O segundo cenário avaliado neste trabalho parte de um sistema cujo código
+original está disponível. O PreJanus acompanha os processos seletivos de
+mestrado e doutorado em Ciência da Computação do IME-USP. Seu backend,
+o \texttt{prejanus-back}, oferece uma API para configurar editais, consultar
+candidaturas e recomendações, registrar avaliações, definir orientadores e
+comunicar resultados. Ele integra o monorepositório Caronte, que também reúne
+o serviço de formulários e o frontend do PreJanus. A referência adotada é o
+código congelado no commit \texttt{46b89c1}.\footnote{Código original em
+\url{https://gitlab.com/ccsl-usp/poscomp-ime/caronte/caronte-core/-/tree/46b89c1d5519aeae40c088ee94262e9b739a7d48/prejanus-back}.}
+
+A reconstrução abrange as 50 operações HTTP do backend, implementado em
+Python com FastAPI. Cada execução começa sem código de produção e deve gerar
+um substituto compatível com os contratos fornecidos. O serviço de formulários,
+o frontend, os bancos PostgreSQL e os serviços externos permanecem fixos.
+Assim, a mudança avaliada se concentra no backend gerado e em sua integração
+com esse ambiente.\footnote{Escopo e contratos em
+\url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/05-prejanus-back-piloto-v3/requisito.md}.}
+O CUA fica fora deste recorte; a avaliação usa testes externos à geração.
+
+\section{Preliminares}
+\label{sec:prejanus-preliminares}
+
+Antes das execuções, foram preparados os requisitos e o gabarito de testes,
+com apoio de agentes e leitura do código original. Essa engenharia reversa
+produziu uma descrição das operações e de suas regras, acompanhada de contratos
+de interface, esquemas dos bancos e configuração do ambiente. O contrato
+OpenAPI registra métodos, caminhos, parâmetros e corpos das requisições;
+o documento de requisitos complementa os comportamentos que ele não descreve.
+Esses artefatos foram preparados fora das execuções medidas.
+
+O gabarito é uma suíte externa que envia requisições HTTP e verifica respostas
+e efeitos das operações, como persistência, envio de e-mails e geração de
+relatórios. Os testes não importam as funções Python das implementações
+avaliadas. Há 246 casos comportamentais e um teste de rastreio, que confere
+a associação dos testes aos requisitos. A mesma suíte é aplicada ao original
+e às reconstruções.\footnote{Protocolo de avaliação e divergências em
+\url{https://github.com/Educg550/tcc/blob/main/demos/caronte/piloto-v2/avaliacao.md}.}
+
+A avaliação das reconstruções adota a abordagem de caixa preta descrita na
+Subseção~\ref{sec:testes-caixa-preta}: observa o comportamento por uma
+interface comum, sem depender da organização interna do código gerado.
+A leitura do original na preparação permitiu documentar esse comportamento.
+Já uma avaliação de caixa branca usaria a estrutura interna da implementação
+avaliada para escolher os caminhos a exercitar. Testes de aceitação, definidos
+na Subseção~\ref{sec:testes-aceitacao}, dizem respeito à finalidade de verificar
+o atendimento aos requisitos. O gabarito tem essa finalidade no recorte da
+API, com verificações objetivas; ele não avalia a usabilidade do frontend.
+
+Na validação registrada do original, passaram 233 dos 247 casos. As 14
+divergências conhecidas foram documentadas e mantidas no denominador,
+sem marcar esses testes como falhas esperadas. Portanto, o gabarito também
+exige comportamentos previstos nos requisitos que o original não atende.
+O protocolo registra as 50 operações exercitadas e cobertura de 93,5\% das
+linhas consideradas vivas. Essas medidas descrevem a validação da referência,
+sem demonstrar sua corretude geral.
+
+Para a reconstrução guiada por testes, os casos comportamentais foram divididos
+em 161 visíveis e 85 reservados. A divisão é estratificada por requisito e
+mantém juntas todas as parametrizações de uma função de teste. Por isso,
+a proporção final de casos reservados difere dos 25\% previstos por função.
+O teste de rastreio fica fora dessa divisão.\footnote{Regra e partições em
+\url{https://github.com/Educg550/tcc/blob/main/demos/caronte/piloto-v2/gabarito/split.json}.}
+
+\section{Estratégias de reconstrução}
+\label{sec:prejanus-estrategias}
+
+As duas estratégias diferem na informação que orienta a geração. Na primeira,
+os agentes recebem requisitos em linguagem natural e contratos. Na segunda,
+recebem testes visíveis e contratos, sem o documento de requisitos. Em ambas,
+o código original fica fora da entrada dos agentes.
+
+\subsection{Estratégia 1: geração a partir dos requisitos}
+\label{sec:prejanus-requisitos}
+
+A primeira estratégia compara baseline e TDD a partir dos mesmos requisitos
+e contratos. Na baseline, um agente produz a implementação em uma sessão,
+que pode envolver várias chamadas ao modelo, sem receber resultados de
+testes durante a geração. No TDD, um agente escreve testes próprios e outro
+implementa o backend. O harness executa esses testes e devolve as falhas ao
+agente de implementação, que pode corrigir o código até obter aprovação ou
+atingir um limite de execução.
+
+Os testes próprios do TDD ficam fixos após a etapa de escrita. Eles integram
+o tratamento experimental e podem conter interpretações incorretas dos
+requisitos, conforme a limitação discutida no capítulo anterior. O gabarito
+completo permanece oculto para os dois pipelines e só é executado depois
+da geração, sem devolver suas falhas ao agente para novas correções.
+A Figura~\ref{fig:prejanus-requisitos} representa essa separação.
+
+\begin{figure}[htp]
+  \centering
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(140,86)
+    \put(35,72){\framebox(70,12){Requisitos e contratos}}
+    \put(70,72){\line(0,-1){6}}
+    \put(30,66){\line(1,0){80}}
+    \put(30,66){\vector(0,-1){6}}
+    \put(110,66){\vector(0,-1){6}}
+    \put(0,42){\framebox(60,18){}}
+    \put(0,52){\makebox(60,5){Baseline: gerar código}}
+    \put(0,45){\makebox(60,5){Sem feedback de testes}}
+    \put(80,48){\framebox(60,12){TDD: escrever testes}}
+    \put(110,48){\vector(0,-1){6}}
+    \put(80,20){\framebox(60,22){}}
+    \put(80,34){\makebox(60,5){Implementar e executar pytest}}
+    \put(80,27){\makebox(60,5){Corrigir até aprovação}}
+    \put(80,21){\makebox(60,5){ou limite de execução}}
+    \put(30,42){\line(0,-1){28}}
+    \put(110,20){\line(0,-1){6}}
+    \put(30,14){\line(1,0){80}}
+    \put(70,14){\vector(0,-1){4}}
+    \put(20,0){\framebox(100,10){Avaliação externa: gabarito completo (247 casos)}}
+  \end{picture}
+  \caption{Geração a partir dos requisitos. O feedback durante o TDD vem
+    dos testes próprios; o gabarito é aplicado após a geração aos dois
+    pipelines. Fonte: elaboração própria.}
+  \label{fig:prejanus-requisitos}
+\end{figure}
+
+\subsection{Estratégia 2: reconstrução a partir dos testes visíveis}
+\label{sec:prejanus-rework}
+
+Na segunda estratégia, denominada \emph{rework}, o agente recebe os 161 casos
+visíveis e os contratos necessários à integração com o ambiente. Não recebe
+o código original, o documento de requisitos nem as issues do projeto.
+Ele deve inferir o comportamento esperado a partir das verificações
+disponíveis e construir uma implementação do zero.
+
+O harness executa os testes visíveis e devolve o resultado ao agente para
+correções, até a aprovação ou um limite de execução. O gate usa uma cópia dos
+testes mantida pelo avaliador, preservando as exigências fornecidas como
+entrada. A Figura~\ref{fig:prejanus-rework} apresenta esse fluxo.
+
+\begin{figure}[htp]
+  \centering
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(140,70)
+    \put(20,54){\framebox(100,14){161 testes visíveis e contratos}}
+    \put(70,54){\vector(0,-1){8}}
+    \put(20,22){\framebox(100,24){}}
+    \put(20,37){\makebox(100,5){Implementar e executar os testes visíveis}}
+    \put(20,29){\makebox(100,5){Corrigir até aprovação ou limite de execução}}
+    \put(70,22){\vector(0,-1){8}}
+    \put(20,0){\framebox(100,14){Avaliação externa: 85 casos reservados}}
+  \end{picture}
+  \caption{Reconstrução guiada pelos testes visíveis. Os casos reservados
+    permanecem ocultos durante a geração. Fonte: elaboração própria.}
+  \label{fig:prejanus-rework}
+\end{figure}
+
+A medida principal do rework é o atendimento aos 85 casos reservados, que
+verificam comportamentos sem expor seus testes ao agente. O resultado nos
+visíveis também é registrado, mas esses casos já orientaram a implementação.
+Assim, a aprovação neles não oferece a mesma evidência que a aprovação nos
+reservados. Na primeira estratégia, a avaliação externa usa os 247 casos;
+para comparar as três condições nos reservados, deve-se considerar o mesmo
+subconjunto de 85 casos em todas elas.
 
 \backmatter
 \pagestyle{backmatter}
