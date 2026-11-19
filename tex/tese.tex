@@ -576,6 +576,411 @@ variar entre execuções. Portanto, automatizar esse julgamento não torna o
 critério subjetivo determinístico. O efeito dessa variabilidade sobre o papel
 do CUA neste trabalho será discutido nos experimentos e resultados.
 
+% % O primeiro experimento foi uma sugestão do meu orientador Paulo, que me instruiu a
+% % construir o requisito de software que seria então utilizado para gerar o código de um formulário web.
+% % O intuito inicial seria utilizar apenas o CUA como avaliador final do software gerado.
+% % Subseção: Harness construído para o experimento, com a entrada padronizada (alvo.toml, criterios.toml e pasta de arquivos arbitrários)
+% % (mover pra cá a descrição da entrada do nosso harness inicial, deixar a seção Harness anterior mais genérica, para harness no geral)
+% % Para representar melhor os elementos do domínio do nosso Harness, ele foi feito orientado a objetos com as classes:
+% % Listar brevemente somente as classes principais, sem frase explicatoria. monta um diagrama com plantUML pra representar elas de forma mais dinâmica tambem.
+% % Subseção: Experimento inicial com formulários, descrevendo o requisito de software, a geração de código e a avaliação final com CUA.
+% % o experimento inicial era basicamente tratar a criação de um código puramente frontend, para viabilizar o uso do CUA como avaliador final.
+% % o formulário é basicamente uma réplica do sistema proex (pesquisa certinho de onde vem esse nome, o que significa e o que faz)
+% % Foi após as primeiras runs de teste que foi mostrado o custo elevado e imprecisão do CUA no ambiente do browser:
+% % (mostrar um trecho de snippet do gasto e tempo de execução altos do CUA)
+% % para auxiliar o CUA, decidi introduzir o cypress como "bengala" e separar os critérios em determinísticos e subjetivos.
+% % por simplicidade, o único critério subjetivo decidido foi a identidade visual da USP (salvo engano, verifica)
+% % O experimento foi executado 200 vezes (explicar que esse 200 pode ter sido um problema da metodologia, pois foi decidido de forma meio arbitrária, mas sei la tenta passar um pano pra mim), com 100 runs para cada grupo (baseline e TDD) e a princípio para duas LLMs fixadas, GLM e Deepseek (ver a versão certinha que foi fixada).
+% % o intuito inicial era utilizar de análise estática (Lizzard ou Radon) para medir métricas de complexidade determinísticas das runs.
+% % porém, pela simplicidade do código web gerado, não foi possível obter métricas significativas, então decidi focar na análise de corretude funcional e aderência aos requisitos.
+% % (faz uma seção critérios de nielsen, falando que foi utilizado como base para definir os critérios de avaliação subjetivos, e que a forma de avaliação subjetiva foi um torneio cego, com screenshots das runs e escolha de vencedora de acordo com critérios de visibilidade, acessibilidade e identidade visual do sistema)
+% % nova seção: a forma de "desempate" principal que usei foi um torneio cego: tirei screenshots das runs e agi como avaliador humano escolhendo duas a duas a vencedora de acordo com critérios de visibilidade, acessibilidade e identidade visual do sistema, dado que todas as runs até essa etapa já empatavam em critérios determinísticos e já estavam validadas nesse sentido. mesmo assim, muitos problemas foram encontrados, tipo páginas quebradas sem logo ou mostradas incorretamente em diferentes tamanhos de tela.
+% % faz também um diagrama bonitinho tipo de chaveamento de torneio e depois repescagem, mostrando como as runs foram comparadas duas a duas até chegar em uma vencedora.
+% % finalmente, depois de ter os dois finalistas de cada torneio cego, aí sim avaliei mais rigorosamente eu (humano) e CUA para decidir a vencedora final.
+% % vale dizer que para o intuito desse tcc, tentei tirar o máximo de viés possível ao não ser informado das labels de modelo nem de baseline/tdd para as runs, nem vi a pontuação que o CUA deu pra nielsen nos dois finalistas.
+% % também importante ressaltar que a impossibilidade de trazer grandes populações de pessoas pra testar meu projeto foi inviabilizado, portanto essa foi a forma mais fiel estatisticamente que encontrei pra avaliar as duas finalistas, dada também a inviabilidade de avaliar cada uma das 200 runs manualmente.
+
+\chapter{Experimento com o formulário de auxílio financeiro}
+\label{cap:experimento-formulario}
+
+O primeiro experimento partiu de uma sugestão do orientador Paulo Meirelles:
+gerar uma aplicação web a partir do requisito de um formulário de solicitação
+de auxílio financeiro e avaliar o resultado pela interface. A proposta inicial
+era usar o CUA como avaliador final. O formulário oferecia um caso de uso com
+campos, validações e um documento de saída definidos, além de aspectos visuais
+que exigiam julgamento. Assim, permitia examinar tanto a geração de código
+quanto a avaliação comportamental discutida no capítulo anterior.
+
+\section{Requisito e configuração do harness}
+\label{sec:formulario-harness}
+
+O requisito\footnote{Disponível em
+\url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/01-formulario-docentes-deepseek/requisito.md}.}
+descreve uma aplicação que reúne, em uma página, os formulários de
+alunos e docentes da pós-graduação do IME-USP. O solicitante informa seus dados,
+o evento, o valor solicitado, o endereço e os dados bancários. A aplicação
+valida o preenchimento e apresenta um ofício com esses dados. O caso foi tratado
+como um requisito fechado; o experimento não reproduz o processo administrativo
+completo de análise e aprovação do auxílio.
+
+Embora a avaliação ocorra pelo navegador, o alvo não se restringe ao frontend.
+O requisito fixa três arquivos de interface, \texttt{index.html},
+\texttt{style.css} e \texttt{app.js}, e um backend FastAPI responsável pela
+validação. Não há banco de dados nem persistência das solicitações. As abas
+\texttt{ALUNOS} e \texttt{DOCENTES}, os rótulos, as mensagens, as máscaras e o
+conteúdo do ofício são comuns a todas as execuções. As imagens institucionais
+são fornecidas como anexos.
+
+A entrada segue o contrato descrito na
+Subseção~\ref{sec:arquitetura-harness}: \texttt{requisito.md},
+\texttt{alvo.toml}, \texttt{criterios.toml} e arquivos de apoio. O primeiro
+fornece a tarefa aos agentes; o segundo define ambiente, comandos, modelos e
+orçamento; o terceiro descreve a avaliação externa. Essa padronização permite
+mudar o pipeline sem mudar o software solicitado.
+
+As principais classes dessa configuração são \texttt{Harness},
+\texttt{HarnessDireto}, \texttt{HarnessTDD}, \texttt{Requisito},
+\texttt{Projeto}, \texttt{Alvo}, \texttt{Etapa}, \texttt{Agente},
+\texttt{Avaliador}, \texttt{Resultado} e \texttt{Trace}.
+A Figura~\ref{fig:harness-formulario} apresenta suas relações principais.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{figuras/harness-formulario.png}
+  \caption{Classes principais do harness na configuração do formulário.
+    As setas indicam herança, referências e dependências de execução;
+    não representam a ordem das etapas. Fonte: elaboração própria,
+    a partir de \texttt{demos/harness/models/}.}
+  \label{fig:harness-formulario}
+\end{figure}
+
+Na baseline, o agente recebe o requisito e produz a implementação sem feedback
+de testes durante a geração. No TDD, um agente escreve os testes e outro gera
+e corrige a implementação com base no pytest. Os testes próprios integram o
+tratamento experimental. A avaliação externa ocorre depois da geração e não
+alimenta esse ciclo de correção.
+
+A proposta inicial do harness adota uma premissa para a passagem entre etapas:
+\textbf{quando avança, não volta atrás nunca}. Uma etapa pode repetir tentativas
+antes de terminar, mas, ao passar à seguinte, seus artefatos ficam fixados.
+A Figura~\ref{fig:harness-estados} representa esse fluxo nos dois pipelines.
+Os laços indicam novas tentativas dentro da mesma etapa; não há transição de
+retorno a uma etapa anterior nem da avaliação externa para a geração.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figuras/harness-estados.png}
+  \caption{Diagrama simplificado dos estados do harness inicial.
+    O encerramento de uma etapa pode ocorrer por aprovação ou por atingir
+    um limite de execução. A avaliação externa, quando realizada, ocorre
+    após a geração. Fonte: elaboração própria.}
+  \label{fig:harness-estados}
+\end{figure}
+
+Essa premissa pode se tornar uma limitação quando o erro está em um artefato
+produzido na etapa anterior. No TDD, um teste que interprete incorretamente o
+requisito permanece fixado durante a implementação: o agente que recebe o
+feedback do pytest pode corrigir o código, mas não o teste. Assim, pode adaptar
+a implementação a uma exigência errada ou esgotar o orçamento tentando
+satisfazer testes contraditórios. A avaliação externa pode revelar a divergência,
+mas já não há retorno previsto para corrigi-la nessa execução.
+
+\section{Composição do lote e tamanho amostral}
+\label{sec:formulario-amostra}
+
+Foram realizadas 200 execuções, distribuídas igualmente entre dois modelos e
+dois pipelines, conforme a Tabela~\ref{tab:formulario-lote}. Em cada execução,
+o mesmo modelo ocupa os papéis de geração previstos pelo pipeline. Cada
+workspace começa vazio e a execução em lote dispensa os gates de aprovação
+humana usados nos protótipos anteriores.
+
+\begin{table}[htp]
+  \centering
+  \caption{Distribuição das execuções do formulário.}
+  \label{tab:formulario-lote}
+  \begin{tabular}{lrrr}
+    \hline
+    Modelo & Baseline & TDD & Total \\
+    \hline
+    DeepSeek V4.1 Flash & 50 & 50 & 100 \\
+    GLM-5.3 & 50 & 50 & 100 \\
+    \hline
+    Total & 100 & 100 & 200 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Os identificadores registrados são
+\texttt{deepseek/deepseek-v4.1-flash} e \texttt{z-ai/glm-5.3}.
+Cada etapa tem limite de 50 propostas e 1.800 segundos, com teto de US\$~2
+para DeepSeek e US\$~3 para GLM. Como o TDD tem uma etapa de testes e outra de
+implementação, o mesmo limite por etapa não iguala o orçamento total dos dois
+pipelines. Essa diferença deve acompanhar a interpretação de custo e resultado.
+
+A escolha de 200 execuções não decorreu de um cálculo prévio de poder
+estatístico ou de uma margem de erro desejada. O número foi fixado sem esse
+dimensionamento formal, com 50 repetições em cada célula. \citet{lakens2022sample}
+distingue essa situação das justificativas baseadas em precisão, poder ou
+restrições de recursos. Neste estudo, a análise da precisão é retrospectiva:
+explicita o alcance do lote coletado, sem atribuir à escolha original uma
+fundamentação que não foi usada.
+
+A unidade de repetição é a execução completa do pipeline para o mesmo
+requisito. Os critérios verificados dentro de uma aplicação não constituem
+novas execuções independentes. Para comparar os pipelines dentro de cada
+modelo, o tamanho relevante é de 50 execuções por grupo. Somar os modelos
+produz grupos de 100, mas combina configurações cujos resultados podem diferir.
+
+Para representar a incerteza das proporções de aprovação, adotam-se intervalos
+de Wilson de 95\%, calculados separadamente por célula. A escolha evita as
+limitações do intervalo normal de Wald, cuja cobertura pode ser inadequada,
+inclusive longe das proporções extremas \citep{brown2001interval,nistProporcoes}.
+Com $x$ aprovações em $n$ execuções, $\hat p=x/n$ e $z=1{,}96$, o intervalo é
+\[
+  \frac{\hat p+\dfrac{z^2}{2n}
+  \;\pm\;z\sqrt{\dfrac{\hat p(1-\hat p)}{n}+\dfrac{z^2}{4n^2}}}
+  {1+\dfrac{z^2}{n}}.
+\]
+
+Como referência de precisão, 25 aprovações em 50 execuções produzem um
+intervalo de aproximadamente 36,6\% a 63,4\%, com semilargura de 13,4 pontos
+percentuais. Para uma proporção observada de 50\%, essa semilargura seria de
+9,6 pontos com 100 execuções e de 6,9 com 200 execuções na mesma célula
+(Figura~\ref{fig:formulario-precisao}). Esses valores são cálculos ilustrativos,
+não resultados adicionais do experimento. A distribuição do lote em quatro
+células não fornece a cada uma a precisão correspondente a $n=200$.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{figuras/formulario-precisao.pdf}
+  \caption{Semilargura do intervalo de Wilson de 95\% em função do número
+    de execuções por célula, para $\hat p=0{,}5$. A curva é uma referência
+    teórica de precisão; o lote observado tem $n=50$ em cada célula.
+    Fonte: elaboração própria, com a expressão de \citet{nistProporcoes}.}
+  \label{fig:formulario-precisao}
+\end{figure}
+
+Esses intervalos pressupõem execuções independentes com uma probabilidade de
+aprovação constante dentro de cada célula. Workspaces separados não bastam
+para demonstrar essas condições: o lote usa um serviço externo e até 25
+execuções simultâneas. Os intervalos descrevem a incerteza sob o modelo
+binomial, condicionada ao requisito e à configuração avaliados. Repetir esse
+requisito não mede a variação entre tarefas, nem permite generalizar o resultado
+para geração de software em geral.
+
+\section{Avaliação funcional e consumo de recursos}
+\label{sec:formulario-avaliacao}
+
+O uso do CUA como avaliador único foi revisto durante o desenvolvimento do
+experimento. Os critérios foram separados em verificações determinísticas,
+executadas pelo Cypress, e aspectos que exigiam julgamento pela interface.
+Uma suíte canônica, comum às implementações, passou a verificar os textos e
+comportamentos fixados pelo requisito. Assim, os testes gerados pelo TDD
+permaneceram parte do processo de implementação, enquanto a comparação
+funcional passou a usar uma régua externa compartilhada.
+
+A primeira suíte continha 12 critérios. Depois de observar o empate entre as
+aplicações aprovadas, foram acrescentados dez critérios sobre máscaras,
+mensagens, preservação dos dados e conteúdo do ofício. Essa ampliação foi uma
+análise posterior ao primeiro resultado. Ela não deve ser apresentada como um
+protocolo integralmente definido antes da geração.
+
+A triagem identificou 153 aplicações elegíveis, 94 das quais passaram nos
+12 critérios iniciais. Dessas, 81 também passaram nos dez extras. Para calcular
+as taxas por célula, o denominador permanece em 50: não produzir aplicação
+avaliável ou não concluir o pipeline conta como reprovação. Retirar essas
+execuções favoreceria o grupo cujas falhas fossem mais frequentemente excluídas
+pela triagem.
+
+\begin{table}[htp]
+  \centering
+  \caption{Aprovação funcional por célula, incluindo todas as tentativas.}
+  \label{tab:formulario-aprovacao}
+  \begin{tabular}{llrr}
+    \hline
+    Modelo & Pipeline & 12 critérios & 12 + 10 critérios \\
+    \hline
+    DeepSeek & Baseline & 41/50 (82\%) & 39/50 (78\%) \\
+    DeepSeek & TDD & 38/50 (76\%) & 30/50 (60\%) \\
+    GLM & Baseline & 3/50 (6\%) & 3/50 (6\%) \\
+    GLM & TDD & 12/50 (24\%) & 9/50 (18\%) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Os resultados descritivos têm direções distintas: no DeepSeek, a baseline
+apresenta maior proporção de aprovação; no GLM, o TDD apresenta maior proporção.
+A Figura~\ref{fig:formulario-aprovacao} acrescenta os intervalos de confiança
+às contagens da Tabela~\ref{tab:formulario-aprovacao}. São intervalos individuais
+de proporções, sem ajuste para comparações múltiplas; sua sobreposição ou
+separação não substitui uma análise específica da diferença entre pipelines.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/formulario-aprovacao.pdf}
+  \caption{Proporções de aprovação e intervalos de Wilson de 95\%, com
+    50 tentativas em cada célula. O segundo conjunto exige aprovação nos
+    critérios iniciais e nos extras, acrescentados posteriormente.
+    Fonte: elaboração própria, a partir de \texttt{cypress.json} e
+    \texttt{cypress-extra.json}, em \texttt{demos/runs/batch/}.}
+  \label{fig:formulario-aprovacao}
+\end{figure}
+
+Também foram examinadas métricas estáticas do Python com o Radon, incluindo
+tamanho, complexidade ciclomática e índice de manutenibilidade. Elas forneceram
+uma descrição estrutural, mas não um desempate funcional confiável. A tentativa
+de ordenar as aplicações pelo índice de manutenibilidade favoreceu esqueletos
+e implementações incompletas. Além disso, a análise do Python não cobre a
+organização visual nem toda a lógica do frontend. Por isso, essas métricas não
+foram usadas como uma nota geral de qualidade das aplicações.
+
+Custo, duração e tokens foram extraídos dos 200 arquivos \texttt{RUN.log},
+incluindo as execuções reprovadas. Os boxplots da
+Figura~\ref{fig:formulario-recursos} mostram mediana e dispersão, complementadas
+pelas observações individuais \citep{nistBoxplot}.
+% O custo mediano de geração
+% foi de US\$~0,0197 na baseline e US\$~0,0450 no TDD do DeepSeek; no GLM, foi
+% de US\$~0,0374 e US\$~0,9376, respectivamente. Esses custos são da geração,
+% sem somar a avaliação posterior por Cypress, CUA ou pesquisador.
+A Tabela~\ref{tab:formulario-custo-mediano} apresenta os custos medianos de geração.
+
+\begin{table}[htp]
+  \centering
+  \caption{Custo mediano de geração em US\$, sem incluir a avaliação posterior
+    por Cypress, CUA ou pesquisador.
+    Fonte: elaboração própria, a partir dos \texttt{RUN.log} do lote.}
+  \label{tab:formulario-custo-mediano}
+  \begin{tabular}{lrr}
+    \hline
+    Modelo & Baseline & TDD \\
+    \hline
+    DeepSeek V4.1 Flash & 0,0197 & 0,0450 \\
+    GLM-5.3 & 0,0374 & 0,9376 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/formulario-recursos.pdf}
+  \caption{Custo, duração e tokens nas 50 execuções de cada célula.
+    Eixos verticais em escala logarítmica. As caixas delimitam os quartis,
+    a linha interna indica a mediana e os bigodes alcançam as observações
+    extremas dentro de 1,5 intervalo interquartil. Os pontos mostram todas
+    as execuções, inclusive as que excedem os bigodes.
+    Fonte: elaboração própria, a partir dos \texttt{RUN.log} do lote.}
+  \label{fig:formulario-recursos}
+\end{figure}
+
+\section{Torneio cego e seleção das finalistas}
+\label{sec:formulario-torneio}
+
+As 81 aplicações aprovadas nos dois conjuntos de critérios continuavam
+empatadas nessa régua funcional. Para escolher as interfaces a examinar em
+mais detalhe, foi realizado um torneio de preferência visual. Cada candidata
+foi representada por três capturas, com largura de 1.280 pixels: a aba
+\texttt{ALUNOS} preenchida, a aba \texttt{DOCENTES} e o ofício gerado.
+
+Em cada partida, o pesquisador comparou duas candidatas identificadas apenas
+como A e B. A chave e os lados foram sorteados, e a semente e as escolhas
+ficaram registradas. Os critérios de preferência foram identificação da aba
+ativa, ausência de problemas visuais, legibilidade, separação em seções e
+aparência geral. O anonimato ocultava modelo e pipeline, mas o julgamento
+continuava sendo o de uma pessoa.
+
+Após a definição da campeã da chave, as candidatas que perderam diretamente
+para ela disputaram uma repescagem pelo segundo lugar. Esse procedimento
+permitiu reconsiderar aplicações eliminadas pela campeã antes da final.
+A Figura~\ref{fig:torneio-formulario} mostra a repescagem do torneio geral.
+Com preferências que
+podem variar entre comparações, o procedimento não garante uma ordenação
+universal de qualidade.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/torneio-formulario.png}
+  \caption{Chave da repescagem do torneio geral, com as seis candidatas
+    derrotadas diretamente pela campeã. As setas convergem para a vencedora
+    de cada partida. D identifica DeepSeek baseline e G identifica GLM TDD.
+    Fonte: elaboração própria, a partir das escolhas registradas em
+    \texttt{demos/runs/galeria/torneio.json}.}
+  \label{fig:torneio-formulario}
+\end{figure}
+
+O torneio geral teve 81 candidatas e 85 partidas. As duas primeiras foram
+\texttt{deepseek/run44/baseline} e \texttt{deepseek/run35/baseline}.
+Como ambas eram baseline, um segundo torneio foi realizado apenas com as
+39 TDD aprovadas. Suas 42 partidas selecionaram
+\texttt{glm/run38/tdd} e \texttt{glm/run19/tdd}. Os torneios tiveram conjuntos
+de entrada diferentes. A presença de dois pipelines entre as quatro finalistas
+resulta dessa seleção em duas etapas, não de uma amostra aleatória do lote.
+
+\section{Avaliação heurística e limites do CUA}
+\label{sec:formulario-nielsen}
+
+A seleção reduziu o número de aplicações para uma inspeção mais detalhada,
+segundo o método de avaliação heurística \citep{nielsenAvaliacao}.
+O roteiro do experimento adota as dez heurísticas de Nielsen: visibilidade do estado
+do sistema; correspondência com o mundo real; controle e liberdade do usuário;
+consistência e padrões; prevenção de erros; reconhecimento em vez de memorização;
+flexibilidade e eficiência de uso; estética e design minimalista; ajuda para
+reconhecer, diagnosticar e corrigir erros; e ajuda e documentação.
+Essas heurísticas fornecem princípios de inspeção;
+a escala de notas adotada neste trabalho foi definida para o experimento.
+
+Cada heurística recebeu uma nota ordinal: Péssimo, Ruim, Regular, Bom ou
+Excelente, com justificativa e evidência. A identidade visual da USP não foi
+mantida como uma dimensão adicional nessa avaliação. O pesquisador e o CUA
+seguiram um roteiro comum, abrangendo as duas abas, preenchimento por teclado,
+validações, envio e leitura do ofício. Suas notas foram registradas
+separadamente, sem consulta às notas do outro avaliador. Por serem categorias
+ordinais, as notas são apresentadas por heurística, sem supor distâncias iguais
+entre as categorias para construir uma média geral.
+
+Essa inspeção tem alcance diferente de um estudo com usuários. A avaliação
+heurística examina a interface segundo princípios de usabilidade, e avaliadores
+diferentes podem encontrar problemas distintos \citep{nielsenAvaliacao}.
+Neste experimento, a avaliação humana foi feita apenas pelo pesquisador, sobre
+finalistas escolhidas por preferência visual. O CUA constitui outro instrumento
+de avaliação, cuja confiabilidade também estava em exame. A combinação não
+permite estimar a experiência de uma população de usuários nem a usabilidade
+das 200 aplicações.
+
+As sessões das finalistas usaram browser-use 0.13.10 e
+\texttt{anthropic/claude-opus-5.5}. Um registro da campeã baseline, em
+11 de outubro, ilustra o consumo dessa etapa:
+
+\begin{lstlisting}[language={},caption={Campos do resultado da sessão CUA de Nielsen da run44 baseline, iniciada às 17:44 UTC.}]
+"duration_s": 433.45,
+"num_steps": 37,
+"total_tokens": 858977,
+"cost_usd": 3.73282
+\end{lstlisting}
+
+O valor registrado inclui o julgamento automático da sessão. Essa observação
+pertence à avaliação posterior das finalistas, não às primeiras execuções de
+desenvolvimento do harness. Para a mesma aplicação, o custo de geração foi
+US\$~0,053459. Os dois valores medem tarefas diferentes; a comparação explicita
+o consumo adicional da avaliação por CUA.
+
+Além do custo, houve variação no cumprimento do roteiro e nas notas. Nas
+sessões da \texttt{deepseek/run35/baseline}, o CUA por vezes preencheu campos
+diretamente por índice em vez de percorrê-los pelo teclado, embora tenha
+avaliado a eficiência de uso por teclado. Entre as quatro sessões dessa
+aplicação, seis heurísticas mudaram de nota. Mesmo entre duas sessões que
+seguiram o percurso por teclado, mudaram três notas. Esses registros mostram
+variação do avaliador diante da mesma aplicação, sem fornecer uma estimativa
+geral de sua taxa de erro.
+
+A comparação entre a campeã baseline e a campeã TDD também mistura modelos:
+a primeira usa DeepSeek e a segunda GLM. Portanto, as diferenças encontradas
+entre essas finalistas não isolam o efeito do pipeline. O lote permite descrever
+aprovação funcional e consumo nas quatro células; o torneio e a inspeção das
+finalistas acrescentam observações sobre interfaces selecionadas. O experimento
+permaneceu inconclusivo quanto à superioridade geral de um pipeline. Os empates
+funcionais e a variabilidade do CUA motivaram a investigação posterior de um
+backend com mais operações e uma avaliação externa por HTTP.
+
 \backmatter
 \pagestyle{backmatter}
 \printbibliography[title=\refname, heading=bibintoc]

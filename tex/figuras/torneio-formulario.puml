@@ -1,0 +1,38 @@
+@startuml
+!pragma layout smetana
+skinparam monochrome true
+skinparam shadowing false
+left to right direction
+rectangle "Chave principal" {
+  rectangle "81 candidatas" as candidatas
+  rectangle "Campeã: D44" as campea
+  candidatas --> campea : 80 partidas
+}
+rectangle "Repescagem: seis derrotadas diretamente pela campeã" {
+  rectangle "D46" as d46
+  rectangle "D35" as d35
+  rectangle "D3" as d3
+  rectangle "D4" as d4
+  rectangle "D12" as d12
+  rectangle "G31" as g31
+  rectangle "D35" as jogo1
+  rectangle "D4" as jogo2
+  rectangle "D35" as jogo3
+  rectangle "D12" as jogo4
+  rectangle "Vice: D35" as vice
+  d46 --> jogo1
+  d35 --> jogo1
+  d3 --> jogo2
+  d4 --> jogo2
+  jogo1 --> jogo3
+  jogo2 --> jogo3
+  d12 --> jogo4
+  g31 --> jogo4
+  jogo3 --> vice
+  jogo4 --> vice
+}
+legend bottom
+  D: DeepSeek baseline; G: GLM TDD.
+  O número identifica a run.
+endlegend
+@enduml
