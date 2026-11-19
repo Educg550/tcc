@@ -603,10 +603,15 @@ do CUA neste trabalho será discutido nos experimentos e resultados.
 \chapter{Experimento com o formulário de auxílio financeiro}
 \label{cap:experimento-formulario}
 
-O primeiro experimento partiu de uma sugestão do orientador Paulo Meirelles:
-gerar uma aplicação web a partir do requisito de um formulário de solicitação
+% Ao mencionar números neste capítulo, anexar na prosa o link do GitHub
+% para o arquivo que os sustenta (dados, configuração ou cálculo).
+% Nas tabelas, não é necessário repetir a fonte já vinculada no texto.
+% Para valores derivados, vincular os dados de origem e o cálculo disponível.
+
+O primeiro experimento partiu de uma sugestão do orientador Paulo Meirelles.
+Ele consiste em gerar uma aplicação web a partir do requisito de um formulário de solicitação
 de auxílio financeiro e avaliar o resultado pela interface. A proposta inicial
-era usar o CUA como avaliador final. O formulário oferecia um caso de uso com
+era usar o CUA como único avaliador ao fim do processo. O formulário oferecia um caso de uso com
 campos, validações e um documento de saída definidos, além de aspectos visuais
 que exigiam julgamento. Assim, permitia examinar tanto a geração de código
 quanto a avaliação comportamental discutida no capítulo anterior.
@@ -624,7 +629,7 @@ como um requisito fechado; o experimento não reproduz o processo administrativo
 completo de análise e aprovação do auxílio.
 
 Embora a avaliação ocorra pelo navegador, o alvo não se restringe ao frontend.
-O requisito fixa três arquivos de interface, \texttt{index.html},
+O requisito fixa três arquivos de interface\footnote{Especificação dos arquivos em \url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/01-formulario-docentes-deepseek/requisito.md}.}, \texttt{index.html},
 \texttt{style.css} e \texttt{app.js}, e um backend FastAPI responsável pela
 validação. Não há banco de dados nem persistência das solicitações. As abas
 \texttt{ALUNOS} e \texttt{DOCENTES}, os rótulos, as mensagens, as máscaras e o
@@ -632,13 +637,7 @@ conteúdo do ofício são comuns a todas as execuções. As imagens instituciona
 são fornecidas como anexos.
 
 A entrada segue o contrato descrito na
-Subseção~\ref{sec:arquitetura-harness}: \texttt{requisito.md},
-\texttt{alvo.toml}, \texttt{criterios.toml} e arquivos de apoio. O primeiro
-fornece a tarefa aos agentes; o segundo define ambiente, comandos, modelos e
-orçamento; o terceiro descreve a avaliação externa. Essa padronização permite
-mudar o pipeline sem mudar o software solicitado.
-
-As principais classes dessa configuração são \texttt{Harness},
+Subseção~\ref{sec:arquitetura-harness}, e as principais classes dessa configuração são \texttt{Harness},
 \texttt{HarnessDireto}, \texttt{HarnessTDD}, \texttt{Requisito},
 \texttt{Projeto}, \texttt{Alvo}, \texttt{Etapa}, \texttt{Agente},
 \texttt{Avaliador}, \texttt{Resultado} e \texttt{Trace}.
@@ -689,7 +688,7 @@ mas já não há retorno previsto para corrigi-la nessa execução.
 \label{sec:formulario-amostra}
 
 Foram realizadas 200 execuções, distribuídas igualmente entre dois modelos e
-dois pipelines, conforme a Tabela~\ref{tab:formulario-lote}. Em cada execução,
+dois pipelines, conforme a Tabela~\ref{tab:formulario-lote}.\footnote{Registros das execuções, com modelo e pipeline, em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.} Em cada execução,
 o mesmo modelo ocupa os papéis de geração previstos pelo pipeline. Cada
 workspace começa vazio e a execução em lote dispensa os gates de aprovação
 humana usados nos protótipos anteriores.
@@ -713,29 +712,26 @@ humana usados nos protótipos anteriores.
 Os identificadores registrados são
 \texttt{deepseek/deepseek-v4.1-flash} e \texttt{z-ai/glm-5.3}.
 Cada etapa tem limite de 50 propostas e 1.800 segundos, com teto de US\$~2
-para DeepSeek e US\$~3 para GLM. Como o TDD tem uma etapa de testes e outra de
+para DeepSeek e US\$~3 para GLM.\footnote{Configurações por modelo em \url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/01-formulario-docentes-deepseek/alvo.toml};
+\url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/01-formulario-docentes-glm/alvo.toml}.} Como o TDD tem uma etapa de testes e outra de
 implementação, o mesmo limite por etapa não iguala o orçamento total dos dois
 pipelines. Essa diferença deve acompanhar a interpretação de custo e resultado.
 
 A escolha de 200 execuções não decorreu de um cálculo prévio de poder
 estatístico ou de uma margem de erro desejada. O número foi fixado sem esse
-dimensionamento formal, com 50 repetições em cada célula. \citet{lakens2022sample}
-distingue essa situação das justificativas baseadas em precisão, poder ou
-restrições de recursos. Neste estudo, a análise da precisão é retrospectiva:
-explicita o alcance do lote coletado, sem atribuir à escolha original uma
-fundamentação que não foi usada.
+dimensionamento formal, com 50 repetições em cada célula.\footnote{Laço de execução do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/harness/batch.py}.}
 
 A unidade de repetição é a execução completa do pipeline para o mesmo
 requisito. Os critérios verificados dentro de uma aplicação não constituem
 novas execuções independentes. Para comparar os pipelines dentro de cada
 modelo, o tamanho relevante é de 50 execuções por grupo. Somar os modelos
-produz grupos de 100, mas combina configurações cujos resultados podem diferir.
+produz grupos de 100, mas combina configurações cujos resultados podem diferir.\footnote{Distribuição das execuções registrada em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.}
 
 Para representar a incerteza das proporções de aprovação, adotam-se intervalos
 de Wilson de 95\%, calculados separadamente por célula. A escolha evita as
 limitações do intervalo normal de Wald, cuja cobertura pode ser inadequada,
 inclusive longe das proporções extremas \citep{brown2001interval,nistProporcoes}.
-Com $x$ aprovações em $n$ execuções, $\hat p=x/n$ e $z=1{,}96$, o intervalo é
+Com $x$ aprovações em $n$ execuções, $\hat p=x/n$ e $z=1{,}96$, o intervalo é\footnote{Cálculo dos intervalos em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.}
 \[
   \frac{\hat p+\dfrac{z^2}{2n}
   \;\pm\;z\sqrt{\dfrac{\hat p(1-\hat p)}{n}+\dfrac{z^2}{4n^2}}}
@@ -748,7 +744,7 @@ percentuais. Para uma proporção observada de 50\%, essa semilargura seria de
 9,6 pontos com 100 execuções e de 6,9 com 200 execuções na mesma célula
 (Figura~\ref{fig:formulario-precisao}). Esses valores são cálculos ilustrativos,
 não resultados adicionais do experimento. A distribuição do lote em quatro
-células não fornece a cada uma a precisão correspondente a $n=200$.
+células não fornece a cada uma a precisão correspondente a $n=200$.\footnote{Cálculo dos exemplos e da curva de precisão em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.}
 
 \begin{figure}[htp]
   \centering
@@ -763,7 +759,7 @@ células não fornece a cada uma a precisão correspondente a $n=200$.
 Esses intervalos pressupõem execuções independentes com uma probabilidade de
 aprovação constante dentro de cada célula. Workspaces separados não bastam
 para demonstrar essas condições: o lote usa um serviço externo e até 25
-execuções simultâneas. Os intervalos descrevem a incerteza sob o modelo
+execuções simultâneas.\footnote{Limite de concorrência em \url{https://github.com/Educg550/tcc/blob/main/demos/harness/batch.py}.} Os intervalos descrevem a incerteza sob o modelo
 binomial, condicionada ao requisito e à configuração avaliados. Repetir esse
 requisito não mede a variação entre tarefas, nem permite generalizar o resultado
 para geração de software em geral.
@@ -771,26 +767,37 @@ para geração de software em geral.
 \section{Avaliação funcional e consumo de recursos}
 \label{sec:formulario-avaliacao}
 
-O uso do CUA como avaliador único foi revisto durante o desenvolvimento do
-experimento. Os critérios foram separados em verificações determinísticas,
-executadas pelo Cypress, e aspectos que exigiam julgamento pela interface.
+% O uso do CUA como avaliador único foi revisto durante o desenvolvimento do
+% experimento. Os critérios foram separados em verificações determinísticas,
+% executadas pelo Cypress, e aspectos que exigiam julgamento pela interface.
+Como mencionado anteriormente, inicialmente, planejava-se usar apenas o CUA como validador final.
+O custo elevado por token do modelo fixado para essa etapa e o uso de um avaliador não
+determinístico para verificar comportamentos determinísticos motivaram também
+a inclusão do Cypress, um framework de automação de testes para aplicações web
+baseado em JavaScript. Com isso, o Cypress passou a verificar os comportamentos
+definidos pelo requisito, enquanto o CUA ficou responsável pelos aspectos que
+exigiam julgamento pela interface.
 Uma suíte canônica, comum às implementações, passou a verificar os textos e
 comportamentos fixados pelo requisito. Assim, os testes gerados pelo TDD
 permaneceram parte do processo de implementação, enquanto a comparação
 funcional passou a usar uma régua externa compartilhada.
 
-A primeira suíte continha 12 critérios. Depois de observar o empate entre as
-aplicações aprovadas, foram acrescentados dez critérios sobre máscaras,
+A primeira suíte continha 12 critérios\footnote{Disponíveis em
+\url{https://github.com/Educg550/tcc/tree/main/demos/avaliacao}.}. Depois de observar o empate entre as
+aplicações aprovadas, foram acrescentados dez critérios\footnote{Disponíveis em
+\url{https://github.com/Educg550/tcc/tree/main/demos/avaliacao/extra}.} sobre máscaras,
 mensagens, preservação dos dados e conteúdo do ofício. Essa ampliação foi uma
 análise posterior ao primeiro resultado. Ela não deve ser apresentada como um
 protocolo integralmente definido antes da geração.
 
 A triagem identificou 153 aplicações elegíveis, 94 das quais passaram nos
-12 critérios iniciais. Dessas, 81 também passaram nos dez extras. Para calcular
+12 critérios iniciais. Dessas, 81 também passaram nos dez extras.\footnote{Triagem e resultados funcionais em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress.json};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress-extra.json}.} Para calcular
 as taxas por célula, o denominador permanece em 50: não produzir aplicação
 avaliável ou não concluir o pipeline conta como reprovação. Retirar essas
 execuções favoreceria o grupo cujas falhas fossem mais frequentemente excluídas
-pela triagem.
+pela triagem.\footnote{Contagens por célula, denominadores e proporções calculados em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.}
 
 \begin{table}[htp]
   \centering
@@ -828,21 +835,48 @@ separação não substitui uma análise específica da diferença entre pipeline
 
 Também foram examinadas métricas estáticas do Python com o Radon, incluindo
 tamanho, complexidade ciclomática e índice de manutenibilidade. Elas forneceram
-uma descrição estrutural, mas não um desempate funcional confiável. A tentativa
-de ordenar as aplicações pelo índice de manutenibilidade favoreceu esqueletos
-e implementações incompletas. Além disso, a análise do Python não cobre a
+uma descrição estrutural, mas não um desempate funcional confiável. Na primeira
+ordenação, foram consideradas 166 execuções com Python de sintaxe válida e
+etapas registradas como concluídas com sucesso.\footnote{Registros de sintaxe e sucesso das etapas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.} A ordenação priorizava o maior
+índice de manutenibilidade mínimo entre os arquivos de implementação,
+desempatando pela menor complexidade ciclomática máxima e, por fim, pelo caminho
+da execução. As cinco primeiras colocadas eram do GLM baseline e tinham índice
+100.\footnote{Índices por execução em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.} Em quatro delas (execuções 12, 18, 30 e 33), o arquivo \texttt{app.py}
+continha apenas \texttt{...}: uma linha de código e nenhuma função. Na primeira
+colocada, a execução 44, havia 65 linhas de código Python e apenas uma função,
+que servia a página HTML; os endpoints de geração do ofício estavam apenas
+indicados em um comentário. Assim, as cinco primeiras posições desse ranking
+correspondiam a implementações incompletas.\footnote{Métricas em
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json};
+código dos exemplos em
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run12/baseline/app.py};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run18/baseline/app.py};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run30/baseline/app.py};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run33/baseline/app.py};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run44/baseline/app.py}.}
+
+Mesmo após a triagem estrutural que reduziu o conjunto a 153 aplicações
+elegíveis, quatro das cinco primeiras colocadas pelo mesmo critério não
+passaram na suíte funcional completa. A líder, \texttt{glm/run4/baseline},
+tinha índice 53,00 e passou em 0 dos 12 critérios; a segunda,
+\texttt{deepseek/run40/tdd}, tinha índice 43,64 e passou nos 12. A terceira,
+a quarta e a quinta passaram, respectivamente, em 1, 0 e 8 critérios.
+Esses resultados mostram que, nesse lote, um índice maior não assegurou maior
+corretude funcional.\footnote{Métricas e resultados por execução em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress.json}.}
+Além disso, a análise do Python não cobre a
 organização visual nem toda a lógica do frontend. Por isso, essas métricas não
 foram usadas como uma nota geral de qualidade das aplicações.
 
 Custo, duração e tokens foram extraídos dos 200 arquivos \texttt{RUN.log},
-incluindo as execuções reprovadas. Os boxplots da
+incluindo as execuções reprovadas.\footnote{Leitura dos registros e composição das quatro células em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.} O plot da
 Figura~\ref{fig:formulario-recursos} mostram mediana e dispersão, complementadas
 pelas observações individuais \citep{nistBoxplot}.
 % O custo mediano de geração
 % foi de US\$~0,0197 na baseline e US\$~0,0450 no TDD do DeepSeek; no GLM, foi
 % de US\$~0,0374 e US\$~0,9376, respectivamente. Esses custos são da geração,
 % sem somar a avaliação posterior por Cypress, CUA ou pesquisador.
-A Tabela~\ref{tab:formulario-recursos} resume as três medidas por modelo e pipeline.
+A Tabela~\ref{tab:formulario-recursos} resume as três medidas por modelo e pipeline.\footnote{Dados nos arquivos \texttt{\_harness/RUN.log} de cada execução do \href{https://github.com/Educg550/tcc/tree/main/demos/runs/batch}{lote preservado}; o \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py} lê os campos \texttt{total\_cost\_usd}, \texttt{total\_duration\_s} e \texttt{total\_tokens}.}
 
 \begin{table}[htp]
   \centering
@@ -896,14 +930,16 @@ A Tabela~\ref{tab:formulario-recursos} resume as três medidas por modelo e pipe
 \label{sec:formulario-torneio}
 
 As 81 aplicações aprovadas nos dois conjuntos de critérios continuavam
-empatadas nessa régua funcional. Para escolher as interfaces a examinar em
-mais detalhe, foi realizado um torneio de preferência visual. Cada candidata
+empatadas nessa régua funcional.\footnote{Aprovação nos critérios extras em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress-extra.json}.} Para escolher as interfaces a examinar em
+mais detalhe, foi realizado um torneio de preferência visual, organizado pelo
+mini projeto \texttt{desempatador}\footnote{Código disponível em
+\url{https://github.com/Educg550/tcc/tree/main/demos/desempatador}.}. Cada candidata
 foi representada por três capturas, com largura de 1.280 pixels: a aba
-\texttt{ALUNOS} preenchida, a aba \texttt{DOCENTES} e o ofício gerado.
+\texttt{ALUNOS} preenchida, a aba \texttt{DOCENTES} e o ofício gerado.\footnote{Procedimento de captura registrado em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-06-desempatador.md}.}
 
 Em cada partida, o pesquisador comparou duas candidatas identificadas apenas
 como A e B. A chave e os lados foram sorteados, e a semente e as escolhas
-ficaram registradas. Os critérios de preferência foram identificação da aba
+ficaram registradas.\footnote{Chave e escolhas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json}.} Os critérios de preferência foram identificação da aba
 ativa, ausência de problemas visuais, legibilidade, separação em seções e
 aparência geral. O anonimato ocultava modelo e pipeline, mas o julgamento
 continuava sendo o de uma pessoa.
@@ -928,10 +964,10 @@ universal de qualidade.
 \end{figure}
 
 O torneio geral teve 81 candidatas e 85 partidas. As duas primeiras foram
-\texttt{deepseek/run44/baseline} e \texttt{deepseek/run35/baseline}.
+\texttt{deepseek/run44/baseline} e \texttt{deepseek/run35/baseline}.\footnote{Candidatas, escolhas e resultado em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json}.}
 Como ambas eram baseline, um segundo torneio foi realizado apenas com as
 39 TDD aprovadas. Suas 42 partidas selecionaram
-\texttt{glm/run38/tdd} e \texttt{glm/run19/tdd}. Os torneios tiveram conjuntos
+\texttt{glm/run38/tdd} e \texttt{glm/run19/tdd}.\footnote{Candidatas, escolhas e resultado do torneio TDD em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio-tdd.json}.} Os torneios tiveram conjuntos
 de entrada diferentes. A presença de dois pipelines entre as quatro finalistas
 resulta dessa seleção em duas etapas, não de uma amostra aleatória do lote.
 
@@ -946,7 +982,7 @@ consistência e padrões; prevenção de erros; reconhecimento em vez de memoriz
 flexibilidade e eficiência de uso; estética e design minimalista; ajuda para
 reconhecer, diagnosticar e corrigir erros; e ajuda e documentação.
 Essas heurísticas fornecem princípios de inspeção;
-a escala de notas adotada neste trabalho foi definida para o experimento.
+a escala de notas adotada neste trabalho foi definida para o experimento.\footnote{As dez heurísticas e a escala constam do roteiro em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}.}
 
 Cada heurística recebeu uma nota ordinal: Péssimo, Ruim, Regular, Bom ou
 Excelente, com justificativa e evidência. A identidade visual da USP não foi
@@ -964,11 +1000,11 @@ Neste experimento, a avaliação humana foi feita apenas pelo pesquisador, sobre
 finalistas escolhidas por preferência visual. O CUA constitui outro instrumento
 de avaliação, cuja confiabilidade também estava em exame. A combinação não
 permite estimar a experiência de uma população de usuários nem a usabilidade
-das 200 aplicações.
+das 200 aplicações.\footnote{Composição do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.}
 
 As sessões das finalistas usaram browser-use 0.13.10 e
 \texttt{anthropic/claude-opus-5.5}. Um registro da campeã baseline, em
-11 de outubro, ilustra o consumo dessa etapa:
+11 de outubro, ilustra o consumo dessa etapa\footnote{Versões, horário e métricas da sessão em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/resultado.json}.}:
 
 \begin{lstlisting}[language={},caption={Campos do resultado da sessão CUA de Nielsen da run44 baseline, iniciada às 17:44 UTC.}]
 "duration_s": 433.45,
@@ -980,7 +1016,7 @@ As sessões das finalistas usaram browser-use 0.13.10 e
 O valor registrado inclui o julgamento automático da sessão. Essa observação
 pertence à avaliação posterior das finalistas, não às primeiras execuções de
 desenvolvimento do harness. Para a mesma aplicação, o custo de geração foi
-US\$~0,053459. Os dois valores medem tarefas diferentes; a comparação explicita
+US\$~0,053459.\footnote{Custo de geração em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run44/baseline/_harness/RUN.log}.} Os dois valores medem tarefas diferentes; a comparação explicita
 o consumo adicional da avaliação por CUA.
 
 Além do custo, houve variação no cumprimento do roteiro e nas notas. Nas
@@ -988,13 +1024,17 @@ sessões da \texttt{deepseek/run35/baseline}, o CUA por vezes preencheu campos
 diretamente por índice em vez de percorrê-los pelo teclado, embora tenha
 avaliado a eficiência de uso por teclado. Entre as quatro sessões dessa
 aplicação, seis heurísticas mudaram de nota. Mesmo entre duas sessões que
-seguiram o percurso por teclado, mudaram três notas. Esses registros mostram
+seguiram o percurso por teclado, mudaram três notas.\footnote{Notas das quatro sessões em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261011T175120Z/relatorio.md};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-reexecucao-20261011T180723Z/relatorio.md};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261013T191542Z/relatorio.md};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261013T193004Z/relatorio.md}.} Esses registros mostram
 variação do avaliador diante da mesma aplicação, sem fornecer uma estimativa
 geral de sua taxa de erro.
 
 A comparação entre a campeã baseline e a campeã TDD também mistura modelos:
 a primeira usa DeepSeek e a segunda GLM. Portanto, as diferenças encontradas
-entre essas finalistas não isolam o efeito do pipeline. O lote permite descrever
+entre essas finalistas não isolam o efeito do pipeline.\footnote{Identificação das finalistas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json};
+\url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio-tdd.json}.} O lote permite descrever
 aprovação funcional e consumo nas quatro células; o torneio e a inspeção das
 finalistas acrescentam observações sobre interfaces selecionadas. O experimento
 permaneceu inconclusivo quanto à superioridade geral de um pipeline. Os empates
