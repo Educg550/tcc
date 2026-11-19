@@ -217,6 +217,113 @@ permitem delimitar em que sentido uma implementação é considerada melhor que 
 % % no agente, vamos supor que alguma coisa é que providencia as tools para ele, que no caso vai ser o gancho pra entrar em harness.
 % % dessa forma, percebe como um CUA na verdade é um agente com harness que possibilita que ele execute ações arbitrárias em ambientes computacionais, "como se fosse um humano"? (focar nessa provocação entre seções pra fazer esse capítulo ser coeso)
 
+% % falar um pouco sobre testes unitários, de caixa branca e caixa preta. eles serão relevantes lá pra frente
+\section{Testes de software}
+\label{sec:testes-software}
+
+Nessa tese, focaremos no uso e na discussão especialmente dos testes unitários, que verificam isoladamente unidades do software, como funções ou
+classes. Essa classificação considera o que é testado. Já a distinção entre
+caixa branca e caixa preta considera as informações usadas para definir os
+casos de teste \citep[cap.~5, seções~2.1.1 e~3]{swebok2026}.
+Por exemplo, testar isoladamente uma função que calcula um desconto permite
+conferir seu resultado para entradas escolhidas, sem executar uma compra
+completa. Um teste unitário pode adotar a abordagem de caixa branca ou de caixa
+preta. Essas abordagens e os testes de aceitação, que dizem respeito à finalidade
+da avaliação, são apresentados nas subseções a seguir.
+
+\subsection{Testes de caixa branca}
+\label{sec:testes-caixa-branca}
+
+Nos testes de caixa branca, os casos são definidos a partir da estrutura
+interna da implementação, como suas decisões e caminhos de execução
+\citep[cap.~5, seção~3]{swebok2026}. O código orienta a escolha das entradas
+que serão usadas para exercitar esses caminhos.
+
+Considere uma função que concede desconto quando o valor da compra ultrapassa
+um limite. Ao observar essa condição no código, podem-se escolher entradas
+que façam a execução entrar no bloco do desconto e outras que a façam seguir
+sem desconto. Além de executar os dois caminhos, os testes devem conferir
+se os valores calculados correspondem ao esperado. Se a implementação tiver
+esquecido uma regra do requisito, percorrer seus caminhos não exercitará,
+por si só, essa regra ausente.
+A Figura~\ref{fig:testes-caixa-branca} representa essa abordagem.
+
+\begin{figure}[htp]
+  \centering
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(140,28)
+    \put(0,9){\makebox(25,10){Entradas}}
+    \put(27,14){\vector(1,0){15}}
+    \put(44,3){\framebox(52,22){}}
+    \put(44,18){\makebox(52,5){Sistema sob teste}}
+    \put(47,6){\framebox(21,8){Decisão}}
+    \put(69,10){\vector(1,0){5}}
+    \put(75,6){\framebox(18,8){Caminho}}
+    \put(98,14){\vector(1,0){15}}
+    \put(115,9){\makebox(25,10){Saídas}}
+  \end{picture}
+  \caption{Testes de caixa branca: a estrutura interna orienta a definição
+    dos casos de teste. Fonte: elaboração própria, com base em
+    \citet[cap.~5]{swebok2026}.}
+  \label{fig:testes-caixa-branca}
+\end{figure}
+
+\subsection{Testes de caixa preta}
+\label{sec:testes-caixa-preta}
+
+Nos testes de caixa preta, os casos se baseiam nas entradas e saídas esperadas,
+conforme o comportamento especificado, sem depender da estrutura interna da
+implementação \citep[cap.~5, seção~3]{swebok2026}. O teste interage com a
+interface disponível e compara a resposta observada à resposta esperada.
+
+No exemplo do desconto, o requisito pode estabelecer que compras acima de
+R\$~100 recebem desconto de 10\%. Um teste pode fornecer R\$~150 e esperar
+R\$~135, independentemente de como o cálculo foi programado. Também pode
+verificar que uma compra de exatamente R\$~100 permanece sem desconto.
+Esses casos podem ser aplicados a implementações diferentes que ofereçam a
+mesma interface e devam cumprir o mesmo requisito. A avaliação fica limitada
+aos comportamentos exercitados pelos casos escolhidos.
+A Figura~\ref{fig:testes-caixa-preta} representa essa abordagem.
+
+\begin{figure}[htp]
+  \centering
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(140,28)
+    \put(0,9){\makebox(25,10){Entradas}}
+    \put(27,14){\vector(1,0){15}}
+    \put(44,6){\framebox(52,16){Sistema sob teste}}
+    \put(98,14){\vector(1,0){15}}
+    \put(115,9){\makebox(25,10){Saídas}}
+  \end{picture}
+  \caption{Testes de caixa preta: os casos se baseiam nas entradas e saídas
+    esperadas, sem depender da estrutura interna. Fonte: elaboração própria, com base em
+    \citet[cap.~5]{swebok2026}.}
+  \label{fig:testes-caixa-preta}
+\end{figure}
+
+\subsection{Testes de aceitação}
+\label{sec:testes-aceitacao}
+
+Testes de aceitação verificam se o sistema atende aos requisitos e às
+expectativas dos usuários nas tarefas para as quais foi construído. Essa
+avaliação também pode abranger aspectos de usabilidade
+\citep[cap.~5, seção~2.1.4]{swebok2026}.
+Para definir um teste, é preciso explicitar as condições em que o sistema
+será usado e o resultado que permitirá considerar a tarefa atendida.
+
+Em um formulário de solicitação, por exemplo, um critério pode exigir que
+o envio com um campo obrigatório vazio seja recusado e que a interface
+identifique o campo a corrigir. O teste consiste em deixar esse campo vazio,
+tentar enviar e conferir a resposta. Outro critério pode exigir que o usuário
+consiga entender a mensagem de erro e corrigir o preenchimento; nesse caso,
+a avaliação inclui um julgamento sobre a orientação apresentada.
+
+Enquanto caixa branca e caixa preta distinguem as informações usadas para
+definir os casos, a aceitação expressa a finalidade da avaliação. No exemplo
+do formulário, observar as ações e respostas da interface permite realizar
+um teste de aceitação pela abordagem de caixa preta, sem consultar a
+implementação interna.
+
 \chapter{Ferramentas e ambiente de execução}
 \label{cap:ferramentas}
 
@@ -782,6 +889,14 @@ comportamentos fixados pelo requisito. Assim, os testes gerados pelo TDD
 permaneceram parte do processo de implementação, enquanto a comparação
 funcional passou a usar uma régua externa compartilhada.
 
+Nessa organização, o arquivo \texttt{criterios.toml} reúne os critérios que
+orientam a avaliação de aceitação, no mesmo sentido da definição presente na
+Subseção~\ref{sec:testes-aceitacao}. Os comportamentos objetivos
+são verificados pelos testes Cypress, e os aspectos que exigem julgamento
+pela interface são avaliados pelo CUA. Assim, a avaliação de aceitação combina
+essas duas formas de verificar a aplicação. As notas do CUA são analisadas
+separadamente da aprovação nos testes funcionais.
+
 A primeira suíte continha 12 critérios\footnote{Disponíveis em
 \url{https://github.com/Educg550/tcc/tree/main/demos/avaliacao}.}. Depois de observar o empate entre as
 aplicações aprovadas, foram acrescentados dez critérios\footnote{Disponíveis em
@@ -1040,6 +1155,17 @@ finalistas acrescentam observações sobre interfaces selecionadas. O experiment
 permaneceu inconclusivo quanto à superioridade geral de um pipeline. Os empates
 funcionais e a variabilidade do CUA motivaram a investigação posterior de um
 backend com mais operações e uma avaliação externa por HTTP.
+
+% INI capítulo para o experimento 2, o prejanus back
+% O segundo experimento sugerido para essa tese envolve a comparação do código gerado pelo harness
+% No contexto em que já é conhecido o código original, o prejanus-back (colocar o link do gitlab pra ele).
+% O sistema Pré Janus se trata de (pesquisa e coloca aqui sobre o que é)
+% Seção Preliminares: foi extraído com agentes e engenharia reversa uma documentação do sistema pré janus, que descreve o funcionamento do sistema e suas operações necessárias para o funcionamento. Também foi feita uma suite que chamaremos frequentemente de "gabarito", com testes de caixa preta (linkar aqui a subseção que explica testes de caixa preta lá no começo). é importante agora sim distinguir bem o que é caixa branca/caixa preta e teste de aceitação, também no capítulo do experimento 1 se necessário
+% Remissão para a redação do capítulo: o gabarito utiliza testes de caixa preta,
+% conforme a Subseção~\ref{sec:testes-caixa-preta}, para avaliar o comportamento pela interface HTTP.
+% esse experimento se separa em duas estratégias principais, descritas melhor à seguir:
+% estratégia 1 e 2 são subseções, procura lá no diário que ta explicado bonitinho. explica de forma bem elementar. também coloca diagramas bonitinhos aqui no mesmo estilo dos outros diagramas que já estão na tese
+% FIM
 
 \backmatter
 \pagestyle{backmatter}
