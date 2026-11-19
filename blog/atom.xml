@@ -2,11 +2,299 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://educg550.github.io/tcc/blog</id>
     <title>TCC - Eduardo Cruz Guedes Blog</title>
-    <updated>2026-10-28T00:00:00.000Z</updated>
+    <updated>2026-11-15T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://educg550.github.io/tcc/blog"/>
     <subtitle>TCC - Eduardo Cruz Guedes Blog</subtitle>
     <icon>https://educg550.github.io/tcc/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Quatro novas runs com lições das entregas anteriores]]></title>
+        <id>https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back</id>
+        <link href="https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back"/>
+        <updated>2026-11-15T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Rodei uma entrega nova de cada condição do PreJanus-back, acrescentando o mesmo]]></summary>
+        <content type="html"><![CDATA[<p>Rodei uma entrega nova de cada condição do PreJanus-back, acrescentando o mesmo
+bloco de lições das execuções anteriores à entrada. As quatro ficaram abaixo das
+anteriores nos testes reservados. A baseline passou em 51/85, o TDD em 0/85, o
+rework em 0/85 e o TDD com revisão em 49/85. A rodada custou US$ 5,80.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-que-acrescentei-à-entrada">O que acrescentei à entrada<a href="https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back#o-que-acrescentei-%C3%A0-entrada" class="hash-link" aria-label="Link direto para O que acrescentei à entrada" title="Link direto para O que acrescentei à entrada" translate="no">​</a></h2>
+<p>A rodada segue a sugestão dos orientadores registrada na
+<a class="" href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back">análise das entregas</a>. Cada implementação
+começou do zero, sem receber o código das anteriores. Mantive GLM 5.3, provedor
+<code>novita/fp8</code> sem fallback, contratos, skills, infraestrutura e gabarito. Os limites
+continuaram em US$ 2, 3600 segundos e 40 propostas por etapa; uma chamada em
+andamento pode ultrapassar o teto de custo ou de tempo.</p>
+<p>O bloco foi o mesmo nas quatro condições, inclusive para o test-writer:</p>
+<blockquote>
+<p>Lições das execuções anteriores:</p>
+<ul>
+<li class="">Confira se as funções chamadas entre módulos existem e se seus nomes e argumentos correspondem.</li>
+<li class="">Respeite os tipos do esquema SQL fornecido, inclusive enums, nas consultas e no ORM.</li>
+<li class="">Confira a junção entre host e caminho nas URLs de integração.</li>
+<li class="">Preserve informações que permitam identificar a causa das falhas; não transforme erros em resultados vazios ou sucesso.</li>
+<li class="">Quando receber falhas, investigue a causa antes de consertar o sintoma do erro. Nos testes que escrever, não descarte respostas inesperadas que expliquem uma falha</li>
+</ul>
+</blockquote>
+<p>As dicas foram limitadas a cuidados derivados dos testes visíveis e dos contratos
+de entrada. Os reservados não foram usados para preparar o bloco. No rework, os
+161 casos visíveis continuaram disponíveis; nas outras condições, o gabarito
+inteiro ficou oculto durante a geração. Executei as condições em sequência,
+aplicando o gabarito completo depois de cada uma, sem correção manual nem segunda run.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="resultados">Resultados<a href="https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back#resultados" class="hash-link" aria-label="Link direto para Resultados" title="Link direto para Resultados" translate="no">​</a></h2>
+<p>A medida principal são todos os 85 reservados, incluindo os seis em que o
+original falha. O gabarito completo tem 161 visíveis, 85 reservados e um teste
+de rastreio dos requisitos, totalizando 247.</p>
+<table><thead><tr><th>Condição</th><th style="text-align:right">Reservados antes</th><th style="text-align:right">Reservados com lições</th><th style="text-align:right">Visíveis com lições</th><th style="text-align:right">Gabarito completo com lições</th><th style="text-align:right">Custo</th></tr></thead><tbody><tr><td>Baseline</td><td style="text-align:right">62/85</td><td style="text-align:right">51/85</td><td style="text-align:right">86/161</td><td style="text-align:right">138/247</td><td style="text-align:right">US$ 0,632258</td></tr><tr><td>TDD</td><td style="text-align:right">49/85</td><td style="text-align:right">0/85</td><td style="text-align:right">1/161</td><td style="text-align:right">2/247</td><td style="text-align:right">US$ 2,082051</td></tr><tr><td>Rework</td><td style="text-align:right">59/85</td><td style="text-align:right">0/85</td><td style="text-align:right">1/161</td><td style="text-align:right">2/247</td><td style="text-align:right">US$ 1,334157</td></tr><tr><td>TDD com revisão</td><td style="text-align:right">63/85</td><td style="text-align:right">49/85</td><td style="text-align:right">81/161</td><td style="text-align:right">131/247</td><td style="text-align:right">US$ 1,748713</td></tr><tr><td><strong>Total gasto</strong></td><td style="text-align:right">—</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td style="text-align:right">—</td><td style="text-align:right"><strong>US$ 5,797179</strong></td></tr></tbody></table>
+<p>Os resultados anteriores são os do <a class="" href="https://educg550.github.io/tcc/blog/resumo-prejanus-back">resumo de 28/10</a>.
+Nos 79 reservados sem divergência conhecida do original, os resultados desta
+rodada foram 49, 0, 0 e 47, respectivamente.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="duas-aplicações-não-iniciaram">Duas aplicações não iniciaram<a href="https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back#duas-aplica%C3%A7%C3%B5es-n%C3%A3o-iniciaram" class="hash-link" aria-label="Link direto para Duas aplicações não iniciaram" title="Link direto para Duas aplicações não iniciaram" translate="no">​</a></h2>
+<p>O TDD encerrou a implementação por custo. Ao carregar <code>app.py</code>, a aplicação
+tentava usar <code>Depends(get_db)</code> sem definir <code>get_db</code>, provocando <code>NameError</code>.</p>
+<p>O rework encerrou por tempo. O módulo de editais importava <code>CANDIDATE_SPEC</code> de
+<code>src.services.mapping</code>, mas esse nome não estava disponível, provocando
+<code>ImportError</code> na inicialização.</p>
+<p>Ambos terminaram o gabarito com 93 falhas, 152 erros e dois aprovados. Os aprovados
+foram o teste de recusa de origem CORS e o rastreio dos requisitos. Esses dois
+acertos não demonstram que a aplicação estivesse funcionando.</p>
+<p>A baseline iniciou e terminou com 138 aprovados e 109 falhas, sem erros de
+preparação. O TDD com revisão também iniciou: foram 131 aprovados e 116 falhas,
+sem erros de preparação. Ele encerrou a implementação por tempo. O snapshot dos
+testes autorais ficou apenas na versão inicial, sem revisão registrada pelo coder;
+na conferência final dos testes próprios, foram 15 aprovados, 27 falhas e 16 erros.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="os-seis-casos-em-que-o-original-falha">Os seis casos em que o original falha<a href="https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back#os-seis-casos-em-que-o-original-falha" class="hash-link" aria-label="Link direto para Os seis casos em que o original falha" title="Link direto para Os seis casos em que o original falha" translate="no">​</a></h2>
+<table><thead><tr><th>Comportamento esperado</th><th>Baseline</th><th>TDD</th><th>Rework</th><th>TDD com revisão</th></tr></thead><tbody><tr><td>Detalhe inclui os comentários solicitados</td><td>Falhou</td><td>Erro</td><td>Erro</td><td>Falhou</td></tr><tr><td>Aceite sem resposta permanece pendente</td><td>Falhou</td><td>Erro</td><td>Erro</td><td>Falhou</td></tr><tr><td>Envio da carta de aceite</td><td>Falhou</td><td>Falhou</td><td>Falhou</td><td>Falhou</td></tr><tr><td>Aprovação rejeita lista vazia de orientadores</td><td>Passou</td><td>Erro</td><td>Erro</td><td>Passou</td></tr><tr><td>Aprovação rejeita dois orientadores</td><td>Passou</td><td>Erro</td><td>Erro</td><td>Passou</td></tr><tr><td>PDF inclui os anexos de e-mails dos candidatos</td><td>Falhou</td><td>Falhou</td><td>Falhou</td><td>Falhou</td></tr></tbody></table>
+<p>Baseline e TDD com revisão passaram em dois desses seis casos. Nesses
+comportamentos testados, superaram o original, embora tenham acertado menos casos
+no conjunto reservado. Isso não significa superioridade da aplicação inteira.</p>
+<p>Nesta rodada, o bloco de lições não veio acompanhado de melhora na nota de
+nenhuma condição. Uma run por condição, comparada a execuções anteriores, não
+isola o efeito das dicas da variação entre gerações. Os erros de inicialização
+também mostram que a orientação para conferir nomes entre módulos não garantiu
+que isso fosse feito.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="os-padrões-de-falha-continuam-mas-a-trajetória-importa">Os padrões de falha continuam, mas a trajetória importa<a href="https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back#os-padr%C3%B5es-de-falha-continuam-mas-a-trajet%C3%B3ria-importa" class="hash-link" aria-label="Link direto para Os padrões de falha continuam, mas a trajetória importa" title="Link direto para Os padrões de falha continuam, mas a trajetória importa" translate="no">​</a></h2>
+<p>Depois, comparei o código e os logs das quatro entregas com os padrões da
+<a class="" href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back">análise anterior</a>, sem executar novamente
+as aplicações ou os testes. Alguns padrões reaparecem, mas dizer que o feedback
+nunca produziu correção seria incorreto.</p>
+<table><thead><tr><th>Entrega</th><th>O que a análise dos artefatos mostra</th></tr></thead><tbody><tr><td>Baseline</td><td>Repete a junção do OAuth sem barra e 12 falhas de formato das respostas de Forms. Um novo problema na escrita dos parâmetros das consultas SQL causa falhas em cascata. Também ganha oito casos que a baseline anterior errava, apesar da queda na nota total.</td></tr><tr><td>TDD</td><td>Os gates próprios melhoram de 33/43 para 39/43. O erro de enum da entrega anterior foi evitado. O <code>get_db</code> ausente só impede a inicialização depois da proposta final interrompida pelo custo. Os testes próprios de OAuth omitem o callback ao backend, e um helper ainda descarta respostas diferentes de 200.</td></tr><tr><td>Rework</td><td>Os visíveis melhoram de 137/161 para 155/161, e a URL do OAuth está corrigida. A última proposta, interrompida por tempo, deixa o validador de mapeamento incompatível com seus consumidores. A aplicação deixa de iniciar.</td></tr><tr><td>TDD com revisão</td><td>O ORM usa <code>recommender_form_ids</code>, mas o esquema declara <code>recommenders_form_ids</code>. A consulta falha, e o tratamento da exceção ainda usa <code>traceback</code> sem importá-lo. Os três gates completos mantêm 15 aprovados, 27 falhas e 16 erros.</td></tr></tbody></table>
+<p>O padrão mais persistente é um defeito pequeno em caminho compartilhado provocar
+muitas falhas. Contratos escolhidos pelos testes próprios também continuam
+presentes: no TDD, a autorização no provedor é seguida da cobrança de uma sessão
+autenticada sem enviar o callback à aplicação. Na variante com revisão, o teste
+envia os parâmetros de OAuth em JSON e o endpoint exige esse corpo, enquanto o
+gabarito os envia na query. A ambiguidade de parte da entrada continua relevante.</p>
+<p>Há ainda um mecanismo importante no encerramento. O harness recolhe as edições
+pendentes mesmo quando a sessão termina com erro, aplica o lote e só depois
+verifica esse erro. Nesse caminho, retorna antes do gate da proposta. Assim, TDD
+e rework terminaram com alterações incompletas após versões que iniciavam e
+tinham passado em mais testes. Os erros finais de importação não foram devolvidos
+em outra proposta para correção. Isso envolve a política de encerramento do
+harness, além da consistência do código gerado.</p>
+<p>Não apliquei o gabarito às versões intermediárias, nem reconstruí essas versões.
+Os 155 visíveis do rework não permitem estimar quantos reservados ele acertaria.
+A nota final continua sendo a do artefato entregue, mas esconde a melhora anterior
+e a regressão no encerramento.</p>
+<p>Na variante com revisão, há uma limitação adicional: o papel do coder permite
+editar testes com justificativa, mas a mensagem compartilhada após um gate
+vermelho ainda manda “Não altere os testes”. Além disso, o corte dos últimos 4000
+caracteres da saída do pytest omite o nome da coluna errada que os logs completos
+preservam. A estagnação dos gates é observada, mas não prova que o coder recebeu
+a causa completa nem explica, sozinha, a ausência de revisão. Mantive o harness
+e os resultados como foram executados.</p>
+<p>Também não se repetiu literalmente o padrão de chamadas longas sem ação: no TDD,
+a maior chamada durou 896 segundos, mas pediu uma edição. Pedir uma ferramenta
+não garante que a edição tenha sido aceita; o registro não preserva todos os
+argumentos necessários para reconstituir cada alteração.</p>
+<p>Encerrei as tentativas de geração. O trabalho restante usa as evidências já
+produzidas; não farei novas runs para tentar obter uma nota melhor.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="artefatos">Artefatos<a href="https://educg550.github.io/tcc/blog/runs-com-licoes-prejanus-back#artefatos" class="hash-link" aria-label="Link direto para Artefatos" title="Link direto para Artefatos" translate="no">​</a></h2>
+<p>As quatro pastas estão em <code>demos/runs/caronte/</code>:</p>
+<ul>
+<li class=""><code>05-prejanus-back-piloto-v3-licoes-baseline-20261115-121042</code></li>
+<li class=""><code>05-prejanus-back-piloto-v3-licoes-tdd-20261115-123705</code></li>
+<li class=""><code>05-prejanus-back-piloto-v3-licoes-rework-20261115-134805</code></li>
+<li class=""><code>05-prejanus-back-piloto-v3-licoes-tdd-revisao-20261115-152120</code></li>
+</ul>
+<p>Cada uma preserva a entrega, <code>_harness/RUN.log</code>, os logs dos gates e da aplicação,
+<code>_harness/GABARITO.json</code>, <code>gabarito.xml</code>, <code>MANIFESTO_ENTREGA.json</code> e a entrada,
+incluindo <code>entrada/licoes.md</code>. Conferi o bloco nas quatro entradas e os hashes das
+entregas após o gabarito. Os serviços do ambiente isolado voltaram ao estado
+parado anterior, com os volumes preservados. Não iniciei outra rodada.</p>]]></content>
+        <author>
+            <name>Eduardo Cruz Guedes</name>
+            <uri>https://github.com/Educg550</uri>
+        </author>
+        <category label="TCC" term="TCC"/>
+        <category label="Experimento" term="Experimento"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[O que o código das quatro entregas mostra]]></title>
+        <id>https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back</id>
+        <link href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back"/>
+        <updated>2026-11-11T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Li o código das quatro entregas do resumo de 28/10 e]]></summary>
+        <content type="html"><![CDATA[<p>Li o código das quatro entregas do <a class="" href="https://educg550.github.io/tcc/blog/resumo-prejanus-back">resumo de 28/10</a> e
+agrupei as falhas do gabarito por causa raiz. Em todas, poucos defeitos explicam boa
+parte das falhas. O TDD ficou em 140 por um erro só: declarou como texto uma coluna que
+é enum no esquema, e isso derrubou cerca de 81 casos. Tirando as divergências do
+original, o rework empata com a baseline nos reservados. Dos 22 casos que nenhuma
+entrega passa, cerca de 19 cobram nomes que a entrada não dá ou são divergências e
+instabilidade do ambiente. Os 17 arquivos vêm do prompt, e o TDD é maior quase só por
+formatação e pelo ORM.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="como-fiz-a-análise">Como fiz a análise<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#como-fiz-a-an%C3%A1lise" class="hash-link" aria-label="Link direto para Como fiz a análise" title="Link direto para Como fiz a análise" translate="no">​</a></h2>
+<p>Analisei as quatro entregas válidas: baseline, TDD, rework e a variante exploratória
+do TDD com revisão. Para cada uma, li o código de produção, a saída de cada gate e os
+logs da aplicação durante o gabarito. Depois agrupei os casos que falham por causa
+raiz, com arquivo e linha. Não rodei nenhuma aplicação nem teste de novo. Conferi à mão os
+defeitos que mais pesam e as contagens que aparecem aqui.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="poucos-defeitos-explicam-muitas-falhas">Poucos defeitos explicam muitas falhas<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#poucos-defeitos-explicam-muitas-falhas" class="hash-link" aria-label="Link direto para Poucos defeitos explicam muitas falhas" title="Link direto para Poucos defeitos explicam muitas falhas" translate="no">​</a></h2>
+<table><thead><tr><th>Entrega</th><th style="text-align:right">Gabarito</th><th style="text-align:right">Falhas</th><th style="text-align:right">Divergências do original</th><th>Defeito que mais pesa</th><th style="text-align:right">Casos</th></tr></thead><tbody><tr><td>Baseline</td><td style="text-align:right">186</td><td style="text-align:right">61</td><td style="text-align:right">8</td><td><code>flatten_mapping</code> zera os dados mapeados</td><td style="text-align:right">15</td></tr><tr><td>TDD</td><td style="text-align:right">140</td><td style="text-align:right">107</td><td style="text-align:right">12</td><td><code>form_type</code> declarado como texto no ORM</td><td style="text-align:right">~81</td></tr><tr><td>Rework</td><td style="text-align:right">211</td><td style="text-align:right">36</td><td style="text-align:right">8</td><td>URL do OAuth sem barra</td><td style="text-align:right">7</td></tr><tr><td>TDD com revisão</td><td style="text-align:right">194</td><td style="text-align:right">53</td><td style="text-align:right">7</td><td>contrato de <code>/forms</code> inventado</td><td style="text-align:right">15</td></tr></tbody></table>
+<p><strong>Baseline.</strong> A sessão foi única e encerrou por conta própria, usando 13% do tempo e
+28% do custo do orçamento. Não faltou nenhuma das 50 operações. Três defeitos somam 26 falhas:</p>
+<ul>
+<li class=""><code>routers/auth.py:58</code> chama <code>oauth.author_url</code>, mas a função se chama
+<code>authorize_url</code> (<code>oauth.py:56</code>). O início do login responde 500 (7 casos).</li>
+<li class=""><code>flatten_mapping</code> (<code>mapping_utils.py:10</code>) desce dentro das folhas
+<code>{section, field}</code>, que também são dicionários. Todo dado mapeado sai vazio
+(15 casos).</li>
+<li class="">As datas do edital são validadas na ordem das fases, não na ordem dos campos
+(4 casos).</li>
+</ul>
+<p>Os dois primeiros só aparecem executando o código, e a baseline não executa nada.</p>
+<p><strong>TDD.</strong> <code>prejanus/models.py:81</code> declara <code>form_type</code> como <code>String</code>; no esquema
+fornecido, a coluna é <code>form_type_enum</code>. Toda consulta de mapeamento falha com
+<code>operador não existe: form_type_enum = character varying</code>. Como o mapeamento está no
+caminho da listagem, do detalhe, da atividade, dos e-mails e dos relatórios, o erro se
+espalha. Mapeamentos ficou em 3/27 e Relatórios em 1/10. Dos casos atribuídos a esse
+defeito, 45 trazem o erro na mensagem. Os outros caem em cascata: o job do PDF morre, a
+exceção é engolida (<code>reports.py:182</code>) e o download fica em 404.</p>
+<p>Os testes próprios acusaram o defeito nas 10 propostas. Mesmo assim, o coder nunca
+mexeu na declaração da coluna:</p>
+<ul>
+<li class="">Em 4 propostas, mudou só o formato do erro.</li>
+<li class="">Tentou adaptar o driver do psycopg. Nas propostas 6 e 7, chamou APIs que não
+existem e a aplicação não subiu.</li>
+<li class="">O próprio código já tinha a correção num ponto: <code>edicts.py:408</code> faz
+<code>cast(:ft as form_type_enum)</code>.</li>
+</ul>
+<p>Os testes também ajudaram pouco a localizar a causa. O helper <code>edicts_with_submissions</code>
+(<code>tests/utils.py:50</code>) descarta respostas diferentes de 200, e 26 das 29 falhas finais
+diziam só "nenhum edital com inscricoes".</p>
+<p><strong>Rework.</strong> O módulo de OAuth junta host e recurso sem barra, e o login responde 500.
+O traceback com <code>'8000wsusuario'</code> já estava na saída do primeiro gate, mas a segunda
+proposta não corrigiu. A run parou por custo nessa proposta.</p>
+<p><strong>TDD com revisão.</strong> O teste próprio <code>test_secoes_versao_inexistente_fallback</code> compara
+o fallback com as seções ativas. O requisito pede todas as seções do formulário. Na
+primeira proposta, o código seguia o requisito e falhava nesse teste. Na terceira,
+passou a filtrar por <code>is_active</code>. O coder podia revisar o teste e não revisou.
+Pelo mesmo caminho, os testes próprios mandam os parâmetros do OAuth no corpo, e o
+código os lê de lá.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="rework-e-baseline-empatam-nos-reservados">Rework e baseline empatam nos reservados<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#rework-e-baseline-empatam-nos-reservados" class="hash-link" aria-label="Link direto para Rework e baseline empatam nos reservados" title="Link direto para Rework e baseline empatam nos reservados" translate="no">​</a></h2>
+<table><thead><tr><th>Reservados</th><th style="text-align:right">Baseline</th><th style="text-align:right">TDD</th><th style="text-align:right">Rework</th><th style="text-align:right">TDD com revisão</th></tr></thead><tbody><tr><td>Todos (85)</td><td style="text-align:right">62</td><td style="text-align:right">49</td><td style="text-align:right">59</td><td style="text-align:right">63</td></tr><tr><td>Sem divergência do original (79)</td><td style="text-align:right">58</td><td style="text-align:right">47</td><td style="text-align:right">58</td><td style="text-align:right">60</td></tr></tbody></table>
+<p>A diferença de 59 contra 62 vem das 6 divergências. Fora delas, cada um ganha 8
+casos do outro. Os 8 que o rework acerta e a baseline erra são quase cópias de testes
+visíveis. Nos 8 que a baseline acerta e o rework erra, a regra está escrita no requisito
+completo, que o rework não recebeu. Não encontrei constante nem id da fixture no código
+do rework. O sobreajuste que existe é de forma: os títulos do PDF são os trechos que os
+testes visíveis procuram.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-que-nenhuma-entrega-acerta">O que nenhuma entrega acerta<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#o-que-nenhuma-entrega-acerta" class="hash-link" aria-label="Link direto para O que nenhuma entrega acerta" title="Link direto para O que nenhuma entrega acerta" translate="no">​</a></h2>
+<p>Vinte e dois casos falham nas quatro entregas:</p>
+<ul>
+<li class="">10 cobram nomes que não estão no requisito, no OpenAPI nem no README:
+<code>summary.user_bidding</code> (6), <code>field_id</code> (3) e títulos exatos do PDF (1). O requisito
+fala em "interesse do usuário" e em "estatísticas de candidaturas".</li>
+<li class="">5 são do retorno do OAuth. O gabarito manda <code>oauth_token</code> e <code>oauth_verifier</code> na query
+string; o OpenAPI não declara parâmetro nenhum nessa operação.</li>
+<li class="">3 são divergências registradas do original, e 1 é o link de correção, em que o Forms
+responde 400 (já marcado como instável em 23/10).</li>
+<li class="">3 dependem de formato de resposta sem schema: atividade, associação e resumo das
+recomendações.</li>
+</ul>
+<p>Com essa entrada, o teto prático de um gerador fica abaixo dos 233 do original.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="por-que-17-arquivos">Por que 17 arquivos<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#por-que-17-arquivos" class="hash-link" aria-label="Link direto para Por que 17 arquivos" title="Link direto para Por que 17 arquivos" translate="no">​</a></h2>
+<p>O número não convergiu exatamente. Nas 12 runs do piloto v3, a quantidade de arquivos
+de produção vai de 12 a 18, e 17 aparece em 7 delas. A faixa é estreita por três
+motivos:</p>
+<ul>
+<li class="">A entrada dos três grupos traz a mesma seção "Organização obrigatória da
+implementação". Ela lista as responsabilidades: aplicação, configuração, os dois
+bancos, autenticação, routers por domínio e os serviços de Forms, OAuth, e-mail e
+relatórios.</li>
+<li class="">O OpenAPI tem quatro tags (<code>edicts</code>, <code>submissions</code>, <code>forms</code> e <code>auth</code>), e todas as
+entregas criaram um router por tag.</li>
+<li class="">O modelo agrupa por domínio. O original tem 84 arquivos porque separa um arquivo por
+caso de uso e um por modelo ORM.</li>
+</ul>
+<p>No TDD, os 17 arquivos aparecem já na primeira proposta e não mudam nas outras nove.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="por-que-o-tdd-tem-mais-linhas">Por que o TDD tem mais linhas<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#por-que-o-tdd-tem-mais-linhas" class="hash-link" aria-label="Link direto para Por que o TDD tem mais linhas" title="Link direto para Por que o TDD tem mais linhas" translate="no">​</a></h2>
+<p>Sem os testes, o TDD tem 833 SLOC a mais que a baseline:</p>
+<table><thead><tr><th>Origem</th><th style="text-align:right">SLOC</th></tr></thead><tbody><tr><td>Expressões quebradas em várias linhas: assinaturas, dicionários, cadeias do ORM</td><td style="text-align:right">~569</td></tr><tr><td><code>models.py</code> do ORM</td><td style="text-align:right">123</td></tr><tr><td>Diagnóstico e remendos das correções</td><td style="text-align:right">95 a 131</td></tr><tr><td>OAuth assinado à mão</td><td style="text-align:right">25</td></tr><tr><td>Código para satisfazer os testes próprios</td><td style="text-align:right">~0</td></tr></tbody></table>
+<p>Com uma instrução por linha, a diferença cai para 1.549 contra 1.285. O rework e a
+variante com revisão têm praticamente o mesmo número de instruções que a baseline
+(859 e 854 contra 843). A SLOC maior deles vem só da quebra de linha.</p>
+<p>No LLOC, cerca de 200 dos 277 a mais vêm do <code>models.py</code>. O Radon conta uma atribuição
+anotada, como <code>x: int = 1</code>, como duas linhas lógicas. Isso infla o LLOC de modelos ORM,
+schemas e configuração. Sem esse arquivo, a diferença fica em 5%.</p>
+<p>As outras runs do piloto v3 dão outra perspectiva:</p>
+<table><thead><tr><th>Grupo</th><th style="text-align:right">Runs</th><th>SLOC</th><th>LLOC</th></tr></thead><tbody><tr><td>Baseline</td><td style="text-align:right">3</td><td>1.730 a 2.462</td><td>1.488 a 1.662</td></tr><tr><td>TDD</td><td style="text-align:right">4</td><td>2.037 a 2.563</td><td>1.527 a 1.788</td></tr><tr><td>Rework</td><td style="text-align:right">4</td><td>1.765 a 2.110</td><td>1.345 a 1.501</td></tr></tbody></table>
+<p>A baseline válida é a menor das 12. O ORM aparece em só 2 delas: a baseline do
+piloto de 19/10 e a TDD válida. As outras três runs TDD usam SQL direto. Com uma run
+por condição, a diferença da tabela do resumo mistura a escolha da arquitetura,
+que muda de run para run, com o efeito do pipeline. As runs anteriores a <code>7734bea</code>
+servem para comparar tamanho, não nota.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="padrões-que-se-repetem">Padrões que se repetem<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#padr%C3%B5es-que-se-repetem" class="hash-link" aria-label="Link direto para Padrões que se repetem" title="Link direto para Padrões que se repetem" translate="no">​</a></h2>
+<ol>
+<li class=""><strong>Inventar o contrato onde a entrada não diz nada.</strong> Sem schema de resposta, o modelo
+traduz o termo do requisito, usa o nome da coluna ou envolve a lista num objeto. Na
+variante com revisão, 38 das 46 falhas fora das divergências estão em operações sem
+schema. O rework só escapa quando um teste visível mostra o nome.</li>
+<li class=""><strong>Defeito pontual vira cascata.</strong> Um nome errado entre módulos, um tipo de coluna ou
+uma barra numa URL derrubam dezenas de casos. A nota mede esses poucos defeitos mais
+do que a cobertura do requisito.</li>
+<li class=""><strong>O feedback não vira correção.</strong> O TDD mexeu no formato do erro e no driver, e não
+na causa. No rework, três problemas já diagnosticados no primeiro gate ficaram, e a
+associação das recomendações piorou.</li>
+<li class=""><strong>Raciocínio longo sem ação.</strong> No TDD, sete chamadas ocuparam 63% do tempo de
+chamadas; uma levou 670 segundos e 100 mil tokens sem pedir ferramenta. Na
+variante com revisão, duas das seis propostas não editaram nada.</li>
+<li class=""><strong>O teste próprio fixa a leitura ambígua.</strong> O canal do OAuth e a ordem das datas
+entraram nos testes do test-writer, e o coder seguiu. Na revisão, o coder trocou
+código certo para passar num teste errado.</li>
+<li class=""><strong>Generalizar a partir do exemplo.</strong> O filtro de seções ativas também foi aplicado
+aos campos (baseline e TDD). No rework, o caso visível de vagas vazias virou
+"qualquer texto vira zero".</li>
+<li class=""><strong>Texto livre mínimo.</strong> Títulos de PDF sem acento e e-mails em <code>8bit</code> que chegam com
+os acentos corrompidos.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="próximo-passo">Próximo passo<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#pr%C3%B3ximo-passo" class="hash-link" aria-label="Link direto para Próximo passo" title="Link direto para Próximo passo" translate="no">​</a></h2>
+<p>Os orientadores sugeriram rodar mais uma ou duas vezes, com feedback no input, para ver
+se o acerto melhora ou piora. A análise limita o que esse feedback pode conter. As
+falhas comuns às quatro entregas só se corrigem dizendo os nomes que o gabarito cobra,
+e isso entregaria o gabarito. Os defeitos que a entrada permitiria evitar mudam de run
+para run. Por isso, o feedback seria uma lista de cuidados de processo:</p>
+<ul>
+<li class="">conferir se todo nome chamado entre módulos existe;</li>
+<li class="">declarar as colunas com os tipos do esquema fornecido;</li>
+<li class="">não engolir exceções;</li>
+<li class="">corrigir onde o erro nasce;</li>
+<li class="">não descartar respostas inesperadas nos helpers de teste.</li>
+</ul>
+<p>A nota do TDD já variou de 140 a 209 entre runs. Uma ou duas runs por condição ficam
+exploratórias, como a variante com revisão. A medida principal seriam os 79 reservados
+sem divergência.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="artefatos">Artefatos<a href="https://educg550.github.io/tcc/blog/analise-entregas-prejanus-back#artefatos" class="hash-link" aria-label="Link direto para Artefatos" title="Link direto para Artefatos" translate="no">​</a></h2>
+<p>As entregas, os logs dos gates e os logs da aplicação durante o gabarito estão nas
+pastas <code>demos/runs/caronte/05-prejanus-back-piloto-v3-*</code> das runs listadas no
+<a class="" href="https://educg550.github.io/tcc/blog/resumo-prejanus-back">resumo</a>. As linhas citadas aqui se referem aos arquivos
+dessas pastas.</p>]]></content>
+        <author>
+            <name>Eduardo Cruz Guedes</name>
+            <uri>https://github.com/Educg550</uri>
+        </author>
+        <category label="TCC" term="TCC"/>
+        <category label="Experimento" term="Experimento"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Resumo dos resultados no PreJanus-back]]></title>
         <id>https://educg550.github.io/tcc/blog/resumo-prejanus-back</id>
@@ -1317,112 +1605,5 @@ aba ativa variou entre azul escuro e turquesa não aparece com clareza nas captu
         </author>
         <category label="TCC" term="TCC"/>
         <category label="Experimento" term="Experimento"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Veredito entre as finalistas]]></title>
-        <id>https://educg550.github.io/tcc/blog/veredito</id>
-        <link href="https://educg550.github.io/tcc/blog/veredito"/>
-        <updated>2026-10-13T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Das duas finalistas do torneio, a vencedora é a deepseek/run44/baseline.]]></summary>
-        <content type="html"><![CDATA[<p>Das duas finalistas do torneio, a vencedora é a <code>deepseek/run44/baseline</code>.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="torneio">Torneio<a href="https://educg550.github.io/tcc/blog/veredito#torneio" class="hash-link" aria-label="Link direto para Torneio" title="Link direto para Torneio" translate="no">​</a></h2>
-<p>A run44 ganhou o torneio cego e eliminou a run35 em confronto direto, na rodada de 32. A run35
-ficou em segundo porque voltou pela repescagem (<a class="" href="https://educg550.github.io/tcc/blog/desempatador">post do desempatador</a>).</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="nielsen">Nielsen<a href="https://educg550.github.io/tcc/blog/veredito#nielsen" class="hash-link" aria-label="Link direto para Nielsen" title="Link direto para Nielsen" translate="no">​</a></h2>
-<p>As notas são rótulos ordenados (Péssimo, Ruim, Regular, Bom, Excelente), sem distância
-definida entre eles, então não tirei média. Comparei as duas runs heurística por
-heurística, contando em quantas cada uma recebeu o rótulo mais alto de cada avaliador. As
-notas estão no <a class="" href="https://educg550.github.io/tcc/blog/resultados-nielsen">post dos resultados</a>.</p>
-<table><thead><tr><th>Avaliador</th><th>run44 melhor</th><th>run35 melhor</th><th>Empate</th></tr></thead><tbody><tr><td>Eduardo</td><td>2 (heurísticas 3 e 4)</td><td>0</td><td>8</td></tr><tr><td>CUA</td><td>1 (heurística 9)</td><td>3 (heurísticas 2, 4 e 8)</td><td>6</td></tr></tbody></table>
-<p>Eu ponho a run44 na frente em duas heurísticas. O CUA põe a run35 na frente em três e a
-run44 em uma. Os dois avaliadores apontam para lados opostos, e na prática a avaliação
-Nielsen não separa as duas.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="abas-e-seções">Abas e seções<a href="https://educg550.github.io/tcc/blog/veredito#abas-e-se%C3%A7%C3%B5es" class="hash-link" aria-label="Link direto para Abas e seções" title="Link direto para Abas e seções" translate="no">​</a></h2>
-<p>Meu critério de desempate é a visibilidade: saber em que aba estou e onde começa cada
-seção do formulário. São dois dos critérios que usei no torneio. Na run44, a aba ativa
-tem um detalhe laranja no topo, e cada seção tem uma linha azul vertical à esquerda.</p>
-<p><img decoding="async" loading="lazy" alt="Run44: a aba ativa com o detalhe laranja e a seção marcada pela linha azul vertical." src="https://educg550.github.io/tcc/assets/images/run44-d97fd0e2e383cfb6e305014d03472f2d.png" width="607" height="546" class="img_ev3q"></p>
-<p>Na run35, as duas abas são azuis e a ativa só fica mais escura. As seções são caixas com
-o título na borda, sem marca lateral.</p>
-<p><img decoding="async" loading="lazy" alt="Run35: abas no mesmo tom de azul e seções em caixas com o título na borda." src="https://educg550.github.io/tcc/assets/images/run35-bf7525a0f2a0a3428018e32a67913579.png" width="457" height="591" class="img_ev3q"></p>
-<p>No mesmo navegador e com o mesmo zoom, a fonte da run35 também é menor. Conferi no
-<code>style.css</code> de cada uma: tirando as abas, todo texto da run35 é de 0,5 a 3 px menor.</p>
-<table><thead><tr><th>Elemento</th><th style="text-align:right">run44</th><th style="text-align:right">run35</th></tr></thead><tbody><tr><td>Texto base da página</td><td style="text-align:right">13 px</td><td style="text-align:right">11 px</td></tr><tr><td>Nome da universidade</td><td style="text-align:right">22 px</td><td style="text-align:right">19 px</td></tr><tr><td>Nome do programa</td><td style="text-align:right">12 px</td><td style="text-align:right">11 px</td></tr><tr><td>Abas</td><td style="text-align:right">12 px</td><td style="text-align:right">12 px</td></tr><tr><td>Título da seção</td><td style="text-align:right">11 px</td><td style="text-align:right">10 px</td></tr><tr><td>Rótulo do campo</td><td style="text-align:right">10 px</td><td style="text-align:right">9 px</td></tr><tr><td>Texto digitado nos campos</td><td style="text-align:right">12,5 px</td><td style="text-align:right">11 px</td></tr><tr><td>Botão de envio</td><td style="text-align:right">13 px</td><td style="text-align:right">12 px</td></tr><tr><td>Mensagens de erro</td><td style="text-align:right">12,5 px</td><td style="text-align:right">11 px</td></tr><tr><td>Título da confirmação</td><td style="text-align:right">20 px</td><td style="text-align:right">18 px</td></tr><tr><td>Ofício</td><td style="text-align:right">12,5 px</td><td style="text-align:right">12 px</td></tr></tbody></table>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-campo-de-valor">O campo de valor<a href="https://educg550.github.io/tcc/blog/veredito#o-campo-de-valor" class="hash-link" aria-label="Link direto para O campo de valor" title="Link direto para O campo de valor" translate="no">​</a></h2>
-<p>Há ainda o campo de valor. Nas duas, a máscara trata os dígitos como
-centavos: <code>150000</code> vira <code>R$ 1.500,00</code>. O placeholder da run44 é <code>150000</code>, coerente com a
-máscara. O da run35 é <code>1500</code>, e quem digita o exemplo recebe <code>R$ 15,00</code>.</p>
-<p>Os defeitos da run44 ficam na aparência e no texto: o botão de envio pede rolagem, e o
-exemplo de CPF vem sem a pontuação que o rótulo pede, embora a máscara formate o CPF de
-qualquer jeito.</p>]]></content>
-        <author>
-            <name>Eduardo Cruz Guedes</name>
-            <uri>https://github.com/Educg550</uri>
-        </author>
-        <category label="TCC" term="TCC"/>
-        <category label="Experimento" term="Experimento"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Como o browser-use roda o CUA e o judge]]></title>
-        <id>https://educg550.github.io/tcc/blog/arquitetura-browser-use</id>
-        <link href="https://educg550.github.io/tcc/blog/arquitetura-browser-use"/>
-        <updated>2026-10-06T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[O CUA do harness é um agente do browser-use. O pyproject.toml pede]]></summary>
-        <content type="html"><![CDATA[<p>O CUA do harness é um agente do browser-use. O <code>pyproject.toml</code> pede
-<code>browser-use&gt;=0.13.8</code>, e o <code>uv.lock</code> fixa a versão 0.13.10. Registro aqui como essa
-versão organiza as duas chamadas ao modelo que aparecem em toda sessão: a do agente, que
-usa a aplicação e devolve a avaliação, e a do judge, que confere o trabalho do agente.
-Conferi tudo no código instalado.</p>
-<!-- -->
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-agente">O agente<a href="https://educg550.github.io/tcc/blog/arquitetura-browser-use#o-agente" class="hash-link" aria-label="Link direto para O agente" title="Link direto para O agente" translate="no">​</a></h2>
-<p>O agente trabalha em passos. Em cada passo, o browser-use lê o estado da página, monta
-uma mensagem e chama o modelo, que responde com até cinco ações. As ações rodam no
-navegador e o ciclo recomeça, até o agente chamar <code>done</code> ou chegar ao limite de passos.</p>
-<p>O modelo não recebe a conversa acumulada. A cada passo, o <code>MessageManager</code> monta duas
-mensagens novas: o prompt de sistema e uma mensagem de estado que junta</p>
-<ul>
-<li class="">o roteiro da tarefa;</li>
-<li class="">o histórico dos passos anteriores, em texto: a avaliação do passo anterior, a memória,
-o próximo objetivo e o resultado das ações;</li>
-<li class="">a URL, as abas e os elementos interativos da página, numerados;</li>
-<li class="">a captura de tela do momento.</li>
-</ul>
-<p>Só a captura atual vai junto. As anteriores ficam no histórico da sessão, mas o agente
-não as vê de novo. Como a mensagem de estado é reenviada inteira a cada passo, quase todo
-o custo de uma sessão vem dos tokens de entrada.</p>
-<p>No harness (<code>demos/harness/models/avaliacao.py</code>), o agente roda com:</p>
-<table><thead><tr><th>Configuração</th><th>Efeito</th></tr></thead><tbody><tr><td><code>ChatOpenRouter</code>, <code>max_tokens</code> 16.000, <code>max_retries=0</code></td><td>modelo via OpenRouter, sem nova tentativa quando a API falha</td></tr><tr><td><code>use_thinking=False</code></td><td>prompt de sistema sem o campo <code>thinking</code>, que aciona o filtro anti-destilação da Anthropic</td></tr><tr><td><code>use_vision</code> (padrão <code>True</code>)</td><td>captura de tela em todo passo</td></tr><tr><td><code>exclude_actions=SEM_ACOES_CUA</code></td><td>sem busca na web, arquivos, extração de conteúdo nem JavaScript: o agente só usa a página pela interface</td></tr><tr><td><code>max_failures=1</code>, <code>final_response_after_failure=False</code></td><td>a sessão para no primeiro erro, sem resposta final forçada</td></tr><tr><td><code>output_model_schema=VeredictoCriterio</code></td><td>a resposta final é <code>passou</code> e <code>evidencia</code></td></tr><tr><td><code>max_steps</code></td><td>80 (<code>MAX_PASSOS_CUA</code>)</td></tr></tbody></table>
-<p>O <code>passou</code> é o agente dizendo que concluiu a tarefa. Não é uma conferência externa.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="o-judge">O judge<a href="https://educg550.github.io/tcc/blog/arquitetura-browser-use#o-judge" class="hash-link" aria-label="Link direto para O judge" title="Link direto para O judge" translate="no">​</a></h2>
-<p>Quando o agente chama <code>done</code>, o browser-use faz mais uma chamada ao modelo, o judge
-(<code>_judge_trace</code>, em <code>browser_use/agent/service.py</code>). Ele não abre o navegador. A mensagem
-dele é montada do zero por <code>construct_judge_messages</code> (<code>browser_use/agent/judge.py</code>) e
-traz</p>
-<ul>
-<li class="">o prompt de sistema do judge;</li>
-<li class="">o roteiro da tarefa;</li>
-<li class="">as ações e os resultados de cada passo;</li>
-<li class="">a resposta final do agente;</li>
-<li class="">capturas de tela da sessão.</li>
-</ul>
-<p>A resposta é um <code>JudgementResult</code>: <code>verdict</code> (verdadeiro ou falso), <code>reasoning</code>,
-<code>failure_reason</code>, <code>impossible_task</code> e <code>reached_captcha</code>. O browser-use anexa esse parecer
-ao último resultado, mas não muda o que o agente declarou: o próprio código diz que o
-veredito do judge não substitui o <code>success</code> do agente.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="contextos-separados-mesmo-modelo">Contextos separados, mesmo modelo<a href="https://educg550.github.io/tcc/blog/arquitetura-browser-use#contextos-separados-mesmo-modelo" class="hash-link" aria-label="Link direto para Contextos separados, mesmo modelo" title="Link direto para Contextos separados, mesmo modelo" translate="no">​</a></h2>
-<p>O agente e o judge não compartilham contexto. O agente vê uma mensagem remontada a cada
-passo, com só a captura do momento. O judge vê, de uma vez, o registro do que o agente
-fez e as capturas, mas não a conversa do agente.</p>
-<p>O modelo, porém, é o mesmo. O <code>Agent</code> aceita um <code>judge_llm</code> próprio, e o harness não
-passa nenhum. Sem ele, o browser-use usa o mesmo cliente do agente
-(<code>service.py:255</code>). O judge é, portanto, o mesmo modelo relendo o rastro do próprio
-trabalho: serve para achar passos pulados e evidências que as capturas não mostram, mas
-não é um avaliador independente.</p>]]></content>
-        <author>
-            <name>Eduardo Cruz Guedes</name>
-            <uri>https://github.com/Educg550</uri>
-        </author>
-        <category label="TCC" term="TCC"/>
-        <category label="Referência" term="Referência"/>
     </entry>
 </feed>
