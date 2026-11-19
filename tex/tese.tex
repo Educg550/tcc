@@ -842,20 +842,40 @@ pelas observações individuais \citep{nistBoxplot}.
 % foi de US\$~0,0197 na baseline e US\$~0,0450 no TDD do DeepSeek; no GLM, foi
 % de US\$~0,0374 e US\$~0,9376, respectivamente. Esses custos são da geração,
 % sem somar a avaliação posterior por Cypress, CUA ou pesquisador.
-A Tabela~\ref{tab:formulario-custo-mediano} apresenta os custos medianos de geração.
+A Tabela~\ref{tab:formulario-recursos} resume as três medidas por modelo e pipeline.
 
 \begin{table}[htp]
   \centering
-  \caption{Custo mediano de geração em US\$, sem incluir a avaliação posterior
-    por Cypress, CUA ou pesquisador.
+  \caption{Estatísticas descritivas da geração, com 50 execuções por grupo,
+    incluindo as reprovadas. O desvio padrão é amostral. Os valores não incluem
+    a avaliação posterior por Cypress, CUA ou pesquisador.
     Fonte: elaboração própria, a partir dos \texttt{RUN.log} do lote.}
-  \label{tab:formulario-custo-mediano}
-  \begin{tabular}{lrr}
+  \label{tab:formulario-recursos}
+  \begin{tabular}{lrrrr}
     \hline
-    Modelo & Baseline & TDD \\
+    & \multicolumn{2}{c}{DeepSeek V4.1 Flash} & \multicolumn{2}{c}{GLM-5.3} \\
+    Estatística & Baseline & TDD & Baseline & TDD \\
     \hline
-    DeepSeek V4.1 Flash & 0,0197 & 0,0450 \\
-    GLM-5.3 & 0,0374 & 0,9376 \\
+    \multicolumn{5}{l}{Custo (US\$)} \\
+    Média & 0,0232 & 0,0610 & 0,0788 & 0,8979 \\
+    Mediana & 0,0197 & 0,0450 & 0,0374 & 0,9376 \\
+    Desvio padrão & 0,0113 & 0,0732 & 0,1246 & 0,5049 \\
+    Mínimo & 0,0068 & 0,0227 & 0,0011 & 0,0716 \\
+    Máximo & 0,0568 & 0,5539 & 0,4454 & 1,6528 \\
+    \hline
+    \multicolumn{5}{l}{Duração (minutos)} \\
+    Média & 3,07 & 8,92 & 4,16 & 25,79 \\
+    Mediana & 2,83 & 6,53 & 0,84 & 30,75 \\
+    Desvio padrão & 1,25 & 6,87 & 9,94 & 12,54 \\
+    Mínimo & 0,87 & 2,33 & 0,06 & 1,53 \\
+    Máximo & 7,73 & 34,57 & 34,32 & 54,90 \\
+    \hline
+    \multicolumn{5}{l}{Tokens (milhares)} \\
+    Média & 33,38 & 83,91 & 22,15 & 427,69 \\
+    Mediana & 32,53 & 71,45 & 12,49 & 367,46 \\
+    Desvio padrão & 9,11 & 80,70 & 28,05 & 349,00 \\
+    Mínimo & 11,08 & 39,68 & 3,87 & 32,85 \\
+    Máximo & 54,77 & 604,30 & 103,85 & 1623,10 \\
     \hline
   \end{tabular}
 \end{table}
