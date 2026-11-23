@@ -1429,18 +1429,57 @@ proíbem, e o agente de implementação não podia alterá-lo. O TDD precisava,
 portanto, de uma contrapartida que permitisse corrigir os testes durante a
 implementação, tratada na seção seguinte.
 
-% INI nova seção explicando a limitação do TDD e a solução encontrada
-% com essa limitação descoberta, fizemos uma sondagem experimental no mesmo cenário atual.
-% a principal diferença é que agora temos uma variante experimental do TDD denominada "TDD com Revisão",
-% que permite ao agente de implementação corrigir os testes visíveis durante a execução.
-% a ideia é que, com essa variante, o agente de implementação pode corrigir os testes
-% que estão incorretos, e assim não ficar preso a testes que não refletem o comportamento correto.
-% isso reflete muito da ideia do TDD tradicional. a premissa até agora era que os testes eram massivamente
-% construídos antes de qualquer código de produção. mas deve-se tomar em conta que essa produção de 
-% testes em massa antes da implementação também está sujeita a erros (linkar com a seção que explica não determinismo/llms eu acho).
-% portanto essa abordagem TDD com Revisão se aproxima mais do que realmente acontece no TDD tradicional, onde os testes são escritos e revisados iterativamente com o código.
-% uma vez com essa abordagem funcional, partimos para a comparação com as abordagens anteriores.
-% FIM
+% % nova seção explicando a limitação do TDD e a solução encontrada
+% % com essa limitação descoberta, fizemos uma sondagem experimental no mesmo cenário atual.
+% % a principal diferença é que agora temos uma variante experimental do TDD denominada "TDD com Revisão",
+% % que permite ao agente de implementação corrigir os testes visíveis durante a execução.
+% % a ideia é que, com essa variante, o agente de implementação pode corrigir os testes
+% % que estão incorretos, e assim não ficar preso a testes que não refletem o comportamento correto.
+% % isso reflete muito da ideia do TDD tradicional. a premissa até agora era que os testes eram massivamente
+% % construídos antes de qualquer código de produção. mas deve-se tomar em conta que essa produção de 
+% % testes em massa antes da implementação também está sujeita a erros (linkar com a seção que explica não determinismo/llms eu acho).
+% % portanto essa abordagem TDD com Revisão se aproxima mais do que realmente acontece no TDD tradicional, onde os testes são escritos e revisados iterativamente com o código.
+% % uma vez com essa abordagem funcional, partimos para a comparação com as abordagens anteriores.
+
+\section{TDD com revisão dos testes}
+\label{sec:prejanus-tdd-revisao}
+
+A limitação identificada decorre de a suíte inteira ser gerada antes de
+qualquer código de produção. Essa geração também está sujeita a erros. Como
+discutido na Subseção~\ref{subsec:determinismo}, o agente que escreve os testes
+é uma fonte de não determinismo: repetir a geração produz suítes diferentes, e
+cada uma pode conter interpretações incorretas do requisito. A prova de conceito
+do TOP também encontrou inconsistências nos testes gerados
+\citep{melegati2026top}. Com os testes congelados, o agente de implementação só
+pode adaptar o código a um teste incorreto ou esgotar o orçamento tentando
+satisfazê-lo.
+
+Para investigar essa limitação, fiz uma sondagem exploratória no mesmo cenário,
+com a variante TDD com revisão (\texttt{tdd-revisao}, apresentada na
+Subseção~\ref{subsec:extensoes-prejanus}). O agente que escreve os testes
+continua separado do agente de implementação, mas este pode alterar os testes
+autorais quando identificar um erro, desde que justifique a alteração pelo
+requisito ou pelos contratos fornecidos. Ele continua sem acesso ao gabarito e
+ao código original, e não recebe os erros encontrados na revisão da execução
+anterior. A entrada, o modelo, o provedor, o ambiente e o gabarito são os mesmos
+das execuções medidas. A revisão usa as chamadas do próprio agente de
+implementação, dentro dos mesmos limites de custo, tempo e propostas.
+
+A permissão não garante que uma alteração seja correta. Corrigir a preparação
+de um teste, como o usuário que executa a operação, preserva a verificação
+pretendida; trocar uma expectativa de rejeição por sucesso para coincidir com o
+código deixa de verificar o requisito. Por isso, o harness guarda a suíte
+inicial, as versões posteriores e suas diferenças, e o agente registra as
+justificativas em \texttt{tests/REVISOES.md}. 
+A avaliação usa os mesmos 247 casos do gabarito, depois da geração.
+
+A variante se aproxima do ciclo apresentado no
+Capítulo~\ref{cap:introducao}, em que os testes são escritos um de cada vez,
+alternados com a implementação \citep{beck2003tdd}, e evoluem com o código.
+No entanto, a aproximação é parcial, pois o pipeline ainda começa com uma suíte inteira gerada
+antes da implementação e não reproduz esse ciclo incremental.
+
+Com a nova variante em funcionamento, passei à comparação com as condições anteriores.
 
 \backmatter
 \pagestyle{backmatter}
