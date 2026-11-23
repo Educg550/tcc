@@ -1793,8 +1793,54 @@ a última proposta, alinhar a mensagem de falha ao papel do TDD com revisão e
 preservar a causa na saída do pytest repassada ao agente. Não fiz novas
 execuções depois desta rodada.
 
-% INI Capítulo conclusão
-% FIM
+\chapter{Conclusão}
+\label{cap:conclusao}
+
+Nos dois estudos, o pipeline baseado em TDD consumiu mais tokens que a geração
+direta, sem apresentar um ganho consistente de corretude funcional nos testes
+de aceitação. Na forma implementada neste trabalho, o custo adicional do TDD
+teve contrapartida em algumas comparações, mas os resultados não sustentam uma
+vantagem de custo-benefício sobre a geração direta.
+
+No formulário de auxílio financeiro, o TDD consumiu, em média, 2{,}5 vezes
+o total de tokens da geração direta com DeepSeek e cerca de 19 vezes com
+GLM. A aprovação nos 22
+critérios funcionais foi maior com a geração direta no DeepSeek (39 contra 30
+em 50 tentativas) e com TDD no GLM (9 contra 3 em 50 tentativas). Essas
+execuções repetiram o mesmo requisito, de modo que as taxas descrevem o
+desempenho nesse formulário. A avaliação de interface ficou restrita às
+finalistas, e as divergências entre as notas do CUA e da inspeção humana
+limitaram o que se pôde concluir sobre a qualidade da interface
+(Seções~\ref{sec:formulario-avaliacao} e~\ref{sec:formulario-sintese}).
+
+No PreJanus-back, o TDD com revisão passou em 8 casos a mais que a geração direta,
+com cerca de quatro vezes o custo de geração em dólares. As quatro variantes
+terminaram a rodada com feedback com pontuação menor.
+Com uma execução por variante em cada rodada, a queda
+observada combina possíveis efeitos do feedback com a variação entre gerações
+(Seções~\ref{sec:prejanus-resultados} e~\ref{sec:prejanus-resultados-licoes}).
+
+Os testes de aceitação aplicados à entrega respondem a uma pergunta diferente
+daquela respondida pelos testes usados durante a geração. Na rodada com
+feedback, o TDD e o rework chegaram a aprovar mais casos em propostas
+intermediárias. Nas duas execuções, o harness aplicou as edições de uma
+proposta interrompida e encerrou a etapa antes de rodar o gate novamente.
+As aplicações entregues deixaram de iniciar. O gabarito registrou a falha da
+entrega, e o desempenho das versões intermediárias nos casos reservados
+permanece desconhecido.
+
+Uma comparação futura pode repetir cada condição em diferentes requisitos
+sob o mesmo orçamento de geração. No harness, verificar a última proposta
+antes de aceitá-la e preservar a versão anterior quando a proposta for
+interrompida evitaria o mecanismo de regressão observado. O gabarito comum,
+aplicado à versão efetivamente entregue, permitiria medir se essas mudanças
+melhoram o atendimento aos requisitos dentro do mesmo orçamento.
+
+Portanto, nos cenários avaliados, o pipeline de TDD proposto apresentou uma
+relação entre corretude funcional e consumo de tokens em geral menos favorável
+que a da geração direta. O TDD consumiu mais tokens nos dois estudos, e os
+ganhos de aprovação nos testes de aceitação foram pontuais. Essa resposta
+se restringe ao pipeline implementado e aos requisitos avaliados.
 
 \backmatter
 \pagestyle{backmatter}
