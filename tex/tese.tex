@@ -1481,6 +1481,188 @@ antes da implementação e não reproduz esse ciclo incremental.
 
 Com a nova variante em funcionamento, passei à comparação com as condições anteriores.
 
+% % seção Resultados com todas as variantes e arquétipos comuns de falha
+% % basicamente exposição dos resultados obtidos, agora sim mais na linha da seção de resultados do experimento 1, com tabelas e gráficos. a ideia é mostrar que, com a variante TDD com revisão, o resultado do experimento se inverteu, e o TDD passou a ter uma performance melhor que antes, mas ainda não melhor que o baseline (eu acho que era isso).
+% % no final dessa seção, detalhar brevemente os defeitos que foram encontrados ao inspecionar cada uma das runs, e como eles se encaixam em arquétipos de falha comuns. a ideia é mostrar que, mesmo com a variante TDD com revisão, ainda existem falhas que são recorrentes e que podem ser agrupadas em arquétipos, o que pode ajudar a guiar futuras melhorias no pipeline. essas melhorias serão introduzidas por meio de feedback direto que será melhor explicado na próxima seção.
+
+\section{Resultados das quatro variantes}
+\label{sec:prejanus-resultados}
+
+A tabela comparativa abaixo reúne uma execução de cada variante: baseline, TDD, TDD com
+revisão e rework. Todas usaram o modelo \texttt{z-ai/glm-5.3}, o mesmo
+provedor, o mesmo ambiente e os mesmos tetos por etapa, de US\$~2, uma hora e
+40 propostas. As três primeiras seguem a Estratégia~1, com o gabarito
+inteiramente oculto; o rework segue a Estratégia~2. A
+Tabela~\ref{tab:prejanus-resultados} resume o gabarito e o consumo de cada
+execução.\footnote{Execuções em
+\url{https://github.com/Educg550/tcc/tree/main/demos/runs/caronte}, nas pastas
+\texttt{05-prejanus-back-piloto-v3-baseline-20261023-221756},
+\texttt{05-prejanus-back-piloto-v3-tdd-20261023-223904},
+\texttt{05-prejanus-back-piloto-v3-tdd-revisao-20261027-161847} e
+\texttt{05-prejanus-back-piloto-v3-rework-20261024-000419}. Resumo em
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-28-resumo-prejanus-back.md}.}
+
+\begin{table}[htp]
+  \centering
+  \caption{Gabarito e consumo das quatro execuções. Os reservados sem
+    divergência excluem os seis casos reservados em que o original falha.
+    Os testes do gate são os próprios, no TDD e no TDD com revisão, e os
+    visíveis, no rework; no TDD, um caso ignorado fica fora do denominador.
+    Fonte: elaboração própria, a partir de \texttt{ORACULO.json},
+    \texttt{oraculo.xml} e \texttt{RUN.log} de cada execução.}
+  \label{tab:prejanus-resultados}
+  \small
+  \begin{tabular}{lrrrr}
+    \hline
+    Medida & Baseline & TDD & TDD com revisão & Rework \\
+    \hline
+    Gabarito completo (247) & 186 & 140 & 194 & 211 \\
+    Visíveis (161) & 123 & 90 & 130 & 151 \\
+    Reservados (85) & 62 & 49 & 63 & 59 \\
+    Reservados sem divergência (79) & 58 & 47 & 60 & 58 \\
+    \hline
+    Testes do gate no fim & --- & 27/56 & 81/83 & 151/161 \\
+    Propostas de implementação & 1 & 10 & 6 & 2 \\
+    Fim da etapa de código & entrega única & tempo & custo & custo \\
+    Custo (US\$) & 0,56 & 2,07 & 2,22 & 2,03 \\
+    Duração da geração (s) & 518 & 3.965 & 2.926 & 3.952 \\
+    Tokens (milhões) & 2,65 & 7,43 & 8,53 & 9,37 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Com a revisão dos testes, a ordem entre TDD e baseline se inverteu. O TDD com
+revisão passou em 194 dos 247 casos, 54 a mais que o TDD com testes congelados
+e oito a mais que a baseline. O custo foi cerca de quatro vezes o da baseline,
+que entregou o código em uma única proposta e sem executar testes.
+
+O rework teve o maior total, 211 casos, mas os 151 visíveis aprovados já
+orientaram a implementação. Nos reservados, que são sua medida principal,
+passou em 59, abaixo da baseline e do TDD com revisão. Sem as divergências do
+original, empatou com a baseline em 58.
+
+Essas diferenças vêm de uma execução por condição. O TDD variou de 140 a 209
+casos entre execuções da Seção~\ref{sec:prejanus-resultados-preliminares}, e
+as distâncias entre baseline, TDD com revisão e rework nos reservados são de
+poucos casos. Também não é possível atribuir os 54 acertos adicionais do TDD
+com revisão só à permissão de revisar os testes: a suíte própria foi gerada
+outra vez, com 83 casos em vez de 56, e a implementação também foi uma nova
+amostra do modelo. Na execução, o agente de implementação alterou apenas um
+helper dos testes de e-mail, que lia de forma incorreta a resposta do serviço
+SMTP do ambiente, preservando os seis testes e as 19 asserções do arquivo.
+
+A Figura~\ref{fig:prejanus-areas} separa o gabarito pelas áreas do requisito.
+A melhora no total não se repete em todas elas. Em mapeamentos, o TDD com
+revisão passou em 20 dos 27 casos, contra 3 do TDD e 26 da baseline; em
+formulários, ficou em 11 dos 24, abaixo dos 15 do TDD e dos 24 do rework. Em
+mensagens, a baseline e o rework passaram em 13 dos 16 casos, dois a mais que
+o original, porque o gabarito inclui comportamentos do requisito que o
+original não atende.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/prejanus-areas.pdf}
+  \caption{Proporção de casos aprovados por área do gabarito, com a quantidade
+    de casos entre parênteses. O traço preto indica o original. As áreas de
+    percursos e rastreio, com um caso cada, ficam fora do gráfico.
+    Fonte: elaboração própria, a partir de \texttt{oraculo.xml} de cada
+    execução e de \texttt{divergencias.json}, com
+    \texttt{tex/figuras/graficos-prejanus.py}.}
+  \label{fig:prejanus-areas}
+\end{figure}
+
+\subsection{Arquétipos de falha}
+\label{subsec:prejanus-arquetipos}
+
+Para entender as falhas, li o código de produção das quatro entregas, a saída
+de cada gate e os logs da aplicação durante o gabarito, e agrupei os casos que
+falharam por causa raiz. Não executei novamente as aplicações nem os
+testes.\footnote{Análise em
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-11-11-analise-entregas-prejanus-back.md}.}
+Em todas as entregas, poucos defeitos explicam boa parte das falhas, como
+mostra a Tabela~\ref{tab:prejanus-defeitos}.
+
+\begin{table}[htp]
+  \centering
+  \caption{Defeito com mais casos afetados em cada entrega. A contagem do TDD
+    é aproximada, pois parte dos casos falha em cascata, sem a mensagem do
+    erro original. Fonte: elaboração própria, a partir do código e dos logs
+    de cada execução.}
+  \label{tab:prejanus-defeitos}
+  \begin{tabular}{lp{7.5cm}r}
+    \hline
+    Entrega & Defeito & Casos \\
+    \hline
+    Baseline & \texttt{flatten\_mapping} percorre as folhas do mapeamento,
+      que também são dicionários, e devolve os dados mapeados vazios & 15 \\
+    TDD & coluna \texttt{form\_type} declarada como texto no ORM, enquanto o
+      esquema fornecido usa o enum \texttt{form\_type\_enum} & $\sim$81 \\
+    TDD com revisão & formato das respostas de \texttt{/forms} sem
+      correspondência na entrada & 15 \\
+    Rework & URL do OAuth montada sem a barra entre host e recurso & 7 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+As falhas se repetem em alguns arquétipos:
+
+\begin{enumerate}
+  \item \emph{Contrato inventado onde a entrada não especifica.} Sem esquema de
+    resposta, o modelo traduz o termo do requisito, usa o nome da coluna ou
+    envolve a lista em um objeto. No TDD com revisão, 38 das 46 falhas fora das
+    divergências do original estão em operações sem esquema de resposta. O
+    rework só evita esse problema quando um teste visível mostra o nome
+    esperado.
+  \item \emph{Defeito pontual em caminho compartilhado.} Um nome de função
+    errado entre módulos, o tipo de uma coluna ou uma barra em uma URL derrubam
+    dezenas de casos. Na baseline, por exemplo, \texttt{routers/auth.py} chama
+    \texttt{oauth.author\_url}, mas a função se chama
+    \texttt{authorize\_url}, e o início do login responde com erro 500.
+  \item \emph{Feedback que não vira correção.} Os testes próprios do TDD
+    acusaram o erro do enum nas dez propostas, mas o agente de implementação
+    alterou o formato das mensagens de erro e o driver do banco, sem mudar a
+    declaração da coluna. No rework, o erro da URL do OAuth já aparecia na
+    saída do primeiro gate e permaneceu na segunda proposta.
+  \item \emph{Teste próprio que fixa uma leitura ambígua.} Os testes próprios
+    dos dois TDDs enviam os parâmetros de retorno do OAuth no corpo da
+    requisição, e o código passou a lê-los de lá; o gabarito os envia na URL,
+    e o OpenAPI fornecido não declara esses parâmetros. No TDD com revisão, o
+    teste \texttt{test\_secoes\_versao\_inexistente\_fallback} compara o
+    resultado com as seções ativas, enquanto o requisito pede todas as seções.
+    Na primeira proposta, o código seguia o requisito e falhava nesse teste; na
+    terceira, passou a filtrar as seções ativas. O agente podia revisar o
+    teste e não o fez.
+  \item \emph{Raciocínio longo sem ação.} No TDD, sete chamadas ocuparam 63\%
+    do tempo das chamadas ao modelo, e uma delas levou 670 segundos e 100 mil
+    tokens sem pedir ferramenta. No TDD com revisão, duas das seis propostas
+    não editaram nenhum arquivo.
+\end{enumerate}
+
+Parte das falhas não depende do pipeline. Vinte e dois casos falham nas quatro
+entregas. Dez cobram nomes que não estão no requisito, no OpenAPI nem no
+README, e cinco são do retorno do OAuth, cujo canal a entrada não define.
+Três são divergências do original, um depende de um link do serviço de
+formulários já registrado como instável, e três cobram formatos de resposta
+sem esquema. Com essa entrada, o máximo alcançável por um gerador fica abaixo
+dos 233 casos do original.
+
+Os defeitos que a entrada permitiria evitar mudam de uma execução para outra.
+Os arquétipos, ao contrário, aparecem em mais de uma entrega, inclusive no TDD
+com revisão. Por isso, o feedback avaliado na seção seguinte descreve cuidados
+de processo derivados desses arquétipos, sem informar os nomes cobrados pelo
+gabarito.
+
+
+
+
+
+% seção feedback dos arquétipos de falha em novos requisitos
+
+
+
+
+% Resultados finais (após feedback)
+
 \backmatter
 \pagestyle{backmatter}
 \printbibliography[title=\refname, heading=bibintoc]
