@@ -513,6 +513,7 @@ uv run python -m harness.cli avaliar projeto requisito
 
 
 \subsubsection{Extensões para o experimento do PreJanus}
+\label{subsec:extensoes-prejanus}
 
 O experimento do PreJanus-back reutiliza o harness com uma entrada e uma avaliação
 próprias. Nesse experimento, a geração termina sem executar Cypress ou CUA; em seguida,
@@ -717,8 +718,7 @@ do CUA neste trabalho será discutido nos experimentos e resultados.
 
 O primeiro experimento partiu de uma sugestão do orientador Paulo Meirelles.
 Ele consiste em gerar uma aplicação web a partir do requisito de um formulário de solicitação
-de auxílio financeiro e avaliar o resultado pela interface. A proposta inicial
-era usar o CUA como único avaliador ao fim do processo. O formulário oferecia um caso de uso com
+de auxílio financeiro e avaliar o resultado pela interface. O formulário oferecia um caso de uso com
 campos, validações e um documento de saída definidos, além de aspectos visuais
 que exigiam julgamento. Assim, permitia examinar tanto a geração de código
 quanto a avaliação comportamental discutida no capítulo anterior.
@@ -875,13 +875,10 @@ Como mencionado anteriormente, inicialmente, planejava-se usar apenas o CUA como
 O custo elevado por token do modelo fixado para essa etapa e o uso de um avaliador não
 determinístico para verificar comportamentos determinísticos motivaram também
 a inclusão do Cypress, um framework de automação de testes para aplicações web
-baseado em JavaScript. Com isso, o Cypress passou a verificar os comportamentos
-definidos pelo requisito, enquanto o CUA ficou responsável pelos aspectos que
-exigiam julgamento pela interface.
-Uma suíte canônica, comum às implementações, passou a verificar os textos e
-comportamentos fixados pelo requisito. Assim, os testes gerados pelo TDD
-permaneceram parte do processo de implementação, enquanto a comparação
-funcional passou a usar uma régua externa compartilhada.
+baseado em JavaScript. Com isso, uma suíte Cypress canônica, comum às
+implementações, passou a verificar os textos e comportamentos fixados pelo
+requisito, enquanto o CUA ficou responsável pelos aspectos que exigiam
+julgamento pela interface.
 
 Nessa organização, o arquivo \texttt{criterios.toml} reúne os critérios que
 orientam a avaliação de aceitação, no mesmo sentido da definição presente na
@@ -1185,14 +1182,14 @@ O CUA fica fora do escopo nesse experimento.
 
 Antes das execuções, foram preparados os requisitos e o gabarito de testes,
 com apoio de agentes e leitura do código original. Essa engenharia reversa
-foi feita com auxílio de agentes e produziu uma descrição das operações e de suas regras,
+produziu uma descrição das operações e de suas regras,
 contratos de interface, esquemas dos bancos e configuração do ambiente. O contrato
 OpenAPI registra métodos, caminhos, parâmetros e corpos das requisições;
 o documento de requisitos complementa os comportamentos que ele não descreve.
 Esses artefatos foram preparados fora das execuções medidas.
 
-Foi aqui também que, com auxílio de agentes, se produziu a suíte de testes definda como gabarito.
-O gabarito é uma suíte externa que envia requisições HTTP e verifica respostas
+Foi aqui também que produzi a suíte de testes definda como gabarito.
+O gabarito é uma suíte externa de caixa preta, que envia requisições HTTP e verifica respostas
 e efeitos das operações, como persistência, envio de e-mails e geração de
 relatórios. Os testes não importam as funções Python das implementações
 avaliadas. Há 246 casos comportamentais e um teste de rastreio, que confere
@@ -1204,11 +1201,9 @@ A avaliação das reconstruções adota a abordagem de caixa preta descrita na
 Subseção~\ref{sec:testes-caixa-preta}: observa o comportamento por uma
 interface comum, sem depender da organização interna do código gerado.
 A leitura do original na preparação permitiu documentar esse comportamento.
-Já uma avaliação de caixa branca usaria a estrutura interna da implementação
-avaliada para escolher os caminhos a exercitar. Testes de aceitação, definidos
-na Subseção~\ref{sec:testes-aceitacao}, dizem respeito à finalidade de verificar
-o atendimento aos requisitos. O gabarito tem essa finalidade no recorte da
-API, com verificações objetivas; ele não avalia a usabilidade do frontend.
+O gabarito tem a finalidade dos testes de aceitação
+(Subseção~\ref{sec:testes-aceitacao}) no escopo da API, com verificações
+objetivas e determinísticas.
 
 Na validação registrada do original, passaram 233 dos 247 casos. Portanto, o gabarito também
 exige comportamentos previstos nos requisitos que o original não atende, e isso foi levado em conta
@@ -1244,9 +1239,7 @@ Em ambas, o código original fica fora da entrada dos agentes.
 
 A primeira estratégia compara baseline e TDD, descritos no
 Capítulo~\ref{cap:introducao}, a partir dos mesmos requisitos e contratos.
-O gabarito completo permanece oculto para os dois pipelines e só é executado
-depois da geração, sem devolver suas falhas ao agente para novas correções.
-A Figura~\ref{fig:prejanus-requisitos} representa essa separação.
+A Figura~\ref{fig:prejanus-requisitos} representa esse fluxo.
 
 \begin{figure}[htp]
   \centering
@@ -1281,11 +1274,10 @@ A Figura~\ref{fig:prejanus-requisitos} representa essa separação.
 \subsection{Estratégia 2: reconstrução a partir dos testes visíveis}
 \label{sec:prejanus-rework}
 
-Na segunda estratégia, denominada \emph{rework}, o agente recebe os 161 casos
-visíveis e os contratos necessários à integração com o ambiente. Não recebe
-o código original, o documento de requisitos nem as issues do projeto.
-Ele deve inferir o comportamento esperado a partir das verificações
-disponíveis e construir uma implementação do zero.
+A segunda estratégia é o \emph{rework} descrito na
+Subseção~\ref{subsec:extensoes-prejanus}. O agente também não recebe as issues
+do projeto e deve inferir o comportamento esperado a partir das verificações
+disponíveis.
 
 O harness executa os testes visíveis e devolve o resultado ao agente para
 correções, até a aprovação ou um limite de execução. O gate usa uma cópia dos
