@@ -1652,16 +1652,61 @@ com revisão. Por isso, o feedback avaliado na seção seguinte descreve cuidado
 de processo derivados desses arquétipos, sem informar os nomes cobrados pelo
 gabarito.
 
+% % seção feedback dos arquétipos de falha em novos requisitos
+% % após os problemas comuns identificados na seção anterior, decidi rodar uma última run para cada uma das quatro variantes (montar uma tabelinha com os ajustes/feedback fornecido pra cada uma, ou um simples quote se for igual pra todas)
 
+\section{Feedback para as quatro variantes}
+\label{sec:prejanus-licoes}
 
+Depois da análise das entregas, foram executadas novas runs, cada uma com 
+feedback na entrada, para verificar se o acerto melhora ou piora. Rodei uma
+última execução de cada variante, com o mesmo bloco de lições acrescentado à
+entrada de todos os agentes, inclusive o que escreve os testes:
 
+\begin{quote}
+  Lições das execuções anteriores:
+  \begin{itemize}
+    \item Confira se as funções chamadas entre módulos existem e se seus nomes
+      e argumentos correspondem.
+    \item Respeite os tipos do esquema SQL fornecido, inclusive enums, nas
+      consultas e no ORM.
+    \item Confira a junção entre host e caminho nas URLs de integração.
+    \item Preserve informações que permitam identificar a causa das falhas;
+      não transforme erros em resultados vazios ou sucesso.
+    \item Quando receber falhas, investigue a causa antes de consertar o
+      sintoma do erro. Nos testes que escrever, não descarte respostas
+      inesperadas que expliquem uma falha
+  \end{itemize}
+\end{quote}
 
-% seção feedback dos arquétipos de falha em novos requisitos
+As três primeiras lições generalizam defeitos pontuais em caminho
+compartilhado da Subseção~\ref{subsec:prejanus-arquetipos}: o nome de função
+errado da baseline, o enum do TDD e a URL do OAuth do rework. As duas últimas
+vêm da entrega do TDD, em que uma exceção engolida transformava a falha do
+relatório em um download inexistente, o agente de implementação alterou o
+formato do erro sem corrigir a coluna e um helper dos testes próprios
+descartava respostas diferentes de 200, o que escondia a causa das falhas.
+O bloco foi limitado a cuidados derivados dos testes visíveis e dos contratos
+de entrada. Os reservados não foram usados para prepará-lo, e nenhuma lição
+informa os nomes ou formatos cobrados pelo gabarito.
 
+O restante da configuração não mudou. Cada implementação começou do zero, sem
+receber o código das execuções anteriores. O gabarito completo foi aplicado ao fim de
+cada execução, sem correção manual nem segunda tentativa.\footnote{Execuções
+em \url{https://github.com/Educg550/tcc/tree/main/demos/runs/caronte}, nas
+pastas \texttt{05-prejanus-back-piloto-v3-licoes-baseline-20261115-121042},
+\texttt{05-prejanus-back-piloto-v3-licoes-tdd-20261115-123705},
+\texttt{05-prejanus-back-piloto-v3-licoes-rework-20261115-134805} e
+\texttt{05-prejanus-back-piloto-v3-licoes-tdd-revisao-20261115-152120}. Cada
+uma preserva o bloco em \texttt{\_harness/entrada/licoes.md}.}
 
-
+Como nas execuções anteriores, há uma execução por variante. A comparação com
+a Seção~\ref{sec:prejanus-resultados} não separa o efeito das lições da
+variação entre gerações do modelo.
 
 % Resultados finais (após feedback)
+
+% Capítulo conclusão
 
 \backmatter
 \pagestyle{backmatter}
