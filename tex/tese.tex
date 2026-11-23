@@ -98,119 +98,32 @@ são parte do processo de implementação; a avaliação usa testes externos a e
 \section{Pergunta de pesquisa}
 \label{sec:pergunta-pesquisa}
 
-Dada a diferença entre o desenvolvimento de software direto e o desenvolvimento
-com TDD, este trabalho busca responder: o uso de TDD melhora a qualidade do
-software? A relação entre o consumo de tokens e o atendimento aos requisitos
-melhora ou piora? Como avaliar de forma precisa se uma implementação é melhor
-ou pior que outra?
-
-Este trabalho investiga se o uso de TDD na geração por agentes produz código
-que atende melhor aos requisitos do que a geração direta. A comparação se
-restringe aos casos avaliados e considera também o consumo de tokens de cada
-pipeline em relação ao atendimento observado. Busca-se examinar se eventuais
-ganhos de corretude compensam o consumo de tokens necessário para obtê-los.
-
-Essa comparação exige critérios comuns para avaliar as implementações e
-identificar em quais aspectos uma atende melhor aos requisitos do que outra.
-A Seção~\ref{sec:corretude} define a noção de corretude adotada e distingue
-critérios objetivos de critérios que dependem de julgamento.
+A geração com TDD produz código que atende melhor aos requisitos do que a
+geração direta? Nos casos avaliados, a comparação considera também quantos
+tokens cada pipeline consome para obter o resultado observado.
 
 \section{Corretude e critérios de avaliação}
 \label{sec:corretude}
 
-\subsubsection{Corretude}
-
 Como observa \citet[seção~2.1]{dijkstra1969structured}, testes podem revelar a
 presença de defeitos, mas sua execução sem falhas não demonstra a ausência deles.
 
-Neste trabalho, a corretude funcional é entendida como o atendimento ao
-comportamento especificado nos requisitos.
-
-\subsubsection{Critérios objetivos}
-
-Um teste automatizado verifica uma
-parte desse comportamento ao executar uma ação e comparar o resultado observado
-com o esperado. Por exemplo, se uma função deve somar dois inteiros, o
-Programa~\ref{lst:teste-soma} verifica uma entrada cujo resultado é conhecido.
-
-\begin{lstlisting}[language=Python,caption={Teste de uma função de soma.},label={lst:teste-soma}]
-from calculadora import soma
-
-
-def test_soma():
-    assert soma(6, 7) == 13
-\end{lstlisting}
-
-Esse teste verifica apenas o caso escolhido. Uma implementação que devolvesse
-sempre o valor 13 também passaria nele, embora descumprisse o requisito para
-outras entradas. Assim, a aprovação em um conjunto de testes fornece evidência
-sobre os casos exercitados, sem demonstrar a corretude geral da implementação.
-
-Há também requisitos objetivos cuja verificação exige controlar condições de
-execução mais complexas. Considere um contador iniciado em zero que recebe dois
-incrementos concorrentes.
-
-\begin{lstlisting}[language=Python,caption={Teste que força a perda de um incremento concorrente.},label={lst:teste-contador}]
-from threading import Barrier, Thread
-
-
-def test_incrementos_concorrentes():
-    contador = 0
-    barreira = Barrier(2)
-
-    def incrementar():
-        nonlocal contador
-        valor = contador
-        barreira.wait()
-        contador = valor + 1
-
-    threads = [Thread(target=incrementar) for _ in range(2)]
-    for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join()
-
-    assert contador == 2
-\end{lstlisting}
-
-No Programa~\ref{lst:teste-contador}, a barreira faz as duas threads aguardarem
-até que ambas tenham lido o contador. As duas leem zero e escrevem 1, fazendo
-a asserção falhar.
-Se ambos os incrementos devem ser contabilizados, o valor final
-esperado é 2. Uma implementação incorreta pode perder um incremento quando as
-operações se intercalam, mas produzir o resultado esperado em outra execução.
-O critério de aceitação continua objetivo; a dificuldade está em exercitar a
-intercalação que revela a falha. Nesse caso, repetir uma execução sem controlar
-a ordem das operações pode deixar o defeito sem detecção.
-
-\subsubsection{Critérios subjetivos}
-
-A qualidade de uma interface inclui ainda aspectos que exigem julgamento.
-Em um formulário, conferir se os dados preenchidos são preservados ao trocar
-de aba permite comparar valores antes e depois da ação. Já avaliar se o
-espaçamento separa adequadamente os blocos de campos ou se a organização visual
-facilita a leitura exige interpretar a apresentação no contexto de uso.
-Esses julgamentos podem ser orientados por critérios explícitos, embora não se
-reduzam à comparação de um valor com uma resposta única.
-
-O formulário da Figura~\ref{fig:formulario-identidade-usp} ilustra essa dificuldade:
-a presença do logotipo e das cores da USP pode ser verificada isoladamente,
-mas avaliar se sua combinação caracteriza a identidade visual da instituição
-exige definir o que se espera da apresentação como um todo.
+Neste trabalho, a corretude funcional é o atendimento ao comportamento definido
+nos requisitos. Os testes fornecem evidências sobre os casos exercitados
+\citep[seção~2.1]{dijkstra1969structured}. No formulário, conferir quais
+campos aparecem ao trocar para a aba de docentes é um critério objetivo.
+Avaliar se a disposição dos campos facilita a leitura exige julgamento.
+A Figura~\ref{fig:formulario-identidade-usp} mostra a interface sobre a qual
+esse julgamento é feito.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/avaliacao/c3.cy.js}{Teste Cypress da troca de aba} e
+\href{https://github.com/Educg550/tcc/tree/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline}{arquivos da aplicação}.}
 
 \begin{figure}[htp]
   \centering
-  \includegraphics[width=0.80\textwidth]{figuras/formulario-torneio-cego.png}
-  \caption{Como pedir para um teste automatizado verificar que essa interface
-    segue a identidade visual da USP? Recorte do formulário da run44
-    (DeepSeek, baseline), vencedora do torneio cego. Fonte: elaboração própria.}
+  \includegraphics[width=0.70\textwidth]{figuras/formulario-torneio-cego.png}
+  \caption{Recorte do formulário vencedor do torneio cego (run44, DeepSeek
+    baseline). Fonte: elaboração própria.}
   \label{fig:formulario-identidade-usp}
 \end{figure}
-
-Na comparação entre implementações, atender a mais casos de teste indica melhor
-desempenho nos comportamentos avaliados. A clareza da interface requer uma
-avaliação própria, com seus critérios e justificativas. Essas duas dimensões
-permitem delimitar em que sentido uma implementação é considerada melhor que outra.
 
 % % Harness vai virar uma secao do capitulo que vai abraanger as ferramentas e o ambiente de execucao do experimento.
 % % o primeiro capítulo vai ser agente (supondo que a pessoa já tem uma ideia vaga do que é um LLM e do mecanismo de transformers e attention, linka o paper do attention is all you need e fala isso epxlicitamente bem breve no comecinho), aqui vamos definir com a definicao de agente que está escrita em alguma nota do diário (nao precisa linkar o diário NUNCA como referência no TCC, somente linka sei la coisas mais formais tipo o langchain)
@@ -221,108 +134,32 @@ permitem delimitar em que sentido uma implementação é considerada melhor que 
 \section{Testes de software}
 \label{sec:testes-software}
 
-Nessa tese, focaremos no uso e na discussão especialmente dos testes unitários, que verificam isoladamente unidades do software, como funções ou
-classes. Essa classificação considera o que é testado. Já a distinção entre
-caixa branca e caixa preta considera as informações usadas para definir os
-casos de teste \citep[cap.~5, seções~2.1.1 e~3]{swebok2026}.
-Por exemplo, testar isoladamente uma função que calcula um desconto permite
-conferir seu resultado para entradas escolhidas, sem executar uma compra
-completa. Um teste unitário pode adotar a abordagem de caixa branca ou de caixa
-preta. Essas abordagens e os testes de aceitação, que dizem respeito à finalidade
-da avaliação, são apresentados nas subseções a seguir.
+Testes unitários verificam unidades isoladas, como funções ou classes. A
+distinção entre caixa branca e caixa preta diz respeito à informação usada
+para definir os casos \citep[cap.~5, seções~2.1.1 e~3]{swebok2026}.
 
 \subsection{Testes de caixa branca}
 \label{sec:testes-caixa-branca}
 
-Nos testes de caixa branca, os casos são definidos a partir da estrutura
-interna da implementação, como suas decisões e caminhos de execução
-\citep[cap.~5, seção~3]{swebok2026}. O código orienta a escolha das entradas
-que serão usadas para exercitar esses caminhos.
-
-Considere uma função que concede desconto quando o valor da compra ultrapassa
-um limite. Ao observar essa condição no código, podem-se escolher entradas
-que façam a execução entrar no bloco do desconto e outras que a façam seguir
-sem desconto. Além de executar os dois caminhos, os testes devem conferir
-se os valores calculados correspondem ao esperado. Se a implementação tiver
-esquecido uma regra do requisito, percorrer seus caminhos não exercitará,
-por si só, essa regra ausente.
-A Figura~\ref{fig:testes-caixa-branca} representa essa abordagem.
-
-\begin{figure}[htp]
-  \centering
-  \setlength{\unitlength}{1mm}
-  \begin{picture}(140,28)
-    \put(0,9){\makebox(25,10){Entradas}}
-    \put(27,14){\vector(1,0){15}}
-    \put(44,3){\framebox(52,22){}}
-    \put(44,18){\makebox(52,5){Sistema sob teste}}
-    \put(47,6){\framebox(21,8){Decisão}}
-    \put(69,10){\vector(1,0){5}}
-    \put(75,6){\framebox(18,8){Caminho}}
-    \put(98,14){\vector(1,0){15}}
-    \put(115,9){\makebox(25,10){Saídas}}
-  \end{picture}
-  \caption{Testes de caixa branca: a estrutura interna orienta a definição
-    dos casos de teste. Fonte: elaboração própria, com base em
-    \citet[cap.~5]{swebok2026}.}
-  \label{fig:testes-caixa-branca}
-\end{figure}
+Na abordagem de caixa branca, a estrutura interna da implementação orienta
+a escolha dos casos, por exemplo, para percorrer os dois caminhos de uma
+condição.
 
 \subsection{Testes de caixa preta}
 \label{sec:testes-caixa-preta}
 
-Nos testes de caixa preta, os casos se baseiam nas entradas e saídas esperadas,
-conforme o comportamento especificado, sem depender da estrutura interna da
-implementação \citep[cap.~5, seção~3]{swebok2026}. O teste interage com a
-interface disponível e compara a resposta observada à resposta esperada.
-
-No exemplo do desconto, o requisito pode estabelecer que compras acima de
-R\$~100 recebem desconto de 10\%. Um teste pode fornecer R\$~150 e esperar
-R\$~135, independentemente de como o cálculo foi programado. Também pode
-verificar que uma compra de exatamente R\$~100 permanece sem desconto.
-Esses casos podem ser aplicados a implementações diferentes que ofereçam a
-mesma interface e devam cumprir o mesmo requisito. A avaliação fica limitada
-aos comportamentos exercitados pelos casos escolhidos.
-A Figura~\ref{fig:testes-caixa-preta} representa essa abordagem.
-
-\begin{figure}[htp]
-  \centering
-  \setlength{\unitlength}{1mm}
-  \begin{picture}(140,28)
-    \put(0,9){\makebox(25,10){Entradas}}
-    \put(27,14){\vector(1,0){15}}
-    \put(44,6){\framebox(52,16){Sistema sob teste}}
-    \put(98,14){\vector(1,0){15}}
-    \put(115,9){\makebox(25,10){Saídas}}
-  \end{picture}
-  \caption{Testes de caixa preta: os casos se baseiam nas entradas e saídas
-    esperadas, sem depender da estrutura interna. Fonte: elaboração própria, com base em
-    \citet[cap.~5]{swebok2026}.}
-  \label{fig:testes-caixa-preta}
-\end{figure}
+Na abordagem de caixa preta, os casos partem do comportamento especificado.
+O teste interage com a interface disponível e compara o resultado observado
+com o esperado. A mesma suíte pode ser aplicada a implementações diferentes
+que ofereçam a mesma interface.
 
 \subsection{Testes de aceitação}
 \label{sec:testes-aceitacao}
 
 Testes de aceitação verificam se o sistema atende aos requisitos e às
-expectativas dos usuários nas tarefas para as quais foi construído. Essa
-avaliação também pode abranger aspectos de usabilidade
-\citep[cap.~5, seção~2.1.4]{swebok2026}.
-Para definir um teste, é preciso explicitar as condições em que o sistema
-será usado e o resultado que permitirá considerar a tarefa atendida.
-
-Em um formulário de solicitação, por exemplo, um critério pode exigir que
-o envio com um campo obrigatório vazio seja recusado e que a interface
-identifique o campo a corrigir. O teste consiste em deixar esse campo vazio,
-tentar enviar e conferir a resposta. Outro critério pode exigir que o usuário
-consiga entender a mensagem de erro e corrigir o preenchimento; nesse caso,
-a avaliação inclui um julgamento sobre a orientação apresentada.
-
-Enquanto caixa branca e caixa preta distinguem as informações usadas para
-definir os casos, a aceitação expressa a finalidade da avaliação. No exemplo
-do formulário, observar as ações e respostas da interface permite realizar
-um teste de aceitação pela abordagem de caixa preta, sem consultar a
-implementação interna.
+expectativas dos usuários nas tarefas para as quais foi construído
+\citep[cap.~5, seção~2.1.4]{swebok2026}. Neste trabalho, o formulário é
+avaliado pelo navegador, e o PreJanus-back, pela interface HTTP.
 
 \chapter{Ferramentas e ambiente de execução}
 \label{cap:ferramentas}
@@ -330,28 +167,10 @@ implementação interna.
 \section{Agentes}
 \label{sec:agentes}
 
-Pressupõe-se familiaridade com grandes modelos de linguagem e com os conceitos
-de Transformer e atenção, apresentados por \citet{vaswani2017attention}.
-A Figura~\ref{fig:transformer} reproduz a arquitetura do artigo, como referência
-para o modelo que compõe o agente.
-
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.48\textwidth]{figuras/transformer.png}
-  \caption{Arquitetura do Transformer. Fonte: \citet[figura~1]{vaswani2017attention}.}
-  \label{fig:transformer}
-\end{figure}
-
-Neste trabalho, adota-se a definição de \citet{trivedy2026harness}: um agente é a
-combinação de um modelo LLM com um harness. O modelo propõe ações a partir das
-instruções e das observações disponíveis; o harness fornece as ferramentas e
-executa essas ações. Os resultados retornam ao modelo e passam a orientar as
-próximas decisões.
-
-Em uma tarefa de geração de código, por exemplo, o agente pode solicitar a
-leitura de um arquivo, propor sua alteração e executar testes para observar o
-comportamento da implementação. O acesso aos arquivos e a execução dos comandos
-dependem da infraestrutura que envolve o modelo.
+Um agente combina um modelo de linguagem e um harness. O modelo escolhe as
+ações a partir das instruções e observações. O harness executa as ações
+solicitadas e devolve seus resultados ao modelo, que pode usá-los para decidir
+o passo seguinte \citep{trivedy2026harness}.
 
 \subsection{Determinismo e não determinismo}
 \label{subsec:determinismo}
@@ -362,13 +181,6 @@ que os incorporam são tratados como fontes de não determinismo: repetir uma
 instrução pode produzir respostas diferentes e, no caso dos agentes, ações e
 percursos de execução diferentes. Assim, duas tentativas de gerar código para
 o mesmo requisito podem resultar em implementações distintas.
-
-Os termos determinismo e não determinismo serão usados ao longo do trabalho
-para discutir tanto a geração de código quanto sua avaliação. Os termos
-modelo e LLM serão usados como equivalentes. Quando o contexto permitir,
-agente também será usado por extensão para o sistema que utiliza esse modelo;
-quando a distinção importar, modelo designará o LLM e agente designará o
-conjunto formado pelo modelo e pelo harness.
 
 \section{Harness}
 \label{cap:harness}
@@ -388,301 +200,64 @@ conjunto formado pelo modelo e pelo harness.
 % a CLI do harness opera com os seguintes argumentos:
 % (listar argumentos e explicar cada um deles em uma frase simples)
 
-Um harness é a infraestrutura que envolve um modelo de linguagem para permitir
-que ele atue como agente em um ambiente \citep{openharness}. O harness recebe a
-entrada do usuário, monta o contexto enviado ao modelo e processa sua resposta.
-Essa resposta pode conter chamadas de ferramentas (\emph{tool calls}), que
-solicitam ações como ler um arquivo ou executar um comando. O harness executa as
-ações e devolve os resultados ao modelo, que pode usá-los para decidir o próximo
-passo. Esse ciclo constitui o laço agêntico.
-
-A Figura~\ref{fig:harness-generico} apresenta componentes de um harness genérico.
-Além da execução de ações, o diagrama inclui o fornecimento de contexto, o
-controle do fluxo, a persistência de informações e a observação dos resultados.
-A Subseção~\ref{sec:arquitetura-harness} detalha a arquitetura do harness
-desenvolvido neste TCC, a partir de sua entrada e de sua interface de linha de comando.
-
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.70\textwidth]{figuras/harness-generico.png}
-  \caption{Componentes de um harness genérico: contexto, controle, ações,
-    persistência e verificação. Fonte: \citet{trivedy2026harness}.}
-  \label{fig:harness-generico}
-\end{figure}
+O harness prepara o contexto do modelo e mantém o ciclo de execução das
+ferramentas \citep{openharness}. Uma chamada pode, por exemplo, solicitar a
+leitura de um arquivo ou a execução de um teste.
 
 \subsection{Arquitetura do harness}
 \label{sec:arquitetura-harness}
 
-O ambiente principal do harness deste TCC é um diretório no sistema de arquivos,
-onde ficam os arquivos do projeto gerado. O harness grava esses arquivos e
-executa os comandos definidos para iniciar a aplicação e realizar os testes.
-Os grupos baseline e TDD usam o mesmo formato de entrada.
+Cada execução usa um diretório próprio para o projeto gerado. Baseline e TDD
+partem do mesmo requisito e dos mesmos arquivos de apoio. No TDD, o harness
+executa a suíte gerada e devolve o resultado ao agente de implementação.
+A avaliação externa ocorre após a geração e usa critérios comuns aos
+pipelines.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/harness/models/harness.py}{Implementação dos pipelines},
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/harness/cli.py}{interface de linha de comando} e
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/harness/README.md}{documentação do harness}.}
 
-\subsubsection{Entrada}
-\label{subsec:entrada-harness}
+No lote do formulário, a entrada reúne o requisito, a configuração de
+execução e os critérios de aceitação. O registro de cada tentativa contém
+o consumo de tokens, o custo e a duração.\footnote{Arquivos de referência do lote DeepSeek.
+\href{https://github.com/Educg550/tcc/blob/37f7fece4c346ad363913e40d5c1ec9bfabf448a/demos/requisitos/01-formulario-docentes-deepseek/requisito.md}{requisito},
+\href{https://github.com/Educg550/tcc/blob/37f7fece4c346ad363913e40d5c1ec9bfabf448a/demos/requisitos/01-formulario-docentes-deepseek/alvo.toml}{\texttt{alvo.toml}},
+\href{https://github.com/Educg550/tcc/blob/37f7fece4c346ad363913e40d5c1ec9bfabf448a/demos/requisitos/01-formulario-docentes-deepseek/criterios.toml}{\texttt{criterios.toml}} e
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/RUN.log}{log da run44 baseline}.}
 
-Na configuração com avaliação por Cypress e CUA, cada caso de uso ocupa um
-diretório com três arquivos: \texttt{requisito.md},
-que descreve, em linguagem natural, o software a gerar; \texttt{alvo.toml}, que define sua configuração
-de execução; e \texttt{criterios.toml}, que reúne os critérios de aceitação para
-a avaliação final. O diretório também pode conter pastas com imagens, fontes ou
-outros arquivos de apoio. Essas pastas são copiadas para o projeto antes da
-geração, exceto aquelas cujo nome começa com ponto ou sublinhado.
-
-O arquivo \texttt{alvo.toml} declara os comandos da aplicação e dos testes,
-a versão do Python, os pacotes disponíveis, os modelos usados em cada papel e
-os limites de passos, custo e tempo por etapa de geração. No comando da
-aplicação, \texttt{\{porta\}} é substituído por uma porta livre. O
-Programa~\ref{lst:alvo} apresenta a configuração do caso de uso do formulário
-de auxílio financeiro.
-
-\begin{lstlisting}[language={},caption={Exemplo de \texttt{alvo.toml}.},label={lst:alvo}]
-[comandos]
-app = "uvicorn app:app --host 127.0.0.1 --port {porta}"
-teste = "pytest -q --tb=short"
-teste_frontend = "cypress run --project . --config-file _harness/cypress.config.js --browser chrome"
-
-[dependencias]
-python = "3.11"
-pacotes = ["pytest==9.1.1", "fastapi[standard]==0.143.1"]
-
-[modelos]
-test_writer = "deepseek/deepseek-v4.1-flash"
-coder = "deepseek/deepseek-v4.1-flash"
-cua = "anthropic/claude-opus-5"
-
-[orcamento]
-passos = 50
-custo_usd = 2.0
-tempo_s = 1800
-\end{lstlisting}
-
-Em \texttt{criterios.toml}, cada bloco \texttt{[[criterios]]} contém um
-identificador, o tipo do critério, a ação a realizar e o resultado esperado.
-O tipo \texttt{deterministico} encaminha o critério para testes de interface com
-Cypress; o tipo \texttt{subjetivo} o encaminha para avaliação pelo CUA.
-Os testes de interface dependem também do comando \texttt{teste\_frontend}
-em \texttt{alvo.toml}.
-O Programa~\ref{lst:criterios} mostra um critério do mesmo caso de uso.
-
-\begin{lstlisting}[language={},float=htp,breakatwhitespace=true,caption={Exemplo de critério em \texttt{criterios.toml}.},label={lst:criterios}]
-[[criterios]]
-identificador = "C3"
-tipo = "deterministico"
-acao = '''
-Abrir a página inicial, conferir que os campos `NÍVEL` e `TIPO DE AUXÍLIO` estão na tela,
-e então clicar na aba `DOCENTES`.
-'''
-resultado_esperado = '''
-A aba `DOCENTES` fica ativa e o formulário mostrado não tem mais os campos `NÍVEL` nem
-`TIPO DE AUXÍLIO` - eles existem só na aba `ALUNOS`. Os outros campos continuam lá.
-'''
-\end{lstlisting}
-
-\subsubsection{Interface de linha de comando}
-\label{subsec:cli-harness}
-
-A CLI oferece os subcomandos \texttt{run}, para gerar um projeto, e
-\texttt{avaliar}, para executar a avaliação final de um projeto já gerado.
-A partir do diretório \texttt{demos/}, as chamadas têm a seguinte forma,
-com argumentos opcionais entre colchetes:
-
-\begin{lstlisting}[language={},numbers=none]
-uv run python -m harness.cli run destino [requisito] \
-    [--yes] [--direto] [--sem-cua]
-uv run python -m harness.cli avaliar projeto requisito
-\end{lstlisting}
-
-\begin{itemize}
-  \item \texttt{destino}: pasta na qual \texttt{run} cria um novo diretório para
-    o projeto, com nome composto pelo caso de uso, grupo e data e hora da execução.
-  \item \texttt{requisito}: caminho do diretório do caso de uso; se omitido em
-    \texttt{run}, a CLI solicita um nome, copia o caso de uso de exemplo e abre
-    seus arquivos no editor.
-  \item \verb|--yes|: dispensa a aprovação humana ao final de cada etapa de
-    geração.
-  \item \verb|--direto|: seleciona o grupo baseline; sem essa opção, a geração
-    segue o pipeline TDD.
-  \item \verb|--sem-cua|: adia toda a avaliação final, incluindo Cypress e CUA,
-    que pode ser executada depois com \texttt{avaliar}.
-  \item \texttt{projeto}: diretório já gerado sobre o qual \texttt{avaliar}
-    executa a avaliação e regrava \texttt{AVALIACAO.log} em
-    \texttt{\_harness/}.
-  \item \verb|-h| ou \verb|--help|: exibe a ajuda da CLI ou do subcomando escolhido.
-\end{itemize}
-
-
-\subsubsection{Extensões para o experimento do PreJanus}
+\subsubsection{Aplicação ao PreJanus-back}
 \label{subsec:extensoes-prejanus}
 
-O experimento do PreJanus-back reutiliza o harness com uma entrada e uma avaliação
-próprias. Nesse experimento, a geração termina sem executar Cypress ou CUA; em seguida,
-um gabarito de testes independente avalia o código gerado. Portanto,
-\texttt{criterios.toml} não é necessário nesse fluxo. Os resultados do gabarito
-são registrados em \texttt{GABARITO.json} e não retornam ao agente para corrigir
-a implementação.
-
-Além de baseline e TDD, o experimento inclui o grupo \emph{rework}, que gera uma
-implementação do zero a partir de testes visíveis e contratos, sem receber o
-código original nem o documento de requisitos do sistema. No TDD original,
-os testes gerados ficam congelados durante a implementação; no rework, os
-testes fornecidos também ficam congelados. A variante exploratória
-\texttt{tdd-revisao} permite ao agente de implementação alterar os testes
-autorais, preservando versões e diferenças para análise. Essas modalidades são
-selecionadas pela interface específica do experimento, e não por novas opções da
-CLI geral:
-
-\begin{lstlisting}[language={},numbers=none]
-uv run python -m caronte.piloto_v3 \\
-    [baseline|tdd|rework|tdd-revisao]
-\end{lstlisting}
+No PreJanus-back, a avaliação externa usa um gabarito de testes HTTP. O
+experimento inclui também o \emph{rework}, que parte de testes visíveis e
+contratos, e uma variante de TDD que permite revisar os testes produzidos
+na geração.\footnote{Artefatos da execução TDD de 23 de outubro:
+\href{https://github.com/Educg550/tcc/tree/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261023-223904/_harness/entrada}{entrada preservada},
+\href{https://github.com/Educg550/tcc/tree/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261023-223904/tests}{testes gerados} e
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261023-223904/_harness/oraculo.xml}{resultado do gabarito}.}
 
 \section{Computer-Using Agents}
 \label{sec:cua}
 
-Um \emph{Computer-Using Agent} (CUA) é um caso particular de agente cujo
-harness oferece ferramentas para observar e operar uma interface computacional,
-realizando ações como clicar, digitar e rolar a tela. Para descrever sua
-configuração, distinguem-se três componentes:
-
-\begin{itemize}
-  \item Harness: infraestrutura que fornece as ferramentas de interação e
-    mantém o laço agêntico.
-  \item Modelo: responsável por interpretar as observações e escolher ações,
-    podendo ser de uso geral ou treinado especificamente para operar interfaces.
-  \item Modo de operação: forma de observar a interface e indicar o alvo das
-    ações, por referências a elementos ou por coordenadas obtidas de uma captura
-    de tela.
-\end{itemize}
-
-\subsection{Harness}
-\label{subsec:cua-harness}
-
-O harness conecta as decisões do modelo à aplicação: obtém observações da
-interface, executa as ações solicitadas e retorna seus resultados ao modelo,
-conforme o laço descrito na Seção~\ref{cap:harness}. As ferramentas disponíveis
-podem permitir consultar elementos de uma página, capturar a tela, clicar,
-digitar ou rolar seu conteúdo.
-
-Frameworks como Browser Use, Cua e Magnitude oferecem infraestrutura para
-construir esses agentes. Browser Use é voltado à automação de navegadores;
-Cua oferece ferramentas e ambientes para operar computadores; Magnitude
-oferece automação de navegador com interação orientada por visão
-\citep{browseruse,cuaFramework,magnitude}. Esses frameworks concretizam o papel
-do harness, com diferentes ferramentas e ambientes de execução.
-
-\subsection{Modelo}
-\label{subsec:cua-modelo}
-
-O modelo interpreta o objetivo e as observações recebidas para decidir o
-próximo passo. Um modelo de uso geral pode desempenhar esse papel por meio de
-instruções e ferramentas, sem treinamento adicional para a tarefa. Outra
-possibilidade é usar um modelo treinado ou ajustado especificamente para
-operar interfaces \citep{sager2026computeruse}. A distinção se refere à
-especialização: modelos de uso geral também passam por pré-treinamento.
-
-Na proposta da OpenAI, por exemplo, o modelo CUA combina capacidades visuais
-do GPT-4o com treinamento por reforço para interação com interfaces
-\citep{openai2025cua}. Também é possível combinar modelos: o Agent S2 distribui
-planejamento e localização de elementos entre modelos generalistas e
-especialistas \citep{agashe2025agents2}. Assim, um mesmo agente pode usar um
-modelo para decidir o que fazer e outro para localizar onde agir.
-
-Nas avaliações de interface das aplicações finalistas deste trabalho, realizadas
-em 11 e 13 de outubro de 2026, fixou-se o Claude Opus 5.5
-(\texttt{anthropic/claude-opus-5.5}, via OpenRouter) como modelo do CUA.
-A decisão de manter o mesmo modelo entre as avaliações e escolher um modelo de
-ponta foi tomada já com a intenção de minimizar o não determinismo do avaliador
-e reduzir falhas de execução associadas ao uso de modelos de menor capacidade.
-Trata-se de uma medida de controle experimental; essa escolha não torna as
-avaliações determinísticas nem demonstra que modelos de menor capacidade sejam
-necessariamente mais variáveis.
-
-A escolha se apoia nos resultados disponíveis antes dessas avaliações. No
-relatório publicado pela Anthropic em 22 de setembro de 2026, o Opus 5.5 obteve
-a maior pontuação entre os três modelos comparados no OSWorld 2.0, na revisão
-das tarefas de 10 de setembro, denominada OSWorld 2.1 na página de lançamento
-\citep{anthropic2026opus55system,anthropic2026opus55}.
-Com esforço de raciocínio máximo, atingiu 81,8\% de pontuação parcial e 48,7\%
-de tarefas integralmente concluídas, frente a 80,7\% e 42,8\% do Fable 5.1 e
-74,0\% e 37,2\% do Opus 5, respectivamente. A
-Figura~\ref{fig:osworld-opus55-custo} apresenta a relação entre custo e
-pontuação. Esses resultados dão suporte à seleção de um modelo com bom
-desempenho em interação com interfaces, embora o harness do benchmark seja
-diferente do Browser Use empregado neste trabalho
-\citep[seção~8.13.3]{anthropic2026opus55system}.
-
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.95\textwidth]{figuras/osworld-opus55-custo-desempenho.png}
-  \caption{Custo médio por tarefa versus pontuação parcial no OSWorld 2.0,
-    na revisão de setembro de 2026. Cada ponto representa um nível de esforço
-    de raciocínio; as pontuações são médias de cinco execuções e os custos usam
-    os preços de tabela da API. Fonte:
-    \citet[figura~8.13.3.B, p.~207]{anthropic2026opus55system}.}
-  \label{fig:osworld-opus55-custo}
-\end{figure}
-
-\subsection{Modo de operação}
-\label{subsec:cua-operacao}
-
-O modo de operação envolve tanto a representação da interface recebida pelo
-modelo quanto a forma de indicar o alvo de uma ação. A literatura distingue
-observações textuais e visuais, além de ações que referenciam elementos
-diretamente ou usam coordenadas de tela \citep{sager2026computeruse}.
-
-\subsubsection{Referências a elementos}
-
-O harness pode fornecer uma árvore de elementos, como o DOM
-(\emph{Document Object Model}) de uma página web ou uma árvore de
-acessibilidade. O modelo seleciona o alvo por uma referência, como um
-identificador ou índice, e solicita uma ação sobre ele. Para clicar em um botão,
-por exemplo, indica o elemento correspondente, sem precisar estimar sua posição
-em pixels. Esse acesso depende da estrutura exposta pela aplicação
-\citep{sager2026computeruse}.
-
-\subsubsection{Coordenadas em capturas de tela}
-
-Na operação por pixels, o modelo recebe uma captura de tela, localiza
-visualmente o alvo e indica coordenadas para uma ação, como um clique em
-$(x,y)$. Na proposta da OpenAI, mouse e teclado virtuais executam a ação e a
-tela resultante é observada antes da próxima decisão \citep{openai2025cua}.
-A Figura~\ref{fig:cua-diagrama} ilustra esse ciclo. Magnitude também utiliza
-um modelo visual para indicar coordenadas em pixels \citep{magnitude}.
-
-\begin{figure}[htp]
-  \centering
-  \colorbox{black}{\includegraphics[width=0.94\textwidth]{figuras/cua-diagrama.png}}
-  \caption{Ciclo de um CUA: instrução e captura de tela como entrada, geração
-    de ações e retorno da tela após sua execução. Fonte: \citet{openai2025cua}.}
-  \label{fig:cua-diagrama}
-\end{figure}
-
-Os dois modos podem coexistir. O Cua Driver, por exemplo, fornece árvore de
-acessibilidade e captura de tela, permitindo agir por referência a um elemento
-ou por coordenadas \citep{cuaDriver}. Portanto, a definição do framework ou do modelo
-não basta para descrever a interação. É preciso indicar quais observações e
-formas de ação estão disponíveis naquela configuração.
+Um \emph{Computer-Using Agent} (CUA) é um agente cujo harness permite observar
+e operar uma interface computacional. A observação pode incluir capturas de
+tela ou estruturas como o DOM e a árvore de acessibilidade. O modelo pode
+indicar coordenadas de tela ou referenciar um elemento para clicar, digitar
+ou executar outra ação \citep{sager2026computeruse,openai2025cua}.
 
 \subsection{Uso como avaliador}
 \label{subsec:cua-avaliador}
 
-Essa capacidade motivou a proposta inicial deste TCC: usar CUAs como
-verificadores finais confiáveis do software gerado. Ao operar a aplicação e
-interpretar sua apresentação, o agente poderia avaliar os critérios subjetivos
-discutidos na Seção~\ref{sec:corretude}, como a organização visual de um formulário.
-Isso permitiria automatizar parte da avaliação que exige julgamento, com
-critérios descritos em linguagem natural e evidências obtidas durante o uso.
-A confiabilidade desse verificador era uma expectativa a examinar nos
-experimentos.
+A proposta inicial era usar o CUA para avaliar o software após a geração.
+Ao navegar pela aplicação, ele poderia julgar aspectos como a organização
+visual do formulário a partir de um roteiro comum. Tanto o percurso quanto
+o julgamento podem variar entre sessões na mesma aplicação.
 
-O uso de um CUA também acrescenta não determinismo à avaliação automatizada.
-Além da variabilidade dos LLMs que geram código, passa a haver a possibilidade
-de variação nas ações escolhidas pelo avaliador e em sua interpretação do que
-observa. Mesmo sem alterações na aplicação, o percurso e o julgamento podem
-variar entre execuções. Portanto, automatizar esse julgamento não torna o
-critério subjetivo determinístico. O efeito dessa variabilidade sobre o papel
-do CUA neste trabalho será discutido nos experimentos e resultados.
+Na avaliação das finalistas, manteve-se o Claude Opus 5.5 via OpenRouter,
+com Browser Use. A decisão considerou o desempenho do modelo no OSWorld
+reportado pela Anthropic \citep{anthropic2026opus55system}.
+O roteiro e as condições da avaliação usada no experimento estão registrados
+junto às sessões.\footnote{Exemplo da run44 baseline:
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}{roteiro de avaliação} e
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/executar.py}{código da sessão}.}
 
 % % O primeiro experimento foi uma sugestão do meu orientador Paulo, que me instruiu a
 % % construir o requisito de software que seria então utilizado para gerar o código de um formulário web.
@@ -742,23 +317,6 @@ validação. Não há banco de dados nem persistência das solicitações. As ab
 \texttt{ALUNOS} e \texttt{DOCENTES}, os rótulos, as mensagens, as máscaras e o
 conteúdo do ofício são comuns a todas as execuções. As imagens institucionais
 são fornecidas como anexos.
-
-A entrada segue o contrato descrito na
-Subseção~\ref{sec:arquitetura-harness}, e as principais classes dessa configuração são \texttt{Harness},
-\texttt{HarnessDireto}, \texttt{HarnessTDD}, \texttt{Requisito},
-\texttt{Projeto}, \texttt{Alvo}, \texttt{Etapa}, \texttt{Agente},
-\texttt{Avaliador}, \texttt{Resultado} e \texttt{Trace}.
-A Figura~\ref{fig:harness-formulario} apresenta suas relações principais.
-
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.90\textwidth]{figuras/harness-formulario.png}
-  \caption{Classes principais do harness na configuração do formulário.
-    As setas indicam herança, referências e dependências de execução;
-    não representam a ordem das etapas. Fonte: elaboração própria,
-    a partir de \texttt{demos/harness/models/}.}
-  \label{fig:harness-formulario}
-\end{figure}
 
 A proposta inicial do harness adota uma premissa para a passagem entre etapas:
 \textbf{quando avança, não volta atrás nunca}. Uma etapa pode repetir tentativas
@@ -828,42 +386,9 @@ novas execuções independentes. Para comparar os pipelines dentro de cada
 modelo, o tamanho relevante é de 50 execuções por grupo. Somar os modelos
 produz grupos de 100, mas combina configurações cujos resultados podem diferir.\footnote{Distribuição das execuções registrada em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.}
 
-Para representar a incerteza das proporções de aprovação, adotam-se intervalos
-de Wilson de 95\%, calculados separadamente por célula. A escolha evita as
-limitações do intervalo normal de Wald, cuja cobertura pode ser inadequada,
-inclusive longe das proporções extremas \citep{brown2001interval,nistProporcoes}.
-Com $x$ aprovações em $n$ execuções, $\hat p=x/n$ e $z=1{,}96$, o intervalo é\footnote{Cálculo dos intervalos em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.}
-\[
-  \frac{\hat p+\dfrac{z^2}{2n}
-  \;\pm\;z\sqrt{\dfrac{\hat p(1-\hat p)}{n}+\dfrac{z^2}{4n^2}}}
-  {1+\dfrac{z^2}{n}}.
-\]
-
-Como referência de precisão, 25 aprovações em 50 execuções produzem um
-intervalo de aproximadamente 36,6\% a 63,4\%, com semilargura de 13,4 pontos
-percentuais. Para uma proporção observada de 50\%, essa semilargura seria de
-9,6 pontos com 100 execuções e de 6,9 com 200 execuções na mesma célula
-(Figura~\ref{fig:formulario-precisao}). Esses valores são cálculos ilustrativos,
-não resultados adicionais do experimento. A distribuição do lote em quatro
-células não fornece a cada uma a precisão correspondente a $n=200$.\footnote{Cálculo dos exemplos e da curva de precisão em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.}
-
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.85\textwidth]{figuras/formulario-precisao.pdf}
-  \caption{Semilargura do intervalo de Wilson de 95\% em função do número
-    de execuções por célula, para $\hat p=0{,}5$. A curva é uma referência
-    teórica de precisão; o lote observado tem $n=50$ em cada célula.
-    Fonte: elaboração própria, com a expressão de \citet{nistProporcoes}.}
-  \label{fig:formulario-precisao}
-\end{figure}
-
-Esses intervalos pressupõem execuções independentes com uma probabilidade de
-aprovação constante dentro de cada célula. Workspaces separados não bastam
-para demonstrar essas condições: o lote usa um serviço externo e até 25
-execuções simultâneas.\footnote{Limite de concorrência em \url{https://github.com/Educg550/tcc/blob/main/demos/harness/batch.py}.} Os intervalos descrevem a incerteza sob o modelo
-binomial, condicionada ao requisito e à configuração avaliados. Repetir esse
-requisito não mede a variação entre tarefas, nem permite generalizar o resultado
-para geração de software em geral.
+O gráfico de aprovação apresenta intervalos de confiança de Wilson de 95\%
+para cada combinação de modelo e pipeline \citep{brown2001interval,nistProporcoes}.
+Esses intervalos se referem às repetições do mesmo requisito.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/tex/figuras/graficos-formulario.py}{Cálculo dos intervalos e geração do gráfico}.}
 
 \section{Avaliação funcional e consumo de recursos}
 \label{sec:formulario-avaliacao}
@@ -879,14 +404,6 @@ baseado em JavaScript. Com isso, uma suíte Cypress canônica, comum às
 implementações, passou a verificar os textos e comportamentos fixados pelo
 requisito, enquanto o CUA ficou responsável pelos aspectos que exigiam
 julgamento pela interface.
-
-Nessa organização, o arquivo \texttt{criterios.toml} reúne os critérios que
-orientam a avaliação de aceitação, no mesmo sentido da definição presente na
-Subseção~\ref{sec:testes-aceitacao}. Os comportamentos objetivos
-são verificados pelos testes Cypress, e os aspectos que exigem julgamento
-pela interface são avaliados pelo CUA. Assim, a avaliação de aceitação combina
-essas duas formas de verificar a aplicação. As notas do CUA são analisadas
-separadamente da aprovação nos testes funcionais.
 
 A primeira suíte continha 12 critérios\footnote{Disponíveis em
 \url{https://github.com/Educg550/tcc/tree/main/demos/avaliacao}.}. Depois de observar o empate entre as
@@ -939,44 +456,16 @@ separação não substitui uma análise específica da diferença entre pipeline
   \label{fig:formulario-aprovacao}
 \end{figure}
 
-Também foram examinadas métricas estáticas do Python com o Radon, incluindo
-tamanho, complexidade ciclomática e índice de manutenibilidade. Elas forneceram
-uma descrição estrutural, mas não um desempate funcional confiável. Na primeira
-ordenação, foram consideradas 166 execuções com Python de sintaxe válida e
-etapas registradas como concluídas com sucesso.\footnote{Registros de sintaxe e sucesso das etapas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.} A ordenação priorizava o maior
-índice de manutenibilidade mínimo entre os arquivos de implementação,
-desempatando pela menor complexidade ciclomática máxima e, por fim, pelo caminho
-da execução. As cinco primeiras colocadas eram do GLM baseline e tinham índice
-100.\footnote{Índices por execução em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.} Em quatro delas (execuções 12, 18, 30 e 33), o arquivo \texttt{app.py}
-continha apenas \texttt{...}: uma linha de código e nenhuma função. Na primeira
-colocada, a execução 44, havia 65 linhas de código Python e apenas uma função,
-que servia a página HTML; os endpoints de geração do ofício estavam apenas
-indicados em um comentário. Assim, as cinco primeiras posições desse ranking
-correspondiam a implementações incompletas.\footnote{Métricas em
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json};
-código dos exemplos em
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run12/baseline/app.py};
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run18/baseline/app.py};
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run30/baseline/app.py};
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run33/baseline/app.py};
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/glm/run44/baseline/app.py}.}
-
-Mesmo após a triagem estrutural que reduziu o conjunto a 153 aplicações
-elegíveis, quatro das cinco primeiras colocadas pelo mesmo critério não
-passaram na suíte funcional completa. A líder, \texttt{glm/run4/baseline},
-tinha índice 53,00 e passou em 0 dos 12 critérios; a segunda,
-\texttt{deepseek/run40/tdd}, tinha índice 43,64 e passou nos 12. A terceira,
-a quarta e a quinta passaram, respectivamente, em 1, 0 e 8 critérios.
-Esses resultados mostram que, nesse lote, um índice maior não assegurou maior
-corretude funcional.\footnote{Métricas e resultados por execução em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json};
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress.json}.}
-Além disso, a análise do Python não cobre a
-organização visual nem toda a lógica do frontend. Por isso, essas métricas não
-foram usadas como uma nota geral de qualidade das aplicações.
+A análise estática com Radon foi descartada como critério de desempate.
+Quatro das cinco aplicações mais bem colocadas na primeira ordenação tinham
+um \texttt{app.py} com apenas uma linha. Mesmo após a triagem estrutural,
+a líder passou em zero dos 12 critérios iniciais.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/radon.json}{Métricas do Radon},
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/glm/run12/baseline/app.py}{exemplo de implementação} e
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/cypress.json}{resultados funcionais}.}
 
 Custo, duração e tokens foram extraídos dos 200 arquivos \texttt{RUN.log},
-incluindo as execuções reprovadas.\footnote{Leitura dos registros e composição das quatro células em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.} O plot da
-Figura~\ref{fig:formulario-recursos} mostram mediana e dispersão, complementadas
+incluindo as execuções reprovadas.\footnote{Leitura dos registros e composição das quatro células em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.} A
+Figura~\ref{fig:formulario-recursos} mostra mediana e dispersão, complementadas
 pelas observações individuais \citep{nistBoxplot}.
 % O custo mediano de geração
 % foi de US\$~0,0197 na baseline e US\$~0,0450 no TDD do DeepSeek; no GLM, foi
@@ -1082,13 +571,8 @@ resulta dessa seleção em duas etapas, não de uma amostra aleatória do lote.
 
 A seleção reduziu o número de aplicações para uma inspeção mais detalhada,
 segundo o método de avaliação heurística \citep{nielsenAvaliacao}.
-O roteiro do experimento adota as dez heurísticas de Nielsen: visibilidade do estado
-do sistema; correspondência com o mundo real; controle e liberdade do usuário;
-consistência e padrões; prevenção de erros; reconhecimento em vez de memorização;
-flexibilidade e eficiência de uso; estética e design minimalista; ajuda para
-reconhecer, diagnosticar e corrigir erros; e ajuda e documentação.
-Essas heurísticas fornecem princípios de inspeção;
-a escala de notas adotada neste trabalho foi definida para o experimento.\footnote{As dez heurísticas e a escala constam do roteiro em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}.}
+O roteiro segue as dez heurísticas de Nielsen na ordem usada na
+Tabela~\ref{tab:formulario-nielsen}.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}{Roteiro com as heurísticas e a escala}.}
 
 Cada heurística recebeu uma nota ordinal: Péssimo, Ruim, Regular, Bom ou
 Excelente, com justificativa e evidência. A identidade visual da USP não foi
@@ -1108,22 +592,10 @@ de avaliação, cuja confiabilidade também estava em exame. A combinação não
 permite estimar a experiência de uma população de usuários nem a usabilidade
 das 200 aplicações.\footnote{Composição do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.}
 
-As sessões das finalistas usaram browser-use 0.13.10 e
-\texttt{anthropic/claude-opus-5.5}. Um registro da campeã baseline, em
-11 de outubro, ilustra o consumo dessa etapa\footnote{Versões, horário e métricas da sessão em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/resultado.json}.}:
-
-\begin{lstlisting}[language={},caption={Campos do resultado da sessão CUA de Nielsen da run44 baseline, iniciada às 17:44 UTC.}]
-"duration_s": 433.45,
-"num_steps": 37,
-"total_tokens": 858977,
-"cost_usd": 3.73282
-\end{lstlisting}
-
-O valor registrado inclui o julgamento automático da sessão. Essa observação
-pertence à avaliação posterior das finalistas, não às primeiras execuções de
-desenvolvimento do harness. Para a mesma aplicação, o custo de geração foi
-US\$~0,053459.\footnote{Custo de geração em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/deepseek/run44/baseline/_harness/RUN.log}.} Os dois valores medem tarefas diferentes; a comparação explicita
-o consumo adicional da avaliação por CUA.
+As sessões das finalistas usaram Browser Use 0.13.10. Na run44 baseline,
+uma sessão do CUA consumiu 858.977 tokens em 433 segundos, ao custo de
+US\$~3,73. A geração da aplicação custou US\$~0,053459.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/resultado.json}{Métricas da sessão do CUA} e
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/RUN.log}{log da geração}.}
 
 Além do custo, houve variação no cumprimento do roteiro e nas notas. Nas
 sessões da \texttt{deepseek/run35/baseline}, o CUA por vezes preencheu campos
@@ -1254,22 +726,13 @@ OpenAPI registra métodos, caminhos, parâmetros e corpos das requisições;
 o documento de requisitos complementa os comportamentos que ele não descreve.
 Esses artefatos foram preparados fora das execuções medidas.
 
-Foi aqui também que produzi a suíte de testes definda como gabarito.
-O gabarito é uma suíte externa de caixa preta, que envia requisições HTTP e verifica respostas
-e efeitos das operações, como persistência, envio de e-mails e geração de
-relatórios. Os testes não importam as funções Python das implementações
-avaliadas. Há 246 casos comportamentais e um teste de rastreio, que confere
+O gabarito é uma suíte externa de testes de caixa preta
+(Subseção~\ref{sec:testes-caixa-preta}). Ele envia requisições HTTP e verifica as
+respostas e os efeitos das operações, como persistência, envio de e-mails e
+geração de relatórios. Há 246 casos comportamentais e um teste de rastreio, que confere
 a associação dos testes aos requisitos. A mesma suíte é aplicada ao original
 e às reconstruções.\footnote{Protocolo de avaliação e divergências em
 \url{https://github.com/Educg550/tcc/blob/main/demos/caronte/piloto-v2/avaliacao.md}.}
-
-A avaliação das reconstruções adota a abordagem de caixa preta descrita na
-Subseção~\ref{sec:testes-caixa-preta}: observa o comportamento por uma
-interface comum, sem depender da organização interna do código gerado.
-A leitura do original na preparação permitiu documentar esse comportamento.
-O gabarito tem a finalidade dos testes de aceitação
-(Subseção~\ref{sec:testes-aceitacao}) no escopo da API, com verificações
-objetivas e determinísticas.
 
 Na validação registrada do original, passaram 233 dos 247 casos. Portanto, o gabarito também
 exige comportamentos previstos nos requisitos que o original não atende, e isso foi levado em conta
@@ -1303,39 +766,10 @@ Em ambas, o código original fica fora da entrada dos agentes.
 \subsection{Estratégia 1: geração a partir dos requisitos}
 \label{sec:prejanus-requisitos}
 
-A primeira estratégia compara baseline e TDD, descritos no
-Capítulo~\ref{cap:introducao}, a partir dos mesmos requisitos e contratos.
-A Figura~\ref{fig:prejanus-requisitos} representa esse fluxo.
-
-\begin{figure}[htp]
-  \centering
-  \setlength{\unitlength}{1mm}
-  \begin{picture}(140,86)
-    \put(35,72){\framebox(70,12){Requisitos e contratos}}
-    \put(70,72){\line(0,-1){6}}
-    \put(30,66){\line(1,0){80}}
-    \put(30,66){\vector(0,-1){6}}
-    \put(110,66){\vector(0,-1){6}}
-    \put(0,42){\framebox(60,18){}}
-    \put(0,52){\makebox(60,5){Baseline: gerar código}}
-    \put(0,45){\makebox(60,5){Sem feedback de testes}}
-    \put(80,48){\framebox(60,12){TDD: escrever testes}}
-    \put(110,48){\vector(0,-1){6}}
-    \put(80,20){\framebox(60,22){}}
-    \put(80,34){\makebox(60,5){Implementar e executar pytest}}
-    \put(80,27){\makebox(60,5){Corrigir até aprovação}}
-    \put(80,21){\makebox(60,5){ou limite de execução}}
-    \put(30,42){\line(0,-1){28}}
-    \put(110,20){\line(0,-1){6}}
-    \put(30,14){\line(1,0){80}}
-    \put(70,14){\vector(0,-1){4}}
-    \put(20,0){\framebox(100,10){Avaliação externa: gabarito completo (247 casos)}}
-  \end{picture}
-  \caption{Geração a partir dos requisitos. O feedback durante o TDD vem
-    dos testes próprios; o gabarito é aplicado após a geração aos dois
-    pipelines. Fonte: elaboração própria.}
-  \label{fig:prejanus-requisitos}
-\end{figure}
+Baseline e TDD partem dos mesmos requisitos e contratos. O TDD recebe
+feedback dos testes que gera, conforme descrito na
+Seção~\ref{sec:formulario-harness}. O gabarito completo é aplicado aos dois
+pipelines após a geração.
 
 \subsection{Estratégia 2: reconstrução a partir dos testes visíveis}
 \label{sec:prejanus-rework}
@@ -1658,37 +1092,12 @@ gabarito.
 \section{Feedback para as quatro variantes}
 \label{sec:prejanus-licoes}
 
-Depois da análise das entregas, foram executadas novas runs, cada uma com 
-feedback na entrada, para verificar se o acerto melhora ou piora. Rodei uma
-última execução de cada variante, com o mesmo bloco de lições acrescentado à
-entrada de todos os agentes, inclusive o que escreve os testes:
-
-\begin{quote}
-  Lições das execuções anteriores:
-  \begin{itemize}
-    \item Confira se as funções chamadas entre módulos existem e se seus nomes
-      e argumentos correspondem.
-    \item Respeite os tipos do esquema SQL fornecido, inclusive enums, nas
-      consultas e no ORM.
-    \item Confira a junção entre host e caminho nas URLs de integração.
-    \item Preserve informações que permitam identificar a causa das falhas;
-      não transforme erros em resultados vazios ou sucesso.
-    \item Quando receber falhas, investigue a causa antes de consertar o
-      sintoma do erro. Nos testes que escrever, não descarte respostas
-      inesperadas que expliquem uma falha
-  \end{itemize}
-\end{quote}
-
-As três primeiras lições generalizam defeitos pontuais em caminho
-compartilhado da Subseção~\ref{subsec:prejanus-arquetipos}: o nome de função
-errado da baseline, o enum do TDD e a URL do OAuth do rework. As duas últimas
-vêm da entrega do TDD, em que uma exceção engolida transformava a falha do
-relatório em um download inexistente, o agente de implementação alterou o
-formato do erro sem corrigir a coluna e um helper dos testes próprios
-descartava respostas diferentes de 200, o que escondia a causa das falhas.
-O bloco foi limitado a cuidados derivados dos testes visíveis e dos contratos
-de entrada. Os reservados não foram usados para prepará-lo, e nenhuma lição
-informa os nomes ou formatos cobrados pelo gabarito.
+Foi feita mais uma execução por variante com o mesmo bloco de lições
+acrescentado à entrada de todos os agentes, incluindo o que escreve os
+testes. As lições pediam que o agente conferisse chamadas entre módulos,
+tipos do banco e URLs de integração, preservasse mensagens de falha e
+investigasse suas causas. Foram elaboradas a partir dos contratos e dos testes
+visíveis, sem consultar os casos reservados.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-licoes-tdd-20261115-123705/_harness/entrada/licoes.md}{Bloco de lições preservado na execução TDD}.}
 
 O restante da configuração não mudou. Cada implementação começou do zero, sem
 receber o código das execuções anteriores. O gabarito completo foi aplicado ao fim de
