@@ -1375,11 +1375,72 @@ reservados. Na primeira estratégia, a avaliação externa usa os 247 casos;
 para comparar as três condições nos reservados, deve-se considerar o mesmo
 subconjunto de 85 casos em todas elas.
 
-% Resultados preliminares experimento 2
-% depois de definir o escopo inicial do experimento de reconstrução (não sei se já foi falado ou não que é o prejanus-back e não o caronte core, mas é legal de falar isso caso ainda não tenha sido falado, pois a gente desistiu de reconstruir o caronte core inteiro e focou no prejanus-back)
-% fizemos algumas runs para testar o funcionamento do pipeline num escopo menor (que eu acho que acabou ironicamente sendo o próprio prejanus-back, mas não lembro direito, tinha o nome de piloto no código, mas odeio esse nome).
-% um resultado surpreendente foi encontrado, assim como no torneio cego feito no primeiro experimento
-% 
+% % Resultados preliminares experimento 2
+% % depois de definir o escopo inicial do experimento de reconstrução (não sei se já foi falado ou não que é o prejanus-back e não o caronte core, mas é legal de falar isso caso ainda não tenha sido falado, pois a gente desistiu de reconstruir o caronte core inteiro e focou no prejanus-back)
+% % fizemos algumas runs para testar o funcionamento do pipeline num escopo menor (que eu acho que acabou ironicamente sendo o próprio prejanus-back, mas não lembro direito, tinha o nome de piloto no código, mas odeio esse nome).
+% % um resultado surpreendente foi encontrado, assim como no torneio cego feito no primeiro experimento
+
+\section{Resultados preliminares}
+\label{sec:prejanus-resultados-preliminares}
+
+No pivô registrado na Seção~\ref{sec:formulario-sintese}, o plano era
+reconstruir o caronte-core inteiro, com cerca de 30 mil linhas entre o serviço
+de formulários, o \texttt{prejanus-back} e o frontend do PreJanus. Os ensaios
+feitos para verificar se esse escopo cabia no prazo e no orçamento mostraram
+que só o \texttt{prejanus-back} já tinha requisitos, ambiente e gabarito
+preparados, e o escopo foi restrito a ele.\footnote{Escopo, tetos e regras das
+execuções em
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-23-escopo-experimento-prejanus-back.md}.}
+Foram três ensaios, fora dos resultados:\footnote{Registros dos ensaios em
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-17-piloto-consulta-caronte.md};
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-18-piloto-v2-prejanus-back.md};
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-21-piloto-v3-oraculo-sem-porta-unica.md};
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-23-piloto-v3-rework-e-ajustes.md}.}
+
+\begin{enumerate}
+  \item Apenas a consulta do \texttt{prejanus-back}, com login local, editais,
+    inscrições e anexos. Os três grupos passaram em 26 das 27 verificações.
+  \item As 50 operações. Nenhuma entrega iniciou, porque o agente reescrevia
+    os arquivos inteiros a cada correção e terminou com erros de sintaxe.
+    O harness passou a ler o projeto e editar trechos, com checagem de
+    sintaxe.
+  \item A mesma entrada, com a nova escrita. Uma falha no login travava a
+    maior parte do gabarito; os casos que não avaliam OAuth passaram a usar o
+    atalho de autenticação previsto no requisito, e a baseline foi a 139 casos
+    e o TDD a 185. O gate e o controle de custo do harness também foram
+    ajustados.
+\end{enumerate}
+
+Nas execuções medidas, uma por grupo, com o modelo \texttt{z-ai/glm-5.3} e o
+harness corrigido, a baseline passou em 186 dos 247 casos e o TDD em 140. O
+rework passou em 59 dos 85 reservados, contra 62 da baseline e 49 do
+TDD.\footnote{Execuções invalidadas e refeitas em
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-24-runs-refeitas-harness.md}.}
+O TDD inverteu a ordem do terceiro ensaio e, como no torneio do experimento
+com o formulário, o resultado não favoreceu esse pipeline. Com uma execução por
+grupo, e com o TDD variando de 140 a 209 casos entre execuções, essa diferença
+ainda não separa os pipelines.
+
+Ao revisar os testes gerados nessa execução do TDD, identifiquei como causa
+principal do resultado a premissa de testes congelados, apresentada na
+Seção~\ref{sec:formulario-harness} como possível limitação. Um dos testes
+exigia que um docente criasse um edital, operação que o requisito e outro teste
+proíbem, e o agente de implementação não podia alterá-lo. O TDD precisava,
+portanto, de uma contrapartida que permitisse corrigir os testes durante a
+implementação, tratada na seção seguinte.
+
+% INI nova seção explicando a limitação do TDD e a solução encontrada
+% com essa limitação descoberta, fizemos uma sondagem experimental no mesmo cenário atual.
+% a principal diferença é que agora temos uma variante experimental do TDD denominada "TDD com Revisão",
+% que permite ao agente de implementação corrigir os testes visíveis durante a execução.
+% a ideia é que, com essa variante, o agente de implementação pode corrigir os testes
+% que estão incorretos, e assim não ficar preso a testes que não refletem o comportamento correto.
+% isso reflete muito da ideia do TDD tradicional. a premissa até agora era que os testes eram massivamente
+% construídos antes de qualquer código de produção. mas deve-se tomar em conta que essa produção de 
+% testes em massa antes da implementação também está sujeita a erros (linkar com a seção que explica não determinismo/llms eu acho).
+% portanto essa abordagem TDD com Revisão se aproxima mais do que realmente acontece no TDD tradicional, onde os testes são escritos e revisados iterativamente com o código.
+% uma vez com essa abordagem funcional, partimos para a comparação com as abordagens anteriores.
+% FIM
 
 \backmatter
 \pagestyle{backmatter}
