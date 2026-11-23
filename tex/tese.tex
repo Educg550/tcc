@@ -760,12 +760,6 @@ A Figura~\ref{fig:harness-formulario} apresenta suas relações principais.
   \label{fig:harness-formulario}
 \end{figure}
 
-Na baseline, o agente recebe o requisito e produz a implementação sem feedback
-de testes durante a geração. No TDD, um agente escreve os testes e outro gera
-e corrige a implementação com base no pytest. Os testes próprios integram o
-tratamento experimental. A avaliação externa ocorre depois da geração e não
-alimenta esse ciclo de correção.
-
 A proposta inicial do harness adota uma premissa para a passagem entre etapas:
 \textbf{quando avança, não volta atrás nunca}. Uma etapa pode repetir tentativas
 antes de terminar, mas, ao passar à seguinte, seus artefatos ficam fixados.
@@ -1182,21 +1176,22 @@ Python com FastAPI. Cada execução começa sem código de produção e deve ger
 um substituto compatível com os contratos fornecidos. O serviço de formulários,
 o frontend, os bancos PostgreSQL e os serviços externos permanecem fixos.
 Assim, a mudança avaliada se concentra no backend gerado e em sua integração
-com esse ambiente.\footnote{Escopo e contratos em
+com esse ambiente.\footnote{Escopo em
 \url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/05-prejanus-back-piloto-v3/requisito.md}.}
-O CUA fica fora deste recorte; a avaliação usa testes externos à geração.
+O CUA fica fora do escopo nesse experimento.
 
 \section{Preliminares}
 \label{sec:prejanus-preliminares}
 
 Antes das execuções, foram preparados os requisitos e o gabarito de testes,
 com apoio de agentes e leitura do código original. Essa engenharia reversa
-produziu uma descrição das operações e de suas regras, acompanhada de contratos
-de interface, esquemas dos bancos e configuração do ambiente. O contrato
+foi feita com auxílio de agentes e produziu uma descrição das operações e de suas regras,
+contratos de interface, esquemas dos bancos e configuração do ambiente. O contrato
 OpenAPI registra métodos, caminhos, parâmetros e corpos das requisições;
 o documento de requisitos complementa os comportamentos que ele não descreve.
 Esses artefatos foram preparados fora das execuções medidas.
 
+Foi aqui também que, com auxílio de agentes, se produziu a suíte de testes definda como gabarito.
 O gabarito é uma suíte externa que envia requisições HTTP e verifica respostas
 e efeitos das operações, como persistência, envio de e-mails e geração de
 relatórios. Os testes não importam as funções Python das implementações
@@ -1215,45 +1210,42 @@ na Subseção~\ref{sec:testes-aceitacao}, dizem respeito à finalidade de verifi
 o atendimento aos requisitos. O gabarito tem essa finalidade no recorte da
 API, com verificações objetivas; ele não avalia a usabilidade do frontend.
 
-Na validação registrada do original, passaram 233 dos 247 casos. As 14
-divergências conhecidas foram documentadas e mantidas no denominador,
-sem marcar esses testes como falhas esperadas. Portanto, o gabarito também
-exige comportamentos previstos nos requisitos que o original não atende.
+Na validação registrada do original, passaram 233 dos 247 casos. Portanto, o gabarito também
+exige comportamentos previstos nos requisitos que o original não atende, e isso foi levado em conta
+durante o levantamento das comparações.
 O protocolo registra as 50 operações exercitadas e cobertura de 93,5\% das
 linhas consideradas vivas. Essas medidas descrevem a validação da referência,
 sem demonstrar sua corretude geral.
 
 Para a reconstrução guiada por testes, os casos comportamentais foram divididos
-em 161 visíveis e 85 reservados. A divisão é estratificada por requisito e
-mantém juntas todas as parametrizações de uma função de teste. Por isso,
-a proporção final de casos reservados difere dos 25\% previstos por função.
-O teste de rastreio fica fora dessa divisão.\footnote{Regra e partições em
+em 161 visíveis e 85 reservados, aproximadamente 66\% e 34\%, respectivamente. 
+A divisão é estratificada por requisito e
+mantém juntas todas as parametrizações de uma função de teste.\footnote{Regra e partições em
 \url{https://github.com/Educg550/tcc/blob/main/demos/caronte/piloto-v2/gabarito/split.json}.}
 
 \section{Estratégias de reconstrução}
 \label{sec:prejanus-estrategias}
 
-As duas estratégias diferem na informação que orienta a geração. Na primeira,
-os agentes recebem requisitos em linguagem natural e contratos. Na segunda,
-recebem testes visíveis e contratos, sem o documento de requisitos. Em ambas,
-o código original fica fora da entrada dos agentes.
+As duas estratégias diferem na informação que orienta a geração:
+
+\begin{itemize}
+  \item \textbf{Estratégia 1 (requisitos):} os agentes recebem os requisitos
+    em linguagem natural e os contratos. O gabarito permanece inteiramente
+    oculto durante a geração.
+  \item \textbf{Estratégia 2 (\emph{rework}):} o agente recebe os 161 testes
+    visíveis e os contratos, sem o documento de requisitos. Apenas os 85 casos
+    reservados ficam ocultos.
+\end{itemize}
+
+Em ambas, o código original fica fora da entrada dos agentes.
 
 \subsection{Estratégia 1: geração a partir dos requisitos}
 \label{sec:prejanus-requisitos}
 
-A primeira estratégia compara baseline e TDD a partir dos mesmos requisitos
-e contratos. Na baseline, um agente produz a implementação em uma sessão,
-que pode envolver várias chamadas ao modelo, sem receber resultados de
-testes durante a geração. No TDD, um agente escreve testes próprios e outro
-implementa o backend. O harness executa esses testes e devolve as falhas ao
-agente de implementação, que pode corrigir o código até obter aprovação ou
-atingir um limite de execução.
-
-Os testes próprios do TDD ficam fixos após a etapa de escrita. Eles integram
-o tratamento experimental e podem conter interpretações incorretas dos
-requisitos, conforme a limitação discutida no capítulo anterior. O gabarito
-completo permanece oculto para os dois pipelines e só é executado depois
-da geração, sem devolver suas falhas ao agente para novas correções.
+A primeira estratégia compara baseline e TDD, descritos no
+Capítulo~\ref{cap:introducao}, a partir dos mesmos requisitos e contratos.
+O gabarito completo permanece oculto para os dois pipelines e só é executado
+depois da geração, sem devolver suas falhas ao agente para novas correções.
 A Figura~\ref{fig:prejanus-requisitos} representa essa separação.
 
 \begin{figure}[htp]
