@@ -25,11 +25,73 @@
 \onehalfspacing
 \maketitle
 
-% Preencher resumo, abstract e palavras-chave quando houver texto autoral.
-% \palavraschave{...}
-% \keywords{...}
-% \resumo{...}
-% \abstract{...}
+% % Preencher resumo, abstract e palavras-chave quando houver texto autoral.
+% % \palavraschave{...}
+% % \keywords{...}
+% % \resumo{...}
+% % \abstract{...}
+
+\palavraschave{geração de código, agentes, modelos de linguagem, desenvolvimento guiado por testes, testes de aceitação}
+\keywords{code generation, agents, language models, test-driven development, acceptance testing}
+
+\resumo{Este trabalho compara dois pipelines de geração de código por agentes
+baseados em grandes modelos de linguagem (LLMs), a partir dos mesmos requisitos
+em linguagem natural. Na geração direta (baseline), o agente produz a
+implementação sem receber resultados de testes. No pipeline baseado em
+desenvolvimento guiado por testes (TDD), um agente gera testes e outro
+implementa e corrige o código até que passem ou que se atinja um limite de
+execução. A pergunta de pesquisa é se o TDD produz código que atende melhor aos
+requisitos, considerando também o consumo de tokens. A corretude funcional foi
+medida por testes de aceitação externos aos pipelines. No primeiro estudo, 200
+execuções geraram uma aplicação web para um formulário de solicitação de
+auxílio financeiro, com dois modelos e 50 execuções por combinação de modelo e
+pipeline. Nos 22 critérios verificados com Cypress, a geração direta aprovou
+mais aplicações com DeepSeek (39 contra 30, em 50), e o TDD, com GLM (9 contra
+3, em 50). Na avaliação heurística das finalistas, as notas de um
+Computer-Using Agent (CUA) e as minhas coincidiram em 5 de 30, e o estudo não
+indicou um pipeline superior. No segundo estudo, os pipelines reconstruíram as
+50 operações HTTP do backend do PreJanus, avaliadas por um gabarito de 247
+testes de caixa preta. Foram avaliadas também uma variante de TDD que permite
+revisar os testes gerados e uma reconstrução guiada por testes visíveis
+(\emph{rework}), medida em casos reservados. Com uma execução por variante, o
+TDD com revisão passou em 194 casos, contra 186 da geração direta e 140 do TDD
+com testes congelados, com cerca de quatro vezes o custo da geração direta.
+Nos casos reservados, o \emph{rework} não superou a geração direta. Em uma
+rodada com lições derivadas das falhas, as quatro variantes passaram em menos
+casos; em duas, o harness aceitou uma proposta interrompida e a aplicação
+entregue não inicia. Nos cenários avaliados, o TDD consumiu mais tokens que a
+geração direta e teve ganhos de aprovação pontuais. Esses resultados se
+restringem ao pipeline implementado e aos requisitos avaliados.}
+
+\abstract{This work compares two code generation pipelines built on agents
+based on large language models (LLMs), starting from the same natural language
+requirements. In direct generation (baseline), the agent produces the
+implementation without receiving test results. In the pipeline based on
+test-driven development (TDD), one agent writes tests and another implements
+and fixes the code until the tests pass or an execution limit is reached. The
+research question is whether TDD produces code that better meets the
+requirements, also considering token consumption. Functional correctness was
+measured by acceptance tests external to the pipelines. In the first study, 200
+runs generated a web application for a financial aid request form, with two
+models and 50 runs per combination of model and pipeline. On the 22 criteria
+checked with Cypress, direct generation passed more applications with DeepSeek
+(39 versus 30, out of 50), and TDD did so with GLM (9 versus 3, out of 50). In
+the heuristic evaluation of the finalists, the ratings of a Computer-Using
+Agent (CUA) and my own matched in 5 of 30, and the study did not indicate a
+better pipeline. In the second study, the pipelines rebuilt the 50 HTTP
+operations of the PreJanus backend, evaluated by a reference suite of 247
+black-box tests. The study also included a TDD variant that allows revising the
+generated tests and a reconstruction guided by visible tests (\emph{rework}),
+measured on held-out cases. With one run per variant, TDD with test revision
+passed 194 cases, against 186 for direct generation and 140 for TDD with frozen
+tests, at about four times the cost of direct generation. On the held-out
+cases, rework did not outperform direct generation. In a round with lessons
+derived from the failures, all four variants passed fewer cases; in two of
+them, the harness accepted an interrupted proposal and the delivered
+application does not start. In the evaluated scenarios, TDD consumed more
+tokens than direct generation, and its gains in passed tests were occasional.
+These results are limited to the implemented pipeline and the evaluated
+requirements.}
 \tableofcontents
 
 \mainmatter
