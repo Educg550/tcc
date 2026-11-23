@@ -1704,9 +1704,97 @@ Como nas execuções anteriores, há uma execução por variante. A comparação
 a Seção~\ref{sec:prejanus-resultados} não separa o efeito das lições da
 variação entre gerações do modelo.
 
-% Resultados finais (após feedback)
+% % Resultados finais (após feedback)
+% % aqui é a seção de resultados finais, após o feedback. basicamente é a mesma coisa que a seção de resultados, mas agora com as runs que receberam o feedback.
+% % que eu me lembre, os resultados foram no geral um pouco piores do que a versão sem feedback.
+% % a conclusão que eu tinha chegado é que rodar pra N=1 runs vai sempre ter uma variação grande, e que o feedback não necessariamente melhora a performance, mas pode ajudar a guiar futuras melhorias no pipeline.
 
-% Capítulo conclusão
+\section{Resultados com feedback}
+\label{sec:prejanus-resultados-licoes}
+
+As quatro variantes pioraram com as lições. A
+Tabela~\ref{tab:prejanus-resultados-licoes} repete as medidas da
+Tabela~\ref{tab:prejanus-resultados} para as novas execuções. A baseline
+passou em 138 dos 247 casos, 48 a menos que antes, e o TDD com revisão em 131,
+63 a menos. O TDD e o rework passaram em dois casos cada, porque a aplicação
+entregue não inicia. A rodada custou US\$~5,80.\footnote{Resumo em
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-11-15-runs-com-licoes-prejanus-back.md}.}
+
+\begin{table}[htp]
+  \centering
+  \caption{Gabarito e consumo das quatro execuções com lições, com os
+    resultados da Tabela~\ref{tab:prejanus-resultados} entre parênteses.
+    No TDD e no rework, os testes do gate não rodaram no fim, porque a
+    aplicação não inicia.
+    Fonte: elaboração própria, a partir de \texttt{GABARITO.json} e
+    \texttt{RUN.log} de cada execução.}
+  \label{tab:prejanus-resultados-licoes}
+  \small
+  \begin{tabular}{lrrrr}
+    \hline
+    Medida & Baseline & TDD & TDD com revisão & Rework \\
+    \hline
+    Gabarito completo (247) & 138 (186) & 2 (140) & 131 (194) & 2 (211) \\
+    Visíveis (161) & 86 (123) & 1 (90) & 81 (130) & 1 (151) \\
+    Reservados (85) & 51 (62) & 0 (49) & 49 (63) & 0 (59) \\
+    Reservados sem divergência (79) & 49 (58) & 0 (47) & 47 (60) & 0 (58) \\
+    \hline
+    Testes do gate no fim & --- & --- & 15/58 & --- \\
+    Propostas de implementação & 1 & 3 & 4 & 3 \\
+    Fim da etapa de código & entrega única & custo & tempo & tempo \\
+    Custo (US\$) & 0,63 & 2,08 & 1,75 & 1,33 \\
+    Duração da geração (s) & 493 & 2.812 & 4.435 & 3.744 \\
+    Tokens (milhões) & 4,19 & 12,20 & 7,18 & 5,40 \\
+    \hline
+  \end{tabular}
+\end{table}
+
+No TDD e no rework, o código entregue não roda: a aplicação falha ao iniciar,
+por um nome usado e não definido. Os dois casos aprovados nessas entregas não
+dependem de a aplicação estar funcionando.
+
+Nessas duas variantes, a nota final esconde uma melhora durante a geração. No
+TDD, os testes próprios passaram de 33 para 39 dos 43 casos entre a segunda e
+a terceira propostas, e o erro do enum da entrega anterior não se repetiu. No
+rework, os visíveis passaram de 137 para 155 dos 161, e a URL do OAuth foi
+corrigida. A última proposta de cada uma foi interrompida, por custo no TDD e
+por tempo no rework. O harness aplica as edições pendentes mesmo quando a
+sessão termina com erro e encerra a etapa sem rodar o gate dessa proposta.
+Assim, o erro de importação não voltou ao agente para correção, e a entrega
+ficou pior que versões anteriores da mesma execução. Não apliquei o gabarito
+às versões intermediárias, então os 155 visíveis do rework não permitem
+estimar quantos reservados ele acertaria.
+
+Li o código e os logs das quatro entregas, como na
+Subseção~\ref{subsec:prejanus-arquetipos}, sem executar novamente as
+aplicações nem os testes, e os arquétipos se repetem. A lição de conferir
+nomes entre módulos não evitou que o TDD e o rework entregassem código que não
+roda. A baseline repete a URL do OAuth sem a barra e o formato errado das
+respostas de formulários, e um erro novo nas consultas SQL derruba outros
+casos; ainda assim, passa em oito casos que a baseline anterior errava. No TDD
+com revisão, um nome de coluna diferente do esquema faz uma consulta falhar.
+Os testes próprios também voltam a fixar uma leitura da entrada: enviam os
+parâmetros de retorno do OAuth no corpo da requisição, e o código passa a
+exigi-los ali.
+
+No TDD com revisão, os três gates completos terminaram com 15 aprovados, 27
+falhas e 16 erros, e o agente de implementação não revisou nenhum teste.
+Duas características do harness podem ter contribuído, sem que os registros
+permitam confirmar. O papel do agente permite alterar testes com
+justificativa, mas a mensagem enviada após um gate vermelho ainda diz ``Não
+altere os testes''. Além disso, o agente recebe só o fim da saída do pytest, e
+esse trecho não inclui o nome da coluna errada. Mantive o harness e os resultados como foram
+executados.
+
+Com uma execução por variante, essas quedas não separam o efeito das lições da
+variação entre gerações do modelo. O bloco de lições não veio acompanhado de melhora em nenhuma variante.
+As execuções apontaram, porém, pontos do pipeline a corrigir: rodar o gate antes de aceitar
+a última proposta, alinhar a mensagem de falha ao papel do TDD com revisão e
+preservar a causa na saída do pytest repassada ao agente. Não fiz novas
+execuções depois desta rodada.
+
+% INI Capítulo conclusão
+% FIM
 
 \backmatter
 \pagestyle{backmatter}
