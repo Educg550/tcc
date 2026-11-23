@@ -988,7 +988,7 @@ A Tabela~\ref{tab:formulario-recursos} resume as três medidas por modelo e pipe
   \centering
   \caption{Estatísticas descritivas da geração, com 50 execuções por grupo,
     incluindo as reprovadas. O desvio padrão é amostral. Os valores não incluem
-    a avaliação posterior por Cypress, CUA ou pesquisador.
+    a avaliação posterior pelo Cypress, pelo CUA ou por mim.
     Fonte: elaboração própria, a partir dos \texttt{RUN.log} do lote.}
   \label{tab:formulario-recursos}
   \begin{tabular}{lrrrr}
@@ -1043,12 +1043,12 @@ mini projeto \texttt{desempatador}\footnote{Código disponível em
 foi representada por três capturas, com largura de 1.280 pixels: a aba
 \texttt{ALUNOS} preenchida, a aba \texttt{DOCENTES} e o ofício gerado.\footnote{Procedimento de captura registrado em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-06-desempatador.md}.}
 
-Em cada partida, o pesquisador comparou duas candidatas identificadas apenas
+Em cada partida, comparei duas candidatas identificadas apenas
 como A e B. A chave e os lados foram sorteados, e a semente e as escolhas
 ficaram registradas.\footnote{Chave e escolhas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json}.} Os critérios de preferência foram identificação da aba
 ativa, ausência de problemas visuais, legibilidade, separação em seções e
 aparência geral. O anonimato ocultava modelo e pipeline, mas o julgamento
-continuava sendo o de uma pessoa.
+continuava sendo só o meu.
 
 Após a definição da campeã da chave, as candidatas que perderam diretamente
 para ela disputaram uma repescagem pelo segundo lugar. Esse procedimento
@@ -1092,9 +1092,9 @@ a escala de notas adotada neste trabalho foi definida para o experimento.\footno
 
 Cada heurística recebeu uma nota ordinal: Péssimo, Ruim, Regular, Bom ou
 Excelente, com justificativa e evidência. A identidade visual da USP não foi
-mantida como uma dimensão adicional nessa avaliação. O pesquisador e o CUA
-seguiram um roteiro comum, abrangendo as duas abas, preenchimento por teclado,
-validações, envio e leitura do ofício. Suas notas foram registradas
+mantida como uma dimensão adicional nessa avaliação. Eu e o CUA
+seguimos um roteiro comum, abrangendo as duas abas, preenchimento por teclado,
+validações, envio e leitura do ofício. Nossas notas foram registradas
 separadamente, sem consulta às notas do outro avaliador. Por serem categorias
 ordinais, as notas são apresentadas por heurística, sem supor distâncias iguais
 entre as categorias para construir uma média geral.
@@ -1102,7 +1102,7 @@ entre as categorias para construir uma média geral.
 Essa inspeção tem alcance diferente de um estudo com usuários. A avaliação
 heurística examina a interface segundo princípios de usabilidade, e avaliadores
 diferentes podem encontrar problemas distintos \citep{nielsenAvaliacao}.
-Neste experimento, a avaliação humana foi feita apenas pelo pesquisador, sobre
+Neste experimento, a avaliação humana foi feita apenas por mim, sobre
 finalistas escolhidas por preferência visual. O CUA constitui outro instrumento
 de avaliação, cuja confiabilidade também estava em exame. A combinação não
 permite estimar a experiência de uma população de usuários nem a usabilidade
@@ -1155,6 +1155,72 @@ backend com mais operações e uma avaliação externa por HTTP.
 % % conforme a Subseção~\ref{sec:testes-caixa-preta}, para avaliar o comportamento pela interface HTTP.
 % % esse experimento se separa em duas estratégias principais, descritas melhor à seguir:
 % % estratégia 1 e 2 são subseções, procura lá no diário que ta explicado bonitinho. explica de forma bem elementar. também coloca diagramas bonitinhos aqui no mesmo estilo dos outros diagramas que já estão na tese
+
+% % resultados do experimento Não sei se foi falado epxlicitamente nas seções anteriores, mas queria destacar aqui
+% % como uma conclusãozinha desse capítulo de experimentos.
+% % acontece que, no fim, minhas conclusões e a do CUA ficaram ambíguas. justamente pela
+% % impossibilidade de testar em batch para todas as runs (mesmo as finalistas), ficou decidido
+% % que, apesar de termos "finalistas" (ou seja, runs "favoritas" de cada pipeline), não conseguimos chegar a uma conclusão definitiva sobre qual pipeline é melhor.
+% % isso levou à avaliação de um segundo cenário, que é o capítulo seguinte
+\section{Resultados do experimento}
+\label{sec:formulario-sintese}
+
+O experimento terminou com finalistas, mas sem resposta à pergunta de
+pesquisa. A suíte Cypress aprovou 81 aplicações nos 22 critérios, com
+execuções dos dois pipelines, e não as separou. Os torneios escolheram
+finalistas de cada pipeline por preferência visual, que pode ser ambígua. Inclusive na
+avaliação heurística dessas finalistas, nem as minhas notas nem as do CUA
+indicaram, de forma consistente, uma aplicação superior, pois cada avaliador deu
+notas próximas às finalistas comparadas e, entre a \texttt{deepseek/run44/baseline}
+e a \texttt{deepseek/run35/baseline}, apontamos para lados opostos. Para uma
+mesma aplicação, as minhas notas e as do CUA coincidiram em apenas 5 das 30
+heurísticas avaliadas nas três finalistas que inspecionei
+(Tabela~\ref{tab:formulario-nielsen}).\footnote{Notas e
+comparações em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-06-resultados-nielsen/index.md};
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-13-veredito/index.md};
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-14-nielsen-baseline-vs-tdd.md}.}
+
+\begin{table}[htp]
+  \centering
+  \small
+  \caption{Notas de Nielsen atribuídas por mim e pelo CUA às finalistas que
+    inspecionei. As heurísticas estão numeradas na ordem listada na
+    Seção~\ref{sec:formulario-nielsen}. Na run35, as notas do CUA são as da
+    sessão de 13 de outubro iniciada às 19:30 UTC.
+    Fonte: elaboração própria, a partir dos arquivos \texttt{relatorio.md}
+    das sessões e das minhas notas registradas no diário.}
+  \label{tab:formulario-nielsen}
+  \begin{tabular}{lllllll}
+    \hline
+    & \multicolumn{2}{c}{\texttt{deepseek/run44}} & \multicolumn{2}{c}{\texttt{deepseek/run35}} & \multicolumn{2}{c}{\texttt{glm/run38}} \\
+    & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{TDD} \\
+    Heurística & Eu & CUA & Eu & CUA & Eu & CUA \\
+    \hline
+    1 & Regular & Bom & Regular & Bom & Excelente & Regular \\
+    2 & Excelente & Regular & Excelente & Bom & Excelente & Bom \\
+    3 & Excelente & Ruim & Regular & Ruim & Regular & Ruim \\
+    4 & Excelente & Bom & Bom & Excelente & Excelente & Bom \\
+    5 & Excelente & Regular & Excelente & Regular & Excelente & Bom \\
+    6 & Excelente & Bom & Excelente & Bom & Excelente & Bom \\
+    7 & Excelente & Excelente & Excelente & Excelente & Excelente & Excelente \\
+    8 & Regular & Bom & Regular & Excelente & Bom & Bom \\
+    9 & Ruim & Regular & Ruim & Ruim & Excelente & Regular \\
+    10 & Excelente & Regular & Excelente & Regular & Excelente & Regular \\
+    \hline
+  \end{tabular}
+\end{table}
+
+A avaliação heurística ficou restrita às quatro finalistas. Na campeã
+baseline, uma sessão do CUA custou cerca de 70 vezes a geração da aplicação,
+e a minha inspeção era manual. Mesmo nas finalistas, não houve sessões
+repetidas em número suficiente para distinguir a variação do CUA de diferenças
+entre as aplicações. Estender essa avaliação ao lote aumentaria o custo e o
+esforço sem remover o viés do meu julgamento nem a instabilidade do
+avaliador automático. Com os orientadores, encerrei o experimento como
+inconclusivo e passei a um segundo cenário, com avaliação por um
+gabarito de testes pela interface HTTP, descrito no
+Capítulo~\ref{cap:experimento-prejanus}.\footnote{Registro da decisão em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-14-pivo-caronte/index.md}.}
+
 \chapter{Reconstrução do PreJanus-back}
 \label{cap:experimento-prejanus}
 
@@ -1308,6 +1374,12 @@ Assim, a aprovação neles não oferece a mesma evidência que a aprovação nos
 reservados. Na primeira estratégia, a avaliação externa usa os 247 casos;
 para comparar as três condições nos reservados, deve-se considerar o mesmo
 subconjunto de 85 casos em todas elas.
+
+% Resultados preliminares experimento 2
+% depois de definir o escopo inicial do experimento de reconstrução (não sei se já foi falado ou não que é o prejanus-back e não o caronte core, mas é legal de falar isso caso ainda não tenha sido falado, pois a gente desistiu de reconstruir o caronte core inteiro e focou no prejanus-back)
+% fizemos algumas runs para testar o funcionamento do pipeline num escopo menor (que eu acho que acabou ironicamente sendo o próprio prejanus-back, mas não lembro direito, tinha o nome de piloto no código, mas odeio esse nome).
+% um resultado surpreendente foi encontrado, assim como no torneio cego feito no primeiro experimento
+% 
 
 \backmatter
 \pagestyle{backmatter}
