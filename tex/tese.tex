@@ -25,73 +25,57 @@
 \onehalfspacing
 \maketitle
 
-% % Preencher resumo, abstract e palavras-chave quando houver texto autoral.
-% % \palavraschave{...}
-% % \keywords{...}
-% % \resumo{...}
-% % \abstract{...}
-
 \palavraschave{geração de código, agentes, modelos de linguagem, desenvolvimento guiado por testes, testes de aceitação}
 \keywords{code generation, agents, language models, test-driven development, acceptance testing}
 
-\resumo{Este trabalho compara dois pipelines de geração de código por agentes
-baseados em grandes modelos de linguagem (LLMs), a partir dos mesmos requisitos
-em linguagem natural. Na geração direta (baseline), o agente produz a
-implementação sem receber resultados de testes. No pipeline baseado em
-desenvolvimento guiado por testes (TDD), um agente gera testes e outro
-implementa e corrige o código até que passem ou que se atinja um limite de
-execução. A pergunta de pesquisa é se o TDD produz código que atende melhor aos
-requisitos, considerando também o consumo de tokens. A corretude funcional foi
-medida por testes de aceitação externos aos pipelines. No primeiro estudo, 200
-execuções geraram uma aplicação web para um formulário de solicitação de
-auxílio financeiro, com dois modelos e 50 execuções por combinação de modelo e
-pipeline. Nos 22 critérios verificados com Cypress, a geração direta aprovou
-mais aplicações com DeepSeek (39 contra 30, em 50), e o TDD, com GLM (9 contra
-3, em 50). Na avaliação heurística das finalistas, as notas de um
-Computer-Using Agent (CUA) e as nossas coincidiram em 5 de 30, e o estudo não
-indicou um pipeline superior. No segundo estudo, os pipelines reconstruíram as
-50 operações HTTP do backend do PreJanus, avaliadas por um gabarito de 247
-testes de caixa preta. Foram avaliadas também uma variante de TDD que permite
-revisar os testes gerados e uma reconstrução guiada por testes visíveis
-(\emph{rework}), medida em casos reservados. Com uma execução por variante, o
-TDD com revisão passou em 194 casos, contra 186 da geração direta e 140 do TDD
-com testes congelados, com cerca de quatro vezes o custo da geração direta.
-Nos casos reservados, o \emph{rework} não superou a geração direta. Em uma
-rodada com lições derivadas das falhas, as quatro variantes passaram em menos
-casos; em duas, o harness aceitou uma proposta interrompida e a aplicação
-entregue não inicia. Nos cenários avaliados, o TDD consumiu mais tokens que a
-geração direta e teve ganhos de aprovação pontuais. Esses resultados se
-restringem ao pipeline implementado e aos requisitos avaliados.}
+\resumo{Este trabalho investiga se o desenvolvimento guiado por testes (TDD,
+do inglês \emph{test-driven development}) melhora o atendimento aos requisitos
+na geração de código por agentes baseados em modelos de linguagem. Na geração
+direta (baseline), o agente implementa o requisito sem receber resultados de
+testes. No pipeline baseado em TDD, um agente escreve os testes e outro usa
+seus resultados para corrigir o código. A comparação considera o consumo de
+tokens e o desempenho em testes de aceitação independentes dos pipelines. No
+primeiro estudo, foram realizadas 200 execuções para gerar um formulário web
+de solicitação de auxílio financeiro, com 50 por combinação de modelo e
+pipeline. Com o modelo DeepSeek, 39 aplicações da geração direta e 30 do TDD
+atenderam aos 22 critérios funcionais. Com o modelo GLM-5.3, passaram 3 da
+geração direta e 9 do TDD. Na avaliação de usabilidade, as notas do agente que
+operou o navegador coincidiram com as da inspeção humana em 5 das 30
+comparações. O segundo estudo avaliou a reconstrução do backend do PreJanus
+com um gabarito de 247 testes de caixa preta. Com uma execução por variante, o
+TDD com revisão dos testes passou em 194 casos, seguido pela geração direta
+com 186 e pelo TDD com testes congelados com 140. O TDD com revisão custou
+cerca de quatro vezes o valor da geração direta. A reconstrução guiada por
+testes visíveis (\emph{rework}) passou em 59 dos 85 casos reservados, diante
+de 62 da geração direta. Em uma rodada com orientações derivadas das falhas,
+as quatro variantes passaram em menos casos. Duas entregas deixaram de
+iniciar após a aplicação de alterações de propostas interrompidas. Nos
+cenários avaliados, o TDD consumiu mais tokens que a geração direta e passou
+em mais testes em comparações pontuais.}
 
-\abstract{This work compares two code generation pipelines built on agents
-based on large language models (LLMs), starting from the same natural language
-requirements. In direct generation (baseline), the agent produces the
-implementation without receiving test results. In the pipeline based on
-test-driven development (TDD), one agent writes tests and another implements
-and fixes the code until the tests pass or an execution limit is reached. The
-research question is whether TDD produces code that better meets the
-requirements, also considering token consumption. Functional correctness was
-measured by acceptance tests external to the pipelines. In the first study, 200
-runs generated a web application for a financial aid request form, with two
-models and 50 runs per combination of model and pipeline. On the 22 criteria
-checked with Cypress, direct generation passed more applications with DeepSeek
-(39 versus 30, out of 50), and TDD did so with GLM (9 versus 3, out of 50). In
-the heuristic evaluation of the finalists, the ratings of a Computer-Using
-Agent (CUA) and our own matched in 5 of 30, and the study did not indicate a
-better pipeline. In the second study, the pipelines rebuilt the 50 HTTP
-operations of the PreJanus backend, evaluated by a reference suite of 247
-black-box tests. The study also included a TDD variant that allows revising the
-generated tests and a reconstruction guided by visible tests (\emph{rework}),
-measured on held-out cases. With one run per variant, TDD with test revision
-passed 194 cases, against 186 for direct generation and 140 for TDD with frozen
-tests, at about four times the cost of direct generation. On the held-out
-cases, rework did not outperform direct generation. In a round with lessons
-derived from the failures, all four variants passed fewer cases; in two of
-them, the harness accepted an interrupted proposal and the delivered
-application does not start. In the evaluated scenarios, TDD consumed more
-tokens than direct generation, and its gains in passed tests were occasional.
-These results are limited to the implemented pipeline and the evaluated
-requirements.}
+\abstract{This work investigates whether test-driven development (TDD) helps
+code generated by language model agents meet requirements. In direct
+generation (the baseline), the agent implements the requirement without
+receiving test results. In the TDD pipeline, one agent writes tests and
+another uses the results to fix the code. The comparison considers token
+consumption and performance on acceptance tests independent of the pipelines.
+The first study ran the pipelines 200 times to generate a web form for
+financial aid requests, with 50 runs per model and pipeline combination. With
+the DeepSeek model, 39 applications from direct generation and 30 from TDD
+met all 22 functional criteria. With GLM-5.3, 3 applications from direct
+generation and 9 from TDD met those criteria. In the usability evaluation,
+ratings from the agent operating the browser matched the human ratings in 5
+of 30 comparisons. The second study evaluated reconstructions of the PreJanus
+backend against a reference suite of 247 black-box tests. With one run per
+variant, TDD with test revision passed 194 cases, followed by direct
+generation with 186 and TDD with frozen tests with 140. TDD with test
+revision cost about four times as much as direct generation. Reconstruction
+guided by visible tests (\emph{rework}) passed 59 of 85 held-out cases,
+compared with 62 for direct generation. In another round, the agents
+received guidance based on earlier failures. All four variants passed fewer
+cases. Two applications failed to start after changes from interrupted
+proposals were applied. In these studies, TDD consumed more tokens than
+direct generation and passed more tests in some comparisons.}
 \tableofcontents
 
 \mainmatter
@@ -108,20 +92,13 @@ requirements.}
 \chapter{Introdução}
 \label{cap:introducao}
 
-A inteligência artificial generativa permite produzir conteúdo, incluindo código
-de software, a partir de instruções do usuário \citep{ibmGenerativeAI}.
-Na geração de código, grandes modelos de linguagem (\emph{large language models},
-LLMs) recebem descrições em linguagem natural e produzem implementações.
-Esses modelos também podem integrar agentes, sistemas que usam ferramentas e
-os resultados de suas ações para executar uma tarefa \citep{trivedy2026harness}.
-Ao delegar a implementação a esses sistemas, surge a necessidade de avaliar
-em que medida o software gerado atende aos requisitos.
-
-Essa preocupação se insere em uma discussão mais ampla sobre os riscos do uso
-de IA. A área de segurança de IA (\emph{AI safety}) trata da prevenção e redução
-de danos associados a essas tecnologias \citep{ibmAISafety}. Julgamos importante destacar
-que este TCC não avalia \emph{AI safety}; o foco nessa dissertação é a qualidade do 
-software gerado, sobretudo a corretude funcional e aderência aos requisitos.
+A inteligência artificial generativa permite produzir código a partir de
+instruções em linguagem natural \citep{ibmGenerativeAI}. Grandes modelos de
+linguagem (\emph{large language models}, LLMs) também podem integrar agentes que
+usam ferramentas para ler arquivos, editar código e executar testes
+\citep{trivedy2026harness}. Ao delegar a implementação a esses agentes, é
+preciso avaliar se o software entregue atende aos requisitos e quanto custa
+obtê-lo.
 
 Uma forma de orientar a implementação é escrever testes automatizados antes do
 código de produção. No desenvolvimento guiado por testes (\emph{test-driven
@@ -133,24 +110,26 @@ testes gerados e delegam a implementação ao modelo. A prova de conceito dessa
 proposta identificou inconsistências nos próprios testes, que exigiram
 intervenção humana \citep{melegati2026top}.
 
-\begin{figure}[htp]
-  \centering
-  \includegraphics[width=0.70\textwidth]{figuras/ciclo-tdd.png}
-  \caption{Ciclo do desenvolvimento guiado por testes: escrever um teste que
-    falha, implementar o necessário para fazê-lo passar e refatorar.
-    Fonte: \href{https://marsner.com/wp-content/uploads/test-driven-development-TDD.png}{Marsner}.}
-  \label{fig:ciclo-tdd}
-\end{figure}
-
-Inspirado nas abordagens estudadas, este trabalho compara 
-dois pipelines de geração de código a partir dos mesmos
-requisitos em linguagem natural. Na geração direta, denominada baseline, o
+Este trabalho compara dois pipelines de geração de código a partir dos mesmos
+requisitos em linguagem natural. Na geração direta, denominada \emph{baseline}, o
 agente produz a implementação sem receber resultados de testes durante a
-geração. No pipeline baseado em TDD, um agente gera testes e outro implementa
-e corrige o código com base nesses testes, até que passem ou que se atinja um
-limite de execução. A comparação busca verificar se essa organização produz
-código mais correto nos casos avaliados. Os testes gerados pelo próprio pipeline
-são parte do processo de implementação; a avaliação usa testes externos a ele.
+geração. No pipeline baseado em TDD, um agente gera a suíte antes da
+implementação. Outro agente usa os resultados dessa suíte para corrigir
+o código até que os testes passem ou que se atinja um limite de execução.
+A avaliação da entrega usa testes externos ao pipeline.
+
+As contribuições são o ambiente de execução que aplica os pipelines e a
+avaliação comparativa em dois cenários. No formulário web, a taxa de aprovação
+funcional favoreceu um pipeline diferente em cada modelo. Na reconstrução do
+PreJanus-back, o TDD com revisão dos testes passou em mais casos que a
+geração direta, com custo maior e uma única execução por variante.
+
+Este capítulo apresenta a pergunta de pesquisa e os critérios de avaliação.
+O Capítulo~\ref{cap:ferramentas} descreve os agentes e seu ambiente de
+execução. Os Capítulos~\ref{cap:experimento-formulario}
+e~\ref{cap:experimento-prejanus} apresentam os métodos e resultados dos
+dois estudos. O Capítulo~\ref{cap:conclusao} retoma a pergunta de pesquisa à
+luz desses resultados.
 
 % % vamo fazer aqui um pedacinho sobre corretude. talvez ainda dentro do capitulo da introducao, pois estamos definindo as bases pro que vamos precisar mais adiante no TCC ainda. basicamente o que define um código como "correto" ou "melhor" que outro, pra gente ter como base pra comparar nos dois pipelines depois
 % % É importante definirmos o que consideramos correto ou não, com base em testes de software determinísticos. Existem critérios que são obviamente determinísticos, tal qual o resultado de uma soma (sei la bota um snippet pytest bem idiota simples de testar uma funcao de soma). alguns, ainda determinísticos, mas difícieis de distignuir (bota um exemplo mais complexo, tipo teste de coisas em paralelo/threads nao sei). já outros são completamente subjetivos e é um problema difícil decidir se o resultado é correto ou não (bota um exemplo de teste subjetivo, pensei no exemplo de teste que o CUA pega na etapa dos experimentos com formularios, fala aquilo mas ainda nao fala do CUA).
@@ -167,12 +146,9 @@ tokens cada pipeline consome para obter o resultado observado.
 \section{Corretude e critérios de avaliação}
 \label{sec:corretude}
 
-Como observa \citet[seção~2.1]{dijkstra1969structured}, testes podem revelar a
-presença de defeitos, mas sua execução sem falhas não demonstra a ausência deles.
-
 Neste trabalho, a corretude funcional é o atendimento ao comportamento definido
-nos requisitos. Os testes fornecem evidências sobre os casos exercitados
-\citep[seção~2.1]{dijkstra1969structured}. No formulário, conferir quais
+nos requisitos. Os testes podem revelar defeitos e fornecem evidências sobre
+os casos exercitados \citep[seção~2.1]{dijkstra1969structured}. No formulário, conferir quais
 campos aparecem ao trocar para a aba de docentes é um critério objetivo.
 Avaliar se a disposição dos campos facilita a leitura exige julgamento.
 A Figura~\ref{fig:formulario-identidade-usp} mostra a interface sobre a qual
@@ -182,8 +158,9 @@ esse julgamento é feito.\footnote{\href{https://github.com/Educg550/tcc/blob/cb
 \begin{figure}[htp]
   \centering
   \includegraphics[width=0.70\textwidth]{figuras/formulario-torneio-cego.png}
-  \caption{Recorte do formulário vencedor do torneio cego (run44, DeepSeek
-    baseline). Fonte: elaboração própria.}
+  \caption{Interface do formulário vencedor do torneio cego, gerado com
+    DeepSeek e geração direta (run44). Fonte: captura da aplicação gerada
+    no experimento.}
   \label{fig:formulario-identidade-usp}
 \end{figure}
 
@@ -221,7 +198,8 @@ que ofereçam a mesma interface.
 Testes de aceitação verificam se o sistema atende aos requisitos e às
 expectativas dos usuários nas tarefas para as quais foi construído
 \citep[cap.~5, seção~2.1.4]{swebok2026}. Neste trabalho, o formulário é
-avaliado pelo navegador, e o PreJanus-back, pela interface HTTP.
+avaliado pelo navegador. O PreJanus-back é avaliado pela interface HTTP
+(\emph{Hypertext Transfer Protocol}).
 
 \chapter{Ferramentas e ambiente de execução}
 \label{cap:ferramentas}
@@ -229,20 +207,20 @@ avaliado pelo navegador, e o PreJanus-back, pela interface HTTP.
 \section{Agentes}
 \label{sec:agentes}
 
-Um agente combina um modelo de linguagem e um harness. O modelo escolhe as
-ações a partir das instruções e observações. O harness executa as ações
-solicitadas e devolve seus resultados ao modelo, que pode usá-los para decidir
-o passo seguinte \citep{trivedy2026harness}.
+Um agente combina um modelo de linguagem e um \emph{harness}, a infraestrutura
+que o conecta ao ambiente de execução. O modelo escolhe ações a partir das
+instruções e observações. O harness executa as ações solicitadas e devolve
+seus resultados ao modelo, que pode usá-los para decidir o passo seguinte
+\citep{trivedy2026harness}.
 
 \subsection{Determinismo e não determinismo}
 \label{subsec:determinismo}
 
-Determinismo significa que, para as mesmas entradas e condições de execução,
-o resultado é sempre o mesmo. Neste trabalho, os LLMs utilizados e os agentes
-que os incorporam são tratados como fontes de não determinismo. Repetir uma
-instrução pode produzir respostas diferentes e, no caso dos agentes, ações e
-percursos de execução diferentes, de modo que duas tentativas de gerar código
-para o mesmo requisito podem resultar em implementações distintas.
+Um processo é determinístico quando produz o mesmo resultado para as mesmas
+entradas e condições de execução. Os modelos usados neste trabalho podem
+responder de maneiras diferentes à mesma instrução. Como suas respostas
+determinam quais ferramentas serão acionadas, duas execuções para o mesmo
+requisito podem seguir percursos distintos e gerar implementações diferentes.
 
 \section{Harness}
 \label{cap:harness}
@@ -269,57 +247,36 @@ leitura de um arquivo ou a execução de um teste.
 \subsection{Arquitetura do harness}
 \label{sec:arquitetura-harness}
 
-Cada execução usa um diretório próprio para o projeto gerado. Baseline e TDD
-partem do mesmo requisito e dos mesmos arquivos de apoio. No TDD, o harness
-executa a suíte gerada e devolve o resultado ao agente de implementação.
-A avaliação externa ocorre após a geração e usa critérios comuns aos
-pipelines.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/harness/models/harness.py}{Implementação dos pipelines},
+Cada execução usa um diretório próprio para o projeto gerado. Na geração
+direta e no TDD, os agentes partem do mesmo requisito e dos mesmos arquivos
+de apoio. No TDD, o harness executa a suíte gerada e devolve o resultado
+ao agente de implementação. Essa verificação interna, chamada \emph{gate},
+indica se a proposta passou ou se o agente deve tentar corrigi-la dentro
+do orçamento. A avaliação externa ocorre após a geração e usa critérios
+comuns aos pipelines.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/harness/models/harness.py}{Implementação dos pipelines},
 \href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/harness/cli.py}{interface de linha de comando} e
 \href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/harness/README.md}{documentação do harness}.}
 
-No lote do formulário, a entrada reúne o requisito, a configuração de
-execução e os critérios de aceitação. O registro de cada tentativa contém
-o consumo de tokens, o custo e a duração.\footnote{Arquivos de referência do lote DeepSeek.
-\href{https://github.com/Educg550/tcc/blob/37f7fece4c346ad363913e40d5c1ec9bfabf448a/demos/requisitos/01-formulario-docentes-deepseek/requisito.md}{requisito},
-\href{https://github.com/Educg550/tcc/blob/37f7fece4c346ad363913e40d5c1ec9bfabf448a/demos/requisitos/01-formulario-docentes-deepseek/alvo.toml}{\texttt{alvo.toml}},
-\href{https://github.com/Educg550/tcc/blob/37f7fece4c346ad363913e40d5c1ec9bfabf448a/demos/requisitos/01-formulario-docentes-deepseek/criterios.toml}{\texttt{criterios.toml}} e
-\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/RUN.log}{log da run44 baseline}.}
-
-\subsubsection{Aplicação ao PreJanus-back}
-\label{subsec:extensoes-prejanus}
-
-No PreJanus-back, a avaliação externa usa um gabarito de testes HTTP. O
-experimento inclui também o \emph{rework}, que parte de testes visíveis e
-contratos, e uma variante de TDD que permite revisar os testes produzidos
-na geração.\footnote{Artefatos da execução TDD de 23 de outubro:
-\href{https://github.com/Educg550/tcc/tree/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261023-223904/_harness/entrada}{entrada preservada},
-\href{https://github.com/Educg550/tcc/tree/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261023-223904/tests}{testes gerados} e
-\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-tdd-20261023-223904/_harness/oraculo.xml}{resultado do gabarito}.}
+A configuração define o modelo e os limites por etapa. O registro de cada
+execução reúne o consumo de tokens, o custo e a duração da geração.
 
 \section{Computer-Using Agents}
 \label{sec:cua}
 
 Um \emph{Computer-Using Agent} (CUA) é um agente cujo harness permite observar
 e operar uma interface computacional. A observação pode incluir capturas de
-tela ou estruturas como o DOM e a árvore de acessibilidade. O modelo pode
+tela, o modelo de objetos do documento (\emph{Document Object Model}, DOM) ou a
+árvore de acessibilidade. O modelo pode
 indicar coordenadas de tela ou referenciar um elemento para clicar, digitar
 ou executar outra ação \citep{sager2026computeruse,openai2025cua}.
 
 \subsection{Uso como avaliador}
 \label{subsec:cua-avaliador}
 
-A proposta inicial era usar o CUA para avaliar o software após a geração.
-Ao navegar pela aplicação, ele poderia julgar aspectos como a organização
-visual do formulário a partir de um roteiro comum. Tanto o percurso quanto
-o julgamento podem variar entre sessões na mesma aplicação.
-
-Na avaliação das finalistas, manteve-se o Claude Opus 5.5 via OpenRouter,
-com Browser Use. A decisão considerou o desempenho do modelo no OSWorld
-reportado pela Anthropic \citep{anthropic2026opus55system}.
-O roteiro e as condições da avaliação usada no experimento estão registrados
-junto às sessões.\footnote{Exemplo da run44 baseline:
-\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}{roteiro de avaliação} e
-\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/executar.py}{código da sessão}.}
+O CUA pode avaliar uma aplicação após a geração. A partir de um roteiro,
+ele navega pela interface e registra observações sobre tarefas como
+localizar um campo ou corrigir um erro de preenchimento. Na mesma
+aplicação, o percurso e as notas podem variar de uma sessão para outra.
 
 % % O primeiro experimento foi uma sugestão do meu orientador Paulo, que me instruiu a
 % % construir o requisito de software que seria então utilizado para gerar o código de um formulário web.
@@ -353,12 +310,11 @@ junto às sessões.\footnote{Exemplo da run44 baseline:
 % Nas tabelas, não é necessário repetir a fonte já vinculada no texto.
 % Para valores derivados, vincular os dados de origem e o cálculo disponível.
 
-O primeiro experimento partiu de uma sugestão do orientador Paulo Meirelles.
-Ele consiste em gerar uma aplicação web a partir do requisito de um formulário de solicitação
-de auxílio financeiro e avaliar o resultado pela interface. O formulário oferecia um caso de uso com
-campos, validações e um documento de saída definidos, além de aspectos visuais
-que exigiam julgamento. Assim, permitia examinar tanto a geração de código
-quanto a avaliação comportamental discutida no capítulo anterior.
+O primeiro experimento gerou uma aplicação web a partir do requisito de um
+formulário de solicitação de auxílio financeiro. O formulário reúne
+comportamentos verificáveis pelo navegador, como a validação de campos e a
+emissão de um ofício. A interface também permite examinar aspectos de
+usabilidade, como a legibilidade das mensagens de erro.
 
 \section{Requisito e configuração do harness}
 \label{sec:formulario-harness}
@@ -366,43 +322,59 @@ quanto a avaliação comportamental discutida no capítulo anterior.
 O requisito\footnote{Disponível em
 \url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/01-formulario-docentes-deepseek/requisito.md}.}
 descreve uma aplicação que reúne, em uma página, os formulários de
-alunos e docentes da pós-graduação do IME-USP. O solicitante informa seus dados,
+alunos e docentes da pós-graduação do Instituto de Matemática, Estatística
+e Ciência da Computação da Universidade de São Paulo (IME-USP).
+O solicitante informa seus dados,
 o evento, o valor solicitado, o endereço e os dados bancários. A aplicação
-valida o preenchimento e apresenta um ofício com esses dados. O caso foi tratado
-como um requisito fechado; o experimento não reproduz o processo administrativo
-completo de análise e aprovação do auxílio.
+valida o preenchimento e apresenta um ofício com esses dados. O escopo vai
+até a emissão do ofício. A análise e a aprovação do pedido pertencem a uma
+etapa posterior do processo administrativo.
 
-Embora a avaliação ocorra pelo navegador, o alvo não se restringe ao frontend.
-O requisito fixa três arquivos de interface\footnote{Especificação dos arquivos em \url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/01-formulario-docentes-deepseek/requisito.md}.}, \texttt{index.html},
-\texttt{style.css} e \texttt{app.js}, e um backend FastAPI responsável pela
-validação. Não há banco de dados nem persistência das solicitações. As abas
-\texttt{ALUNOS} e \texttt{DOCENTES}, os rótulos, as mensagens, as máscaras e o
-conteúdo do ofício são comuns a todas as execuções. As imagens institucionais
-são fornecidas como anexos.
+O requisito fixa três arquivos de interface (\texttt{index.html},
+\texttt{style.css} e \texttt{app.js}) e um backend FastAPI responsável pela
+validação. A aplicação funciona sem banco de dados e não armazena as
+solicitações. As abas \texttt{ALUNOS} e \texttt{DOCENTES}, os rótulos, as
+mensagens, as máscaras e o conteúdo do ofício são comuns a todas as execuções.
+As imagens institucionais são fornecidas como anexos.
 
-A proposta inicial do harness adota uma premissa para a passagem entre etapas:
-\textbf{quando avança, não volta atrás nunca}. Uma etapa pode repetir tentativas
-antes de terminar, mas, ao passar à seguinte, seus artefatos ficam fixados.
-A Figura~\ref{fig:harness-estados} representa esse fluxo nos dois pipelines.
-Os laços indicam novas tentativas dentro da mesma etapa; não há transição de
-retorno a uma etapa anterior nem da avaliação externa para a geração.
+A entrada do harness reúne o requisito, a configuração da execução e os
+critérios de aceitação.\footnote{Arquivos da configuração DeepSeek
+\href{https://github.com/Educg550/tcc/tree/37f7fece4c346ad363913e40d5c1ec9bfabf448a/demos/requisitos/01-formulario-docentes-deepseek}{no repositório}.}
+As principais classes do harness nessa configuração são \texttt{Harness},
+\texttt{HarnessDireto}, \texttt{HarnessTDD}, \texttt{Requisito},
+\texttt{Projeto}, \texttt{Alvo}, \texttt{Etapa}, \texttt{Agente},
+\texttt{Avaliador}, \texttt{Resultado} e \texttt{Trace}.
+A Figura~\ref{fig:harness-formulario} apresenta suas relações principais.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.90\textwidth]{figuras/harness-formulario.png}
+  \caption{Classes principais do harness na configuração do formulário.
+    As setas indicam herança, referências e dependências de execução;
+    não representam a ordem das etapas. Fonte: elaboração própria,
+    a partir de \texttt{demos/harness/models/}.}
+  \label{fig:harness-formulario}
+\end{figure}
+
+Cada etapa pode repetir tentativas antes de terminar. Ao passar à etapa
+seguinte, seus artefatos ficam fixados. A Figura~\ref{fig:harness-estados}
+mostra as transições dos dois pipelines.
 
 \begin{figure}[htp]
   \centering
   \includegraphics[width=0.95\textwidth]{figuras/harness-estados.png}
-  \caption{Diagrama simplificado dos estados do harness inicial.
-    O encerramento de uma etapa pode ocorrer por aprovação ou por atingir
-    um limite de execução. A avaliação externa, quando realizada, ocorre
-    após a geração. Fonte: elaboração própria.}
+  \caption{Estados do harness no experimento do formulário. Os laços
+    indicam novas tentativas na mesma etapa. Os testes do TDD ficam fixados
+    ao iniciar a implementação. A avaliação externa ocorre após a geração,
+    sem realimentar o pipeline. Fonte: elaboração própria.}
   \label{fig:harness-estados}
 \end{figure}
 
-Essa premissa pode se tornar uma limitação quando o erro está em um artefato
-produzido na etapa anterior. No TDD, o agente que recebe o feedback do pytest
-pode corrigir o código, mas não o teste. Diante de um teste que interprete
-incorretamente o requisito, pode adaptar a implementação a uma exigência errada ou esgotar o orçamento tentando
-satisfazer testes contraditórios. A avaliação externa pode revelar a divergência,
-mas já não há retorno previsto para corrigi-la nessa execução.
+No TDD, o agente de implementação usa o resultado do pytest para corrigir o
+código, com a suíte fixada na etapa anterior. Se um teste interpretar mal
+o requisito, o agente pode adaptar o código a uma exigência errada.
+Testes contraditórios também podem consumir o orçamento sem que a suíte
+seja aprovada.
 
 \section{Composição do lote e tamanho amostral}
 \label{sec:formulario-amostra}
@@ -410,8 +382,8 @@ mas já não há retorno previsto para corrigi-la nessa execução.
 Foram realizadas 200 execuções, distribuídas igualmente entre dois modelos e
 dois pipelines, conforme a Tabela~\ref{tab:formulario-lote}.\footnote{Registros das execuções, com modelo e pipeline, em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.} Em cada execução,
 o mesmo modelo ocupa os papéis de geração previstos pelo pipeline. Cada
-workspace começa vazio e a execução em lote dispensa os gates de aprovação
-humana usados nos protótipos anteriores.
+diretório de geração começa sem código de produção. As execuções em lote
+prosseguem sem aprovação humana entre as etapas.
 
 \begin{table}[htp]
   \centering
@@ -437,8 +409,10 @@ para DeepSeek e US\$~3 para GLM.\footnote{Configurações por modelo em \url{htt
 implementação, o mesmo limite por etapa não iguala o orçamento total dos dois
 pipelines. Essa diferença deve acompanhar a interpretação de custo e resultado.
 
-O total de 200 execuções, com 50 repetições em cada célula, foi fixado sem
-cálculo prévio de poder estatístico ou de margem de erro.\footnote{Laço de execução do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/harness/batch.py}.}
+O total de 200 execuções, com 50 repetições por combinação de modelo
+e pipeline, foi fixado sem cálculo prévio de poder estatístico ou de margem
+de erro. A análise descreve a amostra à luz desse limite
+\citep{lakens2022sample}.
 
 A unidade de repetição é a execução completa do pipeline para o mesmo
 requisito. Os critérios verificados dentro de uma aplicação não constituem
@@ -456,14 +430,12 @@ Esses intervalos se referem às repetições do mesmo requisito.\footnote{\href{
 % O uso do CUA como avaliador único foi revisto durante o desenvolvimento do
 % experimento. Os critérios foram separados em verificações determinísticas,
 % executadas pelo Cypress, e aspectos que exigiam julgamento pela interface.
-Como mencionado anteriormente, inicialmente, planejava-se usar apenas o CUA como validador final.
-O custo elevado por token do modelo fixado para essa etapa e o uso de um avaliador não
-determinístico para verificar comportamentos determinísticos motivaram também
-a inclusão do Cypress, um framework de automação de testes para aplicações web
-baseado em JavaScript. Com isso, uma suíte Cypress canônica, comum às
-implementações, passou a verificar os textos e comportamentos fixados pelo
-requisito, enquanto o CUA ficou responsável pelos aspectos que exigiam
-julgamento pela interface.
+O protocolo inicial previa avaliar as aplicações apenas com o CUA.
+O custo das sessões e a variação na execução dos roteiros motivaram a
+inclusão do Cypress, uma ferramenta de automação de testes para aplicações
+web. Uma suíte comum a todas as implementações passou a verificar os
+comportamentos especificados no requisito. O CUA foi usado na avaliação
+de usabilidade das finalistas.
 
 A primeira suíte continha 12 critérios\footnote{Disponíveis em
 \url{https://github.com/Educg550/tcc/tree/main/demos/avaliacao}.}. Depois de observar o empate entre as
@@ -484,7 +456,9 @@ pela triagem.\footnote{Contagens por célula, denominadores e proporções calcu
 
 \begin{table}[htp]
   \centering
-  \caption{Aprovação funcional por célula, incluindo todas as tentativas.}
+  \caption{Aplicações aprovadas nos critérios iniciais e no conjunto completo.
+    As proporções incluem as 50 tentativas de cada combinação de modelo
+    e pipeline.}
   \label{tab:formulario-aprovacao}
   \begin{tabular}{llrr}
     \hline
@@ -498,11 +472,12 @@ pela triagem.\footnote{Contagens por célula, denominadores e proporções calcu
   \end{tabular}
 \end{table}
 
-No DeepSeek, a baseline teve a maior proporção de aprovação; no GLM, o TDD.
+A geração direta teve a maior proporção de aprovação com DeepSeek, e o
+TDD, com GLM-5.3.
 A Figura~\ref{fig:formulario-aprovacao} acrescenta os intervalos de confiança
 às contagens da Tabela~\ref{tab:formulario-aprovacao}. São intervalos individuais
-de proporções, sem ajuste para comparações múltiplas; sua sobreposição ou
-separação não substitui uma análise específica da diferença entre pipelines.
+de proporções para cada grupo. Para quantificar a incerteza da diferença
+entre pipelines, seria preciso calcular um intervalo específico.
 
 \begin{figure}[htp]
   \centering
@@ -518,7 +493,7 @@ separação não substitui uma análise específica da diferença entre pipeline
 A análise estática com Radon foi descartada como critério de desempate.
 Quatro das cinco aplicações mais bem colocadas na primeira ordenação tinham
 um \texttt{app.py} com apenas uma linha. Mesmo após a triagem estrutural,
-a líder passou em zero dos 12 critérios iniciais.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/radon.json}{Métricas do Radon},
+a primeira colocada falhou nos 12 critérios iniciais.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/radon.json}{Métricas do Radon},
 \href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/glm/run12/baseline/app.py}{exemplo de implementação} e
 \href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/cypress.json}{resultados funcionais}.}
 
@@ -536,7 +511,7 @@ A Tabela~\ref{tab:formulario-recursos} resume as três medidas por modelo e pipe
   \centering
   \caption{Estatísticas descritivas da geração, com 50 execuções por grupo,
     incluindo as reprovadas. O desvio padrão é amostral. Os valores não incluem
-    a avaliação posterior pelo Cypress, pelo CUA ou por nós.
+    a avaliação posterior pelo Cypress, pelo CUA ou pela inspeção humana.
     Fonte: elaboração própria, a partir dos \texttt{RUN.log} do lote.}
   \label{tab:formulario-recursos}
   \begin{tabular}{lrrrr}
@@ -583,28 +558,40 @@ A Tabela~\ref{tab:formulario-recursos} resume as três medidas por modelo e pipe
 \section{Torneio cego e seleção das finalistas}
 \label{sec:formulario-torneio}
 
-As 81 aplicações aprovadas nos dois conjuntos de critérios continuavam
-empatadas nessa régua funcional.\footnote{Aprovação nos critérios extras em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress-extra.json}.} Para escolher as interfaces a examinar em
-mais detalhe, realizamos um torneio de preferência visual, organizado pelo
-mini projeto \texttt{desempatador}\footnote{Código disponível em
+Para escolher quais das 81 aplicações aprovadas seriam examinadas em mais
+detalhe, realizamos um torneio de preferência visual com o programa
+\texttt{desempatador}\footnote{Código disponível em
 \url{https://github.com/Educg550/tcc/tree/main/demos/desempatador}.}. Cada candidata
-foi representada por três capturas, com largura de 1.280 pixels: a aba
-\texttt{ALUNOS} preenchida, a aba \texttt{DOCENTES} e o ofício gerado.\footnote{Procedimento de captura registrado em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-06-desempatador.md}.}
+foi representada por três capturas de 1.280 pixels de largura, uma da aba
+\texttt{ALUNOS} preenchida, outra da aba \texttt{DOCENTES} e a terceira do
+ofício gerado.
 
 Em cada partida, comparamos duas candidatas identificadas apenas
 como A e B. A chave e os lados foram sorteados, e a semente e as escolhas
 ficaram registradas.\footnote{Chave e escolhas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json}.} Os critérios de preferência foram identificação da aba
 ativa, ausência de problemas visuais, legibilidade, separação em seções e
-aparência geral. O anonimato ocultava modelo e pipeline, mas o julgamento
-continuava sendo apenas o nosso.
+aparência geral. O autor fez as comparações sem saber o modelo e o pipeline de cada
+aplicação.
+
+A Figura~\ref{fig:desempatador} mostra a tela de uma partida. Escolhemos a
+vencedora com as setas do teclado ou com um clique na captura, e a última
+escolha pode ser desfeita.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/desempatador.png}
+  \caption{Tela do \texttt{desempatador} na primeira partida do torneio
+    geral. Cada coluna mostra as capturas de uma candidata; a do ofício
+    fica abaixo, fora do recorte. Fonte: captura do programa.}
+  \label{fig:desempatador}
+\end{figure}
 
 Após a definição da campeã da chave, as candidatas que perderam diretamente
 para ela disputaram uma repescagem pelo segundo lugar. Esse procedimento
 permitiu reconsiderar aplicações eliminadas pela campeã antes da final.
 A Figura~\ref{fig:torneio-formulario} mostra a repescagem do torneio geral.
-Com preferências que
-podem variar entre comparações, o procedimento não garante uma ordenação
-universal de qualidade.
+A classificação obtida depende dos pares sorteados e das preferências
+do avaliador.
 
 \begin{figure}[htp]
   \centering
@@ -621,38 +608,32 @@ O torneio geral teve 81 candidatas e 85 partidas. As duas primeiras foram
 \texttt{deepseek/run44/baseline} e \texttt{deepseek/run35/baseline}.\footnote{Candidatas, escolhas e resultado em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json}.}
 Como ambas eram baseline, realizamos um segundo torneio apenas com as
 39 TDD aprovadas. Suas 42 partidas selecionaram
-\texttt{glm/run38/tdd} e \texttt{glm/run19/tdd}.\footnote{Candidatas, escolhas e resultado do torneio TDD em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio-tdd.json}.} Os torneios tiveram conjuntos
-de entrada diferentes. A presença de dois pipelines entre as quatro finalistas
-resulta dessa seleção em duas etapas, não de uma amostra aleatória do lote.
+\texttt{glm/run38/tdd} e \texttt{glm/run19/tdd}.\footnote{Candidatas, escolhas e resultado do torneio TDD em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio-tdd.json}.} A seleção em duas etapas incluiu duas finalistas de cada pipeline.
 
 \section{Avaliação heurística e limites do CUA}
 \label{sec:formulario-nielsen}
 
-A seleção reduziu o número de aplicações para uma inspeção mais detalhada,
-segundo o método de avaliação heurística \citep{nielsenAvaliacao}.
-O roteiro segue as dez heurísticas de Nielsen na ordem usada na
-Tabela~\ref{tab:formulario-nielsen}.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}{Roteiro com as heurísticas e a escala}.}
+A inspeção seguiu o método de avaliação heurística \citep{nielsenAvaliacao}.
+Para cada heurística, o avaliador atribuiu uma nota ordinal (Péssimo, Ruim,
+Regular, Bom ou Excelente) e registrou a justificativa e a evidência.
+O roteiro incluía trocar de aba, preencher campos por teclado, provocar
+erros de validação, enviar o formulário e ler o ofício. As notas do autor
+e as do CUA foram registradas de forma independente. A análise compara
+as categorias de cada heurística diretamente, sem calcular médias.
 
-Cada heurística recebeu uma nota ordinal: Péssimo, Ruim, Regular, Bom ou
-Excelente, com justificativa e evidência. A identidade visual da USP não foi
-mantida como uma dimensão adicional nessa avaliação. Nós e o CUA
-seguimos um roteiro comum, abrangendo as duas abas, preenchimento por teclado,
-validações, envio e leitura do ofício. Nossas notas foram registradas
-separadamente, sem consulta às do outro avaliador. Por serem categorias
-ordinais, as notas são apresentadas por heurística, sem supor distâncias iguais
-entre as categorias para construir uma média geral.
+O CUA avaliou as quatro finalistas. O autor atribuiu notas a três delas.
+A seleção por preferência visual e o uso de um único avaliador humano
+restringem a análise a essas interfaces e aos problemas observados.
+Para estimar a experiência dos usuários, seria necessário observá-los
+ao realizar as tarefas.
 
-Essa inspeção tem alcance diferente de um estudo com usuários. A avaliação
-heurística examina a interface segundo princípios de usabilidade, e avaliadores
-diferentes podem encontrar problemas distintos \citep{nielsenAvaliacao}.
-Neste experimento, a avaliação humana foi feita apenas por nós, sobre
-finalistas escolhidas por preferência visual. O CUA é outro instrumento
-de avaliação, cuja confiabilidade também estava em exame. A combinação não
-permite estimar a experiência de uma população de usuários nem a usabilidade
-das 200 aplicações.\footnote{Composição do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.}
-
-As sessões das finalistas usaram Browser Use 0.13.10. Na run44 baseline,
-uma sessão do CUA consumiu 858.977 tokens em 433 segundos, ao custo de
+As sessões do CUA usaram o modelo Claude Opus 5.5 via OpenRouter e a
+ferramenta Browser Use 0.13.10 \citep{browseruse}. A escolha do modelo
+considerou o desempenho na avaliação de uso de computadores OSWorld
+reportado pela Anthropic \citep{anthropic2026opus55system}.\footnote{Exemplo da run44 baseline:
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}{roteiro de avaliação} e
+\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/executar.py}{código da sessão}.}
+Na run44 baseline, uma sessão do CUA consumiu 858.977 tokens em 433 segundos, ao custo de
 US\$~3,73. A geração da aplicação custou US\$~0,053459.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/resultado.json}{Métricas da sessão do CUA} e
 \href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/batch/deepseek/run44/baseline/_harness/RUN.log}{log da geração}.}
 
@@ -668,93 +649,60 @@ seguiram o percurso por teclado, mudaram três notas.\footnote{Notas das quatro 
 variação do avaliador diante da mesma aplicação, sem fornecer uma estimativa
 geral de sua taxa de erro.
 
-A campeã baseline usa DeepSeek e a campeã TDD usa GLM. Como modelo e pipeline
-mudam ao mesmo tempo, uma diferença entre essas finalistas pode vir de
-qualquer um dos dois, e a comparação entre elas não indica qual pipeline é
-melhor. Somado à aprovação funcional, em que a baseline se saiu melhor com
-DeepSeek e o TDD com GLM (Tabela~\ref{tab:formulario-aprovacao}), isso sugere
-que cada modelo pode se beneficiar de uma abordagem diferente. Com um único
-requisito e dois modelos, porém, essa hipótese continua inconclusiva.\footnote{Identificação das finalistas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json};
-\url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio-tdd.json}.} O lote permite descrever
-aprovação funcional e consumo nas quatro células; o torneio e a inspeção das
-finalistas acrescentam observações sobre interfaces selecionadas. O experimento
-permaneceu inconclusivo quanto à superioridade geral de um pipeline. Os empates
-funcionais e a variabilidade do CUA motivaram a investigação posterior de um
-backend com mais operações e uma avaliação externa por HTTP.
-
-% % O segundo experimento sugerido para essa tese envolve a comparação do código gerado pelo harness
-% % No contexto em que já é conhecido o código original, o prejanus-back (colocar o link do gitlab pra ele).
-% % O sistema Pré Janus se trata de (pesquisa e coloca aqui sobre o que é)
-% % Seção Preliminares: foi extraído com agentes e engenharia reversa uma documentação do sistema pré janus, que descreve o funcionamento do sistema e suas operações necessárias para o funcionamento. Também foi feita uma suite que chamaremos frequentemente de "gabarito", com testes de caixa preta (linkar aqui a subseção que explica testes de caixa preta lá no começo). é importante agora sim distinguir bem o que é caixa branca/caixa preta e teste de aceitação, também no capítulo do experimento 1 se necessário
-% % Remissão para a redação do capítulo: o gabarito utiliza testes de caixa preta,
-% % conforme a Subseção~\ref{sec:testes-caixa-preta}, para avaliar o comportamento pela interface HTTP.
-% % esse experimento se separa em duas estratégias principais, descritas melhor à seguir:
-% % estratégia 1 e 2 são subseções, procura lá no diário que ta explicado bonitinho. explica de forma bem elementar. também coloca diagramas bonitinhos aqui no mesmo estilo dos outros diagramas que já estão na tese
-
-% % resultados do experimento Não sei se foi falado epxlicitamente nas seções anteriores, mas queria destacar aqui
-% % como uma conclusãozinha desse capítulo de experimentos.
-% % acontece que, no fim, minhas conclusões e a do CUA ficaram ambíguas. justamente pela
-% % impossibilidade de testar em batch para todas as runs (mesmo as finalistas), ficou decidido
-% % que, apesar de termos "finalistas" (ou seja, runs "favoritas" de cada pipeline), não conseguimos chegar a uma conclusão definitiva sobre qual pipeline é melhor.
-% % isso levou à avaliação de um segundo cenário, que é o capítulo seguinte
 \section{Resultados do experimento}
 \label{sec:formulario-sintese}
 
-O experimento terminou com finalistas, mas sem resposta à pergunta de
-pesquisa. A suíte Cypress aprovou 81 aplicações nos 22 critérios, com
-execuções dos dois pipelines, e não as separou. Os torneios escolheram
-finalistas de cada pipeline por preferência visual, que pode ser ambígua. Inclusive na
-avaliação heurística dessas finalistas, nem as nossas notas nem as do CUA
-indicaram, de forma consistente, uma aplicação superior, pois cada avaliador deu
-notas próximas às finalistas comparadas e, entre a \texttt{deepseek/run44/baseline}
-e a \texttt{deepseek/run35/baseline}, apontamos para lados opostos. Para uma
-mesma aplicação, as nossas notas e as do CUA coincidiram em apenas 5 das 30
-heurísticas avaliadas nas três finalistas que inspecionamos
-(Tabela~\ref{tab:formulario-nielsen}).\footnote{Notas e
-comparações em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-06-resultados-nielsen/index.md};
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-13-veredito/index.md};
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-14-nielsen-baseline-vs-tdd.md}.}
+As taxas de aprovação funcional variaram conforme a combinação de modelo
+e pipeline (Tabela~\ref{tab:formulario-aprovacao}). Entre as finalistas,
+as campeãs são de modelos diferentes. A comparação de suas interfaces
+combina, portanto, a diferença de pipeline com a de modelo.
+
+A Tabela~\ref{tab:formulario-nielsen} reúne as notas das três aplicações
+avaliadas tanto pelo autor quanto pelo CUA. O autor preferiu a run44 à
+run35 em duas heurísticas, com oito empates. O CUA preferiu a run35
+em três heurísticas e a run44 em uma, com seis empates. Considerando a
+nota de cada heurística para uma mesma aplicação, os dois avaliadores
+coincidiram em 5 das 30 comparações.\footnote{Notas e
+comparações em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-06-resultados-nielsen/index.md},
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-13-veredito/index.md}
+e \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-14-nielsen-baseline-vs-tdd.md}.}
 
 \begin{table}[htp]
   \centering
   \small
-  \caption{Notas de Nielsen atribuídas por nós e pelo CUA às finalistas
-    que inspecionamos. As heurísticas estão numeradas na ordem listada na
-    Seção~\ref{sec:formulario-nielsen}. Na run35, as notas do CUA são as da
-    sessão de 13 de outubro iniciada às 19:30 UTC.
-    Fonte: elaboração própria, a partir dos arquivos \texttt{relatorio.md}
-    das sessões e das nossas notas registradas no diário.}
+  \setlength{\tabcolsep}{3pt}
+  \caption{Notas do autor e do CUA nas dez heurísticas de Nielsen
+    \citep{nielsenHeuristicas}. Para a run35, a tabela usa as notas do CUA
+    da sessão de 13 de outubro de 2026 iniciada às 19h30, em tempo universal
+    coordenado (UTC). Fonte: relatórios das sessões e notas do autor no diário.}
   \label{tab:formulario-nielsen}
-  \begin{tabular}{lllllll}
+  \begin{tabular}{>{\raggedright\arraybackslash}p{4.5cm}llllll}
     \hline
     & \multicolumn{2}{c}{\texttt{deepseek/run44}} & \multicolumn{2}{c}{\texttt{deepseek/run35}} & \multicolumn{2}{c}{\texttt{glm/run38}} \\
     & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{TDD} \\
-    Heurística & Nós & CUA & Nós & CUA & Nós & CUA \\
+    Heurística & Autor & CUA & Autor & CUA & Autor & CUA \\
     \hline
-    1 & Regular & Bom & Regular & Bom & Excelente & Regular \\
-    2 & Excelente & Regular & Excelente & Bom & Excelente & Bom \\
-    3 & Excelente & Ruim & Regular & Ruim & Regular & Ruim \\
-    4 & Excelente & Bom & Bom & Excelente & Excelente & Bom \\
-    5 & Excelente & Regular & Excelente & Regular & Excelente & Bom \\
-    6 & Excelente & Bom & Excelente & Bom & Excelente & Bom \\
-    7 & Excelente & Excelente & Excelente & Excelente & Excelente & Excelente \\
-    8 & Regular & Bom & Regular & Excelente & Bom & Bom \\
-    9 & Ruim & Regular & Ruim & Ruim & Excelente & Regular \\
-    10 & Excelente & Regular & Excelente & Regular & Excelente & Regular \\
+    1. Visibilidade do estado do sistema & Regular & Bom & Regular & Bom & Excelente & Regular \\
+    2. Correspondência com o mundo real & Excelente & Regular & Excelente & Bom & Excelente & Bom \\
+    3. Controle e liberdade do usuário & Excelente & Ruim & Regular & Ruim & Regular & Ruim \\
+    4. Consistência e padrões & Excelente & Bom & Bom & Excelente & Excelente & Bom \\
+    5. Prevenção de erros & Excelente & Regular & Excelente & Regular & Excelente & Bom \\
+    6. Reconhecimento em vez de memorização & Excelente & Bom & Excelente & Bom & Excelente & Bom \\
+    7. Flexibilidade e eficiência de uso & Excelente & Excelente & Excelente & Excelente & Excelente & Excelente \\
+    8. Estética e design minimalista & Regular & Bom & Regular & Excelente & Bom & Bom \\
+    9. Identificação e recuperação de erros & Ruim & Regular & Ruim & Ruim & Excelente & Regular \\
+    10. Ajuda e documentação & Excelente & Regular & Excelente & Regular & Excelente & Regular \\
     \hline
   \end{tabular}
 \end{table}
 
-A avaliação heurística ficou restrita às quatro finalistas. Na campeã
-baseline, uma sessão do CUA custou cerca de 70 vezes a geração da aplicação,
-e a nossa inspeção era manual. Mesmo nas finalistas, não houve sessões
-repetidas em número suficiente para distinguir a variação do CUA de diferenças
-entre as aplicações. Estender essa avaliação ao lote aumentaria o custo e o
-esforço sem remover o viés do nosso julgamento nem a instabilidade do
-avaliador automático. Em conjunto com os orientadores, encerramos o experimento como
-inconclusivo e passamos a um segundo cenário, com avaliação por um
-gabarito de testes pela interface HTTP, descrito no
-Capítulo~\ref{cap:experimento-prejanus}.\footnote{Registro da decisão em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-14-pivo-caronte/index.md}.}
+\FloatBarrier
+Estender a avaliação heurística a todo o lote exigiria mais inspeções
+manuais e sessões do CUA. Na run44, uma sessão custou cerca de 70 vezes
+a geração da aplicação. As repetições da run35 mostraram variação nas
+notas de uma mesma interface. Diante dessas limitações, o segundo estudo
+passou a um sistema com mais operações e um gabarito de testes pela
+interface HTTP, descrito no Capítulo~\ref{cap:experimento-prejanus}.\footnote{Registro da decisão em \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-14-pivo-caronte/index.md}.}
 
 \chapter{Reconstrução do PreJanus-back}
 \label{cap:experimento-prejanus}
@@ -762,7 +710,8 @@ Capítulo~\ref{cap:experimento-prejanus}.\footnote{Registro da decisão em \url{
 O segundo cenário avaliado neste trabalho parte de um sistema cujo código
 original está disponível. O PreJanus acompanha os processos seletivos de
 mestrado e doutorado em Ciência da Computação do IME-USP. Seu backend,
-o \texttt{prejanus-back}, oferece uma API para configurar editais, consultar
+o \texttt{prejanus-back}, oferece uma interface de programação de aplicações (\emph{application
+programming interface}, API) para configurar editais, consultar
 candidaturas e recomendações, registrar avaliações, definir orientadores e
 comunicar resultados. Ele integra o monorepositório Caronte, que também reúne
 o serviço de formulários e o frontend do PreJanus. A referência adotada é o
@@ -776,9 +725,8 @@ o frontend, os bancos PostgreSQL e os serviços externos permanecem fixos.
 Assim, a mudança avaliada se concentra no backend gerado e em sua integração
 com esse ambiente.\footnote{Escopo em
 \url{https://github.com/Educg550/tcc/blob/main/demos/requisitos/05-prejanus-back-piloto-v3/requisito.md}.}
-O CUA fica fora do escopo nesse experimento.
 
-\section{Preliminares}
+\section{Preparação dos requisitos e do gabarito}
 \label{sec:prejanus-preliminares}
 
 Antes das execuções, foram preparados os requisitos e o gabarito de testes,
@@ -797,12 +745,11 @@ a associação dos testes aos requisitos. A mesma suíte é aplicada ao original
 e às reconstruções.\footnote{Protocolo de avaliação e divergências em
 \url{https://github.com/Educg550/tcc/blob/main/demos/caronte/piloto-v2/avaliacao.md}.}
 
-Na validação registrada do original, passaram 233 dos 247 casos. Portanto, o gabarito também
-exige comportamentos previstos nos requisitos que o original não atende, e isso foi levado em conta
-durante o levantamento das comparações.
-O protocolo registra as 50 operações exercitadas e cobertura de 93,5\% das
-linhas consideradas vivas. Essas medidas descrevem a validação da referência,
-sem demonstrar sua corretude geral.
+Na validação do original, passaram 233 dos 247 casos. Os 14 casos restantes
+revelaram divergências entre o código de referência e o comportamento
+esperado pelo gabarito. A suíte exercitou as 50 operações e cobriu 2.398
+das 2.565 linhas do original após a exclusão das linhas classificadas
+como código morto.
 
 Para a reconstrução guiada por testes, os casos comportamentais foram divididos
 em 161 visíveis e 85 reservados, aproximadamente 66\% e 34\%, respectivamente. 
@@ -813,34 +760,25 @@ mantém juntas todas as parametrizações de uma função de teste.\footnote{Reg
 \section{Estratégias de reconstrução}
 \label{sec:prejanus-estrategias}
 
-As duas estratégias diferem na informação que orienta a geração:
+As estratégias diferem na informação que orienta a geração. Em ambas,
+o código original fica fora da entrada dos agentes.
 
-\begin{itemize}
-  \item \textbf{Estratégia 1 (requisitos):} os agentes recebem os requisitos
-    em linguagem natural e os contratos. O gabarito permanece inteiramente
-    oculto durante a geração.
-  \item \textbf{Estratégia 2 (\emph{rework}):} o agente recebe os 161 testes
-    visíveis e os contratos, sem o documento de requisitos. Apenas os 85 casos
-    reservados ficam ocultos.
-\end{itemize}
-
-Em ambas, o código original fica fora da entrada dos agentes.
-
-\subsection{Estratégia 1: geração a partir dos requisitos}
+\subsection{Geração a partir dos requisitos}
 \label{sec:prejanus-requisitos}
 
-Baseline e TDD partem dos mesmos requisitos e contratos. O TDD recebe
-feedback dos testes que gera, conforme descrito na
-Seção~\ref{sec:formulario-harness}. O gabarito completo é aplicado aos dois
-pipelines após a geração.
+Na primeira estratégia, a geração direta e o TDD recebem o mesmo
+documento de requisitos em linguagem natural e os mesmos contratos de
+interface. No TDD, o harness devolve ao agente os resultados dos testes
+gerados pelo pipeline. O gabarito completo permanece oculto durante a
+geração e é aplicado ao final.
 
-\subsection{Estratégia 2: reconstrução a partir dos testes visíveis}
+\subsection{Reconstrução a partir dos testes visíveis}
 \label{sec:prejanus-rework}
 
-A segunda estratégia é o \emph{rework} descrito na
-Subseção~\ref{subsec:extensoes-prejanus}. O agente também não recebe as issues
-do projeto e deve inferir o comportamento esperado a partir das verificações
-disponíveis.
+Na segunda estratégia, chamada \emph{rework}, o agente recebe 161 testes
+visíveis e os contratos. A partir deles, deve inferir o comportamento
+esperado, sem acesso ao documento de requisitos nem aos 85 casos
+reservados.
 
 O harness executa os testes visíveis e devolve o resultado ao agente para
 correções, até a aprovação ou um limite de execução. O gate usa uma cópia dos
@@ -864,35 +802,31 @@ entrada. A Figura~\ref{fig:prejanus-rework} apresenta esse fluxo.
   \label{fig:prejanus-rework}
 \end{figure}
 
-A medida principal do rework é o atendimento aos 85 casos reservados, que
-verificam comportamentos sem expor seus testes ao agente. O resultado nos
-visíveis também é registrado, mas esses casos já orientaram a implementação.
-Assim, a aprovação neles não oferece a mesma evidência que a aprovação nos
-reservados. Na primeira estratégia, a avaliação externa usa os 247 casos;
-para comparar as três condições nos reservados, deve-se considerar o mesmo
-subconjunto de 85 casos em todas elas.
+A medida principal do rework é o resultado nos 85 casos reservados. Os
+resultados nos 161 casos visíveis medem o atendimento às verificações que
+o agente pôde consultar durante a implementação. Para comparar o rework
+às variantes que partem dos requisitos, usa-se o mesmo subconjunto de
+85 casos nas quatro condições.
 
-% % Resultados preliminares experimento 2
-% % depois de definir o escopo inicial do experimento de reconstrução (não sei se já foi falado ou não que é o prejanus-back e não o caronte core, mas é legal de falar isso caso ainda não tenha sido falado, pois a gente desistiu de reconstruir o caronte core inteiro e focou no prejanus-back)
-% % fizemos algumas runs para testar o funcionamento do pipeline num escopo menor (que eu acho que acabou ironicamente sendo o próprio prejanus-back, mas não lembro direito, tinha o nome de piloto no código, mas odeio esse nome).
-% % um resultado surpreendente foi encontrado, assim como no torneio cego feito no primeiro experimento
-
-\section{Resultados preliminares}
+\section{Ensaios e ajustes do protocolo}
 \label{sec:prejanus-resultados-preliminares}
 
-No pivô registrado na Seção~\ref{sec:formulario-sintese}, o plano era
-reconstruir o caronte-core inteiro, com cerca de 30 mil linhas entre o serviço
-de formulários, o \texttt{prejanus-back} e o frontend do PreJanus. Os ensaios
-feitos para verificar se esse escopo cabia no prazo e no orçamento mostraram
-que só o \texttt{prejanus-back} já tinha requisitos, ambiente e gabarito
-preparados, e o escopo foi restrito a ele.\footnote{Escopo, tetos e regras das
-execuções em
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-23-escopo-experimento-prejanus-back.md}.}
-Foram três ensaios, fora dos resultados:\footnote{Registros dos ensaios em
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-17-piloto-consulta-caronte.md};
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-18-piloto-v2-prejanus-back.md};
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-21-piloto-v3-oraculo-sem-porta-unica.md};
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-23-piloto-v3-rework-e-ajustes.md}.}
+O plano inicial era reconstruir todo o \texttt{caronte-core}, com cerca de
+30 mil linhas entre o serviço de formulários, o backend e o frontend do
+PreJanus. Os ensaios levaram à adoção do escopo do backend, para o qual
+já havia requisitos, ambiente e gabarito preparados.
+Três ensaios orientaram os ajustes:\footnote{Execuções em
+\href{https://github.com/Educg550/tcc/tree/main/demos/runs/caronte}{\texttt{demos/runs/caronte/}}.
+Primeiro ensaio: \texttt{02-caronte-consulta-baseline-20261017-100205},
+\texttt{02-caronte-consulta-tdd-20261017-102242} e
+\texttt{02-caronte-consulta-rework-20261017-104419}. Segundo:
+\texttt{03-caronte-prejanus-completo-baseline-20261018-165948},
+\texttt{03-caronte-prejanus-completo-tdd-20261018-182229} e
+\texttt{03-caronte-prejanus-completo-rework-20261018-201628}. Terceiro:
+\texttt{05-prejanus-back-piloto-v3-baseline-20261019-095708},
+\texttt{05-prejanus-back-piloto-v3-tdd-20261019-103846} e
+\texttt{05-prejanus-back-piloto-v3-rework-20261021-155621}; o resultado após
+o ajuste do gabarito está em \texttt{\_harness/oraculo-atalho/}.}
 
 \begin{enumerate}
   \item Apenas a consulta do \texttt{prejanus-back}, com login local, editais,
@@ -901,85 +835,56 @@ Foram três ensaios, fora dos resultados:\footnote{Registros dos ensaios em
     os arquivos inteiros a cada correção e terminou com erros de sintaxe.
     O harness passou a ler o projeto e editar trechos, com checagem de
     sintaxe.
-  \item A mesma entrada, com a nova escrita. Uma falha no login travava a
-    maior parte do gabarito; os casos que não avaliam OAuth passaram a usar o
-    atalho de autenticação previsto no requisito, e a baseline foi a 139 casos
-    e o TDD a 185. O gate e o controle de custo do harness também foram
-    ajustados.
+  \item A mesma entrada, com a nova forma de editar o código. Uma falha
+    no login impedia a preparação de grande parte dos testes. Os casos que
+    não avaliam o fluxo de autorização OAuth passaram a usar a autenticação
+    local prevista no requisito. Após esse ajuste no gabarito, a baseline
+    passou em 139 casos e o TDD em 185. O gate e o controle de custo do
+    harness também foram ajustados.
 \end{enumerate}
 
-Nas execuções medidas, uma por grupo, com o modelo \texttt{z-ai/glm-5.3} e o
-harness corrigido, a baseline passou em 186 dos 247 casos e o TDD em 140. O
-rework passou em 59 dos 85 reservados, contra 62 da baseline e 49 do
-TDD.\footnote{Execuções invalidadas e refeitas em
+As execuções seguintes expuseram dois defeitos do harness. O texto devolvido
+ao agente de implementação podia omitir as falhas do pytest, e o ambiente
+dos testes gerados não dava acesso a todos os perfis e serviços previstos.
+As execuções afetadas foram substituídas por novas execuções com o harness
+corrigido.\footnote{Motivos da substituição e resultados em
 \url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-24-runs-refeitas-harness.md}.}
-O TDD inverteu a ordem do terceiro ensaio e, como no torneio do experimento
-com o formulário, o resultado não favoreceu esse pipeline. Com uma execução por
-grupo, e com o TDD variando de 140 a 209 casos entre execuções, essa diferença
-ainda não separa os pipelines.
 
-Ao revisar os testes gerados nessa execução do TDD, identificamos como causa
-principal do resultado a premissa de testes congelados, apresentada na
-Seção~\ref{sec:formulario-harness} como possível limitação. Um dos testes
-exigia que um docente criasse um edital, operação que o requisito e outro teste
-proíbem, e o agente de implementação não podia alterá-lo. O TDD precisava,
-portanto, de uma contrapartida que permitisse corrigir os testes durante a
-implementação, tratada na seção seguinte.
-
-% % nova seção explicando a limitação do TDD e a solução encontrada
-% % com essa limitação descoberta, fizemos uma sondagem experimental no mesmo cenário atual.
-% % a principal diferença é que agora temos uma variante experimental do TDD denominada "TDD com Revisão",
-% % que permite ao agente de implementação corrigir os testes visíveis durante a execução.
-% % a ideia é que, com essa variante, o agente de implementação pode corrigir os testes
-% % que estão incorretos, e assim não ficar preso a testes que não refletem o comportamento correto.
-% % isso reflete muito da ideia do TDD tradicional. a premissa até agora era que os testes eram massivamente
-% % construídos antes de qualquer código de produção. mas deve-se tomar em conta que essa produção de 
-% % testes em massa antes da implementação também está sujeita a erros (linkar com a seção que explica não determinismo/llms eu acho).
-% % portanto essa abordagem TDD com Revisão se aproxima mais do que realmente acontece no TDD tradicional, onde os testes são escritos e revisados iterativamente com o código.
-% % uma vez com essa abordagem funcional, partimos para a comparação com as abordagens anteriores.
+Na execução de TDD selecionada para a comparação, a inspeção dos testes
+gerados encontrou uma contradição. Um teste exigia que um docente criasse
+um edital, operação que o requisito e outro teste proibiam. Com a suíte
+congelada, o agente de implementação não podia corrigir a expectativa. A
+contradição motivou uma variante em que o agente pode revisar os
+testes.
 
 \section{TDD com revisão dos testes}
 \label{sec:prejanus-tdd-revisao}
 
-A limitação identificada decorre de a suíte inteira ser gerada antes de
-qualquer código de produção. Essa geração também está sujeita a erros. Como
-discutido na Subseção~\ref{subsec:determinismo}, o agente que escreve os testes
-é uma fonte de não determinismo, e cada suíte gerada pode conter interpretações incorretas do requisito. A prova de conceito
-do TOP também encontrou inconsistências nos testes gerados
-\citep{melegati2026top}. Com os testes congelados, o agente de implementação só
-pode adaptar o código a um teste incorreto ou esgotar o orçamento tentando
-satisfazê-lo.
-
-Para investigar essa limitação, fizemos uma sondagem exploratória no mesmo cenário,
-com a variante TDD com revisão (\texttt{tdd-revisao}, apresentada na
-Subseção~\ref{subsec:extensoes-prejanus}). O agente que escreve os testes
+A variante TDD com revisão (\texttt{tdd-revisao}) investiga o que ocorre
+quando o agente de implementação pode corrigir a suíte gerada durante a
+geração de código. O agente que escreve os testes
 continua separado do agente de implementação, mas este pode alterar os testes
-autorais quando identificar um erro, desde que justifique a alteração pelo
+gerados quando identificar um erro, desde que justifique a alteração pelo
 requisito ou pelos contratos fornecidos. Ele continua sem acesso ao gabarito e
 ao código original, e não recebe os erros encontrados na revisão da execução
 anterior. A entrada, o modelo, o provedor, o ambiente e o gabarito são os mesmos
 das execuções medidas. A revisão usa as chamadas do próprio agente de
 implementação, dentro dos mesmos limites de custo, tempo e propostas.
 
-A permissão não garante que uma alteração seja correta. Corrigir a preparação
-de um teste, como o usuário que executa a operação, preserva a verificação
-pretendida; trocar uma expectativa de rejeição por sucesso para coincidir com o
-código deixa de verificar o requisito. Por isso, o harness guarda a suíte
-inicial, as versões posteriores e suas diferenças, e o agente registra as
-justificativas em \texttt{tests/REVISOES.md}. 
-A avaliação usa os mesmos 247 casos do gabarito, depois da geração.
+A justificativa permite verificar se a mudança preserva o comportamento
+exigido. Por exemplo, corrigir a preparação de um teste pode preservar
+as asserções originais. Trocar uma expectativa de rejeição por sucesso
+para acomodar o código elimina a verificação da regra. O harness
+preserva a suíte inicial, as versões posteriores e suas diferenças. O
+agente registra as justificativas em \texttt{tests/REVISOES.md}. Após a
+geração, a entrega é avaliada com os mesmos 247 casos do gabarito.
 
-A variante se aproxima do ciclo apresentado no
-Capítulo~\ref{cap:introducao}, em que os testes são escritos um de cada vez,
-alternados com a implementação \citep{beck2003tdd}, e evoluem com o código.
-No entanto, a aproximação é parcial, pois o pipeline ainda começa com uma suíte inteira gerada
-antes da implementação e não reproduz esse ciclo incremental.
-
-Com a nova variante em funcionamento, passamos à comparação com as condições anteriores.
-
-% % seção Resultados com todas as variantes e arquétipos comuns de falha
-% % basicamente exposição dos resultados obtidos, agora sim mais na linha da seção de resultados do experimento 1, com tabelas e gráficos. a ideia é mostrar que, com a variante TDD com revisão, o resultado do experimento se inverteu, e o TDD passou a ter uma performance melhor que antes, mas ainda não melhor que o baseline (eu acho que era isso).
-% % no final dessa seção, detalhar brevemente os defeitos que foram encontrados ao inspecionar cada uma das runs, e como eles se encaixam em arquétipos de falha comuns. a ideia é mostrar que, mesmo com a variante TDD com revisão, ainda existem falhas que são recorrentes e que podem ser agrupadas em arquétipos, o que pode ajudar a guiar futuras melhorias no pipeline. essas melhorias serão introduzidas por meio de feedback direto que será melhor explicado na próxima seção.
+A possibilidade de editar os testes aproxima a variante do TDD descrito
+por \citet{beck2003tdd}. A geração de uma suíte inteira antes da
+implementação continua a distinguir o pipeline do ciclo incremental
+apresentado no Capítulo~\ref{cap:introducao}.\footnote{Discussão sobre essa
+distinção em
+\url{https://github.com/Educg550/tcc/blob/main/blog/2026-10-27-tdd-e-revisao-dos-testes.md}.}
 
 \section{Resultados das quatro variantes}
 \label{sec:prejanus-resultados}
@@ -987,8 +892,8 @@ Com a nova variante em funcionamento, passamos à comparação com as condiçõe
 Foi feita uma execução de cada variante: baseline, TDD, TDD com
 revisão e rework. Todas usaram o modelo \texttt{z-ai/glm-5.3}, o mesmo
 provedor, o mesmo ambiente e os mesmos tetos por etapa, de US\$~2, uma hora e
-40 propostas. As três primeiras seguem a Estratégia~1, com o gabarito
-inteiramente oculto; o rework segue a Estratégia~2. A
+40 propostas. O gabarito ficou inteiramente oculto nas três variantes que partiram
+dos requisitos. No rework, a geração usou os 161 testes visíveis. A
 Tabela~\ref{tab:prejanus-resultados} resume o gabarito e o consumo de cada
 execução.\footnote{Execuções em
 \url{https://github.com/Educg550/tcc/tree/main/demos/runs/caronte}, nas pastas
@@ -1000,10 +905,10 @@ execução.\footnote{Execuções em
 
 \begin{table}[htp]
   \centering
-  \caption{Gabarito e consumo das quatro execuções. Os reservados sem
-    divergência excluem os seis casos reservados em que o original falha.
-    Os testes do gate são os próprios, no TDD e no TDD com revisão, e os
-    visíveis, no rework; no TDD, um caso ignorado fica fora do denominador.
+  \caption{Aprovação no gabarito e consumo da geração por variante. O recorte
+    sem divergência exclui os seis casos reservados em que o original falha.
+    O gate usa a suíte gerada nas variantes de TDD e os casos visíveis no
+    rework. No TDD, um teste ignorado fica fora do denominador.
     Fonte: elaboração própria, a partir de \texttt{ORACULO.json},
     \texttt{oraculo.xml} e \texttt{RUN.log} de cada execução.}
   \label{tab:prejanus-resultados}
@@ -1027,30 +932,28 @@ execução.\footnote{Execuções em
   \end{tabular}
 \end{table}
 
-Com a revisão dos testes, a ordem entre TDD e baseline se inverteu. O TDD com
-revisão passou em 194 dos 247 casos, 54 a mais que o TDD com testes congelados
-e oito a mais que a baseline. O custo foi cerca de quatro vezes o da baseline,
-que entregou o código em uma única proposta e sem executar testes.
+O TDD com revisão passou em 194 dos 247 casos, 54 a mais que o TDD com testes
+congelados e oito a mais que a baseline. O custo foi cerca de quatro vezes
+o da baseline, que entregou o código em uma única proposta.
 
 O rework teve o maior total, 211 casos, mas os 151 visíveis aprovados já
 orientaram a implementação. Nos reservados, que são sua medida principal,
 passou em 59, abaixo da baseline e do TDD com revisão. Sem as divergências do
 original, empatou com a baseline em 58.
 
-Essas diferenças vêm de uma execução por condição. O TDD variou de 140 a 209
-casos entre execuções da Seção~\ref{sec:prejanus-resultados-preliminares}, e
-as distâncias entre baseline, TDD com revisão e rework nos reservados são de
-poucos casos. Também não é possível atribuir os 54 acertos adicionais do TDD
-com revisão só à permissão de revisar os testes: a suíte própria foi gerada
-outra vez, com 83 casos em vez de 56, e a implementação também foi uma nova
-amostra do modelo. Na execução, o agente de implementação alterou apenas um
-helper dos testes de e-mail, que lia de forma incorreta a resposta do serviço
-SMTP do ambiente, preservando os seis testes e as 19 asserções do arquivo.
+As diferenças nos casos reservados entre baseline, TDD com revisão e
+rework são de poucos casos, com uma execução por variante. A comparação
+entre as duas variantes de TDD combina a permissão de revisar os testes
+com duas novas amostras do modelo: a suíte, com 83 casos em vez de 56, e a
+implementação. Por isso, os 54 acertos adicionais não isolam o efeito da
+revisão. Na execução, o agente de implementação corrigiu uma função auxiliar
+que lia a resposta da caixa de e-mail de teste do ambiente. A alteração
+preservou os seis testes e as 19 asserções do arquivo.
 
 A Figura~\ref{fig:prejanus-areas} separa o gabarito pelas áreas do requisito.
-A melhora no total não se repete em todas elas. Em mapeamentos, o TDD com
-revisão passou em 20 dos 27 casos, contra 3 do TDD e 26 da baseline; em
-formulários, ficou em 11 dos 24, abaixo dos 15 do TDD e dos 24 do rework. Em
+Em mapeamentos, o TDD com revisão passou em 20 dos 27 casos, contra 3 do
+TDD e 26 da baseline. Em formulários, passou em 11 dos 24, abaixo dos 15
+do TDD e dos 24 do rework. Em
 mensagens, a baseline e o rework passaram em 13 dos 16 casos, dois a mais que
 o original, porque o gabarito inclui comportamentos do requisito que o
 original não atende.
@@ -1070,10 +973,8 @@ original não atende.
 \subsection{Arquétipos de falha}
 \label{subsec:prejanus-arquetipos}
 
-Para entender as falhas, lemos o código de produção das quatro entregas, a saída
-de cada gate e os logs da aplicação durante o gabarito, e agrupamos os casos que
-falharam por causa raiz. Não executamos novamente as aplicações nem os
-testes.\footnote{Análise em
+Para entender as falhas, agrupamos os casos por causa a partir do código,
+dos resultados do gate e dos registros do gabarito.\footnote{Análise em
 \url{https://github.com/Educg550/tcc/blob/main/blog/2026-11-11-analise-entregas-prejanus-back.md}.}
 Em todas as entregas, poucos defeitos explicam boa parte das falhas, como
 mostra a Tabela~\ref{tab:prejanus-defeitos}.
@@ -1091,8 +992,8 @@ mostra a Tabela~\ref{tab:prejanus-defeitos}.
     \hline
     Baseline & \texttt{flatten\_mapping} percorre as folhas do mapeamento,
       que também são dicionários, e devolve os dados mapeados vazios & 15 \\
-    TDD & coluna \texttt{form\_type} declarada como texto no ORM, enquanto o
-      esquema fornecido usa o enum \texttt{form\_type\_enum} & $\sim$81 \\
+    TDD & coluna \texttt{form\_type} declarada como texto no mapeamento objeto-relacional, enquanto o
+      esquema fornecido usa o tipo enumerado \texttt{form\_type\_enum} & $\sim$81 \\
     TDD com revisão & formato das respostas de \texttt{/forms} sem
       correspondência na entrada & 15 \\
     Rework & URL do OAuth montada sem a barra entre host e recurso & 7 \\
@@ -1104,14 +1005,13 @@ As falhas se repetem em alguns arquétipos:
 
 \begin{enumerate}
   \item \emph{Contrato inventado onde a entrada não especifica.} Sem esquema de
-    resposta, o modelo traduz o termo do requisito, usa o nome da coluna ou
-    envolve a lista em um objeto. No TDD com revisão, 38 das 46 falhas fora das
-    divergências do original estão em operações sem esquema de resposta. O
-    rework só evita esse problema quando um teste visível mostra o nome
-    esperado.
+    resposta, as implementações traduziram termos do requisito, usaram nomes de colunas ou
+    envolveram listas em objetos. No TDD com revisão, 38 das 46 falhas fora das
+    divergências do original estão em operações sem esquema de resposta. No
+    rework, os testes visíveis puderam explicitar nomes ausentes no contrato.
   \item \emph{Defeito pontual em caminho compartilhado.} Um nome de função
-    errado entre módulos, o tipo de uma coluna ou uma barra em uma URL derrubam
-    dezenas de casos. Na baseline, por exemplo, \texttt{routers/auth.py} chama
+    errado entre módulos, o tipo de uma coluna ou uma barra em um endereço
+    podem afetar várias operações. Na baseline, por exemplo, \texttt{routers/auth.py} chama
     \texttt{oauth.author\_url}, mas a função se chama
     \texttt{authorize\_url}, e o início do login responde com erro 500.
   \item \emph{Feedback que não vira correção.} Os testes próprios do TDD
@@ -1121,12 +1021,12 @@ As falhas se repetem em alguns arquétipos:
     saída do primeiro gate e permaneceu na segunda proposta.
   \item \emph{Teste próprio que fixa uma leitura ambígua.} Os testes próprios
     dos dois TDDs enviam os parâmetros de retorno do OAuth no corpo da
-    requisição, e o código passou a lê-los de lá; o gabarito os envia na URL,
-    e o OpenAPI fornecido não declara esses parâmetros. No TDD com revisão, o
+    requisição, e o código passou a lê-los de lá. O gabarito os envia na URL.
+    O OpenAPI fornecido não declara esses parâmetros. No TDD com revisão, o
     teste \texttt{test\_secoes\_versao\_inexistente\_fallback} compara o
     resultado com as seções ativas, enquanto o requisito pede todas as seções.
-    Na primeira proposta, o código seguia o requisito e falhava nesse teste; na
-    terceira, passou a filtrar as seções ativas. O agente podia revisar o
+    Na primeira proposta, o código seguia o requisito e falhava nesse teste.
+    Na terceira, passou a filtrar as seções ativas. O agente podia revisar o
     teste e não o fez.
   \item \emph{Raciocínio longo sem ação.} No TDD, sete chamadas ocuparam 63\%
     do tempo das chamadas ao modelo, e uma delas levou 670 segundos e 100 mil
@@ -1139,26 +1039,21 @@ entregas. Dez cobram nomes que não estão no requisito, no OpenAPI nem no
 README, e cinco são do retorno do OAuth, cujo canal a entrada não define.
 Três são divergências do original, um depende de um link do serviço de
 formulários já registrado como instável, e três cobram formatos de resposta
-sem esquema. Com essa entrada, o máximo alcançável por um gerador fica abaixo
-dos 233 casos do original.
+sem esquema. As lacunas do contrato dificultam a reprodução do comportamento
+esperado em parte do gabarito.
 
-Os defeitos que a entrada permitiria evitar mudam de uma execução para outra.
-Os arquétipos, ao contrário, aparecem em mais de uma entrega, inclusive no TDD
-com revisão. Por isso, o feedback avaliado na seção seguinte descreve cuidados
-de processo derivados desses arquétipos, sem informar os nomes cobrados pelo
-gabarito.
-
-% % seção feedback dos arquétipos de falha em novos requisitos
-% % após os problemas comuns identificados na seção anterior, decidi rodar uma última run para cada uma das quatro variantes (montar uma tabelinha com os ajustes/feedback fornecido pra cada uma, ou um simples quote se for igual pra todas)
+Alguns defeitos se repetiram em variantes diferentes, como respostas
+incompatíveis com o gabarito e falhas em integrações. Esses padrões
+orientaram o conteúdo do feedback usado na rodada seguinte.
 
 \section{Feedback para as quatro variantes}
 \label{sec:prejanus-licoes}
 
 Foi feita mais uma execução por variante com o mesmo bloco de lições
 acrescentado à entrada de todos os agentes, incluindo o que escreve os
-testes. As lições pediam que o agente conferisse chamadas entre módulos,
-tipos do banco e URLs de integração, preservasse mensagens de falha e
-investigasse suas causas. Foram elaboradas a partir dos contratos e dos testes
+testes. As lições pediam que os agentes conferissem chamadas entre módulos, tipos do
+banco e endereços de integração. Pediam também que preservassem as mensagens
+de falha e investigassem suas causas. Foram elaboradas a partir dos contratos e dos testes
 visíveis, sem consultar os casos reservados.\footnote{\href{https://github.com/Educg550/tcc/blob/cb4f957aeb3ffeb30f5db6fc65e7b5c25325031c/demos/runs/caronte/05-prejanus-back-piloto-v3-licoes-tdd-20261115-123705/_harness/entrada/licoes.md}{Bloco de lições preservado na execução TDD}.}
 
 O restante da configuração não mudou. Cada implementação começou do zero, sem
@@ -1187,16 +1082,14 @@ As quatro variantes passaram em menos casos na rodada com lições. A
 Tabela~\ref{tab:prejanus-resultados-licoes} repete as medidas da
 Tabela~\ref{tab:prejanus-resultados} para as novas execuções. A baseline
 passou em 138 dos 247 casos, 48 a menos que antes, e o TDD com revisão em 131,
-63 a menos. O TDD e o rework passaram em dois casos cada, porque a aplicação
-entregue não inicia. A rodada custou US\$~5,80.\footnote{Resumo em
-\url{https://github.com/Educg550/tcc/blob/main/blog/2026-11-15-runs-com-licoes-prejanus-back.md}.}
+63 a menos. O TDD e o rework passaram em dois casos cada após entregarem aplicações
+que falharam ao iniciar. A rodada custou US\$~5,80.
 
 \begin{table}[htp]
   \centering
   \caption{Gabarito e consumo das quatro execuções com lições, com os
     resultados da Tabela~\ref{tab:prejanus-resultados} entre parênteses.
-    No TDD e no rework, os testes do gate não rodaram no fim, porque a
-    aplicação não inicia.
+    No TDD e no rework, faltou executar o gate da última proposta.
     Fonte: elaboração própria, a partir de \texttt{GABARITO.json} e
     \texttt{RUN.log} de cada execução.}
   \label{tab:prejanus-resultados-licoes}
@@ -1224,29 +1117,25 @@ No TDD e no rework, a aplicação entregue falha ao iniciar porque usa um nome
 que não foi definido. Os dois casos aprovados nessas entregas não
 dependem de a aplicação estar funcionando.
 
-Nessas duas variantes, a nota final esconde uma melhora durante a geração. No
+Antes da última proposta, os resultados no gate haviam melhorado. No
 TDD, os testes próprios passaram de 33 para 39 dos 43 casos entre a segunda e
 a terceira propostas, e o erro do enum da entrega anterior não se repetiu. No
 rework, os visíveis passaram de 137 para 155 dos 161, e a URL do OAuth foi
 corrigida. A última proposta de cada uma foi interrompida, por custo no TDD e
 por tempo no rework. O harness aplica as edições pendentes mesmo quando a
 sessão termina com erro e encerra a etapa sem rodar o gate dessa proposta.
-Assim, o erro de importação não voltou ao agente para correção, e a entrega
-ficou pior que versões anteriores da mesma execução. Não aplicamos o gabarito
+Assim, o erro de inicialização não voltou ao agente para correção. Não aplicamos o gabarito
 às versões intermediárias, então os 155 visíveis do rework não permitem
 estimar quantos reservados ele acertaria.
 
-Lemos o código e os logs das quatro entregas, como na
-Subseção~\ref{subsec:prejanus-arquetipos}, sem executar novamente as
-aplicações nem os testes, e os arquétipos se repetem. A lição de conferir
-nomes entre módulos não evitou que o TDD e o rework entregassem código que não
-roda. A baseline repete a URL do OAuth sem a barra e o formato errado das
-respostas de formulários, e um erro novo nas consultas SQL derruba outros
-casos; ainda assim, passa em oito casos que a baseline anterior errava. No TDD
-com revisão, um nome de coluna diferente do esquema faz uma consulta falhar.
-Os testes próprios também voltam a fixar uma leitura da entrada: enviam os
-parâmetros de retorno do OAuth no corpo da requisição, e o código passa a
-exigi-los ali.
+A inspeção do código e dos registros mostrou padrões da rodada anterior.
+A baseline voltou a montar a URL do OAuth sem a barra e a devolver
+respostas de formulários em formato incompatível com o gabarito. Também
+introduziu um erro nas consultas ao banco e passou em oito casos que a
+baseline anterior errava. No TDD com revisão, o nome de uma coluna no
+mapeamento objeto-relacional divergiu do esquema. Os testes gerados
+voltaram a exigir os parâmetros de retorno do OAuth no corpo da
+requisição, e o código adotou essa interpretação.
 
 No TDD com revisão, os três gates completos terminaram com 15 aprovados, 27
 falhas e 16 erros, e o agente de implementação não revisou nenhum teste.
@@ -1254,63 +1143,50 @@ Duas características do harness podem ter contribuído, sem que os registros
 permitam confirmar. O papel do agente permite alterar testes com
 justificativa, mas a mensagem enviada após um gate vermelho ainda diz ``Não
 altere os testes''. Além disso, o agente recebe só o fim da saída do pytest, e
-esse trecho não inclui o nome da coluna errada. Mantivemos o harness e os resultados como
-foram executados.
+esse trecho não inclui o nome da coluna errada.
 
-Com uma execução por variante, essas quedas não separam o efeito das lições da
-variação entre gerações do modelo. O bloco de lições não veio acompanhado de melhora em nenhuma variante.
-As execuções apontaram, porém, pontos do pipeline a corrigir: rodar o gate antes de aceitar
-a última proposta, alinhar a mensagem de falha ao papel do TDD com revisão e
-preservar a causa na saída do pytest repassada ao agente. Não fizemos novas
-execuções depois desta rodada.
+As execuções identificaram três pontos a corrigir no harness. O gate
+precisa avaliar a última proposta antes que ela seja aceita. A mensagem
+de falha precisa respeitar a permissão de editar testes na variante com
+revisão. A saída do pytest repassada ao agente precisa conservar a causa
+da falha.
 
 \chapter{Conclusão}
 \label{cap:conclusao}
 
-Nos dois estudos, o pipeline baseado em TDD consumiu mais tokens que a geração
-direta, sem apresentar um ganho consistente de corretude funcional nos testes
-de aceitação. Na forma implementada neste trabalho, o custo adicional do TDD
-teve contrapartida em algumas comparações, mas os resultados não sustentam uma
-vantagem de custo-benefício sobre a geração direta.
+O pipeline baseado em TDD, tal como implementado neste trabalho, consumiu
+mais tokens que a geração direta nos dois estudos e melhorou o atendimento
+aos requisitos em comparações pontuais. Os resultados se referem a dois
+cenários e a uma implementação de TDD em que a suíte é gerada de uma só vez
+antes do código de produção.
 
 No formulário de auxílio financeiro, o TDD consumiu, em média, 2{,}5 vezes
 o total de tokens da geração direta com DeepSeek e cerca de 19 vezes com
-GLM. A aprovação nos 22
-critérios funcionais foi maior com a geração direta no DeepSeek (39 contra 30
-em 50 tentativas) e com TDD no GLM (9 contra 3 em 50 tentativas). Essas
-execuções repetiram o mesmo requisito, de modo que as taxas descrevem o
-desempenho nesse formulário. A avaliação de interface ficou restrita às
-finalistas, e as divergências entre as notas do CUA e da inspeção humana
-limitaram o que se pôde concluir sobre a qualidade da interface
+GLM-5.3. A geração direta aprovou mais aplicações com DeepSeek (39 contra
+30 em 50 tentativas). O TDD aprovou mais com GLM-5.3 (9 contra 3 em
+50 tentativas). Cada modelo foi avaliado em repetições do mesmo requisito.
+Na avaliação da interface, as divergências entre as notas do CUA e da
+inspeção humana limitaram as conclusões sobre a usabilidade das finalistas
 (Seções~\ref{sec:formulario-avaliacao} e~\ref{sec:formulario-sintese}).
 
-No PreJanus-back, o TDD com revisão passou em 8 casos a mais que a geração direta,
-com cerca de quatro vezes o custo de geração em dólares. As quatro variantes
-terminaram a rodada com feedback com pontuação menor.
-Com uma execução por variante em cada rodada, a queda
-observada combina possíveis efeitos do feedback com a variação entre gerações
-(Seções~\ref{sec:prejanus-resultados} e~\ref{sec:prejanus-resultados-licoes}).
-
-Na rodada com
-feedback, o TDD e o rework chegaram a aprovar mais casos em propostas
-intermediárias. Nas duas execuções, o harness aplicou as edições de uma
-proposta interrompida e encerrou a etapa antes de rodar o gate novamente.
-As aplicações entregues deixaram de iniciar. O gabarito registrou a falha da
-entrega, e o desempenho das versões intermediárias nos casos reservados
-permanece desconhecido.
+No PreJanus-back, a geração direta passou em 186 casos e o TDD com testes
+congelados passou em 140. O TDD com revisão chegou a 194, com cerca de
+quatro vezes o custo de geração da baseline.
+O rework obteve 59 acertos nos casos reservados, diante de 62 da geração
+direta. Na rodada com feedback, as quatro variantes passaram em menos
+casos. Com uma execução por variante em cada rodada, a diferença observada
+combina possíveis efeitos do feedback com a variação entre gerações.
+Em duas entregas, o harness aplicou as edições de propostas interrompidas
+e encerrou a geração antes de executar o gate. As aplicações entregues
+falharam ao iniciar (Seções~\ref{sec:prejanus-resultados}
+e~\ref{sec:prejanus-resultados-licoes}).
 
 Uma comparação futura pode repetir cada condição em diferentes requisitos
-sob o mesmo orçamento de geração. No harness, verificar a última proposta
-antes de aceitá-la e preservar a versão anterior quando a proposta for
-interrompida evitaria o mecanismo de regressão observado. O gabarito comum,
-aplicado à versão efetivamente entregue, permitiria medir se essas mudanças
-melhoram o atendimento aos requisitos dentro do mesmo orçamento.
-
-Portanto, nos cenários avaliados, o pipeline de TDD proposto apresentou uma
-relação entre corretude funcional e consumo de tokens em geral menos favorável
-que a da geração direta. O TDD consumiu mais tokens nos dois estudos, e os
-ganhos de aprovação nos testes de aceitação foram pontuais. Essa resposta
-se restringe ao pipeline implementado e aos requisitos avaliados.
+sob o mesmo orçamento de geração. Para isolar o efeito da revisão dos
+testes, as duas variantes de TDD podem partir da mesma suíte gerada em
+cada repetição. No harness, validar a proposta final e preservar a versão
+anterior quando a proposta for interrompida evitaria a regressão
+observada nas duas entregas que falharam ao iniciar.
 
 \backmatter
 \pagestyle{backmatter}

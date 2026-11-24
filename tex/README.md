@@ -2,9 +2,8 @@
 
 O texto fica em `tese.tex`; as referências, em `bibliografia.bib`.
 A pasta é parte do repositório TCC, sem Git próprio e fora do build do site.
-O arquivo principal está configurado como TCC e começa pelo capítulo do harness.
-Resumo, abstract, palavras-chave, data de defesa e licença do texto ainda precisam
-ser definidos. A bibliografia começa vazia.
+O arquivo principal está configurado como TCC. A data de defesa e a licença
+do texto ainda precisam ser definidas.
 
 ## Compilação
 
