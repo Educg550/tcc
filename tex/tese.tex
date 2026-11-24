@@ -112,7 +112,7 @@ A inteligência artificial generativa permite produzir conteúdo, incluindo cód
 de software, a partir de instruções do usuário \citep{ibmGenerativeAI}.
 Na geração de código, grandes modelos de linguagem (\emph{large language models},
 LLMs) recebem descrições em linguagem natural e produzem implementações.
-Esses modelos também podem integrar agentes: sistemas que usam ferramentas e
+Esses modelos também podem integrar agentes, sistemas que usam ferramentas e
 os resultados de suas ações para executar uma tarefa \citep{trivedy2026harness}.
 Ao delegar a implementação a esses sistemas, surge a necessidade de avaliar
 em que medida o software gerado atende aos requisitos.
@@ -239,10 +239,10 @@ o passo seguinte \citep{trivedy2026harness}.
 
 Determinismo significa que, para as mesmas entradas e condições de execução,
 o resultado é sempre o mesmo. Neste trabalho, os LLMs utilizados e os agentes
-que os incorporam são tratados como fontes de não determinismo: repetir uma
+que os incorporam são tratados como fontes de não determinismo. Repetir uma
 instrução pode produzir respostas diferentes e, no caso dos agentes, ações e
-percursos de execução diferentes. Assim, duas tentativas de gerar código para
-o mesmo requisito podem resultar em implementações distintas.
+percursos de execução diferentes, de modo que duas tentativas de gerar código
+para o mesmo requisito podem resultar em implementações distintas.
 
 \section{Harness}
 \label{cap:harness}
@@ -398,10 +398,9 @@ retorno a uma etapa anterior nem da avaliação externa para a geração.
 \end{figure}
 
 Essa premissa pode se tornar uma limitação quando o erro está em um artefato
-produzido na etapa anterior. No TDD, um teste que interprete incorretamente o
-requisito permanece fixado durante a implementação: o agente que recebe o
-feedback do pytest pode corrigir o código, mas não o teste. Assim, pode adaptar
-a implementação a uma exigência errada ou esgotar o orçamento tentando
+produzido na etapa anterior. No TDD, o agente que recebe o feedback do pytest
+pode corrigir o código, mas não o teste. Diante de um teste que interprete
+incorretamente o requisito, pode adaptar a implementação a uma exigência errada ou esgotar o orçamento tentando
 satisfazer testes contraditórios. A avaliação externa pode revelar a divergência,
 mas já não há retorno previsto para corrigi-la nessa execução.
 
@@ -438,9 +437,8 @@ para DeepSeek e US\$~3 para GLM.\footnote{Configurações por modelo em \url{htt
 implementação, o mesmo limite por etapa não iguala o orçamento total dos dois
 pipelines. Essa diferença deve acompanhar a interpretação de custo e resultado.
 
-A escolha de 200 execuções não decorreu de um cálculo prévio de poder
-estatístico ou de uma margem de erro desejada. O número foi fixado sem esse
-dimensionamento formal, com 50 repetições em cada célula.\footnote{Laço de execução do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/harness/batch.py}.}
+O total de 200 execuções, com 50 repetições em cada célula, foi fixado sem
+cálculo prévio de poder estatístico ou de margem de erro.\footnote{Laço de execução do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/harness/batch.py}.}
 
 A unidade de repetição é a execução completa do pipeline para o mesmo
 requisito. Os critérios verificados dentro de uma aplicação não constituem
@@ -471,15 +469,15 @@ A primeira suíte continha 12 critérios\footnote{Disponíveis em
 \url{https://github.com/Educg550/tcc/tree/main/demos/avaliacao}.}. Depois de observar o empate entre as
 aplicações aprovadas, foram acrescentados dez critérios\footnote{Disponíveis em
 \url{https://github.com/Educg550/tcc/tree/main/demos/avaliacao/extra}.} sobre máscaras,
-mensagens, preservação dos dados e conteúdo do ofício. Essa ampliação foi uma
-análise posterior ao primeiro resultado. Ela não deve ser apresentada como um
-protocolo integralmente definido antes da geração.
+mensagens, preservação dos dados e conteúdo do ofício. Esses critérios foram
+definidos depois do primeiro resultado e não faziam parte do protocolo
+inicial.
 
 A triagem identificou 153 aplicações elegíveis, 94 das quais passaram nos
 12 critérios iniciais. Dessas, 81 também passaram nos dez extras.\footnote{Triagem e resultados funcionais em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json};
 \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress.json};
 \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/cypress-extra.json}.} Para calcular
-as taxas por célula, o denominador permanece em 50: não produzir aplicação
+as taxas por célula, o denominador permanece em 50, e não produzir aplicação
 avaliável ou não concluir o pipeline conta como reprovação. Retirar essas
 execuções favoreceria o grupo cujas falhas fossem mais frequentemente excluídas
 pela triagem.\footnote{Contagens por célula, denominadores e proporções calculados em \url{https://github.com/Educg550/tcc/blob/main/tex/figuras/graficos-formulario.py}.}
@@ -500,8 +498,7 @@ pela triagem.\footnote{Contagens por célula, denominadores e proporções calcu
   \end{tabular}
 \end{table}
 
-Os resultados descritivos têm direções distintas: no DeepSeek, a baseline
-apresenta maior proporção de aprovação; no GLM, o TDD apresenta maior proporção.
+No DeepSeek, a baseline teve a maior proporção de aprovação; no GLM, o TDD.
 A Figura~\ref{fig:formulario-aprovacao} acrescenta os intervalos de confiança
 às contagens da Tabela~\ref{tab:formulario-aprovacao}. São intervalos individuais
 de proporções, sem ajuste para comparações múltiplas; sua sobreposição ou
@@ -649,7 +646,7 @@ Essa inspeção tem alcance diferente de um estudo com usuários. A avaliação
 heurística examina a interface segundo princípios de usabilidade, e avaliadores
 diferentes podem encontrar problemas distintos \citep{nielsenAvaliacao}.
 Neste experimento, a avaliação humana foi feita apenas pelo autor, sobre
-finalistas escolhidas por preferência visual. O CUA constitui outro instrumento
+finalistas escolhidas por preferência visual. O CUA é outro instrumento
 de avaliação, cuja confiabilidade também estava em exame. A combinação não
 permite estimar a experiência de uma população de usuários nem a usabilidade
 das 200 aplicações.\footnote{Composição do lote em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/batch/radon.json}.}
@@ -671,9 +668,13 @@ seguiram o percurso por teclado, mudaram três notas.\footnote{Notas das quatro 
 variação do avaliador diante da mesma aplicação, sem fornecer uma estimativa
 geral de sua taxa de erro.
 
-A comparação entre a campeã baseline e a campeã TDD também mistura modelos:
-a primeira usa DeepSeek e a segunda GLM. Portanto, as diferenças encontradas
-entre essas finalistas não isolam o efeito do pipeline.\footnote{Identificação das finalistas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json};
+A campeã baseline usa DeepSeek e a campeã TDD usa GLM. Como modelo e pipeline
+mudam ao mesmo tempo, uma diferença entre essas finalistas pode vir de
+qualquer um dos dois, e a comparação entre elas não indica qual pipeline é
+melhor. Somado à aprovação funcional, em que a baseline se saiu melhor com
+DeepSeek e o TDD com GLM (Tabela~\ref{tab:formulario-aprovacao}), isso sugere
+que cada modelo pode se beneficiar de uma abordagem diferente. Com um único
+requisito e dois modelos, porém, essa hipótese continua inconclusiva.\footnote{Identificação das finalistas em \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio.json};
 \url{https://github.com/Educg550/tcc/blob/main/demos/runs/galeria/torneio-tdd.json}.} O lote permite descrever
 aprovação funcional e consumo nas quatro células; o torneio e a inspeção das
 finalistas acrescentam observações sobre interfaces selecionadas. O experimento
@@ -943,8 +944,7 @@ implementação, tratada na seção seguinte.
 A limitação identificada decorre de a suíte inteira ser gerada antes de
 qualquer código de produção. Essa geração também está sujeita a erros. Como
 discutido na Subseção~\ref{subsec:determinismo}, o agente que escreve os testes
-é uma fonte de não determinismo: repetir a geração produz suítes diferentes, e
-cada uma pode conter interpretações incorretas do requisito. A prova de conceito
+é uma fonte de não determinismo, e cada suíte gerada pode conter interpretações incorretas do requisito. A prova de conceito
 do TOP também encontrou inconsistências nos testes gerados
 \citep{melegati2026top}. Com os testes congelados, o agente de implementação só
 pode adaptar o código a um teste incorreto ou esgotar o orçamento tentando
@@ -984,7 +984,7 @@ Com a nova variante em funcionamento, seguiu-se a comparação com as condiçõe
 \section{Resultados das quatro variantes}
 \label{sec:prejanus-resultados}
 
-A tabela comparativa abaixo reúne uma execução de cada variante: baseline, TDD, TDD com
+Foi feita uma execução de cada variante: baseline, TDD, TDD com
 revisão e rework. Todas usaram o modelo \texttt{z-ai/glm-5.3}, o mesmo
 provedor, o mesmo ambiente e os mesmos tetos por etapa, de US\$~2, uma hora e
 40 propostas. As três primeiras seguem a Estratégia~1, com o gabarito
@@ -1183,7 +1183,7 @@ variação entre gerações do modelo.
 \section{Resultados com feedback}
 \label{sec:prejanus-resultados-licoes}
 
-As quatro variantes pioraram com as lições. A
+As quatro variantes passaram em menos casos na rodada com lições. A
 Tabela~\ref{tab:prejanus-resultados-licoes} repete as medidas da
 Tabela~\ref{tab:prejanus-resultados} para as novas execuções. A baseline
 passou em 138 dos 247 casos, 48 a menos que antes, e o TDD com revisão em 131,
@@ -1220,8 +1220,8 @@ entregue não inicia. A rodada custou US\$~5,80.\footnote{Resumo em
   \end{tabular}
 \end{table}
 
-No TDD e no rework, o código entregue não roda: a aplicação falha ao iniciar,
-por um nome usado e não definido. Os dois casos aprovados nessas entregas não
+No TDD e no rework, a aplicação entregue falha ao iniciar porque usa um nome
+que não foi definido. Os dois casos aprovados nessas entregas não
 dependem de a aplicação estar funcionando.
 
 Nessas duas variantes, a nota final esconde uma melhora durante a geração. No
@@ -1291,8 +1291,7 @@ Com uma execução por variante em cada rodada, a queda
 observada combina possíveis efeitos do feedback com a variação entre gerações
 (Seções~\ref{sec:prejanus-resultados} e~\ref{sec:prejanus-resultados-licoes}).
 
-Os testes de aceitação aplicados à entrega respondem a uma pergunta diferente
-daquela respondida pelos testes usados durante a geração. Na rodada com
+Na rodada com
 feedback, o TDD e o rework chegaram a aprovar mais casos em propostas
 intermediárias. Nas duas execuções, o harness aplicou as edições de uma
 proposta interrompida e encerrou a etapa antes de rodar o gate novamente.
