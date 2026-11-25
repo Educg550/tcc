@@ -7,7 +7,7 @@ from pathlib import Path
 
 from .agentes import Agente
 from .dominio import MEDIDO, Mudanca, Projeto, ResultadoPytest
-from .observacoes import Observacao, PytestFalhou, RespostaInvalida
+from .observacoes import NAO_ALTERE, Observacao, PytestFalhou, RespostaInvalida
 from .politicas import Orcamento, Permissao
 from .propostas import Proposta, PropostaAceita, PropostaRejeitada
 from .tracing import Trace
@@ -88,6 +88,7 @@ class Etapa(ABC):
     o Projeto, quem decide é a Permissao."""
 
     propositos: tuple[str, ...] = ("implementation",)
+    instrucao_falha = NAO_ALTERE
 
     @property
     @abstractmethod
@@ -227,7 +228,7 @@ class Etapa(ABC):
                 }
             )
             if resultado is not None and not resultado.passou:
-                observacoes.append(PytestFalhou(resultado.saida))
+                observacoes.append(PytestFalhou(resultado.saida, resultado.logs, self.instrucao_falha))
                 continue
 
             decisao = self.permissao.autorizar(self.id, "\n".join(arquivos))

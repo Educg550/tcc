@@ -13,15 +13,24 @@ class Observacao(ABC):
     def como_prompt(self) -> str: ...
 
 
+LIMITE_SAIDA = 8000
+NAO_ALTERE = "Corrija o código de produção. Não altere os testes."
+
+
 @dataclass(frozen=True)
 class PytestFalhou(Observacao):
     saida: str
+    logs: str = ""
+    instrucao: str = NAO_ALTERE
 
     def como_prompt(self) -> str:
-        return (
-            f"## PYTEST FALHOU\n```\n{self.saida[-4000:]}\n```\n"
-            "Corrija o código de produção. Não altere os testes.\n"
-        )
+        # O começo traz os primeiros tracebacks; o fim, o resumo e a contagem.
+        saida = self.saida
+        if len(saida) > LIMITE_SAIDA:
+            inicio, fim = saida[: LIMITE_SAIDA * 3 // 4], saida[-LIMITE_SAIDA // 4 :]
+            saida = f"{inicio}\n[... {len(saida) - len(inicio) - len(fim)} caracteres omitidos ...]\n{fim}"
+        logs = f"## LOGS DO APP\n```\n{self.logs}\n```\n" if self.logs else ""
+        return f"## PYTEST FALHOU\n```\n{saida}\n```\n{logs}{self.instrucao}\n"
 
 
 @dataclass(frozen=True)

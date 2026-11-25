@@ -218,6 +218,7 @@ class ResultadoPytest:
     failed: int
     errors: int
     saida: str = ""
+    logs: str = ""
 
     @classmethod
     def de_saida(cls, saida: str, passou: bool) -> ResultadoPytest:

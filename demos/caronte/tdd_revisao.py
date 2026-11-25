@@ -17,6 +17,8 @@ class EscopoRevisao(Escopo):
 
 class EtapaTDDRevisao(EtapaTDD):
     escopo = EscopoRevisao(fora=tuple(p for p in CODIGO.fora if p != "tests"))
+    instrucao_falha = ("Corrija o código de produção. Se um teste estiver errado, corrija o teste "
+                       "e registre a revisão em `tests/REVISOES.md`.")
 
     def registrar_testes(self, projeto):
         atuais = {str(p.relative_to(projeto.raiz)): p.read_text(encoding="utf-8")

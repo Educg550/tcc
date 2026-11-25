@@ -1,0 +1,40 @@
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+local-estudante-1  |     return meth(
+local-estudante-1  |            ^^^^^
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+local-estudante-1  |     return connection._execute_clauseelement(
+local-estudante-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+local-estudante-1  |     ret = self._execute_context(
+local-estudante-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+local-estudante-1  |     return self._exec_single_context(
+local-estudante-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+local-estudante-1  |     self._handle_dbapi_exception(
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+local-estudante-1  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+local-estudante-1  |     self.dialect.do_execute(
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+local-estudante-1  |     cursor.execute(statement, parameters)
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 594, in execute
+local-estudante-1  |     result = self.await_(self._cursor.execute(query, params, **kw))
+local-estudante-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+local-estudante-1  |     return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+local-estudante-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+local-estudante-1  |     value = await result
+local-estudante-1  |             ^^^^^^^^^^^^
+local-estudante-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/psycopg/cursor_async.py", line 97, in execute
+local-estudante-1  |     raise ex.with_traceback(None)
+local-estudante-1  | sqlalchemy.exc.ProgrammingError: (psycopg.errors.UndefinedColumn) coluna submission.recommender_form_ids não existe
+local-estudante-1  | LINE 1: ...mission.updated_at, submission.candidate_form_id, submission...
+local-estudante-1  |                                                              ^
+local-estudante-1  | HINT:  Talvez você queira fazer referência à coluna "submission.recommenders_form_ids".
+local-estudante-1  | [SQL: SELECT submission.id, submission.edict_id, submission.advisor_id, submission.created_at, submission.updated_at, submission.candidate_form_id, submission.recommender_form_ids, submission.stats, submission.accept_form_id, submission.entry_semester, submission.letter_sent, submission.recommender_form_version, submission.candidate_form_version 
+local-estudante-1  | FROM submission 
+local-estudante-1  | WHERE submission.candidate_form_id = %(candidate_form_id_1)s::INTEGER AND submission.edict_id = %(edict_id_1)s::INTEGER]
+local-estudante-1  | [parameters: {'candidate_form_id_1': 1, 'edict_id_1': 3}]
+local-estudante-1  | (Background on this error at: https://sqlalche.me/e/20/f405)

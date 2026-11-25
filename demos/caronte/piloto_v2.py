@@ -6,6 +6,7 @@ import asyncio
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -96,6 +97,23 @@ def pytest_gabarito(saida, nome, ids=()):
     return subprocess.run(cmd, cwd=DEMOS, capture_output=True, text=True)
 
 
+LIMITE_LOGS = 6000
+PREFIXO = re.compile(r"^[\w-]+-\d+\s+\| ?")
+
+
+def resumir_logs(textos):
+    """O fim de cada log de app, onde fica o último traceback, sem o prefixo do compose
+    nem as linhas INFO. Backends com o mesmo código repetem o mesmo erro: vai uma vez."""
+    trechos = []
+    for texto in textos:
+        util = "\n".join(l for l in (PREFIXO.sub("", l) for l in texto.splitlines()) if not l.startswith("INFO:"))
+        if len(util) > LIMITE_LOGS // 4:
+            util = util[-(LIMITE_LOGS // 4):].split("\n", 1)[-1]
+        if util.strip() and util.strip() not in trechos:
+            trechos.append(util.strip())
+    return "\n\n".join(trechos)[:LIMITE_LOGS]
+
+
 class ProjetoV2(Projeto):
     def __init__(self, raiz, alvo, grupo):
         super().__init__(raiz, alvo)
@@ -119,11 +137,12 @@ class ProjetoV2(Projeto):
                      "-w", "/workspace", RUNTIME, "pytest", "-q", "--tb=short", "-p", "no:cacheprovider"],
                     capture_output=True, text=True)
         saida = r.stdout + "\n" + r.stderr
-        logs = "\n".join(p.read_text(errors="replace")[-4000:] for p in sorted(self.saida.glob("app-*.log")))
+        textos = [p.read_text(errors="replace") for p in sorted(self.saida.glob("app-*.log"))]
+        logs = "\n".join(t[-4000:] for t in textos)
         (self.saida / f"pytest-{self.gates}.txt").write_text(saida + ("\n" + logs if r.returncode else ""))
         resultado = ResultadoPytest.de_saida(saida, r.returncode == 0)
-        # O coder só vê o fim da saída: com o app de pé, o resumo do pytest; fora do ar, o log de subida.
-        return resultado if subiu else replace(resultado, saida=saida + "\n" + logs)
+        # Com o app de pé, a causa de um 500 só aparece no log do app; fora do ar, é o log de subida.
+        return replace(resultado, logs=resumir_logs(textos)) if r.returncode else resultado
 
 
 def avaliar(raiz, saida=None):
