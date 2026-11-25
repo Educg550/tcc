@@ -28,7 +28,7 @@ def test_revisao_libera_testes_mas_preserva_validacao_e_configuracao(tmp_path):
 
 
 @pytest.mark.parametrize("interrompida", [False, True])
-def test_preserva_testes_e_diff_inclusive_ao_interromper_antes_do_gate(tmp_path, interrompida):
+def test_preserva_testes_e_diff_inclusive_ao_interromper(tmp_path, interrompida):
     class ProjetoSimulado(Projeto):
         gates = 0
 
@@ -69,7 +69,7 @@ def test_preserva_testes_e_diff_inclusive_ao_interromper_antes_do_gate(tmp_path,
     assert parte["versoes_testes"][0]["sha256"] == inicial == parte["impressao"]
     assert parte["versoes_testes"][1]["sha256"] == projeto.impressao() != inicial
     assert parte["testes_revisaveis"] and parte["ok"] is not interrompida
-    assert projeto.gates == (1 if interrompida else 2)
+    assert projeto.gates == 2  # interrompida também passa pelo gate
     assert parte["cost_usd"] == 0.02 and parte["total_tokens"] == 15
     resultado = Resultado(grupo="tdd-revisao", requisito_id="simulado", stages=[parte],
                           impressao_fim=projeto.impressao())

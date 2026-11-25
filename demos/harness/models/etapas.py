@@ -165,6 +165,11 @@ class Etapa(ABC):
             tokens_out += resposta.output_tokens
             tokens += resposta.total_tokens
 
+            salvos = {} if resposta.mudanca is None else {
+                a.caminho: (projeto.raiz / a.caminho).read_text(encoding="utf-8")
+                if (projeto.raiz / a.caminho).exists() else None
+                for a in resposta.mudanca.arquivos
+            }
             proposta = (
                 RespostaInvalida(resposta.erro)
                 if resposta.mudanca is None
@@ -181,13 +186,33 @@ class Etapa(ABC):
                     }
                 )
                 continue
+            arquivos_antes = arquivos
             arquivos = list(dict.fromkeys([*arquivos, *proposta.arquivos]))
 
             if resposta.erro:
                 self.trace.registrar({"etapa": self.id, "passo": passos,
                                       "arquivos": arquivos, "erro": resposta.erro,
                                       "cost_usd": round(custo, 6)})
-                return parte(False, resposta.limite or "erro_modelo")
+                motivo = resposta.limite or "erro_modelo"
+                # Sessão interrompida também passa pelo gate: entregar sem verificar já
+                # entregou app que nem sobe. Fica só se não aprovar menos que a anterior.
+                resultado = self.verificar(projeto)
+                if resultado is None:
+                    return parte(False, motivo)
+                historico.append(resultado.contagem)
+                piorou = len(historico) > 1 and resultado.passed < historico[-2]["passed"]
+                if piorou:
+                    for caminho, conteudo in salvos.items():
+                        destino = projeto.raiz / caminho
+                        if conteudo is None:
+                            destino.unlink()
+                        else:
+                            destino.write_text(conteudo, encoding="utf-8")
+                    arquivos = arquivos_antes
+                destino_final = "descartada" if piorou else "mantida"
+                self.trace.registrar({"etapa": self.id, "passo": passos, "pytest": historico[-1],
+                                      "interrompida": destino_final})
+                return {**parte(False, motivo), "interrompida": destino_final}
 
             resultado = self.verificar(projeto)
             if resultado is not None:

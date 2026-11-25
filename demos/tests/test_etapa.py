@@ -2,7 +2,7 @@ import asyncio
 from dataclasses import replace
 
 from harness.models.agentes import Resposta
-from harness.models.dominio import Alvo, Arquivo, Mudanca, Projeto
+from harness.models.dominio import Alvo, Arquivo, Mudanca, Projeto, ResultadoPytest
 from harness.models.etapas import Etapa, EtapaCodigo, EtapaTestes
 from harness.models.politicas import (
     Aprovado,
@@ -142,6 +142,48 @@ def test_interrupcao_preserva_arquivos_completos_sem_aprovar_a_etapa(tmp_path):
     assert (tmp_path / "app.py").read_text() == "x = 1\n"
     assert parte["chamadas_modelo"] == 2 and parte["passos"] == 1
     assert parte["cost_usd"] == 0.02 and parte["total_tokens"] == 24
+
+
+class AgenteQueReescreve(AgenteRoteirizado):
+    """Reescreve app.py e cria um arquivo por sessão; a última é interrompida pelo teto."""
+
+    async def propor(self, prompt):
+        n = len(self.prompts) + 1
+        resposta = await super().propor(prompt)
+        arquivos = [Arquivo(caminho="app.py", conteudo=f"v = {n}\n"),
+                    Arquivo(caminho=f"m{n}.py", conteudo="x = 1\n")]
+        return replace(resposta, mudanca=Mudanca(arquivos=arquivos),
+                       **({"erro": "Orçamento esgotado", "limite": "tempo"} if n == 2 else {}))
+
+
+def etapa_com_gate(*aprovados):
+    class Gate(EtapaCodigo):
+        def verificar(self, projeto):
+            n = aprovados[len(self.vistos)]
+            self.vistos.append(n)
+            return ResultadoPytest(passou=False, passed=n, failed=1, errors=0)
+    Gate.vistos = []
+    return Gate
+
+
+def test_proposta_interrompida_que_aprova_menos_volta_a_verificada(tmp_path):
+    classe = etapa_com_gate(39, 0)
+    parte = rodar(tmp_path, AgenteQueReescreve("app.py", "app.py"), Batch(), classe)
+
+    assert not parte["ok"] and parte["motivo"] == "tempo"
+    assert [h["passed"] for h in parte["historico"]] == [39, 0]
+    assert parte["interrompida"] == "descartada"
+    assert (tmp_path / "app.py").read_text() == "v = 1\n"
+    assert not (tmp_path / "m2.py").exists()
+
+
+def test_proposta_interrompida_que_nao_piora_fica(tmp_path):
+    classe = etapa_com_gate(137, 155)
+    parte = rodar(tmp_path, AgenteQueReescreve("app.py", "app.py"), Batch(), classe)
+
+    assert parte["interrompida"] == "mantida"
+    assert (tmp_path / "app.py").read_text() == "v = 2\n"
+    assert (tmp_path / "m2.py").exists()
 
 
 def test_orcamento_estourado_encerra_sem_verde(tmp_path):
