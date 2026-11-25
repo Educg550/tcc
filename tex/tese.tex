@@ -159,27 +159,6 @@ Para responder à pergunta, estabelecemos os seguintes objetivos.
   \item Caracterizar as falhas que cada pipeline deixa passar.
 \end{itemize}
 
-\section{Contribuições}
-
-\begin{itemize}
-  \item Disponibilizamos no repositório do trabalho um harness que executa a
-    geração direta, o TDD, o TDD com revisão dos testes e a reconstrução guiada
-    por testes sob limites definidos por etapa.
-  \item Comparamos os pipelines em dois cenários. No formulário web, a
-    aprovação funcional favoreceu um pipeline diferente em cada modelo.
-    Na rodada inicial do PreJanus-back, antes de acrescentarmos o bloco de
-    feedback, fizemos uma execução por variante. O TDD com testes congelados
-    passou em menos casos que a geração direta. O TDD com revisão passou em
-    um caso a mais do gabarito privado (63 contra 62), com custo cerca de
-    quatro vezes maior que o da geração direta.
-  \item Nas três finalistas incluídas na comparação de usabilidade, as notas
-    do CUA coincidiram com as nossas em 5 de 30 comparações. As notas do CUA
-    variaram entre sessões na mesma aplicação.
-  \item Identificamos arquétipos de falha nas entregas do PreJanus-back, como
-    a adoção de contratos onde a entrada não os especifica e a persistência
-    de falhas apontadas pelos testes durante a geração.
-\end{itemize}
-
 \section{Uso de ferramentas de inteligência artificial}
 \label{sec:uso-ia}
 
@@ -190,15 +169,6 @@ Anthropic, com o modelo Claude Opus 5.5, em três tarefas. Usamos a ferramenta
 para escrever os scripts auxiliares, preparar os requisitos e o gabarito do
 PreJanus-back a partir do código original (Seção~\ref{sec:prejanus-preliminares})
 e sugerir correções na redação desta monografia.
-
-\section{Organização do texto}
-
-O Capítulo~\ref{cap:ferramentas} apresenta os conceitos usados no trabalho
-(corretude, testes de software, agentes, harness e CUA) e o harness construído
-para executar os pipelines. Os Capítulos~\ref{cap:experimento-formulario}
-e~\ref{cap:experimento-prejanus} descrevem os dois estudos, com seus métodos e
-resultados. O Capítulo~\ref{cap:conclusao} retoma a pergunta de pesquisa e
-aponta desdobramentos.
 
 \chapter{Conceitos e ferramentas}
 \label{cap:ferramentas}
@@ -941,47 +911,17 @@ todas as variantes.
 \section{Ensaios e ajustes do protocolo}
 \label{sec:prejanus-resultados-preliminares}
 
-O plano inicial era reconstruir todo o monorepositório Caronte, com cerca de
-30 mil linhas entre o serviço de formulários, o backend e o frontend do
-PreJanus. Incluir o serviço de formulários e o frontend exigiria
-requisitos e um gabarito de telas que ainda não tínhamos. Depois dos
-ensaios, restringimos o escopo ao PreJanus-back, que já tinha requisitos,
-ambiente e gabarito preparados, em acordo com os orientadores.
-Três ensaios orientaram os ajustes:\footnote{Execuções em
-\href{https://github.com/Educg550/tcc/tree/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/caronte}{\texttt{demos/runs/caronte/}}.
-Primeiro ensaio: \texttt{02-caronte-consulta-baseline-20261017-100205},
-\texttt{02-caronte-consulta-tdd-20261017-102242} e
-\texttt{02-caronte-consulta-rework-20261017-104419}. Segundo:
-\texttt{03-caronte-prejanus-completo-baseline-20261018-165948},
-\texttt{03-caronte-prejanus-completo-tdd-20261018-182229} e
-\texttt{03-caronte-prejanus-completo-rework-20261018-201628}. Terceiro:
-\texttt{05-prejanus-back-piloto-v3-baseline-20261019-095708},
-\texttt{05-prejanus-back-piloto-v3-tdd-20261019-103846} e
-\texttt{05-prejanus-back-piloto-v3-rework-20261021-155621}; o resultado após
-o ajuste do gabarito está em \texttt{\_harness/oraculo-atalho/}.}
-
-\begin{enumerate}
-  \item Apenas a consulta do PreJanus-back, com login local, editais,
-    inscrições e anexos. As três variantes então existentes (baseline, TDD
-    e rework) passaram em 26 das 27 verificações.
-  \item As 50 operações. Nenhuma entrega iniciou, porque o agente reescrevia
-    os arquivos inteiros a cada correção e terminou com erros de sintaxe.
-    O harness passou a ler o projeto e editar trechos, com checagem de
-    sintaxe.
-  \item A mesma entrada, com a nova forma de editar o código. Uma falha
-    no login impedia a preparação de grande parte dos testes. Os casos que
-    não avaliam o OAuth, fluxo de autorização usado no login, passaram a
-    usar a autenticação local prevista no requisito. Após esse ajuste no gabarito, a baseline
-    passou em 139 casos e o TDD em 185. Também ajustamos a verificação
-    interna e o controle de custo do harness.
-\end{enumerate}
-
-As execuções seguintes expuseram dois defeitos do harness. O texto devolvido
-ao agente de implementação podia omitir as falhas do pytest, e o ambiente
-dos testes gerados não dava acesso a todos os perfis e serviços previstos.
-Substituímos as execuções afetadas por novas execuções com o harness
-corrigido.\footnote{Motivos da substituição e resultados em
-\href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/blog/2026-10-24-runs-refeitas-harness.md}{registro das execuções substituídas}.}
+Após os ensaios, restringimos a reconstrução ao PreJanus-back, que já tinha
+requisitos, ambiente e gabarito preparados. O harness passou a editar
+trechos de código com checagem de sintaxe. Os testes de operações alheias ao
+OAuth, fluxo de autorização usado no login, passaram a usar a autenticação
+local prevista no requisito. Assim, uma falha no fluxo OAuth deixou de
+impedir a avaliação das demais operações. Ajustamos também a verificação
+interna e o controle de custo. Refizemos as execuções afetadas por dois
+defeitos do harness: omissões na saída do pytest enviada ao agente e acesso
+incompleto dos testes aos perfis e serviços do ambiente.\footnote{Ver os
+\href{https://github.com/Educg550/tcc/tree/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/caronte}{registros dos ensaios}
+e a \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/blog/2026-10-24-runs-refeitas-harness.md}{justificativa das substituições}.}
 
 Na execução de TDD selecionada para a comparação, a inspeção dos testes
 gerados encontrou uma contradição. Um teste exigia que um docente criasse
