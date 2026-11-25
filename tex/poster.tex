@@ -1,0 +1,118 @@
+% Adaptado do modelo de pôster de Nelson Lago (CCSL/IME-USP), licença MIT.
+\documentclass[a1paper,brazilian]{article}
+\usepackage{imegoodies}
+\usepackage[poster,hidelinks,nobiblatex]{imelooks}
+\pagestyle{empty}
+\hypersetup{
+  pdftitle={Testes ajudam a IA a gerar código mais correto?},
+  pdfauthor={Eduardo Cruz Guedes},
+}
+\tcbposterset{fontsize=32pt}
+
+\begin{document}
+\begin{tcbposter}[poster={rows=12,columns=2,colspacing=1.2cm,rowspacing=.8cm}]
+
+\posterbox[titlebox]{row=1,column=1,span=2,rowspan=2}{
+  Testes ajudam a IA a gerar código mais correto?\par
+  \medskip
+  {\normalsize\sffamily\mdseries Eduardo Cruz Guedes \enspace\textbullet\enspace
+  Bacharelado em Ciência da Computação, IME-USP\par
+  Orientadores: Paulo Meirelles e Jorge Melegati}
+}
+
+\posterbox[adjusted title={Exemplo: o valor mudou no ofício?}]
+          {row=3,column=1,span=2,rowspan=3}{
+  Em um pedido de auxílio financeiro, o sistema gera um ofício com os
+  dados preenchidos. O valor solicitado deve aparecer igual nos dois.\par
+  \bigskip
+  \noindent
+  \begingroup\setlength{\fboxsep}{.65\baselineskip}
+  \fcolorbox{IMEframe}{white}{%
+    \begin{minipage}[c]{.40\linewidth}
+      \centering
+      \textbf{Formulário de auxílio}\par
+      Valor digitado\par\medskip
+      {\LARGE\bfseries R\$ 1.250,00}
+    \end{minipage}}\hfill
+  {\Large\(\longrightarrow\)}\hfill
+  \fcolorbox{IMEframe}{white}{%
+    \begin{minipage}[c]{.40\linewidth}
+      \centering
+      \textbf{Ofício gerado}\par
+      Valor solicitado\par\medskip
+      {\LARGE\bfseries R\$ 1.250,00}
+    \end{minipage}}\par
+  \endgroup
+  \bigskip
+  Se o ofício mostrar \textbf{R\$ 125,00}, a aplicação falha nesse teste.
+}
+
+\posterbox[adjusted title={Como comparamos}]{row=6,column=1,span=2,rowspan=2}{
+  \begin{tabular}{@{}l@{\qquad}l@{}}
+    \textbf{Geração direta} & Requisito \(\rightarrow\) código \\[.4em]
+    \textbf{TDD} & Requisito \(\rightarrow\) um agente escreve testes
+    \(\rightarrow\) outro usa os testes para corrigir o código
+  \end{tabular}\par\bigskip
+  TDD é desenvolvimento guiado por testes. Para medir a correção, usamos
+  testes de avaliação comuns aos dois pipelines. Na avaliação de usabilidade,
+  as notas da pessoa e do agente no navegador coincidiram em 5 de 30 comparações.
+}
+
+\posterbox[blankest,valign=top]{row=8,column=1,rowspan=3}{
+  {\large\bfseries Formulários aprovados}\par
+  Nos 22 critérios funcionais\par\bigskip
+  \begin{tikzpicture}[x=8.5cm,y=2.9cm]
+    \node[above,font=\bfseries] at (.5,2) {Geração direta};
+    \node[above,font=\bfseries] at (1.5,2) {TDD};
+    \node[left,font=\bfseries] at (-.03,1.5) {DeepSeek};
+    \node[left,font=\bfseries] at (-.03,.5) {GLM-5.3};
+    \foreach \coluna/\linha/\valor/\letra in {
+      0/1/39/white,1/1/30/black,
+      0/0/3/black,1/0/9/black%
+    } {
+      \pgfmathtruncatemacro{\intensidade}{2*\valor}
+      \filldraw[fill=IMEtitlebg!\intensidade,draw=white,line width=1pt]
+        (\coluna,\linha) rectangle ++(1,1);
+      \node[font=\bfseries,text=\letra] at (\coluna+.5,\linha+.5) {\valor/50};
+    }
+  \end{tikzpicture}\par\bigskip
+  \textbf{A abordagem com mais aprovações mudou conforme o modelo.}\par\medskip
+  No DeepSeek, passaram 9 aplicações a mais com geração direta.
+  No GLM-5.3, passaram 6 a mais com TDD.
+}
+
+\posterbox[blankest,valign=top]{row=8,column=2,rowspan=3}{
+  {\large\bfseries Reconstrução do PreJanus}\par
+  Aprovações em 85 testes reservados\par\bigskip
+  \begin{tikzpicture}[x=.185cm,y=1.6cm]
+    \foreach \total in {0,20,40,60,80} {
+      \draw[gray!35] (\total,0) -- (\total,4.5);
+      \node[below] at (\total,0) {\total};
+    }
+    \foreach \height/\valor/\shade/\variante in {
+      4/62/IMEtitlebg/Geração direta,
+      3/49/orange!80!brown/TDD com testes fixos,
+      2/63/orange!80!brown/TDD com revisão,
+      1/59/teal!70!black/Testes visíveis (rework)%
+    } {
+      \node[left] at (-1,\height) {\variante};
+      \fill[\shade] (0,\height-.30) rectangle (\valor,\height+.30);
+      \node[right,font=\bfseries] at (\valor,\height) {\valor};
+    }
+  \end{tikzpicture}\par\medskip
+  Uma execução por variante na rodada inicial\par\medskip
+  TDD com revisão custou cerca de 4 vezes mais que a geração direta.
+}
+
+\posterbox[adjusted title={Conclusão}]{row=11,column=1,span=2,rowspan=1.4}{
+  A geração direta custou menos nos dois estudos. As abordagens com TDD
+  consumiram mais tokens e tiveram ganhos de correção em algumas comparações.
+}
+
+\posterbox[footerbox]{column=1,span=2,above=bottom}{
+  \href{https://educg550.github.io/tcc/}{Monografia, código e dados:
+  educg550.github.io/tcc}
+}
+
+\end{tcbposter}
+\end{document}
