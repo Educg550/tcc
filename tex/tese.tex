@@ -117,6 +117,21 @@ intervenção humana \citep{melegati2026top}. Testes gerados podem interpretar m
 o requisito. Por isso, avaliamos as entregas com suítes externas aos pipelines,
 como o gabarito que usamos no segundo estudo.
 
+Praticantes da indústria também defendem que a verificação do código de
+agentes seja automática e rigorosa. Robert C.~Martin adota a postura mais
+radical entre eles, afirmando que não lê o código escrito por seus agentes. Em
+vez disso, limita o tamanho e a complexidade das
+funções, exige cobertura mínima de testes e revisa apenas os testes de
+aceitação \citep{thakker2026unclebob}. Matt Pocock organiza a verificação em
+checagens automáticas determinísticas, revisão por outro agente e revisão
+humana, e usa testes de mutação para avaliar a própria suíte
+\citep{pocock2026factories}. Em entrevista a Pocock, Lauren Tan aponta a
+verificação como a habilidade mais importante para automatizar o trabalho, já que
+o agente precisa executar, testar e depurar o próprio código
+\citep{pocock2026poteto}. Esses relatos, no entanto, não trazem avaliação sistemática.
+Neste trabalho, medimos o efeito dos testes gerados com suítes externas aos
+pipelines.
+
 Este trabalho compara dois pipelines de geração de código a partir dos mesmos
 requisitos em linguagem natural. Na geração direta, denominada \emph{baseline}, o
 agente produz a implementação sem receber resultados de testes durante a
@@ -1236,15 +1251,17 @@ e o OpenAPI não definem. No TDD, 17 das 45 falhas estão em formulários,
 \chapter{Conclusão}
 \label{cap:conclusao}
 
-Nos cenários avaliados, a geração direta (baseline) apresentou melhor
-custo-benefício que o pipeline com TDD. A baseline consumiu menos tokens,
+Nos cenários avaliados, a geração direta (baseline) e o pipeline com TDD
+apresentaram compromissos distintos. A baseline consumiu menos tokens,
 custou substancialmente menos nos dois estudos e, em algumas comparações,
 também obteve resultados funcionais superiores. No formulário, o pipeline
 com mais aplicações aprovadas variou conforme o modelo. A geração direta
 teve mais aprovações com o DeepSeek, e o TDD teve mais aprovações com o GLM,
 ao custo de um aumento expressivo no consumo de tokens
 (Tabelas~\ref{tab:formulario-aprovacao}, \ref{tab:formulario-recursos}
-e~\ref{tab:prejanus-resultados}).
+e~\ref{tab:prejanus-resultados}). Mesmo custando mais e nem sempre
+passando em mais testes do gabarito, o TDD entrega, além do código, uma
+suíte de testes que serve ao desenvolvimento e à manutenção do software.
 
 No PreJanus-back, o TDD com revisão passou em um caso a mais que a geração
 direta no gabarito privado da rodada inicial. O TDD com testes congelados
@@ -1264,6 +1281,16 @@ Uma sessão chegou a custar muito mais que a própria geração da aplicação.
 A variação nas notas e o custo das sessões limitaram o uso do CUA para
 comparar os pipelines neste estudo (Seção~\ref{sec:formulario-sintese}).
 
+Esses resultados dialogam com a tendência apontada por praticantes da
+indústria, que delegam a implementação ao agente e concentram o esforço na
+verificação \citep{thakker2026unclebob,pocock2026factories}. No
+PreJanus-back, o TDD com revisão dos testes teve o maior resultado no
+gabarito privado nas duas rodadas, o que se aproxima da revisão dos testes
+de aceitação e das camadas de revisão defendidas nesses relatos. Por outro
+lado, os testes gerados sem revisão nem sempre superaram a geração direta,
+e a verificação aumentou o custo. Nos nossos cenários, os testes gerados
+pelo próprio pipeline ajudaram mais quando também passaram por revisão.
+
 Uma comparação futura pode repetir cada condição em diferentes requisitos
 sob o mesmo orçamento de geração. Para isolar o efeito da revisão dos
 testes, as duas variantes de TDD podem partir da mesma suíte gerada em
@@ -1272,9 +1299,8 @@ roteiro permitiria comparar a variação entre sessões com as diferenças
 entre aplicações.
 
 O custo-benefício pode variar conforme o caso de uso e a forma de apresentar
-os requisitos. Como o mesmo harness pode produzir resultados diferentes
-para uma entrada fixa, a comparação também depende do número de execuções
-por entrada e das variações de entrada avaliadas.
+os requisitos. Como o harness contém uma fonte de não-determinismo, 
+a comparação também depende do número de execuções por entrada e das variações de entrada avaliadas.
 
 \backmatter
 \pagestyle{backmatter}
