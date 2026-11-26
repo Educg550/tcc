@@ -122,7 +122,8 @@ o CUA previsto na [proposta](/docs/proposta) fica fora deste recorte.
 | Experimento | Condição | Entrada | Gate durante a geração | Avaliação final |
 |---|---|---|---|---|
 | 1 | Baseline | requisitos e contratos | nenhum | 247 casos externos |
-| 1 | TDD | requisitos e contratos | pytest dos testes próprios | mesmos 247 casos |
+| 1 | TDD com testes congelados | requisitos e contratos | pytest dos testes próprios | mesmos 247 casos |
+| 1 | TDD com revisão | requisitos e contratos | pytest dos testes próprios, com revisão permitida | mesmos 247 casos |
 | 2 | Rework | 161 testes visíveis e contratos | pytest dos visíveis | 85 casos reservados |
 
 ```mermaid
@@ -130,9 +131,12 @@ flowchart TB
     subgraph E1["Experimento 1 · requisitos → código"]
         R["Requisitos e contratos"] --> B["Baseline: geração direta"]
         R --> T["Test-writer: testes próprios"]
-        T --> C["Coder: implementação → pytest → correção"]
+        T --> C["Implementação com testes congelados"]
+        R --> U["Test-writer: nova suíte"]
+        U --> P["Implementação com revisão dos testes"]
         B --> G["Avaliação final: 247 casos externos"]
         C --> G
+        P --> G
     end
     subgraph E2["Experimento 2 · testes → código"]
         V["161 casos visíveis e contratos"] --> W["Coder: implementação → gate dos visíveis → correção"]
@@ -142,20 +146,34 @@ flowchart TB
     classDef geracao fill:#fef3c7,stroke:#d97706,color:#451a03
     classDef avaliacao fill:#dcfce7,stroke:#16a34a,color:#14532d
     class R,V entrada
-    class B,T,C,W geracao
+    class B,T,C,U,P,W geracao
     class G,H avaliacao
 ```
 
 Cada run começa em um workspace vazio. A baseline gera código em uma sessão,
 que pode envolver várias chamadas ao modelo. No TDD, um agente escreve os
 testes e outro implementa e corrige o código até passar ou atingir o teto.
-Os testes aprovados ficam congelados para o coder; sintaxe e nomes indefinidos
-são checados, mas erros de significado podem bloquear a implementação.
+No TDD com testes congelados, sintaxe e nomes indefinidos são checados,
+mas erros de significado na suíte podem bloquear a implementação.
 
 O rework recebe apenas testes visíveis e contratos, sem código original,
 documento de requisitos ou issues. Seu gate usa a cópia dos testes mantida
 pelo avaliador. Nenhum agente acessa os casos reservados; no experimento 1,
 o gabarito inteiro fica oculto.
+
+### TDD com revisão dos testes
+
+A variante TDD com revisão (`tdd-revisao`) investiga o que ocorre
+quando o agente de implementação pode corrigir a suíte gerada durante a
+geração de código. O agente que escreve os testes
+continua separado do agente de implementação, mas este pode alterar os testes
+gerados quando identificar um erro, desde que justifique a alteração pelo
+requisito ou pelos contratos fornecidos. A revisão usa as chamadas do próprio
+agente de implementação, dentro dos mesmos limites de custo, tempo e propostas.
+
+O harness preserva a suíte inicial, as versões posteriores e suas diferenças.
+O agente registra as justificativas em `tests/REVISOES.md`. Após a geração,
+avaliamos a entrega com os mesmos 247 casos do gabarito.
 
 ### Gabarito
 
@@ -177,8 +195,10 @@ runtime e skills de implementação são compartilhados. Os agentes leem e
 editam arquivos com histórico por etapa; o harness valida sintaxe e escopo,
 grava as mudanças e executa os comandos.
 
-A execução é batch, sem feedback humano, uma run de cada vez. As três runs
-principais usam a configuração congelada em `7734bea`.
+As execuções rodam em lote, uma por vez, sem intervenção humana durante a
+geração. A primeira rodada compara uma execução de cada variante, sem o bloco
+de feedback da rodada seguinte. Baseline, TDD com testes congelados e rework
+usam nessa rodada a configuração congelada em `7734bea`.
 
 Cada etapa tem teto de **US$ 2, 40 propostas e 3.600 s**. Baseline e rework
 têm uma etapa; TDD tem duas, testes e código. Custo e tempo são conferidos
@@ -186,6 +206,29 @@ antes de cada chamada, que pode ultrapassar o teto ao terminar. O tempo do
 gate entra no orçamento. Propostas e chamadas ao modelo são contadas
 separadamente. O limite solicitado de raciocínio é de 32 mil tokens, embora
 o provedor tenha retornado respostas maiores.
+
+### Rodada com feedback
+
+Acrescentamos o mesmo bloco de feedback à entrada de todos os agentes,
+incluindo o que escreve os testes. O bloco pedia que os agentes conferissem
+chamadas entre módulos, tipos do banco e endereços de integração. Também pedia
+que preservassem as mensagens de falha e investigassem suas causas.
+Elaboramos o feedback a partir dos contratos e do gabarito público, sem
+consultar o gabarito privado.
+
+Após a primeira rodada com feedback, corrigimos três pontos do harness.
+Nas variantes com verificação interna, o harness passou a testar as
+alterações de propostas interrompidas por custo ou tempo e a descartá-las
+se passassem em menos testes que a versão anterior. Quando a verificação
+interna falhava, o agente passou a receber os logs da aplicação e trechos
+do início e do fim da saída do pytest. No TDD com revisão, a mensagem de
+falha passou a permitir explicitamente a correção de testes.
+Reexecutamos as três variantes com verificação interna e reaproveitamos a
+baseline da primeira rodada com feedback.
+
+Mantivemos a entrada, o bloco de feedback, o modelo, o gabarito e os limites
+por etapa. Cada implementação começou do zero e foi avaliada com o gabarito
+completo, sem correção manual.
 
 ### Registro e análise
 
@@ -201,13 +244,17 @@ Falhas do harness, da infraestrutura ou do provedor invalidam a run, que fica
 registrada com o motivo e sua substituta. Todos os casos da régua permanecem
 no denominador, inclusive erros de preparação.
 
-Há **uma run válida por condição**; a análise é descritiva. Os casos do
-gabarito compartilham a mesma entrega e não são repetições independentes.
-O TDD com revisão é exploratório: permite revisar testes aprovados, mas usa
-uma suíte recém-gerada e não isola o efeito dessa permissão. Os resultados
-comparam os pipelines nessas condições, sem sustentar superioridade geral
-do TDD. Repetições adicionais ainda não estão definidas.
+O gabarito privado de 85 casos é o recorte comum às quatro variantes. A
+análise também considera os 79 casos privados em que o original passou.
+Os casos do gabarito compartilham a mesma entrega. A comparação entre as
+duas variantes de TDD combina a permissão de revisar os testes com duas
+novas amostras do modelo, a suíte e a implementação.
+
+Com uma execução por variante em cada rodada, a variação entre gerações
+limita o que podemos atribuir à revisão dos testes e ao feedback. A comparação
+entre rodadas também incorpora as correções no harness.
 
 Resultados e detalhes de execução estão no [resumo do diário](/blog/resumo-prejanus-back),
-nas [runs refeitas](/blog/runs-refeitas-harness) e na
-[variante com revisão](/blog/tdd-revisao-primeira-run).
+nas [runs refeitas](/blog/runs-refeitas-harness), na
+[variante com revisão](/blog/tdd-revisao-primeira-run) e nas
+[reexecuções com feedback](/blog/runs-com-licoes-refeitas).

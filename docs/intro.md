@@ -37,9 +37,9 @@ Agent (CUA) na avaliação de usabilidade das finalistas.
 O segundo estudo reconstruiu o backend do PreJanus e avaliou as variantes em
 testes de caixa preta reservados. Comparamos geração direta, TDD com testes
 congelados, TDD com revisão e reconstrução guiada por testes visíveis (*rework*).
-Avaliamos as entregas pela interface HTTP. O gabarito público tem 161 casos,
-fornecidos apenas ao *rework*, e o gabarito privado reserva 85 casos para a
-avaliação das quatro variantes.
+Avaliamos as entregas pela interface HTTP. O agente recebe o gabarito
+público, com 161 casos, somente na reconstrução guiada por testes. O
+gabarito privado, com 85 casos, fica reservado à avaliação das quatro variantes.
 
 Nos casos avaliados, não encontramos evidência de que a geração com TDD produza
 consistentemente maior corretude funcional do que a geração direta. No
