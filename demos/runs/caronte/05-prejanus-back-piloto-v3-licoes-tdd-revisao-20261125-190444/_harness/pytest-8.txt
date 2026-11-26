@@ -1,0 +1,187 @@
+..................s..........F.FF..F...F.........s.....                  [100%]
+=================================== FAILURES ===================================
+___________________________ test_reesend_submission ____________________________
+tests/test_mail.py:32: in test_reesend_submission
+    antes = len(_mensagens(smtp))
+                ^^^^^^^^^^^^^^^^
+tests/test_mail.py:12: in _mensagens
+    return body["messages"] if isinstance(body, dict) else body
+           ^^^^^^^^^^^^^^^^
+E   KeyError: 'messages'
+_______________________________ test_send_accept _______________________________
+tests/test_mail.py:76: in test_send_accept
+    antes = len(_mensagens(smtp))
+                ^^^^^^^^^^^^^^^^
+tests/test_mail.py:12: in _mensagens
+    return body["messages"] if isinstance(body, dict) else body
+           ^^^^^^^^^^^^^^^^
+E   KeyError: 'messages'
+_______________________________ test_send_letter _______________________________
+tests/test_mail.py:93: in test_send_letter
+    antes = len(_mensagens(smtp))
+                ^^^^^^^^^^^^^^^^
+tests/test_mail.py:12: in _mensagens
+    return body["messages"] if isinstance(body, dict) else body
+           ^^^^^^^^^^^^^^^^
+E   KeyError: 'messages'
+_____________________ test_mapeamento_referencia_invalida ______________________
+tests/test_mappings.py:57: in test_mapeamento_referencia_invalida
+    assert r.status_code == 422, r.text
+E   AssertionError: {"detail":"Mapeamento já existe para esta versão"}
+E   assert 409 == 422
+E    +  where 409 = <Response [409 Conflict]>.status_code
+_____________________________ test_interactors_pdf _____________________________
+tests/test_reports.py:42: in test_interactors_pdf
+    rd = _aguardar_download(api_admin, f"/edicts/download_pdf/{job_id}")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_reports.py:16: in _aguardar_download
+    pytest.fail(f"relatório não ficou disponível: {path}")
+E   Failed: relatório não ficou disponível: /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a
+=========================== short test summary info ============================
+FAILED tests/test_mail.py::test_reesend_submission - KeyError: 'messages'
+FAILED tests/test_mail.py::test_send_accept - KeyError: 'messages'
+FAILED tests/test_mail.py::test_send_letter - KeyError: 'messages'
+FAILED tests/test_mappings.py::test_mapeamento_referencia_invalida - Assertio...
+FAILED tests/test_reports.py::test_interactors_pdf - Failed: relatório não fi...
+5 failed, 48 passed, 2 skipped in 63.98s (0:01:03)
+
+
+download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/3f54a7eb2794448ba73fb10932589e4a HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/6/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/5/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/4/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "POST /edicts/3/pairing-biddings HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_csv/527dd3e8004b436eb9dcec8bcaaeff77 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_csv/527dd3e8004b436eb9dcec8bcaaeff77 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_csv/527dd3e8004b436eb9dcec8bcaaeff77 HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_pdf/job-inexistente HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/download_csv/job-inexistente HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/6/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/5/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/4/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/3 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "POST /edicts/3/advance-phase HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "POST /submissions/5/select HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "POST /submissions/99999999/select HTTP/1.1" 404 Not Found
+local-admin-1  | INFO:     192.168.96.18:35078 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "POST /submissions/5/entry-semester HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts?is_open=false HTTP/1.1" 200 OK
+local-admin-1  | INFO:     192.168.96.18:35078 - "GET /edicts/6/submissions HTTP/1.1" 200 OK
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.7:40270 - "GET / HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.7:49344 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.18:39434 - "POST /edicts HTTP/1.1" 403 Forbidden
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.7:59286 - "GET / HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:51180 - "DELETE /submissions/comments/1 HTTP/1.1" 403 Forbidden
+local-outro-1  | INFO:     192.168.96.18:51180 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:51180 - "DELETE /submissions/label/1 HTTP/1.1" 403 Forbidden
+local-outro-1  | INFO:     192.168.96.18:51180 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-outro-1  | INFO:     192.168.96.18:51180 - "POST /submissions/5/view HTTP/1.1" 200 OK
+
+local-secretaria-1  | INFO:     Started server process [1]
+local-secretaria-1  | INFO:     Waiting for application startup.
+local-secretaria-1  | INFO:     Application startup complete.
+local-secretaria-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-secretaria-1  | INFO:     192.168.96.7:40218 - "GET / HTTP/1.1" 200 OK
+
+59706 - "POST /edicts/5/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /edicts/5/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /edicts/5/slots HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /edicts/5/slots HTTP/1.1" 400 Bad Request
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/bidding HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "POST /submissions/5/select HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/6/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/5/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/4/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/6/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/5/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/4/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions?stats=approved HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/6/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/5/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/4/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /submissions/5?include_comments=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/6/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/5/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/4/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /edicts/3/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /submissions/5 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /submissions/5/files/Anexar%20documento%20oficial/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:59706 - "GET /submissions/5/files/Anexar%20documento%20oficial/outro-arquivo.pdf HTTP/1.1" 404 Not Found
+
+prejanus-back-1  | INFO:     Started server process [1]
+prejanus-back-1  | INFO:     Waiting for application startup.
+prejanus-back-1  | INFO:     Application startup complete.
+prejanus-back-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+prejanus-back-1  | INFO:     192.168.96.7:50798 - "GET / HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "POST /auth/login/senhaunica?oauth_token=b6e1bb58922fd442473abdd9489f53b94d29c8e31f8d1f3c04f81af589e5265e&oauth_verifier=c98529a02e848d9b51e6beb9da1170e3 HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "GET /auth/login HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33718 - "POST /auth/login/senhaunica?oauth_token=a75bd2a9b58d00756cf9b8ccef9211954affb7a4221ae7d0aa626f63dfa892b6&oauth_verifier=99e0050ab45bf4a17f2d28f2d814d937 HTTP/1.1" 401 Unauthorized
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "POST /auth/login/senhaunica?oauth_token=2f096a964a0c9d7924b97b1a6b955a806581850894ff62ae65f2fcd03af52c25&oauth_verifier=e70d5c5eb050e996de92fd97917e41a4 HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "GET /auth/login HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "POST /auth/login/senhaunica HTTP/1.1" 200 OK
+prejanus-back-1  | INFO:     192.168.96.18:33716 - "POST /auth/login/senhaunica?oauth_token=26e6ba9ce3f2d110ba90ece1a4fce59d2a69c65ac184dc8c146471c5e9930f35&oauth_verifier=616e273d3e3884c6888317572760bd9f HTTP/1.1" 403 Forbidden
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.7:56874 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:48468 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:48468 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:48468 - "GET /auth/login HTTP/1.1" 401 Unauthorized

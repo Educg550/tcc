@@ -1,0 +1,30 @@
+--- antes/tests/REVISOES.md
++++ depois/tests/REVISOES.md
+@@ -1,4 +1,10 @@
+ # Revisões de testes
++
++## Helper `_mensagens` assumia a chave `messages` (tests/test_mail.py)
++
++- **Testes afetados**: `test_reesend_submission`, `test_send_accept`, `test_send_letter` (`KeyError: 'messages'`).
++- **Causa**: a resposta de `GET /api/Messages` da caixa SMTP do ensaio é um objeto paginado (`currentPage`, `firstRowOnPage`, `lastRowOnPage`, `pageCount`, ...), mas a lista de mensagens não está sob a chave `messages` — a revisão anterior assumiu esse nome e quebrou. O contrato documentado em `infra/README.md` só garante que o endpoint lista as mensagens, não o nome da chave.
++- **Correção**: `_mensagens` agora aceita lista direta ou localiza o único valor lista do objeto de paginação, falhando com mensagem explícita se não houver. As asserções de contagem, destinatário e conteúdo raw permanecem intactas; o código de produção não foi alterado, pois os endpoints responderam 200 com `email_sent`.
+ 
+ ## Helper `_mensagens` media a paginação, não as mensagens (tests/test_mail.py)
+ 
+--- antes/tests/test_mail.py
++++ depois/tests/test_mail.py
+@@ -9,7 +9,13 @@
+     r = smtp.get("/api/Messages")
+     assert r.status_code == 200, r.text
+     body = r.json()
+-    return body["messages"] if isinstance(body, dict) else body
++    if isinstance(body, list):
++        return body
++    assert isinstance(body, dict), f"formato inesperado: {body!r}"
++    for value in body.values():
++        if isinstance(value, list):
++            return value
++    raise AssertionError(f"nenhuma lista de mensagens em /api/Messages: {list(body)}")
+ 
+ 
+ def _ultima_mensagem(smtp):

@@ -1,0 +1,198 @@
+...........................F........................................F.F. [ 29%]
+...F........................................................F......FFFF. [ 58%]
+.FFFF..........F...........................F....F......F..F..FFF........ [ 87%]
+....FFFFFFFF..............F....                                          [100%]
+=================================== FAILURES ===================================
+________________ test_cookie_de_sessao_seguro_lax_de_oito_horas ________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_acesso.py:110: in test_cookie_de_sessao_seguro_lax_de_oito_horas
+    ???
+E   AssertionError: assert ('secure' in 'session=eyjvyxv0af90b2tlbii6icjkmzqznzbiyzm3zdliyjiyytcznwezmje2ymqyzdg3zjg4mgjhzmzlmtrhywy0zmuyn2i1mtnhy2uyndcxzdlji...nmzmndrin2zhiiwginvzzxjfawqioiayfq==.awdoew.bhdjogkaqyrv1ongtf5dpd8f91e; path=/; max-age=28800; httponly; samesite=lax')
+_________ test_atividade_reune_comentarios_candidatura_e_recomendacoes _________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_avaliacao.py:55: in test_atividade_reune_comentarios_candidatura_e_recomendacoes
+    ???
+E   AssertionError: assert {'Ana Piloto ...endador Dois'} <= {'Candidato',...endador Dois'}
+E     
+E     Extra items in the left set:
+E     'Ana Piloto Caronte'
+___________________ test_exclui_somente_o_proprio_comentario ___________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_avaliacao.py:73: in test_exclui_somente_o_proprio_comentario
+    ???
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_avaliacao.py:73: in <listcomp>
+    ???
+E   KeyError: 'comment'
+____________________ test_catalogo_de_etiquetas_do_usuario _____________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_avaliacao.py:130: in test_catalogo_de_etiquetas_do_usuario
+    ???
+E   AssertionError: assert ['forte', 'alheia'] == ['forte']
+E     
+E     Left contains one more item: 'alheia'
+E     Use -v to get more diff
+______________________ test_listagem_traz_dados_mapeados _______________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:55: in test_listagem_traz_dados_mapeados
+    assert (ana["stats"], ana["is_favorite"], ana["labels"], ana["disabilities"]) == ("underreview", False, [], True)
+E   AssertionError: assert ('underreview...se, [], False) == ('underreview...lse, [], True)
+E     
+E     At index 3 diff: False != True
+E     Use -v to get more diff
+________________________ test_listagem_com_ppi_mapeado _________________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:119: in test_listagem_com_ppi_mapeado
+    assert all(s["ethnicity_race"] is True for s in lista.values())
+E   assert False
+E    +  where False = all(<generator object test_listagem_com_ppi_mapeado.<locals>.<genexpr> at 0x7c561077b6b0>)
+___________________ test_resumo_identifica_a_candidatura[1] ____________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:128: in test_resumo_identifica_a_candidatura
+    assert (resumo["id"], resumo["name"], resumo["email"]) == (submission_id, NOMES[submission_id], ACESSO[submission_id])
+            ^^^^^^^^^^^^
+E   KeyError: 'id'
+___________________ test_resumo_identifica_a_candidatura[2] ____________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:128: in test_resumo_identifica_a_candidatura
+    assert (resumo["id"], resumo["name"], resumo["email"]) == (submission_id, NOMES[submission_id], ACESSO[submission_id])
+            ^^^^^^^^^^^^
+E   KeyError: 'id'
+___________________ test_resumo_identifica_a_candidatura[3] ____________________
+caronte/piloto-v2/gabarito/test_inscricoes.py:128: in test_resumo_identifica_a_candidatura
+    assert (resumo["id"], resumo["name"], resumo["email"]) == (submission_id, NOMES[submission_id], ACESSO[submission_id])
+            ^^^^^^^^^^^^
+E   KeyError: 'id'
+_____________ test_resumo_traz_recomendacoes_e_convites_pendentes ______________
+caronte/piloto-v2/gabarito/test_inscricoes.py:152: in test_resumo_traz_recomendacoes_e_convites_pendentes
+    recs = {r["fullname"]: r for r in api.get("submissions/1").json()["summary"]["recommenders"]}
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'recommenders'
+_____________ test_formulario_traz_todos_os_campos_respondidos[1] ______________
+caronte/piloto-v2/gabarito/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/gabarito/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_formulario_traz_todos_os_campos_respondidos[2] ______________
+caronte/piloto-v2/gabarito/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/gabarito/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_formulario_traz_todos_os_campos_respondidos[3] ______________
+caronte/piloto-v2/gabarito/test_inscricoes.py:165: in test_formulario_traz_todos_os_campos_respondidos
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+caronte/piloto-v2/gabarito/test_inscricoes.py:165: in <dictcomp>
+    campos = {(f["field_id"], f["name"]): f for s in api.get(f"submissions/{submission_id}").json()["submission_form"]
+               ^^^^^^^^^^^^^
+E   KeyError: 'field_id'
+_____________ test_cria_mapeamento_de_candidatura_para_nova_versao _____________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mapeamentos.py:26: in test_cria_mapeamento_de_candidatura_para_nova_versao
+    ???
+E   KeyError: 'version'
+______________ test_link_de_correcao_abre_a_candidatura_no_forms _______________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mensagens.py:67: in test_link_de_correcao_abre_a_candidatura_no_forms
+    ???
+E   assert 400 == 200
+E    +  where 400 = <Response [400 BAD REQUEST]>.status_code
+_______________________ test_envia_formulario_de_aceite ________________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mensagens.py:101: in test_envia_formulario_de_aceite
+    ???
+E   AssertionError: assert ('candidata.piloto@example.com' == 'candidata.piloto@example.com'
+E     
+E       candidata.piloto@example.com and None == 'outra.piloto@example.com')
+__________________________ test_envia_carta_de_aceite __________________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_mensagens.py:169: in test_envia_carta_de_aceite
+    ???
+E   AssertionError: assert ('candidata.piloto@example.com' == 'candidata.piloto@example.com'
+E     
+E       candidata.piloto@example.com and None == 'outra.piloto@example.com')
+__________________ test_da_homologacao_ao_resultado_e_aceite ___________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_percursos.py:29: in test_da_homologacao_ao_resultado_e_aceite
+    ???
+E   assert 302 == 200
+E    +  where 302 = <Response [302 FOUND]>.status_code
+_________________________ test_pdf_com_todas_as_secoes _________________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:61: in test_pdf_com_todas_as_secoes
+    ???
+E   AssertionError: Estatísticas Gerais
+E   assert 'Estatísticas Gerais' in 'Relatorio do edital: Piloto TCC - Mestrado 2026\nAno: 2026 - Semestre: 1 - Tipo: mestrado\nEstatisticas gerais\nCandi...to@example.com\nSecretaria Piloto - secretaria.piloto@example.com\nCoordenador Piloto - coordenador.piloto@example.com'
+___________________ test_pdf_sem_secoes_opcionais_nem_emails ___________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:69: in test_pdf_sem_secoes_opcionais_nem_emails
+    ???
+E   AssertionError: assert 'Observações Finais' in 'Relatorio do edital: Piloto TCC - Mestrado 2026\nAno: 2026 - Semestre: 1 - Tipo: mestrado\nInteratores\nDocente Piloto\nOutra Docente\nSecretaria Piloto\nCoordenador Piloto'
+_________________ test_pdf_conta_candidaturas_em_preenchimento _________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_relatorios.py:79: in test_pdf_conta_candidaturas_em_preenchimento
+    ???
+E   AssertionError: assert '3 submissões finalizadas' in 'Relatorio do edital: Piloto TCC - Mestrado 2026\nAno: 2026 - Semestre: 1 - Tipo: mestrado\nEstatisticas gerais\nCandidaturas finalizadas: 3\nCandidaturas em preenchimento: 1\nSituacao underreview: 3\nInteratores'
+____________ test_interesse_aceita_os_valores_do_contrato[decline] _____________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    ???
+E   KeyError: 'user_bidding'
+___________ test_interesse_aceita_os_valores_do_contrato[available] ____________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    ???
+E   KeyError: 'user_bidding'
+___________ test_interesse_aceita_os_valores_do_contrato[interested] ___________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    ???
+E   KeyError: 'user_bidding'
+_____________ test_interesse_aceita_os_valores_do_contrato[agreed] _____________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    ???
+E   KeyError: 'user_bidding'
+_____ test_interesse_aceita_os_valores_do_contrato[interested_scholarship] _____
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    ???
+E   KeyError: 'user_bidding'
+________________ test_interesse_aceita_os_valores_do_contrato[] ________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:41: in test_interesse_aceita_os_valores_do_contrato
+    ???
+E   KeyError: 'user_bidding'
+______________________ test_interesse_invalido_e_recusado ______________________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:46: in test_interesse_invalido_e_recusado
+    ???
+E   AssertionError: assert 200 == 422
+E    +  where 200 = <Response [200 OK]>.status_code
+E    +    where <Response [200 OK]> = post('submissions/1/bidding', json={'bidding': 'talvez'})
+E    +      where post = <httpx.Client object at 0x7c5610604490>.post
+_________ test_um_interesse_corrente_por_usuario_refletido_na_listagem _________
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:56: in test_um_interesse_corrente_por_usuario_refletido_na_listagem
+    ???
+E   KeyError: 'interested'
+___ test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.] ___
+/home/opuscg550/code/personal/tcc/demos/caronte/piloto-v2/oraculo/test_selecao.py:109: in test_semestre_de_ingresso_normalizado
+    ???
+E   AssertionError: assert 'Second semester' == 'Segundo semestre.'
+E     
+E     - Segundo semestre.
+E     ?   ^^  -        --
+E     + Second semester
+E     ?   ^^         +
+=========================== short test summary info ============================
+FAILED caronte/piloto-v2/gabarito/test_acesso.py::test_cookie_de_sessao_seguro_lax_de_oito_horas
+FAILED caronte/piloto-v2/gabarito/test_avaliacao.py::test_atividade_reune_comentarios_candidatura_e_recomendacoes
+FAILED caronte/piloto-v2/gabarito/test_avaliacao.py::test_exclui_somente_o_proprio_comentario
+FAILED caronte/piloto-v2/gabarito/test_avaliacao.py::test_catalogo_de_etiquetas_do_usuario
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_listagem_traz_dados_mapeados
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_listagem_com_ppi_mapeado
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_resumo_identifica_a_candidatura[1]
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_resumo_identifica_a_candidatura[2]
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_resumo_identifica_a_candidatura[3]
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_resumo_traz_recomendacoes_e_convites_pendentes
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[1]
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[2]
+FAILED caronte/piloto-v2/gabarito/test_inscricoes.py::test_formulario_traz_todos_os_campos_respondidos[3]
+FAILED caronte/piloto-v2/gabarito/test_mapeamentos.py::test_cria_mapeamento_de_candidatura_para_nova_versao
+FAILED caronte/piloto-v2/gabarito/test_mensagens.py::test_link_de_correcao_abre_a_candidatura_no_forms
+FAILED caronte/piloto-v2/gabarito/test_mensagens.py::test_envia_formulario_de_aceite
+FAILED caronte/piloto-v2/gabarito/test_mensagens.py::test_envia_carta_de_aceite
+FAILED caronte/piloto-v2/gabarito/test_percursos.py::test_da_homologacao_ao_resultado_e_aceite
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_pdf_com_todas_as_secoes
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_pdf_sem_secoes_opcionais_nem_emails
+FAILED caronte/piloto-v2/gabarito/test_relatorios.py::test_pdf_conta_candidaturas_em_preenchimento
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[decline]
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[available]
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested]
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[agreed]
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[interested_scholarship]
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_interesse_aceita_os_valores_do_contrato[]
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_interesse_invalido_e_recusado
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_um_interesse_corrente_por_usuario_refletido_na_listagem
+FAILED caronte/piloto-v2/gabarito/test_selecao.py::test_semestre_de_ingresso_normalizado[Second semester-Segundo semestre.]
+30 failed, 217 passed in 643.47s (0:10:43)
+

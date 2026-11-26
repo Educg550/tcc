@@ -1,0 +1,25 @@
+--- antes/tests/REVISOES.md
++++ depois/tests/REVISOES.md
+@@ -1,4 +1,10 @@
+ # Revisões de testes
++
++## Helper `_mensagens` media a paginação, não as mensagens (tests/test_mail.py)
++
++- **Testes afetados**: `test_reesend_submission` e `test_send_letter` ("e-mail não recebido", `assert 7 > 7`).
++- **Causa**: `GET /api/Messages` da caixa smtp4dev devolve um objeto paginado (`{"messages": [...], "currentPage": 1, "firstRowOnPage": ..., ...}`). O helper retornava o objeto inteiro, então `len(_mensagens(...))` contava as chaves do dicionário (sempre 7), nunca a quantidade de mensagens — a comparação `len(msgs) > antes` não podia passar mesmo com o e-mail entregue. As demais expressões do teste (`msgs[-1]`, `ultima["id"]`, `ultima.get("toAddresses")`) já esperam uma lista de mensagens, confirmando a intenção original.
++- **Correção**: `_mensagens` agora retorna `body["messages"]`. Nenhuma asserção removida; o código de produção não foi alterado, pois os endpoints responderam 200 com `email_sent` e a entrega não era a causa da falha.
+ 
+ ## Fixture `smtp` ausente (tests/test_mail.py)
+ 
+--- antes/tests/test_mail.py
++++ depois/tests/test_mail.py
+@@ -8,7 +8,8 @@
+ def _mensagens(smtp):
+     r = smtp.get("/api/Messages")
+     assert r.status_code == 200, r.text
+-    return r.json()
++    body = r.json()
++    return body["messages"] if isinstance(body, dict) else body
+ 
+ 
+ def _ultima_mensagem(smtp):

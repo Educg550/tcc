@@ -1,0 +1,534 @@
+......F.FF..F..FFFFFFFEEEEEE.....F.FFFFFFFFFF....FFF..FF.......          [100%]
+==================================== ERRORS ====================================
+____________ ERROR at setup of test_comentarios_criacao_e_listagem _____________
+tests/test_evaluation.py:17: in avaliacao
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________ ERROR at setup of test_comentario_exclusao_por_autor _____________
+tests/test_evaluation.py:17: in avaliacao
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_______________________ ERROR at setup of test_favoritos _______________________
+tests/test_evaluation.py:17: in avaliacao
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________ ERROR at setup of test_etiquetas_cores_e_catalogo _______________
+tests/test_evaluation.py:17: in avaliacao
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________ ERROR at setup of test_notas_privadas_isoladas ________________
+tests/test_evaluation.py:17: in avaliacao
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ ERROR at setup of test_visualizacoes _____________________
+tests/test_evaluation.py:17: in avaliacao
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+=================================== FAILURES ===================================
+________________________ test_senhaunica_fluxo_completo ________________________
+tests/test_auth.py:56: in test_senhaunica_fluxo_completo
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________________ test_senhaunica_novo_usuario_whitelist ____________________
+tests/test_auth.py:99: in test_senhaunica_novo_usuario_whitelist
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________________ test_senhaunica_fora_whitelist ________________________
+tests/test_auth.py:124: in test_senhaunica_fora_whitelist
+    token = r.json()["redirect_to"].split("oauth_token=")[1].split("&")[0]
+            ^^^^^^^^
+/home/appuser/venv/lib/python3.11/site-packages/httpx/_models.py:766: in json
+    return jsonlib.loads(self.content, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/__init__.py:346: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:337: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/json/decoder.py:355: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+______________________________ test_criar_edital _______________________________
+tests/test_edicts.py:41: in test_criar_edital
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________________________ test_editar_edital ______________________________
+tests/test_edicts.py:96: in test_editar_edital
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________________ test_editar_apenas_data ____________________________
+tests/test_edicts.py:120: in test_editar_apenas_data
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_______________________ test_avancar_fase_propaga_forms ________________________
+tests/test_edicts.py:129: in test_avancar_fase_propaga_forms
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________________ test_encerrar_edital _____________________________
+tests/test_edicts.py:144: in test_encerrar_edital
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________________ test_remover_edital ______________________________
+tests/test_edicts.py:159: in test_remover_edital
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_papeis_administrativos_podem_criar ____________________
+tests/test_edicts.py:168: in test_papeis_administrativos_podem_criar
+    edict = make_edict(client)
+            ^^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+____________________ test_comentario_fora_da_fase_avaliacao ____________________
+tests/test_evaluation.py:24: in test_comentario_fora_da_fase_avaliacao
+    advance(admin, edict_id, "homologacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________________ test_reesend_submission ____________________________
+tests/test_mail.py:21: in test_reesend_submission
+    advance(admin, edict_id, "homologacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_______________________________ test_send_accept _______________________________
+tests/test_mail.py:49: in test_send_accept
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________________ test_send_accept_nao_aprovado_400 _______________________
+tests/test_mail.py:73: in test_send_accept_nao_aprovado_400
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_______________________________ test_send_letter _______________________________
+tests/test_mail.py:82: in test_send_letter
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________________ test_send_letter_nao_aprovado_400 _______________________
+tests/test_mail.py:102: in test_send_letter_nao_aprovado_400
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________________ test_criar_e_listar_mapeamento ________________________
+tests/test_mappings.py:24: in test_criar_e_listar_mapeamento
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_mapeamento_duplicado_rejeitado ______________________
+tests/test_mappings.py:40: in test_mapeamento_duplicado_rejeitado
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+___________________ test_mapeamento_referencia_invalida_422 ____________________
+tests/test_mappings.py:56: in test_mapeamento_referencia_invalida_422
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_____________________ test_atualizar_e_excluir_mapeamento ______________________
+tests/test_mappings.py:65: in test_atualizar_e_excluir_mapeamento
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________________________ test_mapeamento_recommenders _________________________
+tests/test_mappings.py:95: in test_mapeamento_recommenders
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________________________ test_versoes_sem_mapeamento __________________________
+tests/test_mappings.py:116: in test_versoes_sem_mapeamento
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+__________________________________ test_slots __________________________________
+tests/test_selection.py:5: in test_slots
+    edict = make_edict(admin)
+            ^^^^^^^^^^^^^^^^^
+tests/conftest.py:98: in make_edict
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_________________________________ test_bidding _________________________________
+tests/test_selection.py:25: in test_bidding
+    assert r.status_code == 200, (valor, r.text)
+E   AssertionError: ('decline', 'Internal Server Error')
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+______________________ test_select_aprovar_com_orientador ______________________
+tests/test_selection.py:43: in test_select_aprovar_com_orientador
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+________________________ test_select_edital_fechado_409 ________________________
+tests/test_selection.py:75: in test_select_edital_fechado_409
+    advance(admin, edict_id, "avaliacao")
+tests/conftest.py:120: in advance
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+_______________________ test_entry_semester_normalizacao _______________________
+tests/test_selection.py:94: in test_entry_semester_normalizacao
+    assert r.status_code == 200, r.text
+E   AssertionError: Internal Server Error
+E   assert 500 == 200
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+=========================== short test summary info ============================
+FAILED tests/test_auth.py::test_senhaunica_fluxo_completo - AssertionError: I...
+FAILED tests/test_auth.py::test_senhaunica_novo_usuario_whitelist - Assertion...
+FAILED tests/test_auth.py::test_senhaunica_fora_whitelist - json.decoder.JSON...
+FAILED tests/test_edicts.py::test_criar_edital - AssertionError: Internal Ser...
+FAILED tests/test_edicts.py::test_editar_edital - AssertionError: Internal Se...
+FAILED tests/test_edicts.py::test_editar_apenas_data - AssertionError: Intern...
+FAILED tests/test_edicts.py::test_avancar_fase_propaga_forms - AssertionError...
+FAILED tests/test_edicts.py::test_encerrar_edital - AssertionError: Internal ...
+FAILED tests/test_edicts.py::test_remover_edital - AssertionError: Internal S...
+FAILED tests/test_edicts.py::test_papeis_administrativos_podem_criar - Assert...
+FAILED tests/test_evaluation.py::test_comentario_fora_da_fase_avaliacao - Ass...
+FAILED tests/test_mail.py::test_reesend_submission - AssertionError: Internal...
+FAILED tests/test_mail.py::test_send_accept - AssertionError: Internal Server...
+FAILED tests/test_mail.py::test_send_accept_nao_aprovado_400 - AssertionError...
+FAILED tests/test_mail.py::test_send_letter - AssertionError: Internal Server...
+FAILED tests/test_mail.py::test_send_letter_nao_aprovado_400 - AssertionError...
+FAILED tests/test_mappings.py::test_criar_e_listar_mapeamento - AssertionErro...
+FAILED tests/test_mappings.py::test_mapeamento_duplicado_rejeitado - Assertio...
+FAILED tests/test_mappings.py::test_mapeamento_referencia_invalida_422 - Asse...
+FAILED tests/test_mappings.py::test_atualizar_e_excluir_mapeamento - Assertio...
+FAILED tests/test_mappings.py::test_mapeamento_recommenders - AssertionError:...
+FAILED tests/test_mappings.py::test_versoes_sem_mapeamento - AssertionError: ...
+FAILED tests/test_selection.py::test_slots - AssertionError: Internal Server ...
+FAILED tests/test_selection.py::test_bidding - AssertionError: ('decline', 'I...
+FAILED tests/test_selection.py::test_select_aprovar_com_orientador - Assertio...
+FAILED tests/test_selection.py::test_select_edital_fechado_409 - AssertionErr...
+FAILED tests/test_selection.py::test_entry_semester_normalizacao - AssertionE...
+ERROR tests/test_evaluation.py::test_comentarios_criacao_e_listagem - Asserti...
+ERROR tests/test_evaluation.py::test_comentario_exclusao_por_autor - Assertio...
+ERROR tests/test_evaluation.py::test_favoritos - AssertionError: Internal Ser...
+ERROR tests/test_evaluation.py::test_etiquetas_cores_e_catalogo - AssertionEr...
+ERROR tests/test_evaluation.py::test_notas_privadas_isoladas - AssertionError...
+ERROR tests/test_evaluation.py::test_visualizacoes - AssertionError: Internal...
+27 failed, 30 passed, 6 errors in 6.02s
+
+
+on3.11/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+local-admin-1  |     ret_value = fn(self, *arg, **kw)
+local-admin-1  |                 ^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+local-admin-1  |     self.session.flush()
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+local-admin-1  |     self._flush(objects)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4480, in _flush
+local-admin-1  |     with util.safe_reraise():
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+local-admin-1  |     raise exc_value.with_traceback(exc_tb)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+local-admin-1  |     flush_context.execute()
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+local-admin-1  |     rec.execute(self)
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+local-admin-1  |     util.preloaded.orm_persistence.save_obj(
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 76, in save_obj
+local-admin-1  |     for table, mapper in base_mapper._sorted_tables.items():
+local-admin-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1338, in __get__
+local-admin-1  |     obj.__dict__[self.__name__] = result = self.fget(obj)
+local-admin-1  |                                            ^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4064, in _sorted_tables
+local-admin-1  |     sorted_ = sql_util.sort_tables(
+local-admin-1  |               ^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1318, in sort_tables
+local-admin-1  |     for (t, fkcs) in sort_tables_and_constraints(
+local-admin-1  |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1388, in sort_tables_and_constraints
+local-admin-1  |     filtered = filter_fn(fkc)
+local-admin-1  |                ^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1308, in _skip_fn
+local-admin-1  |     if fixed_skip_fn(fk):
+local-admin-1  |        ^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4047, in skip
+local-admin-1  |     dep = table_to_mapper.get(fk.column.table)
+local-admin-1  |                               ^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1226, in __get__
+local-admin-1  |     obj.__dict__[self.__name__] = result = self.fget(obj)
+local-admin-1  |                                            ^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/schema.py", line 3199, in column
+local-admin-1  |     return self._resolve_column()
+local-admin-1  |            ^^^^^^^^^^^^^^^^^^^^^^
+local-admin-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/schema.py", line 3222, in _resolve_column
+local-admin-1  |     raise exc.NoReferencedTableError(
+local-admin-1  | sqlalchemy.exc.NoReferencedTableError: Foreign key associated with column 'submission.advisor_id' could not find table '"user"' with which to generate a foreign key to target column 'id'
+
+local-coordenador-1  | INFO:     Started server process [1]
+local-coordenador-1  | INFO:     Waiting for application startup.
+local-coordenador-1  | INFO:     Application startup complete.
+local-coordenador-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-coordenador-1  | INFO:     192.168.96.17:57214 - "GET / HTTP/1.1" 200 OK
+
+local-estudante-1  | INFO:     Started server process [1]
+local-estudante-1  | INFO:     Waiting for application startup.
+local-estudante-1  | INFO:     Application startup complete.
+local-estudante-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-estudante-1  | INFO:     192.168.96.17:34056 - "GET / HTTP/1.1" 200 OK
+local-estudante-1  | INFO:     192.168.96.18:48620 - "GET /auth/login HTTP/1.1" 200 OK
+
+local-outro-1  | INFO:     Started server process [1]
+local-outro-1  | INFO:     Waiting for application startup.
+local-outro-1  | INFO:     Application startup complete.
+local-outro-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+local-outro-1  | INFO:     192.168.96.17:33256 - "GET / HTTP/1.1" 200 OK
+
+k.py", line 203, in greenlet_spawn
+local-secretaria-1  |     result = context.switch(value)
+local-secretaria-1  |              ^^^^^^^^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+local-secretaria-1  |     self._flush(objects)
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4480, in _flush
+local-secretaria-1  |     with util.safe_reraise():
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+local-secretaria-1  |     raise exc_value.with_traceback(exc_tb)
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+local-secretaria-1  |     flush_context.execute()
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+local-secretaria-1  |     rec.execute(self)
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+local-secretaria-1  |     util.preloaded.orm_persistence.save_obj(
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/persistence.py", line 76, in save_obj
+local-secretaria-1  |     for table, mapper in base_mapper._sorted_tables.items():
+local-secretaria-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1338, in __get__
+local-secretaria-1  |     obj.__dict__[self.__name__] = result = self.fget(obj)
+local-secretaria-1  |                                            ^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4064, in _sorted_tables
+local-secretaria-1  |     sorted_ = sql_util.sort_tables(
+local-secretaria-1  |               ^^^^^^^^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1318, in sort_tables
+local-secretaria-1  |     for (t, fkcs) in sort_tables_and_constraints(
+local-secretaria-1  |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1388, in sort_tables_and_constraints
+local-secretaria-1  |     filtered = filter_fn(fkc)
+local-secretaria-1  |                ^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1308, in _skip_fn
+local-secretaria-1  |     if fixed_skip_fn(fk):
+local-secretaria-1  |        ^^^^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4047, in skip
+local-secretaria-1  |     dep = table_to_mapper.get(fk.column.table)
+local-secretaria-1  |                               ^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1226, in __get__
+local-secretaria-1  |     obj.__dict__[self.__name__] = result = self.fget(obj)
+local-secretaria-1  |                                            ^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/schema.py", line 3199, in column
+local-secretaria-1  |     return self._resolve_column()
+local-secretaria-1  |            ^^^^^^^^^^^^^^^^^^^^^^
+local-secretaria-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/schema.py", line 3222, in _resolve_column
+local-secretaria-1  |     raise exc.NoReferencedTableError(
+local-secretaria-1  | sqlalchemy.exc.NoReferencedTableError: Foreign key associated with column 'edict.user_id' could not find table '"user"' with which to generate a foreign key to target column 'id'
+
+e 1318, in sort_tables
+local-1  |     for (t, fkcs) in sort_tables_and_constraints(
+local-1  |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1388, in sort_tables_and_constraints
+local-1  |     filtered = filter_fn(fkc)
+local-1  |                ^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/ddl.py", line 1308, in _skip_fn
+local-1  |     if fixed_skip_fn(fk):
+local-1  |        ^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/orm/mapper.py", line 4047, in skip
+local-1  |     dep = table_to_mapper.get(fk.column.table)
+local-1  |                               ^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/util/langhelpers.py", line 1226, in __get__
+local-1  |     obj.__dict__[self.__name__] = result = self.fget(obj)
+local-1  |                                            ^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/schema.py", line 3199, in column
+local-1  |     return self._resolve_column()
+local-1  |            ^^^^^^^^^^^^^^^^^^^^^^
+local-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/sqlalchemy/sql/schema.py", line 3222, in _resolve_column
+local-1  |     raise exc.NoReferencedTableError(
+local-1  | sqlalchemy.exc.NoReferencedTableError: Foreign key associated with column 'labels.user_id' could not find table '"user"' with which to generate a foreign key to target column 'id'
+local-1  | INFO:     192.168.96.18:58172 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58172 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58172 - "POST /submissions/1/select HTTP/1.1" 403 Forbidden
+local-1  | INFO:     192.168.96.18:58184 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58184 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58184 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58184 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58186 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58186 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58186 - "GET /edicts/1/submissions?stats=underreview HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58202 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58202 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58202 - "GET /edicts/1/submissions?only_favorites=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58210 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58210 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58210 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58210 - "GET /submissions/99999999 HTTP/1.1" 404 Not Found
+local-1  | INFO:     192.168.96.18:58216 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58216 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58216 - "GET /submissions/1?include_comments=true HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58220 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58220 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58220 - "GET /submissions/1 HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58220 - "GET /submissions/1/files/official-document-file/00000000000000000000000000000001_official-document-file.pdf HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58222 - "GET /edicts HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58222 - "GET /edicts/1/submissions HTTP/1.1" 200 OK
+local-1  | INFO:     192.168.96.18:58222 - "GET /submissions/1/files/x/arquivo-qualquer.pdf HTTP/1.1" 404 Not Found
+
+eceive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 715, in __call__
+prejanus-back-1  |     await self.middleware_stack(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 735, in app
+prejanus-back-1  |     await route.handle(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 288, in handle
+prejanus-back-1  |     await self.app(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 76, in app
+prejanus-back-1  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 62, in wrapped_app
+prejanus-back-1  |     raise exc
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/_exception_handler.py", line 51, in wrapped_app
+prejanus-back-1  |     await app(scope, receive, sender)
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/starlette/routing.py", line 73, in app
+prejanus-back-1  |     response = await f(request)
+prejanus-back-1  |                ^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 301, in app
+prejanus-back-1  |     raw_response = await run_endpoint_function(
+prejanus-back-1  |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/fastapi/routing.py", line 212, in run_endpoint_function
+prejanus-back-1  |     return await dependant.call(**values)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/routers/auth_routes.py", line 34, in login_senhaunica
+prejanus-back-1  |     token, secret = await _in_thread(oauth.get_request_token)
+prejanus-back-1  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/routers/auth_routes.py", line 87, in _in_thread
+prejanus-back-1  |     return await asyncio.to_thread(fn, *args)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/asyncio/threads.py", line 25, in to_thread
+prejanus-back-1  |     return await loop.run_in_executor(None, func_call)
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/usr/local/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+prejanus-back-1  |     result = self.fn(*self.args, **self.kwargs)
+prejanus-back-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/oauth.py", line 35, in get_request_token
+prejanus-back-1  |     resp = _signed_post(_url(settings.senhaunica_request_token_resource))
+prejanus-back-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/workspace/oauth.py", line 27, in _signed_post
+prejanus-back-1  |     uri, headers, body = client.sign(url, http_method="POST", body={}, headers={})
+prejanus-back-1  |                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+prejanus-back-1  |   File "/home/appuser/venv/lib/python3.11/site-packages/oauthlib/oauth1/rfc5849/__init__.py", line 319, in sign
+prejanus-back-1  |     raise ValueError(
+prejanus-back-1  | ValueError: Body contains parameters but Content-Type header was not set instead of application/x-www-form-urlencoded
+
+sem-atalho-1  | INFO:     Started server process [1]
+sem-atalho-1  | INFO:     Waiting for application startup.
+sem-atalho-1  | INFO:     Application startup complete.
+sem-atalho-1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+sem-atalho-1  | INFO:     192.168.96.17:60742 - "GET / HTTP/1.1" 200 OK
+sem-atalho-1  | INFO:     192.168.96.18:43424 - "GET /edicts HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:43424 - "GET /auth/login HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:43424 - "GET /forms HTTP/1.1" 401 Unauthorized
+sem-atalho-1  | INFO:     192.168.96.18:43424 - "GET /submissions/1 HTTP/1.1" 401 Unauthorized

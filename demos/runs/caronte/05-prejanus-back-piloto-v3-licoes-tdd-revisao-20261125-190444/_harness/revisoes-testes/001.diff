@@ -1,0 +1,20 @@
+--- antes/tests/REVISOES.md
++++ depois/tests/REVISOES.md
+@@ -0,0 +1,7 @@
++# Revisões de testes
++
++## Fixture `smtp` ausente (tests/test_mail.py)
++
++- **Testes afetados**: `test_reesend_submission`, `test_send_accept`, `test_send_letter` (erro de setup: `fixture 'smtp' not found`).
++- **Causa**: `tests/conftest.py` definia apenas a fixture `smtp_api` (variável `CARONTE_SMTP_API`), enquanto `tests/test_mail.py` declara `smtp` como dependência. Incompatibilidade interna da suíte de testes, não um comportamento da aplicação.
++- **Correção**: adicionada a fixture `smtp` em `tests/conftest.py`, lendo a mesma variável de ambiente `CARONTE_SMTP_API` já usada por `smtp_api`. Nenhuma asserção foi alterada ou removida; o código de produção não foi adaptado, pois o endpoint de SMTP de teste já estava exposto pela variável correta.
+--- antes/tests/conftest.py
++++ depois/tests/conftest.py
+@@ -30,6 +30,7 @@
+ api_senhaunica = _make_fixture("CARONTE_API_SENHAUNICA")
+ api_sem_atalho = _make_fixture("CARONTE_API_SEM_ATALHO")
+ smtp_api = _make_fixture("CARONTE_SMTP_API")
++smtp = _make_fixture("CARONTE_SMTP_API")
+ provedor = _make_fixture("SENHAUNICA_PROVEDOR")
+ 
+ 
