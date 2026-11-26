@@ -8,6 +8,7 @@
   pdfauthor={Eduardo Cruz Guedes},
 }
 \tcbposterset{fontsize=32pt}
+\usetikzlibrary{arrows.meta,shapes.geometric}
 
 \begin{document}
 \begin{tcbposter}[poster={rows=12,columns=2,colspacing=1.2cm,rowspacing=.8cm}]
@@ -20,39 +21,43 @@
   Orientadores: Paulo Meirelles e Jorge Melegati}
 }
 
-\posterbox[adjusted title={Exemplo: o valor mudou no ofício?}]
-          {row=3,column=1,span=2,rowspan=3}{
-  Em um pedido de auxílio financeiro, o sistema gera um ofício com os
-  dados preenchidos. O valor solicitado deve aparecer igual nos dois.\par
-  \bigskip
-  \noindent
-  \begingroup\setlength{\fboxsep}{.65\baselineskip}
-  \fcolorbox{IMEframe}{white}{%
-    \begin{minipage}[c]{.40\linewidth}
-      \centering
-      \textbf{Formulário de auxílio}\par
-      Valor digitado\par\medskip
-      {\LARGE\bfseries R\$ 1.250,00}
-    \end{minipage}}\hfill
-  {\Large\(\longrightarrow\)}\hfill
-  \fcolorbox{IMEframe}{white}{%
-    \begin{minipage}[c]{.40\linewidth}
-      \centering
-      \textbf{Ofício gerado}\par
-      Valor solicitado\par\medskip
-      {\LARGE\bfseries R\$ 1.250,00}
-    \end{minipage}}\par
-  \endgroup
-  \bigskip
-  Se o ofício mostrar \textbf{R\$ 125,00}, a aplicação falha nesse teste.
+\posterbox[adjusted title={Os dois pipelines}]{name=pipelines,row=3,column=1,span=2,rowspan=3.6}{
+  \centering
+  \begin{tikzpicture}[
+      etapa/.style={draw=IMEframe,line width=2pt,fill=white,rounded corners=6pt,
+        align=center,minimum height=3cm,text width=8.4cm,inner sep=8pt},
+      gate/.style={draw=IMEframe,line width=2pt,fill=IMEtitlebg!15,diamond,
+        aspect=1.6,inner sep=2pt,align=center,font=\bfseries},
+      seta/.style={-{Stealth[length=18pt,width=16pt]},line width=3pt,IMEframe},
+      grupo/.style={font=\bfseries,anchor=west},
+    ]
+    % Geração direta
+    \node[grupo] at (-5,4.6) {Geração direta};
+    \node[etapa] (b1) at (0,2.4) {Requisito};
+    \node[etapa,text width=28cm] (b2) at (21.25,2.4) {Agente gera o código};
+    \node[etapa] (b3) at (43.5,2.4) {Avaliação comum};
+    \draw[seta] (b1) -- (b2);
+    \draw[seta] (b2) -- (b3);
+    % TDD
+    \node[grupo] at (-5,-1.4) {TDD};
+    \node[etapa] (t1) at (0,-3.6) {Requisito};
+    \node[etapa] (t2) at (10.5,-3.6) {Agente escreve\\os testes};
+    \node[etapa] (t3) at (21,-3.6) {Agente\\implementa};
+    \node[gate] (t4) at (31,-3.6) {Testes\\passam?};
+    \node[etapa] (t5) at (43.5,-3.6) {Avaliação comum};
+    \draw[seta] (t1) -- (t2);
+    \draw[seta] (t2) -- (t3);
+    \draw[seta] (t3) -- (t4);
+    \draw[seta] (t4) -- node[above] {sim} (t5);
+    \draw[seta] (t4.south) -- ++(0,-1.4) -| node[pos=.25,below] {não}
+      (t3.south);
+  \end{tikzpicture}\par\bigskip
+  \raggedright
+  No TDD, um agente escreve os testes antes do código
+  e o código volta para correção até passar neles.
 }
 
-\posterbox[adjusted title={Como comparamos}]{row=6,column=1,span=2,rowspan=2}{
-  \begin{tabular}{@{}l@{\qquad}l@{}}
-    \textbf{Geração direta} & Requisito \(\rightarrow\) código \\[.4em]
-    \textbf{TDD} & Requisito \(\rightarrow\) um agente escreve testes
-    \(\rightarrow\) outro usa os testes para corrigir o código
-  \end{tabular}\par\bigskip
+\posterbox[adjusted title={Como comparamos}]{below=pipelines,column=1,span=2,rowspan=1.4}{
   TDD é desenvolvimento guiado por testes. Para medir a correção, usamos
   testes de avaliação comuns aos dois pipelines. Na avaliação de usabilidade,
   as notas da pessoa e do agente no navegador coincidiram em 5 de 30 comparações.
