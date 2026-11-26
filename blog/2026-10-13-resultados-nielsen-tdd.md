@@ -22,6 +22,7 @@ em vez de memorização, 7 flexibilidade e eficiência, 8 estética e design min
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | `glm/run38/tdd` | CUA Opus 5.5 | Regular | Bom | Ruim | Bom | Bom | Bom | Excelente | Bom | Regular | Regular |
 | `glm/run19/tdd` | CUA Opus 5.5 | Bom | Regular | Ruim | Bom | Regular | Bom | Excelente | Bom | Regular | Regular |
+| `glm/run19/tdd` | Eduardo | Excelente | Excelente | Regular | Bom | Excelente | Excelente | Excelente | Bom | Excelente | Excelente |
 
 Pelo CUA, a run38 fica acima nas heurísticas 2 e 5, a run19 fica acima na 1, e as outras
 sete empatam.
@@ -105,3 +106,18 @@ Artefatos em `demos/runs/batch/glm/run19/tdd/_harness/cua-nielsen-opus55-2026101
 `resultado.json`, `relatorio.md`, `api-usage.jsonl`,
 `history.json`, `judge.json`, `capturas.json`, `screenshots/`, `prompt.md`,
 `model.json` e `executar.py`.
+
+## Minha avaliação da run19
+
+| Heurística | Nota | Justificativa |
+|---|---|---|
+| 1. Visibilidade do estado do sistema | Excelente | A separação e o contraste entre as seções são muito bons, e a aba ativa fica bem destacada. Os erros aparecem no topo sem precisar rolar a tela. |
+| 2. Correspondência entre o sistema e o mundo real | Excelente | Os valores digitados ganham o formato esperado, conforme o requisito. |
+| 3. Controle e liberdade do usuário | Regular | Os dados se mantêm ao trocar de aba, mas recarregar a página apaga o preenchimento. |
+| 4. Consistência e padrões | Bom | As duas abas têm a mesma aparência, mas o campo de RG fica desalinhado do CPF porque o rótulo quebra em duas linhas. |
+| 5. Prevenção de erros | Excelente | Há placeholders e seleções sempre que possível. |
+| 6. Reconhecimento em vez de memorização | Excelente | — |
+| 7. Flexibilidade e eficiência de uso | Excelente | — |
+| 8. Estética e design minimalista | Bom | O formulário inteiro cabe na tela, com o botão "Enviar solicitação" visível sem rolar, mas o RG fica desalinhado. |
+| 9. Ajuda para reconhecer, diagnosticar e corrigir erros | Excelente | As mensagens seguem o requisito. |
+| 10. Ajuda e documentação | Excelente | O ofício é exatamente o que o requisito pede, inclusive o assunto "Verba do programa" em DOCENTES. |

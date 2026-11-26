@@ -39,21 +39,22 @@ primeiro estudo, foram realizadas 200 execuções para gerar um formulário web
 de solicitação de auxílio financeiro, com 50 por combinação de modelo e
 pipeline. Com o modelo DeepSeek, 39 aplicações da geração direta e 30 do TDD
 atenderam aos 22 critérios funcionais. Com o modelo GLM-5.3, passaram 3 da
-geração direta e 9 do TDD. Nas três finalistas incluídas na comparação de
+geração direta e 9 do TDD. Nas quatro finalistas incluídas na comparação de
 usabilidade, as notas do agente que operou o navegador coincidiram com as da
-inspeção humana em 5 das 30 comparações. O segundo estudo avaliou a
+inspeção humana em 8 das 40 comparações. O segundo estudo avaliou a
 reconstrução do backend do PreJanus com um gabarito de 247 testes de caixa
-preta. Com uma execução por variante, o
-TDD com revisão dos testes passou em 194 casos, seguido pela geração direta
-com 186 e pelo TDD com testes congelados com 140. O TDD com revisão custou
-cerca de quatro vezes o valor da geração direta. A reconstrução guiada por
-testes visíveis (\emph{rework}) passou em 59 dos 85 casos reservados, ante 62
-da geração direta. Na rodada com feedback sobre as falhas, repetimos as
-três variantes com verificação interna após três correções no harness. O TDD com
-revisão passou em 217 casos do gabarito completo, o rework em 216 e o TDD
-com testes congelados em 202. A geração direta, executada antes das
-correções, passou em 138. Nos dois estudos, o TDD consumiu mais tokens que a
-geração direta. No gabarito completo do PreJanus, as duas variantes de TDD
+preta, dos quais 85 ficaram reservados para comparar as variantes. Com uma
+execução por variante, o TDD com revisão dos testes passou em 63 casos
+reservados, a geração direta em 62, a reconstrução guiada por testes visíveis
+(\emph{rework}) em 59 e o TDD com testes congelados em 49. Excluídos os seis
+casos reservados em que o original falhou, o rework e a geração direta
+empataram em 58 de 79. O TDD com revisão custou cerca de quatro vezes o valor
+da geração direta. Na rodada com feedback sobre as falhas, repetimos as três
+variantes com verificação interna após três correções no harness. Nos 85
+casos reservados, o TDD com revisão passou em 72, o TDD com testes congelados
+em 64 e o rework em 62. A geração direta, executada antes das correções,
+passou em 51. Nos dois estudos, o TDD consumiu mais tokens que a geração
+direta. No gabarito completo do PreJanus, as duas variantes de TDD
 superaram a geração direta em três das quatro comparações.}
 
 \abstract{This work investigates whether test-driven development (TDD) helps
@@ -66,21 +67,22 @@ The first study ran the pipelines 200 times to generate a web form for
 financial aid requests, with 50 runs per model and pipeline combination. With
 the DeepSeek model, 39 applications from direct generation and 30 from TDD
 met all 22 functional criteria. With GLM-5.3, 3 applications from direct
-generation and 9 from TDD met those criteria. Across the three finalists
+generation and 9 from TDD met those criteria. Across the four finalists
 included in the usability comparison, ratings from the agent operating the
-browser matched the human ratings in 5 of 30 comparisons. The second study
+browser matched the human ratings in 8 of 40 comparisons. The second study
 evaluated reconstructions of the PreJanus backend against a reference suite
-of 247 black-box tests. With one run per
-variant, TDD with test revision passed 194 cases, followed by direct
-generation with 186 and TDD with frozen tests with 140. TDD with test
-revision cost about four times as much as direct generation. Reconstruction
-guided by visible tests (\emph{rework}) passed 59 of 85 held-out cases,
-compared with 62 for direct generation. In the round with feedback on
-earlier failures, we reran the three variants with internal checks after
-three fixes to the harness. TDD with test revision passed 217 cases in the full
-suite, rework passed 216, and TDD with frozen tests passed 202. Direct
-generation, run before the fixes, passed 138. TDD used more tokens than
-direct generation in both studies. On the full PreJanus suite, the two
+of 247 black-box tests, of which 85 were held out for comparing the variants.
+With one run per variant, TDD with test revision passed 63 held-out cases,
+direct generation passed 62, reconstruction guided by visible tests
+(\emph{rework}) passed 59, and TDD with frozen tests passed 49. After excluding
+the six held-out cases that the original backend failed, rework and direct
+generation both passed 58 of 79. TDD with test revision cost about four times
+as much as direct generation. In the round with feedback on earlier failures,
+we reran the three variants with internal checks after three fixes to the
+harness. Of the 85 held-out cases, TDD with test revision passed 72, TDD with
+frozen tests passed 64, and rework passed 62. Direct generation, run before
+the fixes, passed 51. TDD used more tokens than direct generation in both
+studies. On the full PreJanus suite, the two
 TDD variants outperformed direct generation in three of four comparisons.}
 \tableofcontents
 
@@ -724,21 +726,35 @@ OSWorld, conjunto de tarefas para avaliar agentes que operam computadores,
 conforme reportado pela Anthropic \citep{anthropic2026opus55system}.\footnote{Exemplo da \texttt{deepseek/run44/baseline}:
 \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/prompt.md}{roteiro de avaliação} e
 \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/executar.py}{código da sessão}.}
+Ao fim de cada sessão, o Browser Use aciona um verificador (\emph{judge}).
+Esse verificador é uma chamada ao mesmo modelo, que relê o histórico e as
+capturas da sessão e aceita ou contesta o cumprimento do roteiro.
 Na \texttt{deepseek/run44/baseline}, uma sessão do CUA consumiu 858.977
 tokens em 433 segundos, ao custo de US\$~3,73. A geração da aplicação custou
 US\$~0,053.\footnote{\href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/resultado.json}{Métricas da sessão do CUA} e
 \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run44/baseline/_harness/RUN.log}{log da geração}.}
 
-Além do custo, houve variação no cumprimento do roteiro e nas notas. Nas
-sessões da \texttt{deepseek/run35/baseline}, o CUA por vezes preencheu campos
-diretamente por índice em vez de percorrê-los pelo teclado, embora tenha
-avaliado a eficiência de uso por teclado. Entre as quatro sessões dessa
-aplicação, seis heurísticas mudaram de nota. Mesmo entre duas sessões que
+Além do custo, houve falhas no cumprimento do roteiro e nas evidências.
+Realizamos nove sessões nas quatro finalistas. Em três delas, o CUA preencheu
+os campos diretamente por índice em vez de percorrê-los pelo teclado. Mesmo
+assim, avaliou a eficiência de uso por teclado. Em uma sessão da
+\texttt{glm/run19/tdd}, justificou a nota de consistência com diferenças
+entre as abas que não existem no código, como um exemplo de preenchimento
+do período que seria diferente em \texttt{DOCENTES}. Em três sessões,
+afirmou que os ofícios das duas abas eram iguais, embora o de
+\texttt{DOCENTES} traga o assunto \emph{Verba do programa}, exigido pelo
+requisito. O verificador contestou cinco das nove sessões, uma delas por
+engano. Também aceitou uma sessão com a mesma afirmação sobre os ofícios
+que o levou a contestar outras duas.\footnote{Sessões, contestações e
+evidências em \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/blog/2026-10-13-observacoes-cua.md}{observações sobre as sessões do CUA}.}
+
+As notas também variaram. Entre as quatro sessões da
+\texttt{deepseek/run35/baseline}, seis heurísticas mudaram de nota. Mesmo entre duas sessões que
 seguiram o percurso por teclado, mudaram três notas.\footnote{Notas das quatro sessões em \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261011T175120Z/relatorio.md}{11/10 às 17h51 UTC};
 \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-reexecucao-20261011T180723Z/relatorio.md}{11/10 às 18h07 UTC};
 \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261013T191542Z/relatorio.md}{13/10 às 19h15 UTC};
 \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261013T193004Z/relatorio.md}{13/10 às 19h30 UTC}.} Esses registros mostram
-variação do avaliador diante da mesma aplicação, sem fornecer uma estimativa
+erros e variação do avaliador diante da mesma aplicação, sem fornecer uma estimativa
 geral de sua taxa de erro.
 
 \section{Discussão}
@@ -749,51 +765,58 @@ e pipeline (Tabela~\ref{tab:formulario-aprovacao}). Entre as finalistas,
 as campeãs são de modelos diferentes. A comparação de suas interfaces
 combina, portanto, a diferença de pipeline com a de modelo.
 
-A Tabela~\ref{tab:formulario-nielsen} reúne as notas das duas finalistas do
-torneio geral e da campeã do torneio TDD. A comparação das notas abrange
-essas três aplicações, cujas notas humanas constam no diário de pesquisa.
+A Tabela~\ref{tab:formulario-nielsen} reúne as notas das quatro finalistas, duas de cada torneio. Nossas notas
+constam no diário de pesquisa.
 Para cada aplicação, usamos as notas da única
-sessão que o verificador automatizado aceitou após examinar o cumprimento
-do roteiro e a evidência registrada.\footnote{\href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/relatorio.md}{Relatório da primeira coluna do CUA},
-\href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261013T193004Z/relatorio.md}{da segunda}
-e \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/glm/run38/tdd/_harness/cua-nielsen-opus55-20261013T181944Z/relatorio.md}{da terceira}.}
+sessão que o verificador aceitou. A sessão aceita da
+\texttt{deepseek/run35/baseline} contém a afirmação incorreta de que os
+ofícios das duas abas são iguais.\footnote{\href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run44/baseline/_harness/cua-nielsen-opus55-20261011T174407Z/relatorio.md}{Relatório da primeira coluna do CUA},
+\href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/deepseek/run35/baseline/_harness/cua-nielsen-opus55-20261013T193004Z/relatorio.md}{da segunda},
+\href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/glm/run38/tdd/_harness/cua-nielsen-opus55-20261013T181944Z/relatorio.md}{da terceira}
+e \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/demos/runs/batch/glm/run19/tdd/_harness/cua-nielsen-opus55-20261013T192131Z/relatorio.md}{da quarta}.}
 Preferimos a \texttt{deepseek/run44/baseline} à
 \texttt{deepseek/run35/baseline} em duas heurísticas, com oito empates.
 O CUA preferiu a segunda em três heurísticas e a primeira em uma, com
-seis empates. Nossas notas coincidiram com as do CUA em 5 das 30 comparações.
-Houve concordância nas três aplicações em flexibilidade e eficiência de
-uso. Em ajuda e documentação, atribuímos Excelente nas três, e o CUA
-atribuiu Regular nas três.\footnote{Notas e
+seis empates. Nossas notas coincidiram com as do CUA em 8 das 40 comparações.
+Houve concordância nas quatro aplicações em flexibilidade e eficiência de
+uso. Em ajuda e documentação, atribuímos Excelente nas quatro, e o CUA
+atribuiu Regular nas quatro.\footnote{Notas e
 comparações no diário de pesquisa em \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/blog/2026-10-06-resultados-nielsen/index.md}{notas da avaliação humana},
 \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/blog/2026-10-13-veredito/index.md}{resultado da avaliação}
 e \href{https://github.com/Educg550/tcc/blob/ee6d001c1f618419c6184644d18aa97bb33bcf9a/blog/2026-10-14-nielsen-baseline-vs-tdd.md}{comparação entre geração direta e TDD}.}
+A diferença vem da leitura da heurística. Consideramos o ofício emitido após
+o envio, que traz as instruções previstas no requisito. O CUA procurou ajuda
+na própria página. Como não encontrou texto, link ou ícone de ajuda,
+considerou insuficientes os exemplos dentro dos campos. A heurística trata
+da ajuda para o usuário concluir suas tarefas \citep{nielsenHeuristicas},
+o que aproxima a leitura do CUA da definição.
 
 \begin{table}[htp]
   \centering
-  \small
-  \setlength{\tabcolsep}{3pt}
+  \footnotesize
+  \setlength{\tabcolsep}{2pt}
   \caption{Nossas notas e as do CUA nas dez heurísticas de Nielsen
     \citep{nielsenHeuristicas}. Na ordem das colunas do CUA, as sessões
-    começaram às 17h44 de 11 de outubro e às 19h30 e 18h19 de 13 de outubro
+    começaram às 17h44 de 11 de outubro e às 19h30, 18h19 e 19h21 de 13 de outubro
     de 2026, em tempo universal coordenado (UTC).
     Fonte: relatórios das sessões e nossas notas no diário de pesquisa.}
   \label{tab:formulario-nielsen}
-  \begin{tabular}{>{\raggedright\arraybackslash}p{4.5cm}llllll}
+  \begin{tabular}{>{\raggedright\arraybackslash}p{2.8cm}llllllll}
     \hline
-    & \multicolumn{2}{c}{\texttt{deepseek/run44}} & \multicolumn{2}{c}{\texttt{deepseek/run35}} & \multicolumn{2}{c}{\texttt{glm/run38}} \\
-    & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{TDD} \\
-    Heurística & Nós & CUA & Nós & CUA & Nós & CUA \\
+    & \multicolumn{2}{c}{\texttt{deepseek/run44}} & \multicolumn{2}{c}{\texttt{deepseek/run35}} & \multicolumn{2}{c}{\texttt{glm/run38}} & \multicolumn{2}{c}{\texttt{glm/run19}} \\
+    & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{baseline} & \multicolumn{2}{c}{TDD} & \multicolumn{2}{c}{TDD} \\
+    Heurística & Nós & CUA & Nós & CUA & Nós & CUA & Nós & CUA \\
     \hline
-    1. Visibilidade do estado do sistema & Regular & Bom & Regular & Bom & Excelente & Regular \\
-    2. Correspondência com o mundo real & Excelente & Regular & Excelente & Bom & Excelente & Bom \\
-    3. Controle e liberdade do usuário & Excelente & Ruim & Regular & Ruim & Regular & Ruim \\
-    4. Consistência e padrões & Excelente & Bom & Bom & Excelente & Excelente & Bom \\
-    5. Prevenção de erros & Excelente & Regular & Excelente & Regular & Excelente & Bom \\
-    6. Reconhecimento em vez de memorização & Excelente & Bom & Excelente & Bom & Excelente & Bom \\
-    7. Flexibilidade e eficiência de uso & Excelente & Excelente & Excelente & Excelente & Excelente & Excelente \\
-    8. Estética e design minimalista & Regular & Bom & Regular & Excelente & Bom & Bom \\
-    9. Identificação e recuperação de erros & Ruim & Regular & Ruim & Ruim & Excelente & Regular \\
-    10. Ajuda e documentação & Excelente & Regular & Excelente & Regular & Excelente & Regular \\
+    1. Visibilidade do estado do sistema & Regular & Bom & Regular & Bom & Excelente & Regular & Excelente & Bom \\
+    2. Correspondência com o mundo real & Excelente & Regular & Excelente & Bom & Excelente & Bom & Excelente & Regular \\
+    3. Controle e liberdade do usuário & Excelente & Ruim & Regular & Ruim & Regular & Ruim & Regular & Ruim \\
+    4. Consistência e padrões & Excelente & Bom & Bom & Excelente & Excelente & Bom & Bom & Bom \\
+    5. Prevenção de erros & Excelente & Regular & Excelente & Regular & Excelente & Bom & Excelente & Regular \\
+    6. Reconhecimento em vez de memorização & Excelente & Bom & Excelente & Bom & Excelente & Bom & Excelente & Bom \\
+    7. Flexibilidade e eficiência de uso & Excelente & Excelente & Excelente & Excelente & Excelente & Excelente & Excelente & Excelente \\
+    8. Estética e design minimalista & Regular & Bom & Regular & Excelente & Bom & Bom & Bom & Bom \\
+    9. Identificação e recuperação de erros & Ruim & Regular & Ruim & Ruim & Excelente & Regular & Excelente & Regular \\
+    10. Ajuda e documentação & Excelente & Regular & Excelente & Regular & Excelente & Regular & Excelente & Regular \\
     \hline
   \end{tabular}
 \end{table}
@@ -921,11 +944,11 @@ A Figura~\ref{fig:prejanus-rework} apresenta esse fluxo.
   \label{fig:prejanus-rework}
 \end{figure}
 
-A medida principal do rework é o resultado no gabarito privado. O
-resultado no gabarito público indica o atendimento às verificações que o
-agente pôde consultar durante a implementação. Para comparar o rework
-às variantes que partem dos requisitos, usamos o gabarito privado em
-todas as variantes.
+Usamos os 85 casos do gabarito privado como medida principal para comparar
+as quatro variantes, pois nenhuma recebeu esses casos durante a geração.
+Apresentamos também o recorte de 79 casos em que o original passou. No
+rework, o resultado no gabarito público indica o atendimento às verificações
+que o agente pôde consultar durante a implementação.
 
 \section{Ensaios e ajustes do protocolo}
 \label{sec:prejanus-resultados-preliminares}
@@ -1020,10 +1043,10 @@ cada execução.\footnote{Execuções em
     \hline
     Medida & Baseline & TDD & TDD com revisão & Rework \\
     \hline
-    Gabarito completo (247) & 186 & 140 & 194 & 211 \\
-    Gabarito público (161) & 123 & 90 & 130 & 151 \\
     Gabarito privado (85) & 62 & 49 & 63 & 59 \\
     Privado sem divergência (79) & 58 & 47 & 60 & 58 \\
+    Gabarito público (161) & 123 & 90 & 130 & 151 \\
+    Gabarito completo (247) & 186 & 140 & 194 & 211 \\
     \hline
     Testes internos na entrega & --- & 27/56 & 81/83 & 151/161 \\
     Propostas de implementação & 1 & 10 & 6 & 2 \\
@@ -1035,9 +1058,8 @@ cada execução.\footnote{Execuções em
   \end{tabular}
 \end{table}
 
-O TDD com revisão passou em 194 dos 247 casos, 54 a mais que o TDD com testes
-congelados e oito a mais que a baseline. O custo foi cerca de quatro vezes
-o da baseline, que entregou o código em uma única proposta.
+O TDD com revisão custou cerca de quatro vezes o valor da baseline, que
+entregou o código em uma única proposta.
 
 O rework teve o maior total, com 211 aprovações. Desse total, 151 vieram do
 gabarito público, que orientou a implementação. No gabarito privado, o rework
@@ -1048,8 +1070,9 @@ As diferenças no gabarito privado entre baseline, TDD com revisão e
 rework são de poucos casos, com uma execução por variante. A comparação
 entre as duas variantes de TDD combina a permissão de revisar os testes
 com duas novas amostras do modelo: a suíte, com 83 casos em vez de 56, e a
-implementação. Por isso, os 54 acertos adicionais não isolam o efeito da
-revisão. Na execução, o agente de implementação corrigiu uma função auxiliar
+implementação. A diferença de 14 casos no gabarito privado pode refletir tanto
+a revisão quanto a variação entre essas amostras. Na execução, o agente de
+implementação corrigiu uma função auxiliar
 que lia a resposta da caixa de e-mail de teste do ambiente. A alteração
 preservou os seis testes e as 19 asserções do arquivo.
 
@@ -1142,8 +1165,9 @@ entregas. Dez cobram nomes que não estão no requisito, no OpenAPI nem no
 README, e cinco são do retorno do OAuth, cujo canal a entrada não define.
 Três são divergências do original, um depende de um link do serviço de
 formulários já registrado como instável, e três cobram formatos de resposta
-sem esquema. As lacunas do contrato dificultam a reprodução do comportamento
-esperado em parte do gabarito.
+sem esquema. Assim, o gabarito mede tanto o atendimento aos requisitos
+quanto a compatibilidade com convenções de resposta do sistema original,
+inclusive em pontos que os contratos fornecidos deixam em aberto.
 
 Alguns defeitos se repetiram em variantes diferentes, como respostas
 incompatíveis com o gabarito e falhas em integrações. Esses padrões
@@ -1186,11 +1210,11 @@ o feedback, as correções no harness e a variação entre gerações do modelo.
 
 As três variantes com verificação interna passaram em mais casos que na
 rodada sem feedback (Tabela~\ref{tab:prejanus-resultados-licoes}). No
-gabarito completo, o TDD com revisão passou em 217 dos 247 casos, o rework
-em 216 e o TDD com testes congelados em 202. A baseline passou em 138, 48 a
-menos que na rodada sem feedback. No gabarito privado, o TDD com revisão
-passou em 72 dos 85 casos, o TDD com testes congelados em 64, o rework em 62
-e a baseline em 51. As quatro execuções somaram US\$~4,80, excluída uma
+gabarito privado, o TDD com revisão passou em 72 dos 85 casos, o TDD com
+testes congelados em 64, o rework em 62 e a baseline em 51. No gabarito
+completo, o TDD com revisão passou em 217 dos 247 casos, o rework em 216 e o
+TDD com testes congelados em 202. A baseline passou em 138, 48 a menos que
+na rodada sem feedback. As quatro execuções somaram US\$~4,80, excluída uma
 tentativa de TDD interrompida pela remoção acidental dos contêineres.
 
 \begin{table}[htp]
@@ -1207,10 +1231,10 @@ tentativa de TDD interrompida pela remoção acidental dos contêineres.
     \hline
     Medida & Baseline & TDD & TDD com revisão & Rework \\
     \hline
-    Gabarito completo (247) & 138 (186) & 202 (140) & 217 (194) & 216 (211) \\
-    Gabarito público (161) & 86 (123) & 137 (90) & 144 (130) & 153 (151) \\
     Gabarito privado (85) & 51 (62) & 64 (49) & 72 (63) & 62 (59) \\
     Privado sem divergência (79) & 49 (58) & 60 (47) & 68 (60) & 61 (58) \\
+    Gabarito público (161) & 86 (123) & 137 (90) & 144 (130) & 153 (151) \\
+    Gabarito completo (247) & 138 (186) & 202 (140) & 217 (194) & 216 (211) \\
     \hline
     Testes internos na entrega & --- & 60/63 & 53/53 & 153/161 \\
     Propostas de implementação & 1 & 6 & 13 & 5 \\
@@ -1251,6 +1275,13 @@ e o OpenAPI não definem. No TDD, 17 das 45 falhas estão em formulários,
 \chapter{Conclusão}
 \label{cap:conclusao}
 
+Retomando a pergunta da Seção~\ref{sec:pergunta-pesquisa}: nos casos
+avaliados, não encontramos evidência de que a geração com TDD produza
+consistentemente maior corretude funcional do que a geração direta. No
+formulário, o pipeline com mais aprovações dependeu do modelo. No
+PreJanus-back, o resultado dependeu da variante de TDD e da rodada, com uma
+execução por variante.
+
 Nos cenários avaliados, a geração direta (baseline) e o pipeline com TDD
 apresentaram compromissos distintos. A baseline consumiu menos tokens,
 custou substancialmente menos nos dois estudos e, em algumas comparações,
@@ -1265,9 +1296,10 @@ suíte de testes que serve ao desenvolvimento e à manutenção do software.
 
 No PreJanus-back, o TDD com revisão passou em um caso a mais que a geração
 direta no gabarito privado da rodada inicial. O TDD com testes congelados
-e o rework ficaram abaixo. Na comparação com feedback, as
-três variantes com verificação interna passaram em mais casos que a
-baseline reaproveitada, tanto no gabarito completo quanto no privado.
+e o rework ficaram abaixo. Nos 79 casos em que o original passou, o rework
+empatou com a geração direta. Na comparação com feedback, as três variantes
+com verificação interna passaram em mais casos do gabarito privado que a
+baseline reaproveitada.
 O TDD com revisão passou em mais casos do gabarito privado nas duas rodadas.
 Com uma execução por variante em cada rodada, a variação entre gerações
 limita o que podemos atribuir à revisão dos testes e ao feedback. A comparação
@@ -1275,9 +1307,9 @@ entre rodadas também incorpora as correções no harness
 (Seções~\ref{sec:prejanus-resultados}, \ref{sec:prejanus-licoes}
 e~\ref{sec:prejanus-resultados-licoes}).
 
-Na avaliação de usabilidade do formulário, as notas do CUA raramente
-coincidiram com as nossas e variaram entre sessões para a mesma interface.
-Uma sessão chegou a custar muito mais que a própria geração da aplicação.
+Na avaliação de usabilidade do formulário, as notas do CUA
+coincidiram com as nossas em 8 das 40 comparações e variaram entre sessões para a mesma interface.
+Uma sessão custou cerca de 70 vezes o valor da geração da aplicação.
 A variação nas notas e o custo das sessões limitaram o uso do CUA para
 comparar os pipelines neste estudo (Seção~\ref{sec:formulario-sintese}).
 
