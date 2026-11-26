@@ -15,18 +15,21 @@ function HomepageHeader() {
           Avaliação de pipelines multiagente de geração de código: geração direta, TDD e reconstrução guiada por testes
         </Heading>
         <p className="hero__subtitle">
-          O pipeline de geração de código baseado em TDD produz código mais correto do que a geração direta de código a partir de requisitos?
+          A geração com TDD produz código com maior corretude funcional do que a geração direta?
         </p>
         <p className={styles.meta}>
           Eduardo Cruz Guedes · NUSP 13672752 · BCC IME-USP · 5º ano
           <br />
           Orientadores: Prof. Paulo Meirelles · Prof. Jorge Melegati
         </p>
+        <Link className={clsx('button button--secondary button--lg', styles.monografia)} href="pathname:///monografia.pdf">
+          Ler a monografia (PDF)
+        </Link>
         <div className={styles.buttons}>
-          <Link className="button button--secondary button--lg" to="/docs/intro">
+          <Link className="button button--outline button--secondary" to="/docs/intro">
             Ver Documentação
           </Link>
-          <Link className="button button--outline button--secondary button--lg" to="/docs/proposta">
+          <Link className="button button--outline button--secondary" to="/docs/proposta">
             Proposta de Pesquisa
           </Link>
         </div>
@@ -45,13 +48,13 @@ type CardItem = {
 const cards: CardItem[] = [
   {
     title: 'Proposta de Pesquisa',
-    description: 'Baseline: pipeline TDD+LLM (paradigma TOP / Onion). Experimental: mesmo pipeline com CUA como avaliador comportamental final.',
+    description: 'Proposta inicial de avaliação com CUA e extensão para a reconstrução do PreJanus-back.',
     link: '/docs/proposta',
     linkLabel: 'Ler proposta',
   },
   {
     title: 'Metodologia',
-    description: 'Métricas estruturais (CI, ciclomática, mutação) e comportamentais (CUA). Escopo: sistema com frontend, 10–20 requisitos fechados.',
+    description: 'Experimento com o formulário de auxílio financeiro e reconstrução do PreJanus-back. Comparamos os pipelines pelo consumo de tokens e pelo desempenho em testes de aceitação independentes deles.',
     link: '/docs/metodologia',
     linkLabel: 'Ver metodologia',
   },

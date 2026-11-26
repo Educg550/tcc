@@ -72,7 +72,7 @@ const config: Config = {
           position: 'left',
           label: 'Documentação',
         },
-        {to: '/blog', label: 'Diário de Pesquisa', position: 'left'},
+        {href: 'pathname:///monografia.pdf', label: 'Monografia (PDF)', position: 'left'},
         {
           href: 'https://github.com/Educg550/tcc',
           label: 'GitHub',
@@ -96,7 +96,7 @@ const config: Config = {
           title: 'Links',
           items: [
             {label: 'GitHub', href: 'https://github.com/Educg550/tcc'},
-            {label: 'Diário de Pesquisa', to: '/blog'},
+            {label: 'Monografia (PDF)', href: 'pathname:///monografia.pdf'},
           ],
         },
       ],

@@ -21,27 +21,35 @@ title: Visão Geral
 
 ## Pergunta de Pesquisa
 
-> O pipeline de geração de código baseado em TDD produz código mais correto do que a geração direta de código a partir de requisitos com LLM? E um agente que reconstrói o sistema a partir de testes fornecidos, sem os requisitos, acerta os casos que não viu?
+> A geração com TDD produz código com maior corretude funcional do que a geração direta?
 
-## Hipótese
-
-O pipeline que gera testes automaticamente e implementa código que passe nesses testes produz código mais correto do que a abordagem de geração direta, na qual o LLM recebe o requisito e implementa sem nenhuma estrutura adicional de testes.
+Nos casos avaliados, comparamos também o consumo em tokens e o custo
+de cada pipeline. Avaliamos a reconstrução guiada pelo gabarito público
+com os casos do gabarito privado, aos quais o agente não tem acesso.
 
 ## Resumo
 
-O TCC tem duas partes. Na primeira, um formulário web gerado em batch comparou geração direta e TDD, com validação final via CUA; o resultado foi inconclusivo. Na segunda, o alvo é o **PreJanus-back**, backend do sistema de inscrições da pós-graduação do IME-USP, e três pipelines são comparados:
+No primeiro estudo, os pipelines geraram repetidas vezes um formulário web de
+solicitação de auxílio financeiro com dois modelos. Uma suíte comum de Cypress
+verificou os comportamentos especificados no requisito. Usamos o Computer-Using
+Agent (CUA) na avaliação de usabilidade das finalistas.
 
-| Pipeline | Descrição |
-|----------|-----------|
-| **Baseline** | LLM recebe requisitos → implementa diretamente (sem testes) |
-| **TDD** | Agente A gera testes → Agente B implementa → pytest → correção |
-| **Rework** | Agente recebe testes fornecidos, sem requisitos → implementa → pytest → correção |
+O segundo estudo reconstruiu o backend do PreJanus e avaliou as variantes em
+testes de caixa preta reservados. Comparamos geração direta, TDD com testes
+congelados, TDD com revisão e reconstrução guiada por testes visíveis (*rework*).
+Avaliamos as entregas pela interface HTTP. O gabarito público tem 161 casos,
+fornecidos apenas ao *rework*, e o gabarito privado reserva 85 casos para a
+avaliação das quatro variantes.
 
-A avaliação é feita por um gabarito de 247 testes HTTP, escrito fora dos pipelines. Baseline e TDD não veem nenhum caso; o rework recebe 161 e é avaliado nos 85 restantes. O **Computer Using Agent (CUA)**, agente que interage com o sistema como um usuário real, foi o avaliador final na primeira parte e ficou fora da segunda - os motivos estão na [proposta](/docs/proposta).
+Nos casos avaliados, não encontramos evidência de que a geração com TDD produza
+consistentemente maior corretude funcional do que a geração direta. No
+formulário, o pipeline com mais aprovações dependeu do modelo. No
+PreJanus-back, o resultado dependeu da variante de TDD e da rodada, com uma
+execução por variante.
 
 ## Estrutura do Site
 
+- [Monografia (PDF)](pathname:///monografia.pdf) - versão entregue (v1)
 - [Proposta de Pesquisa](/docs/proposta) - proposta inicial e extensão para o PreJanus-back
 - [Metodologia](/docs/metodologia) - escopo, grupos e avaliação das duas partes
 - [Referências](/docs/referencias) - benchmarks, ferramentas e leituras
-- [Diário de Pesquisa](/blog) - notas e progressos ao longo do ano
