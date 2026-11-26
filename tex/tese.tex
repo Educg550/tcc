@@ -118,14 +118,14 @@ o requisito. Por isso, avaliamos as entregas com suítes externas aos pipelines,
 como o gabarito que usamos no segundo estudo.
 
 Praticantes da indústria também defendem que a verificação do código de
-agentes seja automática e rigorosa. Robert C.~Martin adota a postura mais
+agentes seja automática e rigorosa. Robert C.~Martin~--- autor de
+\textit{Clean Code} e signatário do Manifesto Ágil~--- adota a postura mais
 radical entre eles, afirmando que não lê o código escrito por seus agentes. Em
 vez disso, limita o tamanho e a complexidade das
 funções, exige cobertura mínima de testes e revisa apenas os testes de
-aceitação \citep{thakker2026unclebob}. Matt Pocock organiza a verificação em
-checagens automáticas determinísticas, revisão por outro agente e revisão
-humana, e usa testes de mutação para avaliar a própria suíte
-\citep{pocock2026factories}. Em entrevista a Pocock, Lauren Tan aponta a
+aceitação \citep{thakker2026unclebob}. Em entrevista, Lauren Tan~--- engenheira
+de software na SpaceX, antes nas equipes do React Compiler e do Cursor~---
+aponta a
 verificação como a habilidade mais importante para automatizar o trabalho, já que
 o agente precisa executar, testar e depurar o próprio código
 \citep{pocock2026poteto}. Esses relatos, no entanto, não trazem avaliação sistemática.
@@ -1268,9 +1268,9 @@ direta no gabarito privado da rodada inicial. O TDD com testes congelados
 e o rework ficaram abaixo. Na comparação com feedback, as
 três variantes com verificação interna passaram em mais casos que a
 baseline reaproveitada, tanto no gabarito completo quanto no privado.
-O TDD com revisão teve o maior resultado no gabarito privado. Com uma
-execução por variante em cada rodada, a variação entre gerações limita o
-que podemos atribuir à revisão dos testes e ao feedback. A comparação
+O TDD com revisão passou em mais casos do gabarito privado nas duas rodadas.
+Com uma execução por variante em cada rodada, a variação entre gerações
+limita o que podemos atribuir à revisão dos testes e ao feedback. A comparação
 entre rodadas também incorpora as correções no harness
 (Seções~\ref{sec:prejanus-resultados}, \ref{sec:prejanus-licoes}
 e~\ref{sec:prejanus-resultados-licoes}).
@@ -1281,15 +1281,9 @@ Uma sessão chegou a custar muito mais que a própria geração da aplicação.
 A variação nas notas e o custo das sessões limitaram o uso do CUA para
 comparar os pipelines neste estudo (Seção~\ref{sec:formulario-sintese}).
 
-Esses resultados dialogam com a tendência apontada por praticantes da
-indústria, que delegam a implementação ao agente e concentram o esforço na
-verificação \citep{thakker2026unclebob,pocock2026factories}. No
-PreJanus-back, o TDD com revisão dos testes teve o maior resultado no
-gabarito privado nas duas rodadas, o que se aproxima da revisão dos testes
-de aceitação e das camadas de revisão defendidas nesses relatos. Por outro
-lado, os testes gerados sem revisão nem sempre superaram a geração direta,
-e a verificação aumentou o custo. Nos nossos cenários, os testes gerados
-pelo próprio pipeline ajudaram mais quando também passaram por revisão.
+A variante com revisão permite corrigir a suíte que orienta a implementação.
+Revisar a própria suíte também faz parte das práticas descritas por Martin
+\citep{thakker2026unclebob}.
 
 Uma comparação futura pode repetir cada condição em diferentes requisitos
 sob o mesmo orçamento de geração. Para isolar o efeito da revisão dos
@@ -1298,9 +1292,10 @@ cada repetição. Repetir as sessões do CUA na mesma interface e com o mesmo
 roteiro permitiria comparar a variação entre sessões com as diferenças
 entre aplicações.
 
-O custo-benefício pode variar conforme o caso de uso e a forma de apresentar
-os requisitos. Como o harness contém uma fonte de não-determinismo, 
-a comparação também depende do número de execuções por entrada e das variações de entrada avaliadas.
+O custo-benefício pode variar conforme o caso de uso e a redação dos
+requisitos. Como o modelo pode responder de formas diferentes ao mesmo
+requisito, a comparação depende das versões avaliadas e do número de
+execuções por versão.
 
 \backmatter
 \pagestyle{backmatter}
